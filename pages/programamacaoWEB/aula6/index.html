@@ -1,0 +1,734 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>🌐 Aula 6: Estrutura Semântica e Depuração de HTML </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a8662389-2c29-4ec6-add5-b5e5df326e8b" class="page sans"><header><h1 class="page-title">🌐 Aula 6: Estrutura Semântica e Depuração de HTML </h1><p class="page-description"></p></header><div class="page-body"><p id="e2435e36-cf7c-488f-b463-8506bd5a3ed5" class="">
+</p><h2 id="6774a3eb-8578-4599-82e5-03686afafe03" class="">📁 1. Estrutura de Documentos em Sites</h2><p id="827dd4e8-14d0-4f31-bdfa-36df484bb382" class="">HTML possui tags semânticas que ajudam a estruturar o conteúdo de forma mais organizada, facilitando tanto a leitura humana quanto a interpretação por motores de busca.</p><h3 id="d144d652-c4d1-48aa-a62c-5a9b5037b252" class="">🔗 Tags Semânticas Principais</h3><ol type="1" id="dd6c88ad-9540-470e-9268-921ea87dc584" class="numbered-list" start="1"><li><code><strong>&lt;header&gt;</strong></code>: A tag <code>&lt;header&gt;</code> é usada para definir o cabeçalho de uma página ou seção. Geralmente contém títulos, logotipos, menus de navegação ou qualquer outro conteúdo introdutório. É ideal para <strong>identificar rapidamente</strong> a área superior de uma página.<br/>&gt; <br/><strong>Exemplo</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="839977a3-81db-4425-be6d-bfcd302394c2" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;header&gt;    
+    &lt;h1&gt;Bem-vindo ao Meu Site&lt;/h1&gt;
+&lt;/header&gt;</code></pre></li></ol><ol type="1" id="e586cc0c-d7df-4a76-8914-713ce169274c" class="numbered-list" start="2"><li><code><strong>&lt;main&gt;</strong></code>: A tag <code>&lt;main&gt;</code> envolve o conteúdo principal de uma página. Deve conter as informações mais importantes e só deve haver <strong>um </strong><code><strong>&lt;main&gt;</strong></code><strong> por página</strong>.<br/>&gt; <br/><strong>Exemplo</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3971ce15-ec87-41c0-b24d-25cb16e02811" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;main&gt;    
+  &lt;article&gt;       
+    &lt;h2&gt;Artigo Principal&lt;/h2&gt;        
+    &lt;p&gt;Conteúdo interessante...&lt;/p&gt;    
+  &lt;/article&gt;
+&lt;/main&gt;</code></pre></li></ol><ol type="1" id="47d35f15-fc07-4160-b6cb-06ba515ab847" class="numbered-list" start="3"><li><code><strong>&lt;footer&gt;</strong></code>: Usado para definir o rodapé da página, a tag <code>&lt;footer&gt;</code> geralmente inclui informações como direitos autorais, links para políticas e outros elementos semelhantes.<br/>&gt; <br/><strong>Exemplo</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a5c9e228-18e6-49b8-b508-8ce5ee05ab62" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;footer&gt;    
+  &lt;p&gt;&amp;copy; 2024 Meu Site. Todos os direitos reservados.&lt;/p&gt;
+&lt;/footer&gt;</code></pre></li></ol><ol type="1" id="03960a7e-6e8e-4d2e-a099-f17be79af016" class="numbered-list" start="4"><li><code><strong>&lt;aside&gt;</strong></code>: A tag <code>&lt;aside&gt;</code> é usada para conteúdo <strong>relacionado ao principal</strong>, mas que pode ser separado, como uma barra lateral com informações adicionais.<br/>&gt; <br/><strong>Exemplo</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17fab174-bb20-4fc8-80b9-2a12a33a42a2" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;aside&gt;    &lt;p&gt;Artigos relacionados&lt;/p&gt;&lt;/aside&gt;</code></pre></li></ol><ol type="1" id="b8471155-3bac-4557-997c-1881a715c07f" class="numbered-list" start="5"><li><code><strong>&lt;nav&gt;</strong></code>: A tag <code>&lt;nav&gt;</code> é usada para definir blocos de links de navegação.<br/>&gt; <br/><strong>Exemplo</strong>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a95269e8-0b45-4562-b07a-3fd5ad4c52b2" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;nav&gt;    &lt;ul&gt;        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sobre&lt;/a&gt;&lt;/li&gt;    &lt;/ul&gt;&lt;/nav&gt;</code></pre></li></ol><h2 id="7e7f9242-a64e-45e6-831f-4dad9da0c577" class="">🏗️ 2. Layout Não Semântico</h2><p id="cda317a7-afc6-4ca9-a501-73b499e68fa5" class="">Enquanto as tags semânticas têm significado próprio, tags como <code><strong>&lt;div&gt;</strong></code> e <code><strong>&lt;span&gt;</strong></code> são chamadas de <strong>não semânticas</strong>.</p><ol type="1" id="8707eacb-e35f-40a4-ab0d-5efa341e6754" class="numbered-list" start="1"><li><code><strong>&lt;div&gt;</strong></code>: Um contêiner genérico que agrupa blocos de conteúdo, útil para estilização com CSS ou manipulação com JavaScript.</li></ol><ol type="1" id="a7410613-6529-47c7-8996-303010373f3b" class="numbered-list" start="2"><li><code><strong>&lt;span&gt;</strong></code>: Um contêiner em linha, útil para estilizar partes menores de texto ou elementos em linha.</li></ol><h3 id="633333f7-6d96-4099-9011-649bf3a4cd48" class="">🚨 Diferenças e Boas Práticas</h3><ul id="0e8662f3-55c4-402d-afee-ef4da054bd10" class="bulleted-list"><li style="list-style-type:disc"><strong>Semânticas</strong>: Fazem sentido tanto para humanos quanto para máquinas, melhorando a <strong>acessibilidade</strong> e <strong>SEO</strong>.</li></ul><ul id="d779b3d1-2a70-48a1-bdc5-f2bd3578377b" class="bulleted-list"><li style="list-style-type:disc"><strong>Não semânticas</strong>: Usadas quando não há significado intrínseco, como para <strong>layout</strong> e <strong>estilização</strong>.</li></ul><ul id="e05ace11-5324-4deb-942b-c13458afca4f" class="bulleted-list"><li style="list-style-type:disc"><strong>Boas práticas</strong>: Utilize tags semânticas sempre que possível. Reserve <code>div</code> e <code>span</code> para estilização e manipulação de grupos de elementos.</li></ul><h2 id="7175e64f-04e6-42b3-9eec-47dc57ab8f51" class="">🔄 3. Tags de Quebra de Linha e Separação</h2><ul id="55a6d952-4479-4247-8f6a-e53709600f52" class="bulleted-list"><li style="list-style-type:disc"><code><strong>&lt;br&gt;</strong></code>: Insere uma quebra de linha simples. Evite usar excessivamente para espaçamento; prefira usar CSS.</li></ul><ul id="0c397301-3a95-449c-a535-fc5ef0ca10ff" class="bulleted-list"><li style="list-style-type:disc"><code><strong>&lt;hr&gt;</strong></code>: Insere uma linha horizontal, útil para separar seções de conteúdo.</li></ul><hr id="837c560e-0f52-4556-8a01-96fc1f88caef"/><h2 id="2abf788d-b4e5-4500-8ae8-697e416bb788" class="">🧑‍💻 4. Depuração de HTML</h2><p id="dab3d2ab-9cb1-4957-81a6-ec482c4ea6fa" class="">Ao escrever código HTML, é comum encontrar erros. A depuração envolve identificar e corrigir esses problemas.</p><p id="6ea010f0-0711-49c0-ae8c-0a7bac385eca" class="">💡 <strong>Código Pervasivo e Tratamento de Erros nos Navegadores</strong></p><p id="69378b61-7101-4641-a998-eac52515209d" class="">O conceito de <strong>código pervasivo</strong> refere-se à capacidade do HTML de ser interpretado de forma “permissiva” pelos navegadores. Isso significa que, mesmo que existam erros no código, os navegadores tentam <strong>corrigir ou ignorar os problemas</strong> para renderizar a página de forma que o usuário final tenha a melhor experiência possível.</p><p id="d9122cf5-caa6-4225-b543-5895fcba13ec" class=""><strong>⚙️ Como o Navegador Lida com Erros</strong></p><p id="e8ec58ed-7b72-4bb1-b7f3-2ad61b67a85f" class="">1.	<strong>Fechamento automático de tags</strong>: Se você esquecer de fechar uma tag, o navegador frequentemente tenta corrigir o erro automaticamente, inserindo o fechamento que falta.</p><p id="286dd357-21df-42c4-9c4e-95a0a303039e" class="">•	Exemplo: Se esquecer de fechar um &lt;p&gt;, o navegador pode adicionar um &lt;/p&gt; onde achar adequado.</p><p id="e063c83f-ff01-4e31-994c-b3def776d754" class="">2.	<strong>Aninhamento inadequado</strong>: Quando as tags estão aninhadas de maneira errada (por exemplo, &lt;div&gt;&lt;p&gt;&lt;/div&gt;&lt;/p&gt;), o navegador reestrutura silenciosamente o código para mantê-lo válido.</p><p id="a2083242-c8f2-408e-83c2-8b505947aa92" class="">•	Isso pode fazer com que o layout final seja <strong>diferente do esperado</strong>.</p><p id="426efc73-9c89-4363-8149-c849cc143964" class="">3.	<strong>Ignorando elementos inválidos</strong>: Se o navegador encontrar uma tag desconhecida ou inválida, ele <strong>ignora</strong> essa parte do código sem interromper o resto da página.</p><p id="29fc6b45-0e63-4762-ad1f-4d98d039da0f" class="">4.	<strong>Erros de atributos</strong>: Atributos mal formados (como valores sem aspas) podem ser automaticamente ajustados pelo navegador, que tenta inferir o comportamento correto.</p><p id="e4c8a22a-357d-4558-a8d1-179f93041ee8" class=""><strong>📈 Impacto na Popularização da Internet</strong></p><p id="a7ef32e0-8e55-446b-b09f-6d4261cce99e" class="">Esse comportamento permissivo foi um dos fatores fundamentais para a <strong>popularização da web</strong>, pois desenvolvedores de todos os níveis, desde iniciantes até profissionais, conseguiam criar e publicar páginas funcionais, mesmo com <strong>erros no código</strong>. Isso facilitou a adoção em larga escala da criação de conteúdo na web.</p><p id="56d90942-e428-4d10-8dc7-1d6de598ab88" class=""><strong>Nota</strong>: Embora os navegadores corrijam muitos erros, é uma <strong>boa prática</strong> escrever HTML corretamente para garantir que a página funcione como esperado em todos os navegadores e para melhorar o SEO e acessibilidade.</p><h3 id="5888ce1b-a62a-4033-9921-ae69f5506c3f" class="">🔍 Tipos de Erros Comuns</h3><ol type="1" id="800b92c3-93e5-4ab5-aafd-dfe5c9f58920" class="numbered-list" start="1"><li><strong>Tags não fechadas</strong>: Deixar de fechar tags corretamente pode desorganizar a estrutura.</li></ol><ol type="1" id="f748b659-5f58-48e9-b85f-f10a6e4aec2a" class="numbered-list" start="2"><li><strong>Aninhamento incorreto</strong>: Aninhar elementos em ordem incorreta pode causar comportamento inesperado.</li></ol><ol type="1" id="3dff8e0f-e7ea-40a4-b67b-92164d55f076" class="numbered-list" start="3"><li><strong>Atributos mal escritos</strong>: Erros de digitação ou ausência de aspas em atributos podem comprometer o funcionamento da página.</li></ol><p id="99a6e0c8-6199-4d1d-8547-d0d679218d17" class="">
+</p><hr id="5c0264a1-b263-4313-a302-942bad7f362c"/><h2 id="ae6882f3-37b7-4d88-9851-a922664f6820" class="">🧰 5. Ferramenta de Validação do W3C</h2><p id="1ef05f58-5263-466d-bdf0-a0797ebf939d" class="">O <strong>Markup Validation Service</strong> do W3C permite verificar a sintaxe do HTML e identificar erros.<br/>&gt; <br/><strong>Acesse</strong>: <a href="https://validator.w3.org/">W3C Validator</a></p><hr id="5a9b25be-bc87-44c4-8fa5-0a028b8141c0"/><h2 id="00fef29c-ec25-4af5-af5e-1be8bc6d8869" class="">📝 Exercício 1: Depuração de Estrutura com HTML e CSS</h2><p id="4fee3450-4301-4418-838b-812ef16eb8c7" class="">Vamos depurar e corrigir o código abaixo. Ele contém diversos erros de estrutura que precisam ser corrigidos. Além disso, adicionaremos <strong>CSS</strong> para identificar visualmente cada seção da página.</p><h3 id="e8d968aa-3eb3-4b58-bc97-fcaaa415ebe1" class="">Código com erros:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="223c807b-a934-4097-b1eb-f5792750289a" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+ &lt;head&gt;    
+     &lt;meta charset=&quot;UTF-8&quot;&gt;    
+     &lt;title&gt;Meu Site&lt;/title&gt;
+ &lt;/head&gt;
+&lt;body&gt;    
+&lt;header&gt;        
+    &lt;h1&gt;Bem-vindo ao Meu Site&lt;h1&gt;
+ &lt;/header&gt;    
+ &lt;main&gt;        
+    &lt;div&gt;           
+       &lt;h2&gt;Sobre nós&lt;/h2&gt;         
+          &lt;p&gt;Nós somos &lt;strong&gt;uma empresa de tecnologia.&lt;/p&gt;       
+    &lt;/div&gt;        
+    &lt;aside&gt;           
+     &lt;p&gt;Artigos relacionados      
+    &lt;/aside&gt;  
+  &lt;footer&gt;        
+     &lt;p&gt;Contato: contato@meusite.com&lt;/h1&gt;   
+   &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><h3 id="9801bc2e-0a7d-47b3-bea6-3ab79df7079b" class="">Instruções:</h3><ol type="1" id="c8a5aeba-fcfd-4119-81aa-e0ae59ee0562" class="numbered-list" start="1"><li><strong>Corrija os erros de estrutura</strong> no código HTML.</li></ol><ol type="1" id="6589fcdc-587c-4914-8f62-5aa240554d8a" class="numbered-list" start="2"><li><strong>Adicione CSS</strong> para destacar visualmente as diferentes áreas da página:<ul id="adc3fd7a-0dc3-4fb8-b8e6-5e6b7462171e" class="bulleted-list"><li style="list-style-type:disc">O <code>&lt;header&gt;</code> deve ter um fundo azul e o texto em branco.</li></ul><ul id="3978b08c-0393-4346-95e4-6b0518340cab" class="bulleted-list"><li style="list-style-type:disc">O <code>&lt;main&gt;</code> deve ter um fundo cinza claro.</li></ul><ul id="047a8380-248e-4c2a-bb3d-308bbabb5fd7" class="bulleted-list"><li style="list-style-type:disc">O <code>&lt;aside&gt;</code> deve estar posicionado à direita e ter um fundo amarelo.</li></ul><ul id="f68db5db-fa74-4ce9-892f-b54af3ac14da" class="bulleted-list"><li style="list-style-type:disc">O <code>&lt;footer&gt;</code> deve ter um fundo preto e o texto em branco.</li></ul></li></ol><ol type="1" id="a3ef3af7-0b94-478f-891d-16dfcb95a925" class="numbered-list" start="3"><li>Após corrigir e estilizar o código, <strong>valide-o no W3C Validator</strong>.</li></ol><h3 id="4159cea4-2a7e-4da7-be9e-8a20ba66804e" class="">Dica para o CSS:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ae8074c1-dae3-4e26-8c74-cba647c9d7f6" class="code"><code class="language-CSS" style="white-space:pre-wrap;word-break:break-all">header {
+    background-color: blue;    
+    color: white;    
+    padding: 10px;}
+main {
+    background-color: lightgray;    
+    padding: 10px;}
+aside {
+    background-color: yellow;    
+    padding: 10px;    
+    float: right;}
+footer {
+    background-color: black;    
+    color: white;    
+    text-align: center;   
+     padding: 10px;}</code></pre><hr id="26f6940d-7605-45f9-ab8f-ebb74e68edf7"/><h2 id="abe13588-57fc-4599-87b5-a5b50a02a95f" class="">🛠️ Exercício 2: Criando uma Página Semântica Completa</h2><p id="52b31735-d428-4ca7-95e8-e16488451b0a" class="">Crie uma página HTML que utilize corretamente as tags semânticas vistas na aula. A página deve incluir:</p><ol type="1" id="3e60979c-e866-460b-9e62-c120bef04672" class="numbered-list" start="1"><li><strong>Um cabeçalho</strong> com o título do site e um menu de navegação (<code>&lt;header&gt;</code> e <code>&lt;nav&gt;</code>).</li></ol><ol type="1" id="ff05daaa-33ce-4c98-a462-ac80a4f6118b" class="numbered-list" start="2"><li><strong>Um conteúdo principal</strong> que explique sobre os serviços da empresa (<code>&lt;main&gt;</code> e <code>&lt;article&gt;</code>).</li></ol><ol type="1" id="a719de71-0c88-4cff-a965-2d2b0f0d99f6" class="numbered-list" start="3"><li><strong>Uma barra lateral</strong> com artigos relacionados ou links úteis (<code>&lt;aside&gt;</code>).</li></ol><ol type="1" id="8f636a0c-a9ba-4bfb-a4c0-84ce53bdf917" class="numbered-list" start="4"><li><strong>Um rodapé</strong> com informações de contato e links de políticas (<code>&lt;footer&gt;</code>).</li></ol><h3 id="4d1b258e-dea7-4fe1-b292-ab51c8666067" class="">Instruções Adicionais:</h3><ul id="f30f9633-3bfa-4cab-9e66-fec6efd41ef8" class="bulleted-list"><li style="list-style-type:disc"><strong>Use CSS</strong> para estilizar cada parte da página de forma distinta. Utilize cores diferentes para cada seção, como:<ul id="f65868f1-d3d7-4712-9a9d-479d8b7c361c" class="bulleted-list"><li style="list-style-type:circle">Cabeçalho em azul, conteúdo principal em branco, barra lateral em cinza e rodapé em preto.</li></ul></li></ul><ul id="a60d2067-28bc-4402-b9c1-0ec1ed522c97" class="bulleted-list"><li style="list-style-type:disc"><strong>Inclua um botão</strong> no conteúdo principal com o texto “Saiba Mais” e estilize-o com CSS.</li></ul><ul id="93f0d22f-6b4d-4c75-8cbb-aba1d841c00f" class="bulleted-list"><li style="list-style-type:disc"><strong>Adicione links válidos</strong> no menu de navegação.</li></ul><p id="250fbcf3-989f-48b3-9a37-61475149ad13" class="">
+</p><h3 id="81022abe-fc3c-43c6-b358-779e4d92a641" class="">Validação:</h3><ol type="1" id="6b4f332f-ed55-414a-80dc-c6cc2a6cd5e4" class="numbered-list" start="1"><li><strong>Verifique</strong> se o HTML está corretamente estruturado e semântico.</li></ol><ol type="1" id="0c40d551-2288-4246-997f-33580d6835b1" class="numbered-list" start="2"><li><strong>Estilize com CSS</strong> conforme instruído.</li></ol><ol type="1" id="5aab9e73-e018-467f-8576-b59faa9eeebb" class="numbered-list" start="3"><li><strong>Valide o código</strong> usando o <a href="https://validator.w3.org/">W3C Validator</a>.</li></ol><p id="6049637f-10ac-45d1-ad37-39b8dd25ad82" class="">
+</p><p id="21ee9ba3-63b0-4750-a41b-de25d4477e00" class=""><strong>✨ Considerações Finais</strong></p><p id="76409fff-6549-418a-b202-e38713131e14" class="">Nesta aula, vimos como a estrutura semântica do HTML pode melhorar a acessibilidade e o SEO, ao mesmo tempo que torna o código mais legível para os navegadores e desenvolvedores. Também discutimos a importância de depurar o código corretamente, utilizando ferramentas como o <strong>W3C Validator</strong> para garantir que nossa página funcione em todos os navegadores sem erros.</p><p id="a2cd1a6e-8f41-4ccf-8e24-debc5f466233" class="">🚀 <strong>Próximos passos</strong>:</p><p id="c25e80c8-7bc8-4527-8213-4210d9f62fd8" class="">•	Continue praticando a criação de layouts semânticos.</p><p id="8e37b91b-b99c-4ea7-aa08-46e1ac435eff" class="">•	Utilize o CSS para melhorar a aparência das suas páginas e tornar os blocos de conteúdo mais fáceis de identificar visualmente.</p><p id="e297abf2-6401-4351-aa32-5a23a5ded096" class="">•	Sempre valide seu HTML para evitar problemas futuros de compatibilidade.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
