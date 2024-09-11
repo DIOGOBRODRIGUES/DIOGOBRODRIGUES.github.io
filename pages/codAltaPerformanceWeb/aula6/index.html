@@ -1,0 +1,726 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>🌟Aula 6: Lista de Renderização, Componentes Puros e Árvore de Renderização</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="63b0faae-896f-4b60-8b59-e77ad93b513e" class="page sans"><header><h1 class="page-title">🌟Aula 6: Lista de Renderização, Componentes Puros e Árvore de Renderização</h1><p class="page-description"></p></header><div class="page-body"><h1 id="ca7a3e7b-e5bc-46a9-ade6-c7ea639aa443" class="">🌟 <strong>Códigos de Alta Performance - Web</strong></h1><p id="68fb3128-6ce8-43aa-b625-144e41fe6025" class="">📚 <strong>Prof. Dr. Diogo Rodrigues</strong></p><p id="3277be0f-c2b3-4ac5-9eb3-825b214c1031" class="">🏫 <strong>UNINASSAU Graças - 2024.2</strong></p><hr id="f2c9d755-a0a8-45d5-96e9-df2098df5bc4"/><h2 id="fa41d003-2070-4324-913a-966e9c4ef9dc" class="">📋 <strong>Sumário</strong></h2><ol type="1" id="c0569675-ec05-4528-b829-eaea5b606a28" class="numbered-list" start="1"><li>🔗 Lista de Renderização</li></ol><ol type="1" id="60513dfc-4507-4fe6-9eb5-ff754295f984" class="numbered-list" start="2"><li>⚙️ Componentes Puros</li></ol><ol type="1" id="82d5ad05-9531-41d0-877b-17d15d8fb22c" class="numbered-list" start="3"><li>💡 Efeitos Colaterais e Componentes Não Puros</li></ol><ol type="1" id="62c3cfb9-7d24-4a54-9127-5a0a58ac1441" class="numbered-list" start="4"><li>🌳 Árvore de Renderização e Dependência de Módulos</li></ol><hr id="9dbcefd9-8574-4d1c-89dc-e17f3734ac15"/><h2 id="e126da2e-1d0d-4003-9bf7-bb13c1a93882" class="">🔗 <strong>Lista de Renderização no React</strong></h2><ul id="8ee68a6a-959a-474c-9b54-7f45029126fd" class="bulleted-list"><li style="list-style-type:disc">Utilizamos o método <code>map()</code> para renderizar listas no React.</li></ul><ul id="a6f88e81-039f-4db9-a7e7-d42fbfee6c22" class="bulleted-list"><li style="list-style-type:disc">Cada elemento da lista deve ter uma chave (<code>key</code>).</li></ul><ul id="e05d3734-4545-4bb8-b483-85384635180c" class="bulleted-list"><li style="list-style-type:disc">A <code>key</code> ajuda o React a identificar qual item mudou, melhorando a eficiência.</li></ul><blockquote id="94b38686-8a66-4922-a45e-ba8f149f1a62" class="">💡 Dica: Sempre que você utilizar map(), assegure-se de que cada item tenha uma key única. Isso otimiza a renderização do React.</blockquote><hr id="0fcee5b8-900f-4ea8-a3b6-0979700cec9c"/><h3 id="fe24f05e-0519-4c2d-b97d-67b664d456f0" class="">📄 <strong>Exemplo de Renderização de Lista</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5f643adc-cee5-45ea-aa2f-7d772a5438a5" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const lista = [&#x27;Item 1&#x27;, &#x27;Item 2&#x27;, &#x27;Item 3&#x27;];
+return (
+  &lt;ul&gt;
+    {lista.map((item, index) =&gt; (
+      &lt;li key={index}&gt;{item}&lt;/li&gt;
+    ))}
+  &lt;/ul&gt;
+);</code></pre><p id="0aff6098-708c-4a44-be7b-718df984e139" class=""><strong>❓ Por que utilizar a key em Listas?</strong></p><p id="ba7f6afb-2e79-4b64-aa92-98576d91e522" class="">•	A key é usada para identificar quais itens em uma lista foram alterados, adicionados ou removidos.</p><p id="03112fd8-aa72-44b1-a26a-329a374f568d" class="">•	Sem uma key adequada, o React pode re-renderizar todos os itens da lista, mesmo que apenas um item tenha mudado.</p><p id="110ed805-88cc-45c9-a0bb-f3d418b65802" class="">•	<strong>Exemplo</strong>: Se a lista mudar de [&#x27;Item 1&#x27;, &#x27;Item 2&#x27;] para [&#x27;Item 2&#x27;, &#x27;Item 1&#x27;], o React pode reutilizar os componentes ao invés de destruí-los e recriá-los.</p><p id="e436326f-73af-40ae-a11c-526b45f7db63" class="">🎯 <strong>Objetivo</strong>: A key deve ser única entre os itens irmãos para garantir uma renderização eficiente.</p><p id="eecacff5-51ed-4c36-bf7a-dafb2a252fdb" class=""><strong>🔍 Filtrando Listas no React</strong></p><p id="184ebddd-0d67-46b2-ac78-ea295262fea4" class="">•	Além de renderizar listas com map(), podemos aplicar filtros com o método filter().</p><p id="38ac626d-5608-4236-9e43-c462093df08d" class="">•	O método filter() cria uma nova lista com os itens que correspondem ao critério de filtragem.</p><p id="07944320-d79f-4c76-a73d-66571930b498" class="">•	<strong>Aplicações</strong>: Filtragem por categoria, busca de palavras-chave, etc.</p><p id="5f937cee-2633-488d-a3f3-56721db75e41" class="">✨ <strong>Exemplo prático</strong>: Use filter() para criar listas dinâmicas baseadas em busca.</p><p id="3393fd01-8f06-40af-a108-7f2362765b50" class=""><strong>📄 Exemplo de Filtro de Lista</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="544a0c15-6096-4e29-8598-158694223c19" class="code"><code class="language-JavaScript">const lista = [&quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;];
+const filtro = &quot;Item 2&quot;;
+const listaFiltrada = lista.filter((item) =&gt; item.includes(filtro));
+
+return (
+  &lt;ulx`&gt;
+    {listaFiltrada.map((item, index) =&gt; (
+      &lt;li key={index}&gt;{item}&lt;/li&gt;
+    ))}
+  &lt;/ul&gt;
+);</code></pre><p id="6751a196-4f52-46b0-a864-90e190706efd" class=""><strong>⚙️ Componentes Puros</strong></p><p id="f08973f8-ef2a-4dc1-a628-04fddd20b03f" class="">•	Componentes Puros são aqueles que, dado o mesmo estado e propriedades, sempre renderizam o mesmo resultado.</p><p id="cc35fc92-8cf1-4527-89db-5b253a62cd21" class="">•	Eles evitam re-renderizações desnecessárias, otimizando a performance da aplicação.</p><p id="483e9c7a-2c8a-4667-846f-0c7e1cd382ca" class="">💡 <strong>Dica</strong>: Use <strong>componentes puros</strong> para listas grandes ou elementos estáticos que não mudam frequentemente.</p><p id="8b659a5b-822b-45b3-8fa8-9904c3ac1630" class=""><strong>📄 Exemplo de Componente Puro</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4b5a7579-74a2-47d1-9983-6de4761f1f98" class="code"><code class="language-JavaScript">import React, { PureComponent } from &#x27;react&#x27;;
+class MeuComponente extends PureComponent {
+  render() {
+    return &lt;div&gt;{this.props.valor}&lt;/div&gt;;
+  }
+}</code></pre><blockquote id="80cd15ba-6bc4-4730-b9af-99ef0115e9fb" class="">📌 <strong>Nota</strong>: O PureComponent realiza uma comparação superficial dos props e state para evitar re-renderizações desnecessárias.</blockquote><p id="c3ba4e0c-f45d-4018-b0d4-8f730bb23234" class="">
+</p><p id="b3ac5fe8-5a55-4438-9c61-157894ba8ac4" class=""><strong>💡 Efeitos Colaterais e Componentes Não Puros</strong></p><p id="8eb408b5-9742-4883-a329-a12fffa6870d" class="">•	Efeitos colaterais ocorrem quando uma função ou componente realiza ações externas além de retornar um valor.</p><p id="59cef22a-4091-496a-85eb-cf8241302452" class="">•	Em React, essas ações podem incluir requisições de dados, timers ou manipulações diretas do DOM.</p><p id="60ebe748-874b-4d40-8fc7-75e7d3b61387" class="">•	Para gerenciar esses efeitos, utilizamos o hook useEffect().</p><p id="f9e6e741-0176-4e50-8cab-a4f621410d8e" class="">🔧 <strong>Exemplo de Efeito Colateral</strong>: Uma chamada de API que carrega dados assim que o componente é montado.</p><p id="7b6f3699-4ee3-4da9-acb6-a1c059aa92dd" class=""><strong>📄 Exemplo de Efeito Colateral com useEffect()</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="47fedb69-497d-471c-823b-37a42f3e4622" class="code"><code class="language-JavaScript">import { useEffect } from &quot;react&quot;;
+function MeuComponente() {
+  useEffect(() =&gt; {
+    console.log(&quot;Componente montado&quot;);
+    return () =&gt; console.log(&quot;Componente desmontado&quot;);
+  }, []);
+  return &lt;div&gt;Componente com efeito colateral&lt;/div&gt;;
+}</code></pre><blockquote id="066828ba-caed-46b3-a1f6-7d9354f1c2c9" class="">📢 <strong>Aviso</strong>: Sempre limpe os efeitos no retorno do useEffect para evitar problemas de desempenho ou memória.</blockquote><p id="525f8aec-7798-4651-b532-0f4f4f68738a" class="">
+</p><p id="5af40aea-3cc2-4ee9-ad99-da1b35b13f35" class=""><strong>🌳 Árvore de Renderização do React</strong></p><p id="cec48687-6db6-4f53-a905-486c2cda657a" class="">•	A árvore de renderização é a estrutura de dados que o React cria e mantém para representar a interface do usuário.</p><p id="7454c4d9-6f30-44ea-9757-664135aa531a" class="">•	Cada componente do React é representado como um nó na árvore de renderização.</p><p id="e3e6ea3a-ac14-4320-acde-e96359cdd5fd" class="">•	A árvore de renderização é baseada no <strong>Virtual DOM</strong> e é usada para determinar quais partes da interface precisam ser atualizadas.</p><p id="5b1c2a87-364c-4cec-91e4-a64b28266ca8" class=""><strong>📄 Exemplo de Árvore de Renderização</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="05d8548b-5940-4b6b-9ce8-4470035d9bcc" class="code"><code class="language-HTML">&lt;App&gt;
+  &lt;Header /&gt;
+  &lt;Main&gt;
+    &lt;Profile /&gt;
+    &lt;Feed /&gt;
+  &lt;/Main&gt;
+  &lt;Footer /&gt;
+&lt;/App&gt;;</code></pre><p id="afb55720-e98a-4587-b6fd-68b9108b405a" class="">
+</p><p id="0b1fcdb3-ce08-4c80-b0e2-f43ec36ed6a9" class="">📈 <strong>Exemplo</strong>: Neste exemplo, o componente &lt;App&gt; contém outros componentes como &lt;Header&gt;, &lt;Main&gt;, e &lt;Footer&gt;, formando uma árvore hierárquica de renderização</p><p id="6a340844-f949-4493-b772-42ec8675ab60" class="">
+</p><p id="1b314bde-9368-4dc8-bd5d-b2dbbb2a6029" class=""><strong>🛠️ Conclusão</strong></p><p id="e17fb317-9961-4525-a458-703ef0d4c12d" class="">•	A árvore de renderização do React é fundamental para a eficiência do <strong>Virtual DOM</strong> e a atualização da interface do usuário.</p><p id="1dfa084e-0333-42ac-98c5-291db73e683b" class="">•	A árvore de dependência de módulos garante que o código da aplicação seja organizado e que as dependências sejam carregadas corretamente.</p><p id="26a89b3a-48e0-4298-805f-5ea2506104ac" class="">•	O entendimento dessas duas estruturas é crucial para otimizar o desempenho de aplicações React de alta performance.</p><p id="ffcc5189-ba8d-4176-bd63-3fec0873b00d" class="">
+</p><p id="ee15abe3-a999-46a2-8f81-d2dc0ef2c0dc" class=""><strong>📚 Lista de Exercícios</strong></p><p id="48142636-264b-4677-9854-7590f9474959" class=""><strong>1. Renderização de Lista:</strong></p><p id="0a893262-c84a-4ace-81fc-e37776b8550a" class="">📌 Resolva os desafios práticos de renderização de listas no React.</p><p id="922a904e-d047-4493-9684-1a03c7edf504" class=""><strong><a href="https://react.dev/learn/rendering-lists#challenges">Acesse os exercícios aqui</a></strong></p><p id="2ebe0ca6-fc6c-4725-a106-4a4e86fc0cec" class=""><strong>2. Componentes Puros:</strong></p><p id="08d616c2-d9d0-4cb2-a0ee-906f8b6902fd" class="">📌 Teste seus conhecimentos sobre como manter os componentes puros no React.</p><p id="48f493dd-20da-459a-99b6-faa4df23e90e" class=""><strong><a href="https://react.dev/learn/keeping-components-pure#challenges">Acesse os exercícios aqui</a></strong></p><p id="f80c4fb2-7ebb-4e2d-a321-d55e05287ff9" class="">
+</p><p id="a391da59-9390-4f8c-8a87-f3d2b35254b6" class=""><strong>🚀 Próximos Passos</strong></p><p id="883df3b7-6ddf-48e8-a4b8-4bacede058f0" class="">•	Experimente implementar a filtragem em uma lista de dados em um projeto próprio.</p><p id="60945a86-8380-4c91-85bd-b09bf21c500d" class="">•	Explore mais sobre <strong>Componentes Puros</strong> e <strong>Efeitos Colaterais</strong> em projetos complexos com múltiplos estados.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
