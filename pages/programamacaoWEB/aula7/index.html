@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 7: Multimídia, Tabelas HTML e Formulários</title>
+
+    <meta name="description" content="Aula 7 de Programação Web: Multimídia, Tabelas HTML e Formulários">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css"> 
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 - Título da Aula -->
+            <section> 
+                <p>🏛️ Centro Universitário  Mauríco de Nassau</p>
+                <h3>Aula 7: Multimídia, Tabelas HTML e Formulários</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!-- Slide 2 - Tópicos da Aula -->
+            <section>
+                <h2>Tópicos Abordados</h2>
+                <ul>
+                    <!-- <li>Evolução da Web: De Texto a Multimídia</li> -->
+                    <li>Imagens na Web: O Elemento <code>&lt;img&gt;</code></li>
+                    <!-- <li>Atributos de Imagem: src, alt, title</li>
+                    <li>Recomendações de Direitos Autorais para Imagens</li>
+                    <li>Imagens de Fundo: HTML vs CSS</li> -->
+                    <li>Tabelas HTML</li>
+                    <li>Formulários HTML</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - Evolução da Web -->
+            <section>
+                <h2>A Evolução da Web</h2>
+                <p>No início, a Web era apenas texto, o que a tornava monótona. Felizmente, não demorou para que a capacidade de incorporar imagens e outros conteúdos interessantes fosse adicionada.</p>
+            </section>
+
+            <!-- Slide 4 - O Elemento <img> -->
+            <section data-auto-animate>
+                <h2>O Elemento <code>&lt;img&gt;</code></h2>
+                <p>Para inserir uma imagem na página, usamos o elemento <code>&lt;img&gt;</code>, que é um elemento vazio e requer ao menos um atributo: <code>src</code>, que define o caminho da imagem.</p>
+                <pre><code class="hljs html">&lt;img src="dinossauro.jpg" /&gt;</code></pre>
+
+                <p>Exemplo com imagem em subdiretório:</p>
+                <pre data-id="code-animation"><code class="hljs html">&lt;img src="images/dinossauro.jpg" /&gt;</code></pre>
+            </section>
+
+            <!-- Slide 5 - URL Absoluta -->
+            <section>
+                <h2>URL Absoluta</h2>
+                <p>Podemos incorporar uma imagem diretamente de uma URL absoluta:</p>
+                <pre><code class="hljs html">&lt;img src="https://www.example.com/images/dinosaur.jpg" /&gt;</code></pre>
+            </section>
+
+            <!-- Slide 6 - Texto Alternativo (alt) -->
+            <section>
+                <h2>Texto Alternativo <code>alt</code></h2>
+                <p>O atributo <code>alt</code> fornece uma descrição da imagem caso ela não possa ser exibida. Exemplo:</p>
+ <pre><code class="hljs html">&lt;img src="images/dinosaur.jpg" 
+      alt="Cabeça e tronco de um esqueleto de dinossauro" /&gt;</code></pre>
+            </section>
+            
+           <!-- Slide 7 - Aviso sobre Direitos Autorais -->
+<section>
+    <h2>⚠️ Aviso: Direitos Autorais</h2>
+    <p>A maioria das imagens tem direitos autorais. Não exiba uma imagem em sua página da web, a menos que:</p>
+    <ul>
+        <li>Você é o dono da imagem.</li>
+        <li>Recebeu permissão explícita e por escrito do proprietário da imagem.</li>
+        <li>A imagem é de domínio público.</li>
+    </ul>
+</section>
+
+<!-- Slide 8 - Hotlinking -->
+<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+    <h2>Aviso: Hotlinking</h2>
+    <p>Nunca aponte seu atributo <code>src</code> para uma imagem hospedada no site de outra pessoa sem permissão. Isso é chamado de "hotlinking".</p>
+    <p> ❕ Roubar largura de banda de alguém é ilegal e antiético.</p>
+</section>
+
+<!-- Slide 9 - Texto Alternativo (alt) e Acessibilidade -->
+<section>
+    <h2>Texto Alternativo  <code>alt</code> e Acessibilidade</h2>
+    <p>O texto alternativo é importante para:</p>
+    <ul>
+        <li>Usuários com deficiência visual que utilizam leitores de tela.</li>
+        <li>Quando a imagem não pode ser exibida por erros no caminho ou falha de rede.</li>
+        <li>Para motores de busca, melhorando o SEO.</li>
+    </ul>
+</section>
+
+
+<!-- Slide 10 - Atributos width e height -->
+<section>
+    <h2>Atributos <code>width</code> e <code>height</code></h2>
+    <p>Você pode usar os atributos <code>width</code> e <code>height</code> para especificar o tamanho da imagem:</p>
+    <pre>
+    <code class="hljs html">
+       &lt;img src="images/dinosaur.jpg" 
+            alt="Cabeça de um dinossauro" 
+            width="400" 
+            height="341" /&gt;</code></pre>
+</section>
+
+<!-- Slide 11 - Títulos de Imagem -->
+<section>
+    <h2>Títulos de Imagem</h2>
+    <p>Você pode adicionar um título a uma imagem com o atributo <code>title</code>:</p>
+    <pre><code class="hljs html">&lt;img 
+        src="images/dinosaur.jpg" 
+        title="T-Rex em exibição no Museu de Manchester" 
+      /&gt;</code></pre></section>
+
+
+<!-- Slide 13 - Anotando Imagens com <figure> e <figcaption> -->
+<section>
+    <h2>Anotando Imagens </h2>
+    <p>Para legendas de imagens de forma semântica, use <code>&lt;figure&gt;</code> e <code>&lt;figcaption&gt;</code>:</p>
+    <pre><code class="hljs html">&lt;figure&gt;
+        &lt;img 
+          src="images/dinosaur.jpg" 
+          alt="Cabeça de um dinossauro" 
+          width="400" 
+          height="341"&gt;
+        &lt;figcaption&gt;
+          T-Rex em exibição no Museu de Manchester.
+        &lt;/figcaption&gt;
+      &lt;/figure&gt;</code></pre>
+</section>
+
+<!-- Slide 13 - Anotando Imagens com <figure> e <figcaption> -->
+<section>
+    <h2>Exemplo</h2>
+    <img src="imagens/t-rex.png"
+          title="T-Rex em exibição no Museuoi de Manchester"
+          >
+          <figcaption>A T-Rex on display in the Manchester University Museum.</figcaption>
+ </section>
+
+<!-- Slide 14 - Imagens de Fundo com CSS -->
+<section>
+    <h2>Imagens de Fundo com CSS</h2>
+    <p>Para adicionar imagens de fundo com CSS:</p>
+    <pre><code class="hljs css">p {
+  background-image: url("images/dinosaur.jpg");
+}</code></pre>
+    <p>Imagens de fundo devem ser usadas para decoração. Se uma imagem tem significado, utilize o elemento HTML <code>&lt;img&gt;</code>.</p>
+</section>
+
+<!-- Slide 15 - Exercicios -->
+<section>
+    <h2>Exercicios </h2>
+    <p>exemplo 1 <a href="https://developer.mozilla.org/pt-BR/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML#aprendizado_ativo_incorporando_uma_imagem" target ="_blank">Incorporando uma imagem</a></p>
+    <p>exemplo 2 <a href="https://developer.mozilla.org/pt-BR/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML#aprendizado_ativo_criando_uma_figura" target="_blank">Criando uma figura </a></p>
+</section>
+<!-- Slide 16 - Introdução às Tabelas em HTML -->
+<section>
+    <h2>Tabelas em HTML</h2>
+    <p>
+      Uma tarefa comum em HTML é estruturar dados tabulares. Utilizando HTML em conjunto com CSS, podemos exibir dados de forma eficiente, como um plano de lições ou estatísticas sobre seus dinossauros favoritos.
+    </p>
+  </section>
+  
+  <!-- Slide 17 - Como Funciona uma Tabela -->
+  <section>
+    <h2>Como Funciona uma Tabela?</h2>
+    <p>
+      Tabelas possuem uma estrutura visual clara. Informações podem ser interpretadas associando cabeçalhos de linha e coluna.
+    </p>
+  </section>
+  
+  <!-- Slide 18 - Estilizando Tabelas -->
+  <section>
+    <h2>Estilizando Tabelas</h2>
+    <p>
+      As tabelas podem ser estilizadas usando CSS para ficarem mais legíveis. Você pode verificar um exemplo no 
+      <a href="https://github.com/mdn/learning-area/blob/main/html/tables/basic/minimal-table.css" target="_blank">GitHub</a>, onde a tabela possui uma estilização mais rica.
+    </p>
+  </section>
+  
+  
+  <!-- Slide 19 - Quando NÃO Usar Tabelas HTML -->
+  <section>
+    <h2>Quando NÃO Usar Tabelas HTML?</h2>
+    <p>
+      Tabelas HTML são para dados tabulares. Não devem ser usadas para layout de páginas. Isso era comum no passado, mas não é mais recomendado, pois afeta a acessibilidade e a responsividade.
+    </p>
+    <ul>
+      <li>Tabelas reduzem a acessibilidade para usuários de leitores de tela.</li>
+      <li>Código de tabelas para layout é difícil de manter.</li>
+      <li>Tabelas não são automaticamente responsivas.</li>
+    </ul>
+  </section>
+  
+  <!-- Slide 21 - Criando uma Tabela Simples -->
+  <section>
+    <h2>Criando uma Tabela Simples</h2>
+    <p>Agora vamos criar nossa primeira tabela. Aqui está o esqueleto básico:</p>
+    <pre><code class="hljs html">
+  &lt;table&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hi, I'm your first cell.&lt;/td&gt;
+      &lt;td&gt;I'm your second cell.&lt;/td&gt;
+      &lt;td&gt;I'm your third cell.&lt;/td&gt;
+      &lt;td&gt;I'm your fourth cell.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+    </code></pre>
+  </section>
+  
+  <!-- Slide 22 - Adicionando Mais Linhas -->
+  <section>
+    <h2>Adicionando Mais Linhas</h2>
+    <p>Vamos adicionar mais linhas à nossa tabela:</p>
+    <pre><code class="hljs html">
+  &lt;table&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hi, I'm your first cell.&lt;/td&gt;
+      &lt;td&gt;I'm your second cell.&lt;/td&gt;
+      &lt;td&gt;I'm your third cell.&lt;/td&gt;
+      &lt;td&gt;I'm your fourth cell.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Second row, first cell.&lt;/td&gt;
+      &lt;td&gt;Cell 2.&lt;/td&gt;
+      &lt;td&gt;Cell 3.&lt;/td&gt;
+      &lt;td&gt;Cell 4.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+    </code></pre>
+  </section>
+  
+  <!-- Slide 23 - Tabela Final -->
+  <section>
+    <h2>Tabela Final</h2>
+    <p>A tabela final ficará assim:</p>
+    <table>
+        <tr>
+          <td>Hi, I'm your first cell.</td>
+          <td>I'm your second cell.</td>
+          <td>I'm your third cell.</td>
+          <td>I'm your fourth cell.</td>
+        </tr>
+        <tr>
+          <td>Second row, first cell.</td>
+          <td>Cell 2.</td>
+          <td>Cell 3.</td>
+          <td>Cell 4.</td>
+        </tr>
+      </table>
+  </section>
+  <!-- Slide 24 - Anatomia da Tag de Tabela -->
+<section>
+    <h2>Anatomia da Tag de Tabela</h2>
+    <p>Uma tabela HTML é composta por vários elementos:</p>
+    <ul>
+      <li><code>&lt;table&gt;</code>: O contêiner principal da tabela.</li>
+      <li><code>&lt;tr&gt;</code>: Representa uma linha da tabela (table row).</li>
+      <li><code>&lt;th&gt;</code>: Define um cabeçalho para uma célula (table header).</li>
+      <li><code>&lt;td&gt;</code>: Define uma célula de dados dentro de uma linha (table data).</li>
+    </ul>
+</section>
+  <!-- Slide 25 - Anatomia da Tag de Tabela -->
+  <section>
+    <h2>Anatomia da Tag de Tabela</h2>
+    <p>Uma tabela HTML é composta por vários elementos:</p>
+    <ul>
+      <li><code>&lt;thead&gt;</code>: Agrupa o conteúdo do cabeçalho da tabela.</li>
+      <li><code>&lt;tbody&gt;</code>: Agrupa o corpo da tabela, onde os dados principais são exibidos.</li>
+      <li><code>&lt;tfoot&gt;</code>: Agrupa o rodapé da tabela, geralmente para resumos ou totais.</li>
+    </ul>
+</section>
+
+
+<!-- Slide 26 - Exemplo de uma Tabela -->
+<section data-auto-animate>
+    <p>Exemplo básico de uma tabela com cabeçalho, corpo e rodapé:</p>
+    <pre  data-id="code-animation" ><code class="hljs html" data-trim data-line-numbers="|1-13|14-20"><script type="text/template">
+        <table>
+            <thead>
+              <tr>
+                <th>Cabeçalho 1</th>
+                <th>Cabeçalho 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dado 1</td>
+                <td>Dado 2</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Rodapé 1</td>
+                <td>Rodapé 2</td>
+              </tr>
+            </tfoot>
+          </table>
+</script></code></pre>
+  </section>
+<!-- Slide 27 - Exemplo de uma Tabela -->
+
+  <section>
+    <h2>Saída do código</h2>
+    <table>
+        <thead>
+          <tr>
+            <th>Cabeçalho 1</th>
+            <th>Cabeçalho 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dado 1</td>
+            <td>Dado 2</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Rodapé 1</td>
+            <td>Rodapé 2</td>
+          </tr>
+        </tfoot>
+      </table>
+        
+  </section>
+
+  <!-- Slide 28- Anatomia Básica da Tag <form> -->
+  <section>
+    <h2>Anatomia da Tag <code>&lt;form&gt;</code></h2>
+    <p>O elemento <code>&lt;form&gt;</code> é usado para criar formulários HTML para entrada de dados do usuário. Ele contém vários tipos de campos de entrada e botões.</p>
+    <ul>
+        <li><code>&lt;form&gt;</code>: O contêiner principal do formulário.</li>
+        <li><code>action</code>: Define para onde os dados do formulário serão enviados.</li>
+        <li><code>method</code>: Especifica o método de envio, como <code>GET</code> ou <code>POST</code>.</li>
+        <li><code>target</code>: Define onde o resultado será exibido, por exemplo, em uma nova aba (<code>_blank</code>).</li>
+    </ul>
+</section>
+
+<!-- Slide 29 - Exemplo Básico de <form></form> -->
+<section data-auto-animate>
+    <p>Exemplo básico de um formulário HTML:</p>
+    <pre data-id="code-animation">
+      <code class="hljs html" data-trim data-line-numbers>
+        <script type="text/template">
+          <form action="/submit" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            
+            <input type="submit" value="Enviar">
+          </form>
+        </script>
+      </code>
+    </pre>
+</section>
+<!-- Slide 30- Exemplo Básico de <form></form> -->
+<section>
+    <p>Exemplo básico de um formulário HTML:</p>
+          <form action="/submit" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            
+            <input type="submit" value="Enviar">
+          </form>
+ 
+</section>
+<!-- Slide 31-  Radio Buttons -->
+<section>
+    <h2>Radio Buttons</h2>
+    <p>Os Radio Buttons permitem que o usuário escolha uma opção entre várias, mas apenas uma por vez:</p>
+</section>
+<!-- Slide 32  Radio Buttons -->
+<section data-auto-animate>
+    <p>Exemplo de Radio Buttons:</p>
+    <pre data-id="code-animation">
+      <code class="hljs html" data-trim >
+        <script type="text/template">
+          <form>
+            <p>Selecione seu gênero:</p>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Masculino</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Feminino</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Outro</label><br>
+          </form>
+        </script>
+      </code>
+    </pre>
+</section>
+
+<!-- Slide 33  Radio Buttons -->
+<section data-auto-animate>
+    <p>Exemplo de Radio Buttons:</p>
+          <form>
+            <p>Selecione seu gênero:</p>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Masculino</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Feminino</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Outro</label><br>
+          </form>
+</section>
+
+<!-- Slide 34  Checkboxes -->
+<section>
+    <h2>Checkboxes</h2>
+    <p>Os Checkboxes permitem que o usuário selecione uma ou mais opções:</p>
+</section>
+
+<!-- Slide 35 Checkboxes -->
+<section data-auto-animate>
+    <p>Exemplo de Checkboxes:</p>
+    <pre data-id="code-animation">
+      <code class="hljs html" data-trim >
+        <script type="text/template">
+          <form>
+            <p>Escolha suas frutas favoritas:</p>
+            <input type="checkbox" id="apple" name="fruit" value="apple">
+            <label for="apple">Maçã</label><br>
+            <input type="checkbox" id="banana" name="fruit" value="banana">
+            <label for="banana">Banana</label><br>
+            <input type="checkbox" id="orange" name="fruit" value="orange">
+            <label for="orange">Laranja</label><br>
+          </form>
+        </script>
+      </code>
+    </pre>
+</section>
+<!-- Slide 36 Checkboxes -->
+<section data-auto-animate>
+    <p>Exemplo de Checkboxes:</p>
+          <form>
+            <p>Escolha suas frutas favoritas:</p>
+            <input type="checkbox" id="apple" name="fruit" value="apple">
+            <label for="apple">Maçã</label><br>
+            <input type="checkbox" id="banana" name="fruit" value="banana">
+            <label for="banana">Banana</label><br>
+            <input type="checkbox" id="orange" name="fruit" value="orange">
+            <label for="orange">Laranja</label><br>
+          </form>
+</section>
+<!-- Slide 37 Método POST e Prevenção de Envio -->
+<section>
+    <h2>Método POST e Prevenção de Envio</h2>
+    <p>
+      O método <code>POST</code> é usado para enviar dados do formulário ao servidor de forma segura. Ele é geralmente utilizado quando os dados precisam ser processados ou armazenados, como em cadastros e autenticações. 
+    </p>
+    <p>
+      Diferente do método <code>GET</code>, que envia os dados pela URL, o <code>POST</code> mantém os dados "escondidos" no corpo da requisição, tornando-o mais seguro para transmitir informações sensíveis.
+    </p>
+   
+</section>
+
+<!-- Slide 38 Método POST e Prevenção de Envio -->
+<section>
+    <h2>Método POST e Prevenção de Envio</h2>
+  
+    <p>
+      No entanto, como ainda estamos aprendendo HTML e não queremos enviar dados de verdade, podemos prevenir o envio do formulário usando um botão <code>submit</code> com um atributo <code>type="button"</code> ou desativar o comportamento padrão do envio usando JavaScript simples.
+    </p>
+</section>
+<!-- Slide 39 Método POST e Prevenção de Envio -->
+<section data-auto-animate>
+    <p>Exemplo de formulário que não envia dados:</p>
+    <pre data-id="code-animation">
+      <code class="hljs html" data-trim>
+        <script type="text/template">
+          <form action="/submit" method="POST" onsubmit="return false;">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name"><br>
+            
+            <input type="submit" value="Enviar (sem envio de dados)">
+          </form>
+        </script>
+      </code>
+    </pre>
+</section>
+
+<!-- Slide 40 Tipos de Input -->
+<section>
+    <h2>Tipos de Input</h2>
+    <p>Os campos de input podem ter vários tipos:</p>
+    <ul>
+        <li><code>text</code>: Campo de texto comum.</li>
+        <li><code>email</code>: Campo para entrada de email.</li>
+        <li><code>password</code>: Campo para entrada de senha.</li>
+        <li><code>number</code>: Campo para números.</li>
+        <li><code>date</code>: Campo para escolher uma data.</li>
+    </ul>
+</section>
+<!-- Slide 41 Exemplo de tipos de input -->
+<section data-auto-animate>
+    <p>Exemplo de tipos de input:</p>
+    <pre data-id="code-animation">
+      <code class="hljs html" data-trim >
+        <script type="text/template">
+          <form>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name"><br>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+            
+            <label for="birthday">Data de Nascimento:</label>
+            <input type="date" id="birthday" name="birthday"><br>
+          </form>
+        </script>
+      </code>
+    </pre>
+</section>
+
+<!-- Slide 42 Exércicio prático -->
+<section>
+    <h2>Exercício Final</h2>
+    <p>Crie um formulário com os seguintes elementos:</p>
+    <ul>
+        <li>Um campo para nome.</li>
+        <li>Um campo para email.</li>
+        <li>Checkboxes para selecionar preferências.</li>
+        <li>Radio buttons para escolher uma opção.</li>
+        <li>Um botão de submit para enviar os dados.</li>
+    </ul>
+    <p>Dica: use os exemplos vistos nos slides anteriores como referência!</p>
+</section>
+
+<section>
+    <h2>✨ Aula Concluída! ✨</h2>
+    <p>Parabéns, você chegou ao fim da aula!</p>
+    <p>📚 Para continuar seus estudos, recomendamos as seguintes referências:</p>
+    <ul>
+        <li>🔗 <a href="https://www.w3schools.com/" target="_blank">W3Schools</a> - Um ótimo recurso para aprender HTML, CSS e JavaScript.</li>
+        <li>🔗 <a href="https://developer.mozilla.org/pt-BR/" target="_blank">MDN Web Docs</a> - Documentação abrangente da Mozilla para desenvolvedores web.</li>
+    </ul>
+    <p>🎉 Continue praticando e até a próxima aula! 🚀</p>
+</section>
+        </div>
+    </div>
+
+    
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
