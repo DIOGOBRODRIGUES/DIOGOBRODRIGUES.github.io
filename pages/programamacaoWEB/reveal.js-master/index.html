@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Apresentação: Códigos de Alta Performance - Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Revel.js e temas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
+
+    <!-- Plugins de destaque de código -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css">
+
+    <!-- Estilos customizados -->
+    <style>
+        body {
+            background: #f0f0f0;
+        }
+        .reveal {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2a9d8f;
+        }
+        h1 {
+            font-size: 3em;
+        }
+        h2 {
+            font-size: 2em;
+        }
+        h3 {
+            font-size: 1.5em;
+        }
+        code {
+            font-size: 1.1em;
+            color: #e76f51;
+        }
+        .reveal pre code {
+            background-color: #282c34;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .slides section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+        }
+        .reveal ul {
+            list-style-type: circle;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide de título -->
+            <section>
+                <div>
+                    <h1>Códigos de Alta Performance - Web</h1>
+                    <h3>Aula 6: Lista de Renderização, Componentes Puros e Árvore de Renderização</h3>
+                    <p><b>Prof. Dr. Diogo Rodrigues</b></p>
+                    <p>UNINASSAU Graças - 2024.2</p>
+                </div>
+            </section>
+
+            <!-- Sumário -->
+            <section>
+                <h2>Sumário</h2>
+                <ul>
+                    <li>Lista de Renderização</li>
+                    <li>Componentes Puros</li>
+                    <li>Efeitos Colaterais e Componentes Não Puros</li>
+                    <li>Árvore de Renderização e Árvore de Dependência de Módulos</li>
+                </ul>
+            </section>
+
+            <!-- Lista de Renderização -->
+            <section>
+                <h2>Lista de Renderização no React</h2>
+                <ul>
+                    <li>Utilizamos o método <code>map()</code> para renderizar listas no React.</li>
+                    <li>Cada elemento da lista deve ter uma chave (<code>key</code>).</li>
+                    <li>A <code>key</code> ajuda o React a identificar qual item mudou, melhorando a eficiência.</li>
+                </ul>
+            </section>
+
+            <!-- Exemplo de Código -->
+            <section>
+                <h2>Exemplo de Renderização de Lista</h2>
+                <pre><code data-trim data-noescape>
+const lista = ['Item 1', 'Item 2', 'Item 3'];
+return (
+    <ul>
+        {lista.map((item, index) => (
+            <li key={index}>{item}</li>
+        ))}
+    </ul>
+);
+                </code></pre>
+            </section>
+
+            <!-- Explicação de Key -->
+            <section>
+                <h2>Por que utilizar a <code>key</code> em Listas?</h2>
+                <ul>
+                    <li>A <code>key</code> é usada para identificar quais itens em uma lista foram alterados, adicionados ou removidos.</li>
+                    <li>Sem uma <code>key</code> adequada, o React pode re-renderizar todos os itens da lista, mesmo que apenas um item tenha mudado.</li>
+                    <li>Ela deve ser única entre os itens irmãos para garantir uma renderização eficiente.</li>
+                </ul>
+            </section>
+
+            <!-- Filtrando Listas -->
+            <section>
+                <h2>Filtrando Listas no React</h2>
+                <ul>
+                    <li>Podemos aplicar filtros com o método <code>filter()</code> além de <code>map()</code>.</li>
+                    <li>O método <code>filter()</code> cria uma nova lista com os itens que atendem a um critério específico.</li>
+                </ul>
+            </section>
+
+            <!-- Exemplo de Filtro de Lista -->
+            <section>
+                <h2>Exemplo de Filtro de Lista</h2>
+                <pre><code data-trim data-noescape>
+const lista = ['Item 1', 'Item 2', 'Item 3'];
+const filtro = 'Item 2';
+const listaFiltrada = lista.filter(item => item.includes(filtro));
+
+return (
+    <ul>
+        {listaFiltrada.map((item, index) => (
+            <li key={index}>{item}</li>
+        ))}
+    </ul>
+                </code></pre>
+            </section>
+
+            <!-- Componentes Puros -->
+            <section>
+                <h2>O que são Componentes Puros?</h2>
+                <ul>
+                    <li>Componentes Puros sempre renderizam o mesmo resultado para os mesmos props e estado.</li>
+                    <li>Evita re-renderizações desnecessárias, otimizando a performance.</li>
+                </ul>
+            </section>
+
+            <!-- Exemplo de Componente Puro -->
+            <section>
+                <h2>Exemplo de Componente Puro</h2>
+                <pre><code data-trim data-noescape>
+import React, { PureComponent } from 'react';
+
+class MeuComponente extends PureComponent {
+    render() {
+        return <div>{this.props.valor}</div>;
+    }
+}
+                </code></pre>
+            </section>
+
+            <!-- Efeitos Colaterais -->
+            <section>
+                <h2>O que são Efeitos Colaterais?</h2>
+                <ul>
+                    <li>Efeitos colaterais ocorrem quando um componente realiza ações externas, como chamadas a APIs ou manipulação de DOM.</li>
+                    <li>São gerenciados no React com o hook <code>useEffect()</code>.</li>
+                </ul>
+            </section>
+
+            <!-- Exemplo de useEffect -->
+            <section>
+                <h2>Exemplo de Efeito Colateral com <code>useEffect()</code></h2>
+                <pre><code data-trim data-noescape>
+import { useEffect } from 'react';
+
+function MeuComponente() {
+    useEffect(() => {
+        console.log('Componente montado');
+        
+        return () => console.log('Componente desmontado');
+    }, []);
+
+    return <div>Componente com efeito colateral</div>;
+}
+                </code></pre>
+            </section>
+
+            <!-- Árvore de Renderização -->
+            <section>
+                <h2>Árvore de Renderização do React</h2>
+                <ul>
+                    <li>A árvore de renderização é a estrutura de dados que o React cria e mantém para representar a UI.</li>
+                    <li>A árvore é baseada no Virtual DOM, que ajuda o React a determinar quais partes da interface precisam ser atualizadas.</li>
+                </ul>
+            </section>
+
+            <!-- Conclusão -->
+            <section>
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>O React usa a árvore de renderização e dependências de módulos para otimizar o desempenho da aplicação.</li>
+                    <li>Compreender esses conceitos é essencial para desenvolver aplicações React de alta performance.</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Revel.js -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            plugins: [ RevealHighlight ],
+            center: true,
+            transition: 'slide',
+            slideNumber: true,
+            hash: true,
+        });
+    </script>
+</body>
+</html>
