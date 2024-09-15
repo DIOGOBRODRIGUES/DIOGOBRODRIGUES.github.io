@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 8: Gerenciamento de Estado com Hook</title>
+
+    <meta name="description" content="Aula 8 de Programação Web: Gerenciamento de Estado com Hook">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 - Título da Aula -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 8: Gerenciamento de Estado com Hook</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!--Slide 2 Respondendo a eventos-->
+            <section>
+                <h2>Respondendo a eventos</h2>
+                <p>
+                    O React permite que você adicione manipuladores de eventos ao seu JSX. Os manipuladores de eventos
+                    são funções que serão acionadas em resposta a interações como clicar, passar o mouse, focar entradas
+                    de formulário e assim por diante.
+                </p>
+            </section>
+
+            <!--Slide 3 Adicionando manipuladores-->
+            <section>
+                <h2>Adicionando manipuladores de eventos</h2>
+                <p>
+                    Para adicionar um manipulador de eventos, você deve definir uma função e passá-la como prop para a
+                    tag JSX apropriada.
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim >
+              export default function Button() {
+                return (
+                  <button>
+                    I don't do anything
+                  </button>
+                );
+              }
+                </code></pre>
+            </section>
+
+            <!--Slide 4 Fazendo algo com o evento-->
+            <section>
+                <h2>Fazendo algo com o evento</h2>
+                <p>
+                    Para exibir uma mensagem ao clicar, siga estes passos:
+                </p>
+                <ol>
+                    <li>Declare uma função <code>handleClick</code> no componente.</li>
+                    <li>Adicione a lógica dentro da função (use <code>alert</code>).</li>
+                    <li>Adicione <code>onClick={handleClick}</code> ao <code>&lt;button&gt;</code> JSX.</li>
+                </ol>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+              export default function Button() {
+                function handleClick() {
+                  alert('You clicked me!');
+                }
+              
+                return (
+                  <button onClick={handleClick}>
+                    Click me
+                  </button>
+                );
+              }
+                </code></pre>
+            </section>
+
+            <!--Slide 5 Usando Manipuladores inline-->
+            <section>
+                <h2>Usando manipuladores inline</h2>
+                <p>
+                    Você pode definir manipuladores de eventos inline com funções anônimas:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                                export default function Button() {
+                                    function handleClick() {
+                                      alert('You clicked me!');
+                                    }
+                                
+                                return (
+                                  <button onClick={() => alert('You clicked me!')}>
+                                    Click me
+                                  </button>
+                                );
+                                }
+            </script></code></pre>
+            </section>
+
+            <!--Slide 6 Passando funções corretamente-->
+            <section>
+                <h2>Passando funções corretamente</h2>
+                <p>Não passe a função diretamente como <code>onClick={handleClick()}</code>. Ao invés disso, faça assim:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  <button onClick={handleClick}>   // Correto
+
+                  <button onClick={handleClick()}> // Incorreto
+                </script></code></pre>
+                <p>
+                    Funções devem ser passadas, não chamadas diretamente, para evitar que elas sejam executadas durante
+                    a renderização.
+                </p>
+            </section>
+
+            <!--Slide 7 Lendo props em manipuladores de eventos-->
+            <section>
+                <h2>Lendo props em manipuladores de eventos</h2>
+                <p>
+                    Manipuladores de eventos têm acesso aos <code>props</code> do componente:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|1-7|9-19"><script type="text/template">
+               function AlertButton({ message, children }) {
+                return (
+                  <button onClick={() => alert(message)}>
+                    {children}
+                  </button>
+                );
+              }
+              
+              export default function Toolbar() {
+                return (
+                  <div>
+                    <AlertButton message="Playing!">
+                      Play Movie  //children
+                    </AlertButton>
+                    <AlertButton message="Uploading!">
+                      Upload Image // children
+                    </AlertButton>
+                  </div>
+                );
+              }
+            </script></code></pre>
+            </section>
+
+            <!--Slide 8 children-->
+            <section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+                <h2>📌 Lembrete</h2>
+                <p>
+                    o parâmetro <code>children</code> é uma prop especial em React que é usada para representar o conteúdo que é passado entre as tags de abertura e fechamento de um componente.
+                </p>
+            </section>
+            <!--Slide 9 Estado: Memória de um Componente-->
+            <section>
+                <h2>Estado: Memória de um Componente</h2>
+                <p>
+                  Os componentes geralmente precisam mudar o que está na tela como resultado de uma interação. Por exemplo, ao digitar em um formulário ou ao clicar em um botão de "próximo" em um carrossel de imagens.
+                </p>
+                <p>
+                  No React, essa "memória" específica de um componente é chamada de <strong>estado</strong>.
+                </p>
+              </section>
+             <!--Slide 10 useState-->
+              <section>
+                <h2>Quando uma variável regular não é suficiente</h2>
+                <p>
+                  Um componente que renderiza uma galeria de imagens, onde clicar em “Next” deve alterar a imagem, mas uma variável local <code>index</code> não persiste entre renderizações e não aciona re-renderização.
+                </p>
+            
+              </section>
+
+              <!--Slide 11 useState-->
+              <section>
+                <h2>Quando uma variável regular não é suficiente</h2>
+             
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+              export default function Gallery() {
+                let index = 0;
+              
+                function handleClick() {
+                  index = index + 1;
+                }
+              
+                let sculpture = sculptureList[index];
+                return (
+                  <>
+                    <button onClick={handleClick}>Next</button>
+                    <h2>{sculpture.name}</h2>
+                  </>
+                );
+              }
+            </script></code></pre>
+              </section>
+            <!--Slide 12 useState-->
+              <section>
+                <h2>Adicionando uma variável de estado</h2>
+                <p>
+                  Para persistir a variável entre renderizações, é necessário usar o Hook <code>useState</code> para criar o estado:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+
+              import { useState } from 'react';
+              
+              export default function Gallery() {
+                const [index, setIndex] = useState(0);
+              
+                function handleClick() {
+                  setIndex(index + 1);
+                }
+            </script></code></pre>
+              </section>
+            <!--Slide 13 useState-->
+              <section>
+                <h2>Conheça seu primeiro Hook: <code>useState</code></h2>
+                <p>
+                  O <code>useState</code> é um Hook que cria uma variável de estado e uma função que a atualiza. 
+                </p>
+                <p>
+                  Exemplo:
+                </p>
+                <pre><code>
+              const [index, setIndex] = useState(0);
+                </code></pre>
+                <p>
+                  Esse código inicializa a variável <code>index</code> com valor <code>0</code> e retorna uma função <code>setIndex</code> para atualizá-la.
+                </p>
+              </section>
+            <!--Slide 14 useState-->
+              <section>
+                <h2>Exemplo completo: Galeria de Imagens</h2>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|1-9|11-17"><script type="text/template">
+              import { useState } from 'react';
+              import { sculptureList } from './data.js';
+              
+              export default function Gallery() {
+                const [index, setIndex] = useState(0);
+              
+                function handleClick() {
+                  setIndex(index + 1);
+                }
+              
+                let sculpture = sculptureList[index];
+                return (
+                  <>
+                    <button onClick={handleClick}>Next</button>
+                    <h2>{sculpture.name} by {sculpture.artist}</h2>
+                    <img src={sculpture.url} alt={sculpture.alt} />
+                  </>
+                );
+              }
+            </script></code></pre>
+              </section>
+            
+              <!--Slide 15 useState-->
+              <section>
+                <h2>Dando a um componente múltiplas variáveis de estado</h2>
+                <p>
+                  Você pode ter quantas variáveis de estado desejar. No exemplo a seguir,  temos um índice <code>index</code> e uma variável booleana <code>showMore</code> que alterna a exibição de detalhes.
+                </p>
+                
+              </section>
+
+
+              <!--Slide 16 useState-->
+              <section>
+                <h2>Dando a um componente múltiplas variáveis de estado</h2>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|1-13|15-23"><script type="text/template">
+              import { useState } from 'react';
+              
+              export default function Gallery() {
+                const [index, setIndex] = useState(0);
+                const [showMore, setShowMore] = useState(false);
+              
+                function handleNextClick() {
+                  setIndex(index + 1);
+                }
+              
+                function handleMoreClick() {
+                  setShowMore(!showMore);
+                }
+              
+                return (
+                  <>
+                    <button onClick={handleNextClick}>Next</button>
+                    <button onClick={handleMoreClick}>
+                      {showMore ? 'Hide' : 'Show'} details
+                    </button>
+                    {showMore && <p>More details here...</p>}
+                  </>
+                );
+              }
+            </script></code></pre>
+              </section>
+
+              <section>
+                <h2>Exéricios</h2>
+                <p>Prátique com alguns desafios  <a href="https://react.dev/learn/state-a-components-memory#challenges" target="_blank">aqui</a></p>
+              </section>
+
+              <!--Slide 17 Renderizar e Confirmar-->
+              <section>
+                <h2>Renderizar e Commit</h2>
+                <p>
+                  Antes que seus componentes sejam exibidos na tela, eles devem ser renderizados pelo React. 
+                  Este processo de renderização passa por três etapas:
+                </p>
+                <ol>
+                  <li>Acionar uma renderização</li>
+                  <li>Renderização do componente</li>
+                  <li>Confirmando no DOM</li>
+                </ol>
+              </section>
+            
+              <!--Slide 18 Renderizar e Confirmar-->
+              <section>
+                <h2>Etapa 1: Acionar uma renderização</h2>
+                <p>Há dois motivos para um componente ser renderizado:</p>
+                <ul>
+                  <li>É a renderização inicial do componente.</li>
+                  <li>O estado do componente (ou de um de seus ancestrais) foi atualizado.</li>
+                </ul>
+                <p>
+                  Exemplo de renderização inicial:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+              import { createRoot } from 'react-dom/client';
+              import Image from './Image';
+              
+              const root = createRoot(document.getElementById('root'));
+              root.render(<Image />);
+                </script> </code></pre>
+              </section>
+              <!--Slide 19 Renderizar e Confirmar-->
+              <section>
+                <h2>Etapa 2: React Renderiza seus Componentes</h2>
+                <p>
+                  Após disparar uma renderização, o React chama seus componentes para descobrir o que exibir na tela.
+                </p>
+                <p>
+                  Para renderizações subsequentes, o React chama o componente que acionou a atualização de estado.
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+              export default function Gallery() {
+                return (
+                  <section>
+                    <h1>Inspiring Sculptures</h1>
+                    <Image />
+                    <Image />
+                    <Image />
+                  </section>
+                );
+              }
+            </script></code></pre>
+              </section>
+              <!--Slide 20 Renderizar e Confirmar-->
+              <section>
+                <h2>A Renderização deve ser Pura</h2>
+                <ul>
+                  <li>
+                    <strong>Mesmas entradas, mesma saída</strong>: Um componente deve sempre retornar o mesmo JSX para as mesmas entradas.
+                  </li>
+                  <li>
+                    <strong>Cuida da sua própria vida</strong>: Um componente não deve alterar objetos ou variáveis externas.
+                  </li>
+                </ul>
+                <p>
+                  Isso ajuda a evitar bugs confusos e comportamento imprevisível.
+                </p>
+              </section>
+              <!--Slide 21 Renderizar e Confirmar-->
+              <section>
+                <h2>Etapa 3: Confirmar as Alterações no DOM</h2>
+                <p>
+                  Depois de renderizar os componentes, o React modifica o DOM:
+                </p>
+                <ul>
+                  <li>
+                    Para a renderização inicial, ele usa <code>appendChild()</code> para adicionar os nós DOM criados à tela.
+                  </li>
+                  <li>
+                    Para re-renderizações, o React aplica as mínimas mudanças necessárias para sincronizar o DOM com a saída de renderização.
+                  </li>
+                </ul>
+              </section>
+                <!--Slide 22 Renderizar e Confirmar-->
+              <section>
+                <h2>Exemplo: Re-renderização Controlada</h2>
+                <p>
+                  O React re-renderiza apenas as partes do DOM que mudaram:
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+              export default function Clock({ time }) {
+                return (
+                  <>
+                    <h1>{time}</h1>
+                    <input />
+                  </>
+                );
+              }
+            </script></code></pre>
+                <p>
+                  O React atualiza apenas o conteúdo do <code>&lt;h1&gt;</code> com o novo <code>time</code>, mas não toca no <code>&lt;input&gt;</code>.
+                </p>
+              </section>
+              <!--Slide 23 Renderizar e Confirmar-->
+              <section>
+                <h2>Epílogo: Pintura do Navegador</h2>
+                <p>
+                  Após o React modificar o DOM, o navegador "pinta" as alterações na tela. 
+                  Esse processo é conhecido como renderização do navegador ou "pintura".
+                </p>
+              </section>
+        </div>
+    </div>
+
+
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
