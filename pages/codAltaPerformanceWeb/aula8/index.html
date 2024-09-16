@@ -423,6 +423,753 @@
                   Esse processo é conhecido como renderização do navegador ou "pintura".
                 </p>
               </section>
+              <!--Slide 24 Estado como um Instantâneo-->
+              <section>
+                <h2>Estado como um Snapshot</h2>
+                <p>
+                    Variáveis ​​de estado podem parecer variáveis ​​JavaScript comuns que você pode ler e escrever. No entanto, o estado se comporta mais como um snapshot. Defini-lo não altera a variável de estado que você já tem, mas, em vez disso, aciona uma nova renderização.
+                </p>
+              </section>
+              <!--Slide 25 Definir Gatilhos de Estado-->
+              <section>
+                <h2>Definir Gatilhos de Estado</h2>
+                <p>
+                  Definir o estado aciona uma nova renderização do componente, atualizando a interface do usuário com o novo valor de estado.
+                </p>
+                <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|1-3|6-14|16-21|23-35|37-49"><script type="text/template">
+                    /* Importa o hook useState do React, usado para gerenciar 
+                    o estado no componente.*/
+                    import { useState } from 'react';
+                    
+            
+                    export default function Form() {
+                      
+                      /* Declara duas variáveis de estado: isSent e message.
+                        isSent controla se a mensagem já foi enviada (valor
+                        inicial: false). setIsSent é a função usada para alterar
+                        o valor de isSent. message armazena o conteúdo da 
+                        mensagem  (valor inicial: 'Hi!').*/
+                      const [isSent, setIsSent] = useState(false);
+                      const [message, setMessage] = useState('Hi!');
+                    
+                      /* Verifica se a mensagem já foi enviada.
+                       Se isSent for true, exibe uma mensagem de confirmação e 
+                       interrompe a renderização do restante do componente.*/
+                      if (isSent) {
+                        return <h1>Your message is on its way!</h1>; 
+                      }
+                    
+                      // Renderiza o formulário, caso a mensagem ainda não tenha sido enviada.
+                      return (
+                        <form onSubmit={(e) => {
+                          <!--Previne o comportamento padrão do formulário 
+                          de recarregar a página.*/-->
+                          e.preventDefault();
+                          /*Atualiza o estado de isSent para true, indicando
+                           que a mensagem foi enviada */
+                          setIsSent(true); 
+                          /*Chama uma função (não definida no código) para enviar 
+                          a mensagem.*/
+                          sendMessage(message); 
+                        }}>
+                          
+                          /* Renderiza um campo de texto para o usuário digitar
+                           a mensagem. */
+                          <textarea
+                          //Texto que aparece quando o campo está vazio
+                            placeholder="Message" 
+                            // O valor do textarea está vinculado ao estado 'message'.
+                            value={message} 
+                            // Atualiza o estado 'message' conforme o usuário digita.
+                            onChange={e => setMessage(e.target.value)} 
+                          />
+                          
+                          /* Renderiza o botão de enviar */
+                          <button type="submit">Send</button>
+                        </form>
+                      );
+                    }
+            </script></code></pre>
+              </section> 
+             
+              <!--Slide 26 Definir Gatilhos de Estado-->
+              <section>
+                <h2>Renderização como um Snapshot</h2>
+                <p>
+                  Quando o React renderiza um componente, ele captura um "instantâneo" da interface. Esse snapshot é interativo e contém manipuladores de eventos calculados a partir do estado atual.
+                </p>
+              </section>
+
+               <!--Slide 26 Definir Gatilhos de Estado-->
+               <section>
+                <h2>Renderização como um Snapshot</h2>
+                <img src="imagens/hookreact1.png">
+              </section>
+
+              <!--Slide 27 Definir Gatilhos de Estado-->
+              <section>
+                <img src="imagens/hookreact2.png">
+              </section>
+
+
+              <!--Slide 28 Estado "Fixado" Durante a Renderização-->
+              <section>
+                <h2>Estado "Fixado" Durante a Renderização</h2>
+                <p>
+                  O valor de uma variável de estado não muda dentro de uma renderização. Mesmo que um evento seja assíncrono, ele usa o valor do estado capturado no momento da renderização.
+                </p>
+               
+              </section>
+
+                <!--Slide 29 Estado "Fixado" Durante a Renderização-->
+                <section>
+                    <h2>Estado "Fixado" Durante a Renderização</h2>
+                  
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers="|3-4|8-13"><script type="text/template">
+                  import { useState } from 'react';
+                  
+                  export default function Counter() {
+                    const [number, setNumber] = useState(0);
+                  
+                    return (
+                      <>
+                        <h1>{number}</h1>
+                        <button onClick={() => {
+                          setNumber(number + 1);
+                          setNumber(number + 1);
+                          setNumber(number + 1);
+                        }}>+3</button>
+                      </>
+                    );
+                  }
+                </script></code></pre>
+                  </section>
+                  <!--Slide 30 Estado "Fixado" Durante a Renderização-->
+                  <section>
+                    <h2>Exemplo: Snapshot e Tempo</h2>
+                    <p>
+                      Mesmo com eventos assíncronos, o estado usado no manipulador é o que estava presente no momento da renderização:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers"><script type="text/template">                       
+                    import { useState } from 'react';
+                  
+                    export default function Counter() {
+                    const [number, setNumber] = useState(0);
+                  
+                    return (
+                      <>
+                        <h1>{number}</h1>
+                        <button onClick={() => {
+                          setNumber(number + 5);
+                          setTimeout(() => {
+                            alert(number);
+                          }, 3000);
+                        }}>+5</button>
+                      </>
+                    );
+                  }
+                </script></code></pre>
+                  </section>
+
+                  <!--Slide 31 Estado "Fixado" Durante a Renderização-->
+                <section>
+                    <h2>Exercícios</h2>
+                    <p>Pratique com alguns desafios <a href=" https://react.dev/learn/state-as-a-snapshot#implement-a-traffic-light"
+                            target="_blank">aqui</a></p>
+                </section>
+
+                <!--Slide 32 Estado "Fixado" Durante a Renderização-->
+                <section>
+                    <h2>Enfileirando uma Série de Atualizações de Estado</h2>
+                    <p>
+                        Definir uma variável de estado enfileira uma nova renderização, mas as atualizações só são processadas após todo
+                        o código no manipulador de eventos ser executado.
+                    </p>
+                </section>
+
+                  <!--Slide 33 Estado "Fixado" Durante a Renderização-->
+                  <section>
+                    <h2>Agrupamento de Atualizações de Estado (Batching)</h2>
+                    <p>
+                      O React agrupa (faz batching) atualizações de estado dentro de um manipulador de eventos, aplicando todas de uma vez após a execução do código.
+                    </p>
+                    <p>
+                      Isso melhora o desempenho e evita renderizações "meio acabadas".
+                    </p>
+                  </section>
+
+                  <!--Slide 34 Estado "Fixado" Durante a Renderização-->
+                <section>
+                    <h2>Atualizando o Mesmo Estado Várias Vezes</h2>
+                    <p>
+                        Para atualizar o estado várias vezes antes da próxima renderização, você pode usar uma função de atualização.
+                    </p>
+                </section>
+
+                 <!--Slide 34 Estado "Fixado" Durante a Renderização-->
+                 <section>
+                     <h2>Atualizando o Mesmo Estado Várias Vezes</h2>
+                     <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                                   import { useState } from 'react';
+                                   
+                                   export default function Counter() {
+                                     const [number, setNumber] = useState(0);
+                                   
+                                     return (
+                                       <>
+                                         <h1>{number}</h1>
+                                         <button onClick={() => {
+                                           setNumber(n => n + 1);
+                                           setNumber(n => n + 1);
+                                           setNumber(n => n + 1);
+                                         }}>+3</button>
+                                       </>
+                                     );
+                                   }
+                                   </script></code></pre>
+                 </section>
+
+                 <!--Slide 35 Funcoes de atualizacao em serie -->
+                <section>
+                    <h2>Funções de Atualização em Série</h2>
+                    <p>
+                        O React processa as funções de atualização em série, passando o valor atualizado para cada função subsequente:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers"><script type="text/template">
+                                  atualização em fila     n     retorna
+                                  n => n + 1              0     1
+                                  n => n + 1              1     2
+                                  n => n + 1              2     3
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 36 Misturando Atualizações e Substituições de Estado-->
+                <section>
+                    <h2>Misturando Atualizações e Substituições de Estado</h2>
+                    <p>
+                        O que acontece quando você mistura atualizações com funções e substituições diretas? Veja o exemplo:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                                  <button onClick={() => {
+                                    setNumber(number + 5);
+                                    setNumber(n => n + 1);
+                                  }}>Increase the number</button>
+                                  </script></code></pre>
+                    <p>Resultado:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                                  "substituir por 5"      0    5
+                                  n => n + 1              5    6
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 37 Substituindo o Estado Após Atualizá-lo-->
+                <section>
+                    <h2>Substituindo o Estado Após Atualizá-lo</h2>
+                    <p>
+                        Se você substituir o estado após uma atualização, o React aplica a última substituição:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers"><script type="text/template">
+                                  <button onClick={() => {
+                                    setNumber(number + 5);
+                                    setNumber(n => n + 1);
+                                    setNumber(42);
+                                  }}>Increase the number</button>
+                                  </script></code></pre>
+                    <p>Resultado:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers"><script type="text/template">
+                                  "substituir por 5"      0    5
+                                  n => n + 1              5    6
+                                  "substituir por 42"     6    42
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 38 Convenções de Nomenclatura de Funções de Atualização-->
+                <section>
+                    <h2>Convenções de Nomenclatura de Funções de Atualização</h2>
+                    <p>
+                        As funções de atualização geralmente usam a primeira letra da variável de estado ou seu nome completo. Exemplo:
+                    </p>
+                    <ul>
+                        <li><code>setEnabled(e => !e);</code></li>
+                        <li><code>setFriendCount(fc => fc * 2);</code></li>
+                        <li><code>setLastName(prevLastName => prevLastName.reverse());</code></li>
+                    </ul>
+                </section>
+
+                <!-- Slide 39 Exércios-->
+                <section>
+                    <h2>Exercícios</h2>
+                    <p>Pratique com alguns desafios <a href="https://react.dev/learn/queueing-a-series-of-state-updates#challenges"
+                            target="_blank">aqui</a></p>
+                </section>
+
+                <!--Slide 40 Atualizando Objetos no Estado-->
+                <section>
+                    <h2>Atualizando Objetos no Estado</h2>
+                    <p>
+                      O estado no React pode conter objetos JavaScript. No entanto, você não deve alterar esses objetos diretamente. Em vez disso, crie um novo objeto ou faça uma cópia de um existente e, em seguida, atualize o estado com essa cópia.
+                    </p>
+                  </section>
+
+                  <!--Slide 41 Atualizando Objetos no Estado-->
+                  <section>
+                    <h2>O Que é uma Mutação?</h2>
+                    <p>
+                      Objetos no estado React podem ser mutáveis, mas você deve tratá-los como imutáveis. Mutação é quando você modifica diretamente um objeto existente no estado:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                  const [position, setPosition] = useState({ x: 0, y: 0 });
+                  position.x = 5;
+                  </script></code></pre>
+                    <p>Isso não aciona uma nova renderização no React, então não é recomendado.</p>
+                  </section>
+
+                <!--Slide 42 Atualizando Objetos no Estado-->
+                <section>
+                    <h2>Tratar o Estado como Somente Leitura</h2>
+                    <p>
+                        Você deve sempre tratar o estado como somente leitura. Para atualizar o estado corretamente, crie um novo objeto
+                        e passe-o para a função de atualização do estado:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                                  onPointerMove={e => {
+                                    setPosition({
+                                      x: e.clientX,
+                                      y: e.clientY
+                                    });
+                                  }}
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 43 Atualizando Objetos no Estado-->
+                <section>
+                    <h2>Mutação Local é Boa</h2>
+                    <p>
+                        Mutar objetos que você acabou de criar localmente é aceitável, porque nenhum outro código faz referência a eles
+                        ainda:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                                  const nextPosition = { x: e.clientX, y: e.clientY };
+                                  setPosition(nextPosition);
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 44 Copiando Objetos com a Sintaxe Spread-->
+                <section>
+                    <h2>Copiando Objetos com a Sintaxe Spread</h2>
+                    <p>
+                        Você pode usar a sintaxe spread para copiar o conteúdo de um objeto e alterar apenas o que for necessário:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                                  setPerson({
+                                    ...person, 
+                                    firstName: e.target.value
+                                  });
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 45 Usando um Único Manipulador de Eventos-->
+                <section>
+                    <h2>Usando um Único Manipulador de Eventos</h2>
+                    <p>
+                        Você pode usar um único manipulador de eventos para atualizar várias propriedades de um objeto de estado:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                                  setPerson({
+                                    ...person,
+                                    [e.target.name]: e.target.value
+                                  });
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 46 objeto aninhado -->
+                <section>
+                    <h2>Atualizando um Objeto Aninhado</h2>
+                    <p>
+                        Para atualizar objetos aninhados, você precisa usar a sintaxe spread em múltiplos níveis:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                                  setPerson({
+                                    ...person,
+                                    artwork: {
+                                      ...person.artwork,
+                                      city: 'New Delhi'
+                                    }
+                                  });
+                                  </script></code></pre>
+                </section>
+
+                <!--Slide 47 Por que a Mutação de Estado não é Recomendada no React?-->
+                <section>
+                    <h2>Por que a Mutação de Estado não é Recomendada no React?</h2>
+                    <ul>
+                        <li><strong>Depuração:</strong> Logs anteriores não são afetados pelas mudanças mais recentes no estado.</li>
+                        <li><strong>Otimizações:</strong> Verificar se o estado foi alterado é mais rápido e fácil.</li>
+                        <li><strong>Novo Recursos:</strong> Recursos futuros do React dependem do estado ser tratado como um snapshot.
+                        </li>
+                    </ul>
+                </section>
+
+                <!--Slide 48 Atualizando Arrays no Estado-->
+                <section>
+                    <h2>Atualizando Arrays no Estado</h2>
+                    <p>
+                      Arrays em JavaScript são mutáveis, mas quando armazenados no estado React, você deve tratá-los como imutáveis. Sempre que precisar atualizar um array, crie uma cópia do original e use a função de configuração de estado para definir o novo array.
+                    </p>
+                  </section>
+                
+                  <!--Slide 49 Atualizando Arrays no Estado-->
+                <section>
+                  <h2>Atualizando Arrays Sem Mutação</h2>
+                  <p>
+                    Assim como objetos, arrays devem ser tratados como somente leitura. Evite métodos que mutam a array, como <code>push()</code> e <code>pop()</code>. Use métodos como <code>filter()</code> e <code>map()</code> para criar novas arrays.
+                  </p>
+                  <p><strong>Tabela de métodos:</strong></p>
+                  <ul>
+                    <li><strong>Evitar:</strong> <code>push</code>, <code>pop</code>, <code>splice</code></li>
+                    <li><strong>Preferir:</strong> <code>concat</code>, <code>filter</code>, <code>map</code></li>
+                  </ul>
+                </section>
+
+                <!--Slide 50 Atualizando Arrays no Estado-->
+                <section>
+                    <h2>Adicionando a um Array</h2>
+                    <p>
+                      Evite usar <code>push()</code>, que muta a array. Em vez disso, crie uma nova array usando a sintaxe de propagação:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  setArtists([
+                    ...artists, // Copia os itens antigos
+                    { id: nextId++, name: name } // Adiciona o novo item
+                  ]);
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 51 Atualizando Arrays no Estado-->
+                <section>
+                    <h2>Removendo de um Array</h2>
+                    <p>
+                      Para remover um item de um array sem mutá-lo, use <code>filter()</code> para produzir uma nova array sem o item desejado:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  setArtists(artists.filter(a => a.id !== artist.id));
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 52 Atualizando Arrays no Estado-->
+                <section>
+                    <h2>Modificando um Item em um Array</h2>
+                    <p>
+                      Para substituir um item no array, use <code>map()</code> para criar uma nova array com o item modificado:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  setCounters(counters.map((c, i) => {
+                    return i === index ? c + 1 : c;
+                  }));
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 53 Atualizando Arrays no Estado-->
+                <section>
+                    <h2>Inserindo em uma Posição Específica</h2>
+                    <p>
+                      Para inserir um item em uma posição específica, use a sintaxe de propagação junto com o método <code>slice()</code>:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  setArtists([
+                    ...artists.slice(0, insertAt),
+                    { id: nextId++, name: name },
+                    ...artists.slice(insertAt)
+                  ]);
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 54 Revertendo e Ordenando Arrays-->
+                <section>
+                    <h2>Revertendo e Ordenando Arrays</h2>
+                    <p>
+                      Métodos como <code>reverse()</code> e <code>sort()</code> mutam a array original. Para usá-los, faça uma cópia do array primeiro:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers"><script type="text/template">
+                  const nextList = [...list];
+                  nextList.reverse(); // ou nextList.sort();
+                  setList(nextList);
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 55 Atualizando Objetos Dentro de Arrays-->
+                <section>
+                    <h2>Atualizando Objetos Dentro de Arrays</h2>
+                    <p>
+                      Quando o array contém objetos, você deve copiar o objeto a ser modificado em vez de mutá-lo diretamente:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  setMyList(myList.map(artwork => {
+                    if (artwork.id === artworkId) {
+                      return { ...artwork, seen: nextSeen };
+                    } else {
+                      return artwork;
+                    }
+                  }));
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 56 Uso do Immer-->
+                <section>
+                    <h2>Uso do Immer</h2>
+                    <p>
+                      A biblioteca <strong>Immer</strong> permite escrever código com mutação direta, mas sem realmente modificar o estado original. Isso simplifica o processo de atualização de arrays e objetos complexos.
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  updateMyList(draft => {
+                    const artwork = draft.find(a => a.id === artworkId);
+                    artwork.seen = nextSeen;
+                  });
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 57 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Reagindo à Entrada com o Estado</h2>
+                    <p>
+                      O React fornece uma maneira declarativa de manipular a UI. Em vez de manipular diretamente cada elemento da interface, você descreve os diferentes estados do componente e alterna entre eles em resposta à entrada do usuário.
+                    </p>
+                </section>
+
+                <!--Slide 58 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>UI Declarativa vs Imperativa</h2>
+                    <p>
+                      <strong>Imperativa:</strong> O programador controla diretamente o que acontece com a UI, instruindo cada mudança. É como dar instruções passo a passo ao motorista.
+                    </p>
+                    <p>
+                      <strong>Declarativa:</strong> No React, você descreve o que deve ser exibido, e o React descobre como atualizar a UI. Isso torna a UI mais fácil de manter, especialmente em sistemas complexos.
+                    </p>
+                </section>
+
+                <!--Slide 59 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Estados Visuais no React</h2>
+                    <p>
+                      A UI pode ter diferentes estados visuais:
+                    </p>
+                    <ul>
+                      <li><strong>Vazio:</strong> Formulário com o botão "Enviar" desabilitado</li>
+                      <li><strong>Digitando:</strong> O botão "Enviar" é habilitado</li>
+                      <li><strong>Enviando:</strong> Formulário desabilitado com um spinner</li>
+                      <li><strong>Sucesso:</strong> Mensagem "Obrigado" exibida</li>
+                      <li><strong>Erro:</strong> Formulário com mensagem de erro</li>
+                    </ul>
+                </section>
+                
+                <!--Slide 60 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Estrutura Declarativa no React</h2>
+                    <p>
+                      No React, você declara o que deve ser exibido com base no estado do componente. Aqui está um exemplo de como declarar os diferentes estados de um formulário:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  export default function Form({ status = 'empty' }) {
+                    if (status === 'success') return <h1>That's right!</h1>;
+                    return (
+                      <>
+                        <form>
+                          <textarea disabled={status === 'submitting'} />
+                          <button disabled={status === 'empty' || status === 'submitting'}>
+                            Submit
+                          </button>
+                          {status === 'error' && <p className="Error">Try again!</p>}
+                        </form>
+                      </>
+                    );
+                  }
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 61 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Entradas que Disparam Mudanças de Estado</h2>
+                    <p>
+                      As mudanças de estado podem ser acionadas por:
+                    </p>
+                    <ul>
+                      <li><strong>Entradas humanas:</strong> Clicar em botões, digitar no campo</li>
+                      <li><strong>Entradas do sistema:</strong> Respostas de rede ou outros eventos assíncronos</li>
+                    </ul>
+                </section>
+
+                <!--Slide 62 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Representando o Estado com useState</h2>
+                    <p>
+                      Use <code>useState</code> para armazenar o estado necessário. Por exemplo:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  const [answer, setAnswer] = useState('');
+                  const [error, setError] = useState(null);
+                  // 'typing', 'submitting', or 'success'
+                  const [status, setStatus] = useState('typing');
+                  </script></code></pre>
+                    <p>Isso simplifica a lógica e mantém o estado controlado.</p>
+                </section>
+
+                <!--Slide 63 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Conectando os Manipuladores de Eventos</h2>
+                    <p>
+                      Para reagir às entradas do usuário, você precisará conectar os manipuladores de eventos. Aqui está um exemplo:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  async function handleSubmit(e) {
+                    e.preventDefault();
+                    setStatus('submitting');
+                    try {
+                      await submitForm(answer);
+                      setStatus('success');
+                    } catch (err) {
+                      setStatus('typing');
+                      setError(err);
+                    }
+                  }
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 64 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Exemplo Completo de Formulário em React</h2>
+                    <p>
+                      Este é o exemplo completo do formulário em React com todos os estados e lógica de interação conectados:
+                    </p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                  import { useState } from 'react';
+                  
+                  export default function Form() {
+                    const [answer, setAnswer] = useState('');
+                    const [error, setError] = useState(null);
+                    const [status, setStatus] = useState('typing');
+                  
+                    if (status === 'success') return <h1>That's right!</h1>;
+                  
+                    async function handleSubmit(e) {
+                      e.preventDefault();
+                      setStatus('submitting');
+                      try {
+                        await submitForm(answer);
+                        setStatus('success');
+                      } catch (err) {
+                        setStatus('typing');
+                        setError(err);
+                      }
+                    }
+                  
+                    return (
+                      <form onSubmit={handleSubmit}>
+                        <textarea
+                          value={answer}
+                          onChange={e => setAnswer(e.target.value)}
+                          disabled={status === 'submitting'}
+                        />
+                        <button disabled={answer.length === 0 || status === 'submitting'}>
+                          Submit
+                        </button>
+                        {error && <p className="Error">{error.message}</p>}
+                      </form>
+                    );
+                  }
+                  
+                  function submitForm(answer) {
+                    return new Promise((resolve, reject) => {
+                      setTimeout(() => {
+                        if (answer.toLowerCase() === 'lima') {
+                          resolve();
+                        } else {
+                          reject(new Error('Try again!'));
+                        }
+                      }, 1500);
+                    });
+                  }
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 65 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Escolhendo a Estrutura do Estado</h2>
+                    <p>
+                      Uma boa estrutura de estado pode facilitar a modificação e depuração de componentes. Existem alguns princípios que você pode seguir para estruturar melhor o estado.
+                    </p>
+                </section>
+
+                <!--Slide 66 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Princípios para Estruturação do Estado</h2>
+                    <ul>
+                      <li><strong>Grupo de estado relacionado:</strong> Variáveis de estado que sempre mudam juntas podem ser agrupadas.</li>
+                      <li><strong>Evitar contradições:</strong> O estado não deve ser contraditório.</li>
+                      <li><strong>Evitar estado redundante:</strong> Não mantenha dados que podem ser derivados de props ou outras variáveis de estado.</li>
+                    </ul>
+                </section>
+
+                  <!--Slide 66 Reagindo à Entrada com o Estado-->
+                  <section>
+                    <h2>Princípios para Estruturação do Estado</h2>
+                    <ul>
+                      <li><strong>Evitar duplicação:</strong> Dados duplicados são difíceis de manter sincronizados.</li>
+                      <li><strong>Evitar estados profundamente aninhados:</strong> Eles são difíceis de atualizar.</li>
+                    </ul>
+                </section>
+
+                <!--Slide 67 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Agrupando Estados Relacionados</h2>
+                    <p>Quando duas variáveis de estado mudam juntas, é preferível agrupá-las. Por exemplo, ao mover um cursor:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  const [position, setPosition] = useState({ x: 0, y: 0 });
+                  function handleMove(e) {
+                    setPosition({ x: e.clientX, y: e.clientY });
+                  }
+                  </script></code></pre>
+                </section>
+
+                <!--Slide 68 Reagindo à Entrada com o Estado-->
+                <section>
+                    <h2>Evitar Contradições no Estado</h2>
+                    <p>Exemplo de código onde o estado pode entrar em contradição:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+                  const [isSending, setIsSending] = useState(false);
+                  const [isSent, setIsSent] = useState(false);
+                  </script></code></pre>
+                    <p>Em vez disso, unifique o estado para evitar inconsistências:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                        // 'typing', 'sending', or 'sent'
+                        const [status, setStatus] = useState('typing'); 
+                  </script></code></pre>
+                  </section>
+
+                  <!--Slide 69 Reagindo à Entrada com o Estado-->
+                  <section>
+                    <h2>Evitar Estado Redundante</h2>
+                    <p>Não armazene no estado o que pode ser derivado de outras variáveis ou props:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  const fullName = firstName + ' ' + lastName;
+                  </script></code></pre>
+                    <p>A variável <code>fullName</code> é derivada e não precisa ser armazenada no estado.</p>
+                  </section>
+
+                    <!--Slide 70 Reagindo à Entrada com o Estado-->
+                  <section>
+                    <h2>Evitar Duplicação no Estado</h2>
+                    <p>Exemplo de código com duplicação de estado:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  const [items, setItems] = useState(initialItems);
+                  const [selectedItem, setSelectedItem] = useState(items[0]);
+                  </script></code></pre>
+                    <p>Em vez de duplicar, armazene apenas o <code>id</code> do item selecionado:</p>
+                    <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+                  const [selectedId, setSelectedId] = useState(0);
+                  const selectedItem = items.find(item => item.id === selectedId);
+                  </script></code></pre>
+                  </section>
+             
         </div>
     </div>
 
