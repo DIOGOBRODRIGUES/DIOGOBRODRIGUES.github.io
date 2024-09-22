@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 8: Seletores, cascata, especificidade, herança e boxmodel </title>
+
+  <meta name="description" content="Aula 7 de Programação Web: Multimídia, Tabelas HTML e Formulários">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 8: Seletores, cascata, especificidade, herança e boxmodel </h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - O que é CSS? -->
+      <section>
+        <h2>O que é CSS?</h2>
+        <p>CSS (Folhas de Estilo em Cascata) é uma linguagem usada para definir a apresentação visual de documentos HTML
+          e outros tipos de documentos, como SVG e XML.</p>
+      </section>
+
+      <!-- Slide 3 - Para que serve o CSS? -->
+      <section>
+        <h2>Para que serve o CSS?</h2>
+        <p>CSS permite estilizar documentos de maneira personalizada, definindo layout, cores, tipografia e até
+          animações. Ele separa a estrutura (HTML) da apresentação (CSS).</p>
+      </section>
+
+      <!-- Slide 4 - Sintaxe CSS -->
+      <section>
+        <h2>Sintaxe CSS</h2>
+        <p>CSS é uma linguagem baseada em regras. Cada regra CSS contém um seletor, propriedades e valores.</p>
+        <p>As <strong>Propriedades</strong> definem características do elemento. 
+          Os <strong>Valores</strong>valores são atribuídos a essas propriedades.</p>
+        <pre><code class="hljs css">
+h1 {
+color: red;
+font-size: 5em;
+}
+            </code></pre>
+      </section>
+
+      <!-- Slide 5 - Suporte de Navegadores -->
+      <section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+        <h2 >Suporte de Navegadores</h2>
+        <p>Nem todas as propriedades CSS são suportadas por todos os navegadores. Sempre consulte o MDN para verificar o
+          suporte antes de usar novas propriedades.</p>
+      </section>
+
+      <!-- Slide 6 - Iniciando com HTML -->
+      <section>
+        <h2>Iniciando com HTML</h2>
+        <p>Nosso ponto de partida é um documento HTML. Aqui está um exemplo simples:</p>
+        <pre><code class="hljs html">
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;title&gt;Getting started with CSS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;I am a level one heading&lt;/h1&gt;
+  &lt;p&gt;
+    This is a paragraph of text. In the text is a
+    &lt;span&gt;span element&lt;/span&gt; and also a
+    &lt;a href="http://example.com"&gt;link&lt;/a&gt;.
+  &lt;/p&gt;
+  &lt;p&gt;
+    This is the second paragraph. 
+    It contains an &lt;em&gt;emphasized&lt;/em&gt; element.
+  &lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Item one&lt;/li&gt;
+    &lt;li&gt;Item two&lt;/li&gt;
+    &lt;li&gt;Item &lt;em&gt;three&lt;/em&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+  </code></pre>
+      </section>
+
+      <!-- Slide 7 - Adicionando CSS ao documento -->
+      <section>
+        <h2>Adicionando CSS ao documento</h2>
+        <p>Crie um arquivo <code>style.css</code> e adicione a linha abaixo no <code>&lt;head&gt;</code>:</p>
+        <pre><code class="hljs html">
+&lt;link rel="stylesheet" href="styles.css" /&gt;
+  </code></pre>
+        <p>Exemplo de regra CSS no arquivo <code>styles.css</code>:</p>
+        <pre><code class="hljs css">
+h1 {
+color: red;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 8 - Estilizando elementos HTML -->
+      <section>
+        <h2>Estilizando elementos HTML</h2>
+        <p>Podemos estilizar elementos HTML usando seletores de elementos. Por exemplo, para alterar a cor de todos os
+          parágrafos para verde:</p>
+        <pre><code class="hljs css">
+p {
+color: green;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 9 - Alterando o comportamento padrão dos elementos -->
+      <section>
+        <h2>Alterando o comportamento padrão dos elementos</h2>
+        <p>Os navegadores aplicam estilos padrões aos elementos HTML. Para remover os marcadores de uma lista:</p>
+        <pre><code class="hljs css">
+li {
+list-style-type: none;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 10 - Incluindo uma classe -->
+      <section>
+        <h2>Incluindo uma classe</h2>
+        <p>Para estilizar apenas alguns elementos, usamos classes. Exemplo de adicionar uma classe ao HTML:</p>
+        <pre><code class="hljs html">
+&lt;li class="special"&gt;Item two&lt;/li&gt;
+  </code></pre>
+        <p>Exemplo de CSS para a classe:</p>
+        <pre><code class="hljs css">
+.special {
+color: orange;
+font-weight: bold;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 11 - Estilizando baseando-se na localização -->
+      <section>
+        <h2>Estilizando baseando-se na localização</h2>
+        <p>Podemos estilizar elementos com base em sua localização no documento. Exemplo de regra que afeta apenas
+          elementos <code>&lt;em&gt;</code> dentro de <code>&lt;li&gt;</code>:</p>
+        <pre><code class="hljs css">
+li em {
+color: rebeccapurple;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 12 - Estilizando links -->
+      <section>
+        <h2>Estilizando links</h2>
+        <p>Podemos estilizar links de acordo com seu estado. Exemplo de CSS para links não visitados e visitados:</p>
+        <pre><code class="hljs css">
+a:link {
+color: pink;
+}
+
+a:visited {
+color: green;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 13 - Combinando seletores -->
+      <section>
+        <h2>Combinando seletores</h2>
+        <p>Podemos combinar seletores para aplicar regras específicas. Exemplo:</p>
+        <pre><code class="hljs css">
+body h1 + p.special {
+color: yellow;
+background-color: black;
+padding: 5px;
+}
+  </code></pre>
+      </section>
+      <!-- Slide 14 - Aplicando CSS no seu HTML -->
+      <section>
+        <h2>Aplicando CSS no seu HTML</h2>
+        <p>Existem três métodos principais para aplicar CSS em um documento HTML:</p>
+        <ol>
+          <li><strong>Folha de Estilos Externa</strong></li>
+          <li>Folha de Estilos Interna</li>
+          <li>Estilos Inline</li>
+        </ol>
+      </section>
+
+      <!-- Slide 15 - Folha de Estilos Externa -->
+      <section>
+        <h2>Folha de Estilos Externa</h2>
+        <p>Uma folha de estilos externa é um arquivo .css separado referenciado no <code>&lt;head&gt;</code> do HTML.
+        </p>
+        <pre><code class="hljs html">
+&lt;link rel="stylesheet" href="styles.css" /&gt;
+  </code></pre>
+        <p>Exemplo de CSS no arquivo <code>styles.css</code>:</p>
+        <pre><code class="hljs css">
+h1 {
+color: blue;
+background-color: yellow;
+border: 1px solid black;
+}
+
+p {
+color: red;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 16 - Folha de Estilos Interna -->
+      <section>
+        <h2>Folha de Estilos Interna</h2>
+        <p>CSS pode ser incluído diretamente dentro do <code>&lt;head&gt;</code> do documento HTML usando a tag
+          <code>&lt;style&gt;</code>.</p>
+        <pre><code class="hljs html">
+&lt;style&gt;
+h1 {
+  color: blue;
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+p {
+  color: red;
+}
+&lt;/style&gt;
+  </code></pre>
+      </section>
+
+      <!-- Slide 17 - Estilos Inline -->
+      <section>
+        <h2>Estilos Inline</h2>
+        <p>Estilos inline são usados diretamente no atributo <code>style</code> de um elemento HTML, afetando apenas
+          esse elemento.</p>
+        <pre><code class="hljs html">
+&lt;h1 style="color: blue;background-color: yellow
+;border: 1px solid black;"&gt;
+Hello World!
+&lt;/h1&gt;
+&lt;p style="color:red;"&gt;This is my first CSS example&lt;/p&gt;
+  </code></pre>
+        <p><strong>⚠️Nota:</strong> Estilos inline devem ser evitados, pois dificultam a manutenção do código.</p>
+      </section>
+
+      <!-- Slide 18 - Especificidade no CSS -->
+      <section>
+        <h2>Especificidade no CSS</h2>
+        <p>Quando mais de uma regra CSS pode ser aplicada a um elemento, a especificidade determina qual estilo será
+          utilizado.</p>
+        <pre><code class="hljs css">
+.special {
+color: red;
+}
+
+p {
+color: blue;
+}
+  </code></pre>
+        <p>Se um <code>&lt;p&gt;</code> tiver a classe <code>special</code>, ele será vermelho, pois classes têm maior
+          especificidade do que elementos.</p>
+      </section>
+
+      <!-- Slide 19 - Propriedades e Valores -->
+      <section>
+        <h2>Propriedades e Valores no CSS</h2>
+        <p>Cada regra CSS é composta por propriedades e valores, como <code>font-size</code>, <code>width</code>,
+          <code>background-color</code>, entre outras.</p>
+        <pre><code class="hljs css">
+p {
+color: blue;
+font-size: 18px;
+background-color: lightgray;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 20 - Funções no CSS -->
+      <section>
+        <h2>Funções no CSS 🔢</h2>
+        <p>Algumas propriedades CSS podem utilizar funções. Exemplo de função <code>calc()</code> para fazer cálculos:
+        </p>
+        <pre><code class="hljs css">
+.box {
+width: calc(90% - 30px);
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 21 - @rules no CSS -->
+      <section>
+        <h2>@rules no CSS 📋</h2>
+        <p>As <code>@rules</code> são instruções especiais no CSS. Exemplo de <code>@media</code> para aplicar estilos
+          condicionais:</p>
+        <pre><code class="hljs css">
+@media (min-width: 30em) {
+body {
+  background-color: blue;
+}
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 22 - Como o CSS funciona? -->
+      <section>
+        <h2>Como o CSS funciona?</h2>
+        <p>Quando um navegador renderiza um documento, ele combina o HTML com o CSS. O processo simplificado é o
+          seguinte:</p>
+        <ol>
+          <li>Carregar o HTML.⬇️</li>
+          <li>Converter o HTML em um DOM (Document Object Model).🌐</li>
+          <li>Requisitar recursos adicionais, como imagens e folhas de estilo CSS.📄</li>
+          <li>Interpretar o CSS e criar a árvore de renderização.🌳</li>
+          <li>Organizar a árvore de renderização e aplicar as regras de estilo💻</li>
+          <!-- <li>Exibir o resultado na tela (pintura).</li> -->
+        </ol>
+      </section>
+
+      <!-- Slide 23 - Sobre o DOM -->
+      <section>
+        <h2>Sobre o DOM</h2>
+        <p>O DOM é uma estrutura em forma de árvore que representa o documento HTML. Cada elemento, atributo e texto
+          torna-se um nó no DOM.</p>
+        <p>Exemplo de como o DOM é estruturado:</p>
+        <pre><code class="hljs html">
+P
+├─ "Let's use:"
+├─ SPAN
+|  └─ "Cascading"
+├─ SPAN
+|  └─ "Style"
+└─ SPAN
+ └─ "Sheets"
+  </code></pre>
+      </section>
+
+      <!-- Slide 24 - O que acontece se o navegador não entende o CSS? -->
+      <section>
+        <h2>O que acontece se o navegador não entende o CSS?</h2>
+        <p>Se o navegador encontra uma propriedade ou valor que não reconhece, ele simplesmente ignora e passa para a
+          próxima declaração.</p>
+        <pre><code class="hljs css">
+p {
+font-weight: bold;
+colour: blue; /* Propriedade incorreta */
+font-size: 200%;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 25 - Compatibilidade com navegadores antigos -->
+      <section>
+        <h2>Compatibilidade com navegadores antigos</h2>
+        <p>Em caso de propriedades não suportadas por navegadores antigos, podemos oferecer alternativas. Exemplo de uso
+          da função <code>calc()</code>:</p>
+        <pre><code class="hljs css">
+.box {
+width: 500px;
+width: calc(100% - 50px);
+}
+  </code></pre>
+        <p>Navegadores antigos usarão a largura de 500px, enquanto navegadores modernos aplicarão o <code>calc()</code>.
+        </p>
+      </section>
+
+      <!-- Slide 26 - Debugging CSS -->
+      <section>
+        <h2>Debugging CSS</h2>
+        <p>Você pode usar as DevTools do navegador para inspecionar o DOM, verificar regras de estilo aplicadas e
+          debugar problemas no CSS.</p>
+      </section>
+
+      <!-- Slide 27 - Listas de seleção -->
+      <section>
+        <h2>Listas de seleção</h2>
+        <p>Se você tiver mais de um item usando o mesmo CSS, os seletores podem ser combinados em uma lista separada por
+          vírgulas.</p>
+        <pre><code class="hljs css">
+h1, .special {
+color: blue;
+}
+  </code></pre>
+        <p>Você pode incluir cada seletor em uma nova linha para legibilidade:</p>
+        <pre><code class="hljs css">
+h1,
+.special {
+color: blue;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 28 - Invalidando seletores combinados -->
+      <section>
+        <h2>Invalidando seletores combinados</h2>
+        <p>Quando combinamos seletores em uma lista, se algum dos seletores for inválido, a regra inteira será ignorada.
+        </p>
+        <pre><code class="hljs css">
+h1,
+..special {
+color: blue;
+}
+  </code></pre>
+        <p>No exemplo acima, ambos os seletores serão ignorados porque o seletor <code>..special</code> é inválido.</p>
+      </section>
+
+      <!-- Slide 29 - Tipos de seletores -->
+      <section>
+        <h2>Tipos de seletores</h2>
+        <ul>
+          <li>Seletor de tipo: <code>h1 { }</code></li>
+          <li>Seletor de classe: <code>.box { }</code></li>
+          <li>Seletor de ID: <code>#unique { }</code></li>
+        </ul>
+      </section>
+
+      <!-- Slide 30 - Seletor de atributos -->
+      <section>
+        <h2>Seletor de atributos</h2>
+        <p>Você pode selecionar elementos com base em atributos específicos:</p>
+        <pre><code class="hljs css">
+a[title] {
+color: red;
+}
+
+a[href="https://example.com"] {
+color: green;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 31 - Pseudo-classes e pseudo-elementos -->
+      <section>
+        <h2>Pseudo-classes e pseudo-elementos</h2>
+        <p>Pseudo-classes definem estilos para estados específicos de um elemento.</p>
+        <pre><code class="hljs css">
+a:hover {
+text-decoration: none;
+}
+  </code></pre>
+        <p>Pseudo-elementos selecionam partes de um elemento, como a primeira linha de um parágrafo:</p>
+        <pre><code class="hljs css">
+p::first-line {
+font-weight: bold;}
+  </code></pre>
+      </section>
+      <!-- Slide 32 - Combinadores -->
+      <section>
+        <h2>Combinadores</h2>
+        <p>Combinadores combinam seletores para direcionar elementos. Exemplo de combinador filho:</p>
+        <pre><code class="hljs css">
+article > p {
+color: gray;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 33 - Tipos de combinadores -->
+      <section>
+        <h2>Tipos de combinadores</h2>
+        <ul>
+          <li>Combinador descendente: <code>article p</code></li>
+          <li>Combinador filho: <code>article > p</code></li>
+          <li>Combinador de irmão adjacente: <code>h1 + p</code></li>
+          <li>Combinador de irmão geral: <code>h1 ~ p</code></li>
+        </ul>
+      </section>
+
+
+      <!-- Slide 34 - Tabela de referência de seletores -->
+      <section>
+        <h2>Tabela de referência de seletores</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Seletor</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Seletor de tipo</td>
+              <td><code>h1 { }</code></td>
+            </tr>
+            <tr>
+              <td>Seletor universal</td>
+              <td><code>* { }</code></td>
+            </tr>
+            <tr>
+              <td>Seletor de classe</td>
+              <td><code>.box { }</code></td>
+            </tr>
+            <tr>
+              <td>Seletor de ID</td>
+              <td><code>#unique { }</code></td>
+            </tr>
+            <tr>
+              <td>Seletor de atributo</td>
+              <td><code>a[title] { }</code></td>
+            </tr>
+
+            <tr>
+              <td>Pseudo-classes</td>
+              <td><code>p:first-child { }</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+
+      <!-- Slide 35 - Tabela de referência de seletores -->
+      <section>
+        <h2>Tabela de referência de seletores</h2>
+        <table>
+
+
+          <tr>
+            <td>Pseudo-elementos</td>
+            <td><code>p::first-line { }</code></td>
+          </tr>
+          <tr>
+            <td>Combinador descendente</td>
+            <td><code>article p</code></td>
+          </tr>
+          <tr>
+            <td>Combinador filho</td>
+            <td><code>article > p</code></td>
+          </tr>
+          <tr>
+            <td>Combinador de irmão adjacente</td>
+            <td><code>h1 + p</code></td>
+          </tr>
+          <tr>
+            <td>Combinador de irmão geral</td>
+            <td><code>h1 ~ p</code></td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
+
+
+      <!-- Slide 36 - Seletores de tipo -->
+      <section>
+        <h2>Seletores de tipo</h2>
+        <p>Um seletor de tipo (ou de elemento) seleciona uma tag/elemento HTML em seu documento. Exemplo:</p>
+        <pre><code class="hljs css">
+span, em, strong {
+color: red;
+}
+  </code></pre>
+        <p>Tente adicionar uma regra CSS para selecionar o elemento <code>&lt;h1&gt;</code> e mudar sua cor para azul.
+        </p>
+      </section>
+
+      <!-- Slide 37 - O seletor universal -->
+      <section>
+        <h2>O seletor universal</h2>
+        <p>O seletor universal <code>*</code> seleciona todos os elementos do documento. Exemplo para remover margens:
+        </p>
+        <pre><code class="hljs css">
+* {
+margin: 0;
+padding: 0;
+}
+  </code></pre>
+        <p>Ele é útil para redefinir estilos padrão do navegador.</p>
+      </section>
+
+
+      <!-- Slide 38 - Seletores de classe -->
+      <section>
+        <h2>Seletores de classe</h2>
+        <p>O seletor de classe começa com um ponto (<code>.</code>). Ele seleciona todos os elementos com a classe
+          especificada.</p>
+        <pre><code class="hljs css">
+.highlight {
+background-color: yellow;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 39 - Segmentação de classes em elementos específicos -->
+      <section>
+        <h2>Segmentação de classes em elementos específicos</h2>
+        <p>Para direcionar um elemento específico com uma classe, combine o seletor de tipo com a classe. Exemplo:</p>
+        <pre><code class="hljs css">
+h1.highlight {
+color: blue;
+}
+  </code></pre>
+        <p>Isso aplica a regra apenas ao <code>&lt;h1&gt;</code> com a classe <code>highlight</code>.</p>
+      </section>
+
+      <!-- Slide 40 - Segmentando elementos com múltiplas classes -->
+      <section>
+        <h2>Segmentando elementos com múltiplas classes</h2>
+        <p>Você pode aplicar múltiplas classes a um elemento e criar regras CSS que as combinem. Exemplo:</p>
+        <pre><code class="hljs css">
+.notebox.warning {
+border-color: orange;
+}
+  </code></pre>
+        <p>A regra acima só será aplicada se o elemento tiver ambas as classes <code>notebox</code> e
+          <code>warning</code>.</p>
+      </section>
+
+      <!-- Slide 41 - Seletores de ID -->
+      <section>
+        <h2>Seletores de ID</h2>
+        <p>O seletor de ID começa com um <code>#</code> e seleciona elementos com o ID especificado.</p>
+        <pre><code class="hljs css">
+#unique {
+color: green;
+}
+  </code></pre>
+        <p>IDs devem ser únicos em uma página, ou seja, um ID só pode ser usado uma vez.</p>
+      </section>
+
+      <!-- Slide 42 - Seletores de ID com tipo -->
+      <section>
+        <h2>Seletores de ID com tipo</h2>
+        <p>Você pode combinar o seletor de tipo com o seletor de ID para limitar ainda mais a regra. Exemplo:</p>
+        <pre><code class="hljs css">
+h1#unique {
+font-size: 2em;
+}
+  </code></pre>
+        <p>Isso aplica a regra apenas ao <code>&lt;h1&gt;</code> com o ID <code>unique</code>.</p>
+      </section>
+
+      <!-- Slide 43 - Aviso sobre IDs -->
+      <section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+        <h2>⚠️ Aviso sobre IDs</h2>
+        <p>Evite usar o mesmo ID mais de uma vez em um documento. Isso resultará em código inválido e pode causar
+          comportamentos inesperados.</p>
+        <p>Use classes para aplicar estilos repetidamente a múltiplos elementos.</p>
+      </section>
+      <!-- Slide 44 - Seletores de Presença e Valor -->
+      <section>
+        <h2>Seletores de Presença e Valor</h2>
+        <p>Esses seletores permitem selecionar elementos com base na presença de um atributo ou em correspondências
+          específicas do valor do atributo.</p>
+        <table style="max-width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif;">
+          <thead>
+            <tr>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Seletor</th>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Exemplo</th>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background-color: #908a8a;">
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">[attr]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">a[title]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos com um
+                atributo <code style="padding: 2px 4px; border-radius: 3px;">attr</code>.</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">[attr=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">a[href='https://example.com']</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos com um
+                atributo cujo valor é exatamente <code style="padding: 2px 4px; border-radius: 3px;">value</code>.</td>
+            </tr>
+            <tr style="background-color: #908a8a;">
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">[attr~=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">p[class~="special"]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos com um
+                atributo cujo valor contém <code style="padding: 2px 4px; border-radius: 3px;">value</code> em uma lista
+                separada por espaços.</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">[attr|=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code
+                  style="padding: 2px 4px; border-radius: 3px;">div[lang|="zh"]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos cujo
+                valor do atributo começa com <code style="padding: 2px 4px; border-radius: 3px;">value</code> seguido
+                por um hífen.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      
+      <!-- Slide 45 - Seletores de SubString -->
+      <section>
+        <h2>Seletores de SubString</h2>
+        <p>Esses seletores permitem correspondências avançadas de substrings dentro do valor do atributo. Exemplos:</p>
+        <table style="max-width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif;">
+          <thead>
+            <tr>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Seletor</th>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Exemplo</th>
+              <th
+                style="padding: 8px 10px; border: 1px solid #dddddd; text-align: left; background-color: #4CAF50; color: white; font-size: 14px;">
+                Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background-color: #5d5858;">
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>[attr^=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>li[class^="box-"]</code>
+              </td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos cujo
+                valor do atributo começa com <code>value</code>.</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>[attr$=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>li[class$="-box"]</code>
+              </td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos cujo
+                valor do atributo termina com <code>value</code>.</td>
+            </tr>
+            <tr style="background-color: #5d5858;">
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>[attr*=value]</code></td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;"><code>li[class*="box"]</code>
+              </td>
+              <td style="padding: 8px 10px; border: 1px solid #dddddd; font-size: 14px;">Corresponde a elementos cujo
+                valor do atributo contém <code>value</code> em qualquer parte da string.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Slide 46 - Sensibilidade a maiúsculas e minúsculas -->
+      <section>
+        <h2>Sensibilidade a maiúsculas e minúsculas</h2>
+        <p>Para combinar valores de atributos sem distinguir maiúsculas e minúsculas, use o valor <code>i</code> antes
+          do colchete de fechamento.</p>
+        <pre><code class="hljs css">
+li[class^="a" i] {
+color: green;
+}
+  </code></pre>
+        <p>Isso faz com que o navegador ignore a diferença entre letras maiúsculas e minúsculas ao comparar os valores.
+        </p>
+      </section>
+
+     
+      <!-- Slide 47 - O que é uma pseudo-classe? -->
+      <section>
+        <h2>O que é uma pseudo-classe?</h2>
+        <p>Uma pseudo-classe é um seletor que seleciona elementos que estão em um estado específico, como quando o
+          elemento é o primeiro de seu tipo ou está sendo apontado pelo mouse.</p>
+        <p>As pseudo-classes são úteis para reduzir o número de classes em seu HTML, tornando o código mais flexível e
+          fácil de manter.</p>
+        <p>Exemplo de pseudo-classe: <code>:hover</code></p>
+      </section>
+
+      <!-- Slide 48 - Exemplo de pseudo-classe simples -->
+      <section>
+        <h2>Exemplo de pseudo-classe simples</h2>
+        <p>Para tornar o primeiro parágrafo de um artigo maior e em negrito, podemos usar a pseudo-classe
+          <code>:first-child</code> em vez de adicionar uma classe no HTML:</p>
+        <pre><code class="hljs css">
+article p:first-child {
+font-size: 1.5em;
+font-weight: bold;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 49 Pseudo-classes de ação do usuário -->
+      <section>
+        <h2>Pseudo-classes de ação do usuário</h2>
+        <p>Algumas pseudo-classes só se aplicam quando o usuário interage com o documento. Exemplos incluem:</p>
+        <ul>
+          <li><code>:hover</code> — Aplica-se quando o ponteiro do mouse passa sobre um elemento.</li>
+          <li><code>:focus</code> — Aplica-se quando o elemento recebe foco, como ao ser clicado ou usando o teclado.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Slide 50 - O que é um pseudo-elemento? -->
+      <section>
+        <h2>O que é um pseudo-elemento?</h2>
+        <p>Pseudo-elementos funcionam de forma semelhante às pseudo-classes, mas simulam a adição de um novo elemento
+          HTML no documento, em vez de aplicar uma classe a elementos existentes.</p>
+        <p>Os pseudo-elementos começam com dois-pontos duplos, como <code>::before</code>.</p>
+      </section>
+
+      <!-- Slide 51 - Exemplo de pseudo-elemento -->
+      <section>
+        <h2>Exemplo de pseudo-elemento</h2>
+        <p>O pseudo-elemento <code>::first-line</code> seleciona a primeira linha de um parágrafo e aplica estilos a
+          ela:</p>
+        <pre><code class="hljs css">
+p::first-line {
+font-weight: bold;
+font-size: 1.2em;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 52 - Combinando pseudo-classes e pseudo-elementos -->
+      <section>
+        <h2>Combinando pseudo-classes e pseudo-elementos</h2>
+        <p>Você pode combinar pseudo-classes e pseudo-elementos para criar seletores mais específicos. Exemplo:</p>
+        <pre><code class="hljs css">
+article p:first-child::first-line {
+font-size: 120%;
+font-weight: bold;
+}
+  </code></pre>
+        <p>Esse código aplica estilo à primeira linha do primeiro parágrafo dentro de um <code>&lt;article&gt;</code>.
+        </p>
+      </section>
+
+      <!-- Slide 53 - Gerando conteúdo com ::before e ::after -->
+      <section>
+        <h2>Gerando conteúdo com <code>::before</code> e <code>::after</code></h2>
+        <p>Os pseudo-elementos <code>::before</code> e <code>::after</code> são usados em conjunto com a propriedade
+          <code>content</code> para inserir conteúdo via CSS.</p>
+        <pre><code class="hljs css">
+p::before {
+content: "Nota: ";
+font-weight: bold;
+}
+  </code></pre>
+        <p>Isso insere a string "Nota: " antes de um parágrafo.</p>
+      </section>
+
+      <!-- Slide 54 - Exemplo de inserção de conteúdo visual -->
+      <section>
+        <h2>Exemplo de inserção de conteúdo visual</h2>
+        <p>É comum usar <code>::before</code> e <code>::after</code> para inserir ícones ou indicadores visuais, como
+          uma seta:</p>
+        <pre><code class="hljs css">
+li::after {
+content: " →";
+color: gray;
+}
+  </code></pre>
+        <p>Isso adiciona uma seta ao final ao itens de uma lista, sem afetar a acessibilidade para leitores de tela.</p>
+      </section>
+
+      <!-- Slide 55 - Estilizando elementos com pseudo-elementos -->
+      <section>
+        <h2>Estilizando elementos com pseudo-elementos</h2>
+        <p>Você pode usar pseudo-elementos como <code>::before</code> para adicionar estilos a uma string vazia, criando
+          elementos visuais personalizados:</p>
+        <pre><code class="hljs css">
+p::before {
+content: "";
+display: block;
+width: 50px;
+height: 50px;
+background-color: red;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 56 - Combinador de descendente -->
+      <section>
+        <h2>Combinador de descendente</h2>
+        <p>O combinador de descendente é representado por um espaço entre dois seletores. Ele seleciona elementos
+          correspondentes ao segundo seletor que possuem um ancestral que corresponde ao primeiro seletor.</p>
+        <pre><code class="hljs css">
+body article p {
+color: blue;
+}
+  </code></pre>
+        <p>No exemplo acima, o seletor <code>p</code> corresponde apenas ao parágrafo que está dentro de um elemento
+          <code>&lt;article&gt;</code> dentro do <code>&lt;body&gt;</code>.</p>
+      </section>
+
+      <!-- Slide 57 - Combinador de filho direto -->
+      <section>
+        <h2>Combinador de filho direto</h2>
+        <p>O combinador de filho direto <code>></code> é colocado entre dois seletores. Ele seleciona apenas os
+          elementos correspondentes ao segundo seletor que são filhos diretos do primeiro.</p>
+        <pre><code class="hljs css">
+article > p {
+color: green;
+}
+  </code></pre>
+        <p>No exemplo acima, apenas os parágrafos que são filhos diretos de um <code>&lt;article&gt;</code> serão
+          estilizados.</p>
+      </section>
+
+      <!-- Slide 58 - Exemplo: Combinador de filho direto -->
+      <section>
+        <h2>Exemplo: Combinador de filho direto</h2>
+        <p>Em uma lista ordenada (<code>&lt;ol&gt;</code>) dentro de uma lista não ordenada (<code>&lt;ul&gt;</code>), o
+          combinador de filho direto aplica o estilo apenas aos itens que são filhos diretos do <code>&lt;ul&gt;</code>:
+        </p>
+        <pre><code class="hljs css">
+ul > li {
+border-top: 1px solid red;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 59 - Combinador de próximo irmão -->
+      <section>
+        <h2>Combinador de próximo irmão</h2>
+        <p>O combinador de próximo irmão <code>+</code> seleciona o elemento que é o próximo irmão imediatamente após o
+          elemento correspondente ao primeiro seletor.</p>
+        <pre><code class="hljs css">
+p + img {
+border: 2px solid black;
+}
+  </code></pre>
+        <p>Esse seletor seleciona imagens que vêm imediatamente após um parágrafo no HTML.</p>
+      </section>
+
+      <!-- Slide 60 - Exemplo: Combinador de próximo irmão -->
+      <section>
+        <h2>Exemplo: Combinador de próximo irmão</h2>
+        <p>Um caso comum é estilizar um parágrafo que segue diretamente um título <code>&lt;h1&gt;</code>:</p>
+        <pre><code class="hljs css">
+h1 + p {
+background-color: lightgray;
+color: darkblue;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 61 - Combinador de irmãos subsequentes -->
+      <section>
+        <h2>Combinador de irmãos subsequentes</h2>
+        <p>O combinador de irmãos subsequentes <code>~</code> seleciona todos os elementos que vêm após o elemento
+          correspondente ao primeiro seletor, independentemente de serem irmãos imediatos ou não.</p>
+        <pre><code class="hljs css">
+p ~ img {
+border: 2px dashed blue;
+}
+  </code></pre>
+        <p>Isso seleciona todas as imagens que vêm após um parágrafo, mesmo que não sejam irmãs diretas.</p>
+      </section>
+
+      <!-- Slide 62 - Exemplo: Combinador de irmãos subsequentes -->
+      <section>
+        <h2>Exemplo: Combinador de irmãos subsequentes</h2>
+        <p>Selecione todos os parágrafos que vêm após um <code>&lt;h1&gt;</code>, mesmo que haja outros elementos entre
+          eles:</p>
+        <pre><code class="hljs css">
+h1 ~ p {
+color: darkgreen;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 63 - Criando seletores complexos com aninhamento -->
+      <section>
+        <h2>Criando seletores complexos com aninhamento</h2>
+        <p>O módulo de aninhamento CSS permite criar seletores complexos com combinadores. Exemplo:</p>
+        <pre><code class="hljs css">
+p {
+~ img {
+  border: 1px solid black;
+}
+}
+  </code></pre>
+        <p>Isso é interpretado pelo navegador como:</p>
+        <pre><code class="hljs css">
+p ~ img {
+border: 1px solid black;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 64 - Utilizando o seletor de aninhamento & -->
+      <section>
+        <h2>Utilizando o seletor de aninhamento &</h2>
+        <p>O seletor de aninhamento <code>&</code> pode ser usado para criar seletores complexos:</p>
+        <pre><code class="hljs css">
+p {
+& img {
+  margin-left: 10px;
+}
+}
+  </code></pre>
+        <p>Isso é interpretado como:</p>
+        <pre><code class="hljs css">
+p img {
+margin-left: 10px;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 65 - Usando combinadores -->
+      <section>
+        <h2>Usando combinadores</h2>
+        <p>Você pode combinar qualquer seletor com combinadores para selecionar partes específicas do documento.
+          Exemplo:</p>
+        <pre><code class="hljs css">
+ul > li[class="a"] {
+color: purple;
+}
+  </code></pre>
+        <p>Isso seleciona os itens da lista com a classe "a" que são filhos diretos de um <code>&lt;ul&gt;</code>.</p>
+      </section>
+
+      <!-- Slide 66 - Cuidados ao criar seletores complexos -->
+      <section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+        <h2>⚠️ Cuidados ao criar seletores complexos</h2>
+        <p>Criar listas grandes de seletores muito específicos pode dificultar a reutilização de regras CSS. Prefira
+          usar classes para tornar seu código mais simples e reutilizável.</p>
+      </section>
+
+
+      <!-- Slide 67 - Introdução à cascata, especificidade e herança -->
+      <section>
+        <h2>Cascata, Especificidade e Herança</h2>
+        <p>Esses conceitos são fundamentais para entender como o CSS é aplicado ao HTML e como resolver conflitos entre
+          regras de estilo.</p>
+        <p><strong>A compreensão desses tópicos evitará problemas e facilitará a manutenção do CSS.</strong></p>
+      </section>
+
+      <!-- Slide 68 - Regras conflitantes em CSS -->
+      <section>
+        <h2>Regras conflitantes</h2>
+        <p>Em CSS, a cascata e a especificidade controlam qual regra se aplica quando há conflito entre declarações de
+          estilo.</p>
+        <p>Além disso, a <strong>herança</strong> permite que certas propriedades sejam herdadas por elementos filhos.</p>
+      </section>
+
+      <!-- Slide 69 - Cascata no CSS -->
+      <section>
+        <h2>Cascata no CSS</h2>
+        <p>A cascata refere-se à importância da origem e ordem das regras CSS. Se duas regras têm a mesma
+          especificidade, a que aparece por último é aplicada.</p>
+        <pre><code class="hljs css">
+h1 {
+color: red;
+}
+
+h1 {
+color: blue;
+}
+  </code></pre>
+        <p>O <code>h1</code> ficará azul, pois a segunda regra vem por último.</p>
+      </section>
+
+      <!-- Slide 70 - O que é especificidade? -->
+      <section>
+        <h2>O que é especificidade?</h2>
+        <p>A especificidade é o algoritmo que decide qual regra CSS é aplicada quando múltiplos seletores têm o mesmo
+          alvo.</p>
+        <p><strong>Seletores mais específicos têm mais "peso" e substituem os menos específicos.</strong></p>
+      </section>
+
+      <!-- Slide 71 - Exemplo de especificidade -->
+      <section>
+        <h2>Exemplo de Especificidade</h2>
+        <p>Regras conflitantes são resolvidas pela especificidade dos seletores:</p>
+        <pre><code class="hljs css">
+h1 {
+color: blue;
+}
+
+.main-heading {
+color: red;
+}
+  </code></pre>
+        <p>O <code>h1</code> será vermelho, pois o seletor de classe <code>.main-heading</code> tem maior
+          especificidade.</p>
+      </section>
+
+      <!-- Slide 72 - Herança em CSS -->
+      <section>
+        <h2>Herança em CSS</h2>
+        <p>Algumas propriedades, como <code>color</code> e <code>font-family</code>, são herdadas pelos elementos
+          filhos.</p>
+        <p>Outras propriedades, como <code>width</code> e <code>margin</code>, não são herdadas.</p>
+      </section>
+
+      <!-- Slide 73 - Exemplo de herança -->
+      <section>
+        <h2>Exemplo de Herança</h2>
+        <p>Se definirmos <code>color</code> e <code>font-family</code> no elemento pai, os filhos herdarão esses
+          estilos:</p>
+        <pre><code class="hljs css">
+div {
+color: green;
+font-family: Arial;
+}
+  </code></pre>
+      </section>
+
+  </code></pre>
+      </section>
+
+      <!-- Slide 74 - Entendendo a cascata -->
+      <section>
+        <h2>Entendendo a Cascata</h2>
+        <p>A cascata define quais regras CSS se aplicam quando várias regras conflitantes definem a mesma propriedade
+          para um elemento.</p>
+        <p>Há três fatores a considerar:</p>
+        <ol>
+          <li>Ordem de origem</li>
+          <li>Especificidade</li>
+          <li>Importância</li>
+        </ol>
+      </section>
+
+      <!-- Slide 75 - Ordem de origem -->
+      <section>
+        <h2>Ordem de Origem</h2>
+        <p>Se as regras têm o mesmo peso, a regra que vier por último será aplicada. A ordem de origem só importa quando
+          a especificidade é igual.</p>
+      </section>
+
+      <!-- Slide 76 - Especificidade em CSS -->
+      <section>
+        <h2>Especificidade em CSS</h2>
+        <p>Especificidade é calculada atribuindo "pontos" para diferentes tipos de seletores:</p>
+        <ul>
+          <li>ID: 100 pontos</li>
+          <li>Classe, pseudoclasse: 10 pontos</li>
+          <li>Elemento, pseudoelemento: 1 ponto</li>
+        </ul>
+      </section>
+
+      <!-- Slide 77 - Exemplo de especificidade calculada -->
+      <section>
+        <h2>Exemplo de Especificidade Calculada</h2>
+        <pre><code class="hljs css">
+#id {
+/* Especificidade: 1-0-0 */
+}
+
+.class {
+/* Especificidade: 0-1-0 */
+}
+
+h1 {
+/* Especificidade: 0-0-1 */
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 78 - Estilos embutidos e !important -->
+      <section>
+        <h2>Estilos Embutidos e <code>!important</code></h2>
+        <p>Estilos embutidos têm alta prioridade. O sinalizador <code>!important</code> pode sobrescrever todos os
+          outros estilos, incluindo os embutidos.</p>
+        <pre><code class="hljs css">
+p {
+color: red !important;
+}
+  </code></pre>
+      </section>
+
+   
+
+      <!-- Slide 79 - Introdução ao Modelo de Caixa (Box Model) -->
+      <section>
+        <h2>O Modelo de Caixa (Box Model)</h2>
+        <p>Em CSS, tudo tem um "quadro" ao seu redor, conhecido como Modelo de Caixa. Compreender este conceito é
+          fundamental para criar layouts complexos e alinhar itens adequadamente.</p>
+      </section>
+
+      <!-- Slide 80 - Estrutura do Box Model -->
+      <section>
+        <h2>Estrutura do Box Model</h2>
+        <p>O modelo de caixa do CSS é composto de quatro áreas, de dentro para fora:</p>
+        <ul>
+          <li><strong>Conteúdo (Content)</strong></li>
+          <li><strong>Preenchimento (Padding)</strong></li>
+          <li><strong>Borda (Border)</strong></li>
+          <li><strong>Margem (Margin)</strong></li>
+        </ul>
+      </section>
+
+
+       <!-- Slide 81 - Estrutura do Box Model -->
+       <section>
+        <h2>Estrutura do Box Model</h2>
+        <img src="imagens/box-model.png" alt="Estrutura do Box Model" style="max-width: 100%;">
+      </section>
+
+      <!-- Slide 82 - O Conteúdo (Content) -->
+      <section>
+        <h2>O Conteúdo (Content)</h2>
+        <p>Esta é a área onde o conteúdo real do elemento é exibido. O tamanho da caixa de conteúdo pode ser controlado
+          com propriedades como <code>width</code> e <code>height</code>.</p>
+      </section>
+
+      <!-- Slide 83 - O Preenchimento (Padding) -->
+      <section>
+        <h2>O Preenchimento (Padding)</h2>
+        <p>O preenchimento é o espaço entre o conteúdo e a borda do elemento. Ele pode ser definido para criar um
+          espaçamento interno usando a propriedade <code>padding</code>.</p>
+        <pre><code class="hljs css">
+div {
+padding: 20px;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 84 - A Borda (Border) -->
+      <section>
+        <h2>A Borda (Border)</h2>
+        <p>A borda envolve o preenchimento e o conteúdo. Ela pode ter sua largura, estilo e cor ajustados com a
+          propriedade <code>border</code>.</p>
+        <pre><code class="hljs css">
+div {
+border: 2px solid black;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 85 - A Margem (Margin) -->
+      <section>
+        <h2>A Margem (Margin)</h2>
+        <p>A margem é o espaço externo ao redor da borda do elemento. A propriedade <code>margin</code> controla o
+          espaçamento entre um elemento e os outros elementos ao redor.</p>
+        <pre><code class="hljs css">
+div {
+margin: 15px;
+}
+  </code></pre>
+      </section>
+
+      <!-- Slide 86 - Exemplo completo do Box Model -->
+      <section>
+        <h2>Exemplo Completo do Box Model</h2>
+        <p>O exemplo abaixo ilustra o conteúdo, preenchimento, borda e margem de um elemento:</p>
+        <pre><code class="hljs css">
+div {
+width: 200px;
+height: 100px;
+padding: 10px;
+border: 2px solid red;
+margin: 20px;
+}
+  </code></pre>
+        <p>Esse estilo cria uma caixa com 200px de largura, 100px de altura, 10px de preenchimento, 2px de borda e 20px
+          de margem.</p>
+      </section>
+
+
+            <!-- Slide 2 - Introdução ao Box Model e Caixas Inline -->
+            <section>
+              <h2>O que são Caixas Inline?</h2>
+              <p>Caixas inline são aquelas criadas por elementos inline como <code>&lt;span&gt;</code>.</p>
+              <p>Embora algumas propriedades do modelo de caixa (Box Model) possam ser aplicadas a essas caixas, o comportamento pode ser diferente em relação às caixas de bloco.</p>
+          </section>
+
+          <!-- Slide 3 - Exemplo de Caixas Inline -->
+          <section>
+              <h2>Exemplo: Caixas Inline</h2>
+              <p>No exemplo abaixo, aplicamos <code>width</code>, <code>height</code>, <code>margin</code>, <code>border</code> e <code>padding</code> a um <code>&lt;span&gt;</code> dentro de um parágrafo.</p>
+              <pre><code class="hljs css">
+span {
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid black;
+}
+              </code></pre>
+              <p>Você verá que <code>width</code> e <code>height</code> são ignorados, e o <code>padding</code> e <code>border</code> verticais sobrepõem outras palavras no parágrafo.</p>
+          </section>
+
+          <!-- Slide 4 - Usando display: inline-block -->
+          <section>
+              <h2>Usando <code>display: inline-block</code></h2>
+              <p>A propriedade <code>display: inline-block</code> oferece uma solução intermediária entre inline e block.</p>
+              <ul>
+                  <li>Respeita as propriedades <code>width</code> e <code>height</code>.</li>
+                  <li><code>padding</code>, <code>margin</code> e <code>border</code> afastam outros elementos.</li>
+                  <li>Não quebra para uma nova linha como elementos de bloco.</li>
+              </ul>
+          </section>
+
+          <!-- Slide 5 - Exemplo de display: inline-block -->
+          <section>
+              <h2>Exemplo: <code>display: inline-block</code></h2>
+              <p>No exemplo abaixo, aplicamos <code>display: inline-block</code> ao <code>&lt;span&gt;</code>:</p>
+              <pre><code class="hljs css">
+span {
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  padding: 10px;
+  border: 2px solid red;
+}
+              </code></pre>
+              <p>Agora, as propriedades <code>width</code> e <code>height</code> são respeitadas.</p>
+          </section>
+
+          <!-- Slide 6 - Uso prático em links -->
+          <section>
+              <h2>Uso Prático: <code>display: inline-block</code> em Links</h2>
+              <p>Ao usar <code>display: inline-block</code> em elementos <code>&lt;a&gt;</code>, podemos adicionar <code>padding</code> para aumentar a área de clique, sem quebrar a linha.</p>
+              <pre><code class="hljs css">
+.links-list a {
+  display: inline-block;
+  padding: 10px;
+  background-color: lightblue;
+}
+              </code></pre>
+          </section>
+
+          <!-- Slide 7 - Exemplo prático com barra de navegação -->
+          <section>
+              <h2>Exemplo: Barra de Navegação</h2>
+              <p>Barra de navegação com <code>&lt;a&gt;</code> e <code>display: inline-block</code> para adicionar padding e facilitar a interação:</p>
+              <pre><code class="hljs css">
+nav a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  text-decoration: none;
+  color: #333;
+}
+
+nav a:hover {
+  background-color: #ddd;
+}
+              </code></pre>
+          </section>
+          <section>
+            <h2>✨ Aula Concluída! ✨</h2>
+            <p>Parabéns, você chegou ao fim da aula!</p>
+            <p>📚 Para continuar seus estudos, recomendamos as seguintes referências:</p>
+            <ul>
+                <li>🔗 <a href="https://www.w3schools.com/" target="_blank">W3Schools</a> - Um ótimo recurso para aprender HTML, CSS e JavaScript.</li>
+                <li>🔗 <a href="https://developer.mozilla.org/pt-BR/" target="_blank">MDN Web Docs</a> - Documentação abrangente da Mozilla para desenvolvedores web.</li>
+            </ul>
+            <p>🎉 Continue praticando e até a próxima aula! 🚀</p>
+        </section>
+    </div>
+  </div>
+
+  Tudo em CSS tem um quadro em torno de si, e entender estes quadros é chave para ser capaz de criar arranjos ( layouts
+  ) com CSS, ou para alinhar itens com outros itens. Nesta lição, olharemos de modo apropiado para o modelo de caixas do
+  CSS ( CSS Box Model ), de forma que você possa montar arranjos mais complexos com um melhor entendimento de como ele
+  funciona e da terminologia relacionada.
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
