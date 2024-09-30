@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 9: Efeitos Colaterais com useEffect</title>
+
+    <meta name="description" content="Aula 9: Efeitos Colaterais com useEffect | Rotas ">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 - Título da Aula -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 9: Efeitos Colaterais com useEffect | Rotas </h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!-- Slide 2 - Introdução -->
+            <section>
+              <h2>Ciclo de Vida dos Componentes</h2>
+              <p>
+                  Cada componente React possui um ciclo de vida que começa na montagem e termina na desmontagem. As fases principais são:
+              </p>
+              <ul>
+                  <li><strong>Inicialização:</strong> Configuração inicial do componente.</li>
+                  <li><strong>Montagem:</strong> Primeira renderização do componente.</li>
+                  <li><strong>Atualização:</strong> Quando o componente é re-renderizado devido a mudanças no estado ou nas props.</li>
+                  <li><strong>Desmontagem:</strong> Limpeza do componente antes de ser removido do DOM.</li>
+              </ul>
+          </section>
+
+          <!-- Slide 3 - Hooks -->
+          <section>
+            <img src="imagens/Imagem1.png">
+          </section>
+ 
+
+
+          <!-- Slide 4 - Hooks -->
+          <section>
+              <h2>React Hooks</h2>
+              <p>
+                  Hooks em React são funções especiais que permitem "ligar" componentes funcionais ao estado e ao ciclo de vida do React. Alguns hooks importantes são:
+              </p>
+              <ul>
+                  <li><strong>useState:</strong> Permite que o componente "lembre" informações, como entrada do usuário.</li>
+                  <li><strong>useEffect:</strong> Permite executar efeitos colaterais nos componentes.</li>
+              </ul>
+          </section>
+
+          <!-- Slide 5 - useEffect -->
+          <section>
+              <h2>useEffect</h2>
+              <p>
+                  O <code>useEffect</code> é um Hook que permite executar efeitos colaterais, como chamadas de API, manipulação do DOM e subscrição a eventos.
+              </p>
+              <p>
+                  Ele é utilizado para substituir funções de ciclo de vida como <code>componentDidMount</code>, <code>componentDidUpdate</code> e <code>componentWillUnmount</code>.
+              </p>
+          </section>
+
+          <!-- Slide 6 - Sintaxe do useEffect -->
+          <section>
+              <h2>Sintaxe do useEffect</h2>
+              <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+useEffect(() => {
+// Código do efeito
+}, [dependencias]);
+              </code></pre>
+              <p>
+                  O <code>useEffect</code> recebe dois parâmetros:
+              </p>
+              <ul>
+                  <li>Uma <strong>função</strong> que contém o código a ser executado.</li>
+                  <li>Um <strong>array de dependências</strong> (opcional) que controla quando o efeito é executado.</li>
+              </ul>
+          </section>
+
+
+     
+  <!-- Slide 7- Exemplo de Array de Dependências -->
+
+  <section>
+    <h2>Exemplo - Array de Dependências no useEffect</h2>
+    <pre data-id="code-animation"><code class="hljs javascript" data-trim><script type="text/template">
+import React, { useState, useEffect } from 'react';
+
+export default function ExampleWithDependencies() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  // useEffect sem dependências - Executa em toda renderização
+  useEffect(() => {
+    console.log('useEffect sem dependências executou');
+  });
+
+  // useEffect com array vazio - Executa uma vez após a montagem
+  useEffect(() => {
+    console.log('useEffect com [] executou (montagem)');
+  }, []);
+
+  // useEffect com 'count' como dependência - Executa quando 'count' mudar
+  useEffect(() => {
+    console.log('useEffect com [count] executou');
+  }, [count]);
+
+  // useEffect com múltiplas dependências - Executa quando 'count' ou 'name' mudam
+  useEffect(() => {
+    console.log('useEffect com [count, name] executou');
+  }, [count, name]);
+
+  return (
+    <div>
+      <h2>Exemplo de Array de Dependências no useEffect</h2>
+
+      {/* Botão para mudar o estado 'count' */}
+      <p>Contador: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Incrementar contador
+      </button>
+
+      {/* Campo de texto para mudar o estado 'name' */}
+      <p>Nome: {name}</p>
+      <input 
+        type="text" 
+        value={name} 
+        onChange={e => setName(e.target.value)} 
+        placeholder="Digite um nome"
+      />
+    </div>
+  );
+}
+       </script>   </code></pre>
+  </section>
+
+
+<!-- Slide 8 - Exemplo de Efeitos Colaterais -->
+<section>
+  <h2>Exemplo: Chamadas de API</h2>
+  <p>
+      Um exemplo clássico de efeito colateral é fazer uma chamada de API para buscar dados e atualizar o estado da aplicação.
+  </p>
+  <pre data-id="code-animation"><code class="hljs javascript" data-trim >
+    import { useState, useEffect } from "react";
+
+    export default function ExemploConsumoAPi() {
+        const [dados, setDados] = useState(null);
+        
+        useEffect(() => {
+            fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(data => setDados(data))
+            .catch(error => console.error('Erro ao buscar dados:', error));
+        }, []);
+        
+        return (
+            <div>
+            <h1>Lista de Usuários</h1>
+            <ul>
+            {dados.map(usuario => (
+              <li key={usuario.id}>{usuario.name}</li>
+            ))}
+           </ul>
+            </div>
+        );
+        }
+  </code></pre>
+</section>
+
+<!-- Slide 9 - Explicação do Slide 4 -->
+<section>
+  <h2>Explicação: Chamadas de API com useEffect</h2>
+  <p>
+      O hook <code>useEffect</code> é usado para realizar uma chamada de API. Aqui está o que acontece:
+  </p>
+  <ol>
+      <li>
+          O <code>useEffect</code> é executado após o componente ser montado na tela (<strong>equivalente ao componentDidMount</strong>).
+      </li>
+      <li>
+          A função <code>fetch</code> faz uma requisição para a URL fornecida (<code>'https://api.exemplo.com/dados'</code>).
+      </li>
+  
+  </ol>
+
+</section>
+
+<!-- Slide 10 - Explicação do Slide 4 -->
+<section>
+  <h2>Explicação: Chamadas de API com useEffect</h2>
+
+  <ol>
+ 
+      <li>
+          Quando a resposta da API é recebida e convertida para JSON, o estado da aplicação é atualizado com os dados retornados, utilizando <code>setDados</code>.
+      </li>
+      <li>
+          O array de dependências vazio <code>[]</code> indica que o efeito deve rodar apenas uma vez, na montagem do componente.
+      </li>
+  </ol>
+  <p>
+      Esse padrão é muito comum em aplicações React que precisam buscar dados de APIs quando o componente é exibido pela primeira vez.
+  </p>
+</section>
+
+<!-- Slide 11 - Manipulação do DOM -->
+<section>
+  <h2>Manipulação do DOM</h2>
+  <p>
+      Outro exemplo de efeito colateral é manipular diretamente o DOM. Isso deve ser feito com cuidado em React, já que
+      a biblioteca espera controlar o DOM sozinha.
+  </p>
+  <pre data-id="code-animation"><code class="hljs javascript" data-trim >
+  useEffect(() => {
+    document.title = 'Novo título da página';
+  }, []);
+  </code></pre>
+</section>
+
+        <!-- Slide 12 - Introdução ao React Router -->
+        <section>
+            <h2>Introdução ao React Router</h2>
+            <p>
+                O React Router é a solução mais popular para implementar roteamento de páginas em aplicações React. 
+            </p>
+            <p>
+                Para instalar o React Router, execute o comando:
+            </p>
+            <pre data-id="code-animation"><code class="hljs bash" data-trim>
+npm install react-router-dom
+            </code></pre>
+        </section>
+
+        <!-- Slide 6 - Estrutura de Pastas -->
+        <section>
+            <h2>Estrutura de Pastas</h2>
+            <p>
+                Para criar um aplicativo com múltiplas rotas, crie uma pasta <code>pages</code> dentro da pasta <code>src</code> contendo arquivos para cada página:
+            </p>
+            <ul>
+                <li><code>src/pages/Layout.js</code></li>
+                <li><code>src/pages/Home.js</code></li>
+                <li><code>src/pages/Blogs.js</code></li>
+                <li><code>src/pages/Contact.js</code></li>
+                <li><code>src/pages/NoPage.js</code> (Página 404)</li>
+            </ul>
+        </section>
+
+        <!-- Slide 7 - Exemplo de Uso do React Router -->
+        <section>
+            <h2>Exemplo de Uso do React Router</h2>
+            <p>
+                Envolvemos o conteúdo com <code>&lt;BrowserRouter&gt;</code> e definimos rotas usando <code>&lt;Routes&gt;</code> e <code>&lt;Route&gt;</code>:
+            </p>
+            <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Blogs from './pages/Blogs';
+import Contact from './pages/Contact';
+import NoPage from './pages/NoPage';
+
+export default function App() {
+return (
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="blogs" element={<Blogs />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="*" element={<NoPage />} />
+    </Route>
+  </Routes>
+</BrowserRouter>
+);
+}
+</script> </code></pre>
+        </section>
+
+        <!-- Slide 8 - Páginas/Componentes -->
+        <section>
+            <h2>Páginas e Componentes</h2>
+            <p>
+                O componente <code>Layout</code> contém os elementos <code>&lt;Outlet&gt;</code> e <code>&lt;Link&gt;</code>:
+            </p>
+            <ul>
+                <li><code>&lt;Outlet&gt;</code>: Renderiza a rota filha atual selecionada.</li>
+                <li><code>&lt;Link&gt;</code>: Usado para definir URLs internos e acompanhar o histórico de navegação.</li>
+            </ul>
+          
+            <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
+import { Outlet, Link } from 'react-router-dom';
+
+const Layout = () => {
+return (
+<>
+  <nav>
+    <ul>
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/blogs">Blogs</Link></li>
+      <li><Link to="/contact">Contact</Link></li>
+    </ul>
+  </nav>
+  <Outlet />
+</>
+);
+};
+
+export default Layout;
+</script></code></pre>
+        </section>
+
+
+            <!--  Slide 14- Diagrama React Router em Texto -->
+            <section>
+              <h2>Estrutura do React Router</h2>
+              <ul>
+                  <li><strong>&lt;BrowserRouter&gt;:</strong> Componente que envolve toda a aplicação e habilita o uso de rotas.</li>
+                  <li><strong>&lt;Routes&gt;:</strong> Contém todos os componentes de rota da aplicação.</li>
+                  <li><strong>&lt;Route&gt;:</strong> Define uma rota específica. Atributos principais:
+                      <ul>
+                          <li><strong>path:</strong> Caminho da URL.</li>
+                          <li><strong>element:</strong> Componente renderizado quando a rota é acessada.</li>
+                      </ul>
+                  </li>
+        
+              </ul>
+          </section>
+         
+          <!--  Slide 15- Estrutura do React Router em Texto -->
+          <section>
+            <h2>Estrutura do React Router</h2>
+            <ul>
+                
+                <li><strong>Aninhamento de Rotas:</strong> O primeiro &lt;Route&gt; define o layout base e os elementos aninhados herdam o caminho do pai.</li>
+                <li><strong>Rota Padrão:</strong> O atributo <strong>index</strong> define a rota padrão para o pai ("/").</li>
+                <li><strong>Wildcard (*):</strong> O path "*" é usado para capturar todas as URLs indefinidas, útil para páginas 404.</li>
+            </ul>
+        </section>
+         </div>
+    </div>
+
+
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true ,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>

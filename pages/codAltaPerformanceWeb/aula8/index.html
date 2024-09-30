@@ -75,17 +75,17 @@
                     <li>Adicione <code>onClick={handleClick}</code> ao <code>&lt;button&gt;</code> JSX.</li>
                 </ol>
                 <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
-              export default function Button() {
-                function handleClick() {
-                  alert('You clicked me!');
-                }
-              
-                return (
-                  <button onClick={handleClick}>
-                    Click me
-                  </button>
-                );
-              }
+                  export default function Button() {
+                    function handleClick() {
+                      alert('Você clicou no botão!');
+                    }
+                  
+                    return (
+                      <button onClick={handleClick}>
+                        Clique neste botão
+                      </button>
+                    );
+                  }
                 </code></pre>
             </section>
 
@@ -97,9 +97,6 @@
                 </p>
                 <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
                                 export default function Button() {
-                                    function handleClick() {
-                                      alert('You clicked me!');
-                                    }
                                 
                                 return (
                                   <button onClick={() => alert('You clicked me!')}>
@@ -163,6 +160,7 @@
                     o parâmetro <code>children</code> é uma prop especial em React que é usada para representar o conteúdo que é passado entre as tags de abertura e fechamento de um componente.
                 </p>
             </section>
+
             <!--Slide 9 Estado: Memória de um Componente-->
             <section>
                 <h2>Estado: Memória de um Componente</h2>
@@ -768,20 +766,6 @@
                                   </script></code></pre>
                 </section>
 
-                <!--Slide 45 Usando um Único Manipulador de Eventos-->
-                <section>
-                    <h2>Usando um Único Manipulador de Eventos</h2>
-                    <p>
-                        Você pode usar um único manipulador de eventos para atualizar várias propriedades de um objeto de estado:
-                    </p>
-                    <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
-                                  setPerson({
-                                    ...person,
-                                    [e.target.name]: e.target.value
-                                  });
-                                  </script></code></pre>
-                </section>
-
                 <!--Slide 46 objeto aninhado -->
                 <section>
                     <h2>Atualizando um Objeto Aninhado</h2>
@@ -1188,6 +1172,7 @@
             progress: true,
             center: true,
             hash: true,
+            slideNumber: true ,
             plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
         });
     </script>
