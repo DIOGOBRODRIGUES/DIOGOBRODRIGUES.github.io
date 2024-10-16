@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Consumo de APIs RESTful no Front-end (Parte 1)</title>
+
+    <meta name="description" content="Aula sobre Consumo de APIs RESTful no Front-end | React">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+              <p>🏛️ Centro Universitário Maurício de Nassau</p>
+              <h3>Aula 10: Consumo de APIs RESTful no Front-end (Parte 1) </h3>
+              <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+              <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                      class="fab fa-linkedin"></i> </a>
+              <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+          </section>
+
+          <!-- Slide 2: O que é uma API? -->
+          <section>
+            <h2>O que é uma API?</h2>
+            <p>API significa <strong>Application Programming Interface</strong> (Interface de Programação de Aplicações).</p>
+            <ul>
+              <li>Conjunto de regras e protocolos.</li>
+              <li>Permite que diferentes softwares se comuniquem.</li>
+              <li>Funciona como uma ponte entre aplicações.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 3: Como as APIs Funcionam? -->
+          <section>
+            <h2>Como as APIs Funcionam?</h2>
+            <p>As APIs atuam como intermediárias entre aplicações ou serviços.</p>
+            <ol>
+              <li>Uma aplicação faz uma <strong>requisição</strong> à API.</li>
+              <li>A API processa a requisição.</li>
+              <li>A API retorna uma <strong>resposta</strong> com os dados solicitados.</li>
+            </ol>
+          </section>
+      
+          <!-- Slide 4: Exemplo Prático -->
+          <section>
+            <h2>Exemplo Prático</h2>
+            <p>Aplicativo de clima no smartphone:</p>
+            <ul>
+              <li>O app solicita dados climáticos via API.</li>
+              <li>A API do serviço meteorológico retorna as informações.</li>
+              <li>O app exibe o clima atualizado ao usuário.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 5: Finalidades e Benefícios das APIs -->
+          <section>
+            <h2>Finalidades e Benefícios das APIs</h2>
+            <ul>
+              <li><strong>Integração de Sistemas:</strong> Diferentes aplicações trabalham juntas.</li>
+              <li><strong>Reutilização de Serviços:</strong> Funcionalidades sem reinventar a roda.</li>
+              <li><strong>Eficiência:</strong> Economiza tempo e recursos no desenvolvimento.</li>
+              <li><strong>Escalabilidade:</strong> Facilita expansão e atualizações.</li>
+              <li><strong>Inovação:</strong> Criação de novas soluções combinando APIs.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 6: Aplicações das APIs -->
+          <section>
+            <h2>Aplicações das APIs</h2>
+            <ul>
+              <li><strong>Web Services:</strong> Troca de dados em tempo real entre servidores.</li>
+              <li><strong>Aplicativos Móveis:</strong> Integração de mapas, pagamentos, redes sociais.</li>
+              <li><strong>Redes Sociais:</strong> Postagens, estatísticas, interações.</li>
+              <li><strong>E-commerce:</strong> Pagamentos, estoque, rastreamento.</li>
+              <li><strong>IoT:</strong> Dispositivos conectados à nuvem.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 7: Principais Tecnologias e Padrões -->
+          <section>
+            <h2>Tecnologias e Padrões</h2>
+            <ul>
+              <li><strong>REST:</strong> Arquitetura usando HTTP e JSON.</li>
+              <li><strong>SOAP:</strong> Protocolo que utiliza XML.</li>
+              <li><strong>GraphQL:</strong> Linguagem de consulta flexível.</li>
+              <li><strong>JSON:</strong> Formato leve de troca de dados.</li>
+              <li><strong>XML:</strong> Dados estruturados mais robustos.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 8: Métodos HTTP Comuns -->
+          <section>
+            <h2>Métodos HTTP Comuns</h2>
+            <ul>
+              <li><strong>GET:</strong> Recuperar informações.</li>
+              <li><strong>POST:</strong> Enviar dados para processamento.</li>
+              <li><strong>PUT:</strong> Atualizar informações existentes.</li>
+              <li><strong>DELETE:</strong> Remover informações.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 9: Segurança e Autenticação -->
+          <section>
+            <h2>Segurança e Autenticação</h2>
+            <ul>
+              <li><strong>Chaves de API:</strong> Credenciais de acesso.</li>
+              <li><strong>OAuth:</strong> Autorização segura sem expor credenciais.</li>
+              <li><strong>HTTPS:</strong> Criptografia de comunicação com SSL/TLS.</li>
+            </ul>
+          </section>
+      
+
+          <!-- Slide 7: O que é uma API RESTful? -->
+<section>
+  <h2>O que é uma API RESTful?</h2>
+  <ul>
+    <li><strong>REST</strong>: Representational State Transfer.</li>
+    <li>Estilo arquitetural para desenvolvimento de APIs.</li>
+    <li>Utiliza protocolos HTTP para comunicação.</li>
+    <li>Simplicidade, escalabilidade e desempenho.</li>
+  </ul>
+</section>
+
+<!-- Slide 8: Princípios do REST -->
+
+<section>
+  <h2>Princípios das APIs RESTful</h2>
+  <p>As APIs RESTful seguem seis restrições arquiteturais:</p>
+  <ol>
+    <li><strong>Interface Uniforme (Uniform Interface)</strong></li>
+    <li><strong>Cliente-Servidor (Client-Server)</strong></li>
+    <li><strong>Sem Estado (Stateless)</strong></li>
+    <li><strong>Cacheável (Cacheable)</strong></li>
+    <li><strong>Sistema em Camadas (Layered System)</strong></li>
+    <li><strong>Código sob Demanda (Code on Demand)</strong> (Opcional)</li>
+  </ol>
+</section>
+
+<!-- Slide 6: Interface Uniforme -->
+<section>
+  <h2>1. Interface Uniforme</h2>
+  <p>Facilita a interação entre componentes com uma interface consistente.</p>
+  <ul>
+    <li><strong>Identificação de Recursos:</strong> Cada recurso é identificado por um URI.</li>
+    <li><strong>Manipulação de Recursos:</strong> Através de representações (JSON, XML).</li>
+    <li><strong>Mensagens Autodescritivas:</strong> Contêm todas as informações necessárias.</li>
+  </ul>
+</section>
+
+<!-- Slide 7: Cliente-Servidor -->
+<section>
+  <h2>2. Cliente-Servidor</h2>
+  <p>Separa as responsabilidades entre cliente e servidor.</p>
+  <ul>
+    <li><strong>Independência:</strong> Ambos podem evoluir separadamente.</li>
+    <li><strong>Interoperabilidade:</strong> Múltiplos clientes podem usar o mesmo servidor.</li>
+    <li><strong>Escalabilidade:</strong> Facilita o dimensionamento de cada parte.</li>
+  </ul>
+</section>
+
+<!-- Slide 8: Sem Estado -->
+<section>
+  <h2>3. Sem Estado (Stateless)</h2>
+  <p>O servidor não armazena estado entre as requisições.</p>
+  <ul>
+    <li><strong>Requisições Autocontidas:</strong> Cada requisição tem todas as informações necessárias.</li>
+    <li><strong>Facilita o Cache:</strong> Respostas podem ser facilmente armazenadas.</li>
+    <li><strong>Escalabilidade:</strong> Simplifica o balanceamento de carga.</li>
+  </ul>
+</section>
+
+<!-- Slide 9: Cacheável -->
+<section>
+  <h2>4. Cacheável</h2>
+  <p>As respostas devem indicar se podem ser cacheadas.</p>
+  <ul>
+    <li><strong>Desempenho:</strong> Melhora a velocidade e eficiência.</li>
+    <li><strong>Redução de Carga:</strong> Diminui o tráfego e processamento no servidor.</li>
+    <li><strong>Validade dos Dados:</strong> Uso de cabeçalhos como ETag, Cache-Control.</li>
+  </ul>
+</section>
+
+<!-- Slide 10: Sistema em Camadas -->
+<section>
+  <h2>5. Sistema em Camadas</h2>
+  <p>A arquitetura pode ser composta por camadas hierárquicas.</p>
+  <ul>
+    <li><strong>Encapsulamento:</strong> Cada camada não precisa conhecer todas as outras.</li>
+    <li><strong>Intermediários:</strong> Proxies, gateways, balanceadores.</li>
+    <li><strong>Flexibilidade:</strong> Facilita manutenção e escalabilidade.</li>
+  </ul>
+</section>
+
+<!-- Slide 11: Código sob Demanda -->
+<section>
+  <h2>6. Código sob Demanda (Opcional)</h2>
+  <p>O servidor pode fornecer código executável ao cliente.</p>
+  <ul>
+    <li><strong>Flexibilidade:</strong> Cliente pode estender funcionalidades dinamicamente.</li>
+    <li><strong>Exemplos:</strong> Scripts JavaScript enviados ao navegador.</li>
+    <li><strong>Considerações de Segurança:</strong> Necessário garantir confiabilidade do código.</li>
+  </ul>
+</section>
+<!-- Slide 9: Operações HTTP -->
+<section>
+  <h2>Operações HTTP em APIs RESTful</h2>
+  <ul>
+    <li><strong>GET</strong> - Recuperar recursos.</li>
+    <li><strong>POST</strong> - Criar novos recursos.</li>
+    <li><strong>PUT</strong> - Atualizar recursos existentes.</li>
+    <li><strong>DELETE</strong> - Remover recursos.</li>
+  </ul>
+</section>
+
+<!-- Slide 10: Estrutura de URLs -->
+<section>
+  <h2>Estrutura de URLs em APIs RESTful</h2>
+  <p>URLs representam recursos:</p>
+  <ul>
+    <li><code>GET /api/produtos</code> - Lista de produtos.</li>
+    <li><code>GET /api/produtos/1</code> - Produto com ID 1.</li>
+    <li><code>POST /api/produtos</code> - Adicionar um novo produto.</li>
+    <li><code>PUT /api/produtos/1</code> - Atualizar produto 1.</li>
+    <li><code>DELETE /api/produtos/1</code> - Excluir produto 1.</li>
+  </ul>
+</section>
+
+<!-- Slide 11: Formato de Dados -->
+<section>
+  <h2>Formato de Dados</h2>
+  <ul>
+    <li>APIs RESTful geralmente usam <strong>JSON</strong>.</li>
+    <li>Exemplo de resposta JSON:</li>
+  </ul>
+  <pre><code>{
+  "id": 1,
+  "nome": "Produto A",
+  "preco": 29.99
+}</code></pre>
+</section>
+          <!-- Slide 10: Onde se Encaixam Axios e Fetch? -->
+          <section>
+            <h2>Onde se Encaixam Axios e Fetch?</h2>
+            <p>Ferramentas JavaScript para realizar requisições HTTP e consumir APIs.</p>
+            <ul>
+              <li>Permitem comunicação cliente-servidor.</li>
+              <li>Usados no front-end e back-end.</li>
+              <li>Facilitam integração com serviços externos.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 11: Fetch API -->
+          <section>
+            <h2>Fetch API</h2>
+            <ul>
+              <li><strong>O que é?</strong> Interface nativa para requisições assíncronas.</li>
+              <li><strong>Características:</strong>
+                <ul>
+                  <li>Nativa do JavaScript moderno.</li>
+                  <li>Baseada em Promises.</li>
+                  <li>Uso simples para requisições básicas.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong>Exemplo:</strong></p>
+            <pre><code>
+      fetch('https://api.exemplo.com/dados')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Erro:', error));
+            </code></pre</pre</pre</pre</pre</p>
+          </section>
+      
+          <!-- Slide 12: Axios -->
+          <section>
+            <h2>Axios</h2>
+            <ul>
+              <li><strong>O que é?</strong> Biblioteca para requisições HTTP.</li>
+              <li><strong>Características:</strong>
+                <ul>
+                  <li>Baseada em Promises.</li>
+                  <li>Funcionalidades avançadas.</li>
+                  <li>Compatível com navegadores antigos.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong>Exemplo:</strong></p>
+            <pre><code>
+      axios.get('https://api.exemplo.com/dados')
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+            </code></pre</p>
+          </section>
+      
+          <!-- Slide 13: Por que Usar Axios ou Fetch? -->
+          <section>
+            <h2>Por que Us Axios ou Fetch?</h2</h2>
+            <h3>Fetch API</h3>
+            <ul>
+              <li><strong>Vantagens:</strong> Nativa, ideal para requisições simples.</li>
+              <li><strong>Limitações:</strong> Menos recursos avançados.</li>
+            </ul>
+            <h3>Axios</h3>
+            <ul>
+              <li><strong>Vantagens:</strong> Sintaxe limpa, recursos avançados.</li>
+              <li><strong>Lim:</strong> Necessita instalação adicional.</li>
+            </ul>
+          </section>
+      
+          <!-- Slide 14: Aplicações Práticas -->
+          <section>
+            <h2>Aplicações Práticas</h2>
+            <ul>
+              <li><strong>Autenticação:</strong> Envio de credenciais e recebimento de tokens.</li>
+              <li><strong>Dados Dinâmicos:</strong> Buscar informações em tempo real.</li>
+              <li><strong>Formulários:</strong> Envio sem recarregar a página.</li>
+            </ul>
+          </section>
+      
+        
+      
+          
+      
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
