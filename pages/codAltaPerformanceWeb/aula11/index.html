@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>APIs RESTful e Requisições com Axios e Fetch</title>
+
+    <meta name="description" content="Aula sobre Consumo de APIs RESTful no Front-end | React">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+              <p>🏛️ Centro Universitário Maurício de Nassau</p>
+              <h3>Aula 11: APIs RESTful e Requisições com Axios e Fetch </h3>
+              <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+              <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                      class="fab fa-linkedin"></i> </a>
+              <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+          </section>
+
+          <!-- Slide 2: O que é uma API? -->
+          <section>
+            <h2>O que é o Axios?</h2>
+            <p>
+              O Axios é uma biblioteca JavaScript baseada em Promises que facilita a realização de requisições HTTP tanto no navegador quanto em ambientes Node.js.
+            </p>
+            <p>
+              Ele simplifica a comunicação com APIs, permitindo enviar e receber dados de servidores de maneira eficiente.
+            </p>
+          </section>
+
+          <!--Slide 3-->
+          <section>
+            <h2>O que são Promises?</h2>
+            <p>As <strong>Promises</strong> são um recurso do JavaScript introduzido no ECMAScript 6 (ES6) que facilita o trabalho com operações assíncronas.</p>
+            <p>Uma <strong>Promise</strong> representa um valor que pode estar disponível agora, no futuro ou nunca. Ela é essencialmente um objeto que promete entregar um resultado (ou um erro) em algum momento.</p>
+          </section>
+          
+          <!--slide 4-->
+
+          <section>
+            <h2>Estados de uma Promise</h2>
+            <p>Uma <strong>Promise</strong> pode estar em um dos seguintes estados:</p>
+            <ul>
+              <li><strong>Pendente (Pending)</strong>: Estado inicial, ainda não realizada nem rejeitada.</li>
+              <li><strong>Realizada (Fulfilled)</strong>: A operação foi concluída com sucesso e a Promise tem um valor resultante.</li>
+              <li><strong>Rejeitada (Rejected)</strong>: A operação falhou e a Promise tem um motivo de falha.</li>
+            </ul>
+          </section>
+          
+          <!--slide  5-->
+
+          <section>
+            <h2>Sintaxe Básica</h2>
+            <p>Criando uma <strong>Promise</strong>:</p>
+              <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+            const minhaPromise = new Promise((resolve, reject) => {
+              // Operação assíncrona
+              if (/* operação bem-sucedida */) {
+                resolve(valor); // Indica sucesso e retorna o valor
+              } else {
+                reject(erro); // Indica falha e retorna o erro
+              }
+            });
+              </script></code></pre>
+          </section>
+          
+
+                
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>

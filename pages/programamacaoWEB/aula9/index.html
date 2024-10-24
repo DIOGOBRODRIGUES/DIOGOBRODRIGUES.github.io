@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 9: Introdução ao Design Responsivo</title>
+
+  <meta name="description" content="Aula 9 de Programação Web: Multimídia, Tabelas HTML e Formulários">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 9: Introdução ao Design Responsivo </h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+<!-- 1. Introdução ao Design Responsivo -->
+<section>
+  <h2>1. Introdução ao Design Responsivo</h2>
+  <ul>
+    <li><strong>Definição:</strong> Técnica que permite que o layout da página se ajuste a diferentes tamanhos de tela.</li>
+    <li><strong>Importância:</strong> Melhor experiência do usuário em dispositivos variados.</li>
+    <li><strong>Evolução da Web:</strong> Crescimento do acesso móvel impulsionou a necessidade de responsividade.</li>
+    <!-- <li><strong>Tipos de Design:</strong> Responsivo vs. Adaptativo vs. Móvel.</li> -->
+  </ul>
+</section>
+
+<!-- 2. Meta Tag Viewport -->
+<section>
+  <h2>2. Meta Tag Viewport</h2>
+  <p>Controla como o site é exibido em dispositivos móveis.</p>
+  <pre><code>&lt;meta name="viewport" content="width=device-width, 
+    initial-scale=1.0"&gt;</code></pre>
+  <ul>
+    <li><strong>Função:</strong> Ajusta a escala e dimensão da página.</li>
+    <li><strong>Configurações Comuns:</strong>
+      <ul>
+        <li><code>width=device-width</code>: Largura igual à do dispositivo.</li>
+        <li><code>initial-scale=1.0</code>: Nível de zoom inicial.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<!-- 3. Unidades de Medida em CSS -->
+<section>
+  <h2>3. Unidades de Medida em CSS</h2>
+  <ul>
+    <li><strong>Unidades Relativas:</strong> Adaptam-se ao contexto.
+      <ul>
+        <li><code>%</code>, <code>em</code>, <code>rem</code>, <code>vw</code>, <code>vh</code></li>
+      </ul>
+    </li>
+    <li><strong>Unidades Absolutas:</strong> Valor fixo.
+      <ul>
+        <li><code>px</code>, <code>pt</code>, <code>cm</code></li>
+      </ul>
+    </li>
+    <li><strong>Diretrizes:</strong> Use unidades relativas para responsividade.</li>
+  </ul>
+</section>
+
+<!-- 4. Media Queries -->
+<section>
+  <h2>4. Media Queries</h2>
+  <p>Aplicam estilos CSS com base em condições.</p>
+  <ul>
+    <li><strong>Sintaxe Básica:</strong>
+      <pre><code>@media (condição) {
+  /* estilos */
+}</code></pre>
+    </li>
+    <li><strong>Breakpoints:</strong> Pontos de ajuste para diferentes dispositivos.
+      <ul>
+        <li>Mobile: <code>@media (max-width: 767px)</code></li>
+        <li>Tablet: <code>@media (min-width: 768px) and (max-width: 1024px)</code></li>
+        <li>Desktop: <code>@media (min-width: 1025px)</code></li>
+      </ul>
+    </li>
+  
+  </ul>
+</section>
+
+<!-- 5. Layouts Flexíveis -->
+<section>
+  <h2>5. Layouts Flexíveis</h2>
+  <h3>Flexbox</h3>
+  <ul>
+    <li><strong>Conceitos Principais:</strong> Contêiner e itens flex.</li>
+    <li><strong>Propriedades:</strong> <code>flex-direction</code>, <code>justify-content</code>, <code>align-items</code>.</li>
+    <li><strong>Vantagens:</strong> Facilita alinhamentos e distribuições.</li>
+  </ul>
+  <h3>CSS Grid</h3>
+  <ul>
+    <li><strong>Introdução:</strong> Sistema de layout bidimensional.</li>
+    <li><strong>Propriedades:</strong> <code>grid-template-columns</code>, <code>grid-template-rows</code>.</li>
+    <li><strong>Quando Usar:</strong> Layouts complexos com linhas e colunas.</li>
+  </ul>
+</section>
+
+<!-- 6. Imagens e Mídia Responsivas -->
+<section>
+  <h2>6. Imagens e Mídia Responsivas</h2>
+  <ul>
+    <li><strong>Dimensionamento Automático:</strong> Uso de <code>max-width: 100%;</code> e <code>height: auto;</code> para ajustar imagens.</li>
+    <li><strong>Elementos HTML5:</strong> Uso das tags <code>&lt;picture&gt;</code>, <code>srcset</code> e <code>sizes</code> para servir imagens apropriadas.</li>
+    <li><strong>Formatos de Imagem:</strong> Considerar formatos modernos como WebP e AVIF.</li>
+    <li><strong>Vídeos e Mídia:</strong> Técnicas para incorporar vídeos de forma responsiva.</li>
+  </ul>
+</section>
+
+<!-- 7. Tipografia Responsiva -->
+<section>
+  <h2>7. Tipografia Responsiva</h2>
+  <ul>
+    <li><strong>Unidades Relativas:</strong> Uso de <code>em</code>, <code>rem</code>, <code>vw</code> para tamanhos de fonte.</li>
+    <li><strong>Fontes Flexíveis:</strong> Implementação de tamanhos de fonte que se ajustam com <code>clamp()</code> ou <code>calc()</code>.</li>
+    <li><strong>Legibilidade:</strong> Ajustes de espaçamento e altura de linha para diferentes tamanhos de tela.</li>
+    <li><strong>Web Fonts:</strong> Otimização do carregamento de fontes para performance.</li>
+  </ul>
+</section>
+
+<!-- 8. Navegação Responsiva -->
+<section>
+  <h2>8. Navegação Responsiva</h2>
+  <ul>
+    <li><strong>Desafios:</strong> Adaptação de menus para telas menores.</li>
+    <li><strong>Padrões de Design:</strong>
+      <ul>
+        <li>Menu hamburguer</li>
+        <li>Off-canvas</li>
+        <li>Drop-down adaptativo</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<!-- 9. Frameworks CSS Responsivos -->
+<section>
+  <h2>9. Frameworks CSS Responsivos</h2>
+  <ul>
+    <li><strong>Bootstrap:</strong> Sistema de grid e componentes pré-construídos.</li>
+    <li><strong>Foundation:</strong> Flexibilidade e customização avançada.</li>
+    <li><strong>Tailwind CSS:</strong> Utilização de classes utilitárias para rapidez no desenvolvimento.</li>
+    <li><strong>Vantagens:</strong> Aceleração do processo de desenvolvimento e consistência.</li>
+    <li><strong>Customização:</strong> Adaptando os frameworks às necessidades do projeto.</li>
+  </ul>
+</section>
+
+<!-- 10. Práticas Recomendadas -->
+<section>
+  <h2>10. Práticas Recomendadas</h2>
+  <h3>Abordagem Mobile-First</h3>
+  <ul>
+    <li><strong>Conceito:</strong> Desenvolver primeiro para dispositivos móveis e depois expandir para telas maiores.</li>
+    <li><strong>Benefícios:</strong> Performance aprimorada e foco no conteúdo essencial.</li>
+  </ul>
+  <h3>Performance</h3>
+  <ul>
+    <li><strong>Otimização de Recursos:</strong> Minificação de CSS e JavaScript.</li>
+    <li><strong>Carregamento Condicional:</strong> Lazy loading de imagens e scripts.</li>
+  </ul>
+
+</section>
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

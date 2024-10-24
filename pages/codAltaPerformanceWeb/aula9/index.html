@@ -160,11 +160,11 @@ export default function ExampleWithDependencies() {
   <p>
       Um exemplo clássico de efeito colateral é fazer uma chamada de API para buscar dados e atualizar o estado da aplicação.
   </p>
-  <pre data-id="code-animation"><code class="hljs javascript" data-trim >
+  <pre data-id="code-animation"><code class="hljs javascript" data-trim ><script type="text/template">
     import { useState, useEffect } from "react";
 
     export default function ExemploConsumoAPi() {
-        const [dados, setDados] = useState(null);
+        const [dados, setDados] = useState([]);
         
         useEffect(() => {
             fetch('https://jsonplaceholder.typicode.com/users')
@@ -184,7 +184,7 @@ export default function ExampleWithDependencies() {
             </div>
         );
         }
-  </code></pre>
+      </script></code></pre>
 </section>
 
 <!-- Slide 9 - Explicação do Slide 4 -->
