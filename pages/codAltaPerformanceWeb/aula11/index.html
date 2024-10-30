@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>APIs RESTful e Requisições com Axios e Fetch</title>
+    <title>APIs RESTful e Requisições com Axios</title>
 
     <meta name="description" content="Aula sobre Consumo de APIs RESTful no Front-end | React">
     <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
@@ -29,7 +29,7 @@
             <!-- Slide 1 - Título da Apresentação -->
             <section>
               <p>🏛️ Centro Universitário Maurício de Nassau</p>
-              <h3>Aula 11: APIs RESTful e Requisições com Axios e Fetch </h3>
+              <h3>Aula 11: APIs RESTful e Requisições com Axios </h3>
               <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
               <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
                       class="fab fa-linkedin"></i> </a>
@@ -82,8 +82,76 @@
             });
               </script></code></pre>
           </section>
-          
 
+          <!--slide 6-->
+          <section>
+            <h2>Voltando para o Axios</h2>
+          </section>
+          
+          <!--slide 7-->
+          <section>
+            <h2>Instalação</h2>
+            <p>Para utilizar o Axios em um projeto, é necessário instalá-lo via npm ou yarn:</p>
+            <pre data-id="code-animation"><code class="hljs bash" data-trim data-line-numbers><script type="text/template">
+            npm install axios
+            </script></code></pre>
+          </section>
+          
+          <!--slide 8-->
+          <section>
+            <h2>Requisições GET</h2>
+            <p>Para realizar uma requisição GET com o Axios, basta chamar o método <code>axios.get()</code> passando a URL da API como argumento:</p>
+            <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+            axios.get('https://api.example.com/data')
+              .then(response => { 
+                //.then() - executa quando a requisição é bem-sucedida
+                console.log(response.data);
+                //manipular a resposta
+              })
+              .catch(error => {
+                console.error(error);
+                //Manipular o erro
+              });
+            </script></code></pre>
+          </section>
+
+          <!--slide 9-->
+
+          <section>
+            <h2>Requisições POST</h2>
+            <p>Para realizar uma requisição POST com o Axios, basta chamar o método <code>axios.post()</code> passando a URL da API e os dados a serem enviados como argumentos:</p>
+            <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+              axios.post('https://api.exemplo.com/usuarios', {
+                nome: 'João',
+                email: 'joao@example.com'
+              })
+              .then(response => {
+                console.log('Usuário criado:', response.data);
+              })
+              .catch(error => {
+                console.error('Erro ao criar usuário:', error);
+              });
+            </script></code></pre>
+            </section>
+
+            <!--slide 10-->
+            <section>
+              <h2>Utilizando Async/Await</h2>
+              <p>O Axios também pode ser utilizado com a sintaxe <code>async/await</code> para simplificar o tratamento de Promises:</p>
+              <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers><script type="text/template">
+                async function obterDados() {
+                  try {
+                    const response 
+                    = await axios.get('https://api.exemplo.com/dados');
+                    console.log(response.data);
+                  } catch (error) {
+                    console.error('Erro ao obter dados:', error);
+                  }
+                }
+                
+                obterDados();
+                </script></code></pre>  
+            </section>
                 
         </div>
     </div>
