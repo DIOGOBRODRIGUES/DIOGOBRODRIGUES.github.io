@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução ao JavaScript</title>
+    <meta name="description" content="Aula sobre Introdução ao JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 10: Introdução ao JavaScript</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!-- Slide 2: História do JavaScript -->
+            <section>
+                <h2>História do JavaScript</h2>
+                <p>JavaScript foi criado pela Netscape junto com a Sun Microsystems, e sua primeira versão foi lançada em 1995.</p>
+                <p>Em 1996, a linguagem foi entregue para a ECMA para padronização, hoje conhecida como ECMAScript.</p>
+                <a href="https://www.ecma-international.org" target="_blank">Saiba mais sobre a linguagem</a>
+            </section>
+
+            <!-- Slide 3: A Tríade HTML, CSS e JavaScript -->
+            <section>
+                <h2>A Tríade HTML, CSS e JavaScript</h2>
+                <p>JavaScript complementa HTML e CSS para criar páginas interativas:</p>
+                <ul>
+                    <li><strong>HTML:</strong> estrutura e conteúdo</li>
+                    <li><strong>CSS:</strong> estilos e apresentação</li>
+                    <li><strong>JavaScript:</strong> comportamento e interatividade</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Importância do JavaScript no Desenvolvimento Web -->
+            <section>
+                <h2>Importância do JavaScript no Desenvolvimento Web</h2>
+                <p>JavaScript permite a criação de interações dinâmicas com os usuários, sendo essencial no desenvolvimento de aplicações web modernas.</p>
+            </section>
+
+            <!-- Slide 5: O que é JavaScript? -->
+             <section>
+                 <img src="img/toplinguagens.png" alt="JavaScript" >
+             </section>
+            <!-- Slide 5: O que é JavaScript? -->
+            <section>
+                <h2>O que é JavaScript?</h2>
+                <ul>
+                    <li>JavaScript é uma linguagem de programação interpretada.</li>
+                    <li>É executada diretamente no navegador do usuário.</li>
+                    <li>Permite a criação de interações e comportamentos dinâmicos nas páginas web.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: Linguagens de Cliente e Servidor -->
+            <section>
+                <h2>Linguagens de Cliente e Servidor</h2>
+                <p>JavaScript roda principalmente no lado cliente, mas também pode ser usada no servidor com Node.js.</p>
+                <ul>
+                    <li><strong>Cliente:</strong> Executado no navegador</li>
+                    <li><strong>Servidor:</strong> Executado no servidor, resposta enviada ao navegador</li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: Editores de Código -->
+            <section>
+                <h2>Editores de Código JavaScript</h2>
+                <ul>
+                    <li>Bloco de notas: básico, sem recursos extras</li>
+                    <li>Visual Studio Code, NetBeans IDE, Sublime: profissionais, com recursos como IntelliSense e integração com GitHub</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: Estrutura Básica de um Programa JavaScript -->
+            <section>
+                <h2>Estrutura Básica de um Programa JavaScript</h2>
+                <p>Um código JavaScript básico pode ser embutido no HTML com a tag <code>&lt;script&gt;</code>.</p>
+                <pre><code>
+&lt;script&gt;
+    alert("Olá, mundo!");
+&lt;/script&gt;
+                </code></pre>
+            </section>
+
+            <!-- Slide 9: Saída de Dados com alert() e console.log() -->
+            <section>
+                <h2>Saída de Dados</h2>
+                <p>JavaScript permite saída de dados com:</p>
+                <ul>
+                    <li><code>alert()</code>: Mostra um alerta na página</li>
+                    <li><code>console.log()</code>: Exibe dados no console do navegador</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: Variáveis e Constantes -->
+            <section>
+                <h2>Variáveis e Constantes</h2>
+                <p>Espaços na memória que guardam informações. Exemplos de declarações:</p>
+                <pre><code>let nome = "João";</code></pre>
+                <pre><code>const idade = 30;</code></pre>
+            </section>
+
+            <!-- Slide 11: Entrada de Dados com prompt() -->
+            <section>
+                <h2>Entrada de Dados</h2>
+                <p>Recebendo dados do usuário com <code>prompt()</code>:</p>
+                <pre><code>let nome = prompt("Qual o seu nome?");</code></pre>
+            </section>
+
+            <!-- Slide 12: Comentários no Código -->
+            <section>
+                <h2>Comentários no Código</h2>
+                <p>Comentários ajudam na manutenção do código. Exemplo:</p>
+                <pre><code>// Comentário de uma linha
+/*
+Comentário de múltiplas linhas
+*/
+                </code></pre>
+            </section>
+
+            <!-- Slide 13: Tipos de Dados -->
+            <section>
+                <h2>Tipos de Dados e Conversão</h2>
+                <ul>
+                    <li>String, Number, Boolean</li>
+                    <li>Conversão de tipos com <code>Number()</code> e <code>String()</code></li>
+                </ul>
+            </section>
+
+            <!-- Slide 14: Exemplos de Entrada, Processamento e Saída -->
+            <section>
+                <h2>Exemplo de Programa - Entrada, Processamento e Saída</h2>
+                <p>Programa que calcula o dobro de um número:</p>
+                <ul>
+                    <li>Entrada de dados: ler um número</li>
+                    <li>Processamento: calcular o dobro</li>
+                    <li>Saída: informar o dobro</li>
+                </ul>
+                <pre><code>
+let numero = prompt("Digite um número:");
+let dobro = numero * 2;
+alert("O dobro de " + numero + " é " + dobro);
+                </code></pre>
+            </section>
+
+            <!-- Slide 15-20: Exercícios Práticos -->
+            <section>
+                <h2>Exercício Prático 1</h2>
+                <p>Elaborar um programa que leia um número. Calcule e informe os seus vizinhos, ou seja, o número anterior e posterior.</p>
+                <pre><code>
+let numero = prompt("Digite um número:");
+let anterior = numero - 1;
+let posterior = numero + 1;
+alert("O anterior é " + anterior + " e o posterior é " + posterior);
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Exercício Prático 2</h2>
+                <p>Elaborar um programa que leia um número.
+                    Calcule e informe os seus vizinhos, ou seja, o
+                    número anterior e posterior.
+                    Exemplo:
+                    Número: 15
+                    Vizinho: 14 e 16</p>
+            </section>
+
+            <section>
+                <h2>Exercício Prático 3</h2>
+                <p>Elaborar um programa para uma pizzaria, o qual
+                    leia o valor total de uma conta e quantos clientes
+                    vão pagá-la. Calcule e informe o valor a ser
+                    pago por cliente.
+                    Exemplo:
+                    Valor da Conta R$: 90.00
+                    Número de Clientes: 3
+                    Valor por cliente R$: 30</p>
+            </section>
+
+            <section>
+                <h2>Exercício Prático 4</h2>
+                <p>Elaborar um programa para uma loja, o qual leia
+                    o preço de um produto e informe as opções de
+                    pagamento da loja. Calcule e informe o valor
+                    para pagamento à vista com 10% de desconto e
+                    o valor em 3x.
+                    Exemplo:
+                    Preço 60.00
+                    À Vista R$: 54.00
+                    ou 3x de RS: 20.00</p>
+            </section>
+
+            <section>
+                <h2>Exercício Prático 5</h2>
+                <p>Elaborar um programa para uma loja, o qual leia
+                    o preço de um produto e informe as opções de
+                    pagamento da loja. Calcule e informe o valor
+                    para pagamento à vista com 10% de desconto e
+                    o valor em 3x.
+                    Exemplo:
+                    Preço 60.00
+                    À Vista R$: 54.00
+                    ou 3x de RS: 20.00</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
