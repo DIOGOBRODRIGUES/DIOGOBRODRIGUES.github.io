@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Instruções do Projeto - 2ª AV</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #0066cc;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .sub-item {
+            margin-left: 20px;
+        }
+        .note {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        /* Responsividade */
+        @media (max-width: 600px) {
+            header, main, footer {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>    
+    <h1 style="color:white">Instruções do Projeto - 2ª AV</h1>
+    <p>Disciplina códigos de alta Performance WEB</p>
+    <p>Apresentação em sala de aula no dia <strong>27/11</strong></p>
+</header>
+
+<main>
+    <h2>Lista de Requisitos para o Projeto (Vale 2 Pontos Extras)</h2>
+
+    <h3>1. Consumo da API</h3>
+    <ul>
+        <li><strong>Implementação dos Métodos HTTP:</strong>
+            <ul class="sub-item">
+                <li>Utilizar adequadamente os métodos <strong>GET</strong>, <strong>POST</strong>, <strong>PUT</strong> e <strong>DELETE</strong> para interagir com a API.</li>
+                <li>As requisições devem ser realizadas de forma assíncrona, utilizando <strong>Promises</strong> ou <strong>async/await</strong>.</li>
+            </ul>
+        </li>
+        <li><strong>Tratamento de Respostas:</strong>
+            <ul class="sub-item">
+                <li>Implementar o tratamento correto das respostas da API, incluindo códigos de sucesso e erro.</li>
+                <li>Exibir mensagens claras ao usuário em caso de falhas nas requisições (ex.: erro de conexão, dados inválidos).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>2. Integração Front-end e Back-end</h3>
+    <ul>
+        <li><strong>Comunicação Eficiente:</strong>
+            <ul class="sub-item">
+                <li>Garantir que o front-end consuma corretamente os dados fornecidos pela API.</li>
+                <li>Atualizar a interface do usuário em tempo real após operações de criação, atualização ou exclusão.</li>
+            </ul>
+        </li>
+        <li><strong>Segurança:</strong>
+            <ul class="sub-item">
+                <li>Implementar medidas de segurança no consumo da API, como tokens de autenticação (se aplicável).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>3. Usabilidade</h3>
+    <ul>
+        <li><strong>Interface Intuitiva:</strong>
+            <ul class="sub-item">
+                <li>Desenvolver uma interface amigável e fácil de navegar.</li>
+                <li>Utilizar elementos visuais consistentes e padrões de design reconhecíveis.</li>
+            </ul>
+        </li>
+        <li><strong>Feedback ao Usuário:</strong>
+            <ul class="sub-item">
+                <li>Fornecer feedback imediato para as ações do usuário (ex.: loaders, confirmações, alertas).</li>
+                <li>Indicar claramente o sucesso ou falha das operações realizadas.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>4. Componentização</h3>
+    <ul>
+        <li><strong>Reutilização de Componentes:</strong>
+            <ul class="sub-item">
+                <li>Criar componentes React reutilizáveis para elementos recorrentes da interface.</li>
+                <li>Organizar o código de forma modular, facilitando a manutenção e escalabilidade.</li>
+            </ul>
+        </li>
+        <li><strong>Boas Práticas:</strong>
+            <ul class="sub-item">
+                <li>Seguir padrões de nomenclatura e estrutura de pastas para componentes, estilos e assets.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>5. Funcionalidades Obrigatórias</h3>
+    <ul>
+        <li><strong>Operações CRUD:</strong>
+            <ul class="sub-item">
+                <li>Implementar funcionalidades completas de <strong>Criação</strong>, <strong>Leitura</strong>, <strong>Atualização</strong> e <strong>Exclusão</strong> de dados.</li>
+            </ul>
+        </li>
+        <li><strong>Validação de Dados:</strong>
+            <ul class="sub-item">
+                <li>Realizar validações no front-end antes de enviar dados para a API.</li>
+                <li>Garantir a integridade e consistência das informações manipuladas.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>6. Documentação</h3>
+    <ul>
+        <li><strong>Comentários no Código:</strong>
+            <ul class="sub-item">
+                <li>Incluir comentários esclarecedores nas partes críticas do código.</li>
+            </ul>
+        </li>
+        <li><strong>Instruções de Uso:</strong>
+            <ul class="sub-item">
+                <li>Fornecer um guia ou README com instruções para execução do projeto e explicação das funcionalidades.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>7. Apresentação do Projeto</h3>
+    <ul>
+        <li><strong>Demonstração Prática:</strong>
+            <ul class="sub-item">
+                <li>Preparar uma apresentação demonstrando as principais funcionalidades implementadas.</li>
+                <li>Explicar como o front-end interage com a API e como os métodos HTTP são utilizados.</li>
+            </ul>
+        </li>
+        <li><strong>Slides de Apoio (Opcional):</strong>
+            <ul class="sub-item">
+                <li>Utilizar slides para destacar pontos-chave e facilitar o entendimento durante a apresentação.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>10. Critérios Adicionais</h3>
+    <ul>
+        <li><strong>Responsividade:</strong>
+            <ul class="sub-item">
+                <li>Assegurar que a aplicação seja responsiva e funcione bem em diferentes dispositivos e tamanhos de tela.</li>
+            </ul>
+        </li>
+        <li><strong>Acessibilidade:</strong>
+            <ul class="sub-item">
+                <li>Implementar práticas de acessibilidade para atender usuários com necessidades especiais.</li>
+            </ul>
+        </li>
+        <li><strong>Estilização e Layout:</strong>
+            <ul class="sub-item">
+                <li>Utilizar técnicas de CSS modernas (Flexbox, Grid) para um layout consistente.</li>
+                <li>Manter um design atraente e profissional.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="note">
+        <h3>Observações Finais</h3>
+        <ul>
+            <li><strong>Prazos:</strong> Certifique-se de que o projeto seja entregue dentro do prazo estabelecido.</li>
+            <li><strong>Originalidade:</strong> O trabalho deve ser original e desenvolvido pela equipe, evitando plágios.</li>
+            <li><strong>Entrega e Apresentação:</strong>Link do repositório deve ser enviado na tarefa do TEAM,  o projeto deve ser apresentado no dia 27/11</li>
+        </ul>
+    </div>
+</main>
+
+</body>
+</html>
