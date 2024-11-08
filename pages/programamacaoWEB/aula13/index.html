@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 13: Avançando em JavaScript - localStorage e Mais</title>
+    <meta name="description" content="Aula sobre localStorage e recursos avançados em JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Estilos do Reveal.js -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 13: Avançando em JavaScript - localStorage e Mais</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2: Revisão das Aulas Anteriores -->
+            <section>
+                <h2>Revisão das Aulas Anteriores</h2>
+                <ul>
+                    <li>Manipulação do DOM</li>
+                    <li>Eventos em JavaScript</li>
+                    <li>Funcionalidades do ES6</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: Introdução ao localStorage -->
+            <section>
+                <h2>O que é o localStorage?</h2>
+                <p>O <strong>localStorage</strong> é uma forma de armazenar dados no navegador do usuário de forma persistente.</p>
+                <ul>
+                    <li>Armazena pares chave-valor</li>
+                    <li>Dados não expiram (persistem após fechar o navegador)</li>
+                    <li>Capacidade de aproximadamente 5MB</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Métodos do localStorage -->
+            <section>
+                <h2>Métodos do localStorage</h2>
+                <ul>
+                    <li><code>setItem(chave, valor)</code>: Armazena um item</li>
+                    <li><code>getItem(chave)</code>: Recupera um item</li>
+                    <li><code>removeItem(chave)</code>: Remove um item</li>
+                    <li><code>clear()</code>: Limpa todos os itens</li>
+                    <li><code>key(index)</code>: Retorna a chave na posição especificada</li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: Armazenando Dados -->
+            <section>
+                <h2>Armazenando Dados</h2>
+                <pre><code>
+// Armazenando um valor
+localStorage.setItem('nome', 'João');
+
+// Recuperando o valor
+let nome = localStorage.getItem('nome');
+console.log(nome); // João
+                </code></pre>
+            </section>
+
+            <!-- Slide 6: Removendo Dados -->
+            <section>
+                <h2>Removendo Dados</h2>
+                <pre><code>
+// Removendo um item específico
+localStorage.removeItem('nome');
+
+// Limpando todos os dados
+localStorage.clear();
+                </code></pre>
+            </section>
+
+            <!-- Slide 7: Armazenando Objetos -->
+            <section>
+                <h2>Armazenando Objetos</h2>
+                <p>Como o localStorage armazena apenas strings, precisamos converter objetos em strings JSON.</p>
+                <pre><code>
+// Objeto JavaScript
+let usuario = { nome: 'Ana', idade: 25 };
+
+// Convertendo para JSON e armazenando
+localStorage.setItem('usuario', JSON.stringify(usuario));
+
+// Recuperando e convertendo de volta para objeto
+let dadosUsuario = JSON.parse(localStorage.getItem('usuario'));
+console.log(dadosUsuario.nome); // Ana
+                </code></pre>
+            </section>
+
+            <!-- Slide 8: Exemplo Prático - Lista de Tarefas -->
+            <section>
+                <h2>Exemplo Prático - Lista de Tarefas</h2>
+                <p>Vamos criar uma simples lista de tarefas que salva os dados no localStorage.</p>
+                <pre><code>
+// HTML
+&lt;input type="text" id="tarefa" placeholder="Nova tarefa"&gt;
+&lt;button id="adicionar"&gt;Adicionar&lt;/button&gt;
+&lt;ul id="lista"&gt;&lt;/ul&gt;
+
+// JavaScript
+let lista = document.getElementById('lista');
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+
+function renderizarTarefas() {
+    lista.innerHTML = '';
+    for (let tarefa of tarefas) {
+        let item = document.createElement('li');
+        item.textContent = tarefa;
+        lista.appendChild(item);
+    }
+}
+
+renderizarTarefas();
+
+let btnAdicionar = document.getElementById('adicionar');
+btnAdicionar.addEventListener('click', function() {
+    let novaTarefa = document.getElementById('tarefa').value;
+    tarefas.push(novaTarefa);
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    renderizarTarefas();
+    document.getElementById('tarefa').value = '';
+});
+                </code></pre>
+            </section>
+
+            <!-- Slide 9: Sessão vs. Local Storage -->
+            <section>
+                <h2>Session Storage vs. Local Storage</h2>
+                <ul>
+                    <li><strong>localStorage:</strong> Dados persistem mesmo após o navegador ser fechado.</li>
+                    <li><strong>sessionStorage:</strong> Dados são removidos quando a sessão termina (fechar a aba ou navegador).</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: Tratando Exceções -->
+            <section>
+                <h2>Tratando Exceções</h2>
+                <p>É importante tratar erros ao usar o localStorage.</p>
+                <pre><code>
+try {
+    localStorage.setItem('chave', 'valor');
+} catch (e) {
+    if (e == QUOTA_EXCEEDED_ERR) {
+        alert('Limite de armazenamento atingido!');
+    }
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 11: Promises em Profundidade -->
+            <section>
+                <h2>Promises em Profundidade</h2>
+                <p>Revisão e aprofundamento sobre Promises.</p>
+                <pre><code>
+// Criando uma Promise
+let promessa = new Promise((resolve, reject) => {
+    // Operação assíncrona
+    let sucesso = true;
+    if (sucesso) {
+        resolve('Deu certo!');
+    } else {
+        reject('Deu errado!');
+    }
+});
+
+promessa.then((mensagem) => {
+    console.log(mensagem);
+}).catch((erro) => {
+    console.error(erro);
+});
+                </code></pre>
+            </section>
+
+            <!-- Slide 12: Classes em JavaScript (ES6) -->
+            <section>
+                <h2>Classes em JavaScript (ES6)</h2>
+                <p>Introdução ao uso de classes em JavaScript.</p>
+                <pre><code>
+class Pessoa {
+    constructor(nome, idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    apresentar() {
+        console.log(`Olá, meu nome é ${this.nome} e tenho ${this.idade} anos.`);
+    }
+}
+
+let pessoa1 = new Pessoa('Carlos', 28);
+pessoa1.apresentar();
+                </code></pre>
+            </section>
+
+            <!-- Slide 13: Módulos em JavaScript -->
+            <section>
+                <h2>Módulos em JavaScript</h2>
+                <p>Organizando código em módulos reutilizáveis.</p>
+                <pre><code>
+// arquivo math.js
+export function soma(a, b) {
+    return a + b;
+}
+
+// arquivo main.js
+import { soma } from './math.js';
+console.log(soma(2, 3)); // 5
+                </code></pre>
+            </section>
+
+            <!-- Slide 14: Exercício Prático 1 -->
+            <section>
+                <h2>Exercício Prático 1</h2>
+                <p>Crie uma aplicação que permite ao usuário armazenar notas em um bloco de notas. As notas devem ser salvas no localStorage.</p>
+                <pre><code>
+// Dica: Utilize um array para armazenar as notas e atualize o localStorage a cada alteração.
+                </code></pre>
+            </section>
+
+            <!-- Slide 15: Exercício Prático 2 -->
+            <section>
+                <h2>Exercício Prático 2</h2>
+                <p>Desenvolva um formulário que salva as preferências do usuário (tema, idioma, etc.) no localStorage e aplica as configurações ao carregar a página.</p>
+                <pre><code>
+// Dica: Use eventos como 'change' em inputs para capturar alterações e salvar as preferências.
+                </code></pre>
+            </section>
+
+            <!-- Slide 16: Introdução ao Canvas API -->
+            <section>
+                <h2>Introdução ao Canvas API</h2>
+                <p>O Canvas permite desenhar gráficos via JavaScript.</p>
+                <pre><code>
+// HTML
+&lt;canvas id="meuCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+
+// JavaScript
+let canvas = document.getElementById('meuCanvas');
+let ctx = canvas.getContext('2d');
+
+ctx.fillStyle = 'blue';
+ctx.fillRect(10, 10, 150, 80);
+                </code></pre>
+            </section>
+
+            <!-- Slide 17: Conclusão -->
+            <section>
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>Aprendemos a usar o localStorage para armazenar dados</li>
+                    <li>Vimos a diferença entre localStorage e sessionStorage</li>
+                    <li>Exploramos recursos avançados como Promises e Classes</li>
+                    <li>Introduzimos o Canvas API para gráficos</li>
+                </ul>
+                <p>Pratique os exercícios para consolidar o aprendizado!</p>
+            </section>
+
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>

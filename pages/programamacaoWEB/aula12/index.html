@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 12: Manipulação do DOM e Eventos em JavaScript</title>
+    <meta name="description" content="Aula sobre Manipulação do DOM e Eventos em JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Estilos do Reveal.js -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 12: Manipulação do DOM e Eventos em JavaScript</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2: Revisão da Aula Anterior -->
+            <section>
+                <h2>Revisão da Aula 11</h2>
+                <ul>
+                    <li>Operadores em JavaScript</li>
+                    <li>Estruturas condicionais</li>
+                    <li>Loops</li>
+                    <li>Funções e Arrays</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: O que é o DOM? -->
+            <section>
+                <h2>O que é o DOM?</h2>
+                <p>Document Object Model (DOM) é uma interface de programação para documentos HTML e XML. Ele representa a página para que programas possam alterar a estrutura, estilo e conteúdo do documento.</p>
+            </section>
+
+            <!-- Slide 4: Acessando Elementos do DOM -->
+            <section>
+                <h2>Acessando Elementos do DOM</h2>
+                <p>Podemos acessar elementos do DOM usando métodos como:</p>
+                <ul>
+                    <li><code>document.getElementById()</code></li>
+                    <li><code>document.getElementsByClassName()</code></li>
+                    <li><code>document.getElementsByTagName()</code></li>
+                    <li><code>document.querySelector()</code></li>
+                    <li><code>document.querySelectorAll()</code></li>
+                </ul>
+                <pre><code>
+// Exemplo
+let titulo = document.getElementById("titulo");
+let itens = document.getElementsByClassName("item");
+                </code></pre>
+            </section>
+
+            <!-- Slide 5: Manipulando Conteúdo -->
+            <section>
+                <h2>Manipulando Conteúdo</h2>
+                <p>Podemos alterar o conteúdo de um elemento usando:</p>
+                <ul>
+                    <li><code>element.textContent</code></li>
+                    <li><code>element.innerHTML</code></li>
+                    <li><code>element.value</code> (para inputs)</li>
+                </ul>
+                <pre><code>
+// Exemplo
+titulo.textContent = "Novo Título";
+                </code></pre>
+            </section>
+
+            <!-- Slide 6: Manipulando Estilos -->
+            <section>
+                <h2>Manipulando Estilos</h2>
+                <p>Podemos alterar o estilo de elementos via JavaScript:</p>
+                <pre><code>
+// Exemplo
+titulo.style.color = "blue";
+titulo.style.fontSize = "24px";
+                </code></pre>
+            </section>
+
+            <!-- Slide 7: Eventos em JavaScript -->
+            <section>
+                <h2>Eventos em JavaScript</h2>
+                <p>Eventos são ações ou ocorrências que acontecem no navegador e podem ser capturadas pelo JavaScript.</p>
+                <ul>
+                    <li><code>click</code></li>
+                    <li><code>mouseover</code></li>
+                    <li><code>keydown</code></li>
+                    <li><code>load</code></li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: Adicionando Event Listeners -->
+            <section>
+                <h2>Adicionando Event Listeners</h2>
+                <p>Usamos <code>addEventListener()</code> para capturar eventos:</p>
+                <pre><code>
+// Exemplo
+let botao = document.getElementById("meuBotao");
+
+botao.addEventListener("click", function() {
+    alert("Botão clicado!");
+});
+                </code></pre>
+            </section>
+
+            <!-- Slide 9: Exemplo Prático - Contador -->
+            <section>
+                <h2>Exemplo Prático - Contador</h2>
+                <p>Vamos criar um contador que incrementa ao clicar em um botão.</p>
+                <pre><code>
+// HTML
+&lt;button id="incrementar"&gt;Incrementar&lt;/button&gt;
+&lt;p&gt;Valor: &lt;span id="contador"&gt;0&lt;/span&gt;&lt;/p&gt;
+
+// JavaScript
+let contador = 0;
+let btn = document.getElementById("incrementar");
+let display = document.getElementById("contador");
+
+btn.addEventListener("click", function() {
+    contador++;
+    display.textContent = contador;
+});
+                </code></pre>
+            </section>
+
+            <!-- Slide 10: ES6 - let e const -->
+            <section>
+                <h2>ES6 - let e const</h2>
+                <ul>
+                    <li><code>let</code>: Declara uma variável de escopo de bloco.</li>
+                    <li><code>const</code>: Declara uma constante de escopo de bloco.</li>
+                </ul>
+                <pre><code>
+// Exemplo
+let idade = 25;
+const PI = 3.14;
+                </code></pre>
+            </section>
+
+            <!-- Slide 11: Arrow Functions -->
+            <section>
+                <h2>Arrow Functions</h2>
+                <p>Sintaxe mais curta para escrever funções.</p>
+                <pre><code>
+// Função tradicional
+function soma(a, b) {
+    return a + b;
+}
+
+// Arrow function
+const soma = (a, b) => a + b;
+                </code></pre>
+            </section>
+
+            <!-- Slide 12: Template Literals -->
+            <section>
+                <h2>Template Literals</h2>
+                <p>Permitem interpolação de expressões em strings.</p>
+                <pre><code>
+let nome = "Ana";
+let mensagem = `Olá, ${nome}! Seja bem-vinda.`;
+                </code></pre>
+            </section>
+
+            <!-- Slide 13: Destructuring -->
+            <section>
+                <h2>Destructuring</h2>
+                <p>Extrai dados de arrays ou objetos.</p>
+                <pre><code>
+// Array
+let [a, b] = [1, 2];
+
+// Objeto
+let { nome, idade } = { nome: "Carlos", idade: 30 };
+                </code></pre>
+            </section>
+
+            <!-- Slide 14: Operador Spread -->
+            <section>
+                <h2>Operador Spread</h2>
+                <p>Permite expandir elementos iteráveis em locais onde zero ou mais argumentos são esperados.</p>
+                <pre><code>
+let numeros = [1, 2, 3];
+let outros = [...numeros, 4, 5, 6]; // [1, 2, 3, 4, 5, 6]
+                </code></pre>
+            </section>
+
+
+            <!-- Slide 17: Exercício Prático 1 -->
+            <section>
+                <h2>Exercício Prático 1</h2>
+                <p>Crie uma página com um botão que, ao ser clicado, muda a cor de fundo da página para uma cor aleatória.</p>
+                <pre><code>
+// JavaScript
+let botao = document.getElementById("mudarCor");
+
+botao.addEventListener("click", function() {
+    let corAleatoria = '#' + Math.floor(Math.random()*16777215).toString(16);
+    document.body.style.backgroundColor = corAleatoria;
+});
+                </code></pre>
+            </section>
+
+  
+
+            <!-- Slide 19: Conclusão -->
+            <section>
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>Aprendemos a manipular o DOM para alterar conteúdo e estilos</li>
+                    <li>Vimos como lidar com eventos em JavaScript</li>
+                    <li>Introduzimos funcionalidades do ES6</li>
+                    <li>Exploramos requisições assíncronas com Fetch API</li>
+                </ul>
+                <p>Pratique os exercícios para aprimorar suas habilidades!</p>
+            </section>
+
+     
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>

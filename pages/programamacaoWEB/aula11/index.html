@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 11: Operadores, Condicionais e Loops em JavaScript</title>
+    <meta name="description" content="Aula sobre Operadores, Condicionais e Loops em JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Estilos do Reveal.js -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 11: Operadores, Condicionais e Loops em JavaScript</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2: Revisão da Aula Anterior -->
+            <section>
+                <h2>Revisão da Aula 10</h2>
+                <ul>
+                    <li>Introdução ao JavaScript</li>
+                    <li>Variáveis e constantes</li>
+                    <li>Entrada e saída de dados</li>
+                    <li>Tipos de dados e conversão</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: Operadores em JavaScript -->
+            <section>
+                <h2>Operadores em JavaScript</h2>
+                <p>Operadores permitem realizar operações em variáveis e valores. Tipos de operadores:</p>
+                <ul>
+                    <li>Aritméticos</li>
+                    <li>Atribuição</li>
+                    <li>Comparação</li>
+                    <li>Lógicos</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Operadores Aritméticos -->
+            <section>
+                <h2>Operadores Aritméticos</h2>
+                <p>Usados para realizar operações matemáticas:</p>
+                <ul>
+                    <li><code>+</code>: Adição</li>
+                    <li><code>-</code>: Subtração</li>
+                    <li><code>*</code>: Multiplicação</li>
+                    <li><code>/</code>: Divisão</li>
+                    <li><code>%</code>: Módulo (Resto da divisão)</li>
+                    <li><code>**</code>: Exponenciação</li>
+                </ul>
+                <pre><code>
+// Exemplo
+let soma = 10 + 5; // 15
+let resto = 10 % 3; // 1
+                </code></pre>
+            </section>
+
+            <!-- Slide 5: Operadores de Atribuição -->
+            <section>
+                <h2>Operadores de Atribuição</h2>
+                <p>Usados para atribuir valores às variáveis:</p>
+                <ul>
+                    <li><code>=</code>: Atribuição simples</li>
+                    <li><code>+=</code>: Adição e atribuição</li>
+                    <li><code>-=</code>: Subtração e atribuição</li>
+                    <li><code>*=</code>: Multiplicação e atribuição</li>
+                    <li><code>/=</code>: Divisão e atribuição</li>
+                    <li><code>%=</code>: Módulo e atribuição</li>
+                </ul>
+                <pre><code>
+// Exemplo
+let x = 10;
+x += 5; // x = x + 5; Resultado: 15
+                </code></pre>
+            </section>
+
+            <!-- Slide 6: Operadores de Comparação -->
+            <section>
+                <h2>Operadores de Comparação</h2>
+                <p>Usados para comparar valores e retornam um valor booleano:</p>
+                <ul>
+                    <li><code>==</code>: Igual a</li>
+                    <li><code>!=</code>: Diferente de</li>
+                    <li><code>===</code>: Estritamente igual (valor e tipo)</li>
+                    <li><code>!==</code>: Estritamente diferente</li>
+                    <li><code>&gt;</code>: Maior que</li>
+                    <li><code>&lt;</code>: Menor que</li>
+                    <li><code>&gt;=</code>: Maior ou igual a</li>
+                    <li><code>&lt;=</code>: Menor ou igual a</li>
+                </ul>
+                <pre><code>
+// Exemplo
+let a = 5;
+let b = '5';
+console.log(a == b);  // true
+console.log(a === b); // false
+                </code></pre>
+            </section>
+
+            <!-- Slide 7: Operadores Lógicos -->
+            <section>
+                <h2>Operadores Lógicos</h2>
+                <p>Usados para combinar expressões lógicas:</p>
+                <ul>
+                    <li><code>&&</code>: E lógico (AND)</li>
+                    <li><code>||</code>: Ou lógico (OR)</li>
+                    <li><code>!</code>: Não lógico (NOT)</li>
+                </ul>
+                <pre><code>
+// Exemplo
+let idade = 20;
+let temHabilitacao = true;
+
+if (idade >= 18 && temHabilitacao) {
+    console.log("Pode dirigir");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 8: Estruturas Condicionais -->
+            <section>
+                <h2>Estruturas Condicionais</h2>
+                <p>Permitem executar blocos de código com base em condições:</p>
+                <ul>
+                    <li><code>if</code></li>
+                    <li><code>else</code></li>
+                    <li><code>else if</code></li>
+                    <li><code>switch</code></li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: Exemplo de if/else -->
+            <section>
+                <h2>Exemplo de if/else</h2>
+                <pre><code>
+let nota = prompt("Digite a nota:");
+
+if (nota >= 7) {
+    alert("Aprovado");
+} else {
+    alert("Reprovado");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 10: Estrutura switch -->
+            <section>
+                <h2>Estrutura switch</h2>
+                <pre><code>
+let dia = new Date().getDay();
+
+switch (dia) {
+    case 0:
+        console.log("Domingo");
+        break;
+    case 1:
+        console.log("Segunda-feira");
+        break;
+    // Outros casos
+    default:
+        console.log("Dia inválido");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 11: Loops em JavaScript -->
+            <section>
+                <h2>Loops em JavaScript</h2>
+                <p>Permitem executar um bloco de código várias vezes:</p>
+                <ul>
+                    <li><code>for</code></li>
+                    <li><code>while</code></li>
+                    <li><code>do...while</code></li>
+                    <li><code>for...of</code></li>
+                    <li><code>for...in</code></li>
+                </ul>
+            </section>
+
+            <!-- Slide 12: Exemplo de loop for -->
+            <section>
+                <h2>Exemplo de loop for</h2>
+                <pre><code>
+for (let i = 1; i <= 5; i++) {
+    console.log("Número: " + i);
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 13: Exemplo de loop while -->
+            <section>
+                <h2>Exemplo de loop while</h2>
+                <pre><code>
+let contador = 1;
+
+while (contador <= 5) {
+    console.log("Contagem: " + contador);
+    contador++;
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 14: Funções em JavaScript -->
+            <section>
+                <h2>Funções em JavaScript</h2>
+                <p>Blocos de código que podem ser reutilizados:</p>
+                <pre><code>
+function saudacao(nome) {
+    return "Olá, " + nome + "!";
+}
+
+let mensagem = saudacao("Maria");
+alert(mensagem);
+                </code></pre>
+            </section>
+
+            <!-- Slide 15: Escopo de Variáveis -->
+            <section>
+                <h2>Escopo de Variáveis</h2>
+                <p>Define a acessibilidade das variáveis:</p>
+                <ul>
+                    <li><strong>Escopo Global:</strong> Variáveis declaradas fora de funções</li>
+                    <li><strong>Escopo Local:</strong> Variáveis declaradas dentro de funções ou blocos</li>
+                </ul>
+            </section>
+
+            <!-- Slide 16: Arrays em JavaScript -->
+            <section>
+                <h2>Arrays em JavaScript</h2>
+                <p>Estruturas que armazenam múltiplos valores:</p>
+                <pre><code>
+let frutas = ["Maçã", "Banana", "Laranja"];
+
+console.log(frutas[0]); // Maçã
+                </code></pre>
+            </section>
+
+            <!-- Slide 17: Métodos de Arrays -->
+            <section>
+                <h2>Métodos de Arrays</h2>
+                <ul>
+                    <li><code>push()</code>: Adiciona elemento ao final</li>
+                    <li><code>pop()</code>: Remove o último elemento</li>
+                    <li><code>shift()</code>: Remove o primeiro elemento</li>
+                    <li><code>unshift()</code>: Adiciona elemento no início</li>
+                    <li><code>length</code>: Retorna o tamanho do array</li>
+                </ul>
+            </section>
+
+            <!-- Slide 18: Exercício Prático 1 -->
+            <section>
+                <h2>Exercício Prático 1</h2>
+                <p>Elabore um programa que peça ao usuário um número e informe se ele é par ou ímpar.</p>
+                <pre><code>
+let numero = prompt("Digite um número:");
+
+if (numero % 2 === 0) {
+    alert("O número é par");
+} else {
+    alert("O número é ímpar");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 19: Exercício Prático 2 -->
+            <section>
+                <h2>Exercício Prático 2</h2>
+                <p>Crie um programa que leia 5 números e calcule a soma deles.</p>
+                <pre><code>
+let soma = 0;
+
+for (let i = 1; i <= 5; i++) {
+    let numero = Number(prompt("Digite o número " + i + ":"));
+    soma += numero;
+}
+
+alert("A soma é: " + soma);
+                </code></pre>
+            </section>
+
+            <!-- Slide 20: Exercício Prático 3 -->
+            <section>
+                <h2>Exercício Prático 3</h2>
+                <p>Faça um programa que peça ao usuário para digitar uma palavra e imprima cada letra separadamente.</p>
+                <pre><code>
+let palavra = prompt("Digite uma palavra:");
+
+for (let letra of palavra) {
+    console.log(letra);
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 21: Conclusão -->
+            <section>
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>Aprendemos sobre operadores e como utilizá-los</li>
+                    <li>Entendemos as estruturas condicionais e loops</li>
+                    <li>Vimos como funções e arrays funcionam em JavaScript</li>
+                </ul>
+                <p>Pratique os exercícios para consolidar o conhecimento!</p>
+            </section>
+
+          
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
