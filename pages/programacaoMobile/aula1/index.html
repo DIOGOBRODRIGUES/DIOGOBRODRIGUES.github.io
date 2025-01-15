@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução ao Desenvolvimento Mobile com React Native</title>
+
+    <meta name="description" content="Aula sobre Desenvolvimento Mobile com React Native">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 1: Introdução ao Desenvolvimento Mobile com React Native</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h3>O que é React Native?</h3>
+                <ul>
+                    <li>Framework JavaScript para construir aplicativos móveis nativos.</li>
+                    <li>Utiliza a mesma base do React, biblioteca popular para desenvolvimento web.</li>
+                    <li>Permite criar apps para iOS e Android com uma única base de código.</li>
+                    <li>Combina a eficiência do desenvolvimento nativo com a flexibilidade do JavaScript.</li>
+                </ul>
+                <aside class="notes">
+                    Aqui você pode adicionar suas anotações para este slide. Explique com mais detalhes o que é React
+                    Native, como ele funciona e quais suas vantagens.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Por que escolher React Native?</h3>
+                <ul>
+                    <li><strong>Performance nativa:</strong> Apps compilados em código nativo, proporcionando
+                        fluidez e responsividade.</li>
+                    <li><strong>Base de código única:</strong> Escreva o código uma vez e execute em iOS e
+                        Android.</li>
+                    <li><strong>Comunidade ativa:</strong> Grande comunidade de desenvolvedores, com amplo suporte e
+                        recursos disponíveis.</li>
+                    <li><strong>Tempo de desenvolvimento reduzido:</strong> Hot reloading e outras ferramentas
+                        agilizam o processo de desenvolvimento.</li>
+                    <li><strong>Custo-benefício:</strong> Reduz a necessidade de equipes separadas para iOS e
+                        Android.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Mercado Atual do React Native</h3>
+                <ul>
+                    <li><strong>Alta demanda:</strong> Profissionais com expertise em React Native são
+                        altamente requisitados.</li>
+                    <li><strong>Salários competitivos:</strong> A demanda por desenvolvedores React Native impulsiona
+                        os salários.</li>
+                    <li><strong>Empresas que utilizam:</strong> Facebook, Instagram, Uber, Airbnb, Tesla, e muitas
+                        outras.</li>
+                    <li><strong>Tendência de crescimento:</strong> O React Native continua em constante evolução e
+                        adoção.</li>
+                </ul>
+                <aside class="notes">
+                    Mencione exemplos de empresas que utilizam React Native e apresente dados sobre a demanda por
+                    desenvolvedores na área.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Apps Nativos vs. Híbridos</h3>
+                <ul>
+                    <li><strong>Nativos:</strong> Desenvolvidos especificamente para cada plataforma (iOS ou
+                        Android), utilizando linguagens nativas (Swift/Objective-C ou Java/Kotlin).</li>
+                    <li><strong>Híbridos:</strong> Desenvolvidos com tecnologias web (HTML, CSS, JavaScript) e
+                        executados em um contêiner nativo (WebView).</li>
+                </ul>
+                <h4>Vantagens e Desvantagens</h4>
+                <p>Comparar performance, acesso a recursos nativos, experiência do usuário, etc.</p>
+            </section>
+
+            <section>
+                <h3>Webviews</h3>
+                <ul>
+                    <li>Componente que permite exibir conteúdo web dentro de um aplicativo nativo.</li>
+                    <li>Utilizado em apps híbridos para renderizar a interface do usuário.</li>
+                    <li>Podem apresentar limitações em termos de performance e acesso a recursos nativos.</li>
+                </ul>
+                <aside class="notes">
+                    Explique como as Webviews funcionam e quais as suas implicações no desenvolvimento de apps híbridos.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Quando optar por soluções nativas?</h3>
+                <ul>
+                    <li><strong>Alto desempenho:</strong> Jogos, apps com gráficos complexos ou processamento
+                        intensivo.</li>
+                    <li><strong>Acesso a recursos específicos:</strong> Câmera, GPS, sensores, Bluetooth, etc.</li>
+                    <li><strong>Integração profunda com o sistema:</strong> Notificações push, widgets, etc.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Como funciona o React Native?</h3>
+                <ul>
+                    <li><strong>Ponte JavaScript:</strong> Conecta o código JavaScript com os componentes nativos da
+                        plataforma.</li>
+                    <li><strong>Threads separadas:</strong> UI Thread (interface) e JavaScript Thread (lógica do
+                        app).</li>
+                    <li><strong>Componentes nativos:</strong> Utiliza componentes nativos da plataforma para renderizar
+                        a interface.</li>
+                </ul>
+                <aside class="notes">
+                    Detalhe o funcionamento da ponte JavaScript e como o React Native interage com os componentes
+                    nativos.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Ambiente de Desenvolvimento</h3>
+                <ul>
+                    <li><strong>Visual Studio Code (VS Code):</strong> Editor de código popular com suporte a
+                        extensões para React Native.</li>
+                    <li><strong>Node.js e npm:</strong> Ambiente de execução JavaScript e gerenciador de pacotes.
+                    </li>
+                    <li><strong>React Native CLI:</strong> Ferramenta de linha de comando para criar e gerenciar
+                        projetos React Native.</li>
+                    <li><strong>Expo:</strong> Framework e plataforma que simplifica o desenvolvimento e a
+                        distribuição de apps React Native.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Visual Studio Code</h3>
+                <ul>
+                    <li>Editor de código leve e poderoso.</li>
+                    <li>Extensões para desenvolvimento React Native (ex: React Native Tools).</li>
+                    <li>Recursos como IntelliSense, debugging e integração com Git.</li>
+                </ul>
+                <aside class="notes">
+                    Demonstre alguns recursos do VS Code que facilitam o desenvolvimento com React Native.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Node.js e npm</h3>
+                <ul>
+                    <li><strong>Node.js:</strong> Ambiente de execução JavaScript que permite executar código
+                        JavaScript fora do navegador.</li>
+                    <li><strong>npm:</strong> Gerenciador de pacotes para instalar e gerenciar dependências de
+                        projetos JavaScript.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>React Native CLI</h3>
+                <ul>
+                    <li>Ferramenta de linha de comando para criar, iniciar e gerenciar projetos React Native.
+                    </li>
+                    <li>Permite configurar e integrar projetos com plataformas nativas (iOS e Android).</li>
+                    <li>Oferece maior flexibilidade e controle sobre o projeto.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Expo</h3>
+                <ul>
+                    <li>Framework e plataforma que simplifica o desenvolvimento React Native.</li>
+                    <li>Facilita a configuração do ambiente, o desenvolvimento e a distribuição de apps.</li>
+                    <li>Oferece APIs e serviços para acesso a recursos nativos.</li>
+                    <li>Possui limitações em relação à integração com bibliotecas nativas.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Conclusão</h3>
+                <ul>
+                    <li>React Native é uma excelente opção para desenvolvimento mobile multiplataforma.</li>
+                    <li>Oferece performance nativa, base de código única e comunidade ativa.</li>
+                    <li>A escolha entre React Native CLI e Expo depende das necessidades do projeto.</li>
+                    <li>O futuro do desenvolvimento mobile com React Native é promissor!</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>
