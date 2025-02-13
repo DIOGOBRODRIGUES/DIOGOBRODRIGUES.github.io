@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Game Engines - Aula 1</title>
+
+    <meta name="description" content="Aula 1: Introdução a Game Engines">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 1: Conceitos de Motores e Ferramentas para Jogos (Game Engine)</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>O que é um Jogo?</h2>
+                <ul>
+                    <li>Sistema com regras.</li>
+                    <li>Interação com o jogador.</li>
+                    <li>Objetivos e desafios.</li>
+                    <li>Geralmente, possui elementos visuais, sonoros e narrativos (mas nem sempre!).</li>
+                </ul>
+                <aside class="notes">
+                    Perguntar aos alunos exemplos de jogos e discutir os elementos.  Mencionar jogos simples (Jogo da Velha) e complexos (RPGs).
+                </aside>
+            </section>
+
+            <section>
+                <h2>O que é uma Game Engine?</h2>
+                <p>Um <b>ambiente de software</b> que fornece ferramentas e funcionalidades para facilitar o desenvolvimento de jogos.</p>
+                <p>Pense como um "pacote completo" ou um "framework" para jogos.</p>
+                 <aside class="notes">
+                   Analogia com um "kit de construção" para jogos.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Componentes Principais</h2>
+                <ul>
+                    <li><b>Motor de Renderização (Rendering Engine):</b>  Responsável por exibir os gráficos (2D ou 3D).</li>
+                    <li><b>Motor de Física (Physics Engine):</b> Simula interações físicas realistas (colisões, gravidade, etc.).</li>
+                    <li><b>Motor de Áudio (Audio Engine):</b> Gerencia a reprodução de sons e músicas.</li>
+                    <li><b>Sistema de Scripting (Scripting System):</b> Permite adicionar lógica e comportamento aos jogos (geralmente com linguagens como C#, Lua, JavaScript, ou linguagens visuais).</li>
+                    <li><b>Ferramentas de Edição (Editor Tools):</b>  Interface visual para criar e organizar cenas, importar assets (modelos 3D, texturas, sons), etc.</li>
+                    <li><b>Inteligência Artificial (IA):</b>  Para controlar o comportamento de personagens não jogadores (NPCs).</li>
+                    <li><b>Networking:</b> Para jogos multiplayer.</li>
+                    <li><b>Animação:</b> Ferramentas para criar e controlar animações de personagens e objetos.</li>
+                </ul>
+                <aside class="notes">
+                    Explicar cada componente brevemente.  Não entrar em detalhes técnicos profundos neste momento.
+                </aside>
+            </section>
+            <section>
+              <h2>Por Que Usar uma Game Engine?</h2>
+                <ul>
+                    <li class="fragment"><b>Reuso de Código:</b>  Não precisa reinventar a roda para cada jogo.</li>
+                    <li class="fragment"><b>Produtividade:</b> Acelera o desenvolvimento.</li>
+                    <li class="fragment"><b>Abstração:</b>  Simplifica tarefas complexas (como renderização e física).</li>
+                    <li class="fragment"><b>Multiplataforma:</b> Muitas engines permitem exportar para várias plataformas (PC, consoles, mobile, web).</li>
+                    <li class="fragment"><b>Comunidade e Suporte:</b>  Acesso a tutoriais, documentação e fóruns de discussão.</li>
+                    <li class="fragment"><b>Ferramentas Integradas:</b>  Editores visuais, depuradores, etc.</li>
+                </ul>
+                <aside class="notes">
+                  Enfatizar que, sem uma engine, seria necessário *muito* mais código e tempo para criar até mesmo um jogo simples.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Principais Game Engines do Mercado</h2>
+                <p>Alguns dos motores mais populares:</p>
+                <ul>
+                    <li><b>Unity</b>
+                        <ul>
+                            <li>Muito popular, versátil (2D e 3D).</li>
+                            <li>Linguagem principal: C#.</li>
+                            <li>Grande comunidade, muitos recursos de aprendizado.</li>
+                            <li>Opções de licenciamento gratuitas e pagas.</li>
+                        </ul>
+                    </li>
+                 </ul>
+                  <aside class="notes">
+                    Mencionar que o licenciamento varia (gratuito com limitações, planos pagos para projetos maiores).
+                  </aside>
+            </section>
+
+            <section>
+                <h2>Principais Game Engines do Mercado</h2>
+                <ul>
+                  <li>
+                    <b>Unreal Engine</b>
+                        <ul>
+                            <li>Foco em gráficos de alta qualidade (AAA).</li>
+                            <li>Linguagem principal: C++, Blueprints (visual scripting).</li>
+                            <li>Usado em muitos jogos famosos.</li>
+                            <li>Royalty-based (após um certo faturamento).</li>
+                        </ul>
+                  </li>
+                </ul>
+            </section>
+
+              <section>
+                <h2>Principais Game Engines do Mercado</h2>
+                <ul>
+                  <li>
+                   <b>Godot Engine</b>
+                        <ul>
+                            <li>Open source (gratuito e de código aberto).</li>
+                            <li>Crescendo em popularidade.</li>
+                            <li>Linguagem principal: GDScript (similar a Python), C#, C++.</li>
+                            <li>Muito bom para 2D, 3D está melhorando.</li>
+                        </ul>
+                  </li>
+                </ul>
+                 <aside class="notes">
+                    Enfatizar a natureza open source do Godot, o que atrai muitos desenvolvedores independentes.
+                </aside>
+            </section>
+
+              <section>
+                <h2>Principais Game Engines do Mercado</h2>
+                <ul>
+                    <li><b>Outras Opções:</b>
+                        <ul>
+                            <li>GameMaker Studio 2 (foco em 2D, linguagem própria GML).</li>
+                            <li>CryEngine (gráficos avançados, C++, Lua).</li>
+                            <li>Amazon Lumberyard (baseado no CryEngine, integração com AWS).</li>
+                            <li>Construct 3 (focado em jogos 2D, sem programação).</li>
+                            <li>LibGDX (framework Java, mais baixo nível).</li>
+                            <li>Phaser (framework JavaScript para jogos 2D em HTML5).</li>
+                        </ul>
+                    </li>
+                </ul>
+                 <aside class="notes">
+                    Mencionar rapidamente outras opções, dependendo do tempo disponível.  Não é necessário detalhar cada uma.
+                 </aside>
+            </section>
+
+            <section>
+                <h2>Escolhendo a Engine Certa</h2>
+                <p>Depende de vários fatores:</p>
+                <ul>
+                    <li><b>Tipo de Jogo:</b> 2D, 3D, gênero, etc.</li>
+                    <li><b>Plataformas Alvo:</b> PC, consoles, mobile, web.</li>
+                    <li><b>Experiência da Equipe:</b> Conhecimento de linguagens de programação.</li>
+                    <li><b>Orçamento:</b>  Licenças, royalties, etc.</li>
+                    <li><b>Escopo do Projeto:</b> Jogo simples ou complexo.</li>
+                </ul>
+              <aside class="notes">
+                Reforçar que não existe "a melhor engine", mas sim a mais *adequada* para cada projeto.
+              </aside>
+            </section>
+
+           
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+
+</body>
+
+</html>
