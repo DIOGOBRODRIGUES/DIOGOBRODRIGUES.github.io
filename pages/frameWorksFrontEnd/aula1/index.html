@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução a Frameworks Front-End</title>
+
+    <meta name="description" content="Aula 1: Introdução a Frameworks Front-End | React, Angular, Vue.js">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 1: Introdução a Frameworks Front-End</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>O que são Frameworks Front-End?</h2>
+                <section>
+                <ul>
+                    <li><b>Bibliotecas ou conjuntos de ferramentas</b> que fornecem uma estrutura para construir interfaces de usuário (UI) de forma mais organizada e eficiente.</li>
+                    <li>Facilitam o desenvolvimento, oferecendo <b>componentes reutilizáveis</b>, gerenciamento de estado, roteamento, e mais.</li>
+                </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>Abstraem <b>complexidades</b> do JavaScript "puro" (vanilla JS), permitindo que os desenvolvedores se concentrem na lógica da aplicação.</li>
+                        <li>Promovem a criação de <b>Single Page Applications (SPAs)</b>, onde a página não é recarregada completamente a cada interação.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <h2>Por que usar Frameworks Front-end?</h2>
+                <section>
+                 <ul>
+                    <li><b>Produtividade:</b>  Desenvolvimento mais rápido com componentes prontos e ferramentas integradas.</li>
+                    <li><b>Organização:</b>  Estrutura clara para o código, facilitando a manutenção e colaboração.</li>
+                    <li><b>Reusabilidade:</b>  Componentes podem ser utilizados em diferentes partes da aplicação.</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li><b>Comunidade e Ecossistema:</b>  Grande suporte da comunidade, com muitas bibliotecas e plugins disponíveis.</li>
+                    <li><b>Performance:</b>  Muitos frameworks são otimizados para renderização eficiente e atualizações do DOM (Document Object Model).</li>
+                    <li><b>Testabilidade:</b>  Facilitam a criação de testes unitários e de integração.</li>
+                </ul>
+            </section>
+            </section>
+
+             <section>
+                <h2>Principais Frameworks</h2>
+                    <h3>React</h3>
+                    <section>
+                    <ul>
+                        <li>Desenvolvido pelo Facebook (Meta).</li>
+                        <li>Baseado em componentes.</li>
+                    </ul>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="200">
+                </section>
+                <section>
+                    <ul>
+                        <li>Utiliza JSX (JavaScript XML), uma extensão de sintaxe que permite escrever HTML dentro do JavaScript.</li>
+                        <li>Virtual DOM para otimizar atualizações na interface.</li>
+                    </ul>
+              
+                </section>
+                <section>
+                    <ul>
+                        <li>Foco na UI (biblioteca, não um framework completo).</li>
+                        <li>Grande comunidade e ecossistema.</li>
+                        <li>Curva de aprendizado considerada moderada.</li>
+                         <li><b>Vantagens:</b> Flexibilidade, grande comunidade, desempenho.</li>
+                        <li><b>Desvantagens:</b>  Pode exigir mais bibliotecas externas para funcionalidades completas (roteamento, gerenciamento de estado).</li>
+                    </ul>
+                </section>
+            </section>
+             <section>
+                <h2>Principais Frameworks</h2>
+                    <h3>Angular</h3>
+                <section>
+                    <ul>
+                        <li>Desenvolvido pelo Google.</li>
+                        <li>Framework completo (inclui roteamento, gerenciamento de estado, etc.).</li>
+                    </ul>
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular Logo" width="200">
+                </section>
+                <section>
+                    <ul>
+                        <li>Utiliza TypeScript (superset do JavaScript).</li>
+                        <li>Arquitetura baseada em componentes, serviços e módulos.</li>
+                        <li>Two-way data binding (ligação de dados bidirecional).</li>
+                        <li>CLI (Command Line Interface) poderosa para criar e gerenciar projetos.</li>
+                        <li>Curva de aprendizado considerada mais íngreme.</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>    
+                        <li><b>Vantagens:</b>  Estrutura completa, TypeScript, CLI robusta.</li>
+                        <li><b>Desvantagens:</b>  Mais complexo para projetos menores, atualizações frequentes podem ser desafiadoras.</li>
+                    </ul>
+                </section>
+            </section>
+
+           <section>
+            <h2>Principais Frameworks</h2>
+            <h3>Vue.js</h3>
+               <section>
+                
+                    <ul>
+                        <li>Criado por Evan You (ex-engenheiro do Google).</li>
+                        <li>Progressivo: pode ser adotado gradualmente em projetos existentes.</li>
+                    </ul>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" alt="Vue.js Logo" width="200">
+                </section>
+                <section>
+                    <ul>
+                        <li>Baseado em componentes.</li>
+                        <li>Utiliza templates HTML, mas também suporta JSX.</li>
+                        <li>Virtual DOM.</li>
+                        <li>Fácil de aprender e integrar.</li>
+                        <li>Boa documentação.</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li><b>Vantagens:</b>  Simplicidade, fácil integração, boa performance.</li>
+                        <li><b>Desvantagens:</b>  Comunidade menor em comparação com React e Angular.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+              <h2>Outros Frameworks e Bibliotecas</h2>
+                <ul>
+                  <li><b>Svelte:</b> Compila o código para JavaScript "puro" em tempo de build, resultando em aplicações muito pequenas e rápidas.</li>
+                  <li><b>Ember.js:</b> Framework "opinativo" com convenções fortes, ideal para projetos grandes e ambiciosos.</li>
+                  <li><b>Preact:</b> Alternativa menor e mais rápida ao React, com API compatível.</li>
+                  <li><b>Lit:</b>  Biblioteca para criar web components, com foco em desempenho e simplicidade.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Vantagens e Desvantagens (Geral)</h2>
+                <section>
+                  <h3>Vantagens</h3>
+                    <ul>
+                        <li>Desenvolvimento mais rápido e eficiente.</li>
+                        <li>Código mais organizado e fácil de manter.</li>
+                        <li>Reutilização de componentes.</li>
+                        <li>Grande suporte da comunidade.</li>
+                        <li>Melhor performance (em muitos casos).</li>
+                    </ul>
+                </section>
+                <section>
+                  <h3>Desvantagens</h3>
+                    <ul>
+                      <li>Curva de aprendizado inicial.</li>
+                      <li>Complexidade pode ser excessiva para projetos pequenos.</li>
+                      <li>"Framework fatigue" (cansaço de frameworks) - muitas opções e mudanças rápidas.</li>
+                      <li>Risco de dependência de um framework específico.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <h2>Configuração do Ambiente de Desenvolvimento</h2>
+                <section>
+                <ul>
+                    <li><b>Node.js e npm (ou yarn):</b>
+                        <ul>
+                            <li>Node.js é um ambiente de execução JavaScript fora do navegador.</li>
+                            <li>npm (Node Package Manager) é o gerenciador de pacotes padrão do Node.js (yarn é uma alternativa).</li>
+                            <li>Download e instalação: <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a></li>
+                            <li>Verificar instalação:  `node -v` e `npm -v` (ou `yarn -v`) no terminal.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                     <li><b>Editor de código:</b>
+                        <ul>
+                            <li>Recomendado: VS Code (Visual Studio Code).</li>
+                            <li>Outras opções: Sublime Text, Atom, WebStorm.</li>
+                            <li>Instalar extensões úteis para o framework escolhido (ex: ESLint, Prettier, extensões específicas para React/Angular/Vue).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                     <li><b>Editor de código:</b>
+                        <ul>
+                            <li>Recomendado: VS Code (Visual Studio Code).</li>
+                            <li>Outras opções: Sublime Text, Atom, WebStorm.</li>
+                            <li>Instalar extensões úteis para o framework escolhido (ex: ESLint, Prettier, extensões específicas para React/Angular/Vue).</li>
+                        </ul>
+                    </li>
+                    <li><b>Ferramentas de build (opcional, mas recomendado):</b>
+                        <ul>
+                            <li>Webpack, Parcel, Rollup, Vite.</li>
+                            <li>Empacotam o código, otimizam recursos, e mais.</li>
+                            <li>Muitos frameworks já vêm com configurações de build pré-definidas (ex: Create React App, Angular CLI, Vue CLI).</li>
+                        </ul>
+                    </li>
+                     <li><b>Controle de versão (Git):</b>
+                        <ul>
+                          <li>Essencial para rastrear mudanças no código e colaborar.</li>
+                          <li>GitHub, GitLab, Bitbucket são plataformas populares para hospedar repositórios Git.</li>
+                        </ul>
+                      </li>
+                </ul>
+            </section>
+            </section>
+            <section>
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>Frameworks front-end são ferramentas poderosas para desenvolvimento web moderno.</li>
+                    <li>A escolha do framework depende das necessidades do projeto e das preferências da equipe.</li>
+                    <li>É importante configurar um ambiente de desenvolvimento adequado.</li>
+                </ul>
+
+                <h3>Próximos Passos</h3>
+                <ul>
+                  <li>Escolher um framework para focar (ex: React).</li>
+                  <li>Criar um projeto simples ("Hello, World!").</li>
+                  <li>Explorar a documentação e tutoriais do framework.</li>
+                  <li>Praticar!</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>

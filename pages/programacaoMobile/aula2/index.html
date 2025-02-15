@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Revisão JavaScript</title>
+
+    <meta name="description" content="Aula de Revisão JavaScript | Funções, Arrays, Listas, Formulários">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 2: Revisão JavaScript</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+
+            <section>
+                <h2>Funções de Seta (Arrow Functions)</h2>
+                <ul>
+                    <li>Sintaxe concisa para funções anônimas.</li>
+                   
+                </ul>
+                <pre><code data-trim data-noescape class="language-javascript">
+                    // Função tradicional
+                    function soma(a, b) {
+                      return a + b;
+                    }
+
+                    // Arrow function
+                    const soma = (a, b) => a + b;
+
+                    // Arrow function com corpo (mais de uma linha)
+                    const saudacao = (nome) => {
+                        const mensagem = `Olá, ${nome}!`;
+                        return mensagem;
+                    }
+
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Arrays</h2>
+                <ul>
+                    <li>Estruturas de dados que armazenam coleções ordenadas de itens.</li>
+                    <li>Acesso aos elementos por índice (começando em 0).</li>
+                    <li>Métodos úteis: <code>push()</code>, <code>pop()</code>, <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, etc.</li>
+                </ul>
+                <pre><code data-trim data-noescape class="language-javascript">
+                    const frutas = ['Maçã', 'Banana', 'Laranja'];
+
+                    // Acessando elementos
+                    console.log(frutas[0]); // Maçã
+
+                    // Adicionando um elemento
+                    frutas.push('Morango');
+
+                    // Iterando com map
+                    const frutasMaiusculas = frutas.map(fruta => fruta.toUpperCase());
+
+                    console.log(frutasMaiusculas); // ['MAÇÃ', 'BANANA', 'LARANJA', 'MORANGO']
+                </code></pre>
+            </section>
+
+             <section>
+              <h2>Listas (Conceito no contexto do Front End)</h2>
+              <ul>
+                  <li>No contexto do desenvolvimento front-end (e especialmente com bibliotecas como React), "listas" geralmente se referem à exibição de dados de arrays em elementos HTML.</li>
+                  <li>Comum usar <code>&lt;ul&gt;</code> (lista não ordenada) ou <code>&lt;ol&gt;</code> (lista ordenada) com elementos <code>&lt;li&gt;</code>.</li>
+                  <li>Em frameworks/bibliotecas, utiliza-se a iteração (ex: <code>.map()</code>) para renderizar os itens da lista dinamicamente.</li>
+              </ul>
+              <pre><code data-trim data-noescape class="language-javascript">
+                // Exemplo conceitual com JavaScript puro (sem framework)
+                const listaFrutas = document.createElement('ul');
+                frutas.forEach(fruta => {
+                    const itemLista = document.createElement('li');
+                    itemLista.textContent = fruta;
+                    listaFrutas.appendChild(itemLista);
+                });
+
+                // Adiciona a lista ao corpo do documento (ou a outro elemento)
+                document.body.appendChild(listaFrutas);
+
+              </code></pre>
+           </section>
+
+            <section>
+                <h2>Listas com map() (Exemplo React)</h2>
+                <p>No React, o `map()` é *essencial* para renderizar listas:</p>
+                <pre><code data-trim data-noescape class="language-jsx">
+                    function ListaDeFrutas() {
+                      const frutas = ['Maçã', 'Banana', 'Laranja'];
+
+                      return (
+                        &lt;ul&gt;
+                          {frutas.map((fruta, index) => (
+                            &lt;li key={index}&gt;{fruta}&lt;/li&gt;
+                          ))}
+                        &lt;/ul&gt;
+                      );
+                    }
+                </code></pre>
+                <p><strong>Importante:</strong>  A `key` é crucial para o React otimizar a renderização da lista.  Deve ser um identificador *único* para cada item.</p>
+            </section>
+
+            <section>
+                <h2>Formulários</h2>
+                <ul>
+                    <li>Elementos HTML para coletar entrada do usuário (<code>&lt;form&gt;</code>).</li>
+                    <li>Campos de entrada: <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, etc.</li>
+                    <li>Controle de eventos (<code>onSubmit</code>, <code>onChange</code>, etc.).</li>
+                    <li>Em JavaScript puro:  acesso aos valores dos campos via `document.getElementById()`, `document.querySelector()`, etc.</li>
+                    <li>Em frameworks/bibliotecas (como React):  gerenciamento de estado dos inputs com `useState` (ou bibliotecas como Formik, React Hook Form).</li>
+
+                </ul>
+
+                <pre><code data-trim data-noescape class="language-html">
+&lt;form&gt;
+  &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+  &lt;input type="text" id="nome" name="nome"&gt;&lt;br&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+                </code></pre>
+
+            </section>
+
+           <section>
+            <h2>Formulários (Exemplo React com useState)</h2>
+              <pre><code data-trim data-noescape class="language-jsx">
+import React, { useState } from 'react';
+
+function Formulario() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Impede o comportamento padrão do form (recarregar a página)
+    console.log('Nome:', nome);
+    console.log('Email:', email);
+    // ... lógica para enviar os dados (ex: chamada de API)
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;label&gt;
+        Nome:
+        &lt;input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Email:
+        &lt;input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+
+export default Formulario;
+            </code></pre>
+              <ul>
+                  <li>`useState` para gerenciar o estado dos campos.</li>
+                  <li>`onChange` para atualizar o estado a cada mudança.</li>
+                  <li>`onSubmit` para lidar com o envio do formulário.</li>
+                  <li>`value={nome}`  e `value={email}`:  *Vinculam* o valor do input ao estado.  Isso é *fundamental* no React ("controlled components").</li>
+              </ul>
+          </section>
+
+
+
+            <section>
+                <h2>Exercício de Revisão</h2>
+                <p>Crie um componente React simples que:</p>
+                <ol>
+                    <li>Tenha um formulário com um campo de texto para o nome de uma fruta e um botão "Adicionar".</li>
+                    <li>Ao clicar em "Adicionar", a fruta deve ser adicionada a uma lista.</li>
+                    <li>Exiba a lista de frutas abaixo do formulário.</li>
+                    <li>Utilize <code>useState</code> para gerenciar a lista de frutas.</li>
+                    <li>Utilize <code>map</code> para renderizar a lista.</li>
+                    <li>(Opcional) Adicione um botão "Remover" ao lado de cada fruta na lista, que remove a fruta da lista quando clicado.</li>
+                </ol>
+                <p>Este exercício combina os conceitos de funções de seta, arrays, listas e formulários, proporcionando uma revisão abrangente.</p>
+            </section>
+
+             <section>
+                <h2>Solução do Exercício (Parte 1: Estrutura)</h2>
+                <pre><code data-trim data-noescape class="language-jsx">
+import React, { useState } from 'react';
+
+function ListaFrutas() {
+  const [fruta, setFruta] = useState('');
+  const [listaFrutas, setListaFrutas] = useState([]);
+
+  // Funções para adicionar e remover (serão implementadas nos próximos slides)
+
+  return (
+    &lt;div&gt;
+      &lt;form&gt; {/* onSubmit será adicionado depois */}
+        &lt;input
+          type="text"
+          value={fruta}
+          onChange={(e) => setFruta(e.target.value)}
+        /&gt;
+        &lt;button type="button"&gt; {/* onClick será adicionado depois */}
+          Adicionar
+        &lt;/button&gt;
+      &lt;/form&gt;
+      &lt;ul&gt;
+         {/* Renderização da lista (será implementada depois) */}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+export default ListaFrutas;
+                </code></pre>
+              </section>
+
+            <section>
+                <h2>Solução do Exercício (Parte 2: Adicionar Fruta)</h2>
+                  <pre><code data-trim data-noescape class="language-jsx">
+// ... (código anterior)
+
+  const handleAdicionarFruta = () => {
+    if (fruta.trim() !== '') { // Evita adicionar strings vazias
+      setListaFrutas([...listaFrutas, fruta]); // Adiciona a nova fruta
+      setFruta(''); // Limpa o campo de input
+    }
+  };
+
+// ... (dentro do return)
+      &lt;form onSubmit={handleAdicionarFruta}&gt;  {/* Adiciona o onSubmit aqui também.  Pode usar o mesmo handler. */}
+        &lt;input
+          type="text"
+          value={fruta}
+          onChange={(e) => setFruta(e.target.value)}
+        /&gt;
+        &lt;button type="button" onClick={handleAdicionarFruta}&gt;
+          Adicionar
+        &lt;/button&gt;
+      &lt;/form&gt;
+                  </code></pre>
+                  <ul>
+                    <li>`handleAdicionarFruta`:
+                        <ul>
+                            <li>Verifica se o input não está vazio (<code>trim()</code> remove espaços em branco do início e do fim).</li>
+                            <li><code>setListaFrutas([...listaFrutas, fruta])</code>:  Isso é *muito importante*.  Usa o *spread operator* (`...`) para criar um *novo* array, em vez de modificar o array existente diretamente (o que é *proibido* no React para gerenciamento de estado).</li>
+                            <li>`setFruta('')`: Limpa o input após adicionar.</li>
+                        </ul>
+                    </li>
+                  </ul>
+              </section>
+
+
+
+            <section>
+                <h2>Solução do Exercício (Parte 3: Renderizar a Lista)</h2>
+                <pre><code data-trim data-noescape class="language-jsx">
+// ... (dentro do return, após o form)
+      &lt;ul&gt;
+        {listaFrutas.map((fruta, index) => (
+          &lt;li key={index}&gt;
+            {fruta}
+            {/* (Opcional) Botão Remover aqui */}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+                </code></pre>
+                <ul>
+                  <li>Usa <code>map()</code> para iterar sobre o array `listaFrutas`.</li>
+                  <li>`key={index}`:  Usa o índice como chave.  Em muitos casos, é melhor ter um ID único para cada item, mas para este exemplo simples, o índice funciona.</li>
+                </ul>
+              </section>
+
+             <section>
+                <h2>Solução do Exercício (Parte 4: Remover - Opcional)</h2>
+                <pre><code data-trim data-noescape class="language-jsx">
+  const handleRemoverFruta = (index) => {
+    const novaLista = listaFrutas.filter((_, i) => i !== index);
+    setListaFrutas(novaLista);
+  };
+
+// ... (dentro do return, dentro do <li>)
+
+            {fruta}
+            &lt;button type="button" onClick={() => handleRemoverFruta(index)}&gt;
+              Remover
+            &lt;/button&gt;
+                </code></pre>
+                  <ul>
+                      <li>`handleRemoverFruta`:
+                          <ul>
+                              <li>Usa `filter()` para criar um *novo* array *sem* o elemento com o índice especificado.  O `filter` itera, e se a condição `i !== index` for verdadeira, o elemento é incluído no novo array.</li>
+                              <li>`setListaFrutas(novaLista)`: Atualiza o estado com o novo array.</li>
+                          </ul>
+                      </li>
+                      <li>`onClick={() => handleRemoverFruta(index)}`:  Passa o `index` para a função.  É *preciso* usar uma arrow function aqui, porque estamos passando um argumento.  Se você colocar `onClick={handleRemoverFruta(index)}`, a função será chamada *imediatamente* na renderização, e não quando o botão for clicado.</li>
+                  </ul>
+              </section>
+            <section>
+                <h2>Solução Completa (Código)</h2>
+                <pre><code data-trim data-noescape class="language-jsx">
+import React, { useState } from 'react';
+
+function ListaFrutas() {
+  const [fruta, setFruta] = useState('');
+  const [listaFrutas, setListaFrutas] = useState([]);
+
+  const handleAdicionarFruta = () => {
+    if (fruta.trim() !== '') {
+      setListaFrutas([...listaFrutas, fruta]);
+      setFruta('');
+    }
+  };
+
+  const handleRemoverFruta = (index) => {
+    const novaLista = listaFrutas.filter((_, i) => i !== index);
+    setListaFrutas(novaLista);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;form onSubmit={handleAdicionarFruta}&gt;
+        &lt;input
+          type="text"
+          value={fruta}
+          onChange={(e) => setFruta(e.target.value)}
+        /&gt;
+        &lt;button type="button" onClick={handleAdicionarFruta}&gt;
+          Adicionar
+        &lt;/button&gt;
+      &lt;/form&gt;
+      &lt;ul&gt;
+        {listaFrutas.map((fruta, index) => (
+          &lt;li key={index}&gt;
+            {fruta}
+            &lt;button type="button" onClick={() => handleRemoverFruta(index)}&gt;
+              Remover
+            &lt;/button&  
+        </code>
+        </pre> 
+        </section>  
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
