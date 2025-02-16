@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução à Câmera, Iluminação e Textura; Dispositivos de Interface</title>
+
+    <meta name="description" content="Aula sobre Introdução à Câmera, Iluminação e Textura; Dispositivos de Interface em Game Engines">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 2: Introdução à Câmera, Iluminação e Textura; Dispositivos de Interface</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>Câmera</h2>
+                <p>A câmera define a perspectiva do jogador no mundo do jogo.  É como os olhos do jogador no jogo.</p>
+                <ul>
+                    <li>Tipos de Câmeras:</li>
+                    <ul>
+                        <li>Primeira Pessoa (FPS)</li>
+                        <li>Terceira Pessoa</li>
+                        <li>Isométrica</li>
+                        <li>Fixa</li>
+                    </ul>
+                    <li>Parâmetros da Câmera:</li>
+                    <ul>
+                        <li>FOV (Field of View - Campo de Visão)</li>
+                        <li>Aspect Ratio (Proporção da Tela)</li>
+                        <li>Clipping Planes (Planos de Recorte)</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Iluminação</h2>
+                <p>A iluminação é crucial para criar atmosfera e realismo em jogos. Define o humor e a visibilidade.</p>
+                <ul>
+                    <li>Tipos de Luzes:</li>
+                    <ul>
+                        <li>Direcional (Sol)</li>
+                        <li>Pontual (Lâmpada)</li>
+                        <li>Spot (Foco)</li>
+                        <li>Ambiente</li>
+                    </ul>
+                    <li>Sombreamento:</li>
+                    <ul>
+                        <li>Hard Shadows</li>
+                        <li>Soft Shadows</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Texturas</h2>
+                <p>Texturas adicionam detalhes visuais às superfícies dos objetos, tornando-os mais realistas e interessantes.</p>
+                <ul>
+                    <li>Tipos de Texturas:</li>
+                    <ul>
+                        <li>Diffuse (Cor)</li>
+                        <li>Normal (Relevo)</li>
+                        <li>Specular (Brilho)</li>
+                        <li>Ambient Occlusion (Oclusão Ambiental)</li>
+                    </ul>
+                    <li>Mapeamento de Texturas:</li>
+                    <ul>
+                        <li>UV Mapping</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Dispositivos de Interface Humana (HID)</h2>
+                <p>Dispositivos que permitem a interação entre o jogador e o jogo.</p>
+                <ul>
+                    <li>Entrada de Dados:</li>
+                    <ul>
+                        <li>Teclado e Mouse</li>
+                        <li>Controladores (Gamepads)</li>
+                        <li>Joysticks</li>
+                        <li>Touchscreen</li>
+                        <li>Sensores (Movimento, etc.)</li>
+                    </ul>
+                    <li>Saída de Dados:</li>
+                    <ul>
+                        <li>Monitores/Telas</li>
+                        <li>Alto-falantes/Fones de ouvido</li>
+                        <li>Vibração (Controladores)</li>
+                        <li>Dispositivos Hápticos</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Considerações Finais</h2>
+                <p>A combinação de câmera, iluminação, texturas e dispositivos de interface define a experiência do jogador em um jogo.</p>
+                <p>O design cuidadoso desses elementos é essencial para criar jogos envolventes e imersivos.</p>
+            </section>
+
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization options:
+        // - https://revealjs.com/docs/configuration/
+        // - https://revealjs.com/docs/api/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+
+            // Learn about plugins: https://revealjs.com/docs/plugins/
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+
+</body>
+
+</html>

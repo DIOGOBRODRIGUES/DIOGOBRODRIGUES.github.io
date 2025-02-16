@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução à Godot Engine</title>
+
+    <meta name="description" content="Aula sobre Godot: instalação, recursos, linguagens e ambiente de desenvolvimento">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Ícones (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Estilos base do Reveal.js -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <!-- Tema do Reveal.js (pode alterar caso deseje outro tema) -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting (opcional) -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <!-- Define cor ou imagem de fundo e uma transição de entrada -->
+            <section data-background-color="#1E1E1E" data-transition="zoom" data-background-transition="fade"
+                data-transition-speed="fast">
+                <p style="color: #ddd;">🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3 style="color: #fff;">Aula 2: Introdução à Godot Engine</h3>
+                <p style="color: #ddd;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+                        style="color: #0e76a8;">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" style="color: #fff; margin-left:15px;">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                </div>
+                <p style="color: #aaa; margin-top: 20px;">
+                    <em>Aperte a seta para avançar nos slides</em>
+                </p>
+            </section>
+
+            <!-- Slide 2 - Apresentação da Godot -->
+            <!-- Usando imagem de fundo -->
+            <section data-background="https://godotengine.org/assets/press/godot-engine-logo.png"
+                data-background-size="30%" data-background-position="center" data-background-color="#191919"
+                data-transition="fade">
+                <h2 style="color: #ffffff; text-shadow: 1px 1px 2px #000;"><i class="fas fa-gamepad"></i> O que é a
+                    Godot Engine?</h2>
+                <ul style="color: #fff; background-color: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px;">
+                    <li>Godot é uma engine de código aberto para desenvolvimento de jogos 2D e 3D.</li>
+                    <li>Focada em facilitar a criação de jogos profissionais e amadores.</li>
+                    <li>Possui uma forte comunidade e documentação abrangente.</li>
+                </ul>
+                <p>
+                    <a href="https://godotengine.org/" target="_blank" style="color: #0ebeff;">
+                        <i class="fas fa-external-link-alt"></i> Site Oficial
+                    </a>
+                </p>
+            </section>
+
+            <!-- Slide 3 - Versões da Godot -->
+            <!-- Aplicando um gradiente simples como background -->
+            <section data-background-color="#44234D" data-transition="concave" data-background-transition="zoom">
+                <h2 style="color: #fff;"><i class="fas fa-code-branch"></i> Versões Principais</h2>
+                <p style="color: #ffe4fa;">A Godot possui diversas versões, sendo as mais relevantes para nós:</p>
+                <ul style="color: #ffe4fa;">
+                    <li><strong>Godot 3.x:</strong> estável, amplamente utilizada em diversos projetos.</li>
+                    <li><strong>Godot 4.x:</strong> nova versão com melhorias significativas em gráficos e performance.
+                    </li>
+                </ul>
+                <p>
+                    <a href="https://docs.godotengine.org/en/stable/about/introduction.html" target="_blank"
+                        style="color: #fffe42;">
+                        <i class="fas fa-book"></i> Documentação Oficial
+                    </a>
+                </p>
+            </section>
+
+            <!-- Slide 4 - Processo de Instalação -->
+            <!-- Adicionando um background e data-auto-animate para animações entre slides -->
+            <section data-background="https://static.godotengine.org/images/download/screenshot.png"
+                data-background-size="cover" data-background-position="center" data-transition="slide"
+                data-auto-animate>
+                <h2 style="color: #FFFFFF; text-shadow: 1px 1px 3px #000;">
+                    <i class="fas fa-download"></i> Instalando a Godot
+                </h2>
+                <ol
+                    style="color: #fff; font-weight: 500; background-color: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px;">
+                    <li><strong>Download:</strong> Acesse o <a href="https://godotengine.org/download/" target="_blank"
+                            style="color: #0ebeff;">site oficial</a> para baixar a versão desejada.</li>
+                    <li><strong>Extração/Instalação:</strong> Em alguns SOs, basta extrair o arquivo compactado; em
+                        outros, pode haver instalador.</li>
+                    <li><strong>Primeira execução:</strong> Ao abrir, você verá o Godot Project Manager para gerenciar
+                        projetos.</li>
+                </ol>
+                <p style="color: #fff; margin-top:10px;">Certifique-se de ter as dependências necessárias para o seu
+                    sistema operacional.</p>
+            </section>
+            <!-- ===================== SLIDE 5: Recursos Principais da Godot ===================== -->
+            <section data-background-color="#203040" data-transition="convex" data-background-transition="fade">
+
+                <!-- Subslide 5.1 - Título e parte dos recursos -->
+                <section>
+                    <h2 style="color: #fff;">
+                        <i class="fas fa-toolbox"></i> Recursos Principais
+                    </h2>
+                    <ul style="color: #fff; line-height: 1.7; margin: 20px 0;">
+                        <li>Interface de Cena (Node-Based) facilitando a organização do projeto.</li>
+                        <li>Editor visual intuitivo (drag &amp; drop, layout personalizável).</li>
+                    </ul>
+                </section>
+
+                <!-- Subslide 5.2 - Continuação dos recursos -->
+                <section>
+                    <h3 style="color: #fff;">Mais Recursos</h3>
+                    <ul style="color: #fff; line-height: 1.7; margin: 20px 0;">
+                        <li>Sistema de scripting com GDScript, C#, C++ e outras linguagens.</li>
+                        <li>Suporte para exportar para diversas plataformas
+                            (Windows, Linux, macOS, Android, iOS, Web).
+                        </li>
+                        <li>Ferramentas integradas para física, áudio e animação.</li>
+                    </ul>
+                </section>
+
+                <!-- Subslide 5.3 - Link Documentação -->
+                <section>
+                    <h3 style="color: #fff;">Para se aprofundar</h3>
+                    <p>
+                        <a href="https://docs.godotengine.org/en/stable/" target="_blank" style="color: #ffdc00;">
+                            <i class="fas fa-file-alt"></i> Documentação Completa
+                        </a>
+                    </p>
+                </section>
+            </section>
+
+
+            <!-- ===================== SLIDE 6: Interface de Cena (Node-Based) ===================== -->
+            <section data-background-color="#2A2A3D" data-transition="convex" data-background-transition="fade">
+
+                <!-- Subslide 6.1 - Conceito -->
+                <section>
+                    <h2 style="color: #fff;">
+                        <i class="fas fa-sitemap"></i> Interface de Cena (Node-Based)
+                    </h2>
+                    <p style="color: #ccc; margin-bottom: 15px;">
+                        A <strong>Godot</strong> organiza projetos por meio de uma hierarquia
+                        de <em>nodes</em> (nós) em cada cena, o que torna a criação de jogos
+                        mais estruturada e intuitiva.
+                    </p>
+                </section>
+
+                <!-- Subslide 6.2 - Benefícios (Lista) -->
+                <section>
+                    <h3 style="color: #fff;">Benefícios</h3>
+                    <ul style="color: #fff; line-height: 1.6;">
+                        <li><strong>Modularidade:</strong> Cada cena pode representar uma parte específica do jogo
+                            (personagem, menu, fase).</li>
+                        <li><strong>Hierarquia clara:</strong> Nodes são facilmente localizados e estruturados, cada um
+                            com responsabilidade distinta.</li>
+                        <li><strong>Reutilização:</strong> Cenas podem ser transformadas em <em>prefabs</em>, agilizando
+                            a criação de novas partes do jogo.</li>
+                        <li><strong>Manutenção Simplificada:</strong> Ajustes podem ser feitos de forma independente em
+                            cada nó ou cena.</li>
+                    </ul>
+                </section>
+
+                <!-- Subslide 6.3 - Conclusão -->
+                <section>
+                    <h3 style="color: #fff;">Conclusão</h3>
+                    <p style="color: #fff; margin-top: 10px;">
+                        Esse modelo torna a <strong>organização</strong> do projeto mais
+                        intuitiva e <strong>escalável</strong>, pois cada parte do jogo é construída
+                        e mantida de forma independente, facilitando o trabalho em equipe e a evolução do projeto.
+                    </p>
+                </section>
+            </section>
+            <!-- Slide 6 - Ambiente de Desenvolvimento -->
+            <!-- Exemplo de parallax background (opcional) -->
+            <section data-background-color="#101820" data-transition="fade" data-background-transition="zoom"
+                data-auto-animate>
+                <h2 style="color: #0ebeff;"><i class="fas fa-laptop-code"></i> Ambiente de Desenvolvimento</h2>
+                <ul style="color: #fff; margin: 20px 0;">
+                    <li>Organização em cenas e nós (nodes) que se relacionam hierarquicamente.</li>
+                    <li>Janela de script integrada com suporte a GDScript (semelhante a Python).</li>
+                    <li>Ferramentas para depuração e profiling de jogos.</li>
+                    <li>Editor de interface (UI) para criação de menus e HUDs.</li>
+                    <li>Plugins e extensões disponíveis na Asset Library.</li>
+                </ul>
+            </section>
+
+            <!-- ===================== SLIDE X: Ambiente de Desenvolvimento na Godot IDE ===================== -->
+            <section data-background-color="#1C1C1C" data-transition="zoom" data-background-transition="fade">
+
+                <!-- Subslide X.1: Título e Introdução -->
+                <section>
+                    <h2 style="color: #ffffff;">
+                        <i class="fas fa-desktop"></i> Ambiente de Desenvolvimento
+                    </h2>
+                    <p style="color: #ccc;">
+                        A Godot fornece um conjunto de janelas e painéis que tornam
+                        a criação de jogos mais intuitiva. Entre eles, destacam-se:
+                    </p>
+                </section>
+
+                <!-- Subslide X.2: Painéis Principais em Lista -->
+                <section>
+                    <h3 style="color: #fff;">Painéis Principais</h3>
+                    <ul style="color: #fff; line-height: 1.6;">
+                        <li><strong>Scene/Palco:</strong> Visualização e organização de nós (objetos) em cena.</li>
+                        <li><strong>Inspector:</strong> Edição de propriedades do nó selecionado.</li>
+                        <li><strong>Node Tree:</strong> Hierarquia de nós, facilitando a navegação.</li>
+                        <li><strong>FileSystem:</strong> Gerencia os recursos do projeto (scripts, imagens, cenas).</li>
+                    </ul>
+                </section>
+
+                <!-- Subslide X.3: Screenshot - Layout Principal -->
+                <section>
+                    <h3 style="color: #fff;">Layout Principal</h3>
+                    <p style="color: #ccc; font-size: 0.95em;">
+                        Exemplo do editor com seus painéis principais:
+                    </p>
+                    <!-- Use um caminho local ou outro link se este não funcionar -->
+                    <img src="https://docs.godotengine.org/pt-br/4.x/_images/editor_intro_editor_empty.webp"
+                        alt="Godot Editor Layout"
+                        style="border: 2px solid #666; width: 70%; margin: 10px auto; display: block;">
+                    <p style="color: #bbb; font-size: 0.85em; margin-top: 5px;">
+                        <em>Captura de tela da documentação oficial da Godot.</em>
+                    </p>
+                </section>
+
+                <!-- Subslide X.4: Screenshot - Cena e Inspetor -->
+                <section>
+                    <h3 style="color: #fff;">Cena e Inspetor</h3>
+                    <p style="color: #ccc; font-size: 0.95em;">
+                        A <strong>Janela de Cena</strong> (esquerda) exibe os objetos (nós),
+                        enquanto o <strong>Inspector</strong> (direita) permite editar suas propriedades.
+                    </p>
+
+                    <!-- Para exibir um vídeo .webm, use a tag <video> -->
+                    <video controls autoplay loop muted
+                        style="border: 2px solid #666; width: 50%; margin: 10px auto; display: block;">
+                        <source src="https://godotengine.org/storage/releases/4.3/video/tilemaplayer.webm"
+                            type="video/webm">
+                        Seu navegador não suporta a exibição de vídeo HTML5.
+                    </video>
+
+                    <p style="color: #bbb; font-size: 0.85em; margin-top: 5px;">
+                        <em>Exemplo do editor de cena (2D) e painel de propriedades (Inspector).</em>
+                    </p>
+                </section>
+            </section>
+            </section>
+            <!-- Slide 7 - Linguagens de Programação Suportadas -->
+            <section data-background-color="#1A1A2E" data-transition="zoom" data-background-transition="convex">
+                <h2 style="color: #FFED66;"><i class="fas fa-code"></i> Linguagens</h2>
+                <ul style="color: #fafafa; line-height: 1.6;">
+                    <li><strong>GDScript:</strong> linguagem nativa da Godot, sintaxe simples e focada em jogos.</li>
+                    <li><strong>C#:</strong> integração a partir da versão 3.0, permitindo uso do ecossistema .NET.</li>
+                    <li><strong>C++:</strong> para quem precisa de mais performance e deseja criar módulos nativos.</li>
+                    <li><strong>VisualScript:</strong> linguagem visual para quem prefere fluxos baseados em nós.</li>
+                </ul>
+            </section>
+            <!-- ===================== SLIDE X: Conhecendo Nós na Godot ===================== -->
+            <section data-background-color="#2C2C3A" data-transition="zoom" data-background-transition="fade">
+
+                <!-- Subslide X.1 - Conceito de Nó -->
+                <section>
+                    <h2 style="color: #fff;">
+                        <i class="fas fa-cube"></i> Conhecendo Nós (Nodes)
+                    </h2>
+                    <p style="color: #ccc;">
+                        Na <strong>Godot</strong>, cada elemento do jogo é representado por um
+                        <em>nó</em> (node). Eles podem ter funções específicas, como exibir
+                        imagens, tocar sons ou gerenciar física.
+                    </p>
+                    <p style="color: #bbb; margin-top: 10px;">
+                        A <em>hierarquia de nós</em> dentro de uma cena define a lógica de
+                        como os elementos se relacionam, facilitando a organização do projeto.
+                    </p>
+                </section>
+
+                <!-- Subslide X.2 - Principais Nós 2D -->
+                <section>
+                    <h3 style="color: #fff;">
+                        Nós Principais para Projetos 2D
+                    </h3>
+                    <ul style="color: #fff; line-height: 1.6;">
+                        <li>
+                            <strong>Node2D:</strong> Nó básico para objetos em 2D
+                            (pode conter posição, rotação, escala).
+                        </li>
+                        <li>
+                            <strong>Sprite2D:</strong> Exibe uma imagem/texture em 2D.
+                        </li>
+                        <li>
+                            <strong>AnimatedSprite2D:</strong> Gerencia animações
+                            quadro a quadro em 2D.
+                        </li>
+                        <li>
+                            <strong>Area2D + CollisionShape2D:</strong> Detecta colisões
+                            ou sobreposições de outros corpos (ex.: deteção de área de ataque).
+                        </li>
+                        <li>
+                            <strong>RigidBody2D / KinematicBody2D:</strong> Gerenciam
+                            física e movimento (respeitando gravidade, colisões etc.).
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Subslide X.3 - Principais Nós 3D (Opcional) -->
+                <section>
+                    <h3 style="color: #fff;">
+                        Nós Principais para Projetos 3D
+                    </h3>
+                    <ul style="color: #fff; line-height: 1.6;">
+                        <li>
+                            <strong>Spatial / Node3D (Godot 4.x):</strong> Nó base para objetos 3D.
+                        </li>
+                        <li>
+                            <strong>MeshInstance3D:</strong> Exibe modelos 3D (malhas).
+                        </li>
+                        <li>
+                            <strong>Camera3D:</strong> Define o ponto de vista do jogador.
+                        </li>
+                        <li>
+                            <strong>Light3D (DirectionalLight, OmniLight, etc.):</strong> Ilumina a cena.
+                        </li>
+                        <li>
+                            <strong>CollisionShape3D / RigidBody3D / KinematicBody3D:</strong>
+                            Similar ao 2D, mas no espaço tridimensional.
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Subslide X.4 - Nós de Interface (UI) -->
+                <section>
+                    <h3 style="color: #fff;">Nós de Interface (UI)</h3>
+                    <ul style="color: #fff; line-height: 1.6;">
+                        <li>
+                            <strong>Control:</strong> Nó base para interface; gerencia
+                            dimensões, âncoras e redimensionamento.
+                        </li>
+                        <li>
+                            <strong>Label:</strong> Exibe texto simples.
+                        </li>
+                        <li>
+                            <strong>Button:</strong> Cria um botão interativo, permitindo eventos de clique.
+                        </li>
+                        <li>
+                            <strong>Panel / PanelContainer:</strong> Agrupa elementos de UI com fundos e bordas.
+                        </li>
+                        <li>
+                            <strong>LineEdit / TextEdit:</strong> Para entrada de texto do usuário.
+                        </li>
+                    </ul>
+                    <p style="color: #bbb; margin-top: 10px;">
+                        Os nós de <em>interface</em> seguem um sistema automático de Layout,
+                        facilitando a adaptação a diferentes resoluções.
+                    </p>
+                </section>
+            </section>
+            <!-- Slide 8 - Atividade/Discussão -->
+            <!-- Mudando a cor de fundo e adicionando um ícone de atividade -->
+            <section data-background-color="#252525" data-transition="fade" data-background-transition="concave">
+                <h2 style="color: #FFD700;"><i class="fas fa-chalkboard-teacher"></i> Dinâmica em Sala</h2>
+                <p style="color: #fff;"><strong>Proposta:</strong> Em pequenos grupos, discutam e listem exemplos de
+                    jogos 2D ou 3D que vocês gostariam de criar com a Godot. Pensem em:</p>
+                <ul style="color: #fff; background-color: rgba(0,0,0,0.4); padding: 15px; border-radius: 5px;">
+                    <li>Gênero do jogo (plataforma, RPG, puzzle, etc.).</li>
+                    <li>Mecânicas principais e possíveis nós necessários.</li>
+                    <li>Plataforma alvo (PC, mobile, web, etc.).</li>
+                </ul>
+                <p style="color: #ddd;">Compartilhem no final da aula e discutiremos quais recursos da Godot seriam mais
+                    importantes.</p>
+                <i class="fas fa-users fa-3x" style="color: #FFD700;"></i>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+    <script>
+        Reveal.initialize({
+            // Exibe o hash na URL para navegar diretamente para um slide específico
+            hash: true,
+            // Define transição padrão (pode ser overridden por data-transition nos slides)
+            transition: 'slide', // opções: 'none', 'fade', 'slide', 'convex', 'concave', 'zoom'
+            // Velocidade: default, fast, slow
+            transitionSpeed: 'default',
+            // Transição de background
+            backgroundTransition: 'fade',
+            // Ativa plugins (notas, highlight)
+            plugins: [RevealNotes, RevealHighlight],
+            // Parallax (opcional)
+            // parallaxBackgroundImage: 'https://some-cdn/image.jpg', 
+            // parallaxBackgroundSize: '2100px 900px'
+        });
+    </script>
+</body>
+
+</html>

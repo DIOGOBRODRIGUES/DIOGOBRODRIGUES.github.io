@@ -1,118 +1,200 @@
+/* 
+  ---------------
+  Reset básico
+  ---------------
+*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+  }
+  
+  html {
+    scroll-behavior: smooth; /* Rolagem suave ao clicar nos links */
+  }
+  
+  /*
+    -----------------------
+    Fonte e Cores Padrão
+    -----------------------
+  */
+  body {
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(to right, #e7e9fc, #f6f7ff);
     color: #333;
-}
-
-header {
-    background-color: #002f6c;
-    color: white;
-    padding: 20px;
+  }
+  
+  /*
+    ---------------
+    Cabeçalho
+    ---------------
+  */
+  header {
+    background: #4a55a2; 
+    color: #fff;
     text-align: center;
-}
-
-h1 {
-    font-size: 2.5em;
-}
-
-h2 {
-    font-size: 1.8em;
-    margin-top: 10px;
-}
-
-h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-nav ul {
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Animação de aparição */
+    animation: fadeInDown 1s ease-out;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  header h2 {
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+  
+  header h3 {
+    font-weight: 300;
+    opacity: 0.9;
+  }
+  
+  /*
+    ---------------
+    Menu de navegação
+    ---------------
+  */
+  nav {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav ul {
     display: flex;
     justify-content: center;
+    gap: 2rem;
     list-style: none;
-    background-color: #004080;
-    padding: 15px 0;
-    margin: 20px 0;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
+    padding: 1rem 0;
+  }
+  
+  nav ul li a {
     text-decoration: none;
-    font-size: 1.2em;
+    color: #333;
+    font-weight: 500;
+    position: relative;
     transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #FFD700;
-}
-
-main {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-section {
-    margin-bottom: 30px;
-}
-
-section h2 {
-    color: #004080;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #004080;
-    padding-bottom: 10px;
-}
-
-section ul {
+  }
+  
+  /* Efeito hover em links do menu */
+  nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #4a55a2;
+    left: 0;
+    bottom: -4px;
+    transition: all 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #4a55a2;
+  }
+  
+  nav ul li a:hover::after {
+    width: 100%;
+  }
+  
+  /*
+    ---------------
+    Conteúdo principal
+    ---------------
+  */
+  main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  section {
+    background: #fff;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* Animação de aparição suave */
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  section h2 {
+    font-size: 1.5rem;
+    color: #4a55a2;
+    margin-bottom: 1rem;
+  }
+  
+  section ul {
     list-style: none;
-}
-
-section ul li {
-    margin-bottom: 10px;
-}
-
-section ul li a {
-    color: #002f6c;
+  }
+  
+  section ul li {
+    margin: 0.5rem 0;
+  }
+  
+  section ul li a {
     text-decoration: none;
-    font-size: 1.1em;
-    transition: color 0.3s ease;
-}
-
-section ul li a:hover {
-    color: #FFD700;
-}
-
-footer {
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  section ul li a:hover {
+    color: #4a55a2;
+    transform: translateX(4px);
+  }
+  
+  /*
+    ---------------
+    Rodapé
+    ---------------
+  */
+  footer {
+    background: #4a55a2;
+    color: #fff;
     text-align: center;
-    padding: 15px;
-    background-color: #002f6c;
-    color: white;
-    margin-top: 20px;
-}
-
-footer a {
-    color: white;
+    padding: 1.5rem;
+  }
+  
+  footer p {
+    margin: 0.5rem 0;
+  }
+  
+  footer a {
+    color: #fff;
     text-decoration: none;
-    margin: 0 10px;
-    font-size: 1.1em;
     transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: #FFD700;
-}
-
-footer i {
-    margin-right: 5px;
-}
+  }
+  
+  footer a:hover {
+    color: #ffca28;
+  }
+  
+  /*
+    ---------------
+    Animações
+    ---------------
+  */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
