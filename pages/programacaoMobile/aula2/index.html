@@ -2,198 +2,456 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8">
-    <title>Revisão JavaScript</title>
+  <meta charset="utf-8">
+  <title>Aula 2: Introdução ao Desenvolvimento Mobile</title>
 
-    <meta name="description" content="Aula de Revisão JavaScript | Funções, Arrays, Listas, Formulários">
-    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="description" content="Aula 2 - Introdução ao Desenvolvimento Mobile | React Native, Expo e CLI">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
-    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
-    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+  <!-- Font Awesome (Ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Reset e Estilos principais do Reveal.js -->
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
 </head>
 
 <body>
 
-    <div class="reveal">
-        <div class="slides">
+  <div class="reveal">
+    <div class="slides">
 
-            <section>
-                <p>🏛️ Centro Universitário Maurício de Nassau</p>
-                <h3>Aula 2: Revisão JavaScript</h3>
-                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
-                        class="fab fa-linkedin"></i> </a>
-                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
-            </section>
-
-
-            <section>
-                <h2>Funções de Seta (Arrow Functions)</h2>
-                <ul>
-                    <li>Sintaxe concisa para funções anônimas.</li>
-                   
-                </ul>
-                <pre><code data-trim data-noescape class="language-javascript">
-                    // Função tradicional
-                    function soma(a, b) {
-                      return a + b;
-                    }
-
-                    // Arrow function
-                    const soma = (a, b) => a + b;
-
-                    // Arrow function com corpo (mais de uma linha)
-                    const saudacao = (nome) => {
-                        const mensagem = `Olá, ${nome}!`;
-                        return mensagem;
-                    }
-
-                </code></pre>
-            </section>
-
-            <section>
-                <h2>Arrays</h2>
-              <section>
-                <ul>
-                    <li>Estruturas de dados que armazenam coleções ordenadas de itens.</li>
-                    <li>Acesso aos elementos por índice (começando em 0).</li>
-                    <li>Métodos úteis: <code>push()</code>, <code>pop()</code>, <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, etc.</li>
-                </ul>
-              </section>
-              <section>
-                <pre><code data-trim data-noescape class="language-javascript">
-                    const frutas = ['Maçã', 'Banana', 'Laranja'];
-
-                    // Acessando elementos
-                    console.log(frutas[0]); // Maçã
-
-                    // Adicionando um elemento
-                    frutas.push('Morango');
-
-                    // Iterando com map
-                    const frutasMaiusculas = frutas.map(fruta => fruta.toUpperCase());
-
-                    console.log(frutasMaiusculas); // ['MAÇÃ', 'BANANA', 'LARANJA', 'MORANGO']
-                </code></pre>
-              </section>
-            </section>
-
-             <section>
-              <h2>Listas (Conceito no contexto do Front End)</h2>
-              <section>
-              <ul>
-                  <li>No contexto do desenvolvimento front-end (e especialmente com bibliotecas como React), "listas" geralmente se referem à exibição de dados de arrays em elementos HTML.</li>
-                  <li>Comum usar <code>&lt;ul&gt;</code> (lista não ordenada) ou <code>&lt;ol&gt;</code> (lista ordenada) com elementos <code>&lt;li&gt;</code>.</li>
-                 
-              </ul>
-            </section>
-            <section>
-              <ul>
-                  <li>Em frameworks/bibliotecas, utiliza-se a iteração (ex: <code>.map()</code>) para renderizar os itens da lista dinamicamente.</li>
-              </ul>
-            </section>
-            <section>
-              <pre><code data-trim data-noescape class="language-javascript">
-                // Exemplo conceitual com JavaScript puro (sem framework)
-                const listaFrutas = document.createElement('ul');
-                frutas.forEach(fruta => {
-                    const itemLista = document.createElement('li');
-                    itemLista.textContent = fruta;
-                    listaFrutas.appendChild(itemLista);
-                });
-
-                // Adiciona a lista ao corpo do documento (ou a outro elemento)
-                document.body.appendChild(listaFrutas);
-
-              </code></pre>
-            </section>
-           </section>
-
-            <section>
-                <h2>Listas com map() (Exemplo React)</h2>
-                <p>No React, o `map()` é *essencial* para renderizar listas:</p>
-                <pre><code data-trim data-noescape class="language-jsx">
-                    function ListaDeFrutas() {
-                      const frutas = ['Maçã', 'Banana', 'Laranja'];
-
-                      return (
-                        &lt;ul&gt;
-                          {frutas.map((fruta, index) => (
-                            &lt;li key={index}&gt;{fruta}&lt;/li&gt;
-                          ))}
-                        &lt;/ul&gt;
-                      );
-                    }
-                </code></pre>
-                <p><strong>Importante:</strong>  A `key` é crucial para o React otimizar a renderização da lista.  Deve ser um identificador *único* para cada item.</p>
-            </section>
-
-            <section>
-                <h2>Formulários</h2>
-                <section>
-                <ul>
-                    <li>Elementos HTML para coletar entrada do usuário (<code>&lt;form&gt;</code>).</li>
-                    <li>Campos de entrada: <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, etc.</li>
-                    <li>Controle de eventos (<code>onSubmit</code>, <code>onChange</code>, etc.).</li>
-                    <li>Em JavaScript puro:  acesso aos valores dos campos via `document.getElementById()`, `document.querySelector()`, etc.</li>
-                    <li>Em frameworks/bibliotecas (como React):  gerenciamento de estado dos inputs com `useState` (ou bibliotecas como Formik, React Hook Form).</li>
-                </ul>
-              </section>
-              <section>
-                <pre><code data-trim data-noescape class="language-html">
-&lt;form&gt;
-  &lt;label for="nome"&gt;Nome:&lt;/label&gt;
-  &lt;input type="text" id="nome" name="nome"&gt;&lt;br&gt;
-
-  &lt;label for="email"&gt;Email:&lt;/label&gt;
-  &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
-
-  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
-&lt;/form&gt;
-                </code></pre>
-              </section>
-            </section>
-
-            <section>
-                <h2>Exercício de Revisão</h2>
-                <p>Crie um componente React simples que:</p>
-                <ol>
-                    <li>Tenha um formulário com um campo de texto para o nome de uma fruta e um botão "Adicionar".</li>
-                    <li>Ao clicar em "Adicionar", a fruta deve ser adicionada a uma lista.</li>
-                    <li>Exiba a lista de frutas abaixo do formulário.</li>
-                    <li>Utilize <code>useState</code> para gerenciar a lista de frutas.</li>
-                    <li>Utilize <code>map</code> para renderizar a lista.</li>
-                    <li>(Opcional) Adicione um botão "Remover" ao lado de cada fruta na lista, que remove a fruta da lista quando clicado.</li>
-                </ol>
-                <p>Este exercício combina os conceitos de funções de seta, arrays, listas e formulários, proporcionando uma revisão abrangente.</p>
-            </section>
-  
-
+      <!-- Slide 1 - Título da Apresentação -->
+      <section data-transition="zoom" data-background="#2E2E2E" data-background-transition="slide">
+        <p style="color: #fff;">🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3 style="color: #fff;">Aula 2: Introdução ao Desenvolvimento Mobile</h3>
+        <p style="color: #bbb;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div style="margin-top: 15px;">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+            style="color: #bbb; margin-right: 10px;">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" style="color: #bbb;">
+            <i class="fab fa-github fa-2x"></i>
+          </a>
         </div>
-    </div>
+      </section>
 
-    <!-- Scripts do Reveal.js -->
-    <script src="../../../reveal.js-master/dist/reveal.js"></script>
-    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
-    <script src="../../../reveal.js-master/plugin/search/search.js"></script>
-    <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
-    <script>
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            center: true,
-            hash: true,
-            slideNumber: true,
-            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
-        });
-    </script>
+      <!-- Slide 2 - Sumário / Agenda -->
+      <section data-transition="concave" data-background="#202020" data-background-transition="convex">
+        <h2 style="color: #fff;">Sumário</h2>
+        <ul style="color: #fff;">
+          <li class="fragment"><i class="fas fa-mobile-alt"></i> Contexto do Desenvolvimento Mobile</li>
+          <li class="fragment"><i class="fas fa-exchange-alt"></i> React Native vs. Desenvolvimento Nativo</li>
+          <li class="fragment"><i class="fas fa-toolbox"></i> Expo e CLI</li>
+          <li class="fragment"><i class="fas fa-cogs"></i> Instalando o Ambiente</li>
+          <li class="fragment"><i class="fas fa-play-circle"></i> Rodando o Primeiro App no Expo</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Contexto do Desenvolvimento Mobile -->
+      <section data-transition="fade" data-background="#1C1C1C" data-background-transition="zoom">
+        <h2 style="color: #fff;">Contexto do Desenvolvimento Mobile</h2>
+        <div style="color: #ccc; margin-top: 20px;">
+          <p class="fragment">
+            <strong>Mercado em expansão:</strong> Smartphones e tablets são hoje o principal meio de acesso à internet
+            para milhões de pessoas.
+          </p>
+          <p class="fragment">
+            <strong>Oportunidades de negócio:</strong> Aplicativos para serviços bancários, saúde, entretenimento,
+            educação, e-commerce e muito mais.
+          </p>
+          <p class="fragment">
+            <strong>Tecnologias emergentes:</strong> Integração com IoT, Realidade Aumentada (AR), Inteligência
+            Artificial, e outras inovações.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Slide 4 - React Native vs Desenvolvimento Nativo -->
+      <section data-transition="slide" data-background="#2B2B2B" data-background-transition="fade">
+        <h2 style="color: #fff;">React Native vs. Desenvolvimento Nativo</h2>
+        <section>
+          <p style="color: #ccc;" class="fragment">
+            <strong>React Native</strong> permite criar aplicativos multiplataforma usando JavaScript e React,
+            aproveitando um único código base para Android e iOS.
+          </p>
+          <p style="color: #ccc;" class="fragment">
+            <strong>Desenvolvimento Nativo</strong> (Swift/Objective-C no iOS e Kotlin/Java no Android) pode oferecer
+            melhor performance para casos específicos, mas requer dois códigos diferentes.
+          </p>
+        </section>
+        <section>
+          <div class="fragment" style="margin-top: 20px;">
+            <strong style="color: #fff;">Vantagens do React Native</strong>
+            <ul style="color: #ccc;">
+              <li class="fragment">Maior velocidade de desenvolvimento</li>
+              <li class="fragment">Comunidade ativa e amplo ecossistema de bibliotecas</li>
+              <li class="fragment">Hot Reloading e Live Reload</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+            <!-- Slide Pai: Conceito de Visualizações (Views) em Android/iOS -->
+<section>
+  <!-- Subslide 1: Definição de Views -->
+  <section data-transition="slide" data-background="#2E2E2E">
+      <h2 style="color: #fff;">Conceito de Visualizações (Views)</h2>
+      <p style="color: #ccc;" class="fragment">
+          No desenvolvimento Android e iOS, uma <strong>visualização</strong> é o bloco de construção básico da IU: 
+          um elemento retangular na tela usado para exibir texto, imagens ou responder à entrada do usuário.
+      </p>
+      <p style="color: #ccc;" class="fragment">
+          Até mesmo os menores elementos visuais de um aplicativo, como uma linha de texto ou um botão, são tipos de visualizações. 
+          Alguns tipos de visualizações podem conter outras visualizações — mas, no fim, tudo é <em>View</em>.
+      </p>
+  </section>
+
+  <!-- Subslide 2: Diagrama iOS/Android Views -->
+  <section data-transition="concave" data-background="#2E2E2E">
+      <h3 style="color: #fff;">Diagrama de Views no iOS e Android</h3>
+      <div style="text-align: center; margin-top: 20px;" class="fragment">
+          <img 
+              src="https://reactnative.dev/docs/assets/diagram_ios-android-views.svg" 
+              alt="Diagrama de Views em iOS/Android" 
+              style="width: 65%; border: 1px solid #555; border-radius: 8px; opacity: 0.9;"
+          />
+          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+              <em>Imagem oficial da documentação React Native, ilustrando como cada plataforma lida com Views</em>
+          </p>
+      </div>
+  </section>
+
+  <!-- Subslide 3: Implicações para React Native -->
+  <section data-transition="zoom" data-background="#1F1F1F">
+      <h3 style="color: #fff;">Implicações no React Native</h3>
+      <ul style="color: #ccc;">
+          <li class="fragment">
+              O componente <code>View</code> no React Native reflete diretamente um <strong>UIView</strong> no iOS 
+              ou um <strong>View</strong> no Android.
+          </li>
+          <li class="fragment">
+              Elementos como <code>Text</code>, <code>Image</code> ou <code>Button</code> são <em>especializações</em> 
+              dessas visualizações de base.
+          </li>
+          <li class="fragment">
+              Os <strong>estilos</strong> (altura, largura, cores) e o <strong>layout</strong> (flexbox) definidos 
+              em JavaScript afetam diretamente esses componentes nativos subjacentes.
+          </li>
+      </ul>
+  </section>
+</section>
+
+      <!-- Slide Pai (Core Components) -->
+<section>
+  <!-- Subslide 1: Introdução aos Core Components -->
+  <section data-transition="slide" data-background="#2E2E2E">
+      <h2 style="color: #fff;">Core Components do React Native</h2>
+      <p style="color: #ccc;" class="fragment">
+          Os <strong>Core Components</strong> são elementos básicos fornecidos pelo React Native, 
+          mapeados diretamente para componentes nativos em cada plataforma (iOS/Android).
+      </p>
+      <ul style="color: #ccc; margin-left: 20px;" class="fragment">
+          <li><code>View</code></li>
+          <li><code>Text</code></li>
+          <li><code>Image</code></li>
+          <li><code>TextInput</code></li>
+          <li><code>ScrollView</code></li>
+          <li><code>StyleSheet</code></li>
+      </ul>
+     
+  </section>
+
+  <!-- Subslide 2: Imagem e Link Documentação -->
+  <section data-transition="slide" data-background="#2E2E2E">
+      <div style="text-align: center; margin-top: 30px;">
+          <img 
+              src="https://reactnative.dev/img/header_logo.svg" 
+              alt="React Native Logo" 
+              style="width: 180px; opacity: 0.9;" 
+          />
+          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+              <em>Imagem oficial do React Native</em>
+          </p>
+      </div>
+      <div style="margin-top: 20px;">
+          <a href="https://reactnative.dev/docs/components-and-apis" target="_blank" style="color: #0bf;">
+              <i class="fas fa-external-link-alt"></i> Documentação Oficial: Components and APIs
+          </a>
+      </div>
+  </section>
+</section>
+
+<!-- Slide Pai (Native Components) -->
+<section>
+  <!-- Subslide 1: Conceito de Native Components -->
+  <section data-transition="convex" data-background="#1A1A1A">
+      <h2 style="color: #fff;">Native Components</h2>
+      <p style="color: #ccc;" class="fragment">
+          Para funcionalidades e APIs que não são fornecidas pelos Core Components, 
+          podemos criar <strong>componentes nativos</strong> em Swift (iOS) ou Kotlin/Java (Android).
+      </p>
+      <p style="color: #ccc;" class="fragment">
+          Essa abordagem é útil para acesso a recursos avançados de hardware ou bibliotecas que não possuem 
+          equivalentes JavaScript prontos.
+      </p>
+  </section>
+
+  <!-- Subslide 2: Casos de Uso e Documentação -->
+  <section data-transition="concave" data-background="#1A1A1A">
+      <h3 style="color: #fff;">Casos de Uso</h3>
+      <ul style="color: #ccc;" class="fragment">
+          <li>Acesso a SDKs nativos (APIs de câmera, sensores específicos etc.)</li>
+          <li>Funcionalidades que exigem bibliotecas que ainda não têm suporte em React Native puro</li>
+          <li>Criação de interfaces totalmente customizadas para cada plataforma</li>
+      </ul>
+      <div style="margin-top: 20px;" class="fragment">
+          <a href="https://reactnative.dev/docs/intro-react-native-components#native-components" target="_blank" style="color: #0bf;">
+              <i class="fas fa-external-link-alt"></i> Documentação Oficial: Native Components
+          </a>
+      </div>
+  </section>
+</section>
+
+<!-- Slide Pai (View) -->
+<section>
+  <!-- Subslide 1: Conceito do View -->
+  <section data-transition="zoom" data-background="#1F1F1F">
+      <h2 style="color: #fff;">Componente View</h2>
+      <p style="color: #ccc;" class="fragment">
+          <code>View</code> é o contêiner básico para componentes de interface no React Native. 
+          Ele funciona de forma semelhante a uma <strong>div</strong> no HTML.
+      </p>
+      <p style="color: #ccc;" class="fragment">
+          Podemos aplicar estilos (altura, largura, cor de fundo etc.) e posicionamento (flexbox) diretamente nele.
+      </p>
+  </section>
+
+  <!-- Subslide 2: Exemplo de Código com View -->
+  <section data-transition="zoom" data-background="#1F1F1F">
+<pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
+<code style="color: #fff;">
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function App() {
+return (
+  <View style={styles.container}>
+    <Text style={styles.title}>Hello React Native!</Text>
+  </View>
+);
+}
+
+const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  backgroundColor: '#222',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+title: {
+  color: '#fff',
+  fontSize: 24,
+},
+});
+</code>
+</pre>
+  </section>
+
+  <!-- Subslide 3: Imagem e Link de Referência -->
+  <section data-transition="zoom" data-background="#1F1F1F">
+      <div style="text-align: center; margin-top: 20px;">
+          <img 
+              src="https://reactnative.dev/docs/assets/GettingStartedCongratulations.png" 
+              alt="Tela Exemplo" 
+              style="width: 280px; border-radius: 8px; opacity: 0.9;" 
+          />
+          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+              <em>Tela inicial de um app React Native </em>
+          </p>
+      </div>
+      <div style="margin-top: 15px;">
+          <a href="https://reactnative.dev/docs/view" target="_blank" style="color: #0bf;">
+              <i class="fas fa-external-link-alt"></i> Documentação Oficial: View
+          </a>
+      </div>
+  </section>
+</section>
+
+      <!-- Slide 5 - Expo e CLI -->
+      <section data-transition="convex" data-background="#1F1F1F" data-background-transition="concave">
+        <h2 style="color: #fff;">Expo e CLI</h2>
+        <section>
+          <div style="color: #ccc;">
+            <p class="fragment">
+              <i class="fas fa-rocket"></i> <strong>Expo</strong>: Conjunto de ferramentas que simplificam a criação de
+              apps em React Native, eliminando a necessidade de lidar com configurações nativas mais complexas.
+            </p>
+            <p class="fragment">
+              <i class="fas fa-terminal"></i> <strong>CLI (Command Line Interface)</strong>: Configuração manual que
+              oferece maior controle sobre partes nativas do aplicativo, mas exige mais conhecimento de cada plataforma.
+            </p>
+          </div>
+        </section>
+        <section>
+          <div style="color: #ccc;">
+            <p class="fragment">
+              <strong>Quando usar Expo?</strong> Se você quer prototipar rapidamente e não precisa de recursos nativos
+              avançados ou integração profunda com SDKs nativos.
+            </p>
+            <p class="fragment">
+              <strong>Quando usar CLI pura?</strong> Se você quer ter total controle do código nativo, adicionar
+              bibliotecas que não são suportadas pelo Expo ou personalizar configurações específicas de cada plataforma.
+            </p>
+            <div class="fragment" style="margin-top: 15px;">
+              <a href="https://docs.expo.dev/" target="_blank" style="color: #0fb"><i
+                  class="fas fa-external-link-alt"></i> Documentação Oficial do Expo</a>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Instalando o Ambiente -->
+      <section data-transition="zoom" data-background="#282828" data-background-transition="zoom">
+        <h2 style="color: #fff;">Instalando o Ambiente</h2>
+        <div class="fragment" style="color: #ccc; margin-top: 20px;">
+          <ol>
+            <li>Instale o <strong>Node.js</strong> (recomendado LTS) em seu sistema.</li>
+            <li>Instale o <strong>Expo CLI</strong> globalmente:
+              <pre style="background-color: #333; padding: 10px; border-radius: 5px; margin-top: 5px;">
+<code style="color: #fff;">
+npm install --global expo-cli
+</code>
+                            </pre>
+            </li>
+            <li>Verifique a instalação:
+              <pre style="background-color: #333; padding: 10px; border-radius: 5px; margin-top: 5px;">
+<code style="color: #fff;">
+expo --version
+</code>
+                            </pre>
+            </li>
+            <li>Instale em seu smartphone o <strong>Expo Go</strong> (disponível na Play Store / App Store).</li>
+          </ol>
+        </div>
+        <!-- <p class="fragment" style="color: #ccc; margin-top: 20px;">
+                    Em projetos React Native sem Expo, configure também Android Studio (para Android) ou Xcode (para iOS).  
+                </p> -->
+        <div class="fragment" style="margin-top: 15px;">
+          <a href="https://reactnative.dev/docs/environment-setup" target="_blank" style="color: #0bf"><i
+              class="fas fa-external-link-alt"></i> Documentação Oficial do React Native</a>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Rodando o Primeiro App no Expo -->
+      <section data-transition="fade" data-background="#1E1E1E" data-background-transition="concave">
+        <h2 style="color: #fff;">Rodando o Primeiro App no Expo</h2>
+        <div style="color: #ccc; margin-top: 20px;">
+          <ol>
+            <li class="fragment">Crie um novo projeto usando o Expo:
+              <pre style="background-color: #333; padding: 10px; border-radius: 5px; margin-top: 5px;">
+<code style="color: #fff;">
+  npx create-expo-app@latest
+</code>
+                            </pre>
+            </li>
+            <li class="fragment">Escolha uma <strong>template</strong> (blank, tabs, etc.).</li>
+            <li class="fragment">Entre na pasta do projeto:
+              <pre style="background-color: #333; padding: 10px; border-radius: 5px; margin-top: 5px;">
+<code style="color: #fff;">
+cd meu-primeiro-app
+npx expo start
+</code>
+                            </pre>
+            </li>
+            <li class="fragment">Escaneie o <strong>QR Code</strong> gerado com o app Expo Go para visualizar o app no
+              dispositivo físico.</li>
+          </ol>
+        </div>
+        <div class="fragment" style="text-align: center; margin-top: 20px;">
+          <img src="img/logo-wordmark-light.png" alt="Expo Logo" style="width: 150px; opacity: 0.9;" />
+        </div>
+      </section>
+
+      <!-- Slide 8 - Dicas e Boas Práticas -->
+      <section data-transition="convex" data-background="#2C2C2C" data-background-transition="fade">
+        <h2 style="color: #fff;">Dicas e Boas Práticas</h2>
+        <ul style="color: #ccc; margin-top: 20px;">
+          <li class="fragment">Use <strong>componentização</strong> para facilitar a manutenção do código.</li>
+          <li class="fragment">Aproveite o <strong>Hot Reload</strong> para testar alterações rapidamente.</li>
+          <li class="fragment">Aprenda sobre <strong>estilização</strong> com <code>StyleSheet</code> e bibliotecas como
+            <em>Styled Components</em>.</li>
+          <li class="fragment">Gerencie seu estado global com <strong>Redux</strong> ou <strong>Context API</strong>
+            conforme a necessidade.</li>
+          <li class="fragment">Faça testes em <strong>dispositivos reais</strong> e em emuladores/simuladores para
+            garantir compatibilidade.</li>
+        </ul>
+      </section>
+
+      <!-- Slide 9 - Encerramento -->
+      <section data-transition="zoom" data-background="#1B1B1B" data-background-transition="slide">
+        <h2 style="color: #fff;">Conclusão</h2>
+        <p style="color: #ccc; margin-top: 15px;">
+          O desenvolvimento mobile é um campo em constante crescimento, e <strong>React Native</strong> oferece uma
+          solução prática e rápida para criar aplicativos multiplataforma.
+        </p>
+        <p style="color: #ccc;">
+          Com <strong>Expo</strong>, você acelera o início do desenvolvimento, enquanto a <strong>CLI pura</strong> dá
+          maior liberdade em ajustes nativos.
+        </p>
+
+      </section>
+
+      <!-- Slide X - Dinâmica: Brainstorm de Aplicativos -->
+      <section data-transition="zoom" data-background="#1C1C1C" data-background-transition="concave">
+        <h2 style="color: #fff;">Dinâmica: Brainstorm de Aplicativos</h2>
+        <div style="color: #ccc; margin-top: 20px;">
+          <p class="fragment">
+            <strong>Objetivo:</strong> Refletir sobre o mercado e a diversidade de apps, estimulando
+            criatividade e visão de negócio.
+          </p>
+          <ol class="fragment">
+            <li>Responda o formulário com ideias do APP</li>
+            <li>Cada aluno/equipe deve listar <strong>ideias de aplicativos</strong> que já utilizem ou que gostariam de
+              desenvolver.</li>
+            <li>Cada grupo deve responder as questões as seguir:
+              <ul style="margin-left: 25px;">
+                <li><a href="https://forms.gle/PQZPyWYxfZJjQAs78" target="_blank" style="color: #0bf"><i
+                  class="fas fa-external-link-alt"></i> Questionário do APP</a>
+                </li>
+              </ul>
+            </li>
+            <li>Ao final, cada aluno/grupo apresenta suas ideias para a turma.</li>
+          </ol>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts do Reveal.js -->
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,             // Habilita hash na URL para navegação
+      transition: 'slide',    // Tipo de transição global (none/fade/slide/convex/concave/zoom)
+      backgroundTransition: 'slide', // Transição de fundo
+      transitionSpeed: 'fast', // Pode ser default/fast/slow
+      plugins: [RevealHighlight],
+    });
+  </script>
+</body>
+
+</html>
