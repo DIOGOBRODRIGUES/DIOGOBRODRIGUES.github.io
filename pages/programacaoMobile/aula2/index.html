@@ -103,144 +103,141 @@
         </section>
       </section>
 
-            <!-- Slide Pai: Conceito de Visualizações (Views) em Android/iOS -->
-<section>
-  <!-- Subslide 1: Definição de Views -->
-  <section data-transition="slide" data-background="#2E2E2E">
-      <h2 style="color: #fff;">Conceito de Visualizações (Views)</h2>
-      <p style="color: #ccc;" class="fragment">
-          No desenvolvimento Android e iOS, uma <strong>visualização</strong> é o bloco de construção básico da IU: 
-          um elemento retangular na tela usado para exibir texto, imagens ou responder à entrada do usuário.
-      </p>
-      <p style="color: #ccc;" class="fragment">
-          Até mesmo os menores elementos visuais de um aplicativo, como uma linha de texto ou um botão, são tipos de visualizações. 
-          Alguns tipos de visualizações podem conter outras visualizações — mas, no fim, tudo é <em>View</em>.
-      </p>
-  </section>
-
-  <!-- Subslide 2: Diagrama iOS/Android Views -->
-  <section data-transition="concave" data-background="#2E2E2E">
-      <h3 style="color: #fff;">Diagrama de Views no iOS e Android</h3>
-      <div style="text-align: center; margin-top: 20px;" class="fragment">
-          <img 
-              src="https://reactnative.dev/docs/assets/diagram_ios-android-views.svg" 
-              alt="Diagrama de Views em iOS/Android" 
-              style="width: 65%; border: 1px solid #555; border-radius: 8px; opacity: 0.9;"
-          />
-          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
-              <em>Imagem oficial da documentação React Native, ilustrando como cada plataforma lida com Views</em>
+      <!-- Slide Pai: Conceito de Visualizações (Views) em Android/iOS -->
+      <section>
+        <!-- Subslide 1: Definição de Views -->
+        <section data-transition="slide" data-background="#2E2E2E">
+          <h2 style="color: #fff;">Conceito de Visualizações (Views)</h2>
+          <p style="color: #ccc;" class="fragment">
+            No desenvolvimento Android e iOS, uma <strong>visualização</strong> é o bloco de construção básico da IU:
+            um elemento retangular na tela usado para exibir texto, imagens ou responder à entrada do usuário.
           </p>
-      </div>
-  </section>
+          <p style="color: #ccc;" class="fragment">
+            Até mesmo os menores elementos visuais de um aplicativo, como uma linha de texto ou um botão, são tipos de
+            visualizações.
+            Alguns tipos de visualizações podem conter outras visualizações — mas, no fim, tudo é <em>View</em>.
+          </p>
+        </section>
 
-  <!-- Subslide 3: Implicações para React Native -->
-  <section data-transition="zoom" data-background="#1F1F1F">
-      <h3 style="color: #fff;">Implicações no React Native</h3>
-      <ul style="color: #ccc;">
-          <li class="fragment">
-              O componente <code>View</code> no React Native reflete diretamente um <strong>UIView</strong> no iOS 
+        <!-- Subslide 2: Diagrama iOS/Android Views -->
+        <section data-transition="concave" data-background="#2E2E2E">
+          <h3 style="color: #fff;">Diagrama de Views no iOS e Android</h3>
+          <div style="text-align: center; margin-top: 20px;" class="fragment">
+            <img src="https://reactnative.dev/docs/assets/diagram_ios-android-views.svg"
+              alt="Diagrama de Views em iOS/Android"
+              style="width: 65%; border: 1px solid #555; border-radius: 8px; opacity: 0.9;" />
+            <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+              <em>Imagem oficial da documentação React Native, ilustrando como cada plataforma lida com Views</em>
+            </p>
+          </div>
+        </section>
+
+        <!-- Subslide 3: Implicações para React Native -->
+        <section data-transition="zoom" data-background="#1F1F1F">
+          <h3 style="color: #fff;">Implicações no React Native</h3>
+          <ul style="color: #ccc;">
+            <li class="fragment">
+              O componente <code>View</code> no React Native reflete diretamente um <strong>UIView</strong> no iOS
               ou um <strong>View</strong> no Android.
-          </li>
-          <li class="fragment">
-              Elementos como <code>Text</code>, <code>Image</code> ou <code>Button</code> são <em>especializações</em> 
+            </li>
+            <li class="fragment">
+              Elementos como <code>Text</code>, <code>Image</code> ou <code>Button</code> são <em>especializações</em>
               dessas visualizações de base.
-          </li>
-          <li class="fragment">
-              Os <strong>estilos</strong> (altura, largura, cores) e o <strong>layout</strong> (flexbox) definidos 
+            </li>
+            <li class="fragment">
+              Os <strong>estilos</strong> (altura, largura, cores) e o <strong>layout</strong> (flexbox) definidos
               em JavaScript afetam diretamente esses componentes nativos subjacentes.
-          </li>
-      </ul>
-  </section>
-</section>
+            </li>
+          </ul>
+        </section>
+      </section>
 
       <!-- Slide Pai (Core Components) -->
-<section>
-  <!-- Subslide 1: Introdução aos Core Components -->
-  <section data-transition="slide" data-background="#2E2E2E">
-      <h2 style="color: #fff;">Core Components do React Native</h2>
-      <p style="color: #ccc;" class="fragment">
-          Os <strong>Core Components</strong> são elementos básicos fornecidos pelo React Native, 
-          mapeados diretamente para componentes nativos em cada plataforma (iOS/Android).
-      </p>
-      <ul style="color: #ccc; margin-left: 20px;" class="fragment">
-          <li><code>View</code></li>
-          <li><code>Text</code></li>
-          <li><code>Image</code></li>
-          <li><code>TextInput</code></li>
-          <li><code>ScrollView</code></li>
-          <li><code>StyleSheet</code></li>
-      </ul>
-     
-  </section>
-
-  <!-- Subslide 2: Imagem e Link Documentação -->
-  <section data-transition="slide" data-background="#2E2E2E">
-      <div style="text-align: center; margin-top: 30px;">
-          <img 
-              src="https://reactnative.dev/img/header_logo.svg" 
-              alt="React Native Logo" 
-              style="width: 180px; opacity: 0.9;" 
-          />
-          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
-              <em>Imagem oficial do React Native</em>
+      <section>
+        <!-- Subslide 1: Introdução aos Core Components -->
+        <section data-transition="slide" data-background="#2E2E2E">
+          <h2 style="color: #fff;">Core Components do React Native</h2>
+          <p style="color: #ccc;" class="fragment">
+            Os <strong>Core Components</strong> são elementos básicos fornecidos pelo React Native,
+            mapeados diretamente para componentes nativos em cada plataforma (iOS/Android).
           </p>
-      </div>
-      <div style="margin-top: 20px;">
-          <a href="https://reactnative.dev/docs/components-and-apis" target="_blank" style="color: #0bf;">
+          <ul style="color: #ccc; margin-left: 20px;" class="fragment">
+            <li><code>View</code></li>
+            <li><code>Text</code></li>
+            <li><code>Image</code></li>
+            <li><code>TextInput</code></li>
+            <li><code>ScrollView</code></li>
+            <li><code>StyleSheet</code></li>
+          </ul>
+
+        </section>
+
+        <!-- Subslide 2: Imagem e Link Documentação -->
+        <section data-transition="slide" data-background="#2E2E2E">
+          <div style="text-align: center; margin-top: 30px;">
+            <img src="https://reactnative.dev/img/header_logo.svg" alt="React Native Logo"
+              style="width: 180px; opacity: 0.9;" />
+            <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+              <em>Imagem oficial do React Native</em>
+            </p>
+          </div>
+          <div style="margin-top: 20px;">
+            <a href="https://reactnative.dev/docs/components-and-apis" target="_blank" style="color: #0bf;">
               <i class="fas fa-external-link-alt"></i> Documentação Oficial: Components and APIs
-          </a>
-      </div>
-  </section>
-</section>
+            </a>
+          </div>
+        </section>
+      </section>
 
-<!-- Slide Pai (Native Components) -->
-<section>
-  <!-- Subslide 1: Conceito de Native Components -->
-  <section data-transition="convex" data-background="#1A1A1A">
-      <h2 style="color: #fff;">Native Components</h2>
-      <p style="color: #ccc;" class="fragment">
-          Para funcionalidades e APIs que não são fornecidas pelos Core Components, 
-          podemos criar <strong>componentes nativos</strong> em Swift (iOS) ou Kotlin/Java (Android).
-      </p>
-      <p style="color: #ccc;" class="fragment">
-          Essa abordagem é útil para acesso a recursos avançados de hardware ou bibliotecas que não possuem 
-          equivalentes JavaScript prontos.
-      </p>
-  </section>
+      <!-- Slide Pai (Native Components) -->
+      <section>
+        <!-- Subslide 1: Conceito de Native Components -->
+        <section data-transition="convex" data-background="#1A1A1A">
+          <h2 style="color: #fff;">Native Components</h2>
+          <p style="color: #ccc;" class="fragment">
+            Para funcionalidades e APIs que não são fornecidas pelos Core Components,
+            podemos criar <strong>componentes nativos</strong> em Swift (iOS) ou Kotlin/Java (Android).
+          </p>
+          <p style="color: #ccc;" class="fragment">
+            Essa abordagem é útil para acesso a recursos avançados de hardware ou bibliotecas que não possuem
+            equivalentes JavaScript prontos.
+          </p>
+        </section>
 
-  <!-- Subslide 2: Casos de Uso e Documentação -->
-  <section data-transition="concave" data-background="#1A1A1A">
-      <h3 style="color: #fff;">Casos de Uso</h3>
-      <ul style="color: #ccc;" class="fragment">
-          <li>Acesso a SDKs nativos (APIs de câmera, sensores específicos etc.)</li>
-          <li>Funcionalidades que exigem bibliotecas que ainda não têm suporte em React Native puro</li>
-          <li>Criação de interfaces totalmente customizadas para cada plataforma</li>
-      </ul>
-      <div style="margin-top: 20px;" class="fragment">
-          <a href="https://reactnative.dev/docs/intro-react-native-components#native-components" target="_blank" style="color: #0bf;">
+        <!-- Subslide 2: Casos de Uso e Documentação -->
+        <section data-transition="concave" data-background="#1A1A1A">
+          <h3 style="color: #fff;">Casos de Uso</h3>
+          <ul style="color: #ccc;" class="fragment">
+            <li>Acesso a SDKs nativos (APIs de câmera, sensores específicos etc.)</li>
+            <li>Funcionalidades que exigem bibliotecas que ainda não têm suporte em React Native puro</li>
+            <li>Criação de interfaces totalmente customizadas para cada plataforma</li>
+          </ul>
+          <div style="margin-top: 20px;" class="fragment">
+            <a href="https://reactnative.dev/docs/intro-react-native-components#native-components" target="_blank"
+              style="color: #0bf;">
               <i class="fas fa-external-link-alt"></i> Documentação Oficial: Native Components
-          </a>
-      </div>
-  </section>
-</section>
+            </a>
+          </div>
+        </section>
+      </section>
 
-<!-- Slide Pai (View) -->
-<section>
-  <!-- Subslide 1: Conceito do View -->
-  <section data-transition="zoom" data-background="#1F1F1F">
-      <h2 style="color: #fff;">Componente View</h2>
-      <p style="color: #ccc;" class="fragment">
-          <code>View</code> é o contêiner básico para componentes de interface no React Native. 
-          Ele funciona de forma semelhante a uma <strong>div</strong> no HTML.
-      </p>
-      <p style="color: #ccc;" class="fragment">
-          Podemos aplicar estilos (altura, largura, cor de fundo etc.) e posicionamento (flexbox) diretamente nele.
-      </p>
-  </section>
+      <!-- Slide Pai (View) -->
+      <section>
+        <!-- Subslide 1: Conceito do View -->
+        <section data-transition="zoom" data-background="#1F1F1F">
+          <h2 style="color: #fff;">Componente View</h2>
+          <p style="color: #ccc;" class="fragment">
+            <code>View</code> é o contêiner básico para componentes de interface no React Native.
+            Ele funciona de forma semelhante a uma <strong>div</strong> no HTML.
+          </p>
+          <p style="color: #ccc;" class="fragment">
+            Podemos aplicar estilos (altura, largura, cor de fundo etc.) e posicionamento (flexbox) diretamente nele.
+          </p>
+        </section>
 
-  <!-- Subslide 2: Exemplo de Código com View -->
-  <section data-transition="zoom" data-background="#1F1F1F">
-<pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
+        <!-- Subslide 2: Exemplo de Código com View -->
+        <section data-transition="zoom" data-background="#1F1F1F">
+          <pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
 <code style="color: #fff;">
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -267,27 +264,24 @@ title: {
 });
 </code>
 </pre>
-  </section>
+        </section>
 
-  <!-- Subslide 3: Imagem e Link de Referência -->
-  <section data-transition="zoom" data-background="#1F1F1F">
-      <div style="text-align: center; margin-top: 20px;">
-          <img 
-              src="https://reactnative.dev/docs/assets/GettingStartedCongratulations.png" 
-              alt="Tela Exemplo" 
-              style="width: 280px; border-radius: 8px; opacity: 0.9;" 
-          />
-          <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
+        <!-- Subslide 3: Imagem e Link de Referência -->
+        <section data-transition="zoom" data-background="#1F1F1F">
+          <div style="text-align: center; margin-top: 20px;">
+            <img src="https://reactnative.dev/docs/assets/GettingStartedCongratulations.png" alt="Tela Exemplo"
+              style="width: 280px; border-radius: 8px; opacity: 0.9;" />
+            <p style="color: #666; margin-top: 10px; font-size: 0.9em;">
               <em>Tela inicial de um app React Native </em>
-          </p>
-      </div>
-      <div style="margin-top: 15px;">
-          <a href="https://reactnative.dev/docs/view" target="_blank" style="color: #0bf;">
+            </p>
+          </div>
+          <div style="margin-top: 15px;">
+            <a href="https://reactnative.dev/docs/view" target="_blank" style="color: #0bf;">
               <i class="fas fa-external-link-alt"></i> Documentação Oficial: View
-          </a>
-      </div>
-  </section>
-</section>
+            </a>
+          </div>
+        </section>
+      </section>
 
       <!-- Slide 5 - Expo e CLI -->
       <section data-transition="convex" data-background="#1F1F1F" data-background-transition="concave">
@@ -384,6 +378,151 @@ npx expo start
         </div>
       </section>
 
+      <!-- Slide Pai: Estrutura de Pastas -->
+      <section>
+        <!-- Subslide 1: Estrutura Básica (Expo) -->
+        <section data-transition="slide" data-background="#2E2E2E">
+          <h2 style="color: #fff;">Estrutura de Pastas (Expo)</h2>
+          <p style="color: #ccc;" class="fragment">
+            Quando criamos um projeto com <strong>Expo</strong> usando <code>expo init</code>,
+            algumas pastas e arquivos são gerados por padrão.
+          </p>
+          <pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
+<code style="color: #fff;">
+meu-projeto/
+├── .expo/               // Configurações internas do Expo
+├── assets/              // Imagens, fontes e outros recursos estáticos
+├── node_modules/        // Dependências instaladas via npm ou yarn
+├── App.js               // Arquivo principal do app (ponto de entrada)
+├── app.json             // Configurações do projeto Expo
+├── package.json         // Lista de dependências e scripts do projeto
+└── babel.config.js      // Configurações do Babel (transpilador)
+</code>
+      </pre>
+          <p style="color: #ccc;" class="fragment">
+            Geralmente, <code>App.js</code> é o ponto de entrada. Você pode alterar o nome ou criar uma estrutura de
+            pastas adicional para componentes e serviços.
+          </p>
+        </section>
+
+        <!-- Subslide 2: Arquivos Importantes (Expo) -->
+        <section data-transition="fade" data-background="#2E2E2E">
+          <h3 style="color: #fff;">Arquivos Principais</h3>
+          <ul style="color: #ccc;">
+            <li class="fragment">
+              <code>App.js</code>: principal componente do aplicativo.
+            </li>
+            <li class="fragment">
+              <code>package.json</code>: define as dependências e scripts (ex: <code>start</code>, <code>build</code>).
+            </li>
+            <li class="fragment">
+              <code>app.json</code>: armazena configurações específicas do Expo (nome do app, slug, ícone, splash
+              screen, etc.).
+            </li>
+            <li class="fragment">
+              <code>babel.config.js</code>: contém as configurações de compilação do Babel.
+            </li>
+          </ul>
+          <div class="fragment" style="margin-top: 15px;">
+            <p style="color: #ccc;">
+              Você também pode criar pastas adicionais, como <code>src/</code> para organizar componentes e serviços ou
+              <code>api/</code> para chamadas de rede.
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide Pai: Estrutura React Native CLI -->
+      <section>
+        <!-- Subslide 1: Estrutura de Pastas (CLI) -->
+        <section data-transition="convex" data-background="#1A1A1A">
+          <h2 style="color: #fff;">Estrutura de Pastas (React Native CLI)</h2>
+          <p style="color: #ccc;" class="fragment">
+            Ao usar <strong>React Native CLI</strong> (por exemplo, <code>npx react-native init MeuApp</code>),
+            o projeto vem com diretórios para cada plataforma e arquivos de configuração diferenciados.
+          </p>
+          <pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
+<code style="color: #fff;">
+MeuApp/
+├── android/       // Projeto Android (Gradle, MainActivity.java, etc.)
+├── ios/           // Projeto iOS (xcodeproj, AppDelegate.m, etc.)
+├── node_modules/  // Dependências instaladas via npm ou yarn
+├── App.js         // Componente principal do aplicativo
+├── index.js       // Ponto de entrada para registro do app
+├── package.json   // Lista de dependências e scripts
+├── babel.config.js
+└── metro.config.js // Configuração do bundler Metro
+</code>
+      </pre>
+        </section>
+
+        <!-- Subslide 2: Detalhes sobre Pastas e Arquivos -->
+        <section data-transition="concave" data-background="#1A1A1A">
+          <h3 style="color: #fff;">Principais Pastas e Arquivos</h3>
+          <ul style="color: #ccc;">
+            <li class="fragment"><code>android/</code> – contém toda a estrutura do projeto nativo Android (Gradle
+              scripts, manifest, etc.).</li>
+            <li class="fragment"><code>ios/</code> – contém toda a estrutura do projeto nativo iOS (arquivos .xcodeproj,
+              AppDelegate, etc.).</li>
+            <li class="fragment"><code>index.js</code> – registra o aplicativo principal e indica qual componente o app
+              deve renderizar.</li>
+            <li class="fragment"><code>App.js</code> – componente principal que define a UI inicial.</li>
+            <li class="fragment"><code>metro.config.js</code> – configurações do bundler Metro (pode ser customizado
+              para caminhos de ativos, etc.).</li>
+          </ul>
+          <!-- <p class="fragment" style="color: #ccc; margin-top: 15px;"> -->
+            <!-- Essa estrutura permite acessar e editar diretamente os arquivos nativos de cada plataforma, garantindo maior
+            flexibilidade.
+          </p> -->
+        </section>
+      </section>
+
+      <!-- Slide Pai: Organização Avançada -->
+      <section>
+        <!-- Subslide 1: Organização Avançada -->
+        <section data-transition="zoom" data-background="#2E2E2E">
+          <h2 style="color: #fff;">Organização Avançada</h2>
+          <p style="color: #ccc;" class="fragment">
+            Em projetos maiores, é comum criar uma pasta <code>src/</code> ou similar para agrupar
+            <strong>componentes</strong>, <strong>telas</strong>,
+            <strong>serviços</strong> e <strong>recursos</strong> (imagens, fontes, etc.).
+          </p>
+          <pre class="fragment" style="background-color: #333; padding: 10px; border-radius: 5px;">
+<code style="color: #fff;">
+MeuApp/
+├── src/
+│   ├── components/
+│   ├── screens/
+│   ├── services/
+│   └── assets/
+├── android/
+├── ios/
+├── App.js
+├── package.json
+└── ...
+</code>
+      </pre>
+          <!-- <p class="fragment" style="color: #ccc;">
+            Isso facilita a manutenção, pois separa claramente a lógica de cada parte do aplicativo.
+          </p> -->
+        </section>
+
+        <!-- Subslide 2: Boas Práticas -->
+        <section data-transition="zoom" data-background="#2E2E2E">
+          <h3 style="color: #fff;">Boas Práticas</h3>
+          <ul style="color: #ccc;">
+            <li class="fragment">Nomear componentes em <code>PascalCase</code> e pastas em <code>kebab-case</code> ou
+              <code>snake_case</code>.</li>
+            <li class="fragment">Criar <strong>índices</strong> (index.js) para exportar múltiplos componentes de uma
+              pasta.</li>
+            <li class="fragment">Manter <strong>lógica de rede</strong> e <strong>configurações</strong> de API em
+              pastas separadas (ex: <code>services/api.js</code>).</li>
+            <li class="fragment">Documentar cada pasta/arquivo em um <em>README</em> ou no <em>Wiki</em> do projeto.
+            </li>
+          </ul>
+        </section>
+      </section>
+
       <!-- Slide 8 - Dicas e Boas Práticas -->
       <section data-transition="convex" data-background="#2C2C2C" data-background-transition="fade">
         <h2 style="color: #fff;">Dicas e Boas Práticas</h2>
@@ -391,7 +530,8 @@ npx expo start
           <li class="fragment">Use <strong>componentização</strong> para facilitar a manutenção do código.</li>
           <li class="fragment">Aproveite o <strong>Hot Reload</strong> para testar alterações rapidamente.</li>
           <li class="fragment">Aprenda sobre <strong>estilização</strong> com <code>StyleSheet</code> e bibliotecas como
-            <em>Styled Components</em>.</li>
+            <em>Styled Components</em>.
+          </li>
           <li class="fragment">Gerencie seu estado global com <strong>Redux</strong> ou <strong>Context API</strong>
             conforme a necessidade.</li>
           <li class="fragment">Faça testes em <strong>dispositivos reais</strong> e em emuladores/simuladores para
@@ -428,7 +568,7 @@ npx expo start
             <li>Cada grupo deve responder as questões as seguir:
               <ul style="margin-left: 25px;">
                 <li><a href="https://forms.gle/PQZPyWYxfZJjQAs78" target="_blank" style="color: #0bf"><i
-                  class="fas fa-external-link-alt"></i> Questionário do APP</a>
+                      class="fas fa-external-link-alt"></i> Questionário do APP</a>
                 </li>
               </ul>
             </li>
