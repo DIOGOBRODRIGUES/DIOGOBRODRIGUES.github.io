@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Conceitos Fundamentais da Godot e os 3C’s</title>
+
+    <meta name="description" content="Aula sobre Conceitos Fundamentais da Godot e os 3C’s | Game Engine">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 3: Conceitos Fundamentais da Godot e os 3C’s</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!-- Slide 2 - Introdução -->
+            <section data-transition="fade">
+                <h2>Introdução 📌</h2>
+                <p>Hoje vamos aprofundar nossa compreensão da <strong>Godot</strong> e discutir os 3 pilares
+                    fundamentais dos jogos: <strong>Personagem, Câmera e Controles</strong>.</p>
+            </section>
+
+            <!-- Slide 3 - Revisão da Estrutura da Godot -->
+            <section>
+
+                <section>
+                    <h2>📌 Revisão da Estrutura da Godot</h2>
+                    <ul>
+                        <li><i class="fas fa-cubes"></i> <strong>Nós e Cenas</strong>: Estrutura hierárquica dos jogos.
+                        </li>
+                        <li><i class="fas fa-sitemap"></i> <strong>Hierarquia de Elementos</strong>: Como organizar os
+                            elementos do jogo.</li>
+                        <li><i class="fas fa-bell"></i> <strong>Sinais e Eventos</strong>: Comunicação entre nós.</li>
+                    </ul>
+                    <p><a href="https://docs.godotengine.org/pt-br/4.x/getting_started/introduction/key_concepts_overview.html#overview-of-godot-s-key-concepts"
+                            target="_blank">🔗 Leia mais na documentação da Godot</a></p>
+                </section>
+                <!-- Subseção 1: Nós e Cenas -->
+                <section>
+                    <h2>📦 Nós e Cenas</h2>
+                    <p>A Godot usa um sistema baseado em <strong>nós</strong> (Nodes) e <strong>cenas</strong> (Scenes)
+                        para estruturar os jogos.</p>
+                    <ul>
+                        <li><i class="fas fa-cube"></i> Cada elemento do jogo é um nó (Node).</li>
+                        <li><i class="fas fa-layer-group"></i> Uma cena é um grupo de nós organizados.</li>
+                        <li><i class="fas fa-code-branch"></i> As cenas podem ser reutilizadas e aninhadas.</li>
+                    </ul>
+                 
+                </section>
+
+                <!-- Subseção 2: Hierarquia de Elementos no Jogo -->
+                <section>
+                    <h2>🗂 Hierarquia de Elementos</h2>
+                    <p>A estrutura de um jogo na Godot segue uma <strong>hierarquia</strong>, onde cada nó tem um papel
+                        específico.</p>
+                    <ul>
+                        <li><i class="fas fa-gamepad"></i> Nó principal: Representa o jogo ou uma cena específica.</li>
+                        <li><i class="fas fa-running"></i> Nó de personagem: Controla movimento e interações.</li>
+                        <li><i class="fas fa-video"></i> Nó de câmera: Define como a cena é visualizada.</li>
+                        <li><i class="fas fa-volume-up"></i> Nó de áudio: Controla sons e músicas.</li>
+                    </ul>
+                </section>
+
+                <!-- Subseção 3: Sinais e Eventos -->
+                <section>
+                    <h2>🔔 Sinais e Eventos</h2>
+                    <p>A Godot usa <strong>sinais</strong> (signals) e <strong>eventos</strong> para comunicação entre
+                        nós.</p>
+                    <ul>
+                        <li><i class="fas fa-exchange-alt"></i> Um sinal é emitido quando algo acontece (exemplo: botão
+                            pressionado).</li>
+                        <li><i class="fas fa-bell"></i> Outros nós podem ouvir e reagir a esses sinais.</li>
+                        <li><i class="fas fa-cogs"></i> Permite uma comunicação desacoplada entre diferentes partes do
+                            jogo.</li>
+                    </ul>
+
+                    <p><a href="https://docs.godotengine.org/pt-br/4.x/getting_started/introduction/key_concepts_overview.html#signals"
+                            target="_blank">🔗 Documentação: Sinais e Eventos</a></p>
+                </section>
+            </section>
+
+            <!-- Slide 4 - O que são os 3C’s? -->
+            <section data-transition="convex">
+                <h2>Os 3C’s dos Jogos 🎮</h2>
+                <p>Os <strong>3C’s</strong> são fundamentais para a jogabilidade e imersão em um jogo:</p>
+                <ul>
+                    <li>🎭 <strong>Character (Personagem)</strong></li>
+                    <li>📽️ <strong>Camera (Câmera)</strong></li>
+                    <li>🎮 <strong>Controls (Controles)</strong></li>
+                </ul>
+            </section>
+
+            <!-- Slide 5 - Character -->
+            <section>
+                <h2>🎭 Character (Personagem)</h2>
+                <ul>
+                    <li>Como o personagem interage com o mundo.</li>
+                    <li>Movimentação, animação e colisão.</li>
+                    <li>Exemplo: <em>Como um personagem de plataforma reage à gravidade?</em></li>
+                </ul>
+                <p><a href="https://docs.godotengine.org/en/stable/tutorials/physics/kinematic_character_2d.html#kinematic-character-2d"
+                        target="_blank">🔗 Tutorial de personagem na Godot</a></p>
+            </section>
+
+            <!-- Slide 6 - Camera -->
+            <section>
+                <h2>📽️ Camera (Câmera)</h2>
+                <p>Tipos de câmera e sua influência na jogabilidade:</p>
+                <ul>
+                    <li>🎮 Câmera lateral (Mario, Hollow Knight).</li>
+                    <li>🔍 Câmera em terceira pessoa (Zelda, GTA).</li>
+                    <li>📐 Câmera isométrica (Diablo).</li>
+                </ul>
+                <p><a href="https://docs.godotengine.org/pt-br/4.x/classes/class_camera2d.html" target="_blank">🔗
+                        Configuração de câmera na Godot</a></p>
+            </section>
+
+            <!-- Slide 7 - Controls -->
+            <section>
+                <section>
+                <h2>🎮 Controls (Controles)</h2>
+                <ul>
+                    <li>Interação do jogador com o jogo.</li>
+                    <li>Teclado, joystick, toque na tela.</li>
+                    <li>Diferença entre controles diretos (FPS) e indiretos (RTS, point-and-click).</li>
+                </ul>
+                <p><a href="https://docs.godotengine.org/pt-br/4.x/tutorials/ui/index.html" target="_blank">🔗
+                        Configuração de entrada na Godot</a></p>
+              </section>
+              <section>
+                <h2>🕹️ Controles Diretos</h2>
+                <p>O jogador tem controle total e imediato sobre o personagem.</p>
+                <ul>
+                    <li>👤 Movimentação acontece em tempo real.</li>
+                    <li>🎯 Resposta imediata aos comandos.</li>
+                    <li>🎮 Usado em jogos de ação, FPS e plataforma.</li>
+                </ul>
+                <p><strong>Exemplo:</strong> FPS (Call of Duty, Doom) e jogos de ação (God of War).</p>
+            </section>
+            <section>
+                <h2>🖱️ Controles Indiretos</h2>
+                <p>O jogador dá comandos e o jogo executa as ações.</p>
+                <ul>
+                    <li>⚡ Interação ocorre por cliques ou comandos.</li>
+                    <li>🧠 Usado em jogos de estratégia, RTS e simuladores.</li>
+                </ul>
+                <p><strong>Exemplo:</strong> Age of Empires, The Sims, League of Legends.</p>
+            </section>
+            <section>
+                <h2>🎮 Comparação Direto vs Indireto</h2>
+                <table style="width: 100%; font-size: 1.1em;">
+                    <tr>
+                        <th>Controle Direto</th>
+                        <th>Controle Indireto</th>
+                    </tr>
+                    <tr>
+                        <td>🕹️ Movimento imediato</td>
+                        <td>🖱️ Comandos e espera</td>
+                    </tr>
+                    <tr>
+                        <td>⚡ Resposta rápida</td>
+                        <td>🧠 Estratégia planejada</td>
+                    </tr>
+                    <tr>
+                        <td>🎯 FPS, ação</td>
+                        <td>♟️ RTS, point-and-click</td>
+                    </tr>
+                </table>
+            </section>
+            </section>
+
+            <!-- Slide 8 - Aplicação na Godot -->
+            <section>
+                <h2>🏗 Aplicação na Godot</h2>
+                <p>Como implementar os 3C’s:</p>
+                <ul>
+                    <li>📌 <strong>Personagem:</strong> Node2D → KinematicBody2D → Sprite.</li>
+                    <li>📌 <strong>Câmera:</strong> Camera2D seguindo o personagem.</li>
+                    <li>📌 <strong>Controles:</strong> Configuração de inputs no editor.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 9 - Atividade Teórica -->
+            <section>
+                <h2>🎯 Atividade Teórica</h2>
+                <p>Escolha um jogo e analise os 3C’s:</p>
+                <ul>
+                    <li>🔎 Como o personagem se move?</li>
+                    <li>📽️ Como a câmera acompanha o personagem?</li>
+                    <li>🎮 Como os controles influenciam a experiência do jogador?</li>
+                </ul>
+                <a href="https://forms.gle/3EyKnhAsjRoMyGiQ9" target="_blank">Formulário/chamada</a>
+
+            </section>
+
+            <!-- Slide 10 - Conclusão -->
+            <section data-transition="zoom-in fade-out">
+                <h2>📌 Conclusão</h2>
+                <p>Os 3C’s impactam diretamente a jogabilidade e a imersão do jogador.</p>
+                <p>Refinar esses conceitos torna um jogo mais envolvente e fluido.</p>
+                <p>Dúvidas? chama lá no linkedin <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                    class="fab fa-linkedin"></i> </a></p>
+              
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            plugins: [RevealZoom, RevealHighlight]
+        });
+    </script>
+
+</body>
+
+</html>
