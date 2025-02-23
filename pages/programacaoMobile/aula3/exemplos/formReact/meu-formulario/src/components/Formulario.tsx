@@ -1,38 +1,30 @@
-import React, { useState } from "react";
-import InputField from "./InputField"; // Importando o componente reutilizável
+import React from "react";
+import InputFieldPratic1 from "./InputFieldPratic1"; // Importando o componente reutilizável
 
 const Formulario: React.FC = () => {
-  const [formData, setFormData] = useState({
-    nome: "",
-    email: "",
-    senha: "",
-    mensagem: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.nome || !formData.email || !formData.senha) {
-      alert("Por favor, preencha todos os campos obrigatórios!");
-      return;
-    }
-    console.log("Formulário enviado:", formData);
-    alert("Formulário enviado com sucesso!");
-    setFormData({ nome: "", email: "", senha: "", mensagem: "" });
-  };
+  // 🔹 Array que define os campos do formulário
+  const fields = [
+    { label: "Nome", id: "nome", type: "text", placeholder: "Digite seu nome" },
+    { label: "E-mail", id: "email", type: "email", placeholder: "Digite seu e-mail" },
+    { label: "Senha", id: "senha", type: "password", placeholder: "Digite sua senha" },
+    { label: "Mensagem", id: "mensagem", type: "text", placeholder: "Digite sua mensagem", isTextArea: true },
+  ];
 
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Contato</h2>
-      <form onSubmit={handleSubmit}>
-        <InputField label="Nome" name="nome" value={formData.nome} placeholder="Digite seu nome" onChange={handleChange} />
-        <InputField label="E-mail" type="email" name="email" value={formData.email} placeholder="Digite seu e-mail" onChange={handleChange} />
-        <InputField label="Senha" type="password" name="senha" value={formData.senha} placeholder="Digite sua senha" onChange={handleChange} />
-        <InputField label="Mensagem" name="mensagem" value={formData.mensagem} placeholder="Digite sua mensagem" onChange={handleChange} isTextArea />
+      <form>
+        {/* 🔹 Gerando os campos dinamicamente */}
+        {fields.map(({ label, id, type, placeholder, isTextArea }) => (
+          <InputFieldPratic1
+            key={id} // React precisa de uma chave única ao usar map()
+            label={label}
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            isTextArea={isTextArea}
+          />
+        ))}
 
         <button type="submit" style={styles.button}>Enviar</button>
       </form>
@@ -40,6 +32,7 @@ const Formulario: React.FC = () => {
   );
 };
 
+// 🔹 Estilos do componente
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     maxWidth: "300px",
