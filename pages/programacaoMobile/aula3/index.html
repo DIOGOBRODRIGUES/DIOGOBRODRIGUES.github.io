@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introdução ao React</title>
+
+    <meta name="description" content="Aula sobre Introdução ao React | Fundamentos para React Native com TypeScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-background="#282a36" data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 3: Introdução ao React</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            </section>
+
+            <!-- Slide 2 - Objetivo da Aula -->
+            <section data-background-gradient="linear-gradient(to bottom, #44475a, #282a36)" data-transition="slide">
+                <h3>🎯 Objetivo da Aula</h3>
+                <p>Compreender os fundamentos do React e como eles se aplicam ao desenvolvimento com React Native e TypeScript.</p>
+                <ul class="fragment fade-in">
+                    <li><i class="fas fa-check-circle"></i> O que é React?</li>
+                    <li><i class="fas fa-check-circle"></i> Componentes e JSX</li>
+                    <li><i class="fas fa-check-circle"></i> Estado e Props</li>
+                    <li><i class="fas fa-check-circle"></i> Preparação para React Native</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - O que é React? -->
+            <section data-background="#50fa7b" data-transition="convex">
+                <h3>⚛️ O que é React?</h3>
+                <p>Uma biblioteca JavaScript para criar interfaces de usuário (UI) de forma eficiente e declarativa.</p>
+                <div class="fragment fade-up">
+                    <p><i class="fas fa-code"></i> Criada pelo Facebook em 2013.</p>
+                    <p><i class="fas fa-paint-roller"></i> Foco em componentes reutilizáveis.</p>
+                    <p><i class="fas fa-sync-alt"></i> Atualizações dinâmicas com Virtual DOM.</p>
+                </div>
+                <small><a href="https://react.dev/" target="_blank">📖 Documentação Oficial</a></small>
+            </section>
+
+            <!-- Slide 4 - Configurando o Ambiente -->
+            <section data-background="#8be9fd" data-transition="fade">
+                <h3>🛠️ Configurando o Ambiente</h3>
+                <p>Passos básicos para começar com React:</p>
+                <pre class="fragment fade-in"><code class="bash">
+# Instalar Node.js e npm
+npx create-react-app meu-projeto --template typescript
+cd meu-projeto
+npm start
+                </code></pre>
+                <p><i class="fas fa-exclamation-circle"></i> Use TypeScript para tipagem estática!</p>
+                <small><a href="https://create-react-app.dev/docs/adding-typescript/" target="_blank">📖 Docs Create React App</a></small>
+            </section>
+
+            <!-- Slide 5 - Componentes e JSX -->
+            <section data-background="#bd93f9" data-transition="slide">
+                <h3>🧩 Componentes e JSX</h3>
+                <p>Componentes são os blocos de construção do React.</p>
+                <pre class="fragment fade-right"><code class="jsx">
+// Exemplo de Componente com JSX
+import React from 'react';
+
+const MeuComponente: React.FC = () => {
+  return <h1>Olá, React! <i class="fas fa-heart"></i></h1>;
+};
+
+export default MeuComponente;
+                </code></pre>
+                <p><i class="fas fa-info-circle"></i> JSX: HTML-like dentro do JavaScript.</p>
+            </section>
+
+            <!-- Slide 6 - Props -->
+            <section data-background="#ff79c6" data-transition="zoom">
+                <h3>📬 Props: Passando Dados</h3>
+                <p>Props (properties) permitem enviar dados para componentes.</p>
+                <pre class="fragment fade-left"><code class="jsx">
+const Saudacao: React.FC<{ nome: string }> = ({ nome }) => {
+  return <p>Bem-vindo, {nome}!</p>;
+};
+
+// Uso
+<Saudacao nome="Aluno" />
+                </code></pre>
+                <p><i class="fas fa-arrow-right"></i> Props são imutáveis!</p>
+            </section>
+
+            <!-- Slide 7 - Estado (State) -->
+            <section data-background="#f1fa8c" data-transition="convex">
+                <h3>🎛️ Estado (State)</h3>
+                <p>Gerencia dados dinâmicos em um componente.</p>
+                <pre class="fragment fade-up"><code class="jsx">
+import { useState } from 'react';
+
+const Contador: React.FC = () => {
+  const [contagem, setContagem] = useState(0);
+  return (
+    <div>
+      <p>Contagem: {contagem}</p>
+      <button onClick={() => setContagem(contagem + 1)}>
+        <i class="fas fa-plus"></i> Incrementar
+      </button>
+    </div>
+  );
+};
+                </code></pre>
+                <small><a href="https://react.dev/reference/react/useState" target="_blank">📖 Docs useState</a></small>
+            </section>
+
+            <!-- Slide 8 - React Native e TypeScript -->
+            <section data-background="#6272a4" data-transition="slide">
+                <h3>📱 React Native e TypeScript</h3>
+                <p>React como base para apps móveis!</p>
+                <ul class="fragment fade-in">
+                    <li><i class="fas fa-mobile-alt"></i> Componentes nativos em vez de HTML.</li>
+                    <li><i class="fas fa-shield-alt"></i> TypeScript adiciona segurança e autocompletar.</li>
+                    <li><i class="fas fa-tools"></i> Configuração: <code>npx react-native init MeuApp --template react-native-template-typescript</code></li>
+                </ul>
+                <small><a href="https://reactnative.dev/docs/typescript" target="_blank">📖 Docs React Native com TS</a></small>
+            </section>
+
+            <!-- Slide 9 - Conclusão -->
+            <section data-background="#44475a" data-transition="zoom">
+                <h3>🏁 Conclusão</h3>
+                <p>React é poderoso, flexível e essencial para o desenvolvimento moderno.</p>
+                <p><i class="fas fa-rocket"></i> Próximos passos: hooks, roteamento e React Native!</p>
+                <p>Dúvidas? <a href="mailto:prof.diogo@example.com">📧 Entre em contato!</a></p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealHighlight],
+            transition: 'slide', // Transição padrão
+            backgroundTransition: 'fade' // Transição de fundo
+        });
+    </script>
+</body>
+</html>
