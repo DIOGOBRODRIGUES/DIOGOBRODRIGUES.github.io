@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 3: Estruturas Condicionais (if, else, switch)</title>
+
+    <meta name="description" content="Aula sobre Estruturas Condicionais em Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 3: Estruturas Condicionais (if, else, switch)</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2 - Objetivos da Aula -->
+            <section data-transition="slide" data-background="#1a1a1a">
+                <h3><i class="fas fa-bullseye"></i> Objetivos da Aula</h3>
+                <ul>
+                    <li class="fragment fade-in">Entender o conceito de estruturas condicionais</li>
+                    <li class="fragment fade-in">Aprender a usar <code>if</code> e <code>else</code></li>
+                    <li class="fragment fade-in">Explorar a estrutura <code>switch</code></li>
+                    <li class="fragment fade-in">Praticar exemplos em Portugol e JavaScript</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - O que são Estruturas Condicionais? -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-code-branch"></i> O que são Estruturas Condicionais?</h3>
+                <p class="fragment fade-up">Mecanismos que permitem tomar decisões no código com base em condições.</p>
+                <p class="fragment fade-up"><small>"Se isso, então aquilo."</small></p>
+            </section>
+
+            <!-- Slide 4 - Estrutura if e else -->
+            <section data-transition="convex">
+                <h3><i class="fas fa-question-circle"></i> Estrutura <code>if</code> e <code>else</code></h3>
+                <p class="fragment fade-in">Executa um bloco de código se uma condição for verdadeira.</p>
+                <ul>
+                    <li class="fragment fade-in"><code>if</code>: Verifica a condição</li>
+                    <li class="fragment fade-in"><code>else</code>: Executa se a condição for falsa</li>
+                </ul>
+                <p class="fragment fade-up"><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/if...else" target="_blank">MDN: if...else</a></p>
+            </section>
+
+            <!-- Slide 5 - Exemplo if/else em Portugol -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-code"></i> Exemplo em Portugol</h3>
+                <pre class="fragment fade-in"><code class="language-portugol">
+algoritmo "VerificaIdade"
+var
+    idade: inteiro
+inicio
+    escreva("Digite sua idade: ")
+    leia(idade)
+    se (idade >= 18) entao
+        escreva("Você é maior de idade!")
+    senao
+        escreva("Você é menor de idade!")
+    fimse
+fim
+                </code></pre>
+            </section>
+
+            <!-- Slide 6 - Exemplo if/else em JavaScript -->
+            <section data-transition="zoom">
+                <h3><i class="fab fa-js-square"></i> Exemplo em JavaScript</h3>
+                <pre class="fragment fade-in"><code class="language-javascript">
+let idade = parseInt(prompt("Digite sua idade:"));
+if (idade >= 18) {
+    console.log("Você é maior de idade!");
+} else {
+    console.log("Você é menor de idade!");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 7 - Estrutura switch -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-exchange-alt"></i> Estrutura <code>switch</code></h3>
+                <p class="fragment fade-in">Usada para múltiplas condições baseadas em um valor.</p>
+                <ul>
+                    <li class="fragment fade-in"><code>case</code>: Define cada caso</li>
+                    <li class="fragment fade-in"><code>break</code>: Interrompe a execução</li>
+                    <li class="fragment fade-in"><code>default</code>: Caso padrão</li>
+                </ul>
+                <p class="fragment fade-up"><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/switch" target="_blank">MDN: switch</a></p>
+            </section>
+
+            <!-- Slide 8 - Exemplo switch em Portugol -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-code"></i> Exemplo em Portugol</h3>
+                <pre class="fragment fade-in"><code class="language-portugol">
+algoritmo "DiaSemana"
+var
+    dia: inteiro
+inicio
+    escreva("Digite um número de 1 a 7: ")
+    leia(dia)
+    escolha (dia)
+        caso 1
+            escreva("Domingo")
+        caso 2
+            escreva("Segunda-feira")
+        caso 3
+            escreva("Terça-feira")
+        outrocaso
+            escreva("Dia inválido!")
+    fimescolha
+fim
+                </code></pre>
+            </section>
+
+            <!-- Slide 9 - Exemplo switch em JavaScript -->
+            <section data-transition="zoom">
+                <h3><i class="fab fa-js-square"></i> Exemplo em JavaScript</h3>
+                <pre class="fragment fade-in"><code class="language-javascript">
+let dia = parseInt(prompt("Digite um número de 1 a 7:"));
+switch (dia) {
+    case 1:
+        console.log("Domingo");
+        break;
+    case 2:
+        console.log("Segunda-feira");
+        break;
+    case 3:
+        console.log("Terça-feira");
+        break;
+    default:
+        console.log("Dia inválido!");
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 10 - Conclusão -->
+            <section data-transition="concave" data-background="#2a2a2a">
+                <h3><i class="fas fa-check-circle"></i> Conclusão</h3>
+                <p class="fragment fade-in">Estruturas condicionais controlam o fluxo do programa.</p>
+                <p class="fragment fade-in"><code>if/else</code> é ideal para condições simples.</p>
+                <p class="fragment fade-in"><code>switch</code> é útil para múltiplas opções.</p>
+                <p class="fragment fade-up">Próxima aula: Estruturas de Repetição</p>
+            </section>
+
+            <section>
+                <h2>Dúvidas? <i class="fas fa-question"></i></h2>
+                <p>Obrigado pela atenção!</p>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+<!-- Slide - Chamada para a Atividade -->
+<section data-transition="slide" data-background="#1a1a1a">
+    <h2><i class="fas fa-clipboard-check"></i> Chamada</h2>
+    <p class="fragment fade-in">Participe da revisão da aula!</p>
+    <a href="https://forms.gle/xdykpcsUgWChfvAy8" target="_blank" class="fragment fade-up">
+        <img src="https://www.gstatic.com/images/branding/product/1x/forms_2020q4_48dp.png" alt="Google Forms Icon" style="width: 48px; vertical-align: middle; margin-right: 10px;">
+        Revisão da Aula - Google Forms
+    </a>
+    <p class="fragment fade-in"><small>Clique no link acima e responda em até 10 minutos! 🚀</small></p>
+</section>
+
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
