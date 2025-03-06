@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 1: Introdução à Lógica de Programação</title>
+
+    <meta name="description" content="Aula sobre Fundamentos de Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 1: Introdução à Lógica de Programação</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2 - Objetivos da Aula -->
+            <section data-transition="slide" data-background="#1a1a1a">
+                <h3><i class="fas fa-bullseye"></i> Objetivos da Aula</h3>
+                <ul>
+                    <li class="fragment fade-in">Entender o que é lógica de programação</li>
+                    <li class="fragment fade-in">Conhecer os fundamentos de algoritmos</li>
+                    <li class="fragment fade-in">Introdução ao Portugol e JavaScript</li>
+                    <li class="fragment fade-in">Praticar com exemplos simples</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - O que é Lógica de Programação? -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-brain"></i> O que é Lógica de Programação?</h3>
+                <p class="fragment fade-up">É a capacidade de organizar e estruturar pensamentos para resolver problemas de forma sistemática.</p>
+                <!-- <img class="fragment fade-in" src="https://via.placeholder.com/400x200?text=Fluxo+Lógico" alt="Fluxo Lógico"> -->
+                <p class="fragment fade-up"><small>"Programar é pensar, não apenas digitar."</small></p>
+            </section>
+
+            <section>
+                <h2>Por que Aprender Lógica de Programação? <i class="fas fa-lightbulb"></i></h2>
+                <ul>
+                    <li class="fragment">Desenvolver o raciocínio lógico.</li>
+                    <li class="fragment">Resolver problemas de forma estruturada.</li>
+                    <li class="fragment">Fundamento para qualquer linguagem de programação.</li>
+                    <li class="fragment">Melhorar a capacidade de análise.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4 - Algoritmos -->
+            <section data-transition="convex">
+                <h3><i class="fas fa-list-ol"></i> Algoritmos</h3>
+                <p class="fragment fade-in">Sequência de passos para resolver um problema.</p>
+                <ul>
+                    <li class="fragment fade-in">Exemplo: Receita de bolo 🎂</li>
+                    <li class="fragment fade-in">Características: Finitude, clareza, eficiência</li>
+                </ul>
+                <p class="fragment fade-up"><a href="https://pt.wikipedia.org/wiki/Algoritmo" target="_blank">Saiba mais</a></p>
+            </section>
+
+            <section>
+                <h2>Passos para Criar um Algoritmo <i class="fas fa-list-ol"></i></h2>
+                <ol>
+                    <li class="fragment">Entender o problema.</li>
+                    <li class="fragment">Definir as entradas e saídas.</li>
+                    <li class="fragment">Elaborar a sequência de passos.</li>
+                    <li class="fragment">Testar o algoritmo.</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Exemplo de Algoritmo: Somar Dois Números <i class="fas fa-plus"></i></h2>
+                <pre><code class="language-plaintext">
+                    1. Início
+                    2. Ler o primeiro número (num1)
+                    3. Ler o segundo número (num2)
+                    4. Calcular a soma (soma = num1 + num2)
+                    5. Mostrar o resultado (soma)
+                    6. Fim
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Fluxogramas <i class="fas fa-project-diagram"></i></h2>
+                <p>Representação gráfica de um algoritmo.</p>
+                <p>Utiliza símbolos para representar as etapas do processo.</p>
+                <img src="https://corporate-assets.lucid.co/chart/0a133bde-f16c-4dee-84e9-5a5eb8207d80.png?v=1709327466077" alt="Fluxograma Símbolos" width="600">
+            </section>
+
+            <!-- Slide 5 - Introdução ao Portugol -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-code"></i> Portugol</h3>
+                <p class="fragment fade-in">Linguagem didática para aprender lógica.</p>
+                <pre class="fragment fade-up"><code class="language-portugol">
+algoritmo "Olá Mundo"
+inicio
+    escreva("Olá, mundo!")
+fim
+                </code></pre>
+                <p class="fragment fade-in"><a href="https://www.portugolstudio.com/" target="_blank">Documentação Portugol Studio</a></p>
+            </section>
+
+            <!-- Slide 6 - Introdução ao JavaScript -->
+            <section data-transition="zoom">
+                <h3><i class="fab fa-js-square"></i> JavaScript</h3>
+                <p class="fragment fade-in">Linguagem de programação para web.</p>
+                <pre class="fragment fade-up"><code class="language-javascript">
+console.log("Olá, mundo!");
+                </code></pre>
+                <p class="fragment fade-in"><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></p>
+            </section>
+
+            <!-- Slide 7 - Exemplo Prático: Soma -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-calculator"></i> Exemplo Prático: Soma</h3>
+                <section>
+                <p>Portugol:</p>
+                <pre class="fragment fade-in"><code class="language-portugol">
+algoritmo "Soma"
+var
+    a, b, soma: inteiro
+inicio
+    escreva("Digite o primeiro número: ")
+    leia(a)
+    escreva("Digite o segundo número: ")
+    leia(b)
+    soma <- a + b
+    escreva("Resultado: ", soma)
+fim
+                </code></pre>
+            </section>
+            <section>
+                <p>JavaScript:</p>
+                <pre class="fragment fade-in"><code class="language-javascript">
+let a = parseInt(prompt("Digite o primeiro número:"));
+let b = parseInt(prompt("Digite o segundo número:"));
+let soma = a + b;
+console.log("Resultado: " + soma);
+                </code></pre>
+            </section>
+            </section>
+
+            <!-- Slide 8 - Conclusão -->
+            <section>
+                <h2>Dúvidas? <i class="fas fa-question"></i></h2>
+                <p>Obrigado pela atenção!</p>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>

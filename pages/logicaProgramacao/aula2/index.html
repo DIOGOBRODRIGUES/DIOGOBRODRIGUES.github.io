@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 2: Tipos de Dados, Variáveis e Operadores Aritméticos</title>
+
+    <meta name="description" content="Aula sobre Fundamentos de Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 2: Tipos de Dados, Variáveis e Operadores Aritméticos</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2 - Objetivos da Aula -->
+            <section data-transition="slide" data-background="#1a1a1a">
+                <h3><i class="fas fa-bullseye"></i> Objetivos da Aula</h3>
+                <ul>
+                    <li class="fragment fade-in">Compreender tipos de dados básicos</li>
+                    <li class="fragment fade-in">Aprender a declarar e usar variáveis</li>
+                    <li class="fragment fade-in">Explorar operadores aritméticos</li>
+                    <li class="fragment fade-in">Praticar exemplos em Portugol e JavaScript</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - Tipos de Dados -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-database"></i> Tipos de Dados</h3>
+                <p class="fragment fade-up">Estruturas que definem o tipo de valor que uma variável pode armazenar.</p>
+                <ul>
+                    <li class="fragment fade-in"><strong>Inteiro</strong>: Números inteiros (ex.: 10, -5)</li>
+                    <li class="fragment fade-in"><strong>Real</strong>: Números com decimais (ex.: 3.14)</li>
+                    <li class="fragment fade-in"><strong>Caractere</strong>: Letras ou símbolos (ex.: 'A', '@')</li>
+                    <li class="fragment fade-in"><strong>Lógico</strong>: Verdadeiro ou Falso</li>
+                </ul>
+                <p class="fragment fade-up"><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Data_structures" target="_blank">MDN: Tipos de Dados</a></p>
+            </section>
+
+            <!-- Slide 4 - Variáveis -->
+            <section data-transition="convex">
+                <h3><i class="fas fa-box"></i> Variáveis</h3>
+                <p class="fragment fade-in">Espaço na memória para armazenar dados.</p>
+                <ul>
+                    <li class="fragment fade-in">Declaração: Nome e tipo</li>
+                    <li class="fragment fade-in">Atribuição: Dar um valor</li>
+                </ul>
+                <img class="fragment fade-up" src="https://via.placeholder.com/400x200?text=Variável+na+Memória" alt="Variável na Memória">
+            </section>
+
+            <!-- Slide 5 - Variáveis em Portugol -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-code"></i> Variáveis em Portugol</h3>
+                <pre class="fragment fade-in"><code class="language-portugol">
+algoritmo "ExemploVariaveis"
+var
+    idade: inteiro
+    altura: real
+    nome: caractere
+    ativo: logico
+inicio
+    idade <- 25
+    altura <- 1.75
+    nome <- "João"
+    ativo <- verdadeiro
+    escreva("Idade: ", idade, " | Altura: ", altura)
+fim
+                </code></pre>
+            </section>
+
+            <!-- Slide 6 - Variáveis em JavaScript -->
+            <section data-transition="zoom">
+                <h3><i class="fab fa-js-square"></i> Variáveis em JavaScript</h3>
+                <pre class="fragment fade-in"><code class="language-javascript">
+let idade = 25;
+let altura = 1.75;
+let nome = "João";
+let ativo = true;
+console.log(`Idade: ${idade} | Altura: ${altura}`);
+                </code></pre>
+                <p class="fragment fade-up"><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Grammar_and_types#variáveis" target="_blank">MDN: Variáveis</a></p>
+            </section>
+
+            <!-- Slide 7 - Operadores Aritméticos -->
+            <section data-transition="fade">
+                <h3><i class="fas fa-calculator"></i> Operadores Aritméticos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operador</th>
+                            <th>Descrição</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment fade-in"><td>+</td><td>Adição</td><td>5 + 3 = 8</td></tr>
+                        <tr class="fragment fade-in"><td>-</td><td>Subtração</td><td>10 - 4 = 6</td></tr>
+                        <tr class="fragment fade-in"><td>*</td><td>Multiplicação</td><td>2 * 3 = 6</td></tr>
+                        <tr class="fragment fade-in"><td>/</td><td>Divisão</td><td>8 / 2 = 4</td></tr>
+                        <tr class="fragment fade-in"><td>%</td><td>Módulo (resto)</td><td>7 % 2 = 1</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 8 - Exemplo Prático: Calculadora -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-tools"></i> Exemplo Prático: Calculadora</h3>
+                <p>Portugol:</p>
+                <pre class="fragment fade-in"><code class="language-portugol">
+algoritmo "Calculadora"
+var
+    num1, num2, resultado: real
+inicio
+    escreva("Digite o primeiro número: ")
+    leia(num1)
+    escreva("Digite o segundo número: ")
+    leia(num2)
+    resultado <- num1 + num2
+    escreva("Soma: ", resultado)
+fim
+                </code></pre>
+                <p>JavaScript:</p>
+                <pre class="fragment fade-in"><code class="language-javascript">
+let num1 = parseFloat(prompt("Digite o primeiro número:"));
+let num2 = parseFloat(prompt("Digite o segundo número:"));
+let resultado = num1 + num2;
+console.log("Soma: " + resultado);
+                </code></pre>
+            </section>
+
+            <!-- Slide 9 - Conclusão -->
+            <section data-transition="concave" data-background="#2a2a2a">
+                <h3><i class="fas fa-check-circle"></i> Conclusão</h3>
+                <p class="fragment fade-in">Tipos de dados definem o que podemos armazenar.</p>
+                <p class="fragment fade-in">Variáveis são essenciais para manipular dados.</p>
+                <p class="fragment fade-in">Operadores aritméticos resolvem cálculos básicos.</p>
+                <p class="fragment fade-up">Próxima aula: Estruturas Condicionais</p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
