@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Estilização no React Native</title>
+
+    <meta name="description" content="Aula sobre Estilização no React Native">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Reveal.js core styles -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+    <style>
+        /* Exemplos de customização extra */
+        .slides section h2,
+        .slides section h3 {
+            margin-bottom: 0.5em;
+        }
+
+        .slides section p {
+            margin-bottom: 0.7em;
+        }
+
+        .reveal .slide-background {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .title-slide p {
+            margin: 0.5em 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section class="title-slide"
+                data-background="https://images.unsplash.com/photo-1519389950473-47ba0277781c?fit=crop&w=1200&q=80"
+                data-background-opacity="0.3" data-transition="slide" data-transition-speed="fast">
+                <p><i class="fas fa-university"></i> Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 4: Estilização no React Native</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <p>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+                </p>
+            </section>
+
+            <!-- Slide 2 - Sumário -->
+            <section data-background="#242424" data-transition="zoom" data-transition-speed="slow">
+                <h2 style="color:#f1f1f1;"><i class="fas fa-list"></i> Sumário</h2>
+                <ul style="color:#f1f1f1;">
+                    <li>Uso de <strong>StyleSheet</strong></li>
+                    <li>Utilizando <strong>Styled Components</strong></li>
+                    <li><strong>Flexbox</strong> para Layouts Flexíveis</li>
+                    <li>Dimensões Responsivas com <strong>useWindowDimensions</strong></li>
+                    <li>Prática: Construção de Layout Responsivo</li>
+                    <li>Demonstrações e Dicas Finais</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3 - Uso de StyleSheet -->
+            <section data-background="#0A0A0A" data-transition="convex" data-transition-speed="fast">
+                <h2 style="color:#FFF;"><i class="fab fa-react"></i> Uso de StyleSheet</h2>
+                <p style="color:#DDD;">
+                    O <strong>StyleSheet</strong> é a forma mais básica e tradicional de definir estilos no React
+                    Native.
+                </p>
+                <ul style="color:#DDD;">
+                    <li>Permite criar um objeto de estilos em arquivo JS/TS.</li>
+                    <li>Sintaxe simples e próxima do CSS.</li>
+                    <li>Exemplo:
+                        <pre><code class="hljs" data-trim>
+                            import { StyleSheet, View, Text } from 'react-native';
+
+                            const App = () => (
+                              <View style={styles.container}>
+                                <Text style={styles.text}>Hello, StyleSheet!</Text>
+                              </View>
+                            );
+                            
+                            const styles = StyleSheet.create({
+                              container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+                              text: { fontSize: 20, color: '#fff', fontWeight: 'bold' }
+                        </code></pre>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 4 - Vantagens do StyleSheet (Animação de fundo) -->
+            <section data-transition="fade" data-transition-speed="fast" data-background-color="#F5F5F5"
+                data-background-transition="zoom">
+                <h3 style="color: #333;">Por que usar <i class="fab fa-react"></i> StyleSheet?</h3>
+                <img src="https://cdn3.iconfinder.com/data/icons/font-awesome-brands/512/react-512.png" alt="React Icon"
+                    style="width: 150px; border-radius: 50px; margin-bottom:1em;">
+                <ul>
+                    <li>Performance: Estilos são processados apenas uma vez.</li>
+                    <li>Mais próximo do “tradicional” CSS, facilitando a adoção.</li>
+                    <li>Melhor integração com animações simples.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 5 - Styled Components -->
+            <section data-background="#191919" data-transition="convex" data-transition-speed="fast">
+                <h2 style="color:#FFF;"><i class="fas fa-paint-brush"></i> Styled Components</h2>
+                <p style="color:#DDD;">
+                    <strong>Styled Components</strong> permite criar componentes de estilo dentro do próprio arquivo de
+                    JS/TS, mantendo estilo e lógica juntos.
+                </p>
+                <ul style="color: #DDD;">
+                    <li>Abordagem declarativa e modular</li>
+                    <li>Reuso facilitado de componentes</li>
+                    <li>Reduz a separação artificial entre JS e CSS</li>
+                </ul>
+                <p style="color:#DDD;">
+                    <a href="https://styled-components.com/docs/basics#react-native" style="color: #FF69B4;"
+                        target="_blank">
+                        Documentação Oficial
+                    </a>
+                </p>
+            </section>
+
+            <!-- Slide 6 - Exemplo de Styled Components -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#2F2F2F"
+                data-background-opacity="0.9">
+                <h3 style="color: #FFF;">Exemplo de <em>Styled Components</em></h3>
+                <pre><code class="hljs" data-trim style="color:#EEE;">
+import React from 'react';
+import styled from 'styled-components/native';
+
+const Container = styled.View`
+  flex: 1;
+  background-color: #222;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Title = styled.Text`
+  font-size: 24px;
+  color: #fff;
+`;
+
+export default function App() {
+  return (
+    <Container>
+      <Title>Olá Styled Components!</Title>
+    </Container>
+  );
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 7 - Flexbox -->
+            <section data-background="#FFFAFA" data-transition="concave" data-transition-speed="fast">
+                <h2><i class="fas fa-columns"></i> Flexbox no React Native</h2>
+                <ul>
+                    <li>Principais propriedades: <code>flex</code>, <code>flexDirection</code>,
+                        <code>justifyContent</code>, <code>alignItems</code>.
+                    </li>
+                    <li>Por padrão, a direção é <code>column</code> (diferente do web que é row).</li>
+                    <li>Permite criação de layouts responsivos e adaptativos.</li>
+                </ul>
+                <p>
+                    <a href="https://reactnative.dev/docs/flexbox" target="_blank">
+                        <i class="fas fa-link"></i> Documentação Oficial Flexbox
+                    </a>
+                </p>
+            </section>
+
+            <!-- Slide 8 - Diagrama Flexbox -->
+            <section data-transition="fade" data-transition-speed="slow" data-background-opacity="0.2"
+                data-background-size="contain" data-background-repeat="no-repeat">
+                <h3 style="color: #FFF; text-shadow: 2px 2px #000;">
+                    Como o Flexbox organiza os elementos?
+                </h3>
+                <p style="color: #f1f1f1; text-shadow: 1px 1px #000;">
+                    A organização vertical é padrão (coluna), mas você pode alterar para linha <code>row</code>
+                    facilmente.<br />
+                    Justifique e alinhe seus elementos para obter layouts sofisticados.
+                </p>
+            </section>
+
+            <!-- Slide 5 - Flexbox para Layouts -->
+            <section data-transition="zoom" data-background="#6272a4">
+                <h3><i class="fas fa-th"></i> Flexbox no React Native</h3>
+                <p>Criação de layouts flexíveis e adaptáveis</p>
+                <ul class="fragment fade-right">
+                    <li><code>flexDirection</code>: row, column</li>
+                    <li><code>justifyContent</code>: Distribuição de itens</li>
+                    <li><code>alignItems</code>: Alinhamento transversal</li>
+                </ul>
+                <pre class="fragment fade-up"><code class="language-javascript">
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
+                </code></pre>
+                <p><a href="https://reactnative.dev/docs/flexbox" target="_blank">📖 Documentação Flexbox</a></p>
+            </section>
+            <!-- Slide 9 - useWindowDimensions -->
+            <section data-background="#1E1E1E" data-transition="zoom" data-transition-speed="fast">
+                <h2 style="color:#FFF;"><i class="fas fa-mobile-alt"></i> useWindowDimensions</h2>
+                <p style="color:#DDD;">
+                    O hook <strong>useWindowDimensions</strong> obtém as dimensões atuais da tela do dispositivo. Ótimo
+                    para criar layouts responsivos.
+                </p>
+                <pre><code class="hljs" data-trim style="color: #EEE;">
+import { useWindowDimensions } from 'react-native';
+
+export default function MyComponent() {
+  const { width, height } = useWindowDimensions();
+
+  return (
+    <View style={{ width, height }}>
+      <Text>A largura da tela é: {width}</Text>
+      <Text>A altura da tela é: {height}</Text>
+    </View>
+  );
+}
+                </code></pre>
+            </section>
+            <!-- Tutorial: Construindo um Formulário Simples -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#E0F7FA">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Tutorial: Construindo um Formulário Simples</h3>
+                <p>Neste tutorial, você irá construir um formulário simples para captar o nome do usuário e exibir uma
+                    saudação.</p>
+            </section>
+
+            <!-- Passo 1: Crie o Componente e Importe os Módulos -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#E0F7FA">
+                <h3><i class="fas fa-code"></i> Passo 1: Crie o Componente</h3>
+                <p>Crie um novo componente em React Native e importe os módulos necessários:</p>
+                <pre><code class="hljs" data-trim>
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+
+export default function SimpleForm() {
+  const [name, setName] = useState('');
+ 
+  const handleSubmit = () => {
+    alert(`Nome digitado: ${name}`);
+  };
+
+  
+  return (
+    <View style={styles.container}>
+      {/* Seu código vai aqui */}
+    </View>
+  );
+}
+    </code></pre>
+            </section>
+
+            <!-- Passo 2: Adicione o TextInput -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#E0F7FA">
+                <h3><i class="fas fa-keyboard"></i> Passo 2: Adicione o TextInput</h3>
+                <p>Dentro do componente, adicione um campo de entrada para o usuário digitar seu nome:</p>
+                <pre><code><script type="text/template">
+<Text style={styles.label}>Digite seu nome:</Text>
+    <TextInput
+    style={styles.input}
+    value={name}
+    onChangeText={setName}
+    placeholder="Seu nome"
+/>
+</script></code></pre>
+            </section>
+
+            <!-- Passo 3: Adicione o Button -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#E0F7FA">
+                <h3><i class="fas fa-mouse-pointer"></i> Passo 3: Adicione o Button</h3>
+                <p>Adicione um botão que, ao ser pressionado, submeta o nome digitado:</p>
+                <pre><code><script type="text/template">
+      <Button title="Enviar" onPress={handleSubmit} />
+</script></code></pre>
+            </section>
+
+            <!-- Passo 4: Defina os Estilos -->
+            <section data-transition="slide" data-transition-speed="fast" data-background="#E0F7FA">
+                <h3><i class="fas fa-paint-brush"></i> Passo 5: Defina os Estilos</h3>
+                <p>Adicione os estilos para organizar o layout do seu formulário:</p>
+                <pre><code class="hljs" data-trim>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#CCC',
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  result: {
+    marginTop: 20,
+    fontSize: 20,
+    color: 'green',
+  },
+});
+    </code></pre>
+                
+            </section>
+            <!-- Slide 10 - Layout Responsivo (Prática) -->
+            <section data-transition="convex" data-transition-speed="fast" data-background="#FAF9F6">
+                <h3><i class="fas fa-code"></i> Prática: Construção de Layout Responsivo</h3>
+                <ul>
+                    <li>Criar um contêiner principal com <strong>flex: 1</strong>.</li>
+                    <li>Utilizar <strong>flexDirection</strong> para alternar entre "row" ou "column".</li>
+                    <li>Aproveitar o <strong>useWindowDimensions</strong> para ajustes de elementos conforme o tamanho
+                        do dispositivo.</li>
+                    <li>Exemplo de “cards” que se reordenam dinamicamente.</li>
+                    <li>Aplicar margens e paddings dinâmicos para conteúdo, conforme a tela.</li>
+                </ul>
+            </section>
+
+            <section data-transition="slide" data-transition-speed="fast" data-background="#F5F5F6">
+                <h3><i class="fas fa-tasks"></i> Passo a Passo Detalhado: Início da Prática</h3>
+                <section>
+                    <ul>
+                        <li>
+                            <strong>Configuração do Contêiner Principal:</strong>
+                            <p>Crie um contêiner com <code>flex: 1</code> para ocupar toda a tela.</p>
+                            <pre><code class="hljs" data-trim>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F8FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+                        </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <uL>
+                        <li>
+                            <strong>Uso do hook <code>useWindowDimensions</code>:</strong>
+                            <p>Capture as dimensões da tela para tornar o layout responsivo.</p>
+                            <pre><code class="hljs" data-trim>
+import { useWindowDimensions } from 'react-native';
+
+const { width, height } = useWindowDimensions();
+                        </code></pre>
+                        </li>
+                    </uL>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <strong>Ajuste dinâmico do <code>flexDirection</code>:</strong>
+                            <p>Defina a direção do layout com base na largura da tela.</p>
+                            <pre><code class="hljs" data-trim>
+const isLargeScreen = width > 600;
+const flexDirection = isLargeScreen ? 'row' : 'column';
+                        </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <strong>Cálculo de valores dinâmicos:</strong>
+                            <p>Calcule <code>padding</code> e <code>margin</code> com base na largura da tela.</p>
+                            <pre><code class="hljs" data-trim>
+const dynamicPadding = width * 0.05;
+const dynamicMargin = width * 0.02;
+                        </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                       <strong>Criação dos "Cards":</strong>
+                    <p>Estilize os cards com tamanhos que se ajustem dinamicamente.</p>
+     <pre><code class="hljs" data-trim>
+    const cardSize = isLargeScreen ? 150 : 120;
+<View style={[styles.card, 
+    { width: cardSize, height: cardSize, margin: dynamicMargin }]}>
+  <Text style={styles.cardText}>Card 1</Text>
+</View>
+                        </code></pre>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-transition="fade" data-transition-speed="medium" data-background="#1E1E1E">
+                <h3 style="color:#FFF;"><i class="fas fa-lightbulb"></i> Dicas e Melhores Práticas</h3>
+                <ul style="color:#DDD;">
+                    <li>Utilize o <strong>hot reload</strong> para visualizar as alterações em tempo real.</li>
+                    <li>Teste o layout em diferentes tamanhos de tela e orientações.</li>
+                    <li>Consulte a documentação oficial do React Native para <code>useWindowDimensions</code>,
+                        <code>StyleSheet</code> e <code>Flexbox</code>.
+                    </li>
+                    <li>Experimente adicionar mais componentes para simular uma interface completa.</li>
+                    <li>Modifique os valores dinâmicos para entender o impacto na responsividade.</li>
+                </ul>
+            </section>
+            <!-- Slide 12 - Dicas e Links de Referência -->
+            <section data-background="#2E2E2E" data-transition="concave" data-transition-speed="fast">
+                <h2 style="color:#FFF;">Dicas e Links de Referência</h2>
+                <ul style="color:#DDD;">
+                    <li>
+                        <a href="https://reactnative.dev/docs/style" target="_blank" style="color:#69c0ff;">
+                            <i class="fas fa-external-link-alt"></i> Documentação de Estilização do React Native
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://styled-components.com/docs/basics#react-native" target="_blank"
+                            style="color:#FF69B4;">
+                            <i class="fas fa-external-link-alt"></i> Styled Components para React Native
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://reactnative.dev/docs/flexbox" target="_blank" style="color:#ADFF2F;">
+                            <i class="fas fa-external-link-alt"></i> Flexbox no React Native
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://reactnative.dev/docs/usewindowdimensions" target="_blank"
+                            style="color:#FF7F50;">
+                            <i class="fas fa-external-link-alt"></i> useWindowDimensions
+                        </a>
+                    </li>
+                    <li>Considere sempre testar em diferentes tamanhos de tela e dispositivos reais.</li>
+                </ul>
+            </section>
+
+            <section data-transition="fade" data-transition-speed="fast" data-background="#f0f8ff">
+                <h2><i class="fas fa-pencil-alt"></i> Formulário de Chamada e Atividade</h2>
+                <img src="https://www.gstatic.com/images/branding/product/2x/forms_2020q4_48dp.png" alt="Google Forms" style="width:80px; margin:20px 0;">
+                <p style="font-size: 1.2em;">
+                    Registre sua presença e participe da atividade de hoje.
+                </p>
+                <p>
+                    <a href="https://forms.gle/jSj1kPPmHX7jSmcM7" target="_blank" style="color:#FF4500; font-weight:bold;">
+                        Acesse o Formulário
+                    </a>
+                </p>
+            </section>
+            <!-- Slide 13 - Final -->
+            <section data-background="#000" data-transition="zoom" data-transition-speed="fast">
+                <h2 style="color: #FFF;"><i class="fas fa-flag-checkered"></i> Fim da Apresentação</h2>
+                <p style="color: #FFF;">
+                    Obrigado! <br><br>
+                    <i class="fas fa-rocket"></i> Continue explorando o mundo do React Native!
+                </p>
+                <p>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                            class="fab fa-linkedin" style="color:#0e76a8; font-size:1.2em;"></i></a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" style="margin-left: 10px;"><i
+                            class="fab fa-github" style="color:#FFF; font-size:1.2em;"></i></a>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Core -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+
+    <!-- Reveal.js Plugins -->
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+    <script>
+        Reveal.initialize({
+            // Exemplo de configurações gerais
+            hash: true,
+            slideNumber: true,
+            transition: 'slide', // fade, slide, convex, concave, zoom
+            plugins: [RevealNotes, RevealHighlight],
+            // Outras opções
+            // width: "100%",
+            // height: "100%",
+            // etc.
+        });
+    </script>
+</body>
+
+</html>
