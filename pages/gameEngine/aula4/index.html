@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 4 - Game Engine</title>
+
+  <!-- Metadados e Responsividade -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Reveal.js CSS (Tema, Layout) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+  <!-- Você pode trocar 'moon.min.css' por outro tema (ex.: 'dracula.min.css', 'night.min.css', etc.) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css" id="theme">
+
+  <!-- Destaque de código (Highlight.js) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/monokai.css">
+
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ===============================
+       ESTILOS PERSONALIZADOS
+       =============================== */
+
+    /* Ajuste de fundo e cores */
+    .reveal {
+      background-color: #1e1e1e; /* Fundo escuro */
+      color: #f0f0f0;           /* Texto claro */
+    }
+    .reveal h1, .reveal h2, .reveal h3 {
+      color: #ffcc00; /* Tom de amarelo ouro para títulos */
+    }
+    .reveal a,
+    .reveal a:visited {
+      color: #ffcc00; /* Links no mesmo tom dos títulos */
+    }
+    .reveal strong {
+      color: #ffc107; /* Destaque em amarelo */
+    }
+
+    /* Estiliza listas para maior legibilidade */
+    .reveal ul,
+    .reveal ol {
+      font-size: 1.1em;
+      line-height: 1.4em;
+      color: #e0e0e0;
+    }
+
+    /* Bordas em imagens */
+    img {
+      border: 2px solid #444;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    /* Fragmentos: efeitos de aparição */
+    .fragment.fade-in {
+      transition: opacity 1s ease-in;
+    }
+    .fragment.fade-in.visible {
+      opacity: 1 !important;
+    }
+
+    /* Bloco de código */
+    pre code {
+      font-size: 0.95em;
+    }
+
+    /* Subtítulo pequeno */
+    .subtitle {
+      font-size: 0.9em;
+      color: #bbb;
+      margin-top: -1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- SLIDE 1 - Título e Links do Professor -->
+      <section data-transition="zoom">
+        <h1>
+          <img src="https://godotengine.org/assets/press/icon_color.png"
+               style="width:60px; vertical-align: middle; margin-right: 10px;">
+          Aula 4: Câmera, Iluminação e Texturas
+        </h1>
+        <h3 class="subtitle">Disciplina: Game Engine</h3>
+        <h3>Prof. Dr. Diogo  Rodrigues</h3>
+        <!-- Ícones de Redes Sociais -->
+        <p style="margin-top: 1em;">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+             style="text-decoration: none; margin-right: 15px;">
+            <i class="fab fa-linkedin fa-2x" style="color: #0e76a8;"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"
+             style="text-decoration: none;">
+            <i class="fab fa-github fa-2x" style="color: #fff;"></i>
+          </a>
+        </p>
+      </section>
+
+      <!-- SLIDE 2 - Sumário Geral -->
+      <section data-transition="fade">
+        <h2>Sumário</h2>
+        <ul>
+          <li class="fragment fade-in">1. Câmera no Godot</li>
+          <li class="fragment fade-in">2. Iluminação no Godot</li>
+          <li class="fragment fade-in">3. Texturas e Materiais</li>
+          <li class="fragment fade-in">4. Exercícios Práticos (Passo a Passo)</li>
+          <li class="fragment fade-in">5. Boas Práticas e Otimização</li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO 1: Câmera no Godot -->
+      <section data-transition="convex">
+
+        <!-- Sub-slide 1.1 -->
+        <section>
+          <h2>1. Câmera no Godot</h2>
+          <blockquote style="border-left: 4px solid #ffcc00; padding-left: 10px;">
+            “A câmera define o que é visto na tela, podendo ser 2D ou 3D, <br>
+             com configurações para tornar a jogabilidade mais fluida.”
+          </blockquote>
+        </section>
+
+        <!-- Sub-slide 1.2 - Tipos de Câmera -->
+        <section>
+          <h3>1.1 Camera2D vs Camera3D</h3>
+          <ul>
+            <li><strong>Camera2D</strong> – desenvolvida para jogos 2D. Controla scroll, zoom e limites.</li>
+            <li><strong>Camera3D</strong> – para jogos 3D. Define FOV, projeção (perspectiva ou ortográfica).</li>
+            <li>Apenas uma câmera pode estar ativa por vez (propriedade <em>Current</em>).</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 1.3 - Configurações -->
+        <section>
+          <h3>1.2 Configurações Principais</h3>
+          <ul>
+            <li><strong>Current</strong>: torna a câmera ativa.</li>
+            <li><strong>Smoothing (Camera2D)</strong>: suaviza o movimento de acompanhamento.</li>
+            <li><strong>FOV (Camera3D)</strong>: ângulo de visão para jogos 3D.</li>
+            <li><strong>Limites (Camera2D)</strong>: evita mostrar área além do cenário.</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 1.4 - Posicionamento e script -->
+        <section>
+          <h3>1.3 Posicionamento e Exemplo de Script</h3>
+          <pre><code class="language-glsl">
+# A câmera herda de Camera2D, permitindo que seja utilizada como uma câmera na cena.
+extends Camera2D  
+# Obtém uma referência ao nó do jogador (Player) na cena.
+@onready var target = $"../Player"  
+
+# Velocidade de acompanhamento da câmera.
+var follow_speed = 0.1  
+# Define esta câmera como a ativa na cena.
+func _ready():
+    current = true  
+
+# Verifica se o alvo (jogador) existe.
+# Atualiza a posição da câmera interpolando suavemente entre sua posição atual 
+# e a posição do jogador, utilizando o método linear_interpolate.
+func _process(delta):
+    if target:  
+        global_position = global_position.linear_interpolate(
+            target.global_position, follow_speed)
+</code></pre>
+        </section>
+
+        <!-- Sub-slide 1.5 - Vídeo Câmera -->
+        <section>
+          <h3>1.4 Vídeo Explicativo</h3>
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/bMIC7uQEjgI"
+                  frameborder="0" allowfullscreen></iframe>
+        </section>
+
+      </section> <!-- Fim SEÇÃO 1 -->
+
+      <!-- SEÇÃO 2: Iluminação no Godot -->
+      <section data-transition="concave">
+
+        <!-- Slide 2.1 -->
+        <section>
+          <h2>2. Iluminação no Godot</h2>
+          <p>Entenda os principais tipos de luz, parâmetros importantes e como otimizar performance.</p>
+        </section>
+
+        <!-- Slide 2.2 - Tipos de Luz -->
+        <section>
+          <h3>2.1 Tipos de Luz</h3>
+          <ul>
+            <li><strong>DirectionalLight3D</strong>: simula sol (raios paralelos).</li>
+            <li><strong>OmniLight3D</strong>: luz pontual em todas direções.</li>
+            <li><strong>SpotLight3D</strong>: luz em cone, tipo holofote ou lanterna.</li>
+          </ul>
+          <div style="display:flex; justify-content:center; gap:10px;">
+            <img src="https://docs.unity3d.com/uploads/Main/Light-Direct.jpg"
+                 alt="Luz Direcional" style="width:30%;">
+            <img src="https://docs.unity3d.com/uploads/Main/Light-Point.jpg"
+                 alt="Luz Pontual" style="width:30%;">
+            <img src="https://docs.unity3d.com/uploads/Main/Light-Spot.jpg"
+                 alt="Luz Spot" style="width:30%;">
+          </div>
+        </section>
+
+        <!-- Slide 2.3 - Parametros -->
+        <section>
+          <h3>2.2 Parâmetros de Luz</h3>
+          <ul>
+            <li><strong>Intensidade (energy)</strong> – brilho da luz.</li>
+            <li><strong>Cor</strong> – tonalidade.</li>
+            <li><strong>Alcance (range)</strong> – quão longe a luz chega (Omni/Spot).</li>
+            <li><strong>Ângulo (Spotlight)</strong> – abertura do cone.</li>
+            <li><strong>Sombras</strong> – habilitar/desabilitar, ajustar resolução e bias.</li>
+          </ul>
+        </section>
+
+        <!-- Slide 2.4 - Sombras e Otimização -->
+        <section>
+          <h3>2.3 Sombras e Otimização</h3>
+          <ul>
+            <li>Sombras podem impactar performance, especialmente várias luzes com sombra.</li>
+            <li>Use <strong>lightmaps</strong> se as luzes/objetos não mudam de posição.</li>
+            <li>Ajuste <em>shadow resolution</em> e <em>shadow distance</em> para equilibrar qualidade x performance.</li>
+          </ul>
+        </section>
+
+        <!-- Slide 2.5 - Script Exemplo -->
+        <section>
+          <h3>2.4 Exemplo de Script</h3>
+          <pre><code class="language-gdscript">
+extends Node3D  # Esta classe estende Node3D, permitindo manipular objetos 3D na cena.
+
+@onready var my_light = $SpotLight3D  # Obtém a referência ao nó de luz SpotLight3D na cena.
+            
+func _ready():
+# Ativa as sombras para a luz SpotLight3D.
+    my_light.shadow_enabled = true  
+# Ajusta a intensidade da luz para 1.5 (padrão é 1.0).
+    my_light.light_energy = 1.5
+# Define o ângulo do feixe da luz para 45 graus.  
+    my_light.spot_angle = 45  
+</code></pre>
+        </section>
+
+        <!-- Slide 2.6 - Vídeo Luz -->
+        <section>
+          <h3>2.5 Vídeo Explicativo</h3>
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/DAIUg3wql_E"
+                  frameborder="0" allowfullscreen></iframe>
+        </section>
+
+      </section> <!-- Fim SEÇÃO 2 -->
+
+      <!-- SEÇÃO 3: Texturas e Materiais -->
+      <section data-transition="zoom">
+
+        <section>
+          <h2>3. Texturas e Materiais</h2>
+          <p>Como aplicar texturas em objetos 2D/3D e configurar materiais no Godot.</p>
+        </section>
+
+        <!-- Sub-slide 3.1 - Introdução -->
+        <section>
+          <h3>3.1 Conceitos Básicos</h3>
+          <ul>
+            <li><strong>Material</strong>: define como a superfície interage com luz (Albedo, Roughness, Metallic...).</li>
+            <li><strong>Textura</strong>: imagem aplicada ao material para detalhes visuais.</li>
+            <li>No Godot 4, <strong>StandardMaterial3D</strong> é PBR; <strong>ShaderMaterial</strong> para shaders customizados.</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 3.2 - Tipos de Textura -->
+        <section>
+          <h3>3.2 Tipos de Textura</h3>
+          <ul>
+            <li><strong>Diffuse (Albedo)</strong></li>
+            <li><strong>Normal Map</strong> (relevo)</li>
+            <li><strong>Roughness</strong>, <strong>Metallic</strong>, <strong>Emission</strong></li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 3.3 - Mapeamento UV -->
+        <section>
+          <h3>3.3 Mapeamento UV</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Cube_Representative_UV_Unwrapping.png"
+               alt="UV Mapping Cubo" style="width: 50%;">
+          <p>Coordenadas UV definem como a textura “envolve” a malha.</p>
+        </section>
+
+        <!-- Sub-slide 3.4 - Import e Configuração -->
+        <section>
+          <h3>3.4 Importação e Configuração</h3>
+          <ul>
+            <li>Importar imagens (PNG/JPG) para <em>res://</em>.</li>
+            <li>Ajustar <em>Wrap</em>, <em>Filter</em> e compressão conforme necessidade.</li>
+            <li>Aplicar no material do objeto (Albedo), ou em Sprite (2D).</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 3.5 - Shader -->
+        <section>
+          <h3>3.5 Exemplo de Shader Simples</h3>
+          <pre><code class="language-glsl">
+shader_type canvas_item;
+
+void fragment() {
+    vec4 col = texture(TEXTURE, UV);
+    COLOR = vec4(1.0 - col.rgb, col.a); // inverte cores
+}
+</code></pre>
+        </section>
+
+        <!-- Sub-slide 3.6 - Vídeo Texturas -->
+        <section>
+          <h3>3.6 Vídeo Explicativo</h3>
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/ms_TiwqP6rw"
+                  frameborder="0" allowfullscreen></iframe>
+        </section>
+
+      </section> <!-- Fim SEÇÃO 3 -->
+
+      <!-- SEÇÃO 4: Exercícios Práticos (Subdivididos) -->
+   
+
+        <section>
+          <h2>4. Exercícios Práticos</h2>
+          <p>Guia detalhado para fixar os conceitos vistos de câmera, iluminação e texturas.</p>
+        </section>
+
+        <!-- EXERCÍCIO 1 - Câmera -->
+        <section>
+          <h3>Exercício 1: Câmera 2D Seguindo Jogador</h3>
+
+          <!-- Sub-sub-slide 1 -->
+          <section>
+            <p><strong>Passo 1</strong>: Criar/abrir cena 2D</p>
+            <ul>
+              <li>Tenha um nó principal (Node2D) e um nó para o jogador (ex. CharacterBody2D) com algum sprite ou forma visível.</li>
+              <li>Implemente script de movimento básico no jogador, se ainda não tiver.</li>
+            </ul>
+          </section>
+
+          <section>
+            <p><strong>Passo 2</strong>: Adicionar Camera2D</p>
+            <ul>
+              <li>Ao nó principal (ou como filho do jogador) adicione <em>Camera2D</em>.</li>
+              <li>No Inspector, marque <strong>Current = true</strong>.</li>
+              <li>Defina <em>Limit</em> (Left/Right/Top/Bottom) para evitar mostrar áreas além do cenário.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 3 -->
+          <section>
+            <p><strong>Passo 3</strong>: Smoothing Opcional</p>
+            <ul>
+              <li>Habilite <em>Smoothing</em> na Camera2D, defina <em>Smoothing Speed</em> ~ 5.0.</li>
+              <li>A câmera seguirá o jogador com um leve atraso, criando movimento suave.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 4 -->
+          <section>
+            <p><strong>Passo 4</strong>: Teste no Jogo</p>
+            <ul>
+              <li>Execute a cena e mova o jogador. A câmera deve se manter centralizada no jogador ou com offset definido.</li>
+              <li>Caso não siga, confira se outra câmera não está marcada como Current.</li>
+            </ul>
+            <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/QH5YtfVq6g0"
+                    frameborder="0" allowfullscreen></iframe>
+          </section>
+
+        </section> <!-- Fim Exercício 1 -->
+
+        <!-- EXERCÍCIO 2 - Iluminação -->
+        <section>
+          <h3>Exercício 2: Iluminação 3D Básica</h3>
+
+          <!-- Sub-sub-slide 1 -->
+          <section>
+            <p><strong>Passo 1</strong>: Cena 3D</p>
+            <ul>
+              <li>Crie uma cena 3D (Node3D como raiz).</li>
+              <li>Adicione um <em>MeshInstance3D</em> com <em>PlaneMesh</em> para fazer de chão.</li>
+              <li>Adicione alguns <em>MeshInstance3D</em> com <em>CubeMesh</em> ou <em>SphereMesh</em> para servir de objetos.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 2 -->
+          <section>
+            <p><strong>Passo 2</strong>: Luz Direcional</p>
+            <ul>
+              <li>Adicione <em>DirectionalLight3D</em> à cena. Ajuste rotação para ~45 graus para ver sombras no chão.</li>
+              <li>Experimente <strong>Shadow Enabled</strong> e <strong>Light Energy</strong> (ex.: 2.0) no Inspector.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 3 -->
+          <section>
+            <p><strong>Passo 3</strong>: OmniLight e SpotLight</p>
+            <ul>
+              <li>Adicione <em>OmniLight3D</em> próxima a um cubo. Habilite sombra para ver projeção.</li>
+              <li>Adicione <em>SpotLight3D</em> apontando para outro objeto. Ajuste <em>spot_angle</em> e <em>light_energy</em>.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 4 -->
+          <section>
+            <p><strong>Passo 4</strong>: Teste e Compare</p>
+            <ul>
+              <li>Execute a cena. Observe diferenças entre luz direcional, ponto e spot.</li>
+              <li>Ative/desative cada luz (Inspector ou script) para ver o efeito isolado.</li>
+            </ul>
+            <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/FV-IGvXhOJw"
+                    frameborder="0" allowfullscreen></iframe>
+          </section>
+
+        </section> <!-- Fim Exercício 2 -->
+
+        <!-- EXERCÍCIO 3 - Texturas -->
+        <section>
+          <h3>Exercício 3: Aplicando Texturas e Shader</h3>
+
+          <!-- Sub-sub-slide 1 -->
+          <section>
+            <p><strong>Passo 1</strong>: Importar Textura</p>
+            <ul>
+              <li>Arraste um arquivo de textura (ex. <em>madeira.png</em>) para a pasta do projeto.</li>
+              <li>Verifique no Godot se o arquivo aparece como <em>Texture2D</em>.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 2 -->
+          <section>
+            <p><strong>Passo 2</strong>: Material no Objeto</p>
+            <ul>
+              <li>Selecione o <em>MeshInstance3D</em> (ex. cubo) e abra a propriedade <em>Material</em> (Surface ou Override).</li>
+              <li>Clique em <em>New StandardMaterial3D</em> e selecione-o para editar.</li>
+              <li>Na aba <em>Albedo</em>, atribua sua <em>madeira.png</em> em <em>Texture</em>.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 3 -->
+          <section>
+            <p><strong>Passo 3</strong>: Configurar Propriedades</p>
+            <ul>
+              <li>Modifique <em>Metallic</em>, <em>Roughness</em> e observe reflexos.</li>
+              <li>Use <em>UV1 Scale</em> se quiser repetir a textura mais vezes no objeto.</li>
+            </ul>
+          </section>
+
+          <!-- Sub-sub-slide 4 -->
+          <section>
+            <p><strong>Passo 4</strong>: Shader Opcional</p>
+            <ul>
+              <li>Em vez de StandardMaterial, crie <em>New ShaderMaterial</em> e <em>New Shader</em>.</li>
+              <li>Cole o exemplo de shader (inverter cor ou outro efeito).</li>
+              <li>Execute a cena e observe o resultado.</li>
+            </ul>
+            <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/KeHKKLuygoY"
+                    frameborder="0" allowfullscreen></iframe>
+          </section>
+
+        </section> <!-- Fim Exercício 3 -->
+
+      
+      <!-- SEÇÃO 5: Boas Práticas e Otimização -->
+      <section data-transition="zoom">
+
+        <section>
+          <h2>5. Boas Práticas e Otimização</h2>
+          <p>Como estruturar a cena e gerenciar luzes e texturas para um desempenho adequado.</p>
+        </section>
+
+        <!-- Sub-slide 5.1 - Organização -->
+        <section>
+          <h3>5.1 Organização da Cena</h3>
+          <ul>
+            <li>Agrupe nós relacionados (ex.: <em>Lights</em> para todas luzes, <em>Enemies</em> para inimigos).</li>
+            <li>Instancie cenas menores (modularização) para cada elemento do jogo.</li>
+            <li>Use <strong>Grupos</strong> para gerenciar objetos semelhantes (ex.: “inimigos” ou “coletaveis”).</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 5.2 - Lightmaps vs. Dinâmico -->
+        <section>
+          <h3>5.2 Lightmaps x Iluminação Dinâmica</h3>
+          <ul>
+            <li><strong>Lightmaps (Baked):</strong> pré-calculados, ótimo para cenários estáticos.</li>
+            <li><strong>Dinâmica:</strong> necessária para luzes móveis ou variações de iluminação.</li>
+            <li>Combinar as duas abordagens frequentemente traz melhor performance e boa qualidade.</li>
+          </ul>
+        </section>
+
+        <!-- Sub-slide 5.3 - Performance -->
+        <section>
+          <h3>5.3 Dicas de Performance</h3>
+          <ul>
+            <li>Reduza número de luzes com sombra ativa simultaneamente.</li>
+            <li>Ajuste <em>shadow distance</em>, <em>shadow resolution</em> conforme a necessidade.</li>
+            <li>Use <strong>Occlusion Culling</strong> (Godot 4) para não renderizar objetos fora da tela.</li>
+            <li>Comprima texturas e use resoluções adequadas para cada plataforma.</li>
+          </ul>
+        </section>
+
+     
+
+      </section>
+
+      <!-- Slide Final: Encerramento -->
+      <section data-transition="fade">
+        <h2>Obrigado!</h2>
+        <p>Dúvidas? Vamos discutir!</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+             style="text-decoration: none; margin-right: 15px;">
+            <i class="fab fa-linkedin fa-lg" style="color: #0e76a8;"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"
+             style="text-decoration: none;">
+            <i class="fab fa-github fa-lg" style="color: #fff;"></i>
+          </a>
+        </p>
+      </section>
+
+    </div> <!-- .slides -->
+  </div> <!-- .reveal -->
+
+  <!-- Scripts do Reveal.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      controls: true,
+      progress: true,
+      transition: 'convex', // tipos: 'fade', 'slide', 'convex', 'concave', 'zoom'
+      plugins: [ RevealHighlight ]
+    });
+  </script>
+</body>
+</html>
