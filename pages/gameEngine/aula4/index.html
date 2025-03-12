@@ -336,144 +336,190 @@ void fragment() {
           <p>Guia detalhado para fixar os conceitos vistos de câmera, iluminação e texturas.</p>
         </section>
 
-        <!-- EXERCÍCIO 1 - Câmera -->
-        <section>
-          <h3>Exercício 1: Câmera 2D Seguindo Jogador</h3>
+        <!-- Slide Principal do Exercício -->
 
-          <!-- Sub-sub-slide 1 -->
-          <section>
-            <p><strong>Passo 1</strong>: Criar/abrir cena 2D</p>
-            <ul>
-              <li>Tenha um nó principal (Node2D) e um nó para o jogador (ex. CharacterBody2D) com algum sprite ou forma visível.</li>
-              <li>Implemente script de movimento básico no jogador, se ainda não tiver.</li>
-            </ul>
-          </section>
+  
+  
+  <!-- Slide 1: Introdução/Objetivos -->
+  <section>
+    <h2>Câmera 2D </h2>
+    <h3>Objetivos do Exercício</h3>
+    <ul>
+      <li>Criar/abrir uma cena 2D no Godot Engine.</li>
+      <li>Adicionar um nó de jogador com movimento básico.</li>
+      <li>Configurar a <strong>Camera2D</strong> para seguir o jogador.</li>
+      <li>Explorar o recurso de <em>Smoothing</em> para movimento suave da câmera.</li>
+    </ul>
+  </section>
 
-          <section>
-            <p><strong>Passo 2</strong>: Adicionar Camera2D</p>
-            <ul>
-              <li>Ao nó principal (ou como filho do jogador) adicione <em>Camera2D</em>.</li>
-              <li>No Inspector, marque <strong>Current = true</strong>.</li>
-              <li>Defina <em>Limit</em> (Left/Right/Top/Bottom) para evitar mostrar áreas além do cenário.</li>
-            </ul>
-          </section>
+  <!-- Passo 1: Criar/Abrir Cena 2D (com subslides) -->
+  <section>
+    <h3>Passo 1: Criar/Abrir Cena 2D</h3>
 
-          <!-- Sub-sub-slide 3 -->
-          <section>
-            <p><strong>Passo 3</strong>: Smoothing Opcional</p>
-            <ul>
-              <li>Habilite <em>Smoothing</em> na Camera2D, defina <em>Smoothing Speed</em> ~ 5.0.</li>
-              <li>A câmera seguirá o jogador com um leve atraso, criando movimento suave.</li>
-            </ul>
-          </section>
+    <!-- Subslide 1.1 -->
+    <section>
+      <h4>1.1 Criar ou Abrir Cena 2D</h4>
+      <ol>
+        <li>
+          Vá em <strong>Scene &gt; New Scene</strong> e selecione <strong>2D Scene</strong>.
+        </li>
+        <li>
+          Renomeie o nó principal (Node2D) para algo como <code>MainScene</code>.
+        </li>
+        <li>
+          <em>Dica:</em> Caso já tenha uma cena 2D criada, apenas abra no editor.
+        </li>
+      </ol>
+    </section>
 
-          <!-- Sub-sub-slide 4 -->
-          <section>
-            <p><strong>Passo 4</strong>: Teste no Jogo</p>
-            <ul>
-              <li>Execute a cena e mova o jogador. A câmera deve se manter centralizada no jogador ou com offset definido.</li>
-              <li>Caso não siga, confira se outra câmera não está marcada como Current.</li>
-            </ul>
-            <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/QH5YtfVq6g0"
-                    frameborder="0" allowfullscreen></iframe>
-          </section>
+    <!-- Subslide 1.2 -->
+    <section>
+      <h4>1.2 Adicionar Nó do Jogador</h4>
+      <ol>
+        <li>
+          Clique com o botão direito em <code>MainScene</code> e selecione <strong>Add Child Node</strong>.
+        </li>
+        <li>
+          Pesquise e adicione <code>CharacterBody2D</code> (ou <code>KinematicBody2D</code> em versões antigas).
+        </li>
+        <li>
+          Adicione um <code>Sprite2D</code> como filho de <code>CharacterBody2D</code> para ter algo visível.
+        </li>
+      </ol>
+      <!-- <img src="https://via.placeholder.com/400x200?text=Estrutura+de+Nós" alt="Estrutura de Nós (Exemplo)"> -->
+    </section>
 
-        </section> <!-- Fim Exercício 1 -->
+    <!-- Subslide 1.3 -->
+    <section>
+      <h4>1.3 Script de Movimento</h4>
+      <p>Exemplo simples de script (Godot 4.x):</p>
+      <pre><code class="language-gdscript">
+extends CharacterBody2D
 
-        <!-- EXERCÍCIO 2 - Iluminação -->
-        <section>
-          <h3>Exercício 2: Iluminação 3D Básica</h3>
+@export var velocidade = 200.0
 
-          <!-- Sub-sub-slide 1 -->
-          <section>
-            <p><strong>Passo 1</strong>: Cena 3D</p>
-            <ul>
-              <li>Crie uma cena 3D (Node3D como raiz).</li>
-              <li>Adicione um <em>MeshInstance3D</em> com <em>PlaneMesh</em> para fazer de chão.</li>
-              <li>Adicione alguns <em>MeshInstance3D</em> com <em>CubeMesh</em> ou <em>SphereMesh</em> para servir de objetos.</li>
-            </ul>
-          </section>
+func _physics_process(delta):
+    var input_vector = Vector2.ZERO
+    if Input.is_action_pressed("ui_right"):
+        input_vector.x += 1
+    if Input.is_action_pressed("ui_left"):
+        input_vector.x -= 1
+    if Input.is_action_pressed("ui_down"):
+        input_vector.y += 1
+    if Input.is_action_pressed("ui_up"):
+        input_vector.y -= 1
 
-          <!-- Sub-sub-slide 2 -->
-          <section>
-            <p><strong>Passo 2</strong>: Luz Direcional</p>
-            <ul>
-              <li>Adicione <em>DirectionalLight3D</em> à cena. Ajuste rotação para ~45 graus para ver sombras no chão.</li>
-              <li>Experimente <strong>Shadow Enabled</strong> e <strong>Light Energy</strong> (ex.: 2.0) no Inspector.</li>
-            </ul>
-          </section>
+    input_vector = input_vector.normalized() * velocidade
+    velocity = input_vector
+    move_and_slide()
+</code></pre>
+    </section>
+  </section>
 
-          <!-- Sub-sub-slide 3 -->
-          <section>
-            <p><strong>Passo 3</strong>: OmniLight e SpotLight</p>
-            <ul>
-              <li>Adicione <em>OmniLight3D</em> próxima a um cubo. Habilite sombra para ver projeção.</li>
-              <li>Adicione <em>SpotLight3D</em> apontando para outro objeto. Ajuste <em>spot_angle</em> e <em>light_energy</em>.</li>
-            </ul>
-          </section>
+  <!-- Passo 2: Adicionar Camera2D (com subslides) -->
+  <section>
+    <h3>Passo 2: Adicionar Camera2D</h3>
 
-          <!-- Sub-sub-slide 4 -->
-          <section>
-            <p><strong>Passo 4</strong>: Teste e Compare</p>
-            <ul>
-              <li>Execute a cena. Observe diferenças entre luz direcional, ponto e spot.</li>
-              <li>Ative/desative cada luz (Inspector ou script) para ver o efeito isolado.</li>
-            </ul>
-            <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/FV-IGvXhOJw"
-                    frameborder="0" allowfullscreen></iframe>
-          </section>
+    <!-- Subslide 2.1 -->
+    <section>
+      <h4>2.1 Criar nó Camera2D</h4>
+      <ul>
+        <li>
+          Clique com o botão direito em <code>MainScene</code> (ou no jogador) e selecione <strong>Add Child Node</strong>.
+        </li>
+        <li>
+          Adicione <code>Camera2D</code>.
+        </li>
+      </ul>
+      <!-- <img src="https://via.placeholder.com/400x200?text=Adicionar+Camera2D" alt="Adicionando Camera2D"> -->
+    </section>
 
-        </section> <!-- Fim Exercício 2 -->
+    <!-- Subslide 2.2 -->
+    <section>
+      <h4>2.2 Configurar Parâmetros</h4>
+      <ol>
+        <li>
+          Selecione a <code>Camera2D</code> e marque <strong>Current</strong> como <code>true</code> no Inspector,
+          para torná-la ativa.
+        </li>
+        <li>
+          Ajuste os valores de <strong>Limit</strong> (Left, Right, Top, Bottom) para impedir que a câmera
+          mostre áreas vazias além do cenário.
+        </li>
+      </ol>
+    </section>
+  </section>
 
-        <!-- EXERCÍCIO 3 - Texturas -->
-        <section>
-          <h3>Exercício 3: Aplicando Texturas e Shader</h3>
+  <!-- Passo 3: Smoothing (Opcional) (com subslides) -->
+  <section>
+    <h3>Passo 3: Smoothing (Opcional)</h3>
 
-          <!-- Sub-sub-slide 1 -->
-          <section>
-            <p><strong>Passo 1</strong>: Importar Textura</p>
-            <ul>
-              <li>Arraste um arquivo de textura (ex. <em>madeira.png</em>) para a pasta do projeto.</li>
-              <li>Verifique no Godot se o arquivo aparece como <em>Texture2D</em>.</li>
-            </ul>
-          </section>
+    <!-- Subslide 3.1 -->
+    <section>
+      <h4>3.1 Ativar Smoothing</h4>
+      <ul>
+        <li>No Inspector do <code>Camera2D</code>, localize a seção <strong>Smoothing</strong>.</li>
+        <li>Marque “Enable Smoothing” para ativar.</li>
+      </ul>
+    </section>
 
-          <!-- Sub-sub-slide 2 -->
-          <section>
-            <p><strong>Passo 2</strong>: Material no Objeto</p>
-            <ul>
-              <li>Selecione o <em>MeshInstance3D</em> (ex. cubo) e abra a propriedade <em>Material</em> (Surface ou Override).</li>
-              <li>Clique em <em>New StandardMaterial3D</em> e selecione-o para editar.</li>
-              <li>Na aba <em>Albedo</em>, atribua sua <em>madeira.png</em> em <em>Texture</em>.</li>
-            </ul>
-          </section>
+    <!-- Subslide 3.2 -->
+    <section>
+      <h4>3.2 Ajustar Smoothing Speed</h4>
+      <ul>
+        <li>
+          Defina <strong>Smoothing Speed</strong> (por exemplo, 5.0).
+        </li>
+        <li>
+          Quanto maior o valor, mais rápida será a aproximação da câmera.
+          Quanto menor, mais atraso terá (movimento mais “lento” e suave).
+        </li>
+      </ul>
+    </section>
+  </section>
 
-          <!-- Sub-sub-slide 3 -->
-          <section>
-            <p><strong>Passo 3</strong>: Configurar Propriedades</p>
-            <ul>
-              <li>Modifique <em>Metallic</em>, <em>Roughness</em> e observe reflexos.</li>
-              <li>Use <em>UV1 Scale</em> se quiser repetir a textura mais vezes no objeto.</li>
-            </ul>
-          </section>
+  <!-- Passo 4: Teste no Jogo (com subslides) -->
+  <section>
+    <h3>Passo 4: Teste no Jogo</h3>
 
-          <!-- Sub-sub-slide 4 -->
-          <section>
-            <p><strong>Passo 4</strong>: Shader Opcional</p>
-            <ul>
-              <li>Em vez de StandardMaterial, crie <em>New ShaderMaterial</em> e <em>New Shader</em>.</li>
-              <li>Cole o exemplo de shader (inverter cor ou outro efeito).</li>
-              <li>Execute a cena e observe o resultado.</li>
-            </ul>
-            <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/KeHKKLuygoY"
-                    frameborder="0" allowfullscreen></iframe>
-          </section>
+    <!-- Subslide 4.1 -->
+    <section>
+      <h4>4.1 Executar Cena</h4>
+      <ul>
+        <li>Clique no botão <strong>Play</strong> (ou pressione <strong>F5</strong>) para executar.</li>
+        <li>Observe o jogador e a câmera em ação.</li>
+      </ul>
+    </section>
 
-        </section> <!-- Fim Exercício 3 -->
+    <!-- Subslide 4.2 -->
+    <section>
+      <h4>4.2 Verificar Funcionamento</h4>
+      <ul>
+        <li>
+          Caso a câmera não siga, certifique-se de que apenas uma <code>Camera2D</code> esteja marcada como <code>Current</code>.
+        </li>
+        <li>
+          Ajuste valores de <strong>Limit</strong> e <strong>Smoothing</strong> conforme necessário.
+        </li>
+      </ul>
+      <iframe width="560" height="315"
+              src="https://www.youtube.com/embed/QH5YtfVq6g0"
+              frameborder="0" allowfullscreen></iframe>
+    </section>
+  </section>
 
+  <!-- Slide de Encerramento -->
+  <section>
+    <h3>Dicas Finais</h3>
+    <ul>
+      <li>Mantenha a cena organizada (use nomes coerentes para os nós).</li>
+      <li>Considere criar limites dinâmicos para cenários maiores.</li>
+      <li>Personalize como a câmera segue o jogador (offset, travar em eixo, etc.).</li>
+      <li>Insira imagens e vídeos conforme sua necessidade no Reveal.js.</li>
+    </ul>
+    <p>Bom trabalho e divirta-se programando!</p>
+  </section>
+</section>
       
       <!-- SEÇÃO 5: Boas Práticas e Otimização -->
       <section data-transition="zoom">
