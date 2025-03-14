@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula: Conceitos Básicos de Lógica de Programação</title>
+
+    <!-- Descrições e Metatags -->
+    <meta name="description" content="Aula sobre Conceitos Básicos em Lógica de Programação | Portugol">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Ícones e Tema -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Sintaxe de Código -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+    <!-- Estilo Personalizado -->
+    
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 4: Conceitos Básicos de Lógica de Programação</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <p>🔥 Desafios criativos em Portugol!</p>
+            </section>
+
+            <!-- Slide 2 - Introdução -->
+            <section data-transition="convex">
+                <h1>Exercícios Práticos</h1>
+                <p>Aprenda lógica de programação com desafios divertidos!</p>
+                <ul>
+                    <li>Entrada e saída de dados</li>
+                    <li>Variáveis e tipos</li>
+                    <li>Estruturas condicionais</li>
+                </ul>
+                <p>🚀 Vamos resolver problemas juntos?</p>
+            </section>
+
+            <!-- Slide Único - O Guardião do Tesouro -->
+            <section data-transition="zoom" data-background="#2a2a2a">
+                <h1 class="adventure-title">⚔️ O Guardião do Tesouro ⚔️</h1>
+                <div class="enunciado">
+                    <p>Você é um aventureiro em busca de um tesouro escondido em uma caverna misteriosa. 🗺️ O guardião da entrada, um ser imponente com olhos de fogo, 
+                        exige que você prove sua inteligência. Ele pergunta seu nome e sua idade. Se você tiver mais de 18 anos, ele dirá: "Bem-vindo [nome], você pode buscar o tesouro!" 
+                        🏆 Caso contrário, ele rugirá: "Volte quando crescer, [nome]!" 😤</p>
+                    <p><strong>Desafio:</strong> Crie um programa que resolva esse teste e conquiste o guardião!</p>
+                </div>
+                <p style="font-size: 1.2em; margin-top: 20px;">🏰 Pronto para a aventura?</p>
+            </section>
+
+            <section data-transition="fade" data-background="#1a2a1a">
+                <h1 class="alchemy-title">🧪 O Mestre das Poções 🧪</h1>
+                <div class="enunciado">
+                    <p>Você é um aprendiz de alquimista em um laboratório encantado. 🌿 O mestre, 
+                        um velho sábio com um olhar penetrante, desafia você a criar uma poção mágica. 
+                        Ele exige a quantidade de ervas (em gramas) e água (em litros). A poção só será 
+                        aceita se tiver mais de 50 gramas de ervas e menos de 2 litros de água. Caso contrário,
+                         você falhará miseravelmente! 
+                         💦</p>
+                    <p><strong>Desafio:</strong> Crie um programa que receba essas quantidades 
+                        e diga se a poção foi aceita ("Poção perfeita!") ou rejeitada ("Tente novamente, aprendiz!")</p>
+                </div>
+                <p style="font-size: 1.2em; margin-top: 20px; color: #50fa7b;">✨ Consegue dominar a alquimia?</p>
+            </section>
+            
+            <!-- Slide - O Robô Cozinheiro -->
+<section data-transition="zoom" data-background="#2a2a3a">
+
+    <h1 class="robot-title">🤖 O Robô Cozinheiro 🍳</h1>
+    <div class="enunciado-robot">
+        <p>Você criou um robô revolucionário para ajudar na cozinha! 🧑‍🍳 Ele precisa decidir o prato do 
+            dia com base no ingrediente principal que você tem. Diga a ele "carne", "frango" ou "legumes",
+            e ele preparará algo incrível. Mas cuidado: se o ingrediente for desconhecido, ele vai entrar em 
+            pane e pedir para ser reprogramado! ⚠️</p>
+        <p><strong>Desafio:</strong> Pergunte ao usuário qual ingrediente ele 
+            tem (ex.: "carne", "frango" ou "legumes") e exiba o prato correspondente: "Bife suculento" para carne,
+             "Frango assado" para frango e "Salada colorida" para legumes. Se o ingrediente não for reconhecido, 
+             o robô deve dizer: "Ingrediente desconhecido, me reprograme!</p>
+    </div>
+    <p style="font-size: 1.2em; margin-top: 20px; color: #8be9fd;">🍽️ Está pronto para ativar o chef robótico?</p>
+</section>
+
+
+<section data-transition="convex" data-background="#1a1a2a">
+ 
+    </style>
+    <h1 class="superhero-title">🦸 O Detector de Superpoderes ⚡</h1>
+    <div class="enunciado-super">
+        <p>Você é um cientista genial que criou uma máquina revolucionária para detectar superpoderes! 🧠 Ela pede o nome da pessoa e mede dois valores: força (de 0 a 100) e velocidade (de 0 a 100). Se a força for maior que 80 ou a velocidade ultrapassar 90, a máquina proclama: "[nome], você tem superpoderes!" 🌟 Senão, avisa: "[nome], você é apenas um humano comum." 😐</p>
+        <p><strong>Desafio:</strong> Programe a máquina e descubra quem é um verdadeiro herói!</p>
+    </div>
+    <p style="font-size: 1.2em; margin-top: 20px; color: #ff79c6;">💥 Pronto para testar seus poderes?</p>
+</section>
+
+<!-- Slide - O Caça-Fantasmas Digital -->
+<section data-transition="concave" data-background="#151520">
+    </style>
+    <h1 class="ghost-title">👻 O Caça-Fantasmas Digital 🌡️</h1>
+    <div class="enunciado-ghost">
+        <p>Você é um caça-fantasmas equipado com tecnologia de ponta! 🕵️ Desenvolveu um programa para identificar assombrações. Pergunte a temperatura do ambiente (em graus) e se o usuário ouviu barulhos estranhos ("sim" ou "não"). Se a temperatura for menor que 15 graus e a resposta for "sim", alerte: "Fantasma detectado!" 🚨 Caso contrário, tranquilize: "Tudo normal por aqui." 😌</p>
+        <p><strong>Desafio:</strong> Programe o detector e enfrente o sobrenatural!</p>
+    </div>
+    <p style="font-size: 1.2em; margin-top: 20px; color: #bd93f9;">🕯️ Preparado para caçar fantasmas?</p>
+</section>
+        
+            <!-- Slide 8 - Dicas Finais -->
+            <section data-transition="fade">
+                <h2>Dicas para Dominar os Desafios</h2>
+                <ul>
+                    <li>🧪 Teste com diferentes entradas!</li>
+                    <li>➕ Adicione mais opções ou regras.</li>
+                    <li>💬 Discuta com colegas: por que funcionou?</li>
+                </ul>
+                <p><strong>Desafio extra:</strong> Crie seu próprio exercício criativo! 🎉</p>
+            </section>
+
+            <!-- Slide Final - Agradecimento -->
+<section data-transition="fade" data-background="#2a2a2a">
+    <style>
+        .thanks-title {
+            color: #f8f8f2; /* Branco suave do tema Dracula */
+            text-shadow: 1px 1px 3px #000;
+            font-size: 3em;
+        }
+        .thanks-content {
+            background: rgba(40, 40, 40, 0.8); /* Cinza escuro semi-transparente */
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            color: #fff;
+            max-width: 80%;
+            margin: 0 auto;
+            border: 2px solid #f8f8f2;
+        }
+        .social-links a {
+            color: #50fa7b; /* Verde vibrante */
+            font-size: 2em;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #ff79c6; /* Rosa ao passar o mouse */
+        }
+        .forms-link {
+            color: #bd93f9; /* Roxo claro */
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+    <h1 class="thanks-title">🙏 Obrigado, Programadores! 🚀</h1>
+    <div class="thanks-content">
+        <p>Foi incrível explorar lógica de programação com vocês hoje! Espero que tenham se divertido com os desafios e aprendido bastante. 🌟 Vamos continuar conectados e codificando!</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="forms-link">
+            <strong>Chamada e envio dos códigos:</strong><br>
+            <a href="https://forms.gle/Lkb6wNVxctTph8T38" target="_blank">forms da chamada</a>
+        </p>
+    </div>
+    <p style="font-size: 1.2em; margin-top: 20px; color: #f8f8f2;">👨‍💻 Até a próxima aula!</p>
+</section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Core -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+
+    <!-- Reveal.js Plugins -->
+    <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide', // transição padrão
+            plugins: [RevealNotes, RevealHighlight],
+            // Outras opções
+            width: "100%",
+            height: "100%",
+        });
+    </script>
+</body>
+
+</html>``

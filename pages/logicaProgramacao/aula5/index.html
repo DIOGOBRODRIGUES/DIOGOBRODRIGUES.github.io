@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 4: Estruturas de Repetição</title>
+
+    <!-- Descrições e Metatags -->
+    <meta name="description" content="Aula sobre Estruturas de Repetição em Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Ícones e Tema -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+    <!-- Sintaxe de Código -->
+    <link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 4: Estruturas de Repetição</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Slide 2 - Introdução -->
+            <section data-transition="fade">
+                <h2>Introdução aos Loops</h2>
+                <img 
+                     src="https://images.unsplash.com/photo-1581092160624-6d5999d1535e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                     alt="Imagem representando loops" 
+                     style="width: 50%; display: block; margin: 0 auto;">
+                <ul>
+                    <li>Permitem executar um bloco de código repetidamente.</li>
+                    <li>Fundamentais para automatizar tarefas e processar grandes quantidades de dados.</li>
+                    <li>Reduzem a duplicação de código e facilitam a manutenção.</li>
+                </ul>
+                <small><i>Fonte: Adaptado do material de aula.</i></small>
+            </section>
+
+            <!-- Slide 3 - Importância dos Loops -->
+            <section data-transition="fade">
+                <h2>Por que Estruturas de Repetição?</h2>
+                <ul>
+                    <li>
+                        <strong>Reutilização de Código:</strong> evitar repetir a mesma lógica muitas vezes.
+                    </li>
+                    <li>
+                        <strong>Organização e Clareza:</strong> loops tornam o propósito do código mais evidente.
+                    </li>
+                    <li>
+                        <strong>Eficiência:</strong> execução mais rápida e menor probabilidade de erros.
+                    </li>
+                    <li>
+                        <strong>Pensamento Algorítmico:</strong> favorecem a decomposição de problemas complexos.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 4 - Tipos de Loops: While -->
+            <section data-transition="zoom">
+                <h2>Loop <em>while</em></h2>
+                <p>Executa enquanto uma condição for verdadeira (pré-teste).</p>
+                <p><strong>Portugol:</strong></p>
+<pre><code class="language-c" data-trim>
+n := 1
+enquanto (n <= 10) faca
+    escreva(n)
+    n := n + 1
+fim_enquanto
+</code></pre>
+
+                <p><strong>JavaScript:</strong></p>
+<pre><code class="language-javascript" data-trim>
+let n = 1;
+while (n <= 10) {
+  console.log(n);
+  n++;
+}
+</code></pre>
+            </section>
+
+            <!-- Slide 5 - Tipos de Loops: For -->
+            <section data-transition="zoom">
+                <h2>Loop <em>for</em></h2>
+                <p>Ideal quando o número de iterações é conhecido (pré-teste).</p>
+                <p><strong>Portugol:</strong></p>
+<pre><code class="language-c" data-trim>
+para i de 1 ate 5 faca
+    escreva(i)
+fim_para
+</code></pre>
+
+                <p><strong>JavaScript:</strong></p>
+<pre><code class="language-javascript" data-trim>
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
+</code></pre>
+            </section>
+
+            <!-- Slide 6 - Tipos de Loops: do-while / repita -->
+            <section data-transition="zoom">
+                <h2>Loop <em>do-while</em> / <em>repita ... até</em></h2>
+                <p>Executa pelo menos uma vez (pós-teste).</p>
+                <p><strong>JavaScript:</strong></p>
+<pre><code class="language-javascript" data-trim>
+let entrada;
+do {
+  entrada = prompt("Digite algo (ou 'sair' para encerrar):");
+  console.log("Você digitou:", entrada);
+} while (entrada !== "sair");
+</code></pre>
+
+                <p><strong>Portugol:</strong></p>
+<pre><code class="language-c" data-trim>
+var entrada: caractere
+repita
+    leia(entrada)
+    escreva("Você digitou: ", entrada)
+ate (entrada = "sair")
+</code></pre>
+            </section>
+
+            <!-- Slide 7 - Comandos de Controle (break e continue) -->
+            <section data-transition="slide">
+                <h2>Comandos <em>break</em> e <em>continue</em></h2>
+                <ul>
+                    <li><strong>break:</strong> encerra imediatamente o loop.</li>
+                    <li><strong>continue:</strong> interrompe a iteração atual e inicia a próxima.</li>
+                </ul>
+                <p><strong>Exemplo (JavaScript - break):</strong></p>
+<pre><code class="language-javascript" data-trim>
+for (let i = 0; i < numeros.length; i++) {
+  if (numeros[i] === alvo) {
+    break; // Sai do loop
+  }
+}
+</code></pre>
+            </section>
+
+            <!-- Slide 8 - Loops Aninhados -->
+            <section data-transition="slide">
+                <h2>Loops Aninhados</h2>
+                <ul>
+                    <li>Um loop dentro de outro loop.</li>
+                    <li>Úteis para matrizes, tabelas de multiplicação e problemas multidimensionais.</li>
+                </ul>
+                <p><strong>Exemplo (JavaScript):</strong></p>
+<pre><code class="language-javascript" data-trim>
+for (let i = 1; i <= 3; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(i + " x " + j + " = " + (i * j));
+  }
+  console.log("---");
+}
+</code></pre>
+            </section>
+
+            <!-- Slide 9 - Armadilhas Comuns e Boas Práticas -->
+            <section data-transition="concave">
+                <h2>Armadilhas e Boas Práticas</h2>
+                <ul>
+                    <li><strong>Loop Infinito:</strong> cuidado com a condição que nunca fica falsa.</li>
+                    <li><strong>Off-by-one:</strong> atenção ao usar <, <=, > ou >=.</li>
+                    <li><strong>Variáveis de Controle:</strong> sempre inicialize e atualize corretamente.</li>
+                    <li><strong>Escolha o loop certo:</strong> <em>for</em>, <em>while</em> ou <em>do-while</em> dependendo do caso.</li>
+                    <li><strong>Clareza:</strong> mantenha o corpo do loop simples e coeso.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10 - Conclusão -->
+            <section data-transition="fade">
+                <h2>Conclusão</h2>
+                <p>
+                    As estruturas de repetição são fundamentais para a lógica de programação, 
+                    permitindo eficiência e clareza no código. Saber escolher o tipo correto 
+                    de loop e aplicar boas práticas evita problemas como loops infinitos 
+                    e facilita a manutenção do software.
+                </p>
+                <p><em>Bons estudos e bons loops!</em></p>
+                <small><i>Referências disponíveis no material de apoio.</i></small>
+            </section>
+
+        </div>
+    </div>
+
+  <!-- Reveal.js Core -->
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+
+  <!-- Reveal.js Plugins -->
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+  <script>
+      Reveal.initialize({
+          // Exemplo de configurações gerais
+          hash: true,
+          slideNumber: true,
+          transition: 'slide', // fade, slide, convex, concave, zoom
+          plugins: [RevealNotes, RevealHighlight],
+          // Outras opções
+          // width: "100%",
+          // height: "100%",
+          // etc.
+      });
+  </script>
+</body>
+
+</html>

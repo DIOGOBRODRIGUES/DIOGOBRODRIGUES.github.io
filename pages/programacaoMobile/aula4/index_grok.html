@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Aula 4: Estruturas de Repetição</title>
+    <meta name="description" content="Aula sobre Estruturas de Repetição em Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+    <style>
+        .slide-image {
+            max-width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .code-snippet {
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom" data-background="#2a2a2a">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 4: Estruturas de Repetição</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            </section>
+
+            <!-- Slide 2 - Introdução aos Loops -->
+            <section data-transition="slide" data-background-transition="fade">
+                <h4>1. Introdução às Estruturas de Repetição</h4>
+                <p>🔄 O que são loops?</p>
+                <ul>
+                    <li>Estruturas para executar um bloco de código repetidamente</li>
+                    <li>Essenciais para automação e eficiência</li>
+                    <li>Reduzem duplicação de código</li>
+                </ul>
+                <p><small>Exemplo: Imprimir de 1 a 10 ou calcular médias</small></p>
+                <img src="https://via.placeholder.com/300x200.png?text=Loop+Concept" class="slide-image" alt="Conceito de Loop">
+            </section>
+
+            <!-- Slide 3 - Vantagens dos Loops -->
+            <section data-transition="convex">
+                <h4>Vantagens das Estruturas de Repetição</h4>
+                <ul>
+                    <li>♻️ Reutilização de código</li>
+                    <li>📖 Melhor legibilidade</li>
+                    <li>🔧 Flexibilidade com dados dinâmicos</li>
+                    <li>⚡ Eficiência em tarefas repetitivas</li>
+                    <li>🧠 Estímulo ao pensamento algorítmico</li>
+                </ul>
+                <a href="https://www.geeksforgeeks.org/loops-programming/" target="_blank">Saiba mais</a>
+            </section>
+
+            <!-- Slide 4 - Tipos de Loops: While -->
+            <section data-transition="slide">
+                <h4>2. Tipos de Loops: While</h4>
+                <p>🔍 Executa enquanto a condição for verdadeira (pré-teste)</p>
+                <pre><code class="code-snippet" data-ln>
+n := 1
+enquanto (n <= 10) faça
+  escreva(n)
+  n := n + 1
+fim_enquanto
+                </code></pre>
+                <pre><code class="javascript code-snippet" data-ln>
+let n = 1;
+while (n <= 10) {
+  console.log(n);
+  n++;
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 5 - Tipos de Loops: For -->
+            <section data-transition="slide">
+                <h4>2. Tipos de Loops: For</h4>
+                <p>📏 Ideal para iterações conhecidas (pré-teste)</p>
+                <pre><code class="code-snippet" data-ln>
+para i de 1 até 5 faça
+  escreva(i)
+fim_para
+                </code></pre>
+                <pre><code class="javascript code-snippet" data-ln>
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 6 - Tipos de Loops: Do-While -->
+            <section data-transition="slide">
+                <h4>2. Tipos de Loops: Do-While</h4>
+                <p>🔄 Executa pelo menos uma vez (pós-teste)</p>
+                <pre><code class="code-snippet" data-ln>
+repita
+  leia(entrada)
+  escreva("Você digitou: ", entrada)
+até (entrada = "sair")
+                </code></pre>
+                <pre><code class="javascript code-snippet" data-ln>
+let entrada;
+do {
+  entrada = prompt("Digite algo:");
+  console.log("Você digitou:", entrada);
+} while (entrada !== "sair");
+                </code></pre>
+            </section>
+
+            <!-- Slide 7 - Comparação dos Loops -->
+            <section data-transition="fade">
+                <h4>Comparação entre Tipos de Loops</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>While</th>
+                            <th>For</th>
+                            <th>Do-While</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Verificação</td>
+                            <td>Pré-teste</td>
+                            <td>Pré-teste</td>
+                            <td>Pós-teste</td>
+                        </tr>
+                        <tr>
+                            <td>Número de Iterações</td>
+                            <td>Desconhecido</td>
+                            <td>Conhecido</td>
+                            <td>Pelo menos 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 8 - Comandos de Controle -->
+            <section data-transition="convex">
+                <h4>3. Comandos de Controle</h4>
+                <p>🚦 <strong>Break</strong>: Sai do loop</p>
+                <pre><code class="javascript code-snippet" data-ln>
+for (let i = 0; i < 5; i++) {
+  if (i === 3) break;
+  console.log(i);
+}
+                </code></pre>
+                <p>⏭️ <strong>Continue</strong>: Pula a iteração atual</p>
+                <pre><code class="javascript code-snippet" data-ln>
+for (let i = 1; i <= 5; i++) {
+  if (i % 2 === 0) continue;
+  console.log("Ímpar:", i);
+}
+                </code></pre>
+            </section>
+
+            <!-- Slide 9 - Loops Aninhados -->
+            <section data-transition="slide">
+                <h4>4. Loops Aninhados</h4>
+                <p>🔢 Um loop dentro de outro</p>
+                <pre><code class="javascript code-snippet" data-ln>
+for (let i = 1; i <= 3; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(i + " x " + j + " = " + (i * j));
+  }
+}
+                </code></pre>
+                <img src="https://via.placeholder.com/300x200.png?text=Multiplication+Table" class="slide-image" alt="Tabela de Multiplicação">
+            </section>
+
+            <!-- Slide 10 - Armadilhas e Boas Práticas -->
+            <section data-transition="fade">
+                <h4>5. Armadilhas e Boas Práticas</h4>
+                <p>⚠️ Armadilhas comuns:</p>
+                <ul>
+                    <li>Loops infinitos</li>
+                    <li>Erros "off-by-one"</li>
+                </ul>
+                <p>✅ Boas práticas:</p>
+                <ul>
+                    <li>Nomes de variáveis claros</li>
+                    <li>Escolha do loop certo</li>
+                    <li>Condições bem definidas</li>
+                </ul>
+            </section>
+
+            <!-- Slide 11 - Conclusão -->
+            <section data-transition="zoom" data-background="#2a2a2a">
+                <h4>6. Conclusão</h4>
+                <p>🔑 Loops são fundamentais para:</p>
+                <ul>
+                    <li>Automação</li>
+                    <li>Eficiência</li>
+                    <li>Resolução de problemas complexos</li>
+                </ul>
+                <p><em>"Repetir para aprender, aprender para repetir."</em></p>
+            </section>
+
+            <!-- Slide 12 - Referências -->
+            <section data-transition="slide">
+                <h4>7. Referências</h4>
+                <p>📚 Links úteis:</p>
+                <ul>
+                    <li><a href="https://www.geeksforgeeks.org/loops-programming/" target="_blank">GeeksforGeeks: Loops</a></li>
+                    <li><a href="https://docente.ifrn.edu.br/givanaldorocha/disciplinas/algoritmos/estruturas-de-repeticao" target="_blank">IFRN: Estruturas de Repetição</a></li>
+                </ul>
+                <p><small>Veja mais no documento completo!</small></p>
+            </section>
+            <!-- Slide 10 - Exercício 1: Laço Para -->
+            <section data-transition="slide">
+                <h3>Exercício 1: Laço "Para"</h3>
+                <p><strong>Enunciado:</strong> Escreva um programa que imprima a tabuada do 5 (de 1 a 10).</p>
+                <p><strong>Desafio:</strong> Use o laço "para" em Portugol e JavaScript.</p>
+                <p><strong>Dica:</strong> Multiplique o número 5 por um contador que vai de 1 a 10.</p>
+                <p><em>Tente resolver antes de verificar a solução!</em></p>
+            </section>
+
+            <!-- Slide 11 - Solução Exercício 1 -->
+            <section data-transition="fade">
+                <h3>Solução Exercício 1</h3>
+                <p><strong>Tabuada do 5</strong></p>
+                <pre><code class="cpp">/* Portugol */
+inteiro i
+para (i = 1; i <= 10; i++) {
+    escreva("5 x ", i, " = ", 5 * i, "\n")
+}</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+for (let i = 1; i <= 10; i++) {
+    console.log(`5 x ${i} = ${5 * i}`)
+}</code></pre>
+                <p><strong>Saída esperada:</strong> 5, 10, 15, 20, 25, 30, 35, 40, 45, 50</p>
+            </section>
+
+            <!-- Slide 12 - Exercício 2: Laço Enquanto -->
+            <section data-transition="slide">
+                <h3>Exercício 2: Laço "Enquanto"</h3>
+                <p><strong>Enunciado:</strong> Crie um programa que peça números ao usuário e mostre quantos números positivos foram digitados até que um número negativo seja inserido.</p>
+                <p><strong>Desafio:</strong> Use o laço "enquanto" em Portugol e JavaScript.</p>
+                <p><strong>Dica:</strong> Use uma variável para contar os números positivos.</p>
+            </section>
+
+            <!-- Slide 13 - Solução Exercício 2 -->
+            <section data-transition="fade">
+                <h3>Solução Exercício 2</h3>
+                <p><strong>Contagem de números positivos</strong></p>
+                <pre><code class="cpp">/* Portugol */
+inteiro num, cont = 0
+escreva("Digite um número: ")
+leia(num)
+enquanto (num >= 0) {
+    cont = cont + 1
+    escreva("Digite outro número: ")
+    leia(num)
+}
+escreva("Quantidade de números positivos: ", cont)</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+let num, cont = 0
+console.log("Digite um número:")
+num = parseInt(prompt())
+while (num >= 0) {
+    cont++
+    console.log("Digite outro número:")
+    num = parseInt(prompt())
+}
+console.log("Quantidade de números positivos:", cont)</code></pre>
+                <p><strong>Exemplo de saída:</strong> Se o usuário digitar 1, 2, 3, -1, a saída será "Quantidade de números positivos: 3".</p>
+            </section>
+
+            <!-- Slide 14 - Exercício 3: Laço Faça Enquanto -->
+            <section data-transition="slide">
+                <h3>Exercício 3: Laço "Faça Enquanto"</h3>
+                <p><strong>Enunciado:</strong> Faça um programa que peça ao usuário para digitar notas (de 0 a 10) e calcule a média delas. Pare quando o usuário digitar uma nota negativa.</p>
+                <p><strong>Desafio:</strong> Use o laço "faça enquanto" em Portugol e JavaScript.</p>
+                <p><strong>Dica:</strong> Use variáveis para somar as notas e contar quantas foram digitadas.</p>
+            </section>
+
+            <!-- Slide 15 - Solução Exercício 3 -->
+            <section data-transition="fade">
+                <h3>Solução Exercício 3</h3>
+                <p><strong>Cálculo da média de notas</strong></p>
+                <pre><code class="cpp">/* Portugol */
+real nota, soma = 0
+inteiro cont = 0
+faca {
+    escreva("Digite uma nota (negativa para parar): ")
+    leia(nota)
+    se (nota >= 0) {
+        soma = soma + nota
+        cont = cont + 1
+    }
+} enquanto (nota >= 0)
+escreva("Média das notas: ", soma / cont)</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+let nota, soma = 0, cont = 0
+do {
+    console.log("Digite uma nota (negativa para parar):")
+    nota = parseFloat(prompt())
+    if (nota >= 0) {
+        soma += nota
+        cont++
+    }
+} while (nota >= 0)
+console.log("Média das notas:", soma / cont)</code></pre>
+                <p><strong>Exemplo de saída:</strong> Se o usuário digitar 8, 7, 9, -1, a saída será "Média das notas: 8".</p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide', // Transição padrão
+            backgroundTransition: 'fade',
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>

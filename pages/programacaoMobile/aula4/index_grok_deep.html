@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Aula 4: Estruturas de Repetição</title>
+    <meta name="description" content="Aula sobre Estruturas de Repetição em Lógica de Programação | Portugol e JavaScript">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 - Título da Apresentação -->
+            <section data-transition="zoom">
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 4: Estruturas de Repetição</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+            </section>
+
+            <!-- Slide 2 - Introdução aos Laços -->
+            <section data-transition="slide">
+                <h3>Introdução aos Laços</h3>
+                <p><strong>O que são laços?</strong></p>
+                <p>Laços são estruturas na programação que permitem repetir um bloco de código múltiplas vezes.</p>
+                <p><strong>Por que são importantes?</strong></p>
+                <p>Eles ajudam a evitar escrever o mesmo código várias vezes, tornando os programas mais eficientes e fáceis de manter.</p>
+            </section>
+
+            <!-- Slide 3 - Laço Para (For Loop) -->
+            <section data-transition="fade">
+                <h3>Laço "Para" (For Loop)</h3>
+                <p>Usado quando sabemos o número exato de repetições.</p>
+                <p><strong>Sintaxe:</strong></p>
+                <pre><code class="cpp">/* Portugol */
+para (iniciação; condição; passo) {
+    // código a ser executado
+}</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+for (initialization; condition; increment) {
+    // code to be executed
+}</code></pre>
+                <p><strong>Exemplo: Imprimir de 1 a 5</strong></p>
+                <pre><code class="cpp">/* Portugol */
+inteiro i
+para (i = 1; i <= 5; i++) {
+    escreva(i, " ")
+}</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+for (let i = 1; i <= 5; i++) {
+    console.log(i)
+}</code></pre>
+            </section>
+
+            <!-- Slide 4 - Fluxograma do Laço Para -->
+            <section data-transition="convex">
+                <h3>Fluxograma do Laço "Para"</h3>
+                <img src="https://cdn.educba.com/academy/wp-content/uploads/2019/09/For-Loop-Flow-Chart.jpg" alt="Fluxograma do Laço Para" style="max-width: 70%;">
+            </section>
+
+            <!-- Slide 5 - Laço Enquanto (While Loop) -->
+            <section data-transition="fade">
+                <h3>Laço "Enquanto" (While Loop)</h3>
+                <p>Usado quando o número de repetições não é conhecido, mas há uma condição de parada.</p>
+                <p><strong>Sintaxe:</strong></p>
+                <pre><code class="cpp">/* Portugol */
+enquanto (condição) {
+    // código a ser executado
+}</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+while (condition) {
+    // code to be executed
+}</code></pre>
+                <p><strong>Exemplo: Ler até digitar 0</strong></p>
+                <pre><code class="cpp">/* Portugol */
+inteiro num
+escreva("Digite um número (0 para sair): ")
+leia(num)
+enquanto (num != 0) {
+    escreva("Número lido: ", num)
+    escreva("\nDigite outro número (0 para sair): ")
+    leia(num)
+}</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+let num
+console.log("Digite um número (0 para sair):")
+num = parseInt(prompt())
+while (num != 0) {
+    console.log("Número lido: ", num)
+    console.log("Digite outro número (0 para sair):")
+    num = parseInt(prompt())
+}</code></pre>
+            </section>
+
+            <!-- Slide 6 - Fluxograma do Laço Enquanto -->
+            <section data-transition="convex">
+                <h3>Fluxograma do Laço "Enquanto"</h3>
+                <img src="https://cdn.educba.com/academy/wp-content/uploads/2019/09/While-Loop-Flow-Chart.jpg" alt="Fluxograma do Laço Enquanto" style="max-width: 70%;">
+            </section>
+
+            <!-- Slide 7 - Laço Faça Enquanto (Do-While Loop) -->
+            <section data-transition="fade">
+                <h3>Laço "Faça Enquanto" (Do-While Loop)</h3>
+                <p>A condição é verificada após a execução, garantindo pelo menos uma execução.</p>
+                <p><strong>Sintaxe:</strong></p>
+                <pre><code class="cpp">/* Portugol */
+faca {
+    // código a ser executado
+} enquanto (condição)</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+do {
+    // code to be executed
+} while (condition)</code></pre>
+                <p><strong>Exemplo: Somar até digitar 0</strong></p>
+                <pre><code class="cpp">/* Portugol */
+inteiro num, soma = 0
+faca {
+    escreva("Digite um número (0 para parar): ")
+    leia(num)
+    soma += num
+} enquanto (num != 0)
+escreva("Soma total: ", soma)</code></pre>
+                <pre><code class="javascript">/* JavaScript */
+let num, soma = 0
+do {
+    console.log("Digite um número (0 para parar):")
+    num = parseInt(prompt())
+    soma += num
+} while (num != 0)
+console.log("Soma total: ", soma)</code></pre>
+            </section>
+
+            <!-- Slide 8 - Fluxograma do Laço Faça Enquanto -->
+            <section data-transition="convex">
+                <h3>Fluxograma do Laço "Faça Enquanto"</h3>
+                <img src="https://cdn.educba.com/academy/wp-content/uploads/2019/09/Do-While-Loop-Flow-Chart.jpg" alt="Fluxograma do Laço Faça Enquanto" style="max-width: 70%;">
+            </section>
+
+            <!-- Slide 9 - Resumo -->
+            <section data-transition="zoom">
+                <h3>Resumo</h3>
+                <ul>
+                    <li>Introdução aos laços: repetição de código.</li>
+                    <li>Laço "Para": para repetições conhecidas.</li>
+                    <li>Laço "Enquanto": para condições de parada.</li>
+                    <li>Laço "Faça Enquanto": executa pelo menos uma vez.</li>
+                </ul>
+                <p><strong>Recursos Adicionais:</strong></p>
+                <ul>
+                    <li><a href="https://www.portugol.com.br/" target="_blank">Documentação do Portugol</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">Documentação do JavaScript</a></li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scripts do Reveal.js -->
+    <script src="../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>
