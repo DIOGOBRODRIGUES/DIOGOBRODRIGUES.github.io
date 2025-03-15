@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Fundamentos do React / React Native</title>
+
+    <meta name="description" content="Aula 5 - Fundamentos do React / React Native para Desenvolvimento Mobile">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/solarized.min.css" id="theme">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section data-background-gradient="linear-gradient(to bottom, #2980b9, #6dd5fa, #ffffff)" data-transition="zoom">
+                <p style="color: black; font-weight: bold;">🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3 style="color: black;">Aula 5 - Fundamentos do React / React Native 📱</h3>
+                <p style="color: black;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin fa-2x" style="color: #0077b5;"></i></a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github fa-2x" style="color: #171515;"></i></a>
+            </section>
+
+            <section>
+                <h2>🎯 Objetivo da Aula</h2>
+                <p>
+                    Dominar os pilares do React Native: componentes, props, estado, hooks (useState), ciclo de vida (useEffect), estilização e eventos. Tudo isso, usando o Expo Snack 🚀
+                </p>
+            
+            </section>
+
+            <section>
+                <h2>🛠️ Configuração com Expo Snack</h2>
+                <p>
+                    Desenvolvimento sem barreiras!  Com o <a href="https://snack.expo.dev/" target="_blank">Snack</a>, criamos e testamos apps React Native diretamente no navegador. 🌐
+                </p>
+                <ul>
+                    <li>✅ Sem necessidade de setup local.</li>
+                    <li>📱 Teste em dispositivos reais com o app Expo Go.</li>
+                    <li>📲 Basta escanear o QR code!</li>
+                </ul>
+               
+            </section>
+
+            <section>
+                <h2>⚛️ Introdução ao React e React Native</h2>
+                <ul>
+                    <li>
+                        <strong>React</strong>: A base para interfaces! Uma biblioteca JavaScript para construir UIs com componentes reutilizáveis. 🧩
+                    </li>
+                    <li>
+                        <strong>React Native</strong>:  React, mas para mobile! ✨ Crie aplicativos nativos para Android e iOS com a mesma lógica do React.
+                    </li>
+                </ul>
+           
+            </section>
+
+            <section>
+    <h2>🧱 Componentes</h2>
+    <p>O coração do React! ❤️  Encapsulam lógica e UI, retornando elementos nativos no React Native (não HTML!).</p>
+    <h3>Exemplo: "Hello World"</h3>
+    <pre><code data-trim data-noescape class="language-javascript">
+        import { View, Text } from 'react-native';
+
+        export default function App() {
+          return (
+            &lt;View&gt;
+              &lt;Text&gt;Olá mundo&lt;/Text&gt;
+            &lt;/View&gt;
+          );
+        }
+    </code></pre>
+</section>
+
+            <section>
+              <h2>🎁 Props</h2>
+              <section>
+              <p>Comunicação entre componentes! 💬  Passe dados do componente pai para o filho, tornando-os flexíveis e reutilizáveis.</p>
+                <h3>Exemplo: Botão Personalizado</h3>
+              <pre><code data-trim data-noescape class="language-jsx">
+import { Button } from 'react-native';
+
+export default function Buttons (props) {
+  return (
+    &lt;Button title={props.buttonText || 'OK'}/&gt;
+  );
+}
+              </code></pre>
+            </section>
+            <section>
+              <p>Uso no App.js:</p>
+              <pre><code data-trim data-noescape class="language-jsx">
+import { View } from 'react-native';
+import Buttons from './components/Buttons';
+
+export default function App() {
+  return (
+    &lt;View&gt;
+      &lt;Buttons buttonText='Clique aqui'/&gt;
+      &lt;Buttons buttonText='Enviar'/&gt;
+      &lt;Buttons/&gt;
+    &lt;/View&gt;
+  );
+}
+              </code></pre>
+            </section>
+            </section>
+
+            <section>
+                <h2>🔄 Estado</h2>
+                <p>Dados dinâmicos! 💾 O estado gerencia informações internas do componente</p>
+                
+                <pre><code data-trim data-noescape class="language-jsx">
+import { useState } from 'react';
+import { View, Text } from 'react-native';
+import Buttons from './Buttons';
+
+export default function Contador() {
+  const [count, setCount] = useState(0);
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Count: {count}&lt;/Text&gt;
+      &lt;Buttons buttonText='Incremento' 
+      onPress={() =&gt; setCount(count + 1)} /&gt;
+    &lt;/View&gt;
+  );
+}
+                </code></pre>
+             
+            </section>
+          
+          <section>
+                <h2>Verificação do onPress no Componente Buttons</h2>
+                <p>Certifique-se de que o componente <code>Buttons</code> chama a função <code>onPress</code>.</p>
+                <pre><code data-trim data-noescape class="language-jsx">
+import { Button } from 'react-native';
+
+export default function Buttons({ buttonText, onPress }) {
+  return (
+    &lt;Button title={buttonText || 'OK'} onPress={onPress} /&gt;
+  );
+}
+                </code></pre>
+          </section>
+
+            <section>
+    <h2>⏳ Ciclo de Vida de Componentes</h2>
+    <p>Montagem, atualização, desmontagem... <code>useEffect</code> para efeitos colaterais, como chamadas de API! 📞</p>
+
+    <pre><code data-trim data-noescape class="language-jsx">
+import { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+import Buttons from './Buttons';
+
+export default function Contador() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('Component mounted or updated');
+  });
+
+  return (
+  
+  // restante do codigo do exemplo anteriror 
+}
+    </code></pre>
+</section>
+
+
+
+            <section>
+              <h2>🎨 Estilização</h2>
+                <p><code>StyleSheet</code>: Seu CSS para React Native! 💅 Defina estilos, mas com algumas diferenças (propriedades mobile!).</p>
+            
+                <pre><code data-trim data-noescape class="language-jsx">
+import { View, Text, StyleSheet } from 'react-native';
+import Buttons from './Buttons';
+
+export default function Contador() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;View style={styles.container}&gt;
+            &lt;Text style={styles.text}&gt;Count: {count}&lt;/Text&gt;
+            &lt;Buttons buttonText="Incremento" 
+            onPress={() =&gt; setCount(count + 1)} /&gt;
+        &lt;/View&gt;
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+    },
+    text: {
+        color: 'blue',
+        fontFamily: 'monospace',
+    },
+});
+
+                </code></pre>
+            </section>
+
+
+             <section>
+                <h2>📝 Tabela de Resumo dos Conceitos</h2>
+                <table style="font-size: 0.7em;">
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>Descrição</th>
+                            <th>Exemplo Prático</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Componentes</td>
+                            <td>Blocos de construção da UI, reutilizáveis</td>
+                            <td>"Hello World" com View e Text</td>
+                        </tr>
+                        <tr>
+                            <td>Props</td>
+                            <td>Dados passados de pai para filho</td>
+                            <td>Botão personalizado com title e onPress</td>
+                        </tr>
+                        <tr>
+                            <td>Estado</td>
+                            <td>Gerenciamento interno, atualiza UI</td>
+                            <td>Contador com useState</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>Ciclo de Vida</td>
+                            <td>Eventos de montagem, atualização, desmontagem</td>
+                            <td>useEffect para logs na montagem</td>
+                        </tr>
+                        <tr>
+                            <td>Estilização</td>
+                            <td>StyleSheet para definir estilos mobile</td>
+                            <td>Estilizar container com alignItems</td>
+                        </tr>
+                        <tr>
+                            <td>Eventos</td>
+                            <td>Interações como onPress para cliques</td>
+                            <td>Botão incrementando contador</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <section>
+                <h2>📚 Referências para Estudar</h2>
+                <ul>
+                    <li><a href="https://snack.expo.dev/" target="_blank">Snack - React Native in the browser</a></li>
+                    <li><a href="https://reactnative.dev/docs/getting-started" target="_blank">Introduction · React Native</a></li>
+                    <li><a href="https://reactnative.dev/docs/intro-react" target="_blank">React Fundamentals · React Native</a></li>
+                    <li><a href="https://reactnative.dev/docs/button" target="_blank">Button · React Native</a></li>
+                    <li><a href="https://docs.expo.dev/" target="_blank">Expo Documentation</a></li>
+                </ul>
+            </section>
+
+            <section>
+            <h3>Exemplo 1: Botão Mágico de Cores 🌈</h3>
+            <p>Um botão que muda a cor de fundo! Demonstra <code>useState</code> e <code>StyleSheet</code>.</p>
+            <pre><code data-trim data-noescape class="language-jsx">
+import { useState } from 'react';
+import { View, Button, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [color, setColor] = useState('red');
+
+  return (
+    &lt;View style={[styles.container, { backgroundColor: color }]} &gt;
+      &lt;Button title="Mude a Cor!" onPress={() => setColor(color === 'red' ? 'blue' : 'red')} /&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+            </code></pre>
+            <p><small><strong>Exercício</strong>: Adicione mais cores (verde, amarelo...) e crie um ciclo! ♻️</small></p>
+          </section>
+
+          <section>
+            <h3>Exemplo 2: Cartão de Saudação Personalizado 💌</h3>
+            <section>
+              <p>Componente <code>GreetingCard</code>:  Saudação com nome e idade (passados via props).</p>
+            <pre>
+              <code data-trim data-noescape class="language-jsx">
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function GreetingCard({ name, age }) {
+  return (
+    &lt;View style={styles.card}&gt;
+      &lt;Text style={styles.text}&gt;Olá, {name}!&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Você tem {age} anos.&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#f0f0f0',
+        padding: 20,
+        margin: 10,
+        borderRadius: 10,
+      },
+    text: {
+        fontSize: 16,
+        color: '#333',
+    },
+});
+              </code>
+            </pre>
+        </section>
+        <section>
+            <p>No App.js:</p>
+            <pre><code data-trim data-noescape class = "language-jsx">
+import { View } from 'react-native';
+import GreetingCard from './components/GreetingCard';
+
+export default function App() {
+  return (
+    &lt;View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}&gt;
+      &lt;GreetingCard name="Alice" age="25" /&gt;
+      &lt;GreetingCard name="Bob" age="30" /&gt;
+    &lt;/View&gt;
+  );
+}
+            </code></pre>
+            <p><strong>Exercício</strong>:  Adicione uma prop para mudar a cor de fundo! 🎨</p>
+        </section>
+        </section>
+
+        <section>
+          <h3>Exemplo 3: Contador de Cliques Divertido 😄</h3>
+          <p>Contador com botões de incremento/decremento. "Número de sorrisos"! Usa <code>useState</code> e <code>onPress</code>.</p>
+          <pre><code data-trim data-noescape class="language-jsx">
+import { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+export default function App() {
+const [count, setCount] = useState(0);
+
+return (
+  &lt;View style={styles.container}&gt;
+    &lt;Text style={styles.text}&gt;Número de sorrisos: {count}&lt;/Text&gt;
+    &lt;View style={styles.buttons}&gt;
+      &lt;Button title="+ Sorriso" onPress={() => setCount(count + 1)} color="green" /&gt;
+      &lt;Button title="- Sorriso" onPress={() => setCount(count - 1)} color="red" /&gt;
+    &lt;/View&gt;
+  &lt;/View&gt;
+);
+}
+
+const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+text: {
+  fontSize: 20,
+  marginBottom: 20,
+},
+buttons: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  width: '60%',
+},
+});
+          </code></pre>
+          <small><p><strong>Exercício</strong>: Adicione um limite máximo e mínimo para o contador! 🚧</p></small>
+          
+        </section>
+
+        <section>
+          <h3>Exemplo 4: Relógio Mágico ⌚ (Ciclo de Vida com <code>useEffect</code>)</h3>
+          <small><p>Exibe a hora atual e atualiza a cada segundo!</p>
+            <p><strong>Exercício</strong>: Adicione botões para pausar/retomar a atualização! ⏯️</p>
+        </small>
+          
+          <pre><code data-trim data-noescape class="language-jsx">
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function App() {
+const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+useEffect(() => {
+  const intervalId = setInterval(() => { // Armazena o ID do intervalo
+    setTime(new Date().toLocaleTimeString());
+  }, 1000);
+
+  // Função de limpeza:  Executada quando o componente é desmontado OU
+  // antes do useEffect rodar novamente (se as dependências mudarem).
+  return () => clearInterval(intervalId); // Limpa o intervalo!
+}, []); // [] = Executa useEffect apenas na montagem e desmontagem
+
+return (
+  &lt;View style={styles.container}&gt;
+    &lt;Text style={styles.text}&gt;Hora Atual: {time}&lt;/Text&gt;
+  &lt;/View&gt;
+);
+}
+
+const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+text: {
+  fontSize: 24,
+  color: '#007AFF',
+},
+});
+          </code></pre>
+         
+        </section>
+
+                   <!-- Slide Final - Agradecimento -->
+<section data-transition="fade" data-background="#2a2a2a">
+    <style>
+        .thanks-title {
+            color: #f8f8f2; /* Branco suave do tema Dracula */
+            text-shadow: 1px 1px 3px #000;
+            font-size: 1em;
+        }
+        .thanks-content {
+            background: rgba(40, 40, 40, 0.8); /* Cinza escuro semi-transparente */
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            color: #fff;
+            max-width: 80%;
+            margin: 0 auto;
+            border: 2px solid #f8f8f2;
+        }
+        .social-links a {
+            color: #50fa7b; /* Verde vibrante */
+            font-size: 2em;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #ff79c6; /* Rosa ao passar o mouse */
+        }
+        .forms-link {
+            color: #bd93f9; /* Roxo claro */
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+    
+    <div class="thanks-content">
+        <p>🌟 Vamos continuar conectados e codificando!</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="forms-link">
+            <strong>Chamada e envio dos códigos:</strong><br>
+            <a href="https://forms.gle/Lkb6wNVxctTph8T38" target="_blank">forms da chamada</a>
+        </p>
+    </div>
+    <p style="font-size: 1.2em; margin-top: 20px; color: #f8f8f2;">👨‍💻 Até a próxima aula!</p>
+</section>
+
+      </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+  <script>
+      Reveal.initialize({
+          hash: true,
+          plugins: [RevealHighlight],
+          transition: 'slide', // Transição padrão
+          backgroundTransition: 'fade' // Transição de fundo
+      });
+  </script>
+</body>
+</html>
