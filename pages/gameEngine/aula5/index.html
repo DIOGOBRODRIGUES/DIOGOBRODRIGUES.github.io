@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>🎮 Aula 5: Movimentação, Colisão e Interações</title>
+
+  <meta name="description" content="Conteúdo da aula sobre movimentação, colisão e interações básicas em Game Engines.">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>🎮 Aula 5: Movimentação, Colisão e Interações</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </p>
+      </section>
+
+      <section>
+        <h2>🕹️ 1. Dispositivos de Interface Humana (HIDs)</h2>
+        <p>Como o jogador se conecta ao mundo do jogo?</p>
+        <ul>
+          <li><strong>Exemplos:</strong> Teclado ⌨️, Mouse 🖱️, Gamepad 🎮, Tela Touch 📱, Sensores de Movimento 🤸, Dispositivos Especiais ⚙️.</li>
+          <li><strong>Importância:</strong> Definem a experiência e as mecânicas!</li>
+          <li>Godot Engine: Use o poderoso <code>Input</code> singleton! ✨</li>
+          <!-- No contexto da Godot Engine, isso significa que o objeto Input é único e pode 
+          ser acessado de qualquer parte do seu código. Isso facilita o acesso 
+          e uso das informações de entrada do jogador em diferentes scripts e cenas do seu jogo. -->
+        </ul>
+      </section>
+
+      <section>
+        <h2>⌨️🖱️🎮 2. Entrada de Dados na Godot Engine</h2>
+        <h3><code>Input</code> e o Mapeamento de Entradas</h3>
+        <ul>
+          <li><strong><code>Input</code> Singleton:</strong> O "cérebro" da entrada! Cheque ações (<code>is_action_pressed()</code>)! 🤔
+            <pre><code class="language-gdscript">
+if Input.is_action_pressed("ui_accept"):
+  print("Ação de 'aceitar' pressionada!")
+            </code></pre>
+          </li>
+          <li><strong>Input Map:</strong> Configure seus controles uma vez e use em todo o projeto! 🛠️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>📢 Eventos de Entrada: O Que Acontece?</h2>
+        <ul>
+          <li><strong>Teclado:</strong> Uma tecla foi pressionada? <code>InputEventKey</code> (<code>pressed</code>, <code>keycode</code>).</li>
+          <li><strong>Mouse:</strong> Clique ou movimento? <code>InputEventMouseButton</code>, <code>InputEventMouseMotion</code>.</li>
+          <li><strong>Gamepad:</strong> Botão ou analógico? <code>InputEventJoypadButton</code>, <code>InputEventJoypadMotion</code>.</li>
+          <li><strong>Touch:</strong> Toque ou arraste? <code>InputEventScreenTouch</code>, <code>InputEventScreenDrag</code>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>📺🔊 3. Saída de Dados: O Jogo Respondendo!</h2>
+        <ul>
+          <li><strong>Visual:</strong> Sprites 🖼️, modelos 3D 🧊, interfaces UI 💬.</li>
+          <li><strong>Áudio:</strong> Música 🎶 e efeitos sonoros 💥 com <code>AudioStreamPlayer</code>.</li>
+          <li><strong>Depuração:</strong> Veja o que está acontecendo com o Painel de Saída e <code>print()</code>! 🕵️‍♂️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🧱 4. Corpos Físicos em 2D: Dando Vida aos Objetos!</h2>
+        <ul>
+          <li><strong><code>CharacterBody2D</code>:</strong> Seu personagem! Controle total do movimento.🚶</li>
+          <li><strong><code>RigidBody2D</code>:</strong> Física realista! Gravidade, colisões e mais.</li>
+          <li><strong><code>StaticBody2D</code>:</strong> O chão e as paredes! Objetos imóveis. 🏞️</li>
+          <li><strong><code>KinematicBody2D</code>:</strong> Movimento controlado com detecção de colisão. 🕹️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>⚙️ Propriedades Físicas: Ajustando o Comportamento!</h2>
+        <ul>
+          <li><strong><code>PhysicsMaterial</code>:</strong> Quão escorregadio ou bouncy (saltitante) é?</li>
+          <li><strong><code>RigidBody2D</code>:</strong> Massa, gravidade, velocidade... as regras do mundo! ⚖️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🎬 5. Cenas e Instanciação: Reutilize e Multiplique!</h2>
+        <ul>
+          <li><strong>Transformar em Cena:</strong> Salve partes do seu jogo como "templates"! 💾</li>
+          <li><strong>Instanciação:</strong> Crie cópias dessas cenas quando precisar! 👯</li>
+          <li>Instâncias vs. Cópias Independentes: Pense em "clones" ou "cópias"! 🤔</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🚶💨 6. Movimentação Básica: Colocando as Coisas para Andar!</h2>
+        <h3>Movimento em 8 Direções</h3>
+        <ul>
+          <li>Use as setas com <code>CharacterBody2D</code> e <code>move_and_slide()</code>! ↑↓←→
+            <pre><code class="language-gdscript">
+extends CharacterBody2D
+
+var velocidade = 400
+
+func _physics_process(delta):
+  var direcao = Input.get_vector("left", "right", "up", "down")
+  velocity = direcao * velocidade
+  move_and_slide()
+            </code></pre>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🚶💨 6. Movimentação Básica: Colocando as Coisas para Andar!</h2>
+        <h3>Movimento com Rotação</h3>
+        <ul>
+          <li>Gire e mova como um carro! 🚗
+            <pre><code class="language-gdscript">
+extends CharacterBody2D
+
+var velocidade = 400
+var velocidade_rotacao = 1.5
+
+func _physics_process(delta):
+  var entrada_movimento = Input.get_axis("down", "up")
+  var direcao_rotacao = Input.get_axis("left", "right")
+  velocity = transform.x * entrada_movimento * velocidade
+  rotation += direcao_rotacao * velocidade_rotacao * delta
+  move_and_slide()
+            </code></pre>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>💥 7. Detecção de Colisões: Cuidado com o Impacto!</h2>
+        <ul>
+          <li><strong>Nós de Colisão:</strong> Formas invisíveis que detectam toques (<code>Area2D</code> é um gatilho!). 👻</li>
+          <li><strong>Formas:</strong> Retângulos, círculos, cápsulas... a forma da sua colisão! 📐</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🛡️ Camadas e Máscaras de Colisão: Quem Interage com Quem?</h2>
+        <ul>
+          <li>Organize seus objetos em "camadas" e defina com quem eles podem colidir ("máscaras")! 🚦</li>
+          <li>Configure no Inspetor ou via código! ⚙️</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🚶↔️🧱 Detecção com <code>CharacterBody2D</code></h2>
+        <ul>
+          <li>Use <code>move_and_collide()</code> para saber se houve uma colisão! ✋
+            <pre><code class="language-gdscript">
+var collision = move_and_collide(velocity * delta)
+if collision:
+  print("Colidiu com: ", collision.get_collider())
+            </code></pre>
+          </li>
+          <li>Com <code>move_and_slide()</code>, veja quantas colisões aconteceram! 📊</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🚪 8. Detecção com <code>Area2D</code>: Zonas de Gatilho!</h2>
+        <ul>
+          <li>Use para detectar quando algo entra ou sai de uma área (<code>area_entered</code>, <code>body_entered</code>)! 🚪
+            <pre><code class="language-gdscript">
+func _on_Area2D_body_entered(body):
+  print("Algo entrou na área!")
+            </code></pre>
+          </li>
+          <li>Ideal para pegar itens, ativar eventos... a imaginação é o limite! ✨</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>9. Melhores Práticas em GDScript: Código Limpo e Organizado! 🧹</h2>
+        <ul>
+          <li>Seu código é sua ferramenta! Mantenha-o organizado e fácil de entender. 🧰</li>
+          <li>Use nomes claros, comente seu código e organize em pastas! 📂</li>
+        </ul>
+      </section>
+
+
+      <section>
+        <h2>🚀 Exploração Adicional</h2>
+        <ul>
+          <li><a href="https://docs.godotengine.org/en/stable/" target="_blank">Documentação oficial da Godot Engine</a> 📖</li>
+          <li>Comunidade Godot (Reddit, Godot Community): Troque ideias e aprenda com outros! 🗣️</li>
+          <li>Experimente, crie e divirta-se! 🎉</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Prática: Movimentação e Colisão 2D com Godot Engine</h2>
+        <p><strong>Objetivo:</strong> Implementar a movimentação de um personagem 2D e a detecção de colisões com objetos estáticos.</p>
+      </section>
+
+      <section>
+        <h2>Passo 1: Criar um Novo Projeto</h2>
+        <ol>
+          <li>Abra o Godot Engine.</li>
+          <li>Clique em "Novo Projeto".</li>
+          <li>Escolha um nome para o seu projeto e selecione um local para salvá-lo.</li>
+          <li>No campo "Renderizador", escolha "Forward+ (Compatível)".</li>
+          <li>Clique em "Criar e Editar".</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 2: Criar a Cena do Personagem</h2>
+        <ol>
+          <li>Na aba "Cena", clique no botão "+" para criar um novo nó.</li>
+          <li>Procure por "CharacterBody2D" e clique em "Criar".</li>
+          <li>Nomeie este nó como "Player".</li>
+          <li>Adicione um nó filho do tipo "Sprite2D" ao nó "Player".</li>
+          <li>No Inspetor do nó "Sprite2D", procure pela propriedade "Textura". Clique em "[vazio]" e selecione "Criar Novo -> Atlas de Sprites" ou carregue sua imagem.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 2: Criar a Cena do Personagem</h2>
+        <ol start="6">
+          <li>Adicione outro nó filho do tipo "CollisionShape2D" ao nó "Player".</li>
+          <li>No Inspetor do nó "CollisionShape2D", procure pela propriedade "Forma". Clique em "[vazio]" e selecione "Criar Novo -> RetânguloShape2D".</li>
+          <li>Ajuste o tamanho do retângulo de colisão para envolver o sprite do personagem na viewport.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 3: Criar o Script do Personagem</h2>
+        <ol>
+          <li>Selecione o nó "Player".</li>
+          <li>Na aba "Inspetor", clique em "Script" e depois no botão "+" para criar um novo script.</li>
+          <li>Mantenha as configurações padrão e clique em "Criar".</li>
+          <li>Abra o script.</li>
+          <li>Implemente o script para o personagem andar e pular.</li>
+        </ol>
+      </section>
+
+
+      <section>
+        <h2>Passo 4: Criar a Cena do Mundo</h2>
+        <ol>
+          <li>Na aba "Cena", clique no botão "+" para criar uma nova cena.</li>
+          <li>Escolha um nó raiz do tipo "Node2D" e clique em "Criar".</li>
+          <li>Nomeie este nó como "World".</li>
+          <li>Salve esta cena (Ctrl+S ou Cmd+S) com o nome "world.tscn".</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 5: Instanciar o Personagem</h2>
+        <ol>
+          <li>Na aba "Cena" do nó "World", clique no botão "+" e selecione a aba "Cena".</li>
+          <li>Procure e selecione a cena do seu personagem.</li>
+          <li>Clique em "Criar".</li>
+          <li>Arraste a instância do personagem para a posição inicial desejada na viewport.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 6: Criar Objetos Estáticos para Colisão</h2>
+        <ol>
+          <li>Na aba "Cena" do nó "World", clique no botão "+" para criar um novo nó.</li>
+          <li>Procure por "StaticBody2D" e clique em "Criar".</li>
+          <li>Adicione um nó filho do tipo "Sprite2D" ao nó "StaticBody2D". Carregue uma textura ou crie uma forma simples.</li>
+          <li>Adicione um nó filho do tipo "CollisionShape2D" ao nó "StaticBody2D". Crie uma forma de colisão (ex: "RectangleShape2D") e ajuste o tamanho.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 7: Criar Objetos Estáticos para Colisão</h2>
+        <ol start="5">
+          <li>Duplique o nó "StaticBody2D" algumas vezes (Ctrl+D ou Cmd+D).</li>
+          <li>Posicione os objetos estáticos na cena para criar obstáculos ou um cenário.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Passo 8: Executar o Jogo</h2>
+        <ol>
+          <li>Pressione F5 para executar o jogo.</li>
+          <li>O Godot perguntará qual é a cena principal. Selecione a cena "world.tscn".</li>
+          <li>Use as teclas de seta do teclado para mover o personagem.</li>
+          <li>Observe que o personagem não atravessa os objetos estáticos.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Desafios Adicionais (Opcional)</h2>
+        <ul>
+          <li>Adicionar animações ao personagem com base na direção do movimento.</li>
+          <li>Implementar diferentes tipos de colisões (por exemplo, coletar itens).</li>
+          <li>Criar um cenário mais elaborado com diferentes formas de objetos estáticos.</li>
+          <li>Experimentar com as propriedades do <code>CharacterBody2D</code> e do <code>CollisionShape2D</code>.</li>
+        </ul>
+      </section>
+
+
+   </div>
+  </div>
+
+
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
+```
