@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serbank - Requisitos e Avaliação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h2 {
+            color: #2980b9;
+        }
+        h3 {
+            color: #3498db;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Serbank - Requisitos do Projeto e Ficha de Avaliação</h1>
+
+    <div class="section">
+        <h2>Requisitos do Projeto</h2>
+
+        <h3>Descrição Geral</h3>
+        <p>O aplicativo será um protótipo de um banco digital chamado "SmartBank", permitindo que os usuários visualizem saldo, histórico de transações e realizem operações básicas como transferência e pagamento. O foco é utilizar React Native com TypeScript ou JavaScript.</p>
+
+        <h3>Requisitos Funcionais</h3>
+        <ol>
+            <li><strong>Tela de Login</strong>
+                <ul>
+                    <li>Campos: CPF (somente números) e senha (máscara para ocultar caracteres).</li>
+                    <li>Botão "Entrar" que valida os dados (ex.: CPF "12345678900" e senha "1234").</li>
+                    <li>Mensagem de erro se os dados estiverem incorretos.</li>
+                    <li>Redirecionar para a tela inicial após login.</li>
+                </ul>
+            </li>
+            <li><strong>Tela Inicial (Dashboard)</strong>
+                <ul>
+                    <li>Exibir o saldo atual do usuário.</li>
+                    <li>Botões: "Transferir", "Pagar" e "Histórico de Transações".</li>
+                    <li>Header com o nome "Serbank" e um ícone.</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Transferência</strong>
+                <ul>
+                    <li>Campos: Número da conta e valor (formato monetário).</li>
+                    <li>Botão "Confirmar" exibe alerta com os dados.</li>
+                    <li>Atualizar o saldo.</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Pagamento</strong>
+                <ul>
+                    <li>Campos: Código de barras (12 dígitos) e valor.</li>
+                    <li>Botão "Pagar" exibe alerta e atualiza o saldo.</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Histórico de Transações</strong>
+                <ul>
+                    <li>Lista (FlatList) com transações simuladas (data, tipo, valor).</li>
+                    <li>Itens estilizados com cores diferentes para entrada e saída.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Requisitos Não Funcionais</h3>
+        <ul>
+            <li><strong>Tecnologia:</strong> React Native com TypeScript ou JavaScript, usando React Navigation.</li>
+            <li><strong>Estilização:</strong> Usar StyleSheets e componentes estilizáveis reutilizáveis.</li>
+            <li><strong>Gerenciamento de Estado:</strong> Hooks (useState, useEffect); opcional: Context API.</li>
+            <li><strong>Apresentação:</strong> Rodar no emulador ou dispositivo físico.</li>
+        </ul>
+
+        <h3>Escopo Mínimo</h3>
+        <ul>
+            <li>4 telas: Login, Dashboard, Transferência e Histórico.</li>
+            <li>Validação básica nos formulários.</li>
+            <li>Navegação e estilização consistentes.</li>
+        </ul>
+
+        <h3>Opcionais (Extras)</h3>
+        <ul>
+            <li>Animações com Animated API.</li>
+            <li>Logout na tela inicial.</li>
+            <li>AsyncStorage para persistência de dados.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Ficha de Avaliação</h2>
+        <!-- <p><strong>Nome do Projeto:</strong> Serbank</p>
+        <p><strong>Grupo:</strong> [Preencher com nomes dos alunos]</p>
+        <p><strong>Data da Apresentação:</strong> [Preencher]</p> -->
+
+        <table>
+            <tr>
+                <th>Critério</th>
+                <th>Descrição</th>
+                <th>Pontuação (0-10)</th>
+                <th>Comentários</th>
+            </tr>
+            <tr>
+                <td>Funcionalidade</td>
+                <td>Todas as telas estão implementadas e funcionais?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Navegação</td>
+                <td>A navegação entre telas está fluida e sem erros?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Estilização</td>
+                <td>Uso de StyleSheets e componentes estilizáveis está consistente?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Uso de Hooks</td>
+                <td>Hooks foram utilizados corretamente para gerenciar estado?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Validação de Formulários</td>
+                <td>Formulários possuem validação básica?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Código Organizado</td>
+                <td>O código está estruturado e legível?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Apresentação</td>
+                <td>A explicação foi clara, com demonstração funcional?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Extras (Opcional)</td>
+                <td>Foram implementados recursos adicionais?</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

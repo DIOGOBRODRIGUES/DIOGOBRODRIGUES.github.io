@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reeguer - Requisitos e Avaliação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h2 {
+            color: #2980b9;
+        }
+        h3 {
+            color: #3498db;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reeguer - Requisitos do Projeto e Ficha de Avaliação</h1>
+
+    <div class="section">
+        <h2>Requisitos do Projeto</h2>
+
+        <h3>Descrição Geral</h3>
+        <p>O aplicativo Reeguer conecta vítimas de desastres ambientais causados por chuvas (enchentes, deslizamentos) com pessoas ou organizações dispostas a ajudar. Inclui monitoramento básico, cadastro de necessidades, visualização de doações e lista de abrigos.</p>
+
+        <h3>Requisitos Funcionais</h3>
+        <ol>
+            <li><strong>Tela de Login</strong>
+                <ul>
+                    <li>Campos: Nome (texto simples) e senha (máscara para ocultar caracteres).</li>
+                    <li>Botão "Entrar" que valida os dados (ex.: Nome "usuario" e senha "1234").</li>
+                    <li>Mensagem de erro se os dados estiverem incorretos.</li>
+                    <li>Redirecionar para a tela inicial após login.</li>
+                </ul>
+            </li>
+            <li><strong>Tela Inicial (Dashboard)</strong>
+                <ul>
+                    <li>Exibir notificação fixa (ex.: "Alerta: Risco de enchente em [cidade]").</li>
+                    <li>Botões: "Pedir Ajuda", "Oferecer Ajuda" e "Abrigos".</li>
+                    <li>Header com o nome "SOS Chuvas" e um ícone.</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Pedir Ajuda</strong>
+                <ul>
+                    <li>Campos: Tipo de necessidade (dropdown: "Alimentos", "Roupas", "Abrigo") e descrição curta.</li>
+                    <li>Botão "Enviar" exibe alerta confirmando o pedido.</li>
+                    <li>Armazenar o pedido em uma lista local.</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Oferecer Ajuda</strong>
+                <ul>
+                    <li>Lista (FlatList) com pedidos registrados (tipo e descrição).</li>
+                    <li>Botão "Ajudar" em cada item exibe alerta com "Doação confirmada" ou "Voluntário confirmado".</li>
+                </ul>
+            </li>
+            <li><strong>Tela de Abrigos</strong>
+                <ul>
+                    <li>Lista (FlatList) com abrigos simulados (nome e endereço).</li>
+                    <li>Itens estilizados com ícone ou cor diferente.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Requisitos Não Funcionais</h3>
+        <ul>
+            <li><strong>Tecnologia:</strong> React Native com TypeScript ou JavaScript, usando React Navigation.</li>
+            <li><strong>Estilização:</strong> Usar StyleSheets e componentes estilizáveis reutilizáveis.</li>
+            <li><strong>Gerenciamento de Estado:</strong> Hooks (useState, useEffect); opcional: Context API.</li>
+            <li><strong>Apresentação:</strong> Rodar no emulador ou dispositivo físico.</li>
+        </ul>
+
+        <h3>Escopo Mínimo</h3>
+        <ul>
+            <li>4 telas: Login, Dashboard, Pedir Ajuda e Abrigos.</li>
+            <li>Validação básica nos formulários.</li>
+            <li>Navegação e estilização consistentes.</li>
+        </ul>
+
+        <h3>Opcionais (Extras)</h3>
+        <ul>
+            <li>Animações com Animated API (ex.: fade-in na notificação).</li>
+            <li>Logout na tela inicial.</li>
+            <li>AsyncStorage para salvar pedidos ou abrigos.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+      
+        <table>
+            <tr>
+                <th>Critério</th>
+                <th>Descrição</th>
+                <th>Pontuação (0-10)</th>
+                <th>Comentários</th>
+            </tr>
+            <tr>
+                <td>Funcionalidade</td>
+                <td>Todas as telas estão implementadas e funcionais?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Navegação</td>
+                <td>A navegação entre telas está fluida e sem erros?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Estilização</td>
+                <td>Uso de StyleSheets e componentes estilizáveis está consistente?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Uso de Hooks</td>
+                <td>Hooks foram utilizados corretamente para gerenciar estado?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Validação de Formulários</td>
+                <td>Formulários possuem validação básica?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Código Organizado</td>
+                <td>O código está estruturado e legível?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Apresentação</td>
+                <td>A explicação foi clara, com demonstração funcional?</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Extras (Opcional)</td>
+                <td>Foram implementados recursos adicionais?</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>
