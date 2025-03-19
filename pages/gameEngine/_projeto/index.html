@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos do Projeto - Game Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Requisitos do Projeto de Classe - Disciplina Game Engine</h1>
+
+    <div class="section">
+        <h2>Objetivo</h2>
+        <p>Desenvolver um protótipo funcional de um jogo simples utilizando a engine Godot (ou outra engine à escolha do aluno), aplicando os conceitos básicos vistos em aula, como câmera, física, interface de controle e saída, iluminação, textura, colisão e interação.</p>
+    </div>
+
+    <div class="section">
+        <h2>Requisitos Mínimos</h2>
+        <ol>
+            <li><strong>Câmera:</strong>
+                <ul>
+                    <li>Implementar uma câmera funcional que acompanhe o jogador ou permita a visualização da cena de forma clara.</li>
+                    <li>Exemplo: Câmera 2D ou 3D ajustada à movimentação do personagem ou cenário.</li>
+                </ul>
+            </li>
+            <li><strong>Física:</strong>
+                <ul>
+                    <li>Utilizar o sistema de física da engine para simular movimento ou gravidade.</li>
+                    <li>Exemplo: Um personagem que cai ao pular ou um objeto que colide com o chão.</li>
+                </ul>
+            </li>
+            <li><strong>Interface de Controle e Saída:</strong>
+                <ul>
+                    <li>Criar controles básicos para o jogador (ex.: movimentação com teclado ou mouse).</li>
+                    <li>Exibir uma saída simples na tela, como pontuação, vida ou mensagem de status.</li>
+                </ul>
+            </li>
+            <li><strong>Iluminação:</strong>
+                <ul>
+                    <li>Adicionar pelo menos uma fonte de luz ao cenário (ex.: luz ambiente, direcional ou pontual).</li>
+                    <li>Garantir que a iluminação seja visível e funcional no jogo.</li>
+                </ul>
+            </li>
+            <li><strong>Textura:</strong>
+                <ul>
+                    <li>Aplicar texturas básicas a pelo menos um objeto ou personagem no jogo.</li>
+                    <li>Exemplo: Textura em um chão, parede ou sprite do personagem.</li>
+                </ul>
+            </li>
+            <li><strong>Colisão:</strong>
+                <ul>
+                    <li>Implementar detecção de colisão entre objetos ou entre o jogador e o cenário.</li>
+                    <li>Exemplo: O personagem não atravessa paredes ou interage com um obstáculo.</li>
+                </ul>
+            </li>
+            <li><strong>Interação:</strong>
+                <ul>
+                    <li>Criar pelo menos uma interação simples no jogo.</li>
+                    <li>Exemplo: Coletar um item, abrir uma porta ou ativar um botão.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Especificações Gerais</h2>
+        <ul>
+            <li>O projeto pode ser 2D ou 3D, conforme a preferência do aluno.</li>
+            <li>O aluno pode escolher outra engine (ex.: Unity, Unreal Engine) desde que demonstre o cumprimento de todos os requisitos listados.</li>
+            <li>O jogo deve ser executável e entregue com instruções básicas de como rodá-lo.</li>
+            <li>Prazo de entrega: [inserir data definida pelo professor].</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Ficha de Avaliação do Projeto</h2>
+        <table>
+            <tr>
+                <th>Critério</th>
+                <th>Descrição</th>
+                <th>Pontuação Máxima</th>
+                <th>Nota Obtida</th>
+            </tr>
+            <tr>
+                <td>Câmera</td>
+                <td>Câmera funcional e bem ajustada à cena ou ao jogador.</td>
+                <td>15 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Física</td>
+                <td>Uso correto da física (ex.: gravidade, movimento realista).</td>
+                <td>15 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Interface de Controle</td>
+                <td>Controles responsivos e saída visível (ex.: HUD com pontuação ou status).</td>
+                <td>15 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Iluminação</td>
+                <td>Presença de iluminação funcional e visível no cenário.</td>
+                <td>10 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Textura</td>
+                <td>Aplicação de texturas em pelo menos um elemento do jogo.</td>
+                <td>10 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Colisão</td>
+                <td>Detecção de colisão implementada e funcional.</td>
+                <td>15 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Interação</td>
+                <td>Interação simples e funcional no jogo (ex.: coletar item, ativar algo).</td>
+                <td>15 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Apresentação Geral</td>
+                <td>Jogo executável, organização e clareza nas instruções de uso.</td>
+                <td>10 pontos</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td><strong>100 pontos</strong></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Observações</h2>
+        <ul>
+            <li>Cada critério será avaliado com base na funcionalidade e na correta aplicação dos conceitos vistos em aula.</li>
+            <li>A "Apresentação Geral" considera a entrega no prazo, a jogabilidade básica e a ausência de erros críticos que impeçam o funcionamento.</li>
+            <li>Em caso de uso de outra engine, o aluno deve justificar brevemente a escolha e garantir que todos os requisitos sejam atendidos.</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
