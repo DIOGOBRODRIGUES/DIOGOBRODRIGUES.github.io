@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Aula 4: Estruturas de Repetição</title>
+    <title>Aula 5: Estruturas de Repetição</title>
 
     <!-- Descrições e Metatags -->
     <meta name="description" content="Aula sobre Estruturas de Repetição em Lógica de Programação | Portugol e JavaScript">
@@ -28,7 +28,7 @@
             <!-- Slide 1 - Título -->
             <section data-transition="zoom">
                 <p>🏛️ Centro Universitário Maurício de Nassau</p>
-                <h3>Aula 4: Estruturas de Repetição</h3>
+                <h3>Aula 5: Estruturas de Repetição</h3>
                 <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
                 <div>
                     <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
@@ -43,16 +43,12 @@
             <!-- Slide 2 - Introdução -->
             <section data-transition="fade">
                 <h2>Introdução aos Loops</h2>
-                <img 
-                     src="https://images.unsplash.com/photo-1581092160624-6d5999d1535e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                     alt="Imagem representando loops" 
-                     style="width: 50%; display: block; margin: 0 auto;">
                 <ul>
                     <li>Permitem executar um bloco de código repetidamente.</li>
                     <li>Fundamentais para automatizar tarefas e processar grandes quantidades de dados.</li>
                     <li>Reduzem a duplicação de código e facilitam a manutenção.</li>
                 </ul>
-                <small><i>Fonte: Adaptado do material de aula.</i></small>
+            
             </section>
 
             <!-- Slide 3 - Importância dos Loops -->
@@ -80,11 +76,11 @@
                 <p>Executa enquanto uma condição for verdadeira (pré-teste).</p>
                 <p><strong>Portugol:</strong></p>
 <pre><code class="language-c" data-trim>
-n := 1
-enquanto (n <= 10) faca
-    escreva(n)
-    n := n + 1
-fim_enquanto
+    contador <- 1
+    enquanto contador <= 10  faca
+       escreva(contador)
+       contador <- contador + 1
+    fimenquanto  
 </code></pre>
 
                 <p><strong>JavaScript:</strong></p>
@@ -103,9 +99,9 @@ while (n <= 10) {
                 <p>Ideal quando o número de iterações é conhecido (pré-teste).</p>
                 <p><strong>Portugol:</strong></p>
 <pre><code class="language-c" data-trim>
-para i de 1 ate 5 faca
-    escreva(i)
-fim_para
+para contador de 1 ate 10 faca
+    escreva(contador)
+fimpara
 </code></pre>
 
                 <p><strong>JavaScript:</strong></p>
@@ -131,7 +127,7 @@ do {
 
                 <p><strong>Portugol:</strong></p>
 <pre><code class="language-c" data-trim>
-var entrada: caractere
+entrada: caractere
 repita
     leia(entrada)
     escreva("Você digitou: ", entrada)
@@ -186,18 +182,48 @@ for (let i = 1; i <= 3; i++) {
                 </ul>
             </section>
 
-            <!-- Slide 10 - Conclusão -->
-            <section data-transition="fade">
-                <h2>Conclusão</h2>
-                <p>
-                    As estruturas de repetição são fundamentais para a lógica de programação, 
-                    permitindo eficiência e clareza no código. Saber escolher o tipo correto 
-                    de loop e aplicar boas práticas evita problemas como loops infinitos 
-                    e facilita a manutenção do software.
-                </p>
-                <p><em>Bons estudos e bons loops!</em></p>
-                <small><i>Referências disponíveis no material de apoio.</i></small>
-            </section>
+        
+
+            <!-- Slide 8: Questão 1 - O Contador de Pizzas -->
+<section>
+    <h2>Questão 1: O Contador de Pizzas 🍕</h2>
+    <p>Imagine que você está organizando uma festa e quer pedir pizzas. Cada pizza tem 8 fatias, e você quer saber quantas fatias terá ao pedir de 1 até 5 pizzas. Escreva um programa em Portugol que use um loop "para" para mostrar o número de fatias para cada quantidade de pizzas.</p>
+    <p><strong>Instrução:</strong> Use o loop "para" e multiplique o número de pizzas por 8. Teste seu código! 🚀</p>
+</section>
+
+<!-- Slide 9: Questão 2 - O Alarme Insistente -->
+<section>
+    <h2>Questão 2: O Alarme Insistente ⏰</h2>
+    <p>Você criou um despertador que toca até que alguém diga "pare". Escreva um programa em Portugol usando um loop "enquanto" que exiba "TOC TOC TOC" e peça ao usuário para digitar uma palavra. O alarme só para quando a palavra for "pare".</p>
+    <p><strong>Instrução:</strong> Use uma variável para a palavra e o loop "enquanto". Experimente digitar "pare"! 🎶</p>
+</section>
+
+<!-- Slide 10: Questão 3 - A Corrida do Coelhinho -->
+<section>
+    <h2>Questão 3: A Corrida do Coelhinho 🐰</h2>
+    <p>Um coelhinho está pulando de 1 em 1 metro até chegar a 10 metros. Escreva um programa em Portugol com um loop "para" que mostre em cada pulo a mensagem "Coelhinho pulou para X metros!", onde X é a distância atual.</p>
+    <p><strong>Instrução:</strong> Use o loop "para" de 1 a 10 e inclua a variável na mensagem. Vamos pular! 🏃‍♂️</p>
+</section>
+
+<!-- Slide 11: Questão 4 - O Caixa Eletrônico Teimoso -->
+<section>
+    <h2>Questão 4: O Caixa Eletrônico Teimoso 💰</h2>
+    <p>Você está em um caixa eletrônico que só aceita saques maiores que 0. Crie um programa em Portugol com um loop "faça-enquanto" que peça ao usuário para digitar o valor do saque e só pare quando ele digitar um valor maior que 0. Mostre o valor digitado a cada tentativa.</p>
+    <p><strong>Instrução:</strong> Use "faça-enquanto" e mostre o valor com "escreva". Teste com valores negativos! ⚙️</p>
+</section>
+
+<!-- Slide 12: Questão 5 - O Contador de Estrelas -->
+<section>
+    <h2>Questão 5: O Contador de Estrelas ⭐</h2>
+    <p>Você está olhando o céu e quer contar estrelas de 2 em 2 até chegar a 10. Escreva um programa em Portugol com um loop "para" que mostre "Já contei X estrelas!" para cada número par (2, 4, 6, 8, 10).</p>
+    <p><strong>Instrução:</strong> Use o "passo 2" no loop "para" e teste o resultado! ✨</p>
+</section>
+
+<!-- Slide 14: Referências -->
+<section>
+    <h2>Referências 📚</h2>
+    <p>Quer saber mais? Confira: W3Schools (JavaScript Loops), DevMedia (Curso Portugol), MDN Web Docs (Loops).</p>
+</section>
 
         </div>
     </div>
