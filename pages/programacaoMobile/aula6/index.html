@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Navegação entre Telas com Expo</title>
+  <meta name="description" content="Aula sobre navegação entre telas utilizando Expo para alunos de Ciência da Computação.">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6: Navegação entre Telas com Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 -->
+      <section>
+        <h2>Introdução à Navegação em Expo</h2>
+        <ul>
+          <li>Mover entre telas é fundamental em aplicativos modernos. 📱</li>
+          <li>Usuários esperam experiências intuitivas e fluidas. 💫</li>
+          <li>A navegação guia os usuários através das funcionalidades do app. 🗺️</li>
+          <li>Sem navegação eficaz, aplicativos parecem desconexos e difíceis de usar. 🚫</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 -->
+      <section>
+        <h2>Escolhendo a Abordagem de Navegação</h2>
+        <ul>
+          <li>Duas principais soluções comumente usadas:
+            <ul>
+              <li><strong>Expo Router</strong></li>
+              <li><strong>React Navigation</strong></li>
+            </ul>
+          </li>
+          <li>Ambas são robustas e bem mantidas, mas com filosofias diferentes.</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 -->
+      <section>
+        <h2>Expo Router</h2>
+        <section>
+          <ul>
+            <li>Biblioteca de navegação específica para Expo.</li>
+            <li>Enfatiza simplicidade e facilidade de uso.</li>
+            <li><strong>Roteamento baseado em arquivos:</strong> a estrutura de arquivos no diretório <code>app</code> define as rotas.</li>
+            <li>Ex: <code>app/index.tsx</code> -> rota <code>/</code>, <code>app/about.tsx</code> -> rota <code>/about</code>.</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Integração estreita com as ferramentas de desenvolvimento do Expo. 🛠️</li>
+            <li>Construído sobre o React Navigation, oferecendo uma API mais simplificada. 🏗️➡️✨</li>
+            <li>Ideal para iniciantes e projetos com prazos rápidos. 👶🚀</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 -->
+      <section>
+        <h2>Expo Router vs. React Navigation</h2>
+        <table class="r-fit-text">
+          <thead>
+            <tr>
+              <th>Recurso ⚙️</th>
+              <th>Expo Router 🛣️</th>
+              <th>React Navigation 🗺️</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Configuração 🛠️</td>
+              <td>Fácil, automático via estrutura de arquivos 📂</td>
+              <td>Requer configuração manual 📝</td>
+            </tr>
+            <tr>
+              <td>Integração Expo 📦</td>
+              <td>Construído para Expo 🤝</td>
+              <td>Funciona bem com Expo 👍</td>
+            </tr>
+            <tr>
+              <td>Facilidade de Uso 👶</td>
+              <td>Amigável para iniciantes, direto 🎯</td>
+              <td>Mais complexo, mas altamente adaptável 🧩</td>
+            </tr>
+            <tr>
+              <td>Comunidade 👥</td>
+              <td>Crescendo 🌱</td>
+              <td>Grande e madura 🌳</td>
+            </tr>
+            <tr>
+              <td>Flexibilidade 🤸</td>
+              <td>Menos controle, baseado em convenção 📏</td>
+              <td>Alto controle e personalização 🎨</td>
+            </tr>
+            <tr>
+              <td>Funciona fora do Expo 🌐</td>
+              <td>Não 🚫</td>
+              <td>Sim ✅</td>
+            </tr>
+            <tr>
+              <td>Plugins de Terceiros 🔌</td>
+              <td>Limitado 🤏</td>
+              <td>Extenso 🚀</td>
+            </tr>
+            <tr>
+              <td>Casos de Uso Ideais 🎯</td>
+              <td>Desenvolvimento rápido, apps Expo universais ⚡</td>
+              <td>Apps complexos, navegação customizada, projetos não-Expo 🏗️</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+        <h2>🗺️ Criando Estruturas de Navegação com Expo Router 📂</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">📁</span> Roteamento baseado em arquivos dentro do diretório <code>app</code>.</li>
+          <li><span style="font-size: 1.2em;">🏠</span> <code>index.tsx</code> na pasta <code>app</code> corresponde à rota raiz (<code>/</code>).</li>
+          <li><span style="font-size: 1.2em;">ℹ️</span> <code>about.tsx</code> na pasta <code>app</code> corresponde à rota <code>/about</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#346888" data-background-transition="zoom">
+        <h2>Expo Router: <code>_layout.tsx</code> 🧩</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🏗️</span> Arquivo especial para definir elementos de UI compartilhados e containers de navegação.</li>
+          <li><span style="font-size: 1.2em;">📂</span> Pode ser colocado na raiz do diretório <code>app</code> ou em subdiretórios.</li>
+          <li><span style="font-size: 1.2em;">🧭</span> Permite especificar navegadores como <code>Stack</code>, <code>Tabs</code> ou <code>Drawer</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Tipos de Navegação com Expo Router 🧭</h2>
+
+        <section data-transition="slide" data-background="#3e4451" data-background-transition="zoom">
+          <h3>Navegação Stack 🥞</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">⬆️</span> Organiza as telas em uma pilha, onde a tela atual cobre a anterior.</li>
+            <li><span style="font-size: 1.2em;">🔙</span> Permite navegar para trás, desempilhando a tela atual.</li>
+            <li><span style="font-size: 1.2em;">📱</span> Ideal para fluxos de navegação lineares, como formulários ou detalhes de um item.</li>
+          </ul>
+          <aside class="notes">Navegação tipo pilha, normalmente telas entram por baixo da tela anterior e saem pelo mesmo lugar.</aside>
+        </section>
+
+        <section data-transition="slide" data-background="#525968" data-background-transition="zoom">
+          <h3>Navegação Tab 📑</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">↔️</span> Permite alternar entre telas com abas na parte inferior ou superior da tela.</li>
+            <li><span style="font-size: 1.2em;">📊</span> Ideal para alternar entre diferentes seções ou funcionalidades principais do aplicativo.</li>
+            <li><span style="font-size: 1.2em;">📌</span> Mantém o estado de cada aba quando se alterna entre elas.</li>
+          </ul>
+          <aside class="notes">Navegação tipo abas, ideal para navegar entre funcionalidades similares, ou principais do app, como seções diferentes, ou telas de configurações</aside>
+        </section>
+
+        <section data-transition="slide" data-background="#667080" data-background-transition="zoom">
+          <h3>Navegação Drawer ☰</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">➡️</span> Exibe um menu lateral que desliza para dentro da tela.</li>
+            <li><span style="font-size: 1.2em;">📋</span> Permite acessar funcionalidades ou seções secundárias do aplicativo.</li>
+            <li><span style="font-size: 1.2em;">🧭</span> Bom para menus com muitas opções ou hierarquia complexa.</li>
+          </ul>
+          <aside class="notes">Navegação tipo gaveta, normalmente um menu lateral que se expande para mostrar mais telas. Utilizado normalmente para menus de configurações, perfil, ou telas com muitas opções</aside>
+        </section>
+      </section>
+
+      <section data-transition="slide">
+        <h2>Expo Router: Navegação Stack 🥞</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🧱</span> Definir um componente <code>&lt;Stack /&gt;</code> dentro de um arquivo <code>_layout.tsx</code>.</li>
+          <li><span style="font-size: 1.2em;">📺</span> Telas são adicionadas usando <code>&lt;Stack.Screen name="routeName" /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">🔗</span> Navegação entre telas com <code>&lt;Link href="/otherScreen" /&gt;</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Stack 🥞</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+import { Stack } from 'expo-router';
+
+export default function Layout() {
+  return (
+    &lt;Stack&gt;
+      &lt;Stack.Screen name="index" options={{ title: 'Home' }} /&gt;
+      &lt;Stack.Screen name="about" options={{ title: 'Sobre' }} /&gt;
+    &lt;/Stack&gt;
+  );
+}
+</code>
+        </pre>
+
+        <div style="margin-top: 20px;">
+          <p style="font-size: 0.9em;">
+            Este código define um layout de navegação Stack com duas telas:
+          </p>
+          <ul style="font-size: 0.9em;">
+            <li><span style="font-size: 1.2em;">🏠</span> <code>index</code>: Tela inicial (Home).</li>
+            <li><span style="font-size: 1.2em;">ℹ️</span> <code>about</code>: Tela "Sobre".</li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-transition="slide" data-background="#4a148c" data-background-transition="zoom">
+        <h2>Expo Router: Navegação Tab 📑</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">📂</span> Criar um diretório <code>(tabs)</code> dentro de <code>app</code>.</li>
+          <li><span style="font-size: 1.2em;">📄</span> Colocar um arquivo <code>_layout.tsx</code> com o componente <code>&lt;Tabs /&gt;</code> dentro.</li>
+          <li><span style="font-size: 1.2em;">🏷️</span> Cada aba é definida com <code>&lt;Tabs.Screen name="tabRoute" options={{ title: 'Tab Title', tabBarIcon: (...) }} /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">👇</span> A barra de abas aparece na parte inferior da tela por padrão.</li>
+          <li><span style="font-size: 1.2em;">🎨</span> Aparência da barra de abas customizável com a prop <code>options</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Tab 📑</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+        // app/(tabs)/_layout.js
+        import { Tabs } from 'expo-router';
+
+        export default function TabLayout() {
+          return (
+            &lt;Tabs&gt;
+              &lt;Tabs.Screen name="index" options={{ title: 'Home' }} /&gt;
+              &lt;Tabs.Screen name="settings" options={{ title: 'Configurações' }} /&gt;
+            &lt;/Tabs&gt;
+          );
+        }
+      </code>
+        </pre>
+
+        <div style="margin-top: 20px;">
+          <p style="font-size: 0.9em;">
+            Este código define uma navegação Tab simples com três abas:
+          </p>
+          <ul style="font-size: 0.9em;">
+            <li><span style="font-size: 1.2em;">🏠</span> <code>index</code>: Tela inicial (Home).</li>
+            <li><span style="font-size: 1.2em;">⚙️</span> <code>settings</code>: Tela de configurações.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-transition="slide" data-background="#1a237e" data-background-transition="zoom">
+        <h2>Expo Router: Navegação Drawer ☰</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🚪</span> Criar com o componente <code>&lt;Drawer /&gt;</code> em um arquivo <code>_layout.tsx</code>.</li>
+          <li><span style="font-size: 1.2em;">📋</span> Itens do drawer definidos com <code>&lt;Drawer.Screen name="drawerRoute" options={{ drawerLabel: 'Drawer Item' }} /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">↔️</span> Drawer é um menu lateral que pode ser aberto e fechado.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Drawer ☰</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+        // app/_layout.js
+        import { Drawer } from 'expo-router';
+
+        export default function Layout() {
+          return (
+            &lt;Drawer&gt;
+              &lt;Drawer.Screen
+                name="index"
+                options={{ drawerLabel: 'Home' }}
+              /&gt;
+              &lt;Drawer.Screen
+                name="settings"
+                options={{ drawerLabel: 'Configurações' }}
+              /&gt;
+              &lt;Drawer.Screen
+                name="profile"
+                options={{ drawerLabel: 'Perfil' }}
+              /&gt;
+            &lt;/Drawer&gt;
+          );
+        }
+      </code>
+        </pre>
+      </section>
+
+      <section data-transition="slide" data-background="#37474f" data-background-transition="zoom">
+        <h2>Organização de Rotas: Expo Router 📂</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🗂️</span> A estrutura de arquivos dentro do diretório <code>app</code> define as rotas.</li>
+          <li><span style="font-size: 1.2em;">🔗</span> Diretórios aninhados criam rotas aninhadas.</li>
+          <li><span style="font-size: 1.2em;">📍</span> Ex: <code>app/settings/profile.tsx</code> -> rota <code>/settings/profile</code>.</li>
+          <li><span style="font-size: 1.2em;">✨</span> Definição de rotas implícita simplifica a configuração básica.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+        <h2>🚀 Tutorial: Criando um Projeto Expo 📦</h2>
+
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+npx create-expo-app meu-app-js --template blank
+cd meu-app-js
+</code>
+        </pre>
+
+        <p style="margin-top: 20px; font-size: 0.9em;">
+          Este comando cria um novo projeto Expo com o template básico, ideal para iniciantes, já incluindo o Expo Router.
+        </p>
+        <p style="margin-top: 20px; font-size: 0.9em;">
+          <strong>Precisamos instalar as dependencias do Expo Router, para isso, execute o comando:</strong>
+        </p>
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+npx expo install expo-router react-native-safe-area-context 
+react-native-screens expo-linking expo-constants 
+expo-status-bar
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Criando a Tela Inicial (<code>app/index.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+import { View, Text } from 'react-native';
+import { Link } from 'expo-router';
+
+export default function Home() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Tela inicial</Text>
+      <Link href="/about" style={{ margin: 10, color: 'blue' }}>
+        <Text>Ir para Sobre</Text>
+      </Link>
+      <Link href="/details" style={{ margin: 10, color: 'blue' }}>
+        <Text>Detalhes</Text>
+      </Link>
+    </View>
+  );
+}
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Criando a Tela de Detalhes (<code>app/details.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+import { View, Text } from 'react-native';
+import { Link } from 'expo-router';
+
+export default function Details() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Detalhes</Text>
+      <Link href="/" style={{ margin: 10, color: 'blue' }}>
+        <Text>Voltar para Home</Text>
+      </Link>
+    </View>
+  );
+}
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Definindo o Stack Navigator (<code>app/_layout.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+            import { Stack } from 'expo-router';
+
+            export default function Layout() {
+              return (
+                <Stack>
+                  <Stack.Screen name="index" options={{ title: 'Home' }} />
+                  <Stack.Screen name="about" options={{ title: 'Sobre' }} />
+                  <Stack.Screen name="details" options={{ title: 'Detalhes' }} />
+                </Stack>
+              );
+            }
+</code>
+        </pre>
+        <p>Isso configura um navegador Stack básico para gerenciar a navegação entre <code>index.js</code> e <code>details.tsx</code>.</p>
+      </section>
+
+      <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+        <h2>▶️ Tutorial: Executando o Aplicativo 📱</h2>
+      
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+            npx expo start
+          </code>
+        </pre>
+      
+        <ul style="margin-top: 20px; font-size: 0.9em;">
+          <li><span style="font-size: 1.2em;">🌐</span> Isso abrirá o Expo DevTools no seu navegador.</li>
+          <li><span style="font-size: 1.2em;">📷</span> Você pode escanear o QR code com o app Expo Go no seu dispositivo físico ou executar no simulador.</li>
+          <li><span style="font-size: 1.2em;">👉</span> Ao tocar no botão "Ir para Detalhes" na tela inicial, você será levado para a tela de detalhes.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#2e7d32" data-background-transition="zoom">
+        <h2>🚀 Melhores Práticas: Performance ⚡</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🎯</span> Usar componentes otimizados e evitar re-renders desnecessários.</li>
+          <li><span style="font-size: 1.2em;">⏳</span> Expo Router inclui otimizações como lazy loading de telas.</li>
+          <li><span style="font-size: 1.2em;">📈</span> Otimizar a lógica de renderização dos componentes de tela.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#1565c0" data-background-transition="zoom">
+        <h2>🌟 Melhores Práticas: Experiência do Usuário 🚀</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🧭</span> Navegação deve ser clara, consistente e intuitiva.</li>
+          <li><span style="font-size: 1.2em;">🤝</span> Usuários devem entender facilmente como se mover no app.</li>
+          <li><span style="font-size: 1.2em;">📐</span> Escolher o padrão de navegação apropriado (Stack, Tabs, Drawer).</li>
+          <li><span style="font-size: 1.2em;">🎬</span> Fornecer feedback visual durante a navegação (animações de transição).</li>
+        </ul>
+      </section>
+
+   
+
+    <section data-transition="slide" data-background="#4527a0" data-background-transition="zoom">
+  <h2>📚 Materiais de Aprendizagem Sugeridos 🎓</h2>
+  <h3>Documentação Oficial do Expo: 📄</h3>
+  <ul>
+    <li><a href="https://docs.expo.dev/versions/latest/sdk/router/" target="_blank">Expo Router 🛣️</a></li>
+    <li><a href="https://docs.expo.dev/tutorial/add-navigation/" target="_blank">Adicionar Navegação 🧭</a></li>
+    <li><a href="https://docs.expo.dev/router/introduction/" target="_blank">Introdução ao Expo Router 🚀</a></li>
+    <li><a href="https://docs.expo.dev/router/installation/" target="_blank">Instalação do Expo Router 🛠️</a></li>
+    <li><a href="https://docs.expo.dev/router/navigating-pages/" target="_blank">Navegando entre Páginas 🗺️</a></li>
+    <li><a href="https://docs.expo.dev/router/advanced/stack/" target="_blank">Stack (Avançado) 🥞</a></li>
+    <li><a href="https://docs.expo.dev/router/advanced/drawer/" target="_blank">Drawer (Avançado) ☰</a></li>
+  </ul>
+</section>
+<section data-transition="slide" data-background="#311b92" data-background-transition="zoom">
+    <h2>🚀 Exercício 1: Navegação Tab 📑</h2>
+  
+    <p style="margin-top: 20px; font-size: 0.9em;">
+    O aplicativo deve ter as seguintes telas:
+    </p>
+  
+    <ul style="font-size: 0.9em;">
+      <li><span style="font-size: 1.2em;">🏠</span> <strong>Home:</strong> Uma tela inicial simples com uma mensagem de boas-vindas.</li>
+      <li><span style="font-size: 1.2em;">🔍</span> <strong>Buscar:</strong> Uma tela com um campo de busca simulado e um botão.</li>
+      <li><span style="font-size: 1.2em;">👤</span> <strong>Perfil:</strong> Uma tela que exibe informações básicas do perfil do usuário.</li>
+    </ul>
+  
+    <p style="margin-top: 20px; font-size: 0.9em;">
+      <strong>Requisitos:</strong>
+    </p>
+  
+    <ul style="font-size: 0.9em;">
+      <li>Use o Expo Router para configurar a navegação Tab.</li>
+      <li>Adicione ícones às abas para melhorar a usabilidade.</li>
+      <li>Personalize os títulos das abas conforme necessário.</li>
+    </ul>
+  </section>
+  <section data-transition="slide" data-background="#1b5e20" data-background-transition="zoom">
+    <h2>☰ Exercício 2: Navegação Drawer 📋</h2>
+  
+    <p style="margin-top: 20px; font-size: 0.9em;">
+      Crie um aplicativo Expo que utilize navegação Drawer. O aplicativo deve ter as seguintes telas acessíveis pelo menu lateral:
+    </p>
+  
+    <ul style="font-size: 0.9em;">
+      <li><span style="font-size: 1.2em;">📰</span> <strong>Notícias:</strong> Uma lista simples de notícias simuladas.</li>
+      <li><span style="font-size: 1.2em;">⚙️</span> <strong>Configurações:</strong> Uma tela com opções de configuração do aplicativo.</li>
+      <li><span style="font-size: 1.2em;">📧</span> <strong>Contato:</strong> Uma tela com informações de contato.</li>
+    </ul>
+  
+    <p style="margin-top: 20px; font-size: 0.9em;">
+      <strong>Requisitos:</strong>
+    </p>
+  
+    <ul style="font-size: 0.9em;">
+      <li>Implemente a navegação Drawer com o Expo Router.</li>
+      <li>Adicione um cabeçalho (header) em cada tela.</li>
+      <li>Personalize os rótulos do menu lateral.</li>
+    </ul>
+  </section>
+  <section data-transition="slide" data-background="#424242" data-background-transition="zoom">
+    <h2 style="color: #e0e0e0;">Recursos e Atividades 🚀</h2>
+  
+    <div style="margin-top: 30px;">
+      <p style="color: #bdbdbd; font-size: 0.9em;">
+        <strong>GitHub:</strong> <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" style="color: #81d4fa;">DIOGOBRODRIGUES</a> <span style="font-size: 1.2em;">🐙</span>
+      </p>
+  
+      <p style="color: #bdbdbd; font-size: 0.9em; margin-top: 10px;">
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues/" target="_blank" style="color: #81d4fa;">DIOGOFBRODRIGUES</a> <span style="font-size: 1.2em;">💼</span>
+      </p>
+  
+       <p style="color: #bdbdbd; font-size: 0.9em; margin-top: 30px;">
+        <strong>Entrega de Atividades e Chamada de hoje:</strong>
+      </p>
+  
+       <p style="color: #bdbdbd; font-size: 0.9em;">
+        <strong>Formulário:</strong> <a href="https://forms.gle/QjPRyY9VzMxpxq2h9" target="_blank" style="color: #81d4fa;">https://forms.gle/QjPRyY9VzMxpxq2h9</a>
+      </p>
+  
+      <p style="color: #bdbdbd; font-size: 0.8em; margin-top: 10px;">
+         Responda ao formulário até o final da aula! <span style="font-size: 1.2em;">⏳</span>
+      </p>
+    </div>
+  </section>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      autoPlayMedia: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
