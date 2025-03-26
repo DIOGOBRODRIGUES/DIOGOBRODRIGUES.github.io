@@ -1,0 +1,409 @@
+<!doctype html> 
+ <html lang="pt-BR"> 
+
+ <head> 
+  <meta charset="utf-8"> 
+  <title>Interação Godot: Nós, Colisão e Gatilhos</title> 
+
+  <meta name="description" content="Aula sobre interação entre nós e cenas, colisão e zonas de gatilho no Godot."> 
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues"> 
+
+  <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css"> 
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css"> 
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme"> 
+
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css"> 
+
+ </head> 
+
+ <body> 
+  
+  <div class="reveal"> 
+  <div class="slides"> 
+
+  <section> 
+  <p>🏛️ Centro Universitário Maurício de Nassau</p> 
+  <h3>Aula 6 - Interação Godot: Nós, Colisão e Gatilhos</h3> 
+  <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p> 
+  <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"> 
+  <i class="fab fa-linkedin"></i> 
+  </a> 
+  <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"> 
+  <i class="fab fa-github"></i> 
+  </a> 
+  </section> 
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🕹️</span> Arquitetura de Cenas e Nós do Godot 🧩</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🌳</span> No Godot, a estrutura fundamental é baseada no conceito de cenas.</li>
+      <li><span style="font-size: 1.2em;">🧱</span> Uma cena é um conjunto organizado de elementos individuais, chamados nós.</li>
+      <li><span style="font-size: 1.2em;">💾</span> Cenas são salvas como arquivos separados e podem ser reutilizadas.</li>
+      <li><span style="font-size: 1.2em;">🎮</span> Exemplos: Personagem (sprite, colisão, script), item colecionável (sprite, área).</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🌳</span> Estrutura Hierárquica da Árvore de Cenas 🔗</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🌲</span> Cenas são organizadas em uma estrutura hierárquica: árvore de cenas.</li>
+      <li><span style="font-size: 1.2em;">🌱</span> Cada cena tem um nó raiz, e outros nós são descendentes.</li>
+      <li><span style="font-size: 1.2em;">👪</span> Nós pais podem ter múltiplos nós filhos.</li>
+      <li><span style="font-size: 1.2em;">🧬</span> Propriedades e transformações de nós pais se propagam para os filhos.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🧩</span>Diferentes Tipos de Nós e Seus Papéis 🎭</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">📚</span> Godot oferece uma vasta biblioteca de tipos de nós pré-construídos.</li>
+      <li><span style="font-size: 1.2em;">⭐</span> Exemplos:
+        <ul style="font-size: 0.8em; margin-top: 10px;">
+          <li><span style="font-size: 1.2em;">🖼️</span> Nós visuais: Sprite2D, Sprite3D</li>
+          <li><span style="font-size: 1.2em;">🎥</span> Nós de câmera: Camera2D, Camera3D</li>
+          <li><span style="font-size: 1.2em;">🔊</span> Nós de áudio: AudioStreamPlayer</li>
+          <li><span style="font-size: 1.2em;">🧱</span> Nós de corpo físico: StaticBody2D/3D, RigidBody2D/3D, CharacterBody2D/3D</li>
+          <li><span style="font-size: 1.2em;">📡</span> Nós de detecção: Area2D/3D</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🛤️</span>Caminhos de Nós e Acesso a Nós 🔍</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">📝</span> Para interagir com nós via código, é necessário entender como acessar nós específicos.</li>
+      <li><span style="font-size: 1.2em;">📍</span> Godot utiliza caminhos de nós para identificar nós.</li>
+      <li><span style="font-size: 1.2em;">🗺️</span> Tipos de caminhos: absolutos (começam com /) e relativos.</li>
+      <li><span style="font-size: 1.2em;">💻</span> Funções para acessar nós: <code>get_node()</code>, sintaxe abreviada (<code>$</code>), anotação <code>@onready</code>.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">📣</span> 2. Comunicação entre Nós e Cenas Usando Sinais 🔗</h2>
+    <p style="font-size: 1em; color: #e0e0e0;">Sistema de Sinais do Godot 📡</p>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🗣️</span> Godot usa um sistema de comunicação chamado sinais</li>
+      <li><span style="font-size: 1.2em;">📢</span> Nós emitem sinais quando eventos ocorrem.</li>
+      <li><span style="font-size: 1.2em;">📞</span> Outros nós podem se conectar a esses sinais e executar funções.</li>
+      <li><span style="font-size: 1.2em;">🔄</span> Promove flexibilidade e reutilização de código.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">✍️</span>Declarar, Emitir e Conectar Sinais em GDScript 🔌</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🏷️</span> Sinais personalizados são declarados com a palavra-chave <code>signal</code>.</li>
+      <li><span style="font-size: 1.2em;">📝</span> Exemplo: <code>signal vida_alterada(nova_vida)</code></li>
+      <li><span style="font-size: 1.2em;">📣</span> Sinais são emitidos com a função <code>emit_signal()</code>.</li>
+      <li><span style="font-size: 1.2em;">📢</span> Exemplo: <code>emit_signal("vida_alterada", 75)</code></li>
+      <li><span style="font-size: 1.2em;">🔗</span> Sinais são conectados a funções no editor ou via código com <code>connect()</code>.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">💡</span> Casos de Uso para Sinais 🎮</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🤝</span> Comunicação entre nós na mesma cena (ex: Button -> Control, AudioStreamPlayer)</li>
+      <li><span style="font-size: 1.2em;">🌐</span> Comunicação entre cenas distintas (ex: cena de jogador -> cena de game manager).</li>
+      <li><span style="font-size: 1.2em;">✨</span> Sinais personalizados para eventos específicos do jogo (ex: inimigo derrotado, item coletado)</li>
+    </ul>
+  </section>
+
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">💥</span> Detalhes sobre <code>move_and_collide()</code> 🧱</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li>
+        <span style="font-size: 1.2em;">🚶</span> O método <code>move_and_collide()</code> é usado com nós do tipo <code>CharacterBody2D</code> ou <code>CharacterBody3D</code> para mover o corpo e detectar colisões simultaneamente.
+      </li>
+      <li>
+        <span style="font-size: 1.2em;">⏩</span> Ele move o corpo ao longo de um vetor de velocidade especificado.
+      </li>
+      <li>
+        <span style="font-size: 1.2em;">🛑</span> Se uma colisão for detectada durante o movimento:
+        <ul style="font-size: 0.8em; margin-top: 10px;">
+          <li><span style="font-size: 1.2em;">✋</span> O corpo para de se mover na direção da colisão.</li>
+          <li>
+            <span style="font-size: 1.2em;">📦</span> O método retorna um objeto de colisão (ex: <code>KinematicCollision2D</code>) contendo informações detalhadas sobre a colisão.
+          </li>
+        </ul>
+      </li>
+      
+    </ul>
+  </section>
+
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">💥</span> Detalhes sobre <code>move_and_collide()</code> 🧱</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      
+      <li>
+        <span style="font-size: 1.2em;">🛠️</span> Você pode usar essas informações para:
+        <ul style="font-size: 0.8em; margin-top: 10px;">
+          <li><span style="font-size: 1.2em;">💥</span> Implementar a resposta à colisão (ex: ricochetear, parar o movimento, aplicar dano).</li>
+          <li><span style="font-size: 1.2em;">🔍</span> Determinar o tipo de objeto com o qual colidiu.</li>
+        </ul>
+      </li>
+      <li>
+        <span style="font-size: 1.2em;">⚠️</span> É importante notar que <code>move_and_collide()</code> lida com a colisão de forma a impedir a penetração entre os corpos, mas a lógica de resposta a essa colisão deve ser implementada via código.
+      </li>
+    </ul>
+  </section>
+
+ <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+  <h2><span style="font-size: 1.2em;">🚪</span> 4. Criando e Utilizando Zonas de Gatilho ⚡</h2>
+ 
+  <ul style="font-size: 0.9em; color: #bdbdbd;">
+    <li><span style="font-size: 1.2em;">🔍</span> Zonas de gatilho: áreas invisíveis que detectam a entrada/saída de objetos.</li>
+    <li><span style="font-size: 1.2em;">👻</span> Não causam resposta de colisão física imediata.</li>
+    <li><span style="font-size: 1.2em;">🛠️</span> Usadas para:
+      <ul style="font-size: 0.8em; margin-top: 10px;">
+        <li><span style="font-size: 1.2em;">📦</span> Recolher itens</li>
+        <li><span style="font-size: 1.2em;">🎬</span> Ativar eventos (cutscenes, diálogos).</li>
+        <li><span style="font-size: 1.2em;">🗺️</span> Transição entre áreas.</li>
+        <li><span style="font-size: 1.2em;">👀</span> Detetar presença do jogador (IA inimigo).</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🔍</span> Explicação Detalhada dos Nós Area2D e Area3D 📐</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🌐</span> Zonas de gatilho são implementadas com <code>Area2D</code> (2D) e <code>Area3D</code> (3D).</li>
+      <li><span style="font-size: 1.2em;">📦</span> Também requerem <code>CollisionShape2D/3D</code> para definir a área de detecção.</li>
+      <li><span style="font-size: 1.2em;">🛑</span> Diferença principal: <code>Area2D/3D</code> focam na detecção de sobreposições, não na simulação física.</li>
+      <li><span style="font-size: 1.2em;">📢</span> Emitir sinais quando corpos físicos entram/saem da área.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">📡</span> 4.3 Usando Sinais para Detetar Interações em Zonas de Gatilho 🤝</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🤝</span> Interação com zonas de gatilho é feita através de sinais.</li>
+      <li><span style="font-size: 1.2em;">📢</span> Sinais importantes:
+        <ul style="font-size: 0.8em; margin-top: 10px;">
+          <li><span style="font-size: 1.2em;">🚶</span> <code>body_entered(Node body)</code>: corpo físico entra na área.</li>
+          <li><span style="font-size: 1.2em;">🚪</span> <code>body_exited(Node body)</code>: corpo físico sai da área.</li>
+          <li><span style="font-size: 1.2em;">🌐</span> <code>area_entered(Area2D/3D area)</code>: outra área entra na área.</li>
+          <li><span style="font-size: 1.2em;">🚪</span> <code>area_exited(Area2D/3D area)</code>: outra área sai da área.</li>
+        </ul>
+      </li>
+      <li><span style="font-size: 1.2em;">🔗</span> Conectar sinais a funções no script do nó Area ou outro nó.</li>
+      <li><span style="font-size: 1.2em;">💻</span> Usar <code>connect()</code> para conectar sinais via código.</li>
+    </ul>
+  </section>
+  
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🕹️</span> 4.4 Exemplos de Implementação de Zonas de Gatilho 🌟</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">📦</span> Item Colecionável: <code>Area2D</code> detecta jogador, emite sinal, item desaparece. </li>
+      <li><span style="font-size: 1.2em;">🚪</span> Porta que Abre: <code>Area2D</code> detecta jogador, emite sinal, porta troca de sprite.</li>
+      <li><span style="font-size: 1.2em;">💥</span> Zona de Dano: <code>Area2D</code> detecta jogador, script do jogador diminui a saúde. </li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🛡️</span> 5. Gerenciando Interações com Camadas e Máscaras de Colisão 🎭</h2>
+  
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🚦</span> Camadas de colisão e máscaras controlam quais objetos colidem/interagem.</li>
+      <li><span style="font-size: 1.2em;">📊</span> <code>CollisionObject2D</code> possui 32 camadas de física (<code>collision_layer</code>) e 32 camadas para verificar colisões (<code>collision_mask</code>).</li>
+      <li><span style="font-size: 1.2em;">🏷️</span> Camadas são categorias; máscaras definem quais camadas escanear para colisões.</li>
+      <li><span style="font-size: 1.2em;">🔄</span> Objetos colidem/interagem se pelo menos uma camada do primeiro objeto estiver na máscara do segundo, E vice-versa.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🎮</span> 5.3 Exemplos Práticos de Uso de Camadas e Máscaras 🎯</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🚶🧱📦</span> Jogador e Paredes/Moedas: Jogador colide com paredes (camada 1), mas não com moedas (camada 3).</li>
+      <li><span style="font-size: 1.2em;">💥👾</span> Projéteis Inimigos: Projéteis colidem com o jogador (camada 2), mas não com outros inimigos (camada 4).</li>
+      <li><span style="font-size: 1.2em;">🚪🔑</span> Filtragem de Zonas de Gatilho: Controlar quais objetos acionam sinais de Area2D (ex: porta abrindo só para o jogador).</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🛠️</span> 7. Tutorial Passo a Passo: Construindo um Exemplo Interativo 🎮</h2>
+    <p style="font-size: 1em; color: #e0e0e0;">7.1 Configuração do Projeto 📂</p>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🚀</span> Abrir Godot Engine, criar Novo Projeto.</li>
+      <li><span style="font-size: 1.2em;">📁</span> Escolher nome e local, selecionar renderizador 2D.</li>
+      <li><span style="font-size: 1.2em;">📝</span> Criar e Editar.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">👤</span> 7.2 Criando uma Cena de Jogador 🎮</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">➕</span> Painel "Cena", botão +, criar novo nó.</li>
+      <li><span style="font-size: 1.2em;">📦</span> Selecionar <code>CharacterBody2D</code>, nomear Jogador.</li>
+      <li><span style="font-size: 1.2em;">🖼️</span> Adicionar nó filho <code>Sprite2D</code>, carregar imagem do jogador.</li>
+      <li><span style="font-size: 1.2em;">🧱</span> Adicionar nó filho <code>CollisionShape2D</code>, criar forma (<code>RectangleShape2D</code> ou <code>CircleShape2D</code>), ajustar tamanho.</li>
+      <li><span style="font-size: 1.2em;">📜</span> Criar novo script GDScript para Jogador.</li>
+      <li><span style="font-size: 1.2em;">⌨️</span> Colar código para movimento básico </li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🧱</span> 7.3 Criando uma Cena de Obstáculo Estático 🚧</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">➕</span> Painel "Cena", botão +, criar novo nó.</li>
+      <li><span style="font-size: 1.2em;">📦</span> Selecionar <code>StaticBody2D</code>, nomear Obstaculo. </li>
+      <li><span style="font-size: 1.2em;">🖼️</span> Adicionar nó filho <code>Sprite2D</code>, carregar imagem do obstáculo.</li>
+      <li><span style="font-size: 1.2em;">📏</span> Adicionar nó filho <code>CollisionShape2D</code>, criar forma (<code>RectangleShape2D</code>), ajustar tamanho.</li>
+      <li><span style="font-size: 1.2em;">💾</span> Salvar cena como <code>Obstaculo.tscn</code>.</li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">📦</span> 7.4 Implementando uma Zona de Gatilho para Coleta de Item ✨</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">➕</span> Painel "Cena", botão +, criar novo nó.</li>
+      <li><span style="font-size: 1.2em;">📍</span> Selecionar <code>Area2D</code>, nomear <code>ItemColecionavel</code>. </li>
+      <li><span style="font-size: 1.2em;">🖼️</span> Adicionar nó filho <code>Sprite2D</code>, carregar imagem do item. </li>
+      <li><span style="font-size: 1.2em;">⭕</span> Adicionar nó filho <code>CollisionShape2D</code>, criar forma (<code>CircleShape2D</code>), ajustar tamanho.</li>
+      <li><span style="font-size: 1.2em;">⚙️</span> Selecionar <code>Area2D</code>, Inspetor, seção "Collision". </li>
+      <li><span style="font-size: 1.2em;">🧮</span> Definir "Layer" para nova camada (ItensColecionaveis), "Mask" para incluir camada do jogador. </li>
+      <li><span style="font-size: 1.2em;">📜</span> Criar novo script GDScript para <code>ItemColecionavel</code>.</li>
+      <li><span style="font-size: 1.2em;">⌨️</span> Colar código (código GDScript no slide).</li>
+    </ul>
+  </section>
+
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">📦</span> 7.4 Implementando uma Zona de Gatilho para Coleta de Item ✨</h2>
+        <pre data-id="code-animation"><code class="language-gdscript" data-trim data-line-numbers>
+        extends Area2D
+        class_name ItemColecionavel
+        
+        signal item_recolhido
+        
+        func _on_ItemColecionavel_body_entered(body):
+            if body.name == "Jogador":
+                emit_signal("item_recolhido", self)
+                queue_free()
+    </code></pre>
+
+</section>
+ 
+
+<section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🔌</span> 7.5 Conectando Sinais 🤝</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">➕</span> Criar nova cena 2D principal, nomear <code>Principal</code>. </li>
+      <li><span style="font-size: 1.2em;">📥</span> Arrastar <code>Jogador.tscn</code> e <code>Obstaculo.tscn</code> para <code>Principal</code>. </li>
+      <li><span style="font-size: 1.2em;">📦</span> Arrastar <code>ItemColecionavel.tscn</code> para <code>Principal</code> (múltiplos itens).</li>
+      <li><span style="font-size: 1.2em;">📜</span> Anexar novo script GDScript ao nó <code>Principal</code>. </li>
+      <li><span style="font-size: 1.2em;">⌨️</span> Colar código (código GDScript no slide). </li>
+      <li><span style="font-size: 1.2em;">🧰</span> Selecionar <code>Principal</code>, aba "Nó" do Inspetor.</li>
+      <li><span style="font-size: 1.2em;">🔗</span> Conectar sinal <code>ready</code> de <code>Principal</code> ao método <code>_on_Principal_ready</code> </li>
+      <li><span style="font-size: 1.2em;">▶️</span> Executar <code>Principal</code>, mover jogador, coletar itens. </li>
+    </ul>
+  </section>
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🔌</span> 7.5 Conectando Sinais 🤝</h2>
+        <pre data-id="code-animation"><code class="language-gdscript" data-trim data-line-numbers>
+            extends Node2D
+
+            var pontuacao = 0
+            
+            func _ready():
+                for item in get_tree().get_nodes_in_group("itens_colecionaveis"):
+                    if item is ItemColecionavel:
+                        item.item_recolhido.connect(_on_item_recolhido)
+            
+            func _on_item_recolhido(item):
+                pontuacao += 1
+                print("Pontuação: ", pontuacao)
+            
+            func _on_Principal_ready():
+                for node in get_children():
+                    if node is ItemColecionavel:
+                        node.add_to_group("itens_colecionaveis")
+    </code></pre>
+
+</section>
+
+<section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🗣️</span> 7.6 Adicionando Comunicação entre Cenas (Opcional) 🌐</h2>
+    <ul style="font-size: 0.9em; color: #bdbdbd;">
+      <li><span style="font-size: 1.2em;">🏷️</span> Criar nova cena 2D <code>InterfaceUI</code>, nó <code>Label</code> como raiz. </li>
+      <li><span style="font-size: 1.2em;">📝</span> Definir texto do rótulo para "Pontuação: 0". </li>
+      <li><span style="font-size: 1.2em;">📜</span> Anexar script a <code>InterfaceUI</code> (código GDScript no slide).</li>
+      <li><span style="font-size: 1.2em;">📥</span> Na cena <code>Principal</code>, instanciar <code>InterfaceUI</code>, adicionar como filha. </li>
+      <li><span style="font-size: 1.2em;">🛠️</span> Modificar script <code>Principal</code> (código GDScript no slide). </li>
+      <li><span style="font-size: 1.2em;">📊</span> Pontuação será exibida na interface e atualizada ao coletar itens. </li>
+    </ul>
+  </section>
+
+
+  <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🗣️</span> 7.6 Adicionando Comunicação entre Cenas (Opcional) 🌐</h2>
+    <p> Anexe um script a InterfaceUI:</p>
+        <pre data-id="code-animation"><code class="language-gdscript" data-trim data-line-numbers>
+            extends Label
+
+            func atualizar_pontuacao(nova_pontuacao):
+                text = "Pontuação: " + str(nova_pontuacao)
+    </code></pre>
+</section>
+
+<section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+    <h2><span style="font-size: 1.2em;">🗣️</span> 7.6 Adicionando Comunicação entre Cenas (Opcional) 🌐</h2>
+    <p> Modifique o script Principal:</p>
+        <pre data-id="code-animation"><code class="language-gdscript" data-trim data-line-numbers>
+            extends Node2D
+
+            var pontuacao = 0
+            @onready var interface_ui = $InterfaceUI
+            
+            func _ready():
+                for item in get_tree().get_nodes_in_group("itens_colecionaveis"):
+                    if item is ItemColecionavel:
+                        item.item_recolhido.connect(_on_item_recolhido)
+            
+            func _on_item_recolhido(item):
+                pontuacao += 1
+                print("Pontuação: ", pontuacao)
+                interface_ui.atualizar_pontuacao(pontuacao)
+            
+            func _on_Principal_ready():
+                for node in get_children():
+                    if node is ItemColecionavel:
+                        node.add_to_group("itens_colecionaveis")
+    </code></pre>
+</section>
+
+
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="../../../reveal.js-master/dist/reveal.js"></script>
+<script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+<script src="../../../reveal.js-master/plugin/search/search.js"></script>
+<script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+<script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    center: true,
+    hash: true,
+    slideNumber: true,
+    autoPlayMedia: true,
+    plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+  });
+</script>
+</body>
+
+</html>
