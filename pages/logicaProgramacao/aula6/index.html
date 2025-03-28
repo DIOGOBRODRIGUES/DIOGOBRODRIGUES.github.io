@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 6 - Revisão e Prática</title>
+
+  <meta name="description" content="Exercícios práticos de lógica de programação com Portugol">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .highlight-green {
+      color: #50fa7b;
+    }
+    .highlight-orange {
+      color: #ffb86c;
+    }
+    .highlight-pink {
+      color: #ff79c6;
+    }
+    .highlight-blue {
+      color: #8be9fd;
+    }
+    .exercise {
+      border-left: 4px solid #50fa7b;
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+    .bigger-emoji {
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6 - Revisão e Prática</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+      <!-- Slide 2 - Questão Prática -->
+      <section>
+        <!-- Subseção 1: Introdução -->
+        <section>
+          <h2><span class="highlight-blue">🎮 Classificador de Aventureiros</span> <span class="bigger-emoji">⚔️</span></h2>
+          <p>Uma questão prática sobre tipos de variáveis e estruturas condicionais</p>
+        </section>
+
+        <!-- Subseção 2: Descrição do problema -->
+        <section>
+          <h3>🧩 Desafio: <span class="highlight-green">Sistema de RPG</span></h3>
+          <div class="exercise">
+            <p>Desenvolva um sistema para classificar aventureiros em um jogo de RPG que:</p>
+            <ul>
+              <li>Solicite o nome do personagem (cadeia)</li>
+              <li>Peça a idade do personagem (inteiro)</li>
+              <li>Solicite os pontos de força, agilidade e inteligência (inteiros)</li>
+              <li>Peça o nível de experiência do jogador (real)</li>
+              <li>Pergunte se o personagem possui item mágico (lógico)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Subseção 3: Regras de classificação -->
+        <section>
+          <h3>🎯 Regras de Classificação</h3>
+          <div class="exercise">
+            <p>Defina a classe do aventureiro com base nos atributos:</p>
+            <ul>
+              <li><span class="highlight-orange">Guerreiro 🗡️:</span> força > agilidade e força > inteligência</li>
+              <li><span class="highlight-green">Arqueiro 🏹:</span> agilidade > força e agilidade > inteligência</li>
+              <li><span class="highlight-blue">Mago 🧙:</span> inteligência > força e inteligência > agilidade</li>
+              <li><span class="highlight-pink">Paladino 🛡️:</span> força = inteligência (ou diferença < 2)</li>
+            </ul>
+            <p>Níveis de experiência modificam a classe:</p>
+            <ul>
+              <li>Experiência > 25.0: prefixo "Mestre" e ⭐</li>
+              <li>Experiência > 10.0: sufixo "experiente" e ✨</li>
+              <li>Item mágico: adiciona "com poderes mágicos" ✨</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Subseção 4: Parte 1 da solução - Declaração e entrada -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 1</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+programa {
+  funcao inicio() {
+    // Declaração de variáveis de diferentes tipos
+    cadeia nomePersonagem, classeAventureiro
+    inteiro idadePersonagem, forca, agilidade, inteligencia
+    real experiencia
+    logico possuiItemMagico
+    
+    // Entrada de dados
+    escreva("🧙 SISTEMA DE CLASSIFICAÇÃO DE AVENTUREIROS 🧙\n\n")
+    escreva("Digite o nome do seu aventureiro: ")
+    leia(nomePersonagem)
+    
+    escreva("Digite a idade do seu aventureiro: ")
+    leia(idadePersonagem)
+    
+    escreva("Pontos de força (0-100): ")
+    leia(forca)
+    
+    escreva("Pontos de agilidade (0-100): ")
+    leia(agilidade)
+    
+    escreva("Pontos de inteligência (0-100): ")
+    leia(inteligencia)
+    
+    escreva("Nível de experiência (0.0-50.0): ")
+    leia(experiencia)
+    
+    escreva("Possui item mágico? (verdadeiro/falso): ")
+    leia(possuiItemMagico)
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 5: Parte 2 da solução - Lógica condicional -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 2</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+    // Estruturas condicionais para determinar a classe
+    se (forca > agilidade e forca > inteligencia) {
+      classeAventureiro = "Guerreiro 🗡️"
+    } senao se (agilidade > forca e agilidade > inteligencia) {
+      classeAventureiro = "Arqueiro 🏹"
+    } senao se (inteligencia > forca e inteligencia > agilidade) {
+      classeAventureiro = "Mago 🧙"
+    } senao se (abs(forca - inteligencia) < 2) {
+      classeAventureiro = "Paladino 🛡️"
+    } senao {
+      classeAventureiro = "Aventureiro comum 👣"
+    }
+    
+    // Ajuste de nível baseado na experiência e item mágico
+    se (experiencia > 25.0) {
+      classeAventureiro = "Mestre " + classeAventureiro + " ⭐"
+    } senao se (experiencia > 10.0) {
+      classeAventureiro = classeAventureiro + " experiente ✨"
+    }
+    
+    se (possuiItemMagico) {
+      classeAventureiro = classeAventureiro + " com poderes mágicos ✨"
+    }
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 6: Parte 3 da solução - Saída -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 3</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+    // Exibição dos resultados
+    escreva("\n📜 RESULTADO DA CLASSIFICAÇÃO 📜\n")
+    escreva("Nome: ", nomePersonagem, "\n")
+    escreva("Idade: ", idadePersonagem, " anos\n")
+    escreva("Atributos: Força ", forca, " | Agilidade ", agilidade, " | Inteligência ", inteligencia, "\n")
+    escreva("Experiência: ", experiencia, "\n")
+    escreva("Classe: ", classeAventureiro)
+  }
+}
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 7: Exemplo de saída - Parte 1: Entrada de dados -->
+        <section>
+          <h3>📝 Exemplo de Execução - Entrada</h3>
+          <div style="background-color: #282a36; padding: 15px; border-radius: 5px; text-align: left; font-family: monospace;">
+            <p>🧙 SISTEMA DE CLASSIFICAÇÃO DE AVENTUREIROS 🧙</p>
+            <p>Digite o nome do seu aventureiro: <span class="highlight-blue">Eldric</span></p>
+            <p>Digite a idade do seu aventureiro: <span class="highlight-blue">25</span></p>
+            <p>Pontos de força (0-100): <span class="highlight-blue">60</span></p>
+            <p>Pontos de agilidade (0-100): <span class="highlight-blue">45</span></p>
+            <p>Pontos de inteligência (0-100): <span class="highlight-blue">75</span></p>
+            <p>Nível de experiência (0.0-50.0): <span class="highlight-blue">30.5</span></p>
+            <p>Possui item mágico? (verdadeiro/falso): <span class="highlight-blue">verdadeiro</span></p>
+          </div>
+        </section>
+
+        <!-- Subseção 8: Exemplo de saída - Parte 2: Resultado -->
+        <section>
+          <h3>📝 Exemplo de Execução - Resultado</h3>
+          <div style="background-color: #282a36; padding: 15px; border-radius: 5px; text-align: left; font-family: monospace;">
+            <p>📜 RESULTADO DA CLASSIFICAÇÃO 📜</p>
+            <p>Nome: Eldric</p>
+            <p>Idade: 25 anos</p>
+            <p>Atributos: Força 60 | Agilidade 45 | Inteligência 75</p>
+            <p>Experiência: 30.5</p>
+            <p>Classe: <span class="highlight-pink">Mestre Mago 🧙 ⭐ com poderes mágicos ✨</span></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 3 - Exercício de Estrutura de Repetição -->
+      <section>
+        <!-- Subseção 1: Introdução -->
+        <section>
+          <h2><span class="highlight-pink">🔄 Análise de Vendas Semanal</span> <span class="bigger-emoji">📊</span></h2>
+          <p>Um desafio prático sobre estruturas de repetição</p>
+        </section>
+
+        <!-- Subseção 2: Descrição do problema -->
+        <section>
+          <h3>🧩 Desafio: <span class="highlight-orange">Sistema de Análise de Vendas</span></h3>
+          <div class="exercise">
+            <p>Desenvolva um programa para análise de vendas diárias que:</p>
+            <ul>
+              <li>Registre as vendas de cada dia da semana (7 dias)</li>
+              <li>Utilize estrutura de repetição para coletar os dados</li>
+              <li>Calcule automaticamente:
+                <ul>
+                  <li>Total de vendas da semana</li>
+                  <li>Média diária de vendas</li>
+                  <li>Dia com maior venda</li>
+                  <li>Dia com menor venda</li>
+                </ul>
+              </li>
+              <li>Compare o desempenho com a meta semanal</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Subseção 3: Requisitos adicionais -->
+        <section>
+          <h3>📋 Requisitos do Sistema</h3>
+          <div class="exercise">
+            <p>O sistema deve incluir:</p>
+            <ul>
+              <li>Variáveis para armazenar os valores de cada dia</li>
+              <li>Uma meta semanal definida pelo usuário</li>
+              <li>Contagem de quantos dias superaram a média</li>
+              <li>Cálculo da diferença percentual entre o total de vendas e a meta</li>
+              <li>Exibição dos dados em formato de relatório</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Subseção 4: Parte 1 da solução - Definições e entrada -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 1: Definições</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+programa {
+  funcao inicio() {
+    // Declaração de variáveis
+    real metaSemanal, totalVendas = 0.0, mediaVendas
+    real vendaDomingo, vendaSegunda, vendaTerca, vendaQuarta
+    real vendaQuinta, vendaSexta, vendaSabado
+    
+    // Variáveis para controlar o dia com maior e menor venda
+    real maiorVenda = 0.0, menorVenda = 0.0
+    cadeia diaMaiorVenda = "", diaMenorVenda = ""
+    
+    // Variáveis adicionais
+    inteiro diasAcimaMedia = 0
+    real percentualMeta
+    inteiro contador = 1
+    
+    // Entrada da meta semanal
+    escreva("📈 SISTEMA DE ANÁLISE DE VENDAS 📈\n\n")
+    escreva("Informe a meta de vendas para a semana: R$ ")
+    leia(metaSemanal)
+    
+    // Estrutura de repetição para entrada de dados
+    enquanto (contador <= 7) {
+      // Determina qual dia está sendo processado
+      cadeia nomeDia = ""
+      
+      // Usa um condicional para determinar o dia da semana
+      escolha (contador) {
+        caso 1: 
+          nomeDia = "Domingo"
+          pare
+        caso 2:
+          nomeDia = "Segunda"
+          pare
+        caso 3:
+          nomeDia = "Terça"
+          pare
+        caso 4:
+          nomeDia = "Quarta"
+          pare
+        caso 5:
+          nomeDia = "Quinta"
+          pare
+        caso 6:
+          nomeDia = "Sexta"
+          pare
+        caso 7:
+          nomeDia = "Sábado"
+          pare
+      }
+      
+      // Solicita o valor de venda para o dia atual
+      real vendaDoDia
+      escreva("Vendas de ", nomeDia, ": R$ ")
+      leia(vendaDoDia)
+      
+      // Armazena o valor na variável correspondente ao dia
+      escolha (contador) {
+        caso 1: vendaDomingo = vendaDoDia; pare
+        caso 2: vendaSegunda = vendaDoDia; pare
+        caso 3: vendaTerca = vendaDoDia; pare
+        caso 4: vendaQuarta = vendaDoDia; pare
+        caso 5: vendaQuinta = vendaDoDia; pare
+        caso 6: vendaSexta = vendaDoDia; pare
+        caso 7: vendaSabado = vendaDoDia; pare
+      }
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 5: Parte 2 da solução - Processamento Inicial -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 2: Processamento Inicial</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+      // Atualiza o total de vendas
+      totalVendas = totalVendas + vendaDoDia
+      
+      // Verifica se é o maior ou menor valor de venda
+      se (contador == 1) {
+        // No primeiro dia, inicializa maior e menor
+        maiorVenda = vendaDoDia
+        menorVenda = vendaDoDia
+        diaMaiorVenda = nomeDia
+        diaMenorVenda = nomeDia
+      } senao {
+        // Compara com os valores existentes
+        se (vendaDoDia > maiorVenda) {
+          maiorVenda = vendaDoDia
+          diaMaiorVenda = nomeDia
+        }
+        
+        se (vendaDoDia < menorVenda) {
+          menorVenda = vendaDoDia
+          diaMenorVenda = nomeDia
+        }
+      }
+      
+      // Avança para o próximo dia
+      contador = contador + 1
+    }
+    
+    // Cálculos gerais após coletar todos os dados
+    mediaVendas = totalVendas / 7
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 6: Parte 3 da solução - Processamento Final -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 3: Processamento Final</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+    // Verifica cada dia em relação à média
+    se (vendaDomingo > mediaVendas) diasAcimaMedia++
+    se (vendaSegunda > mediaVendas) diasAcimaMedia++
+    se (vendaTerca > mediaVendas) diasAcimaMedia++
+    se (vendaQuarta > mediaVendas) diasAcimaMedia++
+    se (vendaQuinta > mediaVendas) diasAcimaMedia++
+    se (vendaSexta > mediaVendas) diasAcimaMedia++
+    se (vendaSabado > mediaVendas) diasAcimaMedia++
+    
+    // Cálculo do percentual em relação à meta
+    percentualMeta = (totalVendas / metaSemanal) * 100
+    
+    // Exibição do cabeçalho do relatório
+    escreva("\n📊 RELATÓRIO SEMANAL DE VENDAS 📊\n")
+    escreva("====================================\n")
+    
+    // Exibição dos dados diários
+    escreva("Domingo: R$ ", vendaDomingo)
+    se (diaMaiorVenda == "Domingo") escreva(" 🔝")
+    se (diaMenorVenda == "Domingo") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("Segunda: R$ ", vendaSegunda)
+    se (diaMaiorVenda == "Segunda") escreva(" 🔝")
+    se (diaMenorVenda == "Segunda") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("Terça: R$ ", vendaTerca)
+    se (diaMaiorVenda == "Terça") escreva(" 🔝")
+    se (diaMenorVenda == "Terça") escreva(" ⬇️")
+    escreva("\n")
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 7: Parte 4 da solução - Relatório -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 4: Relatório</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+    escreva("Quarta: R$ ", vendaQuarta)
+    se (diaMaiorVenda == "Quarta") escreva(" 🔝")
+    se (diaMenorVenda == "Quarta") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("Quinta: R$ ", vendaQuinta)
+    se (diaMaiorVenda == "Quinta") escreva(" 🔝")
+    se (diaMenorVenda == "Quinta") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("Sexta: R$ ", vendaSexta)
+    se (diaMaiorVenda == "Sexta") escreva(" 🔝")
+    se (diaMenorVenda == "Sexta") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("Sábado: R$ ", vendaSabado)
+    se (diaMaiorVenda == "Sábado") escreva(" 🔝")
+    se (diaMenorVenda == "Sábado") escreva(" ⬇️")
+    escreva("\n")
+    
+    escreva("====================================\n")
+    escreva("Total de vendas: R$ ", totalVendas, "\n")
+    escreva("Meta semanal: R$ ", metaSemanal, "\n")
+    escreva("Média diária: R$ ", mediaVendas, "\n")
+    escreva("Melhor dia: ", diaMaiorVenda, " (R$ ", maiorVenda, ")\n")
+    escreva("Pior dia: ", diaMenorVenda, " (R$ ", menorVenda, ")\n")
+    escreva("Dias acima da média: ", diasAcimaMedia, "\n")
+    escreva("Percentual da meta: ", percentualMeta, "%\n")
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 8: Parte 5 da solução - Conclusão -->
+        <!-- <section>
+          <h3>✨ Solução - Parte 5: Conclusão</h3>
+          <pre><code class="language-portugol" data-trim data-line-numbers>
+    // Mensagem sobre o cumprimento da meta
+    se (totalVendas >= metaSemanal) {
+      escreva("🎉 PARABÉNS! Meta atingida com sucesso!\n")
+      
+      // Cálculo de excedente
+      se (totalVendas > metaSemanal) {
+        escreva("Excedente: R$ ", totalVendas - metaSemanal, "\n")
+      }
+    } senao {
+      escreva("❌ Meta não atingida. Faltou: R$ ", metaSemanal - totalVendas, "\n")
+    }
+  }
+}
+          </code></pre>
+        </section> -->
+
+        <!-- Subseção 9: Exemplo de entrada -->
+        <section>
+          <h3>📝 Exemplo de Execução - Entrada</h3>
+          <div style="background-color: #282a36; padding: 15px; border-radius: 5px; text-align: left; font-family: monospace;">
+            <p>📈 SISTEMA DE ANÁLISE DE VENDAS 📈</p>
+            <p>Informe a meta de vendas para a semana: R$ <span class="highlight-blue">5000.00</span></p>
+            <p>Vendas de Domingo: R$ <span class="highlight-green">750.50</span></p>
+            <p>Vendas de Segunda: R$ <span class="highlight-green">420.75</span></p>
+            <p>Vendas de Terça: R$ <span class="highlight-green">680.00</span></p>
+            <p>Vendas de Quarta: R$ <span class="highlight-green">1200.25</span></p>
+            <p>Vendas de Quinta: R$ <span class="highlight-green">950.00</span></p>
+            <p>Vendas de Sexta: R$ <span class="highlight-green">1450.00</span></p>
+            <p>Vendas de Sábado: R$ <span class="highlight-green">850.25</span></p>
+          </div>
+        </section>
+
+        <!-- Subseção 10: Exemplo de saída - Parte 1 -->
+        <section>
+          <h3>📝 Exemplo de Execução - Resultado (Parte 1)</h3>
+          <div style="background-color: #282a36; padding: 15px; border-radius: 5px; text-align: left; font-family: monospace;">
+            <p>📊 RELATÓRIO SEMANAL DE VENDAS 📊</p>
+            <p>====================================</p>
+            <p>Domingo: R$ 750.50</p>
+            <p>Segunda: R$ 420.75 ⬇️</p>
+            <p>Terça: R$ 680.00</p>
+            <p>Quarta: R$ 1200.25</p>
+            <p>Quinta: R$ 950.00</p>
+            <p>Sexta: R$ 1450.00 🔝</p>
+            <p>Sábado: R$ 850.25</p>
+            <p>====================================</p>
+          </div>
+        </section>
+
+        <!-- Subseção 10A: Exemplo de saída - Parte 2 -->
+        <section>
+          <h3>📝 Exemplo de Execução - Resultado (Parte 2)</h3>
+          <div style="background-color: #282a36; padding: 15px; border-radius: 5px; text-align: left; font-family: monospace;">
+            <p>Total de vendas: R$ 6301.75</p>
+            <p>Meta semanal: R$ 5000.00</p>
+            <p>Média diária: R$ 900.25</p>
+            <p>Melhor dia: Sexta (R$ 1450.00)</p>
+            <p>Pior dia: Segunda (R$ 420.75)</p>
+            <p>Dias acima da média: 3</p>
+            <p>Percentual da meta: 126.04%</p>
+            <p>🎉 PARABÉNS! Meta atingida com sucesso!</p>
+            <p>Excedente: R$ 1301.75</p>
+          </div>
+        </section>
+
+        <!-- Subseção 11: Desafio extra -->
+        <section>
+          <h3>🚀 Desafio Extra</h3>
+          <div class="exercise">
+            <p>Modifique o programa para:</p>
+            <ul>
+              <li>Adicionar um menu para o usuário escolher se deseja:
+                <ul>
+                  <li>Ver o relatório completo</li>
+                  <li>Ver apenas o total de vendas</li>
+                  <li>Verificar se a meta foi atingida</li>
+                </ul>
+              </li>
+              <li>Permitir que o usuário insira bonificações para dias específicos</li>
+              <li>Calcular qual seria o valor de venda necessário para cada dia da próxima semana para atingir uma nova meta</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
