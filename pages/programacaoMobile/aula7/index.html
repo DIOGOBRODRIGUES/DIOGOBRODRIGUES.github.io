@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>titulo da aula </title>
+
+  <meta name="description" content="conteudo da aula ">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7: FlatList no React Native</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li>📱 Entender o componente FlatList</li>
+          <li>🔑 Conhecer as principais propriedades</li>
+          <li>🚀 Aprender a renderizar listas eficientes</li>
+          <li>💻 Implementar exemplos práticos</li>
+          <li>⚡ Otimizar o desempenho de listas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é FlatList? -->
+      <section>
+        <h2>📋 O que é FlatList?</h2>
+        <ul>
+          <li>📲 Componente nativo do React Native para renderizar listas</li>
+          <li>🔄 Alternativa otimizada ao <code>ScrollView</code> com arrays</li>
+          <li>🔍 Implementa <i>lazy loading</i> - apenas renderiza itens visíveis</li>
+          <li>📚 Ideal para listas longas ou com conteúdo dinâmico</li>
+          <li>⚙️ Possui recursos integrados para melhor performance</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Propriedades Principais -->
+      <section>
+        <section>
+          <h2>🛠️ Propriedades Principais</h2>
+          <ul>
+            <li>📊 <code>data</code>: Array com os itens da lista</li>
+            <li>🎨 <code>renderItem</code>: Função para renderizar cada item</li>
+            <li>🔑 <code>keyExtractor</code>: Função para extrair uma chave única</li>
+            <li>🏠 <code>ListHeaderComponent</code>: Componente de cabeçalho</li>
+          </ul>
+        </section>
+        <section>
+          <h2>🛠️ Propriedades Principais</h2>
+          <ul>
+            <li>👣 <code>ListFooterComponent</code>: Componente de rodapé</li>
+            <li>🚫 <code>ListEmptyComponent</code>: Exibido quando a lista está vazia</li>
+            <li>🔄 <code>onRefresh</code> e <code>refreshing</code>: Controle pull-to-refresh</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Exemplo Básico -->
+      <section>
+        <h2>Exemplo Básico de FlatList</h2>
+        <pre><code class="javascript">
+      import { FlatList, Text, View, StyleSheet } from 'react-native';
+
+      export default function App() {
+        const dados = [
+          { id: '1', nome: 'João' },
+          { id: '2', nome: 'Maria' },
+          { id: '3', nome: 'Pedro' },
+          { id: '4', nome: 'Ana' },
+        ];
+
+        return (
+          &lt;View style={styles.container}>
+            &lt;FlatList
+              data={dados}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                &lt;Text style={styles.item}>{item.nome}&lt;/Text>
+              )}
+            />
+          &lt;/View>
+        );
+      }
+
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          marginTop: 50,
+        },
+        item: {
+          padding: 20,
+          fontSize: 18,
+          borderBottomWidth: 1,
+          borderBottomColor: '#cccccc',
+        },
+      });
+        </code></pre>
+      </section>
+
+      <!-- Slide 6 - Personalização de Itens -->
+      <section>
+        <h2>Personalização de Itens</h2>
+        <pre><code class="javascript">
+      renderItem={({ item, index }) => (
+        &lt;View style={styles.itemContainer}>
+          &lt;Image
+            source={{ uri: item.avatar }}
+            style={styles.avatar}
+          />
+          &lt;View style={styles.infoContainer}>
+            &lt;Text style={styles.nome}>{item.nome}&lt;/Text>
+            &lt;Text style={styles.email}>{item.email}&lt;/Text>
+          &lt;/View>
+        &lt;/View>
+      )}
+        </code></pre>
+        <p>Cada item pode ser personalizado com componentes complexos</p>
+      </section>
+
+      <!-- Slide 7 - Otimização de Performance -->
+      <section>
+        <h2>Otimização de Performance</h2>
+        <ul>
+          <li><code>initialNumToRender</code>: Número inicial de itens (padrão=10)</li>
+          <li><code>maxToRenderPerBatch</code>: Máximo a renderizar por lote</li>
+          <li><code>windowSize</code>: Tamanho da janela de renderização</li>
+          <li><code>removeClippedSubviews</code>: Remove views fora da tela</li>
+          <li><code>getItemLayout</code>: Pré-calcula dimensões dos itens</li>
+        </ul>
+        <pre><code class="javascript">
+      getItemLayout={(data, index) => (
+        { length: 80, offset: 80 * index, index }
+      )}
+        </code></pre>
+      </section>
+
+      <!-- Slide 8 - Recursos Avançados -->
+      <section>
+        <h2>Recursos Avançados</h2>
+        <ul>
+          <li><b>Separadores:</b> Use <code>ItemSeparatorComponent</code></li>
+          <li><b>Pull-to-refresh:</b> <code>onRefresh</code> e <code>refreshing</code></li>
+          <li><b>Carregar mais:</b> <code>onEndReached</code> e <code>onEndReachedThreshold</code></li>
+          <li><b>Cabeçalho/Rodapé:</b> <code>ListHeaderComponent</code> e <code>ListFooterComponent</code></li>
+          <li><b>Lista vazia:</b> <code>ListEmptyComponent</code></li>
+        </ul>
+      </section>
+
+      <!-- Slide 9 - Exemplo Completo -->
+      <section>
+        <h2>Exemplo com Pull-to-Refresh</h2>
+        <pre><code class="javascript">
+      import React, { useState, useEffect } from 'react';
+      import { FlatList, Text, View, StyleSheet, RefreshControl } from 'react-native';
+
+      export default function App() {
+        const [dados, setDados] = useState([]);
+        const [refreshing, setRefreshing] = useState(false);
+
+        const carregarDados = () => {
+          // Simula busca de dados da API
+          setDados([
+            { id: '1', nome: 'João', email: 'joao@email.com' },
+            { id: '2', nome: 'Maria', email: 'maria@email.com' },
+            // ...mais dados
+          ]);
+        };
+
+        const onRefresh = () => {
+          setRefreshing(true);
+          // Simula uma chamada de API
+          setTimeout(() => {
+            carregarDados();
+            setRefreshing(false);
+          }, 2000);
+        };
+
+        useEffect(() => {
+          carregarDados();
+        }, []);
+
+        return (
+          &lt;FlatList
+            data={dados}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              &lt;View style={styles.item}>
+                &lt;Text style={styles.nome}>{item.nome}&lt;/Text>
+                &lt;Text>{item.email}&lt;/Text>
+              &lt;/View>
+            )}
+            refreshControl={
+              &lt;RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            ListEmptyComponent={
+              &lt;Text style={styles.empty}>Nenhum dado disponível&lt;/Text>
+            }
+          />
+        );
+      }
+        </code></pre>
+      </section>
+
+      <!-- Slide 10 - SectionList -->
+      <section>
+        <h2>SectionList</h2>
+        <p>Para dados agrupados em seções, use SectionList:</p>
+        <pre><code class="javascript">
+      import { SectionList, Text, View } from 'react-native';
+
+      const DATA = [
+        {
+          title: 'Frutas',
+          data: ['Maçã', 'Banana', 'Laranja'],
+        },
+        {
+          title: 'Legumes',
+          data: ['Cenoura', 'Batata', 'Brócolis'],
+        },
+      ];
+
+      export default function App() {
+        return (
+          &lt;SectionList
+            sections={DATA}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({ item }) => (
+              &lt;Text style={styles.item}>{item}&lt;/Text>
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              &lt;Text style={styles.header}>{title}&lt;/Text>
+            )}
+          />
+        );
+      }
+        </code></pre>
+      </section>
+
+      <!-- Slide 11 - Exercício Prático -->
+      <section>
+        <h2>Exercício Prático</h2>
+        <p>Crie um componente FlatList que:</p>
+        <ol>
+          <li>Exiba uma lista de usuários com nome, email e avatar</li>
+          <li>Implemente pull-to-refresh</li>
+          <li>Adicione um separador entre os itens</li>
+          <li>Mostre um indicador de carregamento ao final da lista</li>
+          <li>Implemente um cabeçalho e rodapé personalizados</li>
+        </ol>
+        <p>Bônus: Adicione um botão para filtrar a lista</p>
+      </section>
+
+      <!-- Slide 12 - Conclusão -->
+      <section>
+        <h2>Conclusão</h2>
+        <ul>
+          <li>FlatList é essencial para exibir listas eficientes</li>
+          <li>Oferece melhor performance que ScrollView para grandes conjuntos de dados</li>
+          <li>Possui muitas opções de personalização</li>
+          <li>Fornece recursos importantes para UX (pull-to-refresh, carregamento infinito)</li>
+          <li>SectionList é a alternativa para dados agrupados em seções</li>
+        </ul>
+      </section>
+
+      <!-- Slide 13 - Referências -->
+      <section>
+        <h2>Referências</h2>
+        <ul>
+          <li><a href="https://reactnative.dev/docs/flatlist" target="_blank">Documentação oficial do FlatList</a></li>
+          <li><a href="https://reactnative.dev/docs/sectionlist" target="_blank">Documentação do SectionList</a></li>
+          <li><a href="https://reactnative.dev/docs/optimizing-flatlist-configuration" target="_blank">Otimizando configurações do FlatList</a></li>
+        </ul>
+      </section><!-- Slide 1 - Título da Aula -->
+
+      
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
