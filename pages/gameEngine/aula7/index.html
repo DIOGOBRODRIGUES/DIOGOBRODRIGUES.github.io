@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>🎮 Aula 7 – Introdução à Construção de Scripts com GDScript</title>
+
+    <meta name="description" content="conteudo da aula ">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <!-- Slide 1 - Título da Aula -->
+        <section>
+            <p>🏛️ Centro Universitário Maurício de Nassau</p>
+            <h3>🎮 Aula 7 – Introdução à Construção de Scripts com GDScript</h3>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </section>
+
+        <section>
+            <h2>📘 1. Introdução ao GDScript</h2>
+            <p>GDScript é a linguagem de programação <strong>nativa da Godot Engine</strong>, inspirada em Python, mas projetada para <strong>alto desempenho</strong> e <strong>integração com a engine</strong>.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Godot_icon.svg/2048px-Godot_icon.svg.png" alt="Logo Godot" style="width: 150px; margin-top: 20px;">
+        </section>
+
+        <section>
+            <h3>⚙️ 1.1 Características do GDScript</h3>
+            <ul>
+                <li>🔢 <strong>Fortemente tipada</strong> (mas permite inferência de tipos)</li>
+                <li>🧠 <strong>Fácil de ler e escrever</strong>, com sintaxe clara e intuitiva</li>
+                <li>🔗 <strong>Integração direta com os nós da cena</strong>, permitindo controle total da lógica de jogo</li>
+            </ul>
+        </section>
+        <section>
+            <h2>🧩 2. Estrutura de um Script GDScript</h2>
+            <p>Um script geralmente é <strong>anexado a um nó</strong> da cena. O código define <strong>comportamentos específicos</strong> para esse nó.</p>
+            <pre><code class="python">
+extends Node2D# Define que esse script controla um nó do tipo Node2D
+
+func _ready():
+    print("O jogo começou!")
+  </code></pre>
+        </section>
+
+        <section>
+            <h3>📝 Palavras-chave comuns</h3>
+            <ul>
+                <li><code><strong>extends</strong></code> 🧬 — Herança do nó base (ex: <code>Node2D</code>, <code>Area2D</code>)</li>
+                <li><code><strong>func</strong></code> ⚙️ — Declaração de funções</li>
+                <li><code><strong>_ready()</strong></code> 🚀 — Chamado quando o nó está pronto na cena</li>
+                <li><code><strong>_process(delta)</strong></code> ⏱️ — Chamado a cada frame, ideal para atualizações contínuas</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🧮 3. Variáveis e Tipos</h2>
+            <p>No GDScript, as variáveis podem ser declaradas com ou sem especificação de tipo. Isso torna o código <strong>flexível</strong> e <strong>fácil de manter</strong>.</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/2620/2620450.png" alt="Ícone de variável" style="width: 120px; margin-top: 15px;">
+        </section>
+
+        <section>
+            <h3>📌 3.1 Declaração de Variáveis</h3>
+            <p>O GDScript permite <strong>inferência de tipos</strong> ou <strong>tipagem explícita</strong>:</p>
+            <pre><code class="language-gdscript">
+var velocidade = 200  # Inferência de tipo (int)
+var nome: String = "Player"
+  </code></pre>
+            <ul>
+                <li>🔍 <code>velocidade</code> é automaticamente entendido como <code>int</code></li>
+                <li>📝 <code>nome</code> é explicitamente tipado como <code>String</code></li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>🚩 3.2 Constantes</h3>
+            <p>Constantes são valores <strong>imutáveis</strong> definidos com a palavra-chave <code>const</code>:</p>
+            <pre><code class="language-gdscript">
+const GRAVIDADE = 9.8
+  </code></pre>
+            <p>✅ Útil para valores fixos como gravidade, limites, tempo padrão etc.</p>
+        </section>
+
+        <section>
+            <h2>🔧 4. Funções e Comportamentos</h2>
+            <p>As <strong>funções</strong> em GDScript são blocos de código reutilizáveis que definem <strong>ações</strong> executadas por um objeto.</p>
+            <p>🔁 Existem dois tipos:</p>
+            <ul>
+                <li>⚙️ <strong>Funções especiais</strong>: chamadas automaticamente pela engine (ex: <code>_ready()</code>, <code>_process()</code>)</li>
+                <li>🛠️ <strong>Funções personalizadas</strong>: criadas pelo desenvolvedor para comportamentos específicos</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>✍️ 4.1 Criando Funções</h3>
+            <p>Use a palavra-chave <code>func</code> para declarar uma função. O nome deve indicar claramente o que ela faz:</p>
+            <pre><code class="language-gdscript">
+func mover_para_direita():
+    position.x += 10
+  </code></pre>
+            <p>📌 Essa função movimenta o objeto 10 pixels para a direita.</p>
+        </section>
+
+        <section>
+            <h3>🔢 Funções com Parâmetros</h3>
+            <p>Também é possível criar funções que recebem valores de entrada:</p>
+            <pre><code class="language-gdscript">
+func mover(distancia):
+    position.x += distancia
+  </code></pre>
+            <p>🎯 Essa função move o objeto horizontalmente com base no valor passado como argumento.</p>
+        </section>
+        <section>
+            <h3>⚙️ 4.2 Funções da Engine</h3>
+            <p>Algumas funções possuem <strong>nomes reservados</strong> e são chamadas <strong>automaticamente</strong> pela Godot.</p>
+            <ul>
+                <li><code>_ready()</code> 🚀 — Executada uma vez quando o nó entra na árvore da cena (ideal para inicializações)</li>
+                <li><code>_process(delta)</code> 🔄 — Executada a cada frame; ideal para atualizações contínuas como movimento</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>🔁 Exemplo de uso</h3>
+            <pre><code class="language-gdscript">
+func _ready():
+    print("Pronto para jogar!")
+
+func _process(delta):
+    position.x += velocidade * delta
+  </code></pre>
+            <p>🔍 Neste exemplo, o objeto se movimenta horizontalmente conforme a velocidade ajustada pelo tempo entre frames.</p>
+        </section>
+
+        <section>
+            <h3>⏱️ O que é o parâmetro <code>delta</code>?</h3>
+            <p><code>delta</code> (ou <em>delta time</em>) representa o <strong>tempo, em segundos</strong>, entre o frame atual e o anterior.</p>
+            <p>✅ Usar <code>delta</code> garante movimentações <strong>consistentes</strong>, mesmo em dispositivos com diferentes FPS.</p>
+
+        </section>
+
+        <section>
+            <h3>🧪 Exemplo prático com <code>delta</code></h3>
+            <pre><code class="language-gdscript">
+var velocidade = 100  # pixels por segundo
+
+func _process(delta):
+    position.x += velocidade * delta
+  </code></pre>
+            <p>🕹️ Mesmo com FPS variando entre 30 e 60, o personagem se moverá cerca de <strong>100 pixels por segundo</strong>.</p>
+            <p>📌 Isso se chama: <strong>movimento independente de frame</strong> — uma das melhores práticas no desenvolvimento de jogos!</p>
+        </section>
+
+        <section>
+            <h2>🌳 5. Manipulação de Nós</h2>
+            <p>Na Godot, <strong>tudo é composto por nós</strong> (<em>nodes</em>). Para controlar ou interagir com a cena, usamos scripts para <strong>manipular esses nós</strong>.</p>
+            <p>📦 Cada nó pode conter <strong>nós filhos</strong> e fazer parte de uma <strong>árvore de cena</strong>.</p>
+            <img src="https://docs.godotengine.org/en/stable/_images/scene_tree.png" alt="Árvore de Cena Godot" style="width: 70%; border-radius: 10px; margin-top: 10px;">
+        </section>
+
+        <section>
+            <h3>📌 5.1 Acessando outros nós</h3>
+            <p>Utilizamos a função <code>get_node(path)</code> para acessar um nó específico da cena.</p>
+            <pre><code class="language-gdscript">
+var inimigo = get_node("../Inimigo")
+inimigo.position.x += 20
+  </code></pre>
+            <p>🎯 Neste exemplo, o script acessa um <strong>nó irmão</strong> chamado <code>Inimigo</code> e move sua posição no eixo X.</p>
+        </section>
+
+        <section>
+            <h3>⚡ Atalhos úteis para navegação</h3>
+            <ul>
+                <li><code>get_parent()</code> 🧭 — Retorna o nó pai do atual</li>
+                <li><code>$NodeName</code> 💡 — Atalho para <code>get_node("NodeName")</code></li>
+            </ul>
+            <pre><code class="language-gdscript">
+var pai = get_parent()
+var inimigo = $Inimigo
+  </code></pre>
+            <p>📌 Esses atalhos tornam o código <strong>mais limpo</strong> e <strong>intuitivo</strong>.</p>
+        </section>
+
+        <section>
+            <h3>🧱 5.2 Criando instâncias de objetos</h3>
+            <p>Você pode <strong>instanciar cenas</strong> dinamicamente durante o jogo — como explosões, inimigos ou itens.</p>
+            <pre><code class="language-gdscript">
+var explosao = preload("res://Efeitos/Explosao.tscn").instantiate()
+add_child(explosao)
+  </code></pre>
+            <ul>
+                <li><code>preload()</code> 📦 — Carrega o recurso antecipadamente (compilação)</li>
+                <li><code>instantiate()</code> 🧬 — Cria uma nova instância da cena</li>
+                <li><code>add_child()</code> 🌱 — Adiciona o objeto à árvore de cena</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>🚀 Quando usar isso?</h3>
+            <p>Instanciar objetos dinamicamente é essencial para:</p>
+            <ul>
+                <li>🧨 Criar explosões no momento do impacto</li>
+                <li>👾 Gerar novos inimigos</li>
+                <li>🎁 Soltar itens de recompensa</li>
+                <li>🔫 Criar projéteis ao apertar um botão</li>
+            </ul>
+            <img src="https://img.icons8.com/fluency/480/explosion.png" alt="Explosão" style="width: 100px; margin-top: 10px;">
+        </section>
+
+        <section>
+            <h3>🧹 5.3 Excluindo ou ocultando nós</h3>
+            <pre><code class="language-gdscript">
+queue_free()  # Remove o nó da cena após o frame atual
+hide()        # Torna o nó invisível
+  </code></pre>
+            <ul>
+                <li><code>queue_free()</code> ❌ — Elimina o nó da árvore de cena</li>
+                <li><code>hide()</code> 👻 — Oculta o nó visualmente (mas ainda existe)</li>
+            </ul>
+            <p>🛠️ Isso ajuda a <strong>controlar o ciclo de vida</strong> de objetos, como projéteis, efeitos ou inimigos derrotados.</p>
+        </section>
+
+        <section>
+            <h2>📡 6. Sinais (Signals) e Eventos</h2>
+            <p>Os <strong>Signals</strong> permitem comunicação entre nós de forma <strong>desacoplada</strong>. Eles são ideais para reagir a eventos como colisões, cliques, ações do jogador, etc.</p>
+            <img src="https://docs.godotengine.org/en/stable/_images/signals_overview.svg" alt="Fluxo de sinal na Godot" style="width: 60%; border-radius: 10px; margin-top: 10px;">
+        </section>
+
+        <section>
+            <h3>🔔 6.1 O que são Signals?</h3>
+            <p>Signals são <strong>eventos personalizados</strong> que podem ser emitidos e conectados a outros nós.</p>
+            <p>💡 Eles permitem a comunicação entre objetos <strong>sem acoplamento direto</strong>, promovendo organização e modularidade.</p>
+        </section>
+
+        <section>
+            <h3>📤 6.2 Emitindo Signals</h3>
+            <pre><code class="language-gdscript">
+signal coletado
+
+func _on_colisao():
+    emit_signal("coletado")
+  </code></pre>
+            <p>🧲 Neste exemplo, o sinal <code>coletado</code> é emitido quando ocorre uma colisão.</p>
+        </section>
+
+        <section>
+            <h3>🧩 6.3 Conectando Signals no editor</h3>
+            <p>Passos para conectar sinais de forma visual:</p>
+            <ol>
+                <li>🔍 Selecione o nó que emite o sinal</li>
+                <li>🧭 Vá até a aba <strong>“Node”</strong></li>
+                <li>🖱️ Clique duas vezes no sinal desejado</li>
+                <li>🔗 Escolha o nó receptor e clique em <strong>“Connect”</strong></li>
+            </ol>
+            <p>📎 Isso criará automaticamente uma função no script do nó receptor.</p>
+        </section>
+
+        <section>
+            <h2>🎮 7. Prática: Movimento e Coleta</h2>
+            <h3>🎯 7.1 Objetivo</h3>
+            <p>Controlar um <strong>personagem</strong> com as setas do teclado e coletar um item (💰 moeda).</p>
+        </section>
+
+        <section>
+            <h3>🏗️ 7.2 Estrutura da Cena</h3>
+            <ul>
+                <li><code>Node2D</code> (Jogo)</li>
+                <ul>
+                    <li>📌 <code>Player</code> (<code>Area2D</code>)</li>
+                    <li>💰 <code>Moeda</code> (<code>Area2D</code>)</li>
+                </ul>
+            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Moeda" style="width: 70px; margin-top: 10px;">
+        </section>
+
+        <section>
+            <h3>🎮 7.3 Movimento com Input</h3>
+            <pre><code class="language-gdscript">
+func _process(delta):
+    var direcao = Vector2.ZERO
+
+    if Input.is_action_pressed("ui_right"):
+        direcao.x += 1
+    if Input.is_action_pressed("ui_left"):
+        direcao.x -= 1
+    if Input.is_action_pressed("ui_up"):
+        direcao.y -= 1
+    if Input.is_action_pressed("ui_down"):
+        direcao.y += 1
+
+    position += direcao.normalized() * velocidade * delta
+  </code></pre>
+            <p>🕹️ Esse código permite movimentar o personagem suavemente com o teclado.</p>
+        </section>
+
+        <section>
+            <h3>💥 7.4 Detecção de Colisão com a Moeda</h3>
+            <p>Para detectar a coleta da moeda, conecte o sinal <code>body_entered</code> da <code>Moeda</code> ao <code>Player</code>.</p>
+            <p>🎯 A função conectada pode esconder a moeda ou removê-la com <code>queue_free()</code>.</p>
+            <pre><code class="language-gdscript">
+func _on_Moeda_body_entered(body):
+    if body.name == "Player":
+        hide()  # ou: queue_free()
+  </code></pre>
+            <p>✨ Esse evento simula a coleta do item!</p>
+        </section>
+
+        <section>
+            <h2>🏁 8. Exercício Final: Mini Jogo de Coleta</h2>
+            <h3>🕹️ Descrição</h3>
+            <p>Desenvolva um mini jogo com os seguintes elementos:</p>
+            <ul>
+                <li>🎮 Um personagem controlado pelas <strong>setas do teclado</strong></li>
+                <li>💰 Uma moeda posicionada na cena</li>
+                <li>✨ Quando o personagem colidir com a moeda:
+                    <ul>
+                        <li>💨 A moeda desaparece</li>
+                        <li>📢 Uma mensagem é exibida</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>📋 Requisitos Técnicos</h3>
+            <ul>
+                <li>🔄 Uso de <code>_process</code> para movimentação contínua</li>
+                <li>⌨️ Leitura de input com <code>Input</code></li>
+                <li>📡 Conexão e emissão de <code>signals</code></li>
+                <li>🧹 Remoção da moeda com <code>queue_free()</code></li>
+                <li>🧱 Estrutura da cena com:
+                    <ul>
+                        <li><code>Area2D</code></li>
+                        <li><code>CollisionShape2D</code></li>
+                        <li><code>Sprite</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>🎯 Desafio Adicional</h3>
+            <ul>
+                <li>🔊 Adicione um som de coleta</li>
+                <li>🧮 Implemente um <strong>contador de pontos</strong> que aumenta a cada moeda coletada</li>
+            </ul>
+            <p>💡 Use um <code>Label</code> para mostrar os pontos na tela!</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/2933/2933185.png" alt="Ícone de pontuação" style="width: 80px; margin-top: 10px;">
+        </section>
+
+        <section>
+            <h2>🛠️ Tutorial Passo a Passo</h2>
+            <p>Vamos construir juntos o mini jogo de coleta!</p>
+            <p>🎯 Objetivo: Controlar um personagem que coleta uma moeda.</p>
+        </section>
+
+        <section>
+            <h3>🧱 Passo 1: Criar a Estrutura da Cena</h3>
+            <p>Crie uma nova cena com o seguinte formato:</p>
+            <ul>
+                <li><code>Node2D</code> ➝ renomeie para <strong>Jogo</strong></li>
+                <li>Adicione um filho <code>Area2D</code> ➝ renomeie para <strong>Player</strong></li>
+                <li>Adicione outro <code>Area2D</code> ➝ renomeie para <strong>Moeda</strong></li>
+            </ul>
+            <p>📌 Dica: salve a cena como <code>Jogo.tscn</code></p>
+        </section>
+
+        <section>
+            <h3>🎨 Passo 2: Adicionar Componentes Visuais</h3>
+            <p>Para <strong>Player</strong> e <strong>Moeda</strong>, adicione os seguintes nós filhos:</p>
+            <ul>
+                <li><code>Sprite2D</code> — escolha uma imagem para o personagem/moeda</li>
+                <li><code>CollisionShape2D</code> — defina a área de colisão</li>
+            </ul>
+            <p>🧩 Use uma forma simples como <code>CircleShape2D</code> ou <code>RectangleShape2D</code>.</p>
+        </section>
+
+        <section>
+            <h3>🧭 Passo 3: Script de Movimento no Player</h3>
+            <p>Adicione um script ao nó <code>Player</code> com o seguinte conteúdo:</p>
+            <pre><code class="language-gdscript">
+var velocidade = 200
+
+func _process(delta):
+    var direcao = Vector2.ZERO
+
+    if Input.is_action_pressed("ui_right"):
+        direcao.x += 1
+    if Input.is_action_pressed("ui_left"):
+        direcao.x -= 1
+    if Input.is_action_pressed("ui_up"):
+        direcao.y -= 1
+    if Input.is_action_pressed("ui_down"):
+        direcao.y += 1
+
+    position += direcao.normalized() * velocidade * delta
+  </code></pre>
+        </section>
+
+        <section>
+            <h3>📡 Passo 4: Conectar o sinal da Moeda</h3>
+            <p>1. Clique no nó <strong>Moeda</strong>.<br>
+                2. Vá na aba <strong>“Node”</strong> (à direita).<br>
+                3. Dê dois cliques em <code>body_entered</code>.<br>
+                4. Selecione o <strong>Player</strong> e clique em <strong>Connect</strong>.</p>
+
+            <p>🔁 Isso criará automaticamente uma função no script do Player!</p>
+        </section>
+
+        <section>
+            <h3>💥 Passo 5: Script de coleta</h3>
+            <p>No script do <code>Player</code>, adicione:</p>
+            <pre><code class="language-gdscript">
+func _on_Moeda_body_entered(body):
+    if body == self:
+        get_node("../Moeda").queue_free()
+        print("Moeda coletada!")
+  </code></pre>
+            <p>💡 Aqui você remove a moeda da cena com <code>queue_free()</code>.</p>
+        </section>
+
+        <section>
+            <h3>🎯 Passo 6 (Desafio): Contador de pontos</h3>
+            <ul>
+                <li>Adicione um <code>Label</code> na árvore da cena principal</li>
+                <li>No script, crie uma variável <code>pontos</code> e incremente a cada coleta</li>
+                <li>Atualize o texto do <code>Label</code></li>
+            </ul>
+
+            <pre><code class="language-gdscript">
+var pontos = 0
+
+func _on_Moeda_body_entered(body):
+    if body == self:
+        get_node("../Moeda").queue_free()
+        pontos += 1
+        get_parent().get_node("Label").text = "Pontos: %d" % pontos
+  </code></pre>
+        </section>
+
+        <section>
+            <h3>🔊 Passo 7 (Desafio): Som de coleta</h3>
+            <ul>
+                <li>Adicione um nó <code>AudioStreamPlayer</code> à cena</li>
+                <li>Escolha um som (ex: <code>coleta.wav</code>) e configure no nó</li>
+                <li>Toque o som na função de coleta:</li>
+            </ul>
+
+            <pre><code class="language-gdscript">
+func _on_Moeda_body_entered(body):
+    if body == self:
+        get_node("../Moeda").queue_free()
+        get_node("../AudioStreamPlayer").play()
+  </code></pre>
+            <p>🎉 Pronto! Seu mini jogo de coleta está funcionando!</p>
+        </section>
+        <section>
+            <h2>Dúvidas <i class="fas fa-question"></i></h2>
+            <p>Obrigado pela atenção!</p>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                    class="fab fa-linkedin"></i> </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+        </section>
+    </div>
+</div>
+
+
+<script src="../../../reveal.js-master/dist/reveal.js"></script>
+<script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+<script src="../../../reveal.js-master/plugin/search/search.js"></script>
+<script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+<script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        slideNumber: true ,
+        plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+</script>
+</body>
+
+</html>

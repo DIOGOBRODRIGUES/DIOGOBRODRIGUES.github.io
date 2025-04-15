@@ -1,0 +1,153 @@
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Aula 7 – Introdução à Construção de Scripts com GDScript</title>
+
+    <meta name="description" content="Fundamentos da programação em GDScript na Godot Engine">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p>🏛️ Centro Universitário Maurício de Nassau</p>
+            <h3>Aula 7 – Introdução à Construção de Scripts com GDScript</h3>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </section>
+
+        <section><h3>🎯 Objetivos da Aula</h3>
+        <ul>
+            <li>Compreender a sintaxe básica do GDScript 🧠</li>
+            <li>Estruturar scripts e integrá-los aos nós da cena 🏗️</li>
+            <li>Manipular variáveis, funções e responder a eventos 🔄</li>
+            <li>Desenvolver um jogo com movimentação e coleta de itens 🎮</li>
+        </ul></section>
+
+        <section><h3>📘 Introdução ao GDScript</h3>
+        <p>GDScript é a linguagem nativa da Godot Engine, inspirada em Python 🐍.</p>
+        <ul>
+            <li>Fácil leitura e escrita</li>
+            <li>Fortemente tipada com inferência</li>
+            <li>Integração direta com os nós da cena</li>
+        </ul></section>
+
+        <section><h3>📜 Estrutura Básica de um Script</h3>
+        <pre><code class="language-gdscript">extends Node2D
+
+func _ready():
+    print("O jogo começou!")</code></pre>
+        <ul>
+            <li><code>extends</code>: herança do tipo de nó</li>
+            <li><code>_ready()</code>: executado ao iniciar a cena</li>
+            <li><code>_process(delta)</code>: chamado a cada frame 🎥</li>
+        </ul></section>
+
+        <section><h3>🧮 Variáveis e Tipos</h3>
+        <pre><code class="language-gdscript">var velocidade = 200
+var nome: String = "Player"
+const GRAVIDADE = 9.8</code></pre>
+        <p>Usamos <code>var</code> para variáveis e <code>const</code> para constantes.</p></section>
+
+        <section><h3>🛠️ Funções em GDScript</h3>
+        <p>Funções definem comportamentos dos objetos:</p>
+        <pre><code class="language-gdscript">func mover(valor):
+    position.x += valor</code></pre>
+        <p><code>_ready()</code> e <code>_process(delta)</code> são chamadas pela engine.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Godot_icon.svg" alt="Godot" height="100"/>
+        </section>
+
+        <section><h3>🕒 O que é delta?</h3>
+        <p><code>delta</code> é o tempo entre frames. Permite movimento suave!</p>
+        <pre><code class="language-gdscript">func _process(delta):
+    position.x += velocidade * delta</code></pre>
+        <p>Evita variações de movimento em diferentes FPS 🎮</p>
+        </section>
+
+        <section><h3>🌳 Manipulação de Nós</h3>
+        <ul>
+            <li><code>get_node()</code> para acessar outros nós</li>
+            <li><code>add_child()</code> para adicionar filhos</li>
+            <li><code>queue_free()</code> para remover da cena</li>
+        </ul>
+        <pre><code class="language-gdscript">var explosao = preload("res://Efeitos/Explosao.tscn").instantiate()
+add_child(explosao)</code></pre></section>
+
+        <section><h3>📡 Sinais (Signals)</h3>
+        <p>Permitem comunicação entre nós sem acoplamento direto.</p>
+        <pre><code class="language-gdscript">signal coletado
+
+func _on_colisao():
+    emit_signal("coletado")</code></pre>
+        <p>Conexão é feita na aba <strong>Node</strong> do editor 🧩</p></section>
+
+        <section><h3>🎮 Movimento e Coleta</h3>
+        <pre><code class="language-gdscript">func _process(delta):
+    var direcao = Vector2.ZERO
+    if Input.is_action_pressed("ui_right"):
+        direcao.x += 1
+    position += direcao.normalized() * velocidade * delta</code></pre>
+        <p>Controle com teclado 🕹️</p></section>
+
+        <section><h3>💰 Coleta de Itens</h3>
+        <pre><code class="language-gdscript">func _on_Moeda_body_entered(body):
+    if body.name == "Player":
+        queue_free()
+        print("Moeda coletada!")</code></pre>
+        <p>Simples lógica de colisão com moedas.</p></section>
+
+        <section><h3>🧪 Exercício Final</h3>
+        <ul>
+            <li>Player controlado por setas</li>
+            <li>Coleta de moedas</li>
+            <li>Mensagens e som 🎵</li>
+            <li>Contador de pontos</li>
+        </ul>
+        <p>Use sinais, <code>Input</code>, <code>queue_free()</code> e organização com nós!</p></section>
+
+        <section><h3>✅ Conclusão</h3>
+        <p>Exploramos os fundamentos do GDScript e a criação de scripts interativos!</p>
+        <p>Próximos passos: adicionar vidas, inimigos e HUD 🧱👾</p>
+        </section>
+    </div>
+</div>
+
+<script src="../../../reveal.js-master/dist/reveal.js"></script>
+<script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+<script src="../../../reveal.js-master/plugin/search/search.js"></script>
+<script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+<script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        slideNumber: true,
+        plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+</script>
+
+</body>
+</html>
