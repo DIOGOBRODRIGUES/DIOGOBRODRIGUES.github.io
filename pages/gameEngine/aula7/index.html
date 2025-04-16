@@ -27,7 +27,7 @@
         <!-- Slide 1 - Título da Aula -->
         <section>
             <p>🏛️ Centro Universitário Maurício de Nassau</p>
-            <h3>🎮 Aula 7 – Introdução à Construção de Scripts com GDScript</h3>
+            <h3>🎮 Aula 7 – Revisão Construção de Scripts com GDScript</h3>
             <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
             <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
                 <i class="fab fa-linkedin"></i>
@@ -81,7 +81,7 @@ func _ready():
         <section>
             <h3>📌 3.1 Declaração de Variáveis</h3>
             <p>O GDScript permite <strong>inferência de tipos</strong> ou <strong>tipagem explícita</strong>:</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var velocidade = 200  # Inferência de tipo (int)
 var nome: String = "Player"
   </code></pre>
@@ -94,7 +94,7 @@ var nome: String = "Player"
         <section>
             <h3>🚩 3.2 Constantes</h3>
             <p>Constantes são valores <strong>imutáveis</strong> definidos com a palavra-chave <code>const</code>:</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 const GRAVIDADE = 9.8
   </code></pre>
             <p>✅ Útil para valores fixos como gravidade, limites, tempo padrão etc.</p>
@@ -113,7 +113,7 @@ const GRAVIDADE = 9.8
         <section>
             <h3>✍️ 4.1 Criando Funções</h3>
             <p>Use a palavra-chave <code>func</code> para declarar uma função. O nome deve indicar claramente o que ela faz:</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func mover_para_direita():
     position.x += 10
   </code></pre>
@@ -123,7 +123,7 @@ func mover_para_direita():
         <section>
             <h3>🔢 Funções com Parâmetros</h3>
             <p>Também é possível criar funções que recebem valores de entrada:</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func mover(distancia):
     position.x += distancia
   </code></pre>
@@ -140,7 +140,7 @@ func mover(distancia):
 
         <section>
             <h3>🔁 Exemplo de uso</h3>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func _ready():
     print("Pronto para jogar!")
 
@@ -159,7 +159,7 @@ func _process(delta):
 
         <section>
             <h3>🧪 Exemplo prático com <code>delta</code></h3>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var velocidade = 100  # pixels por segundo
 
 func _process(delta):
@@ -173,13 +173,13 @@ func _process(delta):
             <h2>🌳 5. Manipulação de Nós</h2>
             <p>Na Godot, <strong>tudo é composto por nós</strong> (<em>nodes</em>). Para controlar ou interagir com a cena, usamos scripts para <strong>manipular esses nós</strong>.</p>
             <p>📦 Cada nó pode conter <strong>nós filhos</strong> e fazer parte de uma <strong>árvore de cena</strong>.</p>
-            <img src="https://docs.godotengine.org/en/stable/_images/scene_tree.png" alt="Árvore de Cena Godot" style="width: 70%; border-radius: 10px; margin-top: 10px;">
+
         </section>
 
         <section>
             <h3>📌 5.1 Acessando outros nós</h3>
             <p>Utilizamos a função <code>get_node(path)</code> para acessar um nó específico da cena.</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var inimigo = get_node("../Inimigo")
 inimigo.position.x += 20
   </code></pre>
@@ -192,7 +192,7 @@ inimigo.position.x += 20
                 <li><code>get_parent()</code> 🧭 — Retorna o nó pai do atual</li>
                 <li><code>$NodeName</code> 💡 — Atalho para <code>get_node("NodeName")</code></li>
             </ul>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var pai = get_parent()
 var inimigo = $Inimigo
   </code></pre>
@@ -202,7 +202,7 @@ var inimigo = $Inimigo
         <section>
             <h3>🧱 5.2 Criando instâncias de objetos</h3>
             <p>Você pode <strong>instanciar cenas</strong> dinamicamente durante o jogo — como explosões, inimigos ou itens.</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var explosao = preload("res://Efeitos/Explosao.tscn").instantiate()
 add_child(explosao)
   </code></pre>
@@ -227,7 +227,7 @@ add_child(explosao)
 
         <section>
             <h3>🧹 5.3 Excluindo ou ocultando nós</h3>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 queue_free()  # Remove o nó da cena após o frame atual
 hide()        # Torna o nó invisível
   </code></pre>
@@ -241,7 +241,7 @@ hide()        # Torna o nó invisível
         <section>
             <h2>📡 6. Sinais (Signals) e Eventos</h2>
             <p>Os <strong>Signals</strong> permitem comunicação entre nós de forma <strong>desacoplada</strong>. Eles são ideais para reagir a eventos como colisões, cliques, ações do jogador, etc.</p>
-            <img src="https://docs.godotengine.org/en/stable/_images/signals_overview.svg" alt="Fluxo de sinal na Godot" style="width: 60%; border-radius: 10px; margin-top: 10px;">
+
         </section>
 
         <section>
@@ -252,7 +252,7 @@ hide()        # Torna o nó invisível
 
         <section>
             <h3>📤 6.2 Emitindo Signals</h3>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 signal coletado
 
 func _on_colisao():
@@ -293,8 +293,9 @@ func _on_colisao():
 
         <section>
             <h3>🎮 7.3 Movimento com Input</h3>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func _process(delta):
+
     var direcao = Vector2.ZERO
 
     if Input.is_action_pressed("ui_right"):
@@ -309,13 +310,14 @@ func _process(delta):
     position += direcao.normalized() * velocidade * delta
   </code></pre>
             <p>🕹️ Esse código permite movimentar o personagem suavemente com o teclado.</p>
+            <p><strong>Vector2.ZERO</strong> é um atalho para Vector2(0, 0), ou seja, um vetor nulo.</p>
         </section>
 
         <section>
             <h3>💥 7.4 Detecção de Colisão com a Moeda</h3>
             <p>Para detectar a coleta da moeda, conecte o sinal <code>body_entered</code> da <code>Moeda</code> ao <code>Player</code>.</p>
             <p>🎯 A função conectada pode esconder a moeda ou removê-la com <code>queue_free()</code>.</p>
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func _on_Moeda_body_entered(body):
     if body.name == "Player":
         hide()  # ou: queue_free()
@@ -395,8 +397,8 @@ func _on_Moeda_body_entered(body):
 
         <section>
             <h3>🧭 Passo 3: Script de Movimento no Player</h3>
-            <p>Adicione um script ao nó <code>Player</code> com o seguinte conteúdo:</p>
-            <pre><code class="language-gdscript">
+            <p>Adicione um script ao nó <code>Player</code> </p>
+            <pre><code class="godotscript">
 var velocidade = 200
 
 func _process(delta):
@@ -413,6 +415,7 @@ func _process(delta):
 
     position += direcao.normalized() * velocidade * delta
   </code></pre>
+            <p><strong>direcao.normalized():</strong> Garante que a direção tenha magnitude 1, mesmo em movimentos diagonais. Sem isso, movimentar-se na diagonal seria mais rápido (pois Vector2(1, 1) tem magnitude √2).</p>
         </section>
 
         <section>
@@ -427,8 +430,8 @@ func _process(delta):
 
         <section>
             <h3>💥 Passo 5: Script de coleta</h3>
-            <p>No script do <code>Player</code>, adicione:</p>
-            <pre><code class="language-gdscript">
+            <p>No script da <code>Moeda</code>, adicione:</p>
+            <pre><code class="gdscript">
 func _on_Moeda_body_entered(body):
     if body == self:
         get_node("../Moeda").queue_free()
@@ -445,7 +448,7 @@ func _on_Moeda_body_entered(body):
                 <li>Atualize o texto do <code>Label</code></li>
             </ul>
 
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 var pontos = 0
 
 func _on_Moeda_body_entered(body):
@@ -464,7 +467,7 @@ func _on_Moeda_body_entered(body):
                 <li>Toque o som na função de coleta:</li>
             </ul>
 
-            <pre><code class="language-gdscript">
+            <pre><code class="gdscript">
 func _on_Moeda_body_entered(body):
     if body == self:
         get_node("../Moeda").queue_free()
