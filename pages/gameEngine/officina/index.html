@@ -223,7 +223,505 @@ func _on_item_collected():
         <p>💡 Para Web/HTML5: Exporte para testar no navegador sem instalação!</p>
       </section>
 
-      <!-- Slide 16 -->
+      <!-- Seção de Tutorial Detalhado - Personagem -->
+      <section>
+        <section>
+          <h3>👤 Criando um Personagem Controlável</h3>
+          <p>Vamos criar um personagem que o jogador poderá controlar</p>
+          <img src="https://godotengine.org/assets/press/icon_color.png" alt="Godot Icon" style="height: 100px; background: none; border: none; box-shadow: none;">
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Criando a Estrutura Básica</h4>
+          <div style="display: flex; justify-content: space-between;">
+          
+              <ol>
+                <li>Abra o Godot e selecione seu projeto</li>
+                <li>Pressione <kbd>Ctrl+N</kbd> (ou <kbd>Cmd+N</kbd> no Mac) para criar nova cena</li>
+                <li>Selecione "CharacterBody2D" como nó raiz</li>
+                <li>No painel inspetor, renomeie para "Player"</li>
+              </ol>
+            
+           
+          </div>
+        </section>
+        
+        <section>
+          <h4>2. Adicionando Componentes Visuais</h4>
+          <div style="display: flex; justify-content: space-between;">
+           
+              <ol>
+                <li>Clique com botão direito no nó "Player"</li>
+                <li>Selecione "Adicionar Nó Filho"</li>
+                <li>Escolha "Sprite2D"</li>
+                <li>No Inspector, clique em "Texture" → "Carregar"</li>
+                <li>Selecione uma imagem para seu personagem</li>
+                <li>Se não tiver, use os recursos da seção Assets</li>
+              </ol>
+           
+          
+          </div>
+        </section>
+        
+        <section>
+          <h4>3. Adicionando Colisões</h4>
+          <div style="display: flex; justify-content: space-between;">
+           
+              <ol>
+                <li>Clique com botão direito no nó "Player" novamente</li>
+                <li>Adicione um nó filho "CollisionShape2D"</li>
+                <li>No Inspector, clique em "Shape" → "New RectangleShape2D"</li>
+                <li>Ajuste o tamanho da colisão para corresponder ao sprite</li>
+                <li>Use as alças de redimensionamento no editor</li>
+                <li>Salve a cena: <kbd>Ctrl+S</kbd> (ou <kbd>Cmd+S</kbd>)</li>
+                <li>Nome sugerido: "Player.tscn"</li>
+              </ol>
+           
+          
+          </div>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Movimento -->
+      <section>
+        <section>
+          <h3>🎮 Programando o Movimento</h3>
+          <p>Agora vamos fazer o personagem se movimentar com as teclas direcionais</p>
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Criando o Script</h4>
+          <div style="display: flex; justify-content: space-between;">
+              <ol>
+                <li>Selecione o nó raiz "Player" na árvore de cenas</li>
+                <li>No painel Inspector, localize o botão com ícone de script</li>
+                <li>Clique em "Attach Script"</li>
+                <li>Mantenha as opções padrão:</li>
+                <ul>
+                  <li>Linguagem: GDScript</li>
+                  <li>Modelo: Node</li>
+                  <li>Nome: Player.gd</li>
+                </ul>
+                <li>Clique em "Create"</li>
+              </ol>
+          
+          </div>
+        </section>
+        
+        <section>
+          <h4>2. Código para Movimentação (Parte 1)</h4>
+          <pre><code class="gdscript" data-trim>
+extends CharacterBody2D
+
+# Propriedades do personagem
+var speed = 300  # Velocidade de movimento em pixels/segundo
+
+# Esta função é chamada a cada quadro físico do jogo
+func _physics_process(delta):
+    # Criamos um vetor para armazenar a direção
+    var direction = Vector2.ZERO
+    
+    # Detectamos as teclas pressionadas
+    if Input.is_action_pressed("ui_right"):
+        direction.x += 1
+    if Input.is_action_pressed("ui_left"):
+        direction.x -= 1
+    if Input.is_action_pressed("ui_down"):
+        direction.y += 1
+    if Input.is_action_pressed("ui_up"):
+        direction.y -= 1
+          </code></pre>
+          <p><small>As teclas "ui_right", "ui_left", "ui_down", "ui_up" representam as setas do teclado</small></p>
+        </section>
+        
+        <section>
+          <h4>2. Código para Movimentação (Parte 2)</h4>
+          <pre><code class="gdscript" data-trim>
+    # Normaliza o vetor para movimento consistente em diagonais
+    if direction.length() > 0:
+        direction = direction.normalized()
+    
+    # Define a velocidade do personagem
+    velocity = direction * speed
+    
+    # Move o personagem e lida com colisões automaticamente
+    move_and_slide()
+    
+    # Você pode adicionar animações aqui (opcional)
+    # if direction.x != 0:
+    #     $Sprite2D.flip_h = direction.x < 0
+          </code></pre>
+          <p><small>💡 Dica: Teste seu personagem pressionando F5 para executar o jogo</small></p>
+        </section>
+        
+        <section>
+          <h4>3. Explicação do Código</h4>
+          <ul>
+            <li><code>extends CharacterBody2D</code>: Herda funcionalidades do nó CharacterBody2D</li>
+            <li><code>_physics_process(delta)</code>: Função chamada a cada quadro de física</li>
+            <li><code>direction</code>: Vetor que define a direção do movimento</li>
+            <li><code>direction.normalized()</code>: Mantém a mesma velocidade em diagonais</li>
+            <li><code>velocity</code>: Propriedade herdada que define a velocidade</li>
+            <li><code>move_and_slide()</code>: Move o personagem e lida com colisões</li>
+          </ul>
+          <p>Com isso, seu personagem já deve ser capaz de se movimentar com as setas do teclado!</p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Cena Principal -->
+      <section>
+        <section>
+          <h3>🌍 Criando a Cena Principal</h3>
+          <p>Vamos criar o ambiente onde o jogo acontecerá</p>
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Estrutura da Cena Principal</h4>
+          <div style="display: flex; justify-content: space-between;">
+            
+              <ol>
+                <li>Pressione <kbd>Ctrl+N</kbd> para criar nova cena</li>
+                <li>Selecione "Node2D" como nó raiz</li>
+                <li>Renomeie para "Main"</li>
+                <li>Salve a cena: <kbd>Ctrl+S</kbd></li>
+                <li>Nome sugerido: "Main.tscn"</li>
+              </ol>
+           
+          </div>
+        </section>
+        
+        <section>
+          <h4>2. Adicionando o Personagem à Cena</h4>
+          <ol>
+            <li>Na barra de ferramentas, clique no botão "Instanciar Cena" (ícone de corrente)</li>
+            <li>Navegue e selecione "Player.tscn"</li>
+            <li>Clique no editor para posicionar o jogador na cena</li>
+            <li>Ajuste a posição para o local desejado (ex: centro da tela)</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h4>3. Configurando a Cena Principal do Projeto</h4>
+          <ol>
+            <li>Vá para o menu "Projeto" → "Configurações do Projeto"</li>
+            <li>Na seção esquerda, selecione "Aplicação" → "Run"</li>
+            <li>Em "Main Scene", clique no botão de pasta</li>
+            <li>Selecione "Main.tscn"</li>
+            <li>Clique em "OK"</li>
+          </ol>
+          <p>💡 Dica: Agora você pode pressionar F5 a qualquer momento para executar o jogo, começando pela cena principal</p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Objetos Coletáveis -->
+      <section>
+        <section>
+          <h3>🍎 Criando Objetos Coletáveis</h3>
+          <p>Vamos criar itens que o jogador poderá coletar</p>
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Criando a Cena do Objeto</h4>
+          <div style="display: flex; justify-content: space-between;">
+            <div style="width: 45%;">
+              <ol>
+                <li>Pressione <kbd>Ctrl+N</kbd> para criar nova cena</li>
+                <li>Selecione "Area2D" como nó raiz</li>
+                <li>Renomeie para "Coletavel"</li>
+                <li>Adicione um nó filho "Sprite2D"</li>
+                <li>No Inspector, defina uma textura para o sprite</li>
+                <li>Escolha uma imagem relacionada ao tema social</li>
+              </ol>
+            </div>
+            <div style="width: 45%;">
+              <p>Exemplos por tema:</p>
+              <ul>
+                <li>Ambiente: garrafas, latas, folhas</li>
+                <li>Saúde: frutas, remédios, kit médico</li>
+                <li>Educação: livros, lápis, computador</li>
+                <li>Acessibilidade: símbolos de inclusão</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h4>2. Adicionando Colisão ao Objeto</h4>
+          <ol>
+            <li>Adicione um nó filho "CollisionShape2D" ao "Coletavel"</li>
+            <li>No Inspector, clique em "Shape" → "New CircleShape2D"</li>
+            <li>Ajuste o tamanho para corresponder ao sprite</li>
+            <li>Salve a cena: <kbd>Ctrl+S</kbd></li>
+            <li>Nome sugerido: "Coletavel.tscn"</li>
+          </ol>
+          <p>💡 CircleShape2D é geralmente melhor para coletáveis porque funciona bem independente da rotação</p>
+        </section>
+        
+        <section>
+          <h4>3. Criando o Script do Coletável</h4>
+          <pre><code class="gdscript" data-trim>
+extends Area2D
+
+signal coletado  # Define um sinal personalizado
+
+func _ready():
+    # Conecta o sinal interno de colisão à nossa função
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    # Verifica se o que colidiu é o jogador
+    if body.name == "Player" or body.get_parent().name == "Player":
+        # Emite nosso sinal personalizado
+        emit_signal("coletado")
+        
+        # Remove o objeto da cena
+        queue_free()
+          </code></pre>
+          <p><small>Este código detecta quando o jogador toca o objeto e o remove da cena</small></p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Sistema de Pontuação -->
+      <section>
+        <section>
+          <h3>🎯 Criando o Sistema de Pontuação</h3>
+          <p>Vamos criar uma interface para mostrar os pontos do jogador</p>
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Adicionando a Interface (HUD)</h4>
+          <div style="display: flex; justify-content: space-between;">
+          
+              <ol>
+                <li>Na cena "Main", adicione um nó "CanvasLayer"
+                  <ul><li>CanvasLayer permite que elementos fiquem fixos na tela</li></ul>
+                </li>
+                <li>Renomeie para "HUD"</li>
+                <li>Adicione um nó filho "Label"</li>
+                <li>No Inspector, configure:
+                  <ul>
+                    <li>Text: "Pontuação: 0"</li>
+                    <li>Position: (20, 20) aproximadamente</li>
+                    <li>Theme Override → Font Size: 22</li>
+                  </ul>
+                </li>
+              </ol>
+            
+          </div>
+        </section>
+        
+        <section>
+          <h4>2. Script para Controlar a Pontuação</h4>
+          <ol>
+            <li>Selecione o nó raiz "Main"</li>
+            <li>Adicione um script (attach script)</li>
+            <li>Mantenha as opções padrão e clique em "Create"</li>
+          </ol>
+          <pre><code class="gdscript" data-trim>
+extends Node2D
+
+# Variáveis
+var pontuacao = 0
+@onready var pontuacao_label = $HUD/Label
+
+# Chamado quando a cena é carregada
+func _ready():
+    # Atualiza o texto inicial
+    atualizar_pontuacao()
+    
+    # Vai ser chamado quando adicionarmos coletáveis
+    # Por enquanto está vazio
+          </code></pre>
+        </section>
+        
+        <section>
+          <h4>3. Função para Atualizar Pontuação</h4>
+          <pre><code class="gdscript" data-trim>
+# Adicione esta função ao script da cena Main
+func atualizar_pontuacao():
+    pontuacao_label.text = "Pontuação: " + str(pontuacao)
+
+# Esta função será chamada quando um item for coletado
+func _on_coletavel_coletado():
+    # Aumenta a pontuação
+    pontuacao += 1
+    
+    # Atualiza o texto na interface
+    atualizar_pontuacao()
+    
+    # Verificar condição de vitória (opcional)
+    if pontuacao >= 10:  # Ajuste conforme necessário
+        mostrar_mensagem_vitoria()
+          </code></pre>
+          <p>💡 Por enquanto, nosso sistema está pronto mas não conectado aos coletáveis</p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Conectando Tudo -->
+      <section>
+        <section>
+          <h3>🔗 Conectando os Elementos</h3>
+          <p>Vamos juntar todos os componentes e fazer o jogo funcionar</p>
+          <p><small>Use as setas ↓ para ver os passos detalhados</small></p>
+        </section>
+        
+        <section>
+          <h4>1. Adicionando Coletáveis à Cena Principal</h4>
+          <ol>
+            <li>Na cena "Main", use o botão "Instanciar Cena" (ícone de corrente)</li>
+            <li>Selecione "Coletavel.tscn"</li>
+            <li>Clique várias vezes no editor para adicionar múltiplos objetos</li>
+            <li>Posicione os objetos em diferentes locais da cena</li>
+            <li>Selecione cada coletável e, no Inspector:
+              <ul>
+                <li>Vá para a guia "Node"</li>
+                <li>Na seção "Groups", digite "coletaveis"</li>
+                <li>Clique em "Add"</li>
+              </ul>
+            </li>
+          </ol>
+          <p>Isso adiciona cada objeto ao grupo "coletaveis" para fácil referência</p>
+        </section>
+        
+        <section>
+          <h4>2. Conectando os Sinais</h4>
+          <p>Vamos modificar o script da cena Main para conectar os coletáveis:</p>
+          <pre><code class="gdscript" data-trim>
+# No script Main.gd, modifique a função _ready:
+
+func _ready():
+    # Atualiza o texto inicial
+    atualizar_pontuacao()
+    
+    # Conecta o sinal de cada coletável
+    for coletavel in get_tree().get_nodes_in_group("coletaveis"):
+        coletavel.connect("coletado", _on_coletavel_coletado)
+          </code></pre>
+          <p>Este código encontra todos os objetos do grupo "coletaveis" e conecta seus sinais à nossa função de pontuação</p>
+        </section>
+        
+        <section>
+          <h4>3. Testando o Jogo</h4>
+          <ol>
+            <li>Salve todas as cenas: <kbd>Ctrl+Shift+S</kbd></li>
+            <li>Pressione <kbd>F5</kbd> para executar o jogo</li>
+            <li>Use as setas direcionais para mover o personagem</li>
+            <li>Colete os objetos e observe a pontuação aumentar</li>
+          </ol>
+          <p>Parabéns! Você criou um jogo básico com coletáveis!</p>
+          <p>💡 A partir daqui, você pode adicionar mais elementos como obstáculos, inimigos, sons, e personalizar de acordo com seu tema social.</p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Adicionando a Mensagem Social -->
+      <section>
+        <section>
+          <h3>💭 Integrando a Mensagem Social</h3>
+          <p>Vamos adicionar sentido ao jogo conectando-o ao tema social escolhido</p>
+          <p><small>Use as setas ↓ para ver as opções e exemplos</small></p>
+        </section>
+        <section>
+          <h4>1. Métodos para Integrar a Mensagem</h4>
+          <p>Três abordagens principais para transmitir sua mensagem social:</p>
+          <ul>
+            <li><strong>Narrativa</strong> - Através da história do jogo</li>
+            <li><strong>Mecânicas</strong> - Através das regras e interações</li>
+            <li><strong>Visual</strong> - Através de elementos gráficos e cenário</li>
+          </ul>
+          <p><small>Detalhes nas próximas telas ↓</small></p>
+        </section>
+        
+        <section>
+          <h4>1.1. Abordagem Narrativa</h4>
+          <p>Integre sua mensagem através da história:</p>
+          <ul>
+            <li>Tela inicial com contexto do problema social</li>
+            <li>Diálogos durante o jogo em momentos-chave</li>
+            <li>Textos explicativos conectando ações à realidade</li>
+          </ul>
+          <img src="https://via.placeholder.com/150?text=História" alt="Narrativa" style="border: none; box-shadow: none; background: none;">
+        </section>
+        
+        <section>
+          <h4>1.2. Abordagem de Mecânicas</h4>
+          <p>A mensagem emerge da jogabilidade:</p>
+          <ul>
+            <li>Coletáveis representam ações positivas</li>
+            <li>Obstáculos simbolizam problemas reais</li>
+            <li>Progresso no jogo reflete mudança social</li>
+          </ul>
+          <img src="https://via.placeholder.com/150?text=Gameplay" alt="Mecânicas" style="border: none; box-shadow: none; background: none;">
+        </section>
+        
+        <section>
+          <h4>1.3. Abordagem Visual</h4>
+          <p>Comunique a mensagem através do visual:</p>
+          <ul>
+            <li>Ambiente evolui com o progresso (ex: de poluído para limpo)</li>
+            <li>Personagens e objetos simbolizam elementos do tema</li>
+            <li>Cores e símbolos reforçam a mensagem</li>
+          </ul>
+          <img src="https://via.placeholder.com/150?text=Visual" alt="Visual" style="border: none; box-shadow: none; background: none;">
+        </section>
+        
+        <section>
+          <h4>2. Exemplo: Tela com Mensagem Educativa</h4>
+          <ol>
+            <li>Na cena "Main", adicione um nó filho "CanvasLayer"</li>
+            <li>Renomeie para "MensagemFinal"</li>
+            <li>Adicione um filho "ColorRect" para o fundo</li>
+            <li>Configure no Inspector:
+              <ul>
+                <li>Anchor/Margins: Preencha toda a tela</li>
+                <li>Color: Escolha uma cor com transparência</li>
+              </ul>
+            </li>
+            <li>Adicione um nó filho "Label" ao ColorRect</li>
+            <li>Configure texto informativo e educativo sobre o tema</li>
+            <li>Adicione um botão "Jogar Novamente" se desejar</li>
+            <li>Defina MensagemFinal.visible = false inicialmente</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h4>3. Mostrando a Mensagem no Final</h4>
+          <p>Adicione esta função ao script da cena Main:</p>
+          <pre><code class="gdscript" data-trim>
+# Função para mostrar mensagem educativa no final
+func mostrar_mensagem_vitoria():
+    # Pausa o jogo
+    get_tree().paused = true
+    
+    # Torna a mensagem visível
+    $MensagemFinal.visible = true
+    
+    # Define o texto educativo baseado no tema
+    $MensagemFinal/ColorRect/Label.text = """
+    Parabéns! Você coletou {0} itens recicláveis.
+    
+    Sabia que? No Brasil, apenas 3% de todo o lixo produzido
+    é reciclado, enquanto que em países desenvolvidos
+    esse número pode chegar a 60%.
+    
+    Pequenas ações como separar o lixo reciclável
+    fazem uma grande diferença para o planeta!
+    
+    VOCÊ pode ser parte da solução!
+    """.format([pontuacao])
+          </code></pre>
+          <p><small>Personalize esta mensagem conforme o tema social escolhido</small></p>
+        </section>
+      </section>
+
+      <!-- Seção de Tutorial Detalhado - Finalizando o Projeto -->
+      
+
+      <!-- Slide: Justificativa -->
       <section>
         <h3>💬 Justificativa</h3>
         <p>
