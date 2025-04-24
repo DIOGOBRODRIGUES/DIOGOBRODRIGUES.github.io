@@ -88,14 +88,142 @@
           <li>🎮 Funcionalidade e jogabilidade</li>
           <li>📢 Clareza da mensagem</li>
           <li>🎧 Qualidade visual e sonora</li>
-    
         </ul>
       </section>
 
-      
-    
+      <!-- Slide 8: Instalação Godot -->
+      <section>
+        <h3>🚀 Primeiros Passos: Instalação</h3>
+        <ol>
+          <li>Acesse <a href="https://godotengine.org/download" target="_blank">godotengine.org/download</a></li>
+          <li>Baixe a versão Godot Engine - Standard (4.x)</li>
+          <li>Versão para Windows: .exe ou .zip</li>
+          <li>Versão para Mac: .dmg ou .zip</li>
+          <li>Versão para Linux: .AppImage ou .tar.gz</li>
+          <li>💡 Godot não requer instalação! Execute diretamente o arquivo baixado</li>
+        </ol>
+      </section>
 
-      <!-- Slide 10 -->
+      <!-- Slide 9: Criando Projeto -->
+      <section>
+        <h3>📂 Criando seu Primeiro Projeto</h3>
+        <ol>
+          <li>Abra o Godot Engine</li>
+          <li>Clique em "Novo Projeto"</li>
+          <li>Dê um nome ao projeto (ex: "MissaoPlanetaLimpo")</li>
+          <li>Escolha um diretório para salvar</li>
+          <li>Selecione "Renderer: Forward+"</li>
+          <li>Clique em "Criar e Editar"</li>
+        </ol>
+        <p>💡 Salve o projeto em um local de fácil acesso!</p>
+      </section>
+
+      <!-- Slide 10: Interface do Godot -->
+      <section>
+        <h3>🖥️ Interface do Godot</h3>
+        <ul>
+          <li>📋 <strong>FileSystem:</strong> Arquivos e pastas do projeto</li>
+          <li>🌳 <strong>Scene:</strong> Árvore de nós da cena atual</li>
+          <li>⚙️ <strong>Inspector:</strong> Propriedades do nó selecionado</li>
+          <li>👁️ <strong>Viewport:</strong> Visualização da cena (2D/3D)</li>
+          <li>🎬 <strong>Scene Dock:</strong> Cenas disponíveis</li>
+        </ul>
+        <p>💡 Pressione F1 para abrir a documentação!</p>
+      </section>
+
+      <!-- Slide 11: Estrutura de Cenas -->
+      <section>
+        <h3>🧩 Estrutura de Cenas</h3>
+        <ul>
+          <li>Godot usa um sistema de <strong>cenas</strong> e <strong>nós</strong></li>
+          <li>Uma cena é composta por nós organizados em hierarquia</li>
+          <li>Para criar uma cena: Clique em "+" no editor de cenas</li>
+          <li>Nós principais para um microjogo 2D:</li>
+          <ul>
+            <li>Node2D: Nó base para elementos 2D</li>
+            <li>Sprite2D: Imagens e gráficos</li>
+            <li>CharacterBody2D: Personagens controláveis</li>
+            <li>CollisionShape2D: Colisões</li>
+            <li>Area2D: Áreas de interação</li>
+          </ul>
+        </ul>
+      </section>
+
+      <!-- Slide 12: GDScript Básico -->
+      <section>
+        <h3>📝 GDScript Básico</h3>
+        <pre><code class="gdscript">
+extends CharacterBody2D  # Herda de CharacterBody2D
+
+# Variáveis
+var speed = 300
+var score = 0
+
+# Função chamada a cada frame
+func _process(delta):
+    # Movimento do personagem
+    var direction = Vector2.ZERO
+    if Input.is_action_pressed("ui_right"):
+        direction.x += 1
+    if Input.is_action_pressed("ui_left"):
+        direction.x -= 1
+    
+    velocity = direction.normalized() * speed
+    move_and_slide()
+        </code></pre>
+      </section>
+
+      <!-- Slide 13: Signals -->
+      <section>
+        <h3>📣 Signals (Sinais)</h3>
+        <p>Signals permitem que nós se comuniquem sem referência direta.</p>
+        <pre><code class="gdscript">
+# No nó que emite o sinal (ex: Area2D)
+signal item_collected
+
+func _on_body_entered(body):
+    if body.name == "Player":
+        emit_signal("item_collected")
+        queue_free()  # Remove o nó
+
+# No nó que recebe o sinal (ex: Player)
+func _ready():
+    $Area2D.connect("item_collected", _on_item_collected)
+
+func _on_item_collected():
+    score += 1
+    print("Score: ", score)
+        </code></pre>
+      </section>
+
+      <!-- Slide 14: Recursos Gratuitos -->
+      <section>
+        <h3>🎨 Recursos Gratuitos</h3>
+        <p>Sites para obter assets gratuitos para seu microjogo:</p>
+        <ul>
+          <li><a href="https://kenney.nl" target="_blank">Kenney.nl</a> - Assets de alta qualidade</li>
+          <li><a href="https://opengameart.org" target="_blank">OpenGameArt.org</a> - Comunidade de arte CC</li>
+          <li><a href="https://freesound.org" target="_blank">FreeSound.org</a> - Efeitos sonoros</li>
+          <li><a href="https://incompetech.com" target="_blank">Incompetech</a> - Músicas</li>
+          <li><a href="https://www.gameart2d.com" target="_blank">GameArt2D</a> - Sprites e backgrounds</li>
+        </ul>
+        <p>💡 Verifique sempre as licenças e dê os créditos apropriados!</p>
+      </section>
+
+      <!-- Slide 15: Exportando seu Jogo -->
+      <section>
+        <h3>🚢 Exportando seu Jogo</h3>
+        <ol>
+          <li>Vá para "Projeto" > "Exportar..."</li>
+          <li>Clique em "Adicionar..." e selecione a plataforma</li>
+          <li>Configure as opções de exportação</li>
+          <li>Clique em "Exportar Projeto..."</li>
+          <li>Escolha o local e nome do arquivo</li>
+        </ol>
+        <p>💡 Para Web/HTML5: Exporte para testar no navegador sem instalação!</p>
+      </section>
+
+      <!-- Slide 16 -->
       <section>
         <h3>💬 Justificativa</h3>
         <p>
@@ -103,6 +231,7 @@
         </p>
       </section>
 
+      
     </div>
   </div>
 
