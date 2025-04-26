@@ -3,65 +3,193 @@
 
 <head>
   <meta charset="utf-8">
-  <title>titulo da aula </title>
+  <title>Aula 8 - Introdução ao desenvolvimento 3D</title>
 
-  <meta name="description" content="conteudo da aula ">
+  <meta name="description" content="Introdução ao desenvolvimento de jogos 3D com Godot">
   <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
   <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
   <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
 
   <!-- Syntax Highlighting -->
-  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
   <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
-
 </head>
 
 <body>
- 
-  <div class="reveal">
-    <div class="slides">
-      <!-- Slide 1 - Título da Aula -->
-      <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Numero e titulo da aula </h3>
-        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      </section>
-      
 
-   </div>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- Slide 1 - Título da Aula -->
+    <section>
+      <p>🏛️ Centro Universitário Maurício de Nassau</p>
+      <h3>Aula 8 - Introdução ao desenvolvimento 3D</h3>
+      <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+      <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+    </section>
+
+    <!-- Slide 2 - Introdução ao 3D (resumido) -->
+    <section>
+      <h3>Introdução ao 3D 🚀</h3>
+      <p><strong>Criar jogos 3D</strong> pode ser desafiador! A coordenada <strong>Z</strong> adiciona mais complexidade 🎯.</p>
+      <p>A boa notícia: o <strong>Godot</strong> usa APIs <em>semelhantes</em> para <strong>2D</strong> e <strong>3D</strong>! 🛠️</p>
+      <img src="https://docs.godotengine.org/en/stable/_images/godot-tps-demo.webp" alt="Godot 3D TPS Demo" style="width: 60%; margin-top: 20px;">
+    </section>
+
+    <!-- Slide 3 - Sistema de Coordenadas -->
+    <section>
+      <h3>Sistema de Coordenadas 🗺️</h3>
+      <p>📏 <strong>Godot</strong> usa sistema métrico em 3D: <strong>1 unidade = 1 metro</strong>.</p>
+      <p>🎨 Sempre crie modelos na <strong>escala correta</strong>! Evita problemas em física e renderização.</p>
+      <p>🧭 Eixos:</p>
+      <ul>
+        <li><strong>X</strong> ➔ Lados</li>
+        <li><strong>Y</strong> ➔ Cima/Baixo</li>
+        <li><strong>Z</strong> ➔ Frente/Trás (direção principal)</li>
+      </ul>
+      <p>🔵 Godot usa <em>sistema destro</em> para alinhar luzes, câmeras e objetos!</p>
+    </section>
+    <!-- Slide 4 - Gráfico de comparação de sistemas 3D -->
+    <section>
+      <h3>Comparação com outros softwares 3D 🧭</h3>
+      <img src="https://docs.godotengine.org/en/stable/_images/introduction_to_3d_coordinate_systems.webp" alt="Comparação de Sistemas de Coordenadas 3D" style="width: 60%; margin-top: 20px;">
+    </section>
+
+    <!-- Slide 5 - Dispositivos Espaciais e de Manipulação (Imagem Reduzida) -->
+    <section>
+      <h3>Manipulação de Objetos no 3D 🎮</h3>
+      <p>Use <strong>manipuladores</strong> para mover, girar e dimensionar objetos!</p>
+      <p>🛠️ Eixos e cores:</p>
+      <p>🔴 X (vermelho) | 🟢 Y (verde) | 🔵 Z (azul)</p>
+      <p><em>Essas cores também valem para grades, shaders e vetores.</em></p>
+      <img src="https://docs.godotengine.org/en/stable/_images/tuto_3d5.webp" alt="Manipulação 3D Godot" style="width: 30%; margin-top: 20px;">
+    </section>
+
+    <section>
+      <h2>Conteúdo 3D no Godot</h2>
+      <p>🎨 No desenvolvimento 3D, carregar conteúdo é mais complexo do que no 2D.</p>
+      <ul>
+        <li>Necessário usar ferramentas especiais chamadas <strong>DCCs</strong> (Digital Content Creation).</li>
+        <li>O conteúdo precisa ser exportado para formatos de arquivo compatíveis (Exchange formats).</li>
+        <li>Ao contrário das imagens 2D, formatos 3D não são totalmente padronizados.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Geometria Gerada no Godot</h2>
+      <p>🧩 É possível criar geometrias personalizadas programaticamente!</p>
+      <ul>
+        <li>Utilize o recurso <strong>ArrayMesh</strong> para gerar formas customizadas.</li>
+        <li>Crie arrays de dados e use <code>add_surface_from_arrays()</code>.</li>
+        <li>Ideal para modelos que não precisam ser atualizados constantemente.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>SurfaceTool: Facilitando a Criação</h2>
+      <p>🔧 Para facilitar a criação de geometrias, use a classe auxiliar <strong>SurfaceTool</strong>:</p>
+      <ul>
+        <li>API mais intuitiva para criação de superfícies.</li>
+        <li>Ajuda na <strong>indexação</strong>, <strong>geração de normais</strong> e <strong>tangentes</strong>.</li>
+        <li>Permite criar malhas 3D de forma mais prática e rápida.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Atenção ao Desempenho</h2>
+      <p>⚡ Criar vértices manualmente tem custo de desempenho!</p>
+      <ul>
+        <li>Evite atualizar a geometria constantemente.</li>
+        <li>Use este método para criar <strong>geometrias estáticas</strong> no jogo.</li>
+        <li>Atualizações frequentes podem prejudicar o FPS.</li>
+      </ul>
+    </section>
+    <!-- Slide 7 - Ambiente -->
+    <section>
+      <h3>Ambiente no 3D 🌎</h3>
+      <p>🎨 Edite o ambiente usando o nó <strong>WorldEnvironment</strong>!</p>
+      <p>⚙️ Ajuste cor de fundo, adicione <em>skybox</em> e efeitos de pós-processamento.</p>
+      <p>🎥 O ambiente também pode ser sobrescrito pela <strong>câmera</strong>.</p>
+    </section>
+
+    <!-- Slide 8 - Visualização do Ambiente e Luz -->
+    <section>
+      <h3>Visualização de Ambiente e Luz 💡</h3>
+      <p>🔍 Sem <strong>WorldEnvironment</strong> ou <strong>DirectionalLight3D</strong>, o editor ativa luz/ambiente de pré-visualização.</p>
+      <p>🖥️ Essa luz só aparece no editor ➔ <strong>não</strong> é exportada!</p>
+      <p>🔧 Pode ser ligada/desligada nos ícones do menu superior.</p>
+      <img src="https://docs.godotengine.org/en/stable/_images/tuto_3d8.webp" alt="Ambiente e Luz Godot" style="width: 50%; margin-top: 20px;">
+    </section>
+    <!-- Slide 9 - Ajustes no Ambiente de Visualização -->
+    <section>
+      <h3>Ajustes de Ambiente e Luz ⚙️</h3>
+      <p>☑️ O menu de <strong>três pontos</strong> ao lado dos ícones permite configurar ambiente e luz de visualização!</p>
+      <p>🎛️ Use para ajustar propriedades se a pré-visualização estiver ativada.</p>
+      <img src="https://docs.godotengine.org/en/stable/_images/tuto_3d9.webp" alt="Ajuste Ambiente e Luz" style="width: 30%; margin-top: 20px;">
+    </section>
+
+    <!-- Slide 10 - Câmeras no 3D -->
+    <section>
+      <h3>Câmeras 🎥</h3>
+      <p>👀 Sem uma <strong>Câmera 3D</strong>, nada será exibido na cena!</p>
+      <p>🎯 Câmeras podem usar <strong>projeção ortogonal</strong> ou <strong>perspectiva</strong>.</p>
+      <img src="https://docs.godotengine.org/en/stable/_images/tuto_3d10.webp" alt="Câmeras 3D Godot" style="width: 30%; margin-top: 20px;">
+    </section>
+
+    <!-- Slide 11 - Comportamento das Câmeras -->
+    <section>
+      <h3>Comportamento das Câmeras 🎥✨</h3>
+      <p>🎯 Câmeras são exibidas apenas na <strong>viewport pai ou avô</strong>.</p>
+      <p>🖥️ Cada <em>subviewport</em> precisa de sua própria câmera filha!</p>
+      <p>⚡ Regras principais:</p>
+      <ul>
+        <li>📸 Se nenhuma câmera, a primeira ativa automaticamente.</li>
+        <li>✅ Se uma câmera tiver <strong>“atual”</strong> marcada ➔ ela é usada como prioridade.</li>
+        <li>🔄 Se a câmera ativa sair, a próxima câmera na árvore assume.</li>
+      </ul>
+    </section>
+    <!-- Slide 12 - Tutorial de Primeiro Jogo 3D -->
+    <section>
+      <h3>🚀 Tutorial: Primeiro Jogo 3D no Godot</h3>
+      <p>🎮 Quer praticar tudo que aprendemos?</p>
+      <p>👉 Confira o tutorial oficial da Godot:</p>
+      <p><a href="https://docs.godotengine.org/en/stable/getting_started/first_3d_game/index.html" target="_blank">
+        Primeiros passos no desenvolvimento 3D 🌟
+      </a></p>
+    </section>
+
+    <!-- Slide 13 - Exemplo de Jogo 3D Finalizado -->
+    <section>
+      <h3>🎯 Exemplo de Jogo Finalizado</h3>
+      <p>🔵 Veja como pode ficar seu primeiro projeto 3D no Godot:</p>
+      <img src="https://docs.godotengine.org/en/stable/_images/squash-the-creeps-final.gif" alt="Exemplo de Jogo 3D Godot" style="width: 50%; margin-top: 20px;">
+    </section>
   </div>
+</div>
 
-  
-  <script src="../../../reveal.js-master/dist/reveal.js"></script>
-  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
-  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
-  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
-  <script>
-    Reveal.initialize({
-      controls: true,
-      progress: true,
-      center: true,
-      hash: true,
-      slideNumber: true ,
-      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
-    });
-  </script>
+<script src="../../../reveal.js-master/dist/reveal.js"></script>
+<script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+<script src="../../../reveal.js-master/plugin/search/search.js"></script>
+<script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+<script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    center: true,
+    hash: true,
+    slideNumber: true,
+    plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+  });
+</script>
 </body>
 
 </html>
