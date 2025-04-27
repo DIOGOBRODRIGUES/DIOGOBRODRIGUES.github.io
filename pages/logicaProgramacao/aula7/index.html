@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Estruturas de Repetição Aninhadas, Vetores e Matrizes em Visualg</title>
+
+  <meta name="description" content="Aprendendo loops aninhados, vetores e matrizes em Visualg 3.0.7">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7: Estruturas de Repetição Aninhadas, Vetores e Matrizes em Visualg</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Visão geral -->
+      <section>
+        <h2>📋 Conteúdo da Aula</h2>
+        <ul>
+          <li class="fragment">🔄 Loops aninhados - Repetições dentro de repetições</li>
+          <li class="fragment">📊 Vetores - Armazenando coleções de dados</li>
+          <li class="fragment">🧩 Matrizes - Trabalhando com dados bidimensionais</li>
+          <li class="fragment">💻 Exemplos práticos em Visualg 3.0.7</li>
+          <li class="fragment">🏆 Desafios e exercícios</li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO: LOOPS ANINHADOS -->
+      <section>
+        <section>
+          <h2>🔄 Loops Aninhados</h2>
+          <p>Quando uma estrutura de repetição é colocada dentro de outra</p>
+          <div class="fragment">
+            <h3>Principais características:</h3>
+            <ul>
+              <li>Loop externo controla o número de iterações do loop interno</li>
+              <li>Para cada iteração do loop externo, o loop interno executa totalmente</li>
+              <li>Excelente para trabalhar com estruturas bidimensionais</li>
+            </ul>
+          </div>
+          <p class="fragment">⬇️ <i>Deslize para baixo para ver exemplos</i></p>
+        </section>
+
+        <section>
+          <h3>🔄 Estrutura Básica de Loops Aninhados</h3>
+          <pre><code class="language-portugol">algoritmo "LoopsAninhados"
+var
+   i, j: inteiro
+inicio
+   para i de 1 ate 3 faca
+      para j de 1 ate 2 faca
+         escreval("i =", i, " e j =", j)
+      fimpara
+      escreval("") // Quebra de linha
+   fimpara
+fimalgoritmo</code></pre>
+          <p>Saída:</p>
+          <pre class="fragment"><code>i = 1 e j = 1
+i = 1 e j = 2
+i = 2 e j = 1
+i = 2 e j = 2
+i = 3 e j = 1
+i = 3 e j = 2</code></pre>
+        </section>
+
+        <section>
+          <h3>🌟 Exemplo Criativo: Desenhando Padrões</h3>
+          <pre><code class="language-portugol">algoritmo "DesenhoPiramide"
+var
+   linha, coluna, altura: inteiro
+inicio
+   escreva("Digite a altura da pirâmide: ")
+   leia(altura)
+   
+   para linha de 1 ate altura faca
+      // Imprimindo espaços
+      para coluna de 1 ate altura-linha faca
+         escreva(" ")
+      fimpara
+      
+      // Imprimindo asteriscos
+      para coluna de 1 ate 2*linha-1 faca
+         escreva("*")
+      fimpara
+      
+      escreval("") // Quebra de linha
+   fimpara
+fimalgoritmo</code></pre>
+          <p class="fragment">Para altura = 5, obtemos:</p>
+          <pre class="fragment"><code>    *
+   ***
+  *****
+ *******
+*********</code></pre>
+        </section>
+      </section>
+
+      <!-- SEÇÃO: VETORES -->
+      <section>
+        <section>
+          <h2>📊 Vetores em Visualg</h2>
+          <div>
+            <p><i class="fas fa-info-circle"></i> Vetores são estruturas que armazenam sequências de valores do mesmo tipo</p>
+            <ul class="fragment">
+              <li>Também conhecidos como arrays unidimensionais</li>
+              <li>Cada elemento é acessado por um índice numérico</li>
+              <li>No Visualg, os índices começam em 1</li>
+              <li>Facilita o armazenamento e manipulação de conjuntos de dados</li>
+            </ul>
+          </div>
+          <p class="fragment">⬇️ <i>Deslize para baixo para exemplos práticos</i></p>
+        </section>
+
+        <section>
+          <h3>📊 Declaração e Uso Básico de Vetores</h3>
+          <pre><code class="language-portugol">algoritmo "VetoresBasico"
+var
+   notas: vetor[1..5] de real
+   i: inteiro
+   soma, media: real
+inicio
+   // Leitura das notas
+   para i de 1 ate 5 faca
+      escreva("Digite a ", i, "ª nota: ")
+      leia(notas[i])
+      soma <- soma + notas[i]
+   fimpara
+   
+   // Calculando a média
+   media <- soma / 5
+   escreval("A média das notas é: ", media)
+   
+   // Exibindo todas as notas
+   escreval("Notas digitadas:")
+   para i de 1 ate 5 faca
+      escreval("Nota ", i, ": ", notas[i])
+   fimpara
+fimalgoritmo</code></pre>
+        </section>
+
+        <section>
+          <h3>🎮 Exemplo: Jogo da Adivinhação</h3>
+          <pre><code class="language-portugol">algoritmo "JogoAdivinhacao"
+var
+   segredos: vetor[1..5] de inteiro
+   palpite, i, acertos: inteiro
+inicio
+   // Inicializando os números secretos
+   segredos[1] <- 42
+   segredos[2] <- 7
+   segredos[3] <- 13
+   segredos[4] <- 21
+   segredos[5] <- 29
+   
+   acertos <- 0
+   escreval("🎮 JOGO DA ADIVINHAÇÃO 🎮")
+   escreval("Tente adivinhar um dos 5 números secretos")
+   escreva("Digite seu palpite: ")
+   leia(palpite)
+   
+   para i de 1 ate 5 faca
+      se (palpite = segredos[i]) entao
+         acertos <- acertos + 1
+      fimse
+   fimpara
+   
+   se (acertos > 0) entao
+      escreval("🎉 PARABÉNS! Você acertou!")
+   senao
+      escreval("❌ Que pena! Tente novamente.")
+   fimse
+fimalgoritmo</code></pre>
+        </section>
+
+        <section>
+          <h3>🔍 Busca em Vetores</h3>
+          <pre><code class="language-portugol">algoritmo "BuscaEmVetor"
+var
+   nomes: vetor[1..5] de caractere
+   procurado: caractere
+   i, posicao: inteiro
+   encontrado: logico
+inicio
+   // Preenchendo o vetor
+   nomes[1] <- "Ana"
+   nomes[2] <- "Bruno"
+   nomes[3] <- "Carla"
+   nomes[4] <- "Daniel"
+   nomes[5] <- "Eduarda"
+   
+   // Busca
+   escreva("Digite um nome para buscar: ")
+   leia(procurado)
+   
+   encontrado <- falso
+   posicao <- 0
+   
+   para i de 1 ate 5 faca
+      se (nomes[i] = procurado) entao
+         encontrado <- verdadeiro
+         posicao <- i
+         interrompa
+      fimse
+   fimpara
+   
+   se (encontrado) entao
+      escreval("✅ Nome encontrado na posição ", posicao)
+   senao
+      escreval("❌ Nome não encontrado!")
+   fimse
+fimalgoritmo</code></pre>
+        </section>
+      </section>
+
+      <!-- SEÇÃO: MATRIZES -->
+      <section>
+        <section>
+          <h2>🧩 Matrizes em Visualg</h2>
+          <p><i class="fas fa-table"></i> Matrizes são estruturas bidimensionais que armazenam dados em linhas e colunas</p>
+          <ul class="fragment">
+            <li>Arrays bidimensionais - podem ser visualizados como tabelas</li>
+            <li>Acessadas usando dois índices: linha e coluna</li>
+            <li>Úteis para representar dados tabulares, grades e sistemas de coordenadas</li>
+            <li>Indicadas para jogos, cálculos matemáticos e organização de informações</li>
+          </ul>
+          <p class="fragment">⬇️ <i>Deslize para baixo para ver exemplos</i></p>
+        </section>
+
+        <section>
+          <h3>🧩 Declaração e Uso Básico de Matrizes</h3>
+          <pre><code class="language-portugol">algoritmo "MatrizBasica"
+var
+   matriz: vetor[1..3, 1..3] de inteiro
+   i, j: inteiro
+inicio
+   // Preenchendo a matriz
+   para i de 1 ate 3 faca
+      para j de 1 ate 3 faca
+         escreva("Digite o valor da posição [", i, ",", j, "]: ")
+         leia(matriz[i, j])
+      fimpara
+   fimpara
+   
+   // Exibindo a matriz formatada
+   escreval("Matriz digitada:")
+   para i de 1 ate 3 faca
+      para j de 1 ate 3 faca
+         escreva(matriz[i, j]:4) // Formata com 4 espaços
+      fimpara
+      escreval() // Quebra de linha ao final de cada linha
+   fimpara
+fimalgoritmo</code></pre>
+        </section>
+
+        <section>
+          <h3>🎲 Exemplo: Jogo da Velha</h3>
+          <pre><code class="language-portugol">algoritmo "JogoDaVelha"
+var
+   tabuleiro: vetor[1..3, 1..3] de caractere
+   i, j, jogadas: inteiro
+   jogador: caractere
+   linha, coluna: inteiro
+   ganhou: logico
+inicio
+   // Inicializando o tabuleiro vazio
+   para i de 1 ate 3 faca
+      para j de 1 ate 3 faca
+         tabuleiro[i, j] <- " "
+      fimpara
+   fimpara
+   
+   jogador <- "X" // Primeiro jogador é o X
+   jogadas <- 0
+   ganhou <- falso
+   
+   enquanto (jogadas < 9) e (nao ganhou) faca
+      // Exibindo o tabuleiro
+      limpatela
+      escreval("  JOGO DA VELHA")
+      escreval("----------------")
+      para i de 1 ate 3 faca
+         escreva(" |")
+         para j de 1 ate 3 faca
+            escreva(" ", tabuleiro[i, j], " |")
+         fimpara
+         escreval("")
+         escreval("----------------")
+      fimpara
+      
+      // Lendo a jogada
+      escreval("Jogador ", jogador, ", sua vez!")
+      escreva("Linha (1-3): ")
+      leia(linha)
+      escreva("Coluna (1-3): ")
+      leia(coluna)
+      
+      // Verificando se a jogada é válida
+      se (tabuleiro[linha, coluna] = " ") entao
+         tabuleiro[linha, coluna] <- jogador
+         jogadas <- jogadas + 1
+         
+         // Verificar se ganhou (simplificado)
+         // ... código de verificação da vitória...
+         
+         // Alternar jogador
+         se (jogador = "X") entao
+            jogador <- "O"
+         senao
+            jogador <- "X"
+         fimse
+      senao
+         escreval("Posição ocupada! Tente novamente.")
+         Util.Aguarde(2000)
+      fimse
+   fimalgoritmo</code></pre>
+        </section>
+
+        <section>
+          <h3>📊 Exemplo: Soma de Matrizes</h3>
+          <pre><code class="language-portugol">algoritmo "SomaMatrizes"
+var
+   A, B, C: vetor[1..2, 1..3] de inteiro
+   i, j: inteiro
+inicio
+   // Lendo a primeira matriz
+   escreval("🔢 Digite os valores da matriz A:")
+   para i de 1 ate 2 faca
+      para j de 1 ate 3 faca
+         escreva("A[", i, ",", j, "]: ")
+         leia(A[i, j])
+      fimpara
+   fimpara
+   
+   // Lendo a segunda matriz
+   escreval("🔢 Digite os valores da matriz B:")
+   para i de 1 ate 2 faca
+      para j de 1 ate 3 faca
+         escreva("B[", i, ",", j, "]: ")
+         leia(B[i, j])
+      fimpara
+   fimpara
+   
+   // Somando as matrizes
+   para i de 1 ate 2 faca
+      para j de 1 ate 3 faca
+         C[i, j] <- A[i, j] + B[i, j]
+      fimpara
+   fimpara
+   
+   // Exibindo a matriz resultante
+   escreval("📊 Matriz Resultante (A + B):")
+   para i de 1 ate 2 faca
+      escreva("| ")
+      para j de 1 ate 3 faca
+         escreva(C[i, j]:4)
+      fimpara
+      escreval(" |")
+   fimpara
+fimalgoritmo</code></pre>
+        </section>
+      </section>
+
+      <!-- INTEGRAÇÃO DOS CONCEITOS -->
+      <section>
+        <h2>🌟 Integrando Loops, Vetores e Matrizes</h2>
+        <pre><code class="language-portugol">algoritmo "SistemaNotas"
+var
+   turmas: vetor[1..3, 1..5] de real  // 3 turmas, 5 alunos cada
+   medias: vetor[1..3] de real        // média de cada turma
+   i, j: inteiro
+   soma, mediaGeral: real
+inicio
+   // Entrada de dados das notas
+   para i de 1 ate 3 faca
+      escreval("📚 Turma ", i, ":")
+      para j de 1 ate 5 faca
+         escreva("   Nota do aluno ", j, ": ")
+         leia(turmas[i, j])
+      fimpara
+   fimpara
+   
+   // Cálculo das médias por turma
+   para i de 1 ate 3 faca
+      soma <- 0
+      para j de 1 ate 5 faca
+         soma <- soma + turmas[i, j]
+      fimpara
+      medias[i] <- soma / 5
+   fimpara
+   
+   // Cálculo da média geral
+   soma <- 0
+   para i de 1 ate 3 faca
+      soma <- soma + medias[i]
+   fimpara
+   mediaGeral <- soma / 3
+   
+   // Exibição dos resultados
+   escreval("")
+   escreval("📊 RESULTADOS:")
+   para i de 1 ate 3 faca
+      escreval("Média da Turma ", i, ": ", medias[i]:4:1)
+   fimpara
+   escreval("Média Geral das Turmas: ", mediaGeral:4:1)
+   
+   // Analisando turmas acima da média
+   escreval("")
+   escreval("🏆 TURMAS DESTAQUE:")
+   para i de 1 ate 3 faca
+      se (medias[i] > mediaGeral) entao
+         escreval("- Turma ", i, " (média ", medias[i]:4:1, ")")
+      fimse
+   fimpara
+fimalgoritmo</code></pre>
+      </section>
+
+      <!-- EXERCÍCIOS -->
+      <section>
+        <h2>🏋️ Exercícios Propostos</h2>
+        <ol>
+          <li class="fragment">Crie um algoritmo que preencha uma matriz 4x4 com números aleatórios e encontre o maior e o menor valor.</li>
+          <li class="fragment">Implemente um programa que leia duas matrizes 2x2 e mostre a matriz resultante da multiplicação.</li>
+          <li class="fragment">Desenvolva um algoritmo que leia um vetor de 10 nomes e ordene-os em ordem alfabética.</li>
+          <li class="fragment">Crie um programa que simule um campeonato com 4 times, onde cada time joga contra todos os outros, armazenando os resultados em uma matriz.</li>
+          <li class="fragment">Implemente um algoritmo para um sistema de reservas de teatro com 5 fileiras e 10 cadeiras por fileira.</li>
+        </ol>
+      </section>
+      
+      <!-- SLIDE FINAL -->
+      <section>
+        <h2>📚 Recursos Adicionais</h2>
+        <ul>
+          <li><i class="fas fa-book"></i> Manual do Visualg 3.0.7: <a href="http://visualg3.com.br/manual/">visualg3.com.br/manual</a></li>
+          <li><i class="fas fa-download"></i> Download Visualg: <a href="https://visualg3.com.br/">visualg3.com.br</a></li>
+        </ul>
+        <div class="fragment">
+          <h3>💬 Dúvidas?</h3>
+          <p>Entre em contato: <br>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <i class="fas fa-envelope"></i> 010117368@prof.uninassau.edu.br</p>
+        </div>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
