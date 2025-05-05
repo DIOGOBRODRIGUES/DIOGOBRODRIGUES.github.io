@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<hea``d>
+  <meta charset="utf-8">
+  <title>Sensores no Expo/React Native</title>
+
+  <meta name="description" content="Aula sobre ut`ilização de sensores no desenvolvimento mobile com Expo/React Native">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .highlighted {
+      background-color: rgba(255, 255, 0, 0.2);
+    }
+    .sensor-icon {
+      font-size: 2.5em;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .code-notes {
+      font-size: 0.8em;
+      color: #ababab;
+      margin-top: 5px;
+    }
+    .exercise-box {
+      background-color: rgba(100, 148, 237, 0.2);
+      border-left: 4px solid cornflowerblue;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    .warning-box {
+      background-color: rgba(255, 165, 0, 0.2);
+      border-left: 4px solid orange;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    .two-columns {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 9: Sensores em Aplicações Mobile com Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h3>🎯 Objetivos da Aula</h3>
+        <ul>
+          <li>Compreender o que são sensores em dispositivos móveis</li>
+          <li>Conhecer os principais sensores disponíveis via Expo</li>
+          <li>Aprender a utilizar a API de sensores do Expo</li>
+          <li>Implementar aplicações que utilizem sensores</li>
+          <li>Explorar casos de uso práticos para sensores</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Introdução aos Sensores -->
+      <section>
+        <h3>📱 Sensores em Dispositivos Móveis</h3>
+            <p>Sensores são componentes de hardware que:</p>
+            <ul>
+              <li>Coletam dados do ambiente físico</li>
+              <li>Permitem interação contextual</li>
+              <li>Enriquecem a experiência do usuário</li>
+              <li>Possibilitam funcionalidades inovadoras</li>
+            </ul>
+      </section>
+
+      <!-- Slide 4 - Importância dos Sensores -->
+      <section>
+        <h3>🚀 Por que utilizar sensores?</h3>
+        <ul>
+          <li>Criam experiências imersivas e contextuais</li>
+          <li>Permitem que o app se adapte ao ambiente do usuário</li>
+          <li>Possibilitam novas formas de interação</li>
+          <li>Viabilizam aplicações como fitness, jogos, AR/VR, navegação</li>
+          <li>Diferenciam seu aplicativo da concorrência</li>
+        </ul>
+        <div class="warning-box">
+          <p>⚠️ Cuidado: O uso de sensores consome bateria e pode envolver questões de privacidade!</p>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Sensores no Expo -->
+      <section>
+        <h3>🧰 Sensores Disponíveis no Expo</h3>
+        <div class="two-columns">
+          <div class="column">
+            <ul>
+              <li><i class="fas fa-tachometer-alt"></i> Acelerômetro</li>
+              <li><i class="fas fa-sync"></i> Giroscópio</li>
+              <li><i class="fas fa-compass"></i> Magnetômetro</li>
+              <li><i class="fas fa-map-marker-alt"></i> GPS/Localização</li>
+              <li><i class="fas fa-lightbulb"></i> Sensor de Luz</li>
+            </ul>
+          </div>
+          <div class="column">
+            <ul>
+              <li><i class="fas fa-ruler-vertical"></i> Barômetro</li>
+              <li><i class="fas fa-thermometer-half"></i> Temperatura</li>
+              <li><i class="fas fa-walking"></i> Pedômetro</li>
+              <li><i class="fas fa-user-alt"></i> Proximidade</li>
+              <li><i class="fas fa-wifi"></i> Sensor de NFC</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6 - Instalação e Preparação -->
+      <section>
+        <h3>⚙️ Instalação e Configuração</h3>
+        <p>A maioria dos sensores já está disponível no pacote principal do Expo</p>
+        <pre><code class="bash" data-trim data-line-numbers>
+# Para criar um novo projeto Expo
+npx create-expo-app sensores-app --template
+cd sensores-app
+
+# Para alguns sensores específicos pode ser necessário 
+#instalar pacotes adicionais
+npx expo install expo-sensors
+npx expo install expo-location
+        </code></pre>
+        <p class="code-notes">Todos os exemplos desta aula usam a biblioteca <code>expo-sensors</code></p>
+      </section>
+
+      <!-- Slide 7 - Acelerômetro -->
+      <section>
+        <h3>📊 Acelerômetro</h3>
+        <p>Mede a aceleração do dispositivo nos eixos x, y e z</p>
+        <pre><code class="javascript"  data-trim data-line-numbers='1-3|5-8|9-10|12-18'>
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Accelerometer } from 'expo-sensors';
+
+// Define a taxa de atualização (intervalo em ms)
+const _interval = 100;
+let subscription = null;
+
+export default function App() {
+  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+  
+  // Função para subscrever aos eventos do acelerômetro
+  const _subscribe = () => {
+    subscription = 
+      Accelerometer.addListener(accelerometerData => {
+      setData(accelerometerData);
+    });
+    Accelerometer.setUpdateInterval(_interval);
+  };
+        </code></pre>
+        <strong>Continua...</strong>
+      </section>
+
+      <!-- Slide 8 - Acelerômetro (continuação) -->
+      <section>
+        <h3>📊 Acelerômetro (continuação)</h3>
+        <pre><code class="javascript" data-trim data-line-numbers data-line="3-5|8-17">
+  // Função para cancelar a subscrição
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    subscription = null;
+  };
+
+  useEffect(() => {
+    _subscribe();
+    // Limpa a subscrição quando o componente é desmontado
+    return () => _unsubscribe();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Acelerômetro:</Text>
+      <Text style={styles.text}>x: {data.x.toFixed(2)}</Text>
+      <Text style={styles.text}>y: {data.y.toFixed(2)}</Text>
+      <Text style={styles.text}>z: {data.z.toFixed(2)}</Text>
+    </View>
+  );
+}
+        </code></pre>
+        <p class="code-notes">🔑 Use <code>useEffect</code> para gerenciar o ciclo de vida da subscrição do sensor</p>
+      </section>
+
+      <!-- Slide 9 - Giroscópio -->
+      <section>
+        <h3>🔄 Giroscópio</h3>
+        <p>Detecta a rotação do dispositivo nos eixos x, y e z</p>
+        <pre><code class="javascript" data-trim data-line-numbers ="1-3|5-14|16-18|20-28|30-39|40-50"><script>
+import React, { useState, useEffect } from 'react';
+import { Gyroscope } from 'expo-sensors';
+import { StyleSheet, Text, View, Button } from 'react-native';
+
+export default function GyroscopeScreen() {
+  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+  const [subscription, setSubscription] = useState(null);
+
+  const _subscribe = () => {
+    setSubscription(
+      Gyroscope.addListener(gyroscopeData => {
+        setData(gyroscopeData);
+      })
+    );
+    // Define a frequência de atualização para 500ms (2 vezes por segundo)
+    Gyroscope.setUpdateInterval(500);
+  };
+
+ /*
+    Gerenciamento de subscrição do sensor.
+    
+    _unsubscribe:
+    Remove a subscrição ativa e redefine o estado.
+    
+    useEffect:
+    Gerencia o ciclo de vida - inscreve ao montar o componente
+    e cancela a inscrição ao desmontar, evitando vazamentos de memória.
+*/
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Dados do Giroscópio:</Text>
+      <Text style={styles.text}>x: {data.x.toFixed(3)} rad/s</Text>
+      <Text style={styles.text}>y: {data.y.toFixed(3)} rad/s</Text>
+      <Text style={styles.text}>z: {data.z.toFixed(3)} rad/s</Text>
+      <View style={styles.buttonContainer}>
+        <Button title={subscription ? 'Parar' : 'Iniciar'} 
+                onPress={subscription ? _unsubscribe : _subscribe} />
+      </View>
+    </View>
+  );
+}
+       </script></code></pre>
+  
+      </section>
+
+
+      <!-- Slide 10 - Magnetômetro -->
+      <section>
+        <h3>🧲 Magnetômetro (Bússola)</h3>
+        <p>Mede o campo magnético ao redor do dispositivo</p>
+        <pre><code class="javascript" data-trim data-line-numbers="3-5|8-20|21|24-27|29-36|40-43|50-62"><script>
+
+import React, { useState, useEffect } from 'react';
+import { Magnetometer } from 'expo-sensors';
+import { StyleSheet, Text, View, Image } from 'react-native';
+
+export default function CompassScreen() {
+  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+  const [subscription, setSubscription] = useState(null);
+  const [heading, setHeading] = useState(0);
+
+  const _subscribe = () => {
+    setSubscription(
+      Magnetometer.addListener(result => {
+        setData(result);
+        // Calcular o ângulo da bússola
+        const angle = calculateHeading(result);
+        setHeading(angle);
+      })
+    );
+    Magnetometer.setUpdateInterval(100);
+  };
+
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  // Cálculo do Norte magnético usando o arcotangente
+  const calculateHeading = (magnetometerData) => {
+    const { x, y } = magnetometerData;
+    let angle = 0;
+    if (x !== 0 || y !== 0) {
+      angle = Math.atan2(y, x) * (180 / Math.PI);
+      if (angle < 0) angle += 360;
+    }
+    return angle;
+  };
+  
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Bússola</Text>
+      <Text style={styles.text}>Direção: {heading.toFixed(2)}°</Text>
+      <View style={styles.compassContainer}>
+        <Image
+          source={require('./assets/compass-needle.png')}
+          style={[
+            styles.compassImage,
+            { transform: [{ rotate: `${360 - heading}deg` }] }
+          ]}
+        />
+      </View>
+      <Text style={styles.text}>Dados do Magnetômetro:</Text>
+      <Text style={styles.text}>x: {data.x.toFixed(2)} μT</Text>
+      <Text style={styles.text}>y: {data.y.toFixed(2)} μT</Text>
+      <Text style={styles.text}>z: {data.z.toFixed(2)} μT</Text>
+    </View>
+  );
+}
+</script> </code></pre>
+      </section>
+
+
+      <!-- Slide 11 - Sensor de Luz -->
+      <section>
+        <h3>💡 Sensor de Luz Ambiente</h3>
+        <p>Mede a intensidade da luz no ambiente ao redor</p>
+        <pre><code class="javascript" data-trim data-line-numbers="3-6|8-12|14-27|29-31|33-34|36-47"><script>
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+// Importando o sensor de luz
+import { LightSensor } from 'expo-sensors';
+
+export default function LightSensorScreen() {
+  const [illuminance, setIlluminance] = useState(0);
+  // Valor de referência para 'claro' vs 'escuro' (em lux)
+  const LIGHT_THRESHOLD = 50;
+  const isDark = illuminance < LIGHT_THRESHOLD;
+
+  useEffect(() => {
+    let subscription;
+    
+    const _subscribe = async () => {
+      subscription = LightSensor.addListener(({ illuminance }) => {
+        setIlluminance(illuminance);
+      });
+      
+      await LightSensor.setUpdateInterval(1000); // Atualiza a cada 1 segundo
+    };
+    const _unsubscribe = () => {
+      subscription && subscription.remove();
+      subscription = null;
+    };
+
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  // Cores para tema claro/escuro
+  const gradientColors = isDark ? ['#121212', '#2a2a2a'] : ['#f0f0f0', '#ffffff'];
+
+  return (
+    <LinearGradient colors={gradientColors} style={styles.container}>
+      <Text style={[styles.text, { color: isDark ? '#fff' : '#000' }]}>
+        Intensidade da Luz:
+      </Text>
+      <Text style={[styles.value, { color: isDark ? '#fff' : '#000' }]}>
+        {illuminance.toFixed(2)} lux
+      </Text>
+      <Text style={[styles.mode, { color: isDark ? '#fff' : '#000' }]}>
+        Modo: {isDark ? '🌙 Escuro' : '☀️ Claro'}
+      </Text>
+    </LinearGradient>
+  );
+}
+</script></code></pre>
+<p class="code-notes">🎨 Use o sensor de luz para implementar temas adaptáveis (modo claro/escuro)</p>
+      </section>
+
+
+      <!-- Slide 12 - Pedômetro -->
+      <section>
+        <h3>👣 Pedômetro</h3>
+        <p>Conta os passos do usuário usando acelerômetro e giroscópio</p>
+        <pre><code class="javascript" data-trim data-line-numbers="2-4|7-10|13-21|22-23|25-28|30-37|39-45|47-52|54-66"><script>
+import React, { useState, useEffect } from 'react';
+import { Pedometer } from 'expo-sensors';
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function PedometerScreen() {
+  const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
+  const [pastStepCount, setPastStepCount] = useState(0);
+  const [currentStepCount, setCurrentStepCount] = useState(0);
+  const [subscription, setSubscription] = useState(null);
+
+
+  /*
+    Função para verificar a disponibilidade do pedômetro
+    e calcular os passos de hoje.
+  */
+  useEffect(() => {
+    async function checkPedometerAvailability() {
+      const isAvailable = await Pedometer.isAvailableAsync();
+      setIsPedometerAvailable(String(isAvailable));
+    }
+  // Verifica a disponibilidade do pedômetro
+    checkPedometerAvailability();
+
+    // Calcular passos de hoje
+    const end = new Date();
+    const start = new Date();
+    start.setHours(0, 0, 0, 0); // Início do dia atual
+
+    Pedometer.getStepCountAsync(start, end).then(
+      result => {
+        setPastStepCount(result.steps);
+      },
+      error => {
+        setPastStepCount(0);
+      }
+    );
+
+    // Subscrever para novos passos
+    const subscribe = async () => {
+      const subscription = await Pedometer.watchStepCount(result => {
+        setCurrentStepCount(result.steps);
+      });
+      setSubscription(subscription);
+    };
+
+    subscribe();
+
+    return () => {
+      subscription && subscription.remove();
+    };
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Contador de Passos</Text>
+      <Text style={styles.paragraph}>
+        Pedômetro disponível: {isPedometerAvailable}
+      </Text>
+      <Text style={styles.paragraph}>
+        Passos hoje: {pastStepCount}
+      </Text>
+      <Text style={styles.paragraph}>
+        Passos em tempo real: {currentStepCount}
+      </Text>
+    </View>
+  );
+}
+</script></code></pre>
+<p class="code-notes">👟 Ideal para apps de fitness, saúde ou jogos baseados em movimento</p>
+
+      </section>
+
+
+      <!-- Slide 13 - Exercício Prático em Sala -->
+      <!-- Slide 13 - Exercício Prático: Introdução -->
+      <section>
+        <h3>💻 Exercício Prático</h3>
+        <h4>Detector de Movimento</h4>
+        <p>Neste exercício, vamos criar um aplicativo que responde aos movimentos do dispositivo.</p>
+        <p>Você aprenderá a:</p>
+        <ul>
+          <li>Capturar e processar dados do acelerômetro</li>
+          <li>Calcular a intensidade do movimento</li>
+          <li>Implementar feedback visual baseado em sensores</li>
+        </ul>
+      </section>
+
+      <!-- Slide 14 - Exercício Prático: Requisitos -->
+      <section>
+        <h3>💻 Exercício Prático: Requisitos</h3>
+        <div class="exercise-box">
+          <p>Seu aplicativo deve:</p>
+          <ol>
+        <li>Utilizar o acelerômetro para detectar movimentos bruscos</li>
+        <li>Mudar a cor de fundo quando o dispositivo for chacoalhado</li>
+        <li>Mostrar uma mensagem quando o dispositivo estiver em repouso</li>
+        <li>Exibir o valor atual dos eixos x, y e z</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Slide 15- Exercício Prático: Dicas -->
+      <section>
+        <h3>💻 Exercício Prático: Dicas</h3>
+        <p><strong>Para detectar chacoalhos:</strong></p>
+        <pre><code class="javascript" data-trim data-noescape>
+    // Calcule a intensidade total do movimento
+    const intensity = Math.abs(data.x) + Math.abs(data.y) + Math.abs(data.z);
+
+    // Defina um limiar para considerar como "chacoalho"
+    const shakeThreshold = 1.5;
+
+    // Verifique se está chacoalhando
+    const isShaking = intensity > shakeThreshold;
+        </code></pre>
+        <p class="code-notes">Ajuste o valor do limiar (shakeThreshold) conforme necessário</p>
+      </section>
+
+      <!-- Slide 16 - Exercício Prático: Estrutura da Solução -->
+      <section>
+        <h3>💻 Exercício Prático: Estrutura</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+    // Componentes principais:
+    import { Accelerometer } from 'expo-sensors';
+
+    // Estado para controlar a interface:
+    const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+    const [isShaking, setIsShaking] = useState(false);
+
+    // No useEffect:
+    Accelerometer.addListener(accelerometerData => {
+      setData(accelerometerData);
+      
+      // Lógica para detectar chacoalho
+      const intensity = Math.abs(accelerometerData.x) + 
+           Math.abs(accelerometerData.y) + 
+           Math.abs(accelerometerData.z);
+      setIsShaking(intensity > shakeThreshold);
+    });
+        </code></pre>
+      </section>
+
+      <!-- Slide 17 - Lidando com Permissões -->
+      <section>
+        <h3>🔐 Gerenciando Permissões de Sensores</h3>
+        <p>Alguns sensores (como localização) requerem permissões explícitas</p>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
+import React, { useState, useEffect } from 'react';
+import { Text, View, Button } from 'react-native';
+import * as Location from 'expo-location';
+
+export default function App() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [permissionStatus, setPermissionStatus] = useState(null);
+
+  const requestPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    setPermissionStatus(status);
+    
+    if (status !== 'granted') {
+      setErrorMsg('Permissão de localização negada');
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+  };
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  let text = 'Carregando...';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
+      <Text style={{ fontSize: 16, marginBottom: 20 }}>
+        Status da permissão: {permissionStatus || 'desconhecido'}
+      </Text>
+      <Text>{text}</Text>
+      <Button
+        title="Solicitar permissão novamente"
+        onPress={requestPermission}
+      />
+    </View>
+  );
+}
+</script></code></pre>
+<p class="code-notes">🛡️ Sempre explique ao usuário por que seu app precisa de permissões!</p>
+      </section>
+
+      <!-- Slide 20 - Boas Práticas -->
+      <!-- Slide 20 - Boas Práticas (Parte 1) -->
+      <section>
+        <h3>✨ Boas Práticas com Sensores</h3>
+        <h4>Parte 1: Desempenho e Bateria</h4>
+        <ul>
+          <li><strong>Economia de bateria:</strong> Sempre cancele as subscrições quando não estiver usando</li>
+          <li><strong>Intervalos adequados:</strong> Use a frequência mínima necessária para sua aplicação</li>
+          <li><strong>Processamento eficiente:</strong> Limite operações pesadas com dados de sensores</li>
+        </ul>
+        <pre><code class="javascript" data-trim>
+      // Boa prática: Gerenciar ciclo de vida
+      useEffect(() => {
+        _subscribe();
+        return () => _unsubscribe(); // Limpa ao desmontar
+      }, []);
+        </code></pre>
+      </section>
+
+      <!-- Slide 20b - Boas Práticas (Parte 2) -->
+      <section>
+        <h3>✨ Boas Práticas com Sensores</h3>
+        <h4>Parte 2: Experiência do Usuário</h4>
+        <ul>
+          <li><strong>Degradação graciosa:</strong> Prepare seu app para funcionar mesmo quando sensores não estiverem disponíveis</li>
+          <li><strong>Feedback visual:</strong> Mostre ao usuário quando sensores estão sendo utilizados</li>
+          <li><strong>Testes em dispositivos reais:</strong> Os sensores funcionam diferentemente em cada dispositivo</li>
+        </ul>
+        <div class="warning-box">
+          <p>⚠️ Lembre-se: Em emuladores, os sensores geralmente não funcionam ou retornam valores simulados!</p>
+        </div>
+      </section>
+
+      <!-- Slide 21 - Casos de Uso -->
+      <section>
+        <h3>🎮 Casos de Uso Práticos</h3>
+        <ul>
+          <li><strong>Fitness e Saúde:</strong> Contagem de passos, detecção de quedas</li>
+          <li><strong>Jogos:</strong> Controles baseados em movimentos</li>
+          <li><strong>UX Adaptativa:</strong> Mudar tema baseado na luz ambiente</li>
+          <li><strong>Navegação:</strong> GPS, bússola para mapas</li>
+          <li><strong>AR (Realidade Aumentada):</strong> Posicionamento de objetos virtuais</li>
+          <li><strong>Acessibilidade:</strong> Controles alternativos para pessoas com deficiência</li>
+        </ul>
+      </section>
+
+      <!-- Slide 22 - Exercício para Casa -->
+      <section>
+        <h3>🏠 Exercício para Casa</h3>
+        <h4>App de Nível Digital</h4>
+        <p>Desenvolva um aplicativo que funcione como um nível de bolha digital utilizando os sensores do dispositivo.</p>
+        <div class="exercise-box">
+          <p>Este exercício permitirá praticar:</p>
+          <ul>
+        <li>Leitura e interpretação de dados do acelerômetro</li>
+        <li>Cálculos de ângulos a partir de dados de sensores</li>
+        <li>Feedback visual responsivo</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h3>🏠 Exercício para Casa: Requisitos Principais</h3>
+        <div class="exercise-box">
+          <ol>
+        <li>Use o acelerômetro para determinar a inclinação do dispositivo</li>
+        <li>Exiba indicadores visuais quando o dispositivo estiver perfeitamente horizontal ou vertical</li>
+        <li>Mostre o ângulo de inclinação em graus para os eixos X e Y</li>
+          </ol>
+        </div>
+        <p class="code-notes">Dica: Use <code>Math.atan2()</code> para converter leituras do acelerômetro em ângulos</p>
+      </section>
+
+      <section>
+        <h3>🏠 Exercício para Casa: Requisitos Adicionais</h3>
+        <div class="exercise-box">
+          <ol start="4">
+        <li>Implemente um modo de calibração que permita ajustar o "zero" do nível</li>
+        <li>Adicione feedback visual e/ou sonoro quando o dispositivo estiver nivelado</li>
+          </ol>
+          <p><strong>Extra:</strong> Adicione uma visualização gráfica do nível (bolha que se move conforme a inclinação)</p>
+        </div>
+      </section>
+
+      <!-- Slide 23 - Recursos e Documentação -->
+      <section>
+        <h3>📚 Recursos e Documentação</h3>
+        <ul>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/sensors/" target="_blank">Documentação oficial Expo Sensors</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/location/" target="_blank">Documentação do Expo Location</a></li>
+          <li><a href="https://github.com/expo/expo/tree/master/packages/expo-sensors" target="_blank">Repositório GitHub do expo-sensors</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/pedometer/" target="_blank">API do Pedômetro</a></li>
+          <li><a href="https://reactnative.dev/docs/performance" target="_blank">Guia de performance do React Native</a></li>
+        </ul>
+        <p>📧 Dúvidas? Entre em contato: <a href="mailto:010117368@prof.uninassau.edu.br">010117368@prof.uninassau.edu.br</a></p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
