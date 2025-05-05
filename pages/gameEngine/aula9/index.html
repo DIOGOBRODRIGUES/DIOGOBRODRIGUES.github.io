@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 9 - Importação de Modelos 3D, Animações e Aplicação de Materiais</title>
+
+  <meta name="description" content="Aprendendo a importar e trabalhar com modelos 3D, animações e materiais na Godot Engine">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .highlight-box {
+      background-color: rgba(255, 215, 0, 0.2);
+      border-left: 4px solid gold;
+      padding: 0.5em 1em;
+      margin: 1em 0;
+    }
+    
+    .code-file-header {
+      background-color: #282a36;
+      color: #50fa7b;
+      padding: 0.3em 0.5em;
+      font-family: monospace;
+      border-radius: 5px 5px 0 0;
+      margin-bottom: -10px;
+    }
+    
+    .side-by-side {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .side-by-side > div {
+      flex: 1;
+      padding: 0 10px;
+    }
+    
+    .important-note {
+      background-color: rgba(255, 121, 198, 0.2);
+      border-left: 4px solid #ff79c6;
+      padding: 0.5em 1em;
+      margin: 1em 0;
+    }
+    
+    .tip {
+      background-color: rgba(80, 250, 123, 0.2);
+      border-left: 4px solid #50fa7b;
+      padding: 0.5em 1em;
+      margin: 1em 0;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h2>Aula 9 - Importação de Modelos 3D, Animações e Aplicação de Materiais</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+      <!-- Slide 2 - Agenda -->
+      <section>
+        <h2>Agenda da Aula</h2>
+        <ul>
+          <li>Introdução e motivação 🎮</li>
+          <li>Conceitos fundamentais sobre modelos 3D 🧩</li>
+          <li>Importação de modelos 3D na Godot 📥</li>
+          <li>Trabalhando com animações 🏃‍♂️</li>
+          <li>Aplicando materiais e texturas 🎨</li>
+          <li>Demonstrações práticas de código 💻</li>
+          <li>Exercícios 📝</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Introdução -->
+      <section>
+        <section>
+          <h2>1. Introdução</h2>
+          <p>Por que precisamos importar modelos 3D?</p>
+            <div>
+              <ul>
+                <li>Reuso de assets criados em softwares especializados 👨‍🎨</li>
+                <li>Economia de tempo no desenvolvimento 🕒</li>
+                <li>Melhoria na qualidade visual dos jogos 🌈</li>
+                <li>Aproveitamento de animações profissionais 🎭</li>
+              </ul>
+            </div>
+        </section>
+        
+        <section>
+          <h3>Ecossistema de Assets 3D</h3>
+          <ul>
+            <li>Ferramentas de modelagem: Blender, Maya, 3ds Max 🛠️</li>
+            <li>Marketplaces de modelos: Sketchfab, TurboSquid 🛒</li>
+            <li>Formatos populares: glTF, FBX, OBJ, COLLADA 📁</li>
+            <li>Workflow ideal: Modelagem → Rigging → Animação → Exportação → Godot 🔄</li>
+          </ul>
+          <div class="highlight-box">
+            <p>A Godot 4.x recomenda o formato <strong>glTF 2.0</strong> como formato preferencial para importação de modelos 3D! 🌟</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Conceitos Fundamentais -->
+      <section>
+        <section>
+          <h2>2. Conceitos Fundamentais</h2>
+          <h3>Anatomia de um modelo 3D</h3>
+          <ul>
+            <li><strong>Malha (Mesh)</strong>: Conjunto de vértices, arestas e faces que definem a forma 📐</li>
+            <li><strong>UV Maps</strong>: Coordenadas para mapeamento de texturas 🗺️</li>
+            <li><strong>Esqueleto (Armature)</strong>: Estrutura hierárquica de ossos para animação 🦴</li>
+            <li><strong>Materiais</strong>: Definição de como a superfície interage com a luz 🔆</li>
+            <li><strong>Animações</strong>: Conjuntos de keyframes que definem movimentos 🏃‍♀️</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Sistema de Nós 3D na Godot</h3>
+          <ul>
+            <li><code>Node3D</code>: Nó base para todos objetos 3D (posição, rotação, escala)</li>
+            <li><code>MeshInstance3D</code>: Renderiza uma malha 3D</li>
+            <li><code>Skeleton3D</code>: Gerencia o esqueleto para animação</li>
+            <li><code>AnimationPlayer</code>: Controla as animações</li>
+            <li><code>CollisionShape3D</code>: Define colisões para física</li>
+          </ul>
+          <div class="tip">
+            <p>A estrutura hierárquica de nós da Godot facilita a organização dos elementos 3D! 🌳</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Importação de Modelos 3D -->
+      <section>
+        <section>
+          <h2>3. Importação de Modelos 3D</h2>
+          <h3>Formatos suportados pela Godot</h3>
+          <ul>
+            <li><strong>glTF 2.0</strong> (.gltf, .glb) - <span style="color: #50fa7b;">Recomendado!</span> ⭐</li>
+            <li><strong>Wavefront</strong> (.obj)</li>
+            <li><strong>COLLADA</strong> (.dae)</li>
+            <li><strong>FBX</strong> (.fbx) - Suporte limitado</li>
+            <li><strong>STL</strong> (.stl) - Para modelos simples</li>
+          </ul>
+          <p>A Godot processa automaticamente os modelos na importação, criando recursos (.tres/.res)</p>
+        </section>
+        
+        <section>
+          <h3>Processo de Importação</h3>
+          <ol>
+            <li>Coloque seu arquivo 3D na pasta do projeto</li>
+            <li>A Godot detectará e importará automaticamente</li>
+            <li>Acesse as configurações de importação clicando no ícone de importação</li>
+            <li>Configure os parâmetros de acordo com suas necessidades</li>
+            <li>Clique em "Reimport" para aplicar as alterações</li>
+          </ol>
+          
+        </section>
+        
+        <section>
+          <h3>Configurações de Importação</h3>
+          
+        
+              <h4>Opções principais</h4>
+              <ul>
+                <li>Escala do modelo</li>
+                <li>Suavização de normais</li>
+                <li>Importação de materiais</li>
+                <li>Geração de colisões</li>
+                <li>Esqueleto e pesos de vértices</li>
+                <li>Animações</li>
+              </ul>
+         
+        </section>
+        
+        <section>
+          <h3>Inserindo o modelo 3D na cena</h3>
+          <ol>
+            <li>Arraste o modelo da pasta para a cena</li>
+            <li>Ou use o botão "Instanciar cena" e selecione o modelo</li>
+            <li>Ajuste posição, rotação e escala conforme necessário</li>
+            <li>Configure propriedades adicionais como sombras e materiais</li>
+          </ol>
+          <div class="important-note">
+            <p>⚠️ Modelos complexos podem precisar de otimizações para bom desempenho!</p>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Exemplo: Importando um modelo 3D</h3>
+          <div class="code-file-header">player_setup.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-10|4-6">
+extends Node3D
+
+func _ready():
+    # Carrega um modelo 3D dinamicamente
+    var model = load("res://assets/models/player/player.glb")
+    var instance = model.instantiate()
+    
+    # Adiciona à cena e configura
+    add_child(instance)
+    instance.transform.origin = Vector3(0, 1, 0)
+</code></pre>
+          <div class="tip">
+            <p>Você pode pré-configurar modelos como cenas e salvá-los para instanciar facilmente! 💾</p>
+          </div>
+        </section>
+      </section>
+      
+      <!-- Slide 6 - Animações 3D -->
+      <section>
+        <section>
+          <h2>4. Trabalhando com Animações</h2>
+          <h3>Sistema de animação na Godot</h3>
+          <ul>
+            <li>Baseado em <code>AnimationPlayer</code> e <code>AnimationTree</code></li>
+            <li>Suporta animações importadas e criadas na engine</li>
+            <li>Blend entre animações para transições suaves</li>
+            <li>Controle por código via GDScript</li>
+          </ul>
+         
+        </section>
+        
+        <section>
+          <h3>Importação de animações</h3>
+          <ul>
+            <li>As animações são importadas junto com o modelo 3D</li>
+            <li>Configurações de importação específicas para animações:</li>
+            <ul>
+              <li>Definição de loops</li>
+              <li>Filtragem de animações</li>
+              <li>Compressão de animação</li>
+              <li>Otimização de keyframes</li>
+            </ul>
+            <li>Animações são associadas ao <code>AnimationPlayer</code> automaticamente</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Controle de animações com GDScript</h3>
+          <div class="code-file-header">character_animation.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-20|9-12|14-18">
+extends CharacterBody3D
+
+@onready var animation_player = $AnimationPlayer
+
+var current_state = "idle"
+
+func _physics_process(delta):
+    # Lógica de movimento e estado
+    if Input.is_action_pressed("move_forward"):
+        current_state = "run"
+    else:
+        current_state = "idle"
+    
+    # Reproduz a animação de acordo com o estado
+    if animation_player.current_animation != current_state:
+        animation_player.play(current_state)
+        # Blend opcional para transição suave
+        # animation_player.play(current_state, 0.3) # 0.3 segundos de blend
+</code></pre>
+        </section>
+        
+        <section>
+          <h3>Árvores de Animação (AnimationTree)</h3>
+          <p>Para controle avançado de animações e transições</p>
+          <ul>
+            <li>Mistura várias animações (blending)</li>
+            <li>Controle de estados com StateMachine</li>
+            <li>Transições suaves entre estados</li>
+            <li>Controle de parâmetros (velocidade, direção, etc.)</li>
+          </ul>
+    
+        </section>
+        
+        <section>
+          <h3>Exemplo: AnimationTree com StateMachine</h3>
+          <div class="code-file-header">advanced_animation.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-22|5-6|8-14|16-21">
+extends CharacterBody3D
+
+var speed = 0.0
+var direction = Vector3.ZERO
+@onready var anim_tree = $AnimationTree
+@onready var state_machine = anim_tree["parameters/playback"]
+
+func _ready():
+    # Ativa a árvore de animação
+    anim_tree.active = true
+    
+    # Configura estado inicial
+    state_machine.start("idle")
+    anim_tree.set("parameters/conditions/idle", true)
+
+func _physics_process(delta):
+    # Atualiza parâmetros da árvore baseados na velocidade
+    speed = velocity.length()
+    anim_tree.set("parameters/blend_position", speed / 5.0)
+    
+    # Estado da máquina é controlado via parâmetros
+    state_machine.travel(get_current_state())
+</code></pre>
+        </section>
+      </section>
+      
+      <!-- Slide 7 - Materiais e Texturas -->
+      <section>
+        <section>
+          <h2>5. Aplicação de Materiais</h2>
+          <h3>Sistema de materiais na Godot</h3>
+          <ul>
+            <li>Baseado em <code>StandardMaterial3D</code> para renderização PBR</li>
+            <li>Suporte a fluxos de trabalho metálico/rugosidade e especular/glossiness</li>
+            <li>Materiais personalizados via shaders (ShaderMaterial)</li>
+            <li>Integração com sistema de luzes e sombras</li>
+          </ul>
+         
+        </section>
+        
+        <section>
+          <h3>Propriedades de StandardMaterial3D</h3>
+          <div class="side-by-side">
+            <div>
+              <h4>Texturas principais:</h4>
+              <ul>
+                <li>Albedo (cor/textura base)</li>
+                <li>Metallic (metalicidade)</li>
+                <li>Roughness (rugosidade)</li>
+                <li>Normal map (relevo)</li>
+                <li>AO (oclusão ambiental)</li>
+                <li>Emission (emissão de luz)</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Outras propriedades:</h4>
+              <ul>
+                <li>Transparência</li>
+                <li>Propriedades de reflexão</li>
+                <li>Modos de blend e culling</li>
+                <li>Height mapping (paralax)</li>
+                <li>Refração</li>
+                <li>Rim lighting</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Aplicando materiais via interface</h3>
+          <ol>
+            <li>Selecione o MeshInstance3D na cena</li>
+            <li>No painel Inspector, expanda Surface Material Override</li>
+            <li>Crie novo material clicando em "New StandardMaterial3D"</li>
+            <li>Configure as propriedades do material</li>
+            <li>Para texturas, arraste arquivos de imagem para os slots correspondentes</li>
+          </ol>
+         
+        </section>
+        
+        <section>
+          <h3>Aplicando materiais via código</h3>
+          <div class="code-file-header">material_setup.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-17|3-9|11-16">
+extends MeshInstance3D
+
+func _ready():
+    # Cria um novo material padrão
+    var material = StandardMaterial3D.new()
+    
+    # Define as propriedades básicas
+    material.albedo_color = Color(0.8, 0.2, 0.3)  # Rosa avermelhado
+    material.metallic = 0.7
+    material.roughness = 0.3
+    
+    # Carrega e aplica texturas
+    material.albedo_texture = load("res://assets/textures/albedo.png")
+    material.normal_enabled = true
+    material.normal_texture = load("res://assets/textures/normal.png")
+    
+    # Aplica o material à malha
+    set_surface_override_material(0, material)
+</code></pre>
+        </section>
+        
+        <section>
+          <h3>Materiais com shaders personalizados</h3>
+          <div class="code-file-header">custom_material.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-28|3-16|18-27">
+extends MeshInstance3D
+
+# Define o código do shader
+var shader_code = """
+shader_type spatial;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D texture_albedo : source_color;
+uniform float metallic : hint_range(0.0, 1.0) = 0.0;
+uniform float roughness : hint_range(0.0, 1.0) = 0.5;
+
+void fragment() {
+    vec4 albedo_tex = texture(texture_albedo, UV);
+    ALBEDO = albedo.rgb * albedo_tex.rgb;
+    METALLIC = metallic;
+    ROUGHNESS = roughness;
+    SPECULAR = 0.5;
+}
+"""
+
+func _ready():
+    # Cria shader e materiais
+    var shader = Shader.new()
+    shader.code = shader_code
+    
+    var mat = ShaderMaterial.new()
+    mat.shader = shader
+    mat.set_shader_parameter("albedo", Color(0.0, 0.8, 1.0, 1.0))
+    mat.set_shader_parameter("texture_albedo", load("res://assets/textures/my_texture.png"))
+    
+    set_surface_override_material(0, mat)
+</code></pre>
+        </section>
+      </section>
+      
+      <!-- Slide 8 - Exemplo Completo -->
+      <section>
+        <section>
+          <h2>6. Exemplo Prático Completo</h2>
+          <h3>Criando um personagem 3D animado</h3>
+          <p>Vamos criar um personagem que:</p>
+          <ul>
+            <li>Importa um modelo 3D com animações</li>
+            <li>Aplica materiais personalizados</li>
+            <li>Implementa controles de movimento</li>
+            <li>Gerencia estados de animação</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Estrutura do projeto</h3>
+          <pre><code data-trim data-noescape>
+project/
+  ├── assets/
+  │   ├── models/
+  │   │   └── character.glb
+  │   └── textures/
+  │       ├── character_albedo.png
+  │       ├── character_normal.png
+  │       ├── character_roughness.png
+  │       └── character_metallic.png
+  └── scenes/
+      ├── player.tscn
+      ├── player.gd
+      └── game.tscn
+</code></pre>
+        </section>
+        
+        <section>
+          <h3>Configuração do Player</h3>
+          <div class="code-file-header">player.gd</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-42|5-12|14-25|27-41">
+extends CharacterBody3D
+
+# Referências aos nós
+@onready var mesh = $Mesh
+@onready var animation_player = $AnimationPlayer
+@onready var pivot = $Pivot
+
+# Propriedades do personagem
+var speed = 5.0
+var jump_power = 9.0
+var gravity = 20.0
+var sensitivity = 0.005
+var current_animation = "idle"
+
+func _ready():
+    # Configura material personalizado
+    var material = StandardMaterial3D.new()
+    material.albedo_texture = load("res://assets/textures/character_albedo.png")
+    material.normal_enabled = true
+    material.normal_texture = load("res://assets/textures/character_normal.png")
+    material.metallic = 0.2
+    material.metallic_texture = load("res://assets/textures/character_metallic.png")
+    material.roughness = 0.7
+    material.roughness_texture = load("res://assets/textures/character_roughness.png")
+    
+    # Aplica material ao modelo
+    mesh.get_node("Armature/Skeleton3D/Body").set_surface_override_material(0, material)
+
+func _physics_process(delta):
+    # Aplica gravidade
+    if not is_on_floor():
+        velocity.y -= gravity * delta
+    
+    # Movimentação e controles
+    var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+    var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    
+    if direction:
+        velocity.x = direction.x * speed
+        velocity.z = direction.z * speed
+        change_animation("run")
+    else:
+        velocity.x = move_toward(velocity.x, 0, speed)
+        velocity.z = move_toward(velocity.z, 0, speed)
+        change_animation("idle")
+        
+    move_and_slide()
+</code></pre>
+        </section>
+        
+        <section>
+          <h3>Gerenciamento de animações</h3>
+          <div class="code-file-header">player.gd (continuação)</div>
+          <pre><code data-trim data-noescape data-line-numbers="1-25|1-9|11-24">
+func change_animation(animation_name):
+    # Não muda se já está na mesma animação
+    if current_animation == animation_name:
+        return
+        
+    # Atualiza a animação atual e faz a transição
+    current_animation = animation_name
+    animation_player.play(animation_name, 0.2)  # 0.2s de transição
+    print("Changing animation to: ", animation_name)
+
+func _input(event):
+    # Implementa pulo quando pressiona espaço
+    if event.is_action_pressed("jump") and is_on_floor():
+        velocity.y = jump_power
+        change_animation("jump")
+        
+        # Timer para voltar à animação anterior após o pulo
+        var timer = get_tree().create_timer(0.7)
+        timer.timeout.connect(func():
+            if is_on_floor():
+                if velocity.x == 0 and velocity.z == 0:
+                    change_animation("idle")
+                else:
+                    change_animation("run")
+        )
+</code></pre>
+        </section>
+      </section>
+      
+      <!-- Slide 9 - Exercícios em Sala -->
+      <section>
+        <section>
+        
+          <h3>Exercício 1: Importação e configuração</h3>
+          <p>Importe um modelo 3D de sua preferência e configure-o:</p>
+          <ol>
+            <li>Baixe um modelo glTF do Sketchfab ou use um modelo disponível</li>
+            <li>Importe o modelo para seu projeto Godot</li>
+            <li>Configure as opções de importação apropriadamente</li>
+            <li>Crie uma cena simples com o modelo importado</li>
+            <li>Adicione uma luz direcional e uma câmera</li>
+          </ol>
+          <div class="tip">
+            <p>Modelos gratuitos de qualidade estão disponíveis em Sketchfab, TurboSquid e Kenney.nl! 🎁</p>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Exercício 2: Trabalhando com materiais</h3>
+          <p>Explore as opções de materiais na Godot:</p>
+          <ol>
+            <li>Crie um novo StandardMaterial3D para seu modelo</li>
+            <li>Experimente com diferentes valores de metallic e roughness</li>
+            <li>Adicione uma textura de normal map (se disponível)</li>
+            <li>Crie um efeito de emissão em alguma parte do modelo</li>
+            <li>Salve o material como recurso (.tres) para reuso</li>
+          </ol>
+          <div class="highlight-box">
+            <p>Teste usar valores extremos (0 e 1) para metallic e roughness para ver como afetam a aparência! 🧪</p>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Exercício 3: Controle de animações</h3>
+          <p>Se seu modelo incluir animações:</p>
+          <ol>
+            <li>Identifique as animações disponíveis (usando o painel AnimationPlayer)</li>
+            <li>Crie um script que reproduza diferentes animações com base em teclas pressionadas</li>
+            <li>Implemente transições suaves entre animações</li>
+            <li>Bonus: Crie um AnimationTree simples com BlendSpace2D para controlar velocidade</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h3>Exercício 3: Exemplo de código</h3>
+          <div class="code-file-header">animation_control.gd</div>
+          <pre><code data-trim data-noescape>
+      extends Node
+
+      @onready var anim_player = $AnimationPlayer
+
+      func _input(event):
+          if event.is_action_pressed("ui_up"):
+        anim_player.play("walk", 0.3)  # 0.3s de transição
+          if event.is_action_pressed("ui_down"):
+        anim_player.play("idle", 0.3)
+      </code></pre>
+          <div class="tip">
+            <p>Use a transição entre animações para criar movimentos mais fluidos e naturais! 🎬</p>
+          </div>
+        </section>
+            </section>
+      
+      <!-- Slide 10 - Exercício para casa -->
+       <section>
+        <section>
+          <h2>8. Exercício para Casa</h2>
+          <h3>Projeto: Personagem 3D com Sistema de Animações Interativo</h3>
+       
+          <div class="important-note">
+            <p><strong>Objetivo:</strong> Criar um personagem 3D controlável com sistema de animações e materiais personalizados</p>
+          </div>
+        </section>
+          <section>   
+          <p>Este projeto será dividido em etapas que você completará em casa:</p>
+          <ol>
+            <li>Seleção e preparação do modelo 3D</li>
+            <li>Sistema de movimento do personagem</li>
+            <li>Sistema de estados de animação</li>
+            <li>Aplicação de materiais personalizados</li>
+            <li>Recursos avançados (opcional)</li>
+          </ol> 
+        </section> 
+        
+        <section>
+          <h3>Etapa 1: Seleção e Preparação do Modelo</h3>
+          <ul>
+        <li>Encontre ou crie um modelo 3D de personagem com pelo menos 3 animações diferentes</li>
+        <li>Fontes recomendadas:
+          <ul>
+            <li>Sketchfab (modelos gratuitos)</li>
+            <li>Mixamo (personagens com animações)</li>
+            <li>Kenney.nl (assets gratuitos)</li>
+          </ul>
+        </li>
+        <li>Importe o modelo para a Godot e configure os parâmetros de importação</li>
+        <li>Verifique se as animações estão funcionando corretamente</li>
+          </ul>
+       
+        </section>
+       
+        <section>
+          <h3>Etapa 2: Sistema de Movimento do Personagem</h3>
+          <ul>
+        <li>Crie um script para controlar o personagem usando:
+          <ul>
+            <li>WASD ou setas para movimento horizontal</li>
+            <li>Espaço para pular</li>
+          </ul>
+        </li>
+        <li>Implemente física básica:
+          <ul>
+            <li>Gravidade</li>
+            <li>Detecção de solo</li>
+            <li>Movimento suave</li>
+          </ul>
+        </li>
+          </ul>
+        </section>
+          <section>
+          <div class="code-file-header">character_controller.gd (exemplo inicial)</div>
+          <pre><code data-trim data-noescape>
+    extends CharacterBody3D
+
+    var speed = 5.0
+    var jump_power = 10.0
+    var gravity = 20.0
+
+    func _physics_process(delta):
+        # Adicione sua lógica de movimento aqui
+        # ...
+        move_and_slide()
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>Etapa 3: Sistema de Estados de Animação</h3>
+          <ul>
+        <li>Implemente um sistema que transicione entre os seguintes estados:
+          <ul>
+            <li>Idle (quando o personagem está parado)</li>
+            <li>Walk/Run (quando o personagem está se movendo)</li>
+            <li>Jump (quando o personagem está no ar)</li>
+          </ul>
+        </li>
+        <li>Adicione transições suaves entre as animações</li>
+        <li>Sincronize os estados com as ações do jogador</li>
+          </ul>
+          <div class="highlight-box">
+        <p>Teste cada transição para garantir que as animações fluam naturalmente entre os estados! 🔄</p>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Etapa 4: Aplicação de Materiais Personalizados</h3>
+          <ul>
+        <li>Crie pelo menos 2 materiais personalizados para o personagem:</li>
+        <ul>
+          <li>Um material principal para o corpo/roupa</li>
+          <li>Um material secundário para detalhes (como armas, acessórios, etc.)</li>
+        </ul>
+        <li>Experimente com texturas diferentes:</li>
+        <ul>
+          <li>Albedo (cor base)</li>
+          <li>Normal maps para detalhes de superfície</li>
+          <li>Roughness e Metallic para efeitos PBR</li>
+        </ul>
+        <li>Aplique os materiais às partes apropriadas do modelo</li>
+          </ul>
+   
+        </section>
+       
+        <section>
+          <h3>Etapa 5: Recursos Avançados (Bônus)</h3>
+          <ul>
+        <li>Implemente um AnimationTree com StateMachine para controle avançado de animações</li>
+        <li>Adicione efeitos de partículas ou rastros ao movimento do personagem</li>
+        <li>Crie um ambiente de teste com obstáculos e plataformas</li>
+        <li>Adicione sons para passos, pulos e outras ações</li>
+        <li>Implemente uma câmera que segue o personagem suavemente</li>
+          </ul>
+   
+        </section>
+      </section>
+      
+      <!-- Slide 11 - Dicas e Boas Práticas -->
+      <section>
+        <h2>9. Dicas e Boas Práticas</h2>
+        <ul>
+          <li>Sempre importe modelos usando glTF quando possível 📂</li>
+          <li>Mantenha polígonos baixos para melhor performance</li>
+          <li>Use textures atlas para reduzir drawcalls 🎭</li>
+          <li>Reutilize materiais quando possível (recursos .tres) ♻️</li>
+          <li>Otimize animações removendo tracks desnecessárias </li>
+          <li>Organize seus modelos 3D em cenas independentes para reuso 🗄️</li>
+          <li>Teste as animações antes de implementar lógica complexa 🧪</li>
+          <li>Use o profiler da Godot para identificar gargalos de performance 📊</li>
+        </ul>
+ 
+      </section>
+      
+      <!-- Slide 12 - Referências -->
+      <section>
+        <h2>10. Referências</h2>
+        <ul>
+          <li><a href="https://docs.godotengine.org/en/stable/tutorials/3d/importing_3d_scenes.html" target="_blank">Documentação Oficial: Importação de Cenas 3D</a></li>
+          <li><a href="https://docs.godotengine.org/en/stable/tutorials/3d/standard_material_3d.html" target="_blank">Documentação Oficial: StandardMaterial3D</a></li>
+          <li><a href="https://docs.godotengine.org/en/stable/tutorials/animation/animation_tree.html" target="_blank">Documentação Oficial: AnimationTree</a></li>
+          <li><a href="https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_scenes.html" target="_blank">Documentação Oficial: Pipeline de Importação</a></li>
+          <li><a href="https://sketchfab.com" target="_blank">Sketchfab: Modelos 3D</a></li>
+          <li><a href="https://kenney.nl/" target="_blank">Kenney.nl: Assets gratuitos</a></li>
+        </ul>
+        <p>Consulte a documentação oficial para detalhes técnicos aprofundados.</p>
+      </section>
+
+      <!-- Slide 13 - Dúvidas e Contato -->
+      <section>
+        <h2>Dúvidas?</h2>
+        <p>Entre em contato:</p>
+        <ul>
+          <li><i class="fas fa-envelope"></i> 010117368@prof.uninassau.edu.br</li>
+          <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">LinkedIn</a></li>
+          <li><i class="fab fa-github"></i> <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">GitHub</a></li>
+        </ul>
+        <p>Boa sorte nos projetos! 🎮✨</p>
+      </section>
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
