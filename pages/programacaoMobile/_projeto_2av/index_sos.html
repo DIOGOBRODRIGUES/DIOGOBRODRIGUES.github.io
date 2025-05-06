@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reeguer 2.0 - Segunda Entrega</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            position: relative;
+        }
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #e74c3c;
+            margin-top: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        h3 {
+            color: #c0392b;
+            margin-top: 20px;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background-color: #fef5f3;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .warning {
+            background-color: #fff5eb;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #eaeaea;
+        }
+        th {
+            background-color: #f7f7f7;
+            font-weight: 600;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .feature-card h4 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #fef5f3;
+            color: #e74c3c;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">SOS</div>
+            <h1>Reeguer 2.0 - Requisitos da Segunda Entrega</h1>
+            <p>Evolução do aplicativo de auxílio a vítimas de desastres ambientais</p>
+        </header>
+
+        <section>
+            <h2>Visão Geral</h2>
+            <p>Para a segunda entrega, o aplicativo Reeguer deve evoluir de um protótipo para um produto mais completo, incorporando APIs externas, sensores do dispositivo, navegação avançada e experiência de usuário aprimorada.</p>
+            
+            <div class="highlight">
+                <p><strong>Objetivo:</strong> Transformar o aplicativo Reeguer em uma plataforma robusta de auxílio a vítimas de desastres, com recursos de monitoramento em tempo real, mapeamento, notificações e coordenação de ajuda humanitária.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Requisitos Funcionais</h2>
+            
+            <h3>1. Sistema de Navegação Avançado</h3>
+            <ul>
+                <li><strong>Tab Navigation:</strong> Menu principal com abas para navegação entre seções principais (Home, Pedidos, Doações, Mapa, Perfil).</li>
+                <li><strong>Stack Navigation:</strong> Navegação por pilha para formulários e detalhamento de informações.</li>
+                <li><strong>Drawer Navigation:</strong> Menu lateral para configurações, informações, contatos de emergência e logout.</li>
+                <li><strong>Deep Linking:</strong> Permitir acesso direto a áreas específicas do app via links externos.</li>
+            </ul>
+
+            <h3>2. Dashboard Interativo</h3>
+            <ul>
+                <li><strong>Mapa de Incidentes:</strong> Visualização geográfica de áreas afetadas e pontos de ajuda.</li>
+                <li><strong>Alertas em Tempo Real:</strong> Notificações sobre alertas meteorológicos e situações de risco.</li>
+                <li><strong>Cards de Ação Rápida:</strong> Botões para reportar situação, solicitar ajuda e oferecer doações.</li>
+                <li><strong>Estatísticas:</strong> Visão geral dos números de pessoas afetadas, pedidos atendidos e recursos mobilizados.</li>
+            </ul>
+
+            <h3>3. Monitoramento Meteorológico</h3>
+            <ul>
+                <li><strong>Previsão do Tempo:</strong> Dados atualizados sobre condições climáticas locais.</li>
+                <li><strong>Alertas de Precipitação:</strong> Notificações sobre chuvas intensas previstas.</li>
+                <li><strong>Histórico Pluviométrico:</strong> Gráficos de volume de chuva nas últimas horas/dias.</li>
+                <li><strong>Áreas de Risco:</strong> Mapeamento dinâmico de locais com risco de alagamento ou deslizamento.</li>
+            </ul>
+
+            <h3>4. Sistema de Pedidos de Ajuda Avançado</h3>
+            <ul>
+                <li><strong>Geolocalização:</strong> Captura automática da localização do solicitante.</li>
+                <li><strong>Categorização Detalhada:</strong> Especificação precisa das necessidades (tipo, quantidade, urgência).</li>
+                <li><strong>Anexo de Mídia:</strong> Possibilidade de anexar fotos da situação.</li>
+                <li><strong>Status e Acompanhamento:</strong> Sistema de acompanhamento do estado do pedido.</li>
+            </ul>
+
+            <h3>5. Sistema de Doações e Voluntariado</h3>
+            <ul>
+                <li><strong>Catálogo de Necessidades:</strong> Lista filtrada por tipo, localização e urgência.</li>
+                <li><strong>Match de Doações:</strong> Relacionamento entre ofertas e necessidades.</li>
+                <li><strong>Logística:</strong> Coordenação de pontos de coleta e entrega.</li>
+                <li><strong>Feedback:</strong> Sistema para confirmar recebimento e adequação das doações.</li>
+            </ul>
+
+            <h3>6. Integração com APIs Externas</h3>
+            <ul>
+                <li><strong>API Meteorológica:</strong> Integração com serviços como OpenWeatherMap ou Weather API.</li>
+                <li><strong>Serviços de Mapeamento:</strong> Google Maps ou Mapbox para visualização geográfica.</li>
+                <li><strong>Alertas Governamentais:</strong> API de órgãos como Defesa Civil ou serviços equivalentes.</li>
+                <li><strong>Compartilhamento Social:</strong> Integração com redes sociais para divulgação de campanhas.</li>
+            </ul>
+
+            <h3>7. Uso de Sensores do Dispositivo</h3>
+            <ul>
+                <li><strong>Geolocalização:</strong> GPS para identificar posição do usuário e proximidade com áreas de risco.</li>
+                <li><strong>Câmera:</strong> Captura de imagens para documentar situações e necessidades.</li>
+                <li><strong>Acelerômetro:</strong> Detecção de movimentos bruscos que possam indicar deslizamentos.</li>
+                <li><strong>Microfone:</strong> Gravação opcional de mensagens de voz para pedidos de socorro.</li>
+            </ul>
+
+            <h3>8. Sistema de Abrigos e Pontos Seguros</h3>
+            <ul>
+                <li><strong>Mapa de Abrigos:</strong> Localização geo-referenciada de todos os abrigos disponíveis.</li>
+                <li><strong>Informações Detalhadas:</strong> Capacidade, ocupação atual, infraestrutura e necessidades.</li>
+                <li><strong>Rotas de Evacuação:</strong> Trajetos seguros até o abrigo mais próximo.</li>
+                <li><strong>Check-in/Check-out:</strong> Sistema para registro de presença nos abrigos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Requisitos Não-Funcionais</h2>
+
+            <h3>1. Experiência do Usuário</h3>
+            <ul>
+                <li><strong>Design Responsivo:</strong> Adaptação para diferentes tamanhos de tela usando useWindowDimensions.</li>
+                <li><strong>Feedback Visual:</strong> Indicadores de carregamento, sucesso e erro em todas as operações.</li>
+                <li><strong>Acessibilidade:</strong> Suporte para leitores de tela e navegação alternativa.</li>
+                <li><strong>Modo Offline:</strong> Funcionalidade básica mesmo sem conexão à internet.</li>
+            </ul>
+
+            <h3>2. Gerenciamento de Estado</h3>
+            <ul>
+                <li><strong>Context API:</strong> Gerenciamento de estado global do aplicativo.</li>
+                <li><strong>Armazenamento Local:</strong> Persistência de dados com AsyncStorage.</li>
+                <li><strong>Gestão de Cache:</strong> Armazenamento local de dados frequentemente acessados.</li>
+            </ul>
+
+            <h3>3. Performance e Otimização</h3>
+            <ul>
+                <li><strong>Renderização Eficiente:</strong> Uso de FlatList com otimizações para grandes conjuntos de dados.</li>
+                <li><strong>Lazy Loading:</strong> Carregamento sob demanda para conteúdos extensos.</li>
+                <li><strong>Gerenciamento de Memória:</strong> Evitar memory leaks com cancelamento adequado de subscrições.</li>
+            </ul>
+
+            <h3>4. Segurança</h3>
+            <ul>
+                <li><strong>Proteção de Dados Pessoais:</strong> Criptografia de informações sensíveis.</li>
+                <li><strong>Autenticação Segura:</strong> Sistema de login com validação adequada.</li>
+                <li><strong>Permissões:</strong> Solicitação explícita e justificada para acesso a sensores do dispositivo.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Escopo Mínimo (Requisitos Obrigatórios)</h2>
+            <div class="warning">
+                <p>Para aprovação, o projeto deve implementar, no mínimo:</p>
+                <ol>
+                    <li>Sistema de navegação completo (Tab + Stack) entre todas as telas principais.</li>
+                    <li>Integração com pelo menos uma API externa (meteorológica ou de mapas).</li>
+                    <li>Uso de pelo menos dois sensores do dispositivo (GPS e câmera).</li>
+                    <li>FlatList otimizada para exibição de pedidos de ajuda e doações.</li>
+                    <li>Persistência de dados com AsyncStorage.</li>
+                    <li>Interface responsiva e consistente em diversos dispositivos.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>Requisitos Extras (Diferenciais)</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Sistema de Chat</h4>
+                    <p>Comunicação direta entre doadores e beneficiários para coordenar entregas e especificar necessidades.</p>
+                    <span class="tag">Avançado</span>
+                </div>
+                <div class="feature-card">
+                    <h4>Análise Preditiva</h4>
+                    <p>Previsão de áreas com maior probabilidade de serem afetadas com base em dados históricos e condições atuais.</p>
+                    <span class="tag">Avançado</span>
+                </div>
+                <div class="feature-card">
+                    <h4>Gamificação</h4>
+                    <p>Sistema de reconhecimento para doadores e voluntários mais ativos através de badges e ranking.</p>
+                    <span class="tag">Intermediário</span>
+                </div>
+                <div class="feature-card">
+                    <h4>Traduções</h4>
+                    <p>Suporte a múltiplos idiomas para atender populações diversas em situações de emergência.</p>
+                    <span class="tag">Intermediário</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Critérios de Avaliação</h2>
+            <table>
+                <tr>
+                    <th>Critério</th>
+                    <th>Descrição</th>
+                    <th>Pontuação</th>
+                </tr>
+                <tr>
+                    <td>Navegação e Fluxos</td>
+                    <td>Implementação correta dos sistemas de navegação e fluxos de usuário intuitivos</td>
+                    <td>2,0</td>
+                </tr>
+                <tr>
+                    <td>Integração com APIs</td>
+                    <td>Uso efetivo de APIs externas, tratamento adequado de respostas e erros</td>
+                    <td>1,5</td>
+                </tr>
+                <tr>
+                    <td>Uso de Sensores</td>
+                    <td>Implementação apropriada de sensores do dispositivo e permissões</td>
+                    <td>1,5</td>
+                </tr>
+                <tr>
+                    <td>Gerenciamento de Listas</td>
+                    <td>Uso eficiente de FlatList, filtragem, ordenação e otimização</td>
+                    <td>1,0</td>
+                </tr>
+                <tr>
+                    <td>UI/UX e Estilização</td>
+                    <td>Design responsivo, feedback visual, usabilidade e acessibilidade</td>
+                    <td>1,5</td>
+                </tr>
+                <tr>
+                    <td>Gerenciamento de Estado</td>
+                    <td>Uso apropriado de Context API, AsyncStorage e gerenciamento de formulários</td>
+                    <td>1,0</td>
+                </tr>
+                <tr>
+                    <td>Funcionalidades Extras</td>
+                    <td>Implementação de recursos adicionais e diferenciais</td>
+                    <td>1,5</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Entrega e Apresentação</h2>
+            <ul>
+                <li><strong>Data de Entrega:</strong> A definir</li>
+                <li><strong>Formato:</strong> Código-fonte em repositório Git + APK ou link do Expo</li>
+                <li><strong>Apresentação:</strong> 15-20 minutos por grupo, demonstrando as funcionalidades implementadas</li>
+                <li><strong>Documentação:</strong> README com instruções de instalação/execução e descrição das funcionalidades</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Reeguer 2.0 - Projeto da Disciplina de Programação Mobile</p>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        </footer>
+    </div>
+</body>
+</html>
