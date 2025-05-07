@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 2ª Avaliação - Game Engine 3D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00e1ff;
+            --secondary: #7b2bff;
+            --accent: #ff0055;
+            --dark: #0a1128;
+            --darker: #050914;
+            --light: #e1f2fe;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --grid-color: rgba(0, 225, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                              rgba(0, 225, 255, 0.15) 25%, 
+                              transparent 25%, 
+                              transparent 50%, 
+                              rgba(0, 225, 255, 0.15) 50%, 
+                              rgba(0, 225, 255, 0.15) 75%, 
+                              transparent 75%, 
+                              transparent);
+            background-size: 5px 5px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5),
+                         0 0 20px rgba(0, 225, 255, 0.3);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            color: var(--light);
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .header-subtitle {
+            font-size: 1rem;
+            text-align: center;
+            color: var(--light);
+            opacity: 0.9;
+        }
+        
+        .neon-box {
+            background-color: rgba(10, 17, 40, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+            z-index: -1;
+            border-radius: 12px;
+        }
+        
+        .neon-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.95);
+            z-index: -1;
+            border-radius: 9px;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.8em;
+            font-size: 0.85rem;
+            font-weight: bold;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-radius: 12px;
+            margin-right: 0.5rem;
+            background-color: var(--secondary);
+            color: var(--light);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .badge-primary {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        .badge-accent {
+            background-color: var(--accent);
+        }
+        
+        .badge-success {
+            background-color: var(--success);
+        }
+        
+        .badge-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        
+        .feature-list li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li::before {
+            content: '▶';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .split-columns {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .split-columns > div {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .split-columns {
+                flex-direction: column;
+            }
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 0;
+            margin-left: -3px;
+            border-radius: 3px;
+            opacity: 0.5;
+        }
+        
+        .timeline-item {
+            padding-left: 2.5rem;
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary);
+            border: 4px solid var(--primary);
+            box-sizing: border-box;
+            left: -7px;
+            border-radius: 50%;
+            z-index: 1;
+            top: 0;
+            box-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background: rgba(10, 17, 40, 0.6);
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 2px solid var(--primary);
+            text-align: center;
+        }
+        
+        .social-links {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links li {
+            margin: 0 15px;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .btn {
+            display: inline-block;
+            font-weight: bold;
+            color: var(--light);
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            user-select: none;
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: all 0.15s ease-in-out;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            border-color: var(--primary);
+        }
+        
+        .btn-primary::before {
+            background-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            color: var(--dark);
+        }
+        
+        .btn-accent {
+            border-color: var(--accent);
+        }
+        
+        .btn-accent::before {
+            background-color: var(--accent);
+        }
+        
+        .glowing {
+            position: relative;
+        }
+        
+        .glowing::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 0 0 15px 5px rgba(0, 225, 255, 0.3);
+            opacity: 0;
+            animation: pulse 2s infinite alternate;
+            border-radius: inherit;
+            z-index: -1;
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: rgba(10, 17, 40, 0.7);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            text-align: center;
+        }
+        
+        .category-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 15px;
+            padding: 0.15rem 0.75rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background-color: rgba(10, 17, 40, 0.7);
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--secondary);
+        }
+        
+        th {
+            background-color: rgba(123, 43, 255, 0.3);
+            color: var(--light);
+        }
+        
+        tr:hover {
+            background-color: rgba(0, 225, 255, 0.1);
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--dark);
+            text-align: center;
+            white-space: nowrap;
+            background-color: var(--primary);
+            border-radius: 15px;
+            height: 20px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>PROJETO 3D - GAME ENGINE</h1>
+            <p class="header-subtitle">2ª Avaliação | Centro Universitário Maurício de Nassau</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="neon-box glowing">
+            <h2><i class="fas fa-gamepad"></i> VISÃO GERAL</h2>
+            <p>Bem-vindo ao desafio final da 2ª unidade de Game Engine! Neste projeto, você aplicará os conhecimentos adquiridos ao longo das aulas para criar uma <span class="highlight">experiência 3D interativa</span> usando a Godot Engine.</p>
+            
+            <p>Este projeto representa sua missão de integrar os conceitos fundamentais de desenvolvimento 3D: personagens, câmeras, controles, física, iluminação, materiais e interação.</p>
+            
+            <div class="split-columns">
+                <div>
+                    <h3><i class="fas fa-rocket"></i> OBJETIVO</h3>
+                    <p>Desenvolver uma experiência interativa 3D que demonstre os princípios de criação de jogos, aplicando os conceitos estudados em um ambiente tridimensional.</p>
+                </div>
+                <div>
+                    <h3><i class="fas fa-calendar-alt"></i> PRAZO DE ENTREGA</h3>
+                    <p><i class="fas fa-clock"></i> <span class="highlight">28 de Maio de 2025</span><br>
+                    <i class="fas fa-info-circle"></i> Entregas devem ser feitas via Google Classroom.</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2><i class="fas fa-tasks"></i> REQUISITOS DO PROJETO</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">REQUISITO FUNDAMENTAL</div>
+                    <h3>Ambiente 3D Explorável</h3>
+                    <ul>
+                        <li>Criar um ambiente 3D navegável com texturas e iluminação.</li>
+                        <li>Implementar pelo menos dois tipos diferentes de luzes (direcional, pontual, spot).</li>
+                        <li>Aplicar materiais com propriedades PBR (metálico/rugosidade).</li>
+                        <li>Configurar colisões para objetos do ambiente.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">REQUISITO FUNDAMENTAL</div>
+                    <h3>Personagem 3D Controlável</h3>
+                    <ul>
+                        <li>Importar ou criar personagem 3D com animações básicas (idle, movimento).</li>
+                        <li>Implementar movimentação controlada por teclado (WASD) com física adequada.</li>
+                        <li>Sincronizar animações com os movimentos do personagem.</li>
+                        <li>Configurar corretamente a câmera terceira pessoa.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">REQUISITO FUNDAMENTAL</div>
+                    <h3>Interatividade e Sistema de Colisão</h3>
+                    <ul>
+                        <li>Criar pelo menos 3 objetos interativos no ambiente 3D.</li>
+                        <li>Implementar detecção de colisão para interação.</li>
+                        <li>Utilizar áreas 3D como zonas de gatilho para eventos específicos.</li>
+                        <li>Implementar feedback ao jogador durante interações (visual ou sonoro).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">REQUISITO ADICIONAL</div>
+                    <h3>Elementos de Jogabilidade</h3>
+                    <p>Implementar pelo menos dois dos seguintes elementos:</p>
+                    <ul>
+                        <li>Sistema de coletáveis com contagem.</li>
+                        <li>Obstáculos ou plataformas móveis.</li>
+                        <li>Inimigos simples com comportamento básico.</li>
+                        <li>Mecanismo de habilidade especial para o personagem.</li>
+                        <li>Sistemas de partículas para efeitos visuais.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="neon-box">
+            <h2><i class="fas fa-cube"></i> COMPONENTES 3D OBRIGATÓRIOS</h2>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h4 class="card-title">Sistema de Câmera</h4>
+                    <ul>
+                        <li>Camera3D configurada</li>
+                        <li>Seguimento suave</li>
+                        <li>Controles de visualização</li>
+                    </ul>
+                    <span class="badge badge-primary category-tag">3C's</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4 class="card-title">Iluminação</h4>
+                    <ul>
+                        <li>Luz direcional</li>
+                        <li>Pelo menos um outro tipo</li>
+                        <li>Sombras configuradas</li>
+                    </ul>
+                    <span class="badge badge-primary category-tag">Ambiente</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h4 class="card-title">Materiais</h4>
+                    <ul>
+                        <li>StandardMaterial3D</li>
+                        <li>Texturas múltiplas</li>
+                        <li>Normal maps</li>
+                    </ul>
+                    <span class="badge badge-primary category-tag">Visual</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h4 class="card-title">Animações</h4>
+                    <ul>
+                        <li>Personagem animado</li>
+                        <li>Transições entre estados</li>
+                        <li>Sincronização com inputs</li>
+                    </ul>
+                    <span class="badge badge-accent category-tag">Personagem</span>
+                </div>
+            </div>
+        </div>
+        
+        <h2><i class="fas fa-code"></i> REQUISITOS TÉCNICOS</h2>
+        
+        <div class="split-columns">
+            <div>
+                <h3><i class="fas fa-file-code"></i> Organização do Código</h3>
+                <ul class="feature-list">
+                    <li>Estruturação lógica dos nós na árvore de cena.</li>
+                    <li>Scripts bem comentados e documentados.</li>
+                    <li>Utilização adequada de sinais para comunicação entre objetos.</li>
+                    <li>Separação clara entre lógica de jogabilidade e apresentação.</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3><i class="fas fa-cogs"></i> Implementação Técnica</h3>
+                <ul class="feature-list">
+                    <li>Física 3D corretamente configurada.</li>
+                    <li>Gestão de colisões com máscaras apropriadas.</li>
+                    <li>Otimização básica para desempenho.</li>
+                    <li>Uso adequado dos métodos <code>_process</code> e <code>_physics_process</code>.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3><i class="fas fa-file-code"></i> Arquivos do Projeto</h3>
+        <p>Seu projeto deve incluir:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Obrigatório</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cena Principal</td>
+                    <td>Ambiente 3D com todos os elementos</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>Cena do Personagem</td>
+                    <td>Personagem com controles, física e animações</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>Scripts GDScript</td>
+                    <td>Código para controle, interação e lógica</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>Assets 3D</td>
+                    <td>Modelos 3D (próprios ou open source)</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>Texturas</td>
+                    <td>Arquivos de imagem para materiais</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>README</td>
+                    <td>Documentação básica de controles e recursos</td>
+                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                </tr>
+                <tr>
+                    <td>Áudio</td>
+                    <td>Efeitos sonoros e música</td>
+                    <td><i class="fas fa-star" style="color: var(--warning);"></i> Bônus</td>
+                </tr>
+                <tr>
+                    <td>UI</td>
+                    <td>Interface do usuário em 3D/2D</td>
+                    <td><i class="fas fa-star" style="color: var(--warning);"></i> Bônus</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="neon-box">
+            <h2><i class="fas fa-graduation-cap"></i> CRITÉRIOS DE AVALIAÇÃO</h2>
+            
+            <div class="split-columns">
+                <div>
+                    <h4>Ambiente 3D (25%)</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <ul>
+                        <li>Qualidade visual da cena</li>
+                        <li>Implementação da iluminação</li>
+                        <li>Colisões e física do ambiente</li>
+                        <li>Materiais e texturas</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>Personagem 3D (25%)</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <ul>
+                        <li>Controle e movimento</li>
+                        <li>Sistema de animação</li>
+                        <li>Câmera e perspectiva</li>
+                        <li>Física e colisões</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="split-columns">
+                <div>
+                    <h4>Interatividade (25%)</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <ul>
+                        <li>Sistema de gatilhos</li>
+                        <li>Feedback de interação</li>
+                        <li>Variedade de interações</li>
+                        <li>Elementos de jogabilidade</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>Código e Técnica (25%)</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <ul>
+                        <li>Estrutura e organização</li>
+                        <li>Performance e otimização</li>
+                        <li>Implementação dos conceitos</li>
+                        <li>Documentação</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <h2><i class="fas fa-book"></i> CONTEXTUALIZAÇÃO COM AULAS ANTERIORES</h2>
+        
+        <p>Este projeto integra os conceitos abordados nas seguintes aulas:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Aula</th>
+                    <th>Conceitos</th>
+                    <th>Aplicação no Projeto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aula 1-2</td>
+                    <td>Conceitos de Game Engine e Godot</td>
+                    <td>Base estrutural do projeto</td>
+                </tr>
+                <tr>
+                    <td>Aula 3</td>
+                    <td>Os 3C's (Câmera, Controle, Personagem)</td>
+                    <td>Sistema de controle e visualização 3D</td>
+                </tr>
+                <tr>
+                    <td>Aula 4</td>
+                    <td>Câmera, Iluminação e Texturas</td>
+                    <td>Configuração visual e perceptiva do ambiente</td>
+                </tr>
+                <tr>
+                    <td>Aula 5</td>
+                    <td>Movimentação, Colisão e Interações</td>
+                    <td>Física do personagem e objetos</td>
+                </tr>
+                <tr>
+                    <td>Aula 6</td>
+                    <td>Nós, Colisão e Gatilhos</td>
+                    <td>Sistema de interatividade e detecção</td>
+                </tr>
+                <tr>
+                    <td>Aula 7</td>
+                    <td>GDScript</td>
+                    <td>Codificação da lógica do jogo</td>
+                </tr>
+                <tr>
+                    <td>Aula 8</td>
+                    <td>Introdução ao desenvolvimento 3D</td>
+                    <td>Fundamentos do ambiente tridimensional</td>
+                </tr>
+                <tr>
+                    <td>Aula 9</td>
+                    <td>Modelos 3D, Animações, Materiais</td>
+                    <td>Aspectos visuais e animados do projeto</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2><i class="fas fa-lightbulb"></i> DICAS E RECURSOS</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h4 class="card-title">Recursos Gratuitos</h4>
+                <ul>
+                    <li><a href="https://www.kenney.nl/assets" target="_blank">Kenney Assets</a></li>
+                    <li><a href="https://sketchfab.com/feed" target="_blank">Sketchfab (modelos 3D)</a></li>
+                    <li><a href="https://freesound.org/" target="_blank">Freesound (áudio)</a></li>
+                    <li><a href="https://ambientcg.com/" target="_blank">AmbientCG (texturas)</a></li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h4 class="card-title">Documentação</h4>
+                <ul>
+                    <li><a href="https://docs.godotengine.org/en/stable/tutorials/3d/index.html" target="_blank">Tutoriais 3D Godot</a></li>
+                    <li><a href="https://docs.godotengine.org/en/stable/tutorials/physics/ray-casting.html" target="_blank">Detecção de Colisão</a></li>
+                    <li><a href="https://docs.godotengine.org/en/stable/tutorials/animation/index.html" target="_blank">Sistema de Animação</a></li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h4 class="card-title">Evitar Problemas</h4>
+                <ul>
+                    <li>Commitar regularmente</li>
+                    <li>Testar incrementalmente</li>
+                    <li>Organizar suas pastas</li>
+                    <li>Otimizar modelos grandes</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h4 class="card-title">Extras para Nota</h4>
+                <ul>
+                    <li>Menus interativos</li>
+                    <li>Sistemas de partículas</li>
+                    <li>Efeitos sonoros</li>
+                    <li>Criatividade na jogabilidade</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2><i class="fas fa-cloud-upload-alt"></i> ENTREGA FINAL</h2>
+        
+        <div class="neon-box">
+            <h3>Instruções para Entrega</h3>
+            <ol>
+                <li>Comprima seu projeto Godot (.zip ou .7z) e link do projeto no github</li>
+                <li>Inclua um README com:
+                    <ul>
+                        <li>Nome dos integrantes do grupo</li>
+                        <li>Instruções de execução</li>
+                        <li>Controles do jogo</li>
+                        <li>Recursos utilizados (créditos)</li>
+                        <li>Funcionalidades implementadas</li>
+                        <li>Screenshots (opcional)</li>
+                    </ul>
+                </li>
+                <li>Envie do projeto via forms que será disponibilizado no dia da apresentação</li>
+                <li>Preparar apresentação de 5-10 minutos para demonstrar o projeto</li>
+            </ol>
+            
+            <div class="split-columns">
+                <div>
+                    <h4><i class="fas fa-users"></i> Composição de Grupos</h4>
+                    <p>Grupos de <span class="highlight">1 a 9 integrantes</span>.</p>
+                    <p>Todos os membros devem participar da apresentação final.</p>
+                </div>
+                
+                <div>
+                    <h4><i class="fas fa-clock"></i> Prazo Final</h4>
+                    <p class="highlight">28 de Maio de 2025</p>
+                    <p><i class="fas fa-exclamation-circle"></i> Não serão aceitas entregas após o prazo sem justificativa formal.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="mailto:010117368@prof.uninassau.edu.br" class="btn btn-primary">
+                    <i class="fas fa-question-circle"></i> Tirar Dúvidas
+                </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="btn">
+                    <i class="fab fa-github"></i> Material de Apoio
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Desenvolvido para a disciplina de Game Engine | 2025</p>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            
+            <ul class="social-links">
+                <li>
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:010117368@prof.uninassau.edu.br">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+            </ul>
+            
+            <p>Centro Universitário Maurício de Nassau</p>
+        </div>
+    </footer>
+
+    <script>
+        // Adiciona classe para elementos com efeito de flutuação
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('floating');
+                }, index * 150);
+            });
+            
+            // Adiciona efeito de hover nas progress bars
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                bar.parentElement.addEventListener('mouseover', () => {
+                    bar.style.backgroundColor = 'var(--accent)';
+                });
+                bar.parentElement.addEventListener('mouseout', () => {
+                    bar.style.backgroundColor = 'var(--primary)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
