@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sensores em React Native Expo</title>
+
+  <meta name="description" content="Sensores em aplicações móveis com React Native e Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .highlight {
+      color: #50fa7b;
+      font-weight: bold;
+    }
+    
+    .warning {
+      color: #ffb86c;
+    }
+    
+    .code-box {
+      background-color: #282a36;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 20px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .col {
+      flex: 1;
+      padding: 0 10px;
+    }
+    
+    .small-text {
+      font-size: 0.7em;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 5: Sensores em React Native Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da aula -->
+      <section>
+        <h3>📋 Objetivos da Aula</h3>
+        <ul>
+          <li>Compreender o que são sensores em dispositivos móveis</li>
+          <li>Identificar os principais tipos de sensores disponíveis</li>
+          <li>Entender os requisitos de permissões para uso de sensores</li>
+          <li>Conhecer as bibliotecas do Expo para sensores</li>
+          <li>Implementar exemplos práticos usando diversos sensores</li>
+          <li>Desenvolver aplicações que respondem a dados sensoriais</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Introdução aos Sensores -->
+      <section>
+        <section>
+          <h3>📱 Introdução aos Sensores</h3>
+          <p>Sensores são componentes de hardware que:</p>
+          <ul>
+            <li>Capturam informações físicas do ambiente</li>
+            <li>Transformam dados físicos em sinais digitais</li>
+            <li>Permitem que aplicativos interajam com o mundo real</li>
+            <li>Possibilitam experiências imersivas e contextuais</li>
+          </ul>
+          <p><i class="fas fa-arrow-down"></i> Continue para ver os tipos de sensores</p>
+        </section>
+        
+        <section>
+          <h3>🔍 Tipos de Sensores em Dispositivos Móveis</h3>
+          <div class="container">
+            <div class="col">
+              <h4>Sensores de Movimento</h4>
+              <ul>
+                <li>Acelerômetro</li>
+                <li>Giroscópio</li>
+                <li>Magnetômetro</li>
+                <li>Pedômetro</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h4>Sensores Ambientais</h4>
+              <ul>
+                <li>Barômetro</li>
+                <li>Luminosidade</li>
+                <li>Proximidade</li>
+                <li>Termômetro</li>
+              </ul>
+            </div>
+          </div>
+          <div class="container">
+            <div class="col">
+              <h4>Sensores de Posicionamento</h4>
+              <ul>
+                <li>GPS</li>
+                <li>Bússola</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h4>Outros</h4>
+              <ul>
+                <li>Biométricos (Face ID, Touch ID)</li>
+                <li>Câmera</li>
+                <li>Microfone</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Motivação -->
+      <section>
+        <h3>💡 Por que usar Sensores?</h3>
+        <ul>
+          <li>Criar experiências de usuário <span class="highlight">contextuais</span> e <span class="highlight">personalizadas</span></li>
+          <li>Desenvolver aplicações de <span class="highlight">realidade aumentada</span> e jogos</li>
+          <li>Monitorar atividade física e saúde do usuário</li>
+          <li>Implementar navegação e orientação espacial</li>
+          <li>Adaptar o comportamento do app às condições ambientais</li>
+          <li>Oferecer acessibilidade e modos alternativos de interação</li>
+        </ul>
+        <div class="text-center">
+          <p>Os sensores são a <span class="highlight">ponte entre o mundo digital e físico</span> 🌍</p>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Conceitos Fundamentais -->
+      <section>
+        <section>
+          <h3>🔧 Conceitos Fundamentais</h3>
+          <ul>
+            <li><strong>Precisão:</strong> Varia entre dispositivos e fabricantes</li>
+            <li><strong>Taxa de amostragem:</strong> Frequência de leitura dos dados</li>
+            <li><strong>Permissões:</strong> Necessárias para acessar sensores sensíveis</li>
+            <li><strong>Consumo de bateria:</strong> Sensores ativos consomem energia</li>
+            <li><strong>Sincronização:</strong> Coordenação entre diferentes sensores</li>
+          </ul>
+          <p class="warning"><i class="fas fa-exclamation-triangle"></i> Atenção: A disponibilidade dos sensores varia conforme o dispositivo!</p>
+        </section>
+
+        <section>
+          <h3>📊 Dados dos Sensores</h3>
+          <div class="container">
+            <div class="col">
+              <h4>Acelerômetro</h4>
+              <p>Mede aceleração em 3 eixos:</p>
+              <ul>
+                <li><strong>x:</strong> Horizontal (esquerda/direita)</li>
+                <li><strong>y:</strong> Vertical (cima/baixo)</li>
+                <li><strong>z:</strong> Profundidade (frente/trás)</li>
+              </ul>
+              <p>Unidade: m/s² ou g (9.8 m/s²)</p>
+            </div>
+            <div class="col">
+              <h4>Giroscópio</h4>
+              <p>Mede rotação em 3 eixos:</p>
+              <ul>
+                <li><strong>alpha:</strong> Rotação em z</li>
+                <li><strong>beta:</strong> Rotação em x</li>
+                <li><strong>gamma:</strong> Rotação em y</li>
+              </ul>
+              <p>Unidade: rad/s</p>
+            </div>
+          </div>
+          <p class="small-text">Estes dados precisam ser processados para uso em aplicações</p>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Bibliotecas do Expo para Sensores -->
+      <section>
+        <h3>📚 Bibliotecas do Expo para Sensores</h3>
+        <div class="code-box">
+          <pre><code data-trim data-noescape>
+// Instalação das principais bibliotecas de sensores
+expo install expo-sensors
+expo install expo-location
+expo install expo-device
+          </code></pre>
+        </div>
+        <div class="container">
+          <div class="col">
+            <h4>Principais Módulos:</h4>
+            <ul>
+              <li><code>expo-sensors</code>
+                <ul class="small-text">
+                  <li>Accelerometer</li>
+                  <li>Gyroscope</li>
+                  <li>Magnetometer</li>
+                  <li>Barometer</li>
+                  <li>Pedometer</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <h4>Outros Módulos:</h4>
+            <ul>
+              <li><code>expo-location</code> (GPS)</li>
+              <li><code>expo-camera</code></li>
+              <li><code>expo-brightness</code></li>
+              <li><code>expo-battery</code></li>
+              <li><code>expo-screen-orientation</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Permissões -->
+      <section>
+        <h3>🔒 Permissões para Sensores</h3>
+        <p>Alguns sensores requerem permissões explícitas do usuário</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-17|3-6|8-16">
+import * as Location from 'expo-location';
+
+// Solicitação de permissão para localização
+const requestLocationPermission = async () => {
+  const { status } = await Location.requestForegroundPermissionsAsync();
+  return status === 'granted';
+};
+
+// Verificação e tratamento de permissões
+useEffect(() => {
+  const checkPermissions = async () => {
+    const hasPermission = await requestLocationPermission();
+    if (!hasPermission) {
+      Alert.alert('Permissão necessária', 'Este app precisa de acesso à localização');
+    }
+  };
+  checkPermissions();
+}, []);
+          </code></pre>
+        </div>
+        <p class="small-text warning">É uma boa prática verificar permissões antes de usar sensores e fornecer explicações claras ao usuário sobre o motivo da solicitação.</p>
+      </section>
+
+      <!-- Slide 8 - Acelerômetro -->
+      <section>
+        <h3>🔄 Acelerômetro</h3>
+        <p>Mede a aceleração aplicada ao dispositivo, incluindo a gravidade</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-26|5-9|12-14|16-24">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Accelerometer } from 'expo-sensors';
+
+// Definindo intervalo de atualização (ms)
+const _interval = 100;
+// Definindo quando o Accelerometer será "ouvido"
+// (menor valor = mais preciso, maior consumo de bateria)
+Accelerometer.setUpdateInterval(_interval);
+
+export default function AccelerometerSensor() {
+  // Estado para armazenar os dados do acelerômetro
+  const [{ x, y, z }, setData] = useState({ x: 0, y: 0, z: 0 });
+  const [subscription, setSubscription] = useState(null);
+
+  // Função para subscrever ao sensor
+  const _subscribe = () => {
+    setSubscription(
+      Accelerometer.addListener(accelerometerData => {
+        setData(accelerometerData);
+      })
+    );
+  };
+
+  // Função para cancelar a subscrição
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Acelerômetro:</Text>
+      <Text style={styles.text}>
+        x: {x.toFixed(2)}, y: {y.toFixed(2)}, z: {z.toFixed(2)}
+      </Text>
+      <Text style={styles.text}>
+        {Math.abs(x) > 0.7 ? 'Inclinado para ' + (x > 0 ? 'direita' : 'esquerda') : 'Estável horizontalmente'}
+      </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 9 - Giroscópio -->
+      <section>
+        <h3>🔄 Giroscópio</h3>
+        <p>Mede a velocidade de rotação do dispositivo em três eixos</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-28|7-10|13-21|24-26">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { Gyroscope } from 'expo-sensors';
+
+export default function GyroscopeSensor() {
+  const [{ x, y, z }, setData] = useState({ x: 0, y: 0, z: 0 });
+  const [subscription, setSubscription] = useState(null);
+
+  // Define intervalo de atualização do giroscópio (em milissegundos)
+  Gyroscope.setUpdateInterval(200);
+
+  // Função para ativar o sensor
+  const _subscribe = () => {
+    setSubscription(
+      Gyroscope.addListener(gyroscopeData => {
+        setData(gyroscopeData);
+      })
+    );
+  };
+
+  // Função para desativar o sensor
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  // Interface visual
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Dados do Giroscópio:</Text>
+      <Text>Rotação x: {x.toFixed(3)}</Text>
+      <Text>Rotação y: {y.toFixed(3)}</Text>
+      <Text>Rotação z: {z.toFixed(3)}</Text>
+      
+      <View style={styles.buttonContainer}>
+        <Button
+          title={subscription ? 'Desligar Sensor' : 'Ligar Sensor'}
+          onPress={subscription ? _unsubscribe : _subscribe}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    marginTop: 30,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Localização (GPS) -->
+      <section>
+        <h3>📍 Localização (GPS)</h3>
+        <p>Acesso às coordenadas de geolocalização do dispositivo</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-33|5-13|16-22|26-32">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Alert } from 'react-native';
+import * as Location from 'expo-location';
+
+export default function LocationComponent() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      // Solicita permissões de localização
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      
+      if (status !== 'granted') {
+        setErrorMsg('Permissão negada. A localização é necessária!');
+        return;
+      }
+
+      // Obter localização atual
+      try {
+        let location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Highest,
+          maximumAge: 10000
+        });
+        setLocation(location);
+      } catch (error) {
+        setErrorMsg('Erro ao obter localização: ' + error.message);
+      }
+    })();
+  }, []);
+
+  // Determina o texto a ser exibido
+  let textToDisplay = 'Carregando...';
+  if (errorMsg) {
+    textToDisplay = errorMsg;
+  } else if (location) {
+    textToDisplay = `Latitude: ${location.coords.latitude}\nLongitude: ${location.coords.longitude}`;
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Localização Atual</Text>
+      <Text style={styles.locationInfo}>{textToDisplay}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  locationInfo: {
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 28,
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 11 - Magnetômetro -->
+      <section>
+        <h3>🧲 Magnetômetro</h3>
+        <p>Mede o campo magnético ao redor do dispositivo (bússola)</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-47|6-17|20-24|27-29|38-41">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Magnetometer } from 'expo-sensors';
+
+export default function MagnetometerSensor() {
+  const [data, setData] = useState({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+  const [subscription, setSubscription] = useState(null);
+  
+  // Calcula direção da bússola a partir dos dados do magnetômetro
+  const _angle = (magnetometer) => {
+    let angle = 0;
+    if (magnetometer) {
+      let { x, y } = magnetometer;
+      angle = Math.atan2(y, x) * (180 / Math.PI);
+      if (angle < 0) angle += 360;
+    }
+    return Math.round(angle);
+  };
+  
+  // Determina direção cardeal baseada no ângulo
+  const _direction = (angle) => {
+    const directions = ['Norte', 'NE', 'Leste', 'SE', 'Sul', 'SO', 'Oeste', 'NO'];
+    return directions[Math.floor((angle + 22.5) % 360 / 45)];
+  };
+  
+  const _subscribe = () => {
+    Magnetometer.setUpdateInterval(100); // 100ms
+    setSubscription(
+      Magnetometer.addListener(result => {
+        setData(result);
+      })
+    );
+  };
+  
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+  
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+  
+  const angle = _angle(data);
+  const direction = _direction(angle);
+  
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Magnetômetro (Bússola)</Text>
+      <Text>x: {data.x.toFixed(2)}</Text>
+      <Text>y: {data.y.toFixed(2)}</Text>
+      <Text>z: {data.z.toFixed(2)}</Text>
+      <Text style={styles.heading}>{angle}° {direction}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2196f3',
+    marginTop: 20,
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 12 - Sensor de Luminosidade -->
+      <section>
+        <h3>☀️ Sensor de Luminosidade</h3>
+        <p>Mede a intensidade da luz ambiente</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-45|6-10|18-26|31-36">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import * as Brightness from 'expo-brightness';
+import { Appearance } from 'react-native';
+
+export default function LightSensor() {
+  const [brightness, setBrightness] = useState(null);
+  const [theme, setTheme] = useState(Appearance.getColorScheme());
+  const [permission, setPermission] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Monitor do tema (claro/escuro)
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      setTheme(colorScheme);
+    });
+
+    // Solicitar permissão e obter brilho
+    (async () => {
+      try {
+        // Solicitar permissão para acessar brilho do sistema
+        const { status } = await Brightness.requestPermissionsAsync();
+        setPermission(status === 'granted');
+        
+        if (status === 'granted') {
+          // Obter o brilho da tela
+          const brightnessValue = await Brightness.getBrightnessAsync();
+          setBrightness(brightnessValue);
+        }
+      } catch (e) {
+        setError(e.message);
+      }
+    })();
+
+    return () => subscription.remove();
+  }, []);
+
+  // Interpretação do nível de brilho
+  const getBrightnessDescription = (value) => {
+    if (value === null) return 'Carregando...';
+    if (value < 0.2) return 'Ambiente muito escuro';
+    if (value < 0.5) return 'Ambiente com pouca luz';
+    if (value < 0.8) return 'Ambiente bem iluminado';
+    return 'Ambiente muito iluminado';
+  };
+
+  return (
+    <View style={[styles.container, theme === 'dark' ? styles.darkMode : styles.lightMode]}>
+      <Text style={[styles.title, theme === 'dark' ? styles.textDark : styles.textLight]}>
+        Sensor de Luminosidade
+      </Text>
+      
+      {error ? (
+        <Text style={styles.error}>Erro: {error}</Text>
+      ) : !permission ? (
+        <Text style={styles.warning}>Permissão necessária para acessar o sensor</Text>
+      ) : (
+        <>
+          <Text style={[styles.text, theme === 'dark' ? styles.textDark : styles.textLight]}>
+            Brilho da tela: {brightness ? Math.round(brightness * 100) + '%' : 'Carregando...'}
+          </Text>
+          <Text style={[styles.description, theme === 'dark' ? styles.textDark : styles.textLight]}>
+            {getBrightnessDescription(brightness)}
+          </Text>
+        </>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  lightMode: {
+    backgroundColor: '#fff',
+  },
+  darkMode: {
+    backgroundColor: '#121212',
+  },
+  textLight: {
+    color: '#121212',
+  },
+  textDark: {
+    color: '#fff',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  error: {
+    color: 'red',
+    fontSize: 16,
+  },
+  warning: {
+    color: 'orange',
+    fontSize: 16,
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Pedômetro -->
+      <section>
+        <h3>👣 Pedômetro</h3>
+        <p>Conta os passos do usuário ao andar com o dispositivo</p>
+        <div class="code-box">
+          <pre><code data-trim data-noescape data-line-numbers="1-55|8-12|15-31|38-45">
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { Pedometer } from 'expo-sensors';
+import * as Device from 'expo-device';
+
+export default function PedometerSensor() {
+  // Estados para passos e disponibilidade
+  const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
+  const [pastStepCount, setPastStepCount] = useState(0);
+  const [currentStepCount, setCurrentStepCount] = useState(0);
+  const [subscription, setSubscription] = useState(null);
+  const [goalSteps, setGoalSteps] = useState(10000);
+
+  // Verifica se o pedômetro está disponível no dispositivo
+  const _checkPedometerAvailability = async () => {
+    try {
+      const isAvailable = await Pedometer.isAvailableAsync();
+      setIsPedometerAvailable(String(isAvailable));
+      
+      if (isAvailable) {
+        // Obtém passos das últimas 24 horas
+        const end = new Date();
+        const start = new Date();
+        start.setDate(end.getDate() - 1);
+        
+        const { steps } = await Pedometer.getStepCountAsync(start, end);
+        setPastStepCount(steps);
+        
+        // Inicia monitoramento em tempo real
+        _subscribe();
+      }
+    } catch (error) {
+      setIsPedometerAvailable('Error: ' + error);
+    }
+  };
+
+  const _subscribe = () => {
+    setSubscription(
+      Pedometer.watchStepCount(result => {
+        setCurrentStepCount(result.steps);
+      })
+    );
+  };
+
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  useEffect(() => {
+    _checkPedometerAvailability();
+
+    return () => {
+      _unsubscribe();
+    };
+  }, []);
+
+  // Calcula porcentagem para meta diária
+  const progressPercent = Math.min(100, Math.round((currentStepCount / goalSteps) * 100));
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Pedômetro</Text>
+      
+      <Text>Sensor disponível: {isPedometerAvailable}</Text>
+      <Text>Passos nas últimas 24h: {pastStepCount}</Text>
+      <Text style={styles.steps}>Passos atuais: {currentStepCount}</Text>
+      
+      <View style={styles.progressContainer}>
+        <View style={[styles.progressBar, { width: `${progressPercent}%` }]} />
+        <Text style={styles.progressText}>{progressPercent}% da meta</Text>
+      </View>
+      
+      <Text style={styles.goalText}>Meta: {goalSteps} passos</Text>
+      
+      {Device.modelName && (
+        <Text style={styles.deviceInfo}>Dispositivo: {Device.modelName}</Text>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  steps: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 15,
+  },
+  progressContainer: {
+    width: '80%',
+    height: 20,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    marginVertical: 20,
+    overflow: 'hidden',
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: '#4CAF50',
+  },
+  progressText: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center',
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  goalText: {
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
+  deviceInfo: {
+    marginTop: 20,
+    fontSize: 14,
+    color: '#666',
+  },
+});
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 14 - Boas Práticas para Sensores -->
+      <section>
+        <h3>✅ Boas Práticas para Sensores</h3>
+        <ul>
+          <li><strong>Economize bateria:</strong> 
+            <ul>
+              <li>Utilize <code>setUpdateInterval</code> com valores razoáveis</li>
+              <li>Desative sensores quando não estiverem em uso</li>
+            </ul>
+          </li>
+          <li><strong>Trate permissões corretamente:</strong>
+            <ul>
+              <li>Solicite apenas o necessário</li>
+              <li>Explique ao usuário por que precisa do acesso</li>
+            </ul>
+          </li>
+          <li><strong>Considere compatibilidade:</strong>
+            <ul>
+              <li>Sempre verifique com <code>isAvailableAsync()</code> antes de usar</li>
+              <li>Forneça alternativas quando o sensor não estiver disponível</li>
+            </ul>
+          </li>
+          <li><strong>Manipule erros:</strong>
+            <ul>
+              <li>Use try/catch para capturar exceções</li>
+              <li>Forneça feedback útil ao usuário</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Slide 15 - Exercícios em Sala -->
+      <section>
+        <h3>🏋️‍♂️ Exercícios em Sala</h3>
+        
+        <p><strong>Exercício 1:</strong> Detector de Movimento</p>
+        <div class="code-box small-text">
+          <p>Crie um aplicativo que detecte quando o usuário chacoalha o dispositivo e mude a cor de fundo da tela cada vez que isso acontecer. Use o acelerômetro para isso.</p>
+          <ul>
+            <li>Defina um limiar para detectar "chacoalhadas" (Ex: valor absoluto > 1.5g)</li>
+            <li>Use um array de cores e alterne entre elas a cada chacoalhada</li>
+            <li>Adicione um contador de chacoalhadas na tela</li>
+          </ul>
+        </div>
+        
+        <p><strong>Exercício 2:</strong> Bússola Digital</p>
+        <div class="code-box small-text">
+          <p>Crie um aplicativo de bússola que:</p>
+          <ul>
+            <li>Mostre uma imagem de bússola que gira conforme a orientação do dispositivo</li>
+            <li>Exiba o ângulo atual em graus</li>
+            <li>Mostre os pontos cardeais (N, S, L, O)</li>
+            <li>Implemente um botão para calibrar o magnetômetro</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 16 - Exercício para Casa -->
+      <section>
+        <h3>🏠 Projeto para Casa: Aplicativo Fitness</h3>
+        <p>Desenvolva um aplicativo de fitness simplificado utilizando sensores do dispositivo:</p>
+
+        <div class="code-box">
+          <p><strong>Requisitos:</strong></p>
+          <ol>
+            <li>Implemente um contador de passos usando o pedômetro</li>
+            <li>Calcule a distância percorrida (estimativa baseada na altura do usuário)</li>
+            <li>Calcule calorias queimadas (estimativa baseada no peso do usuário)</li>
+            <li>Detecte se o usuário está correndo ou caminhando usando acelerômetro</li>
+            <li>Armazene histórico de atividades usando AsyncStorage</li>
+            <li>Crie uma interface amigável com gráficos de progresso</li>
+          </ol>
+          <p><strong>Bônus:</strong></p>
+          <ul>
+            <li>Adicione um mapa que mostre a rota percorrida (expo-location + react-native-maps)</li>
+            <li>Implemente modo claro/escuro automático baseado no sensor de luz</li>
+          </ul>
+        </div>
+        <p class="small-text warning">Prazo: Próxima aula</p>
+      </section>
+
+      <!-- Slide 17 - Referências -->
+      <section>
+        <h3>📚 Referências</h3>
+        <ul class="small-text">
+          <li><a href="https://docs.expo.io/versions/latest/sdk/sensors/" target="_blank">Documentação Expo Sensors</a></li>
+          <li><a href="https://docs.expo.io/versions/latest/sdk/location/" target="_blank">Documentação Expo Location</a></li>
+          <li><a href="https://docs.expo.io/versions/latest/sdk/brightness/" target="_blank">Documentação Expo Brightness</a></li>
+          <li><a href="https://docs.expo.io/versions/latest/sdk/pedometer/" target="_blank">Documentação Expo Pedometer</a></li>
+          <li><a href="https://docs.expo.io/versions/latest/sdk/magnetometer/" target="_blank">Documentação Expo Magnetometer</a></li>
+          <li><a href="https://reactnative.dev/docs/permissionsandroid" target="_blank">React Native - Permissões no Android</a></li>
+          <li><a href="https://developer.android.com/guide/topics/sensors/sensors_overview" target="_blank">Android Sensors Overview</a></li>
+          <li><a href="https://developer.apple.com/documentation/coremotion" target="_blank">Apple Core Motion</a></li>
+        </ul>
+        <p style="margin-top: 30px;">Dúvidas? Entre em contato:</p>
+        <div>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" style="margin-right: 15px;">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

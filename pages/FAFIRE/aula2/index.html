@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Estrutura de Pastas e Estilização em React Native</title>
+
+  <meta name="description" content="Estrutura de Pastas, Estilização com StyleSheet e Styled Components, Flexbox, useWindowDimensions e Formulários">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+    .highlight {
+      color: #50fa7b;
+      font-weight: bold;
+    }
+    .warning {
+      color: #ffb86c;
+      font-weight: bold;
+    }
+    .fragment.highlight-current-blue.visible.current-fragment {
+      font-weight: bold;
+    }
+    .smaller-text {
+      font-size: 0.8em;
+    }
+    .center-text {
+      text-align: center;
+    }
+    .align-left {
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 2: Estrutura de Pastas e Estilização em React Native</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Compreender a estrutura de pastas no React Native (Expo vs CLI)</li>
+          <li class="fragment">Dominar técnicas de estilização com StyleSheet</li>
+          <li class="fragment">Implementar estilização com Styled Components</li>
+          <li class="fragment">Aplicar conceitos de Flexbox na criação de layouts</li>
+          <li class="fragment">Utilizar useWindowDimensions para interfaces responsivas</li>
+          <li class="fragment">Criar formulários eficientes em React Native</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Introdução e Motivação -->
+      <section>
+        <section>
+          <h2>📱 Introdução</h2>
+          <p class="fragment">O React Native permite desenvolver aplicações móveis utilizando JavaScript/TypeScript</p>
+          <p class="fragment">Uma boa estruturação de projeto e domínio das técnicas de estilização são fundamentais para:</p>
+          <ul>
+            <li class="fragment">Manutenibilidade do código</li>
+            <li class="fragment">Reutilização de componentes</li>
+            <li class="fragment">Consistência visual entre plataformas</li>
+            <li class="fragment">Experiência do usuário aprimorada</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h2>💡 Por que isso é importante?</h2>
+          <div class="container">
+            <div class="column fragment">
+              <h4>Estrutura de Pastas</h4>
+              <ul>
+                <li>Organização do código</li>
+                <li>Facilita colaboração em equipe</li>
+                <li>Escalabilidade do projeto</li>
+                <li>Separação de responsabilidades</li>
+              </ul>
+            </div>
+            <div class="column fragment">
+              <h4>Estilização</h4>
+              <ul>
+                <li>Consistência visual</li>
+                <li>Adaptabilidade entre dispositivos</li>
+                <li>Reutilização de estilos</li>
+                <li>Performance otimizada</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Estrutura de Pastas -->
+      <section>
+        <section>
+          <h2>📁 Estrutura de Pastas</h2>
+          <p>Comparação entre Expo e React Native CLI</p>
+          <div class="container">
+            <div class="column fragment">
+              <h4>Expo 📦</h4>
+              <p class="smaller-text align-left">Estrutura simplificada, ferramentas prontas para uso</p>
+            </div>
+            <div class="column fragment">
+              <h4>React Native CLI 🛠️</h4>
+              <p class="smaller-text align-left">Maior controle, configuração manual</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📁 Estrutura Básica Expo</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-13|2-5|6-9|10-13" class="language-bash">
+projeto-expo/
+├── assets/              # Imagens, fontes e outros recursos
+├── app.json             # Configuração do Expo
+├── App.js               # Ponto de entrada da aplicação
+├── components/          # Componentes reutilizáveis
+├── screens/             # Telas da aplicação
+├── navigation/          # Navegação entre telas
+├── services/            # Serviços e APIs
+├── package.json         # Dependências do projeto
+├── babel.config.js      # Configuração do Babel
+├── node_modules/        # Módulos instalados
+└── .gitignore           # Arquivos ignorados pelo git
+          </code></pre>
+          <p class="fragment smaller-text">O Expo facilita a configuração inicial e oferece ferramentas como Expo Go para testes rápidos</p>
+        </section>
+
+        <section>
+          <h3>📁 Estrutura React Native CLI</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-16|2-7|8-16" class="language-bash">
+projeto-rn-cli/
+├── android/             # Código nativo Android
+├── ios/                 # Código nativo iOS
+├── src/                 # Código fonte principal
+│   ├── assets/          # Recursos estáticos
+│   ├── components/      # Componentes reutilizáveis
+│   ├── screens/         # Telas da aplicação
+│   ├── navigation/      # Configuração de rotas
+│   ├── services/        # Serviços e APIs
+│   ├── utils/           # Funções utilitárias
+│   └── App.js           # Componente principal
+├── index.js             # Ponto de entrada
+├── package.json         # Dependências do projeto
+├── metro.config.js      # Configuração do Metro Bundler
+├── babel.config.js      # Configuração do Babel
+└── node_modules/        # Módulos instalados
+          </code></pre>
+          <p class="fragment smaller-text">O CLI oferece acesso direto ao código nativo, ideal para recursos específicos de plataforma</p>
+        </section>
+
+        <section>
+          <h3>🔄 Sugestão de Estrutura Organizada</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-16|3-6|7-11|12-16" class="language-bash">
+meu-app/
+├── src/
+│   ├── assets/              # Recursos estáticos
+│   ├── constants/           # Constantes da aplicação
+│   ├── theme/               # Temas e estilos globais
+│   ├── hooks/               # Custom hooks
+│   ├── components/          # Componentes reutilizáveis
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   ├── Form/
+│   │   └── ...
+│   ├── screens/             # Telas organizadas por feature
+│   │   ├── Auth/
+│   │   ├── Home/
+│   │   ├── Profile/
+│   │   └── ...
+│   ├── services/            # Serviços e APIs
+│   ├── store/               # Gerenciamento de estado
+│   ├── utils/               # Funções utilitárias
+│   ├── navigation/          # Configuração de rotas
+│   └── App.js               # Componente principal
+└── ...arquivos de configuração
+          </code></pre>
+          <p class="fragment">Esta estrutura facilita a escalabilidade e manutenção do projeto</p>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Estilização com StyleSheet -->
+      <section>
+        <section>
+          <h2>🎨 Estilização com StyleSheet</h2>
+          <p>O React Native utiliza JavaScript para definir estilos</p>
+          <pre><code data-trim data-noescape data-line-numbers="1-3|5-14|16-24" class="language-javascript">
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+// Componente com estilos
+const Card = () => (
+  &lt;View style={styles.card}>
+    &lt;Text style={styles.title}>Meu Cartão&lt;/Text>
+    &lt;Text style={styles.description}>
+      Este é um exemplo de cartão estilizado com StyleSheet
+    &lt;/Text>
+  &lt;/View>
+);
+
+// Definição de estilos
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    padding: 16,
+    margin: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3, // Para Android
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 14,
+    color: '#666666',
+  },
+});
+
+export default Card;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>💪 Vantagens do StyleSheet</h3>
+          <ul>
+            <li class="fragment">Validação de propriedades em tempo de desenvolvimento</li>
+            <li class="fragment">Otimização de performance (cria referências de ID)</li>
+            <li class="fragment">Autocomplete em editores modernos</li>
+            <li class="fragment">Separação entre lógica e estilo</li>
+          </ul>
+          <p class="fragment warning">⚠️ As propriedades CSS tradicionais são adaptadas para camelCase!</p>
+          <pre class="fragment"><code data-trim data-line-numbers class="language-javascript">
+// Web CSS:    background-color, font-size
+// React Native: backgroundColor, fontSize
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Aplicação de Estilos</h3>
+          <p>Múltiplas formas de aplicar estilos em componentes:</p>
+          <pre><code data-trim data-noescape data-line-numbers="1-5|7-12|14-20" class="language-javascript">
+// 1. Estilo único
+&lt;View style={styles.container}>
+  &lt;Text>Texto simples&lt;/Text>
+&lt;/View>
+
+// 2. Múltiplos estilos (array)
+&lt;View style={[styles.container, styles.padded]}>
+  &lt;Text>Combinação de estilos&lt;/Text>
+&lt;/View>
+
+// 3. Estilos condicionais
+&lt;View style={[
+  styles.button, 
+  isActive ? styles.activeButton : styles.inactiveButton
+]}>
+  &lt;Text>Botão com estado&lt;/Text>
+&lt;/View>
+
+// 4. Estilos inline (evitar para código mais limpo)
+&lt;View style={{ 
+  padding: 20, 
+  backgroundColor: isDark ? '#000' : '#fff'
+}}>
+  &lt;Text>Estilos inline&lt;/Text>
+&lt;/View>
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔄 Estilização Dinâmica</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-10|12-30|32-42" class="language-javascript">
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+const DynamicStyleExample = () => {
+  const [isActive, setIsActive] = useState(false);
+  
+  const toggleActive = () => {
+    setIsActive(!isActive);
+  };
+
+  return (
+    &lt;View style={styles.container}>
+      &lt;TouchableOpacity
+        style={[
+          styles.button,
+          isActive ? styles.activeButton : styles.inactiveButton
+        ]}
+        onPress={toggleActive}
+      >
+        &lt;Text style={[
+          styles.buttonText,
+          isActive ? styles.activeText : styles.inactiveText
+        ]}>
+          {isActive ? 'Ativo' : 'Inativo'}
+        &lt;/Text>
+      &lt;/TouchableOpacity>
+    &lt;/View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    padding: 15,
+    borderRadius: 8,
+    width: 200,
+    alignItems: 'center',
+  },
+  activeButton: {
+    backgroundColor: '#4CAF50',
+  },
+  inactiveButton: {
+    backgroundColor: '#ccc',
+  },
+  buttonText: {
+    fontWeight: 'bold',
+  },
+  activeText: {
+    color: 'white',
+  },
+  inactiveText: {
+    color: '#333',
+  },
+});
+
+export default DynamicStyleExample;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Styled Components -->
+      <section>
+        <section>
+          <h2>💅 Styled Components</h2>
+          <p>Uma abordagem alternativa para estilização usando CSS-in-JS</p>
+          <pre><code data-trim data-noescape data-line-numbers="1-4|6-17|19-25" class="language-javascript">
+// Instalação:
+// npm install styled-components
+// ou
+// yarn add styled-components
+
+import React from 'react';
+import styled from 'styled-components/native';
+
+// Definindo componentes estilizados
+const Container = styled.View`
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 8px;
+  shadow-opacity: 0.1;
+  shadow-radius: 4px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  elevation: 3;
+`;
+
+const Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: ${props => props.primary ? '#1e88e5' : '#333'};
+`;
+
+const Description = styled.Text`
+  font-size: 14px;
+  color: #666666;
+`;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔍 Usando Styled Components</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-15|17-19" class="language-javascript">
+// Componente com Styled Components
+const StyledCard = ({ title, description, isPrimary }) => (
+  &lt;Container>
+    &lt;Title primary={isPrimary}>{title}&lt;/Title>
+    &lt;Description>{description}&lt;/Description>
+  &lt;/Container>
+);
+
+// Uso do componente
+const App = () => (
+  &lt;SafeAreaView>
+    &lt;StyledCard 
+      title="Meu Cartão Estilizado" 
+      description="Usando Styled Components para estilizar"
+      isPrimary={true}
+    />
+  &lt;/SafeAreaView>
+);
+
+// Estendendo estilos de componentes existentes
+const PrimaryContainer = styled(Container)`
+  background-color: #e3f2fd;
+  border-left-width: 4px;
+  border-left-color: #1e88e5;
+`;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📊 StyleSheet vs Styled Components</h3>
+          <div class="container">
+            <div class="column">
+              <h4>StyleSheet 📋</h4>
+              <ul>
+                <li class="fragment">Nativo do React Native</li>
+                <li class="fragment">Performance otimizada</li>
+                <li class="fragment">Tipagem forte com TypeScript</li>
+                <li class="fragment">Validações em tempo de compilação</li>
+                <li class="fragment">Sem dependências externas</li>
+              </ul>
+            </div>
+            <div class="column">
+              <h4>Styled Components 💅</h4>
+              <ul>
+                <li class="fragment">Sintaxe CSS tradicional</li>
+                <li class="fragment">Props dinâmicas para estilos</li>
+                <li class="fragment">Melhor reutilização de componentes</li>
+                <li class="fragment">Temas globais</li>
+                <li class="fragment">Bibliotecas de UI familiares para desenvolvedores web</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Flexbox -->
+      <section>
+        <section>
+          <h2>📏 Flexbox em React Native</h2>
+          <p>Flexbox é o principal sistema de layout em React Native</p>
+          <div class="container">
+            <div class="column fragment">
+              <p>Principais propriedades:</p>
+              <ul>
+                <li>flex</li>
+                <li>flexDirection</li>
+                <li>justifyContent</li>
+                <li>alignItems</li>
+                <li>flexWrap</li>
+              </ul>
+            </div>
+            <div class="column fragment">
+              <p>Propriedades complementares:</p>
+              <ul>
+                <li>alignSelf</li>
+                <li>flexBasis</li>
+                <li>flexGrow</li>
+                <li>flexShrink</li>
+                <li>position</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📊 Propriedades Principais</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-12|14-25|27-38" class="language-javascript">
+// flexDirection: define o eixo principal
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row', // horizontal (padrão no web é 'column')
+  },
+  column: {
+    flexDirection: 'column', // vertical (padrão no React Native)
+  },
+  rowReverse: {
+    flexDirection: 'row-reverse',
+  },
+  columnReverse: {
+    flexDirection: 'column-reverse',
+  },
+  
+  // justifyContent: alinhamento no eixo principal
+  justifyStart: {
+    justifyContent: 'flex-start', // padrão
+  },
+  justifyCenter: {
+    justifyContent: 'center',
+  },
+  justifyEnd: {
+    justifyContent: 'flex-end',
+  },
+  justifySpaceBetween: {
+    justifyContent: 'space-between',
+  },
+  justifySpaceAround: {
+    justifyContent: 'space-around',
+  },
+  
+  // alignItems: alinhamento no eixo secundário
+  alignStart: {
+    alignItems: 'flex-start',
+  },
+  alignCenter: {
+    alignItems: 'center', 
+  },
+  alignEnd: {
+    alignItems: 'flex-end',
+  },
+  alignStretch: {
+    alignItems: 'stretch', // padrão
+  },
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📱 Layout Simples com Flex</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-15|17-35" class="language-javascript">
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const FlexboxExample = () => {
+  return (
+    &lt;View style={styles.container}>
+      &lt;View style={styles.header}>
+        &lt;Text style={styles.headerText}>Cabeçalho&lt;/Text>
+      &lt;/View>
+      &lt;View style={styles.content}>
+        &lt;Text>Conteúdo principal&lt;/Text>
+      &lt;/View>
+      &lt;View style={styles.footer}>
+        &lt;Text style={styles.footerText}>Rodapé&lt;/Text>
+      &lt;/View>
+    &lt;/View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,  // ocupa todo o espaço disponível
+    flexDirection: 'column',
+  },
+  header: {
+    height: 60,
+    backgroundColor: '#3498db',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    flex: 1, // expande para ocupar o espaço restante
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  footer: {
+    height: 50,
+    backgroundColor: '#2c3e50',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 18,
+  },
+  footerText: {
+    color: 'white',
+  }
+});
+
+export default FlexboxExample;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🧩 Cards em Linha com Flexbox</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-24|26-48" class="language-javascript">
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const FlexRowExample = () => {
+  return (
+    &lt;View style={styles.container}>
+      &lt;Text style={styles.title}>Cards em linha&lt;/Text>
+      
+      &lt;View style={styles.cardRow}>
+        &lt;View style={styles.card}>
+          &lt;Text style={styles.cardText}>Card 1&lt;/Text>
+        &lt;/View>
+        
+        &lt;View style={styles.card}>
+          &lt;Text style={styles.cardText}>Card 2&lt;/Text>
+        &lt;/View>
+        
+        &lt;View style={styles.card}>
+          &lt;Text style={styles.cardText}>Card 3&lt;/Text>
+        &lt;/View>
+      &lt;/View>
+      
+      &lt;Text style={styles.note}>O flexWrap permite que os itens quebrem linha quando não há espaço suficiente&lt;/Text>
+    &lt;/View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  cardRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',  // permite quebra de linha
+    justifyContent: 'space-between', // espaçamento entre os cards
+  },
+  card: {
+    width: '30%', // aproximadamente 3 cards por linha
+    backgroundColor: '#9b59b6',
+    borderRadius: 8,
+    padding: 20,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  cardText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  note: {
+    marginTop: 20,
+    fontSize: 12,
+    color: '#7f8c8d',
+  }
+});
+
+export default FlexRowExample;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - useWindowDimensions -->
+      <section>
+        <section>
+          <h2>📐 useWindowDimensions</h2>
+          <p>Hook para obter dimensões da janela e criar layouts responsivos</p>
+          <pre><code data-trim data-noescape data-line-numbers="1-7|9-20|22-34" class="language-javascript">
+import React from 'react';
+import { View, Text, useWindowDimensions, StyleSheet } from 'react-native';
+
+// O hook retorna as dimensões atuais da janela
+// e atualiza automaticamente quando há mudanças de orientação
+// ou redimensionamento (em alguns dispositivos)
+
+const ResponsiveLayout = () => {
+  // Obtendo as dimensões da tela
+  const { width, height } = useWindowDimensions();
+  
+  // Definindo layout baseado na orientação
+  const isLandscape = width > height;
+  
+  return (
+    &lt;View style={styles.container}>
+      &lt;Text style={styles.text}>
+        Largura da tela: {width}px
+      &lt;/Text>
+      &lt;Text style={styles.text}>
+        Altura da tela: {height}px
+      &lt;/Text>
+      &lt;Text style={styles.text}>
+        Orientação: {isLandscape ? 'Paisagem' : 'Retrato'}
+      &lt;/Text>
+      
+      &lt;View style={[
+        styles.box, 
+        { 
+          // Largura responsiva: menor em paisagem, maior em retrato
+          width: isLandscape ? width * 0.3 : width * 0.8,
+          backgroundColor: isLandscape ? '#3498db' : '#e74c3c'
+        }
+      ]}>
+        &lt;Text style={styles.boxText}>
+          Este elemento se adapta à orientação
+        &lt;/Text>
+      &lt;/View>
+    &lt;/View>
+  );
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🧮 Estilos baseados no tamanho da tela</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-21|23-41" class="language-javascript">
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  box: {
+    marginTop: 20,
+    padding: 20,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  boxText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+// Função para determinar tamanho de fonte responsivo
+const ResponsiveText = () => {
+  const { width } = useWindowDimensions();
+  
+  // Calcula tamanho de fonte baseado na largura da tela
+  const getFontSize = () => {
+    if (width < 350) return 14; // telas muito pequenas
+    if (width < 500) return 16; // telas de smartphones
+    if (width < 700) return 18; // telas maiores e tablets pequenos
+    return 20; // tablets e dispositivos maiores
+  }
+  
+  return (
+    &lt;Text style={{ fontSize: getFontSize() }}>
+      Este texto se adapta ao tamanho da tela
+    &lt;/Text>
+  );
+};
+
+// Componente grid responsivo
+const ResponsiveGrid = ({ items }) => {
+  const { width } = useWindowDimensions();
+  
+  // Determina número de colunas baseado na largura
+  const numColumns = width < 600 ? 2 : 3;
+  
+  return (
+    &lt;FlatList
+      data={items}
+      numColumns={numColumns}
+      renderItem={({ item }) => <GridItem item={item} width={width / numColumns - 20} />}
+      keyExtractor={item => item.id}
+    />
+  );
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>⚖️ Dimensões vs PixelRatio</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-12|14-27" class="language-javascript">
+import { useWindowDimensions, PixelRatio } from 'react-native';
+
+const DensityAwareComponent = () => {
+  const { width, height } = useWindowDimensions();
+  const pixelRatio = PixelRatio.get();
+  
+  // Calcula dimensões físicas reais (em pixels)
+  const realWidth = width * pixelRatio;
+  const realHeight = height * pixelRatio;
+  
+  // Determina a densidade de tela
+  const getDensity = () => {
+    if (pixelRatio >= 3) return 'xxxhdpi';
+    if (pixelRatio >= 2) return 'xxhdpi';
+    if (pixelRatio >= 1.5) return 'xhdpi';
+    return 'mdpi';
+  };
+  
+  return (
+    &lt;View>
+      &lt;Text>Dimensões lógicas: {width}x{height} dp&lt;/Text>
+      &lt;Text>Dimensões físicas: {realWidth}x{realHeight} px&lt;/Text>
+      &lt;Text>Densidade da tela: {pixelRatio}x ({getDensity()})&lt;/Text>
+      
+      &lt;Text>
+        Px para Dp: {PixelRatio.getPixelSizeForLayoutSize(200)}px equivale a 200dp
+      &lt;/Text>
+      
+      &lt;Text>
+        1 px em dp: {1 / pixelRatio}dp
+      &lt;/Text>
+    &lt;/View>
+  );
+};
+          </code></pre>
+          <p class="fragment">O PixelRatio ajuda a criar interfaces que respeitam a densidade de pixels do dispositivo</p>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Formulários -->
+      <section>
+        <section>
+          <h2>📝 Formulários em React Native</h2>
+          <p>Implementando formulários eficientes e validados</p>
+          <pre><code data-trim data-noescape data-line-numbers="1-11|13-29|31-45" class="language-javascript">
+import React, { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
+
+const SimpleForm = () => {
+  // Estado para os campos do formulário
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  
+  // Estado para os erros
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  
+  // Atualização do estado do formulário
+  const handleChange = (field, value) => {
+    setFormData({
+      ...formData,
+      [field]: value
+    });
+    
+    // Limpa o erro quando o usuário começa a digitar
+    if (errors[field]) {
+      setErrors({
+        ...errors,
+        [field]: ''
+      });
+    }
+  };
+  
+  // Validação de formulário
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { name: '', email: '', password: '' };
+    
+    // Validação do nome
+    if (!formData.name.trim()) {
+      newErrors.name = 'Nome é obrigatório';
+      isValid = false;
+    }
+    
+    // Validação de email
+    if (!formData.email) {
+      newErrors.email = 'Email é obrigatório';
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email inválido';
+      isValid = false;
+    }
+    
+    // Validação de senha
+    if (!formData.password) {
+      newErrors.password = 'Senha é obrigatória';
+      isValid = false;
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'A senha deve ter pelo menos 6 caracteres';
+      isValid = false;
+    }
+    
+    setErrors(newErrors);
+    return isValid;
+  };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📱 Interface do Formulário</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-21|23-43|45-57" class="language-javascript">
+  // Submissão do formulário
+  const handleSubmit = () => {
+    if (validateForm()) {
+      Alert.alert(
+        'Sucesso', 
+        'Formulário enviado com sucesso!',
+        [{ text: 'OK' }]
+      );
+      // Aqui você pode enviar os dados para uma API
+      console.log('Dados do formulário:', formData);
+    } else {
+      Alert.alert(
+        'Erro', 
+        'Por favor, corrija os erros no formulário.',
+        [{ text: 'OK' }]
+      );
+    }
+  };
+  
+  return (
+    &lt;KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      &lt;View style={styles.form}>
+        &lt;Text style={styles.header}>Formulário de Cadastro&lt;/Text>
+        
+        &lt;Text style={styles.label}>Nome:&lt;/Text>
+        &lt;TextInput
+          style={[styles.input, errors.name ? styles.inputError : null]}
+          placeholder="Digite seu nome"
+          value={formData.name}
+          onChangeText={(text) => handleChange('name', text)}
+        />
+        {errors.name ? &lt;Text style={styles.errorText}>{errors.name}&lt;/Text> : null}
+        
+        &lt;Text style={styles.label}>Email:&lt;/Text>
+        &lt;TextInput
+          style={[styles.input, errors.email ? styles.inputError : null]}
+          placeholder="Digite seu email"
+          value={formData.email}
+          onChangeText={(text) => handleChange('email', text)}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        {errors.email ? &lt;Text style={styles.errorText}>{errors.email}&lt;/Text> : null}
+        
+        &lt;Text style={styles.label}>Senha:&lt;/Text>
+        &lt;TextInput
+          style={[styles.input, errors.password ? styles.inputError : null]}
+          placeholder="Digite sua senha"
+          value={formData.password}
+          onChangeText={(text) => handleChange('password', text)}
+          secureTextEntry
+        />
+        {errors.password ? &lt;Text style={styles.errorText}>{errors.password}&lt;/Text> : null}
+        
+        &lt;TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          &lt;Text style={styles.buttonText}>Cadastrar&lt;/Text>
+        &lt;/TouchableOpacity>
+      &lt;/View>
+    &lt;/KeyboardAvoidingView>
+  );
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎨 Estilos do Formulário</h3>
+          <pre><code data-trim data-noescape data-line-numbers="1-15|17-30|32-46" class="language-javascript">
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f9f9f9',
+  },
+  form: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#333',
+  },
+  input: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 16,
+    backgroundColor: '#fff',
+    marginBottom: 10,
+  },
+  inputError: {
+    borderColor: '#e74c3c',
+    borderWidth: 1,
+  },
+  errorText: {
+    color: '#e74c3c',
+    fontSize: 12,
+    marginBottom: 10,
+    marginTop: -5,
+  },
+  button: {
+    backgroundColor: '#2ecc71',
+    height: 50,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default SimpleForm;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🚀 Melhorias para Formulários</h3>
+          <div class="container">
+            <div class="column">
+              <h4>Acessibilidade</h4>
+              <ul>
+                <li class="fragment">Use prop <code>accessibilityLabel</code></li>
+                <li class="fragment">Adicione <code>accessibilityHint</code></li>
+                <li class="fragment">Implemente navegação com teclado</li>
+              </ul>
+              
+              <h4>UX</h4>
+              <ul>
+                <li class="fragment">Feedback visual de erro</li>
+                <li class="fragment">Valide enquanto digita (debounce)</li>
+                <li class="fragment">Estados de carregamento</li>
+              </ul>
+            </div>
+            
+            <div class="column">
+              <h4>Bibliotecas úteis</h4>
+              <ul>
+                <li class="fragment">Formik</li>
+                <li class="fragment">React Hook Form</li>
+                <li class="fragment">Yup (validação)</li>
+                <li class="fragment">react-native-keyboard-aware-scroll-view</li>
+              </ul>
+              
+              <pre class="fragment"><code data-trim data-noescape class="language-bash">
+# Instalar bibliotecas de formulários
+npm install formik yup
+# ou
+yarn add formik yup
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Exercício em Sala -->
+      <section>
+        <section>
+          <h2>✏️ Exercício em Sala</h2>
+          <h3>Card de Produto Responsivo</h3>
+          
+          <p>Vamos criar um componente de card de produto que se adapta a diferentes tamanhos de tela</p>
+          
+          <div class="container">
+            <div class="column">
+              <h4>Requisitos:</h4>
+              <ol>
+                <li>Card com imagem, título, descrição e preço</li>
+                <li>Layout horizontal em telas grandes</li>
+                <li>Layout vertical em telas pequenas</li>
+                <li>Uso de flexbox para organização</li>
+                <li>Estilização com StyleSheet</li>
+              </ol>
+            </div>
+            <div class="column">
+              <h4>Bônus:</h4>
+              <ol>
+                <li>Adicionar botão "Comprar"</li>
+                <li>Estado para marcar como favorito</li>
+                <li>Animação simples ao pressionar</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🧩 Estrutura Inicial</h3>
+          <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+import React, { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  Image, 
+  StyleSheet, 
+  TouchableOpacity,
+  useWindowDimensions 
+} from 'react-native';
+
+const ProductCard = ({ product }) => {
+  const { width } = useWindowDimensions();
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  // Determine layout based on screen width
+  const isLargeScreen = width > 500;
+  
+  // TODO: Adicione sua lógica e estrutura aqui
+  
+  return (
+    &lt;View style={[
+      styles.card,
+      // Use flexDirection diferente baseado no tamanho da tela
+      { flexDirection: isLargeScreen ? 'row' : 'column' }
+    ]}>
+      {/* Imagem do produto */}
+      
+      {/* Conteúdo do produto */}
+      
+      {/* Botão de compra */}
+      
+      {/* Botão de favorito */}
+    &lt;/View>
+  );
+};
+
+const styles = StyleSheet.create({
+  // Defina seus estilos aqui
+});
+
+export default ProductCard;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>💡 Dicas para o Exercício</h3>
+          <div class="container">
+            <div class="column">
+              <h4>Para imagem responsiva:</h4>
+              <pre><code data-trim data-noescape class="language-javascript">
+const imageSize = isLargeScreen 
+  ? { width: 120, height: 120 } 
+  : { width: '100%', height: 200 };
+
+&lt;Image
+  source={{ uri: product.imageUrl }}
+  style={[styles.image, imageSize]}
+  resizeMode="cover"
+/>
+              </code></pre>
+            </div>
+            <div class="column">
+              <h4>Para botões com estado:</h4>
+              <pre><code data-trim data-noescape class="language-javascript">
+&lt;TouchableOpacity
+  onPress={() => setIsFavorite(!isFavorite)}
+  style={styles.favoriteButton}
+>
+  &lt;Text style={{ color: isFavorite ? 'red' : 'gray' }}>
+    {isFavorite ? '❤️' : '🤍'}
+  &lt;/Text>
+&lt;/TouchableOpacity>
+              </code></pre>
+            </div>
+          </div>
+          <p class="fragment">Tempo para resolver: ~20 minutos</p>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Exercício para Casa -->
+      <section>
+        <h2>🏠 Exercício para Casa</h2>
+        <h3>Formulário de Cadastro de Produtos</h3>
+        
+        <p>Desenvolva um formulário completo para cadastro de produtos com os seguintes requisitos:</p>
+        
+        <div class="container">
+          <div class="column">
+            <h4>Requisitos Técnicos:</h4>
+            <ol>
+              <li>Estrutura de pastas organizada (components, screens, etc)</li>
+              <li>Formulário com pelo menos 5 campos diferentes</li>
+              <li>Validação de todos os campos</li>
+              <li>Uso de StyleSheet para estilização</li>
+              <li>Responsividade com useWindowDimensions</li>
+            </ol>
+          </div>
+          <div class="column">
+            <h4>Campos Obrigatórios:</h4>
+            <ol>
+              <li>Nome do produto (texto)</li>
+              <li>Descrição (texto longo)</li>
+              <li>Preço (numérico)</li>
+              <li>Categoria (dropdown/picker)</li>
+              <li>Disponível (toggle/switch)</li>
+            </ol>
+            <h4>Opcional:</h4>
+            <p>Upload de imagem (pode ser simulado)</p>
+          </div>
+        </div>
+        
+        <p class="fragment">Data de entrega: Próxima aula</p>
+        <p class="fragment smaller-text">Dica: Use a biblioteca Formik para simplificar o gerenciamento de estado do formulário</p>
+      </section>
+
+      <!-- Slide 12 - Recursos Adicionais -->
+      <section>
+        <h2>📚 Recursos Adicionais</h2>
+        <div class="container">
+          <div class="column">
+            <h4>Documentação Oficial:</h4>
+            <ul>
+              <li><a href="https://reactnative.dev/docs/style" target="_blank">Style - React Native</a></li>
+              <li><a href="https://reactnative.dev/docs/flexbox" target="_blank">Layout com Flexbox</a></li>
+              <li><a href="https://reactnative.dev/docs/usewindowdimensions" target="_blank">useWindowDimensions</a></li>
+              <li><a href="https://docs.expo.dev/workflow/project-structure/" target="_blank">Estrutura de Projeto Expo</a></li>
+            </ul>
+          </div>
+          <div class="column">
+            <h4>Tutoriais e Ferramentas:</h4>
+            <ul>
+              <li><a href="https://styled-components.com/docs/basics#react-native" target="_blank">Styled Components para React Native</a></li>
+              <li><a href="https://formik.org/docs/guides/react-native" target="_blank">Formik com React Native</a></li>
+              <li><a href="https://github.com/jaredpalmer/formik" target="_blank">GitHub do Formik</a></li>
+              <li><a href="https://yogalayout.com/playground/" target="_blank">Playground de Flexbox</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Encerramento -->
+      <section>
+        <h2>🎯 Resumo da Aula</h2>
+        <ul>
+          <li class="fragment">Estruturas de pasta (Expo vs CLI) ✅</li>
+          <li class="fragment">Estilização com StyleSheet ✅</li>
+          <li class="fragment">Estilização com Styled Components ✅</li>
+          <li class="fragment">Flexbox para layouts ✅</li>
+          <li class="fragment">useWindowDimensions para responsividade ✅</li>
+          <li class="fragment">Formulários em React Native ✅</li>
+        </ul>
+        
+        <p class="fragment">Próxima aula: Navegação em React Native</p>
+        
+        <div class="fragment" style="margin-top: 40px;">
+          <h4>Dúvidas? 🤔</h4>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 10 - Banco de dados com React Native Expo</title>
+
+  <meta name="description" content="AsyncStorage e integração com banco de dados React Native Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .code-highlight {
+      background-color: rgba(255, 255, 0, 0.2);
+    }
+    .important-note {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    .demo-image {
+      max-height: 400px;
+      border: 2px solid #666;
+      border-radius: 5px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 10 - Banco de dados com React Native Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li>Entender a importância do armazenamento de dados local em aplicações móveis</li>
+          <li>Aprender a utilizar o AsyncStorage para armazenamento simples de dados</li>
+          <li>Conhecer e implementar SQLite com React Native Expo</li>
+          <li>Praticar com exemplos e exercícios de aplicação real</li>
+        </ul>
+      </section>
+
+
+
+      <!-- Slide 4 - Introdução -->
+      <section>
+        <h2>🌟 Introdução</h2>
+        <section>
+          <h3>Por que armazenar dados localmente?</h3>
+          <ul>
+            <li>Funcionamento offline da aplicação</li>
+            <li>Melhoria na experiência do usuário (menos tempo de espera)</li>
+            <li>Redução de chamadas de API</li>
+            <li>Persistência de preferências do usuário</li>
+            <li>Cache de dados frequentemente acessados</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Tipos de Armazenamento -->
+      <section>
+        <h2>🗃️ Tipos de Armazenamento no React Native</h2>
+        <div class="container" style="font-size:0.8em">
+          <div class="column">
+            <h3>AsyncStorage</h3>
+            <ul>
+              <li>API de armazenamento chave-valor</li>
+              <li>Semelhante ao localStorage do navegador</li>
+              <li>Adequado para dados simples</li>
+              <li>Não relacional</li>
+              <li>Fácil implementação</li>
+            </ul>
+          </div>
+          <div class="column">
+            <h3>SQLite</h3>
+            <ul>
+              <li>Banco de dados relacional</li>
+              <li>Suporte a consultas SQL</li>
+              <li>Adequado para grandes volumes de dados</li>
+              <li>Relacionamentos complexos</li>
+              <li>Transações e integridade</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- AsyncStorage -->
+      <section>
+        <section>
+          <h2>📦 AsyncStorage</h2>
+          <p>Sistema de armazenamento chave-valor assíncrono, não-criptografado e persistente para React Native</p>
+          <div class="important-note">
+            <p>⚠️ Agora é uma biblioteca separada:</p>
+            <pre><code data-trim data-noescape>
+              npm install @react-native-async-storage/async-storage
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Características do AsyncStorage</h3>
+          <ul>
+            <li>🔄 API global e assíncrona</li>
+            <li>🔑 Armazenamento no formato chave-valor</li>
+            <li>📱 Específico para cada aplicativo (isolado)</li>
+            <li>⚠️ Não é adequado para dados sensíveis (não é criptografado)</li>
+            <li>📊 Melhor para dados pequenos (preferências, tokens, configurações)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Operações básicas com AsyncStorage</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-23" data-line="3,8,13,18">
+            // Importando a biblioteca
+            import AsyncStorage from '@react-native-async-storage/async-storage';
+            
+            // Armazenando um valor (string)
+            const storeData = async (key, value) => {
+              try {
+                await AsyncStorage.setItem(key, value);
+                console.log('Dados salvos com sucesso!');
+              } catch (e) {
+                console.error('Erro ao salvar dados', e);
+              }
+            };
+            
+            // Recuperando um valor
+            const getData = async (key) => {
+              try {
+                const value = await AsyncStorage.getItem(key);
+                return value !== null ? value : null;
+              } catch (e) {
+                console.error('Erro ao ler dados', e);
+                return null;
+              }
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Armazenando objetos JSON</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-20" data-line="5,14">
+            // Armazenando um objeto JSON
+            const storeObjectData = async (key, value) => {
+              try {
+                // É necessário converter para string
+                const jsonValue = JSON.stringify(value);
+                await AsyncStorage.setItem(key, jsonValue);
+                console.log('Objeto armazenado com sucesso!');
+              } catch (e) {
+                console.error('Erro ao salvar objeto', e);
+              }
+            };
+            
+            // Recuperando um objeto JSON
+            const getObjectData = async (key) => {
+              try {
+                const jsonValue = await AsyncStorage.getItem(key);
+                return jsonValue != null ? JSON.parse(jsonValue) : null;
+              } catch (e) {
+                console.error('Erro ao ler objeto', e);
+                return null;
+              }
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Removendo dados</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-19">
+            // Remover um item específico
+            const removeValue = async (key) => {
+              try {
+                await AsyncStorage.removeItem(key);
+                console.log('Item removido com sucesso!');
+              } catch (e) {
+                console.error('Erro ao remover item', e);
+              }
+            };
+            
+            // Remover todos os itens (limpar o armazenamento)
+            const clearAll = async () => {
+              try {
+                await AsyncStorage.clear();
+                console.log('AsyncStorage limpo com sucesso!');
+              } catch (e) {
+                console.error('Erro ao limpar AsyncStorage', e);
+              }
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Operações com múltiplos itens</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-25">
+            // Armazenar múltiplos itens
+            const storeMultipleItems = async () => {
+              try {
+                const pairs = [
+                  ['@usuario_nome', 'João'],
+                  ['@usuario_email', 'joao@exemplo.com'],
+                  ['@usuario_id', '12345']
+                ];
+                await AsyncStorage.multiSet(pairs);
+                console.log('Dados múltiplos salvos!');
+              } catch (e) {
+                console.error('Erro ao salvar múltiplos itens', e);
+              }
+            };
+            
+            // Obter múltiplos itens
+            const getMultipleItems = async () => {
+              try {
+                const keys = ['@usuario_nome', '@usuario_email', '@usuario_id'];
+                const values = await AsyncStorage.multiGet(keys);
+                // values retorna um array de pares: [['@usuario_nome', 'João'], ...]
+                return values;
+              } catch (e) {
+                console.error('Erro ao recuperar múltiplos itens', e);
+                return [];
+              }
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Exemplo prático: Persistência de tema</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-41" data-line="12-15,30-33">
+            import React, { useState, useEffect } from 'react';
+            import { View, Text, Switch, StyleSheet } from 'react-native';
+            import AsyncStorage from '@react-native-async-storage/async-storage';
+            
+            export default function TemaApp() {
+              const [isDarkMode, setIsDarkMode] = useState(false);
+              
+              // Carrega o tema salvo quando o componente é montado
+              useEffect(() => {
+                const carregarTema = async () => {
+                  try {
+                    const temaArmazenado = await AsyncStorage.getItem('@tema');
+                    if (temaArmazenado !== null) {
+                      setIsDarkMode(temaArmazenado === 'dark');
+                    }
+                  } catch (e) {
+                    console.error('Erro ao carregar tema', e);
+                  }
+                };
+                
+                carregarTema();
+              }, []);
+              
+              // Salva o tema quando o usuário altera
+              const alterarTema = async (value) => {
+                setIsDarkMode(value);
+                
+                try {
+                  // Salva o tema escolhido no AsyncStorage
+                  const temaParaSalvar = value ? 'dark' : 'light';
+                  await AsyncStorage.setItem('@tema', temaParaSalvar);
+                  console.log(`Tema alterado para ${temaParaSalvar}`);
+                } catch (e) {
+                  console.error('Erro ao salvar tema', e);
+                }
+              };
+              
+              return (
+                <View style={[styles.container, isDarkMode ? styles.darkMode : styles.lightMode]}>
+                  <Text style={[styles.text, isDarkMode ? styles.textDark : styles.textLight]}>
+                    {isDarkMode ? 'Modo Escuro' : 'Modo Claro'}
+                  </Text>
+                  <Switch value={isDarkMode} onValueChange={alterarTema} />
+                </View>
+              );
+            }
+            
+            const styles = StyleSheet.create({
+              container: {
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+              darkMode: {
+                backgroundColor: '#121212',
+              },
+              lightMode: {
+                backgroundColor: '#FFFFFF',
+              },
+              text: {
+                fontSize: 18,
+                marginBottom: 20,
+              },
+              textDark: {
+                color: '#FFFFFF',
+              },
+              textLight: {
+                color: '#121212',
+              },
+            });
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🛠️ Exercício em sala: Lista de Tarefas com AsyncStorage</h3>
+          <p>Implemente um aplicativo simples de lista de tarefas que:</p>
+          <ol>
+            <li>Permita adicionar novas tarefas</li>
+            <li>Marque tarefas como concluídas</li>
+            <li>Exclua tarefas</li>
+            <li>Persista os dados usando AsyncStorage</li>
+          </ol>
+          <p><strong>Tempo:</strong> 20-25 minutos</p>
+        </section>
+      </section>
+
+      <!-- SQLite -->
+      <section>
+        <section>
+          <h2>🗄️ SQLite no React Native</h2>
+          <p>Banco de dados relacional completo integrado ao seu aplicativo</p>
+          <div class="important-note">
+            <p>📱 Com o Expo, usamos o expo-sqlite:</p>
+            <pre><code data-trim data-noescape>
+              npx expo install expo-sqlite
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Por que usar SQLite?</h3>
+          <ul>
+            <li>🗃️ Banco de dados relacional completo</li>
+            <li>🔍 Suporte a consultas SQL complexas</li>
+            <li>🔄 Transações ACID (Atomicidade, Consistência, Isolamento, Durabilidade)</li>
+            <li>📊 Melhor desempenho para grandes volumes de dados</li>
+            <li>🧩 Capacidade de modelar relacionamentos entre entidades</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Quando escolher SQLite vs AsyncStorage</h3>
+          <div class="container">
+            <div class="column">
+              <h4>Use SQLite quando:</h4>
+              <ul>
+                <li>Dados estruturados</li>
+                <li>Relacionamentos complexos</li>
+                <li>Grandes volumes de dados</li>
+                <li>Necessidade de consultas avançadas</li>
+                <li>Organização por tabelas</li>
+              </ul>
+            </div>
+            <div class="column">
+              <h4>Use AsyncStorage quando:</h4>
+              <ul>
+                <li>Dados simples (chave-valor)</li>
+                <li>Configurações do aplicativo</li>
+                <li>Tokens de autenticação</li>
+                <li>Preferências do usuário</li>
+                <li>Cache temporário simples</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Operações básicas com SQLite</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-25" data-line="3,5-8">
+            // Importando a biblioteca
+            import * as SQLite from 'expo-sqlite';
+            
+            // Criando/abrindo um banco de dados
+            const db = SQLite.openDatabase('meuapp.db');
+            
+            // Executando a criação de uma tabela
+            const inicializarBancoDeDados = () => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, email TEXT);',
+                  [],
+                  () => {
+                    console.log('Tabela criada com sucesso');
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao criar tabela', erro);
+                    return true; // Retorna true para interromper o processamento após erro
+                  }
+                );
+              });
+            };
+            
+            // Chame a função quando seu app iniciar
+            inicializarBancoDeDados();
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Inserindo dados no SQLite</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-20" data-line="4-6">
+            // Inserir um novo usuário
+            const adicionarUsuario = (nome, email, callback) => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'INSERT INTO usuarios (nome, email) VALUES (?, ?)',
+                  [nome, email], // Os valores substituirão os placeholders '?'
+                  (_, resultSet) => {
+                    // resultSet.insertId contém o ID do novo registro
+                    console.log(`Usuario adicionado com ID: ${resultSet.insertId}`);
+                    if (callback) callback(resultSet.insertId);
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao adicionar usuário', erro);
+                    return true;
+                  }
+                );
+              });
+            };
+            
+            // Uso:
+            adicionarUsuario('Maria Silva', 'maria@exemplo.com', novoId => {
+              console.log(`Novo usuário criado com ID: ${novoId}`);
+            });
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Consultando dados no SQLite</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-32" data-line="4-7,13-16">
+            // Buscar todos os usuários
+            const buscarTodosUsuarios = (callback) => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'SELECT * FROM usuarios',
+                  [],
+                  (_, { rows }) => {
+                    // rows._array contém os resultados da consulta
+                    callback(rows._array);
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao buscar usuários', erro);
+                    return true;
+                  }
+                );
+              });
+            };
+            
+            // Buscar usuário por ID
+            const buscarUsuarioPorId = (id, callback) => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'SELECT * FROM usuarios WHERE id = ?',
+                  [id],
+                  (_, { rows }) => {
+                    if (rows.length > 0) {
+                      callback(rows._array[0]);
+                    } else {
+                      callback(null); // Usuário não encontrado
+                    }
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao buscar usuário', erro);
+                    return true;
+                  }
+                );
+              });
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Atualizando e excluindo dados</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-32" data-line="4-6,18-20">
+            // Atualizar um usuário
+            const atualizarUsuario = (id, nome, email, callback) => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?',
+                  [nome, email, id],
+                  (_, { rowsAffected }) => {
+                    // rowsAffected indica quantos registros foram atualizados
+                    if (rowsAffected > 0) {
+                      console.log(`Usuário ${id} atualizado com sucesso`);
+                      if (callback) callback(true);
+                    } else {
+                      console.log('Nenhum registro foi atualizado');
+                      if (callback) callback(false);
+                    }
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao atualizar usuário', erro);
+                    return true;
+                  }
+                );
+              });
+            };
+            
+            // Excluir um usuário
+            const excluirUsuario = (id, callback) => {
+              db.transaction(tx => {
+                tx.executeSql(
+                  'DELETE FROM usuarios WHERE id = ?',
+                  [id],
+                  (_, { rowsAffected }) => {
+                    const sucesso = rowsAffected > 0;
+                    if (sucesso) console.log(`Usuário ${id} excluído com sucesso`);
+                    if (callback) callback(sucesso);
+                  },
+                  (_, erro) => {
+                    console.error('Erro ao excluir usuário', erro);
+                    return true;
+                  }
+                );
+              });
+            };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Exemplo completo: Gerenciador de contatos</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="1-50">
+            import React, { useState, useEffect } from 'react';
+            import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+            import * as SQLite from 'expo-sqlite';
+            
+            // Abre ou cria o banco de dados
+            const db = SQLite.openDatabase('contatos.db');
+            
+            export default function GerenciadorContatos() {
+              const [nome, setNome] = useState('');
+              const [telefone, setTelefone] = useState('');
+              const [contatos, setContatos] = useState([]);
+              const [contatoAtual, setContatoAtual] = useState(null);
+            
+              useEffect(() => {
+                // Cria a tabela se não existir
+                db.transaction(tx => {
+                  tx.executeSql(
+                    'CREATE TABLE IF NOT EXISTS contatos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT);'
+                  );
+                });
+                
+                // Carrega os contatos iniciais
+                carregarContatos();
+              }, []);
+            
+              const carregarContatos = () => {
+                db.transaction(tx => {
+                  tx.executeSql(
+                    'SELECT * FROM contatos',
+                    [],
+                    (_, { rows }) => {
+                      setContatos(rows._array);
+                    }
+                  );
+                });
+              };
+            
+              const salvarContato = () => {
+                if (!nome || !telefone) return;
+            
+                db.transaction(tx => {
+                  if (contatoAtual) {
+                    // Atualiza contato existente
+                    tx.executeSql(
+                      'UPDATE contatos SET nome = ?, telefone = ? WHERE id = ?',
+                      [nome, telefone, contatoAtual.id],
+                      (_, result) => {
+                        if (result.rowsAffected > 0) {
+                          setContatoAtual(null);
+                          setNome('');
+                          setTelefone('');
+                          carregarContatos();
+                        }
+                      }
+                    );
+                  } else {
+                    // Adiciona novo contato
+                    tx.executeSql(
+                      'INSERT INTO contatos (nome, telefone) VALUES (?, ?)',
+                      [nome, telefone],
+                      (_, result) => {
+                        setNome('');
+                        setTelefone('');
+                        carregarContatos();
+                      }
+                    );
+                  }
+                });
+              };
+          </code></pre>
+        </section>
+
+        <section>
+          <pre><code class="javascript" data-trim data-line-numbers="1-50"><script>
+              const excluirContato = (id) => {
+                db.transaction(tx => {
+                  tx.executeSql(
+                    'DELETE FROM contatos WHERE id = ?',
+                    [id],
+                    (_, result) => {
+                      if (result.rowsAffected > 0) {
+                        carregarContatos();
+                        if (contatoAtual && contatoAtual.id === id) {
+                          setContatoAtual(null);
+                          setNome('');
+                          setTelefone('');
+                        }
+                      }
+                    }
+                  );
+                });
+              };
+            
+              const editarContato = (contato) => {
+                setContatoAtual(contato);
+                setNome(contato.nome);
+                setTelefone(contato.telefone);
+              };
+            
+              return (
+                <View style={styles.container}>
+                  <Text style={styles.titulo}>Gerenciador de Contatos</Text>
+            
+                  <View style={styles.formulario}>
+                    <TextInput
+                      style={styles.input}
+                      value={nome}
+                      onChangeText={setNome}
+                      placeholder="Nome"
+                    />
+                    <TextInput
+                      style={styles.input}
+                      value={telefone}
+                      onChangeText={setTelefone}
+                      placeholder="Telefone"
+                      keyboardType="phone-pad"
+                    />
+                    <Button
+                      title={contatoAtual ? "Atualizar Contato" : "Adicionar Contato"}
+                      onPress={salvarContato}
+                    />
+                    {contatoAtual && (
+                      <Button
+                        title="Cancelar"
+                        color="gray"
+                        onPress={() => {
+                          setContatoAtual(null);
+                          setNome('');
+                          setTelefone('');
+                        }}
+                      />
+                    )}
+                  </View>
+                </script></code></pre>
+        </section>
+
+        <section>
+          <pre><code class="javascript" data-trim data-line-numbers="1-40"><script>
+                  <FlatList
+                    data={contatos}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <View style={styles.itemContato}>
+                        <View>
+                          <Text style={styles.nomeContato}>{item.nome}</Text>
+                          <Text style={styles.telefoneContato}>{item.telefone}</Text>
+                        </View>
+                        <View style={styles.botoesContato}>
+                          <Button
+                            title="Editar"
+                            onPress={() => editarContato(item)}
+                          />
+                          <Button
+                            title="Excluir"
+                            color="red"
+                            onPress={() => excluirContato(item.id)}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  />
+                </View>
+              );
+            }
+            
+            const styles = StyleSheet.create({
+              container: { flex: 1, padding: 20 },
+              titulo: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
+              formulario: { marginBottom: 20 },
+              input: { borderWidth: 1, borderColor: '#ddd', padding: 10, marginBottom: 10, borderRadius: 5 },
+              itemContato: {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 15,
+                borderBottomWidth: 1,
+                borderBottomColor: '#ddd'
+              },
+              nomeContato: { fontSize: 18, fontWeight: 'bold' },
+              telefoneContato: { color: '#666' },
+              botoesContato: { flexDirection: 'row' }
+            });
+        </script></code></pre>
+        </section>
+
+        <section>
+          <h3>🛠️ Exercício em sala: Adicionar categorias aos contatos</h3>
+          <p>Partindo do exemplo de gerenciador de contatos:</p>
+          <ol>
+            <li>Adicione um campo "categoria" na tabela de contatos</li>
+            <li>Permita ao usuário selecionar uma categoria (pessoal, trabalho, família)</li>
+            <li>Implemente uma função de filtragem por categoria</li>
+            <li>Exiba a categoria de cada contato na lista</li>
+          </ol>
+          <p><strong>Tempo:</strong> 25-30 minutos</p>
+        </section>
+      </section>
+
+      <!-- Melhores práticas -->
+      <section>
+        <h2>👌 Melhores Práticas</h2>
+        <ul>
+          <li><strong>Estrutura de dados:</strong> Escolha o formato mais adequado para os dados</li>
+          <li><strong>Tratamento de erros:</strong> Sempre implemente try/catch em operações assíncronas</li>
+          <li><strong>Desempenho:</strong> Minimize o número de operações de leitura/escrita</li>
+          <li><strong>Transações:</strong> Use transações no SQLite para operações complexas</li>
+          <li><strong>Segurança:</strong> Não armazene dados sensíveis em texto puro</li>
+          <li><strong>Migrations:</strong> Implemente estratégias para atualizações de schema</li>
+          <li><strong>Modularização:</strong> Encapsule as operações de banco de dados em serviços</li>
+        </ul>
+      </section>
+
+      <!-- Exercício final -->
+      <section>
+        <h2>🏠 Exercício para Casa</h2>
+        <p>Desenvolva um aplicativo de Gerenciamento de Despesas que:</p>
+        <ol>
+          <li>Use SQLite para armazenar despesas com: valor, descrição, data e categoria</li>
+          <li>Implemente as operações CRUD completas (criar, ler, atualizar, deletar)</li>
+          <li>Permita filtrar despesas por categoria e período</li>
+          <li>Exiba um resumo com o valor total das despesas</li>
+          <li>Use AsyncStorage para armazenar as preferências do usuário (como moeda preferida)</li>
+        </ol>
+      
+      </section>
+
+      <!-- Referências -->
+      <section>
+        <h2>📚 Referências</h2>
+        <ul>
+          <li><a href="https://react-native-async-storage.github.io/async-storage/" target="_blank">Documentação oficial do AsyncStorage</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/sqlite/" target="_blank">Documentação do expo-sqlite</a></li>
+          <li><a href="https://www.sqlite.org/docs.html" target="_blank">Documentação SQLite</a></li>
+          <li><a href="https://reactnative.dev/docs/security" target="_blank">Segurança no React Native</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide final -->
+      <section>
+        <h2>Obrigado!</h2>
+        <p>Dúvidas?</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          &nbsp;|&nbsp;
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
