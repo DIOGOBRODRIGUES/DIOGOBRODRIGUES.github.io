@@ -61,18 +61,7 @@
         </a>
       </section>
 
-      <!-- Slide 2 - Objetivos da Aula -->
-      <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <ul>
-          <li>Entender a importância do armazenamento de dados local em aplicações móveis</li>
-          <li>Aprender a utilizar o AsyncStorage para armazenamento simples de dados</li>
-          <li>Conhecer e implementar SQLite com React Native Expo</li>
-          <li>Praticar com exemplos e exercícios de aplicação real</li>
-        </ul>
-      </section>
-
-
+      
 
       <!-- Slide 4 - Introdução -->
       <section>
@@ -122,215 +111,482 @@
           <h2>📦 AsyncStorage</h2>
           <p>Sistema de armazenamento chave-valor assíncrono, não-criptografado e persistente para React Native</p>
           <div class="important-note">
-            <p>⚠️ Agora é uma biblioteca separada:</p>
+            <p>⚠️ Originalmente, o AsyncStorage fazia parte do core do React Native, mas foi removido do núcleo e passou a ser módulo independente.
+                Por isso, é necessário instalá-lo separadamente com o comando:</p>
             <pre><code data-trim data-noescape>
               npm install @react-native-async-storage/async-storage
             </code></pre>
           </div>
         </section>
-
+        <section>
+            <h2>📦 O que são Promises?</h2>
+            <p>
+              Uma <strong>Promise</strong> em JavaScript representa uma operação <strong>assíncrona</strong> que pode:
+            </p>
+            <ul>
+              <li>✅ Ser <strong>resolvida</strong> (fulfilled)</li>
+              <li>❌ Ser <strong>rejeitada</strong> (rejected)</li>
+              <li>⏳ Estar <strong>pendente</strong> (pending)</li>
+            </ul>
+            <p>Ela permite <strong>trabalhar com resultados futuros</strong>, como chamadas de API ou leitura de arquivos.</p>
+          </section>
         <section>
           <h3>Características do AsyncStorage</h3>
           <ul>
-            <li>🔄 API global e assíncrona</li>
+            <li>🔄 API global e assíncrona. <strong>As operações (getItem, setItem, removeItem) retornam Promises.</strong></li>
             <li>🔑 Armazenamento no formato chave-valor</li>
             <li>📱 Específico para cada aplicativo (isolado)</li>
             <li>⚠️ Não é adequado para dados sensíveis (não é criptografado)</li>
-            <li>📊 Melhor para dados pequenos (preferências, tokens, configurações)</li>
+            <li>📊 Melhor para dados pequenos (preferências,  configurações)</li>
           </ul>
         </section>
-
         <section>
-          <h3>Operações básicas com AsyncStorage</h3>
-          <pre><code class="javascript" data-trim data-line-numbers="1-23" data-line="3,8,13,18">
-            // Importando a biblioteca
-            import AsyncStorage from '@react-native-async-storage/async-storage';
-            
-            // Armazenando um valor (string)
-            const storeData = async (key, value) => {
-              try {
-                await AsyncStorage.setItem(key, value);
-                console.log('Dados salvos com sucesso!');
-              } catch (e) {
-                console.error('Erro ao salvar dados', e);
-              }
-            };
-            
-            // Recuperando um valor
-            const getData = async (key) => {
-              try {
-                const value = await AsyncStorage.getItem(key);
-                return value !== null ? value : null;
-              } catch (e) {
-                console.error('Erro ao ler dados', e);
-                return null;
-              }
-            };
-          </code></pre>
+            <h2>🧠 Onde o AsyncStorage guarda os dados?</h2>
+            <p>O <code>AsyncStorage</code> armazena dados <strong>localmente</strong> no dispositivo do usuário.</p>
+            <ul>
+              <li>🔐 Persistente (sobrevive ao fechar o app)</li>
+              <li>⚠️ Não criptografado</li>
+              <li>⚙️ Armazenamento do tipo <strong>chave-valor</strong></li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>📱 Android</h3>
+            <p>Os dados ficam dentro da sandbox do app:</p>
+            <pre><code>/data/data/<nome_do_pacote>/shared_prefs/RKStorage.xml</code></pre>
+            <ul>
+              <li>📦 Armazenado como XML</li>
+              <li>🔒 Acesso direto só com root ou Android Studio</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>🍏 iOS</h3>
+            <p>No iOS, o AsyncStorage usa <code>NSUserDefaults</code>:</p>
+            <pre><code><App Sandbox>/Library/Preferences</code></pre>
+            <ul>
+              <li>💾 Integrado ao sistema nativo do iOS</li>
+              <li>🔍 Visível com Xcode ou ferramentas como Flipper</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>🧪 Como inspecionar os dados?</h3>
+            <ul>
+              <li>🧭 <strong>Console do app</strong> com <code>getAllKeys</code> + <code>multiGet</code></li>
+              <li>🧹 <strong>Limpeza rápida:</strong> <code>AsyncStorage.clear()</code></li>
+              
+            </ul>
+          </section>
+          
+          <section>
+            <h2>⚠️ Observações Importantes</h2>
+            <ul>
+              <li>❌ Não armazene informações sensíveis (ex: tokens, senhas)</li>
+              
+              <li>🚫 Dados do AsyncStorage podem ser apagados ao reinstalar o app</li>
+            </ul>
+          </section>
+        <section>
+            <h3>Operações básicas com AsyncStorage <code>setItem</code> e <code>getItem</code></h3>
+            <div class="container">
+                <div class="column" style="font-size: 0.7em;">
+                    <p>Este aplicativo demonstra o uso do AsyncStorage para:</p>
+                    <ul>
+                        <li>Capturar o nome digitado pelo usuário</li>
+                        <li>Armazenar o nome usando <code>setItem</code></li>
+                        <li>Recuperar e exibir o nome usando <code>getItem</code></li>
+                        <li>Persistir os dados entre sessões do app</li>
+                    </ul>
+                    <p>O estado é mantido mesmo quando o app é fechado e reaberto.</p>
+                </div>
+                <div class="column">
+                    <img src="assets/img1.jpeg" alt="AsyncStorage operations example" class="demo-image" style="max-width: 60%; height: auto;">
+                </div>
+            </div>
         </section>
+        <section>
+          <h3>Operações básicas com AsyncStorage <code>setItem</code> e <code>getItem</code></h3>
+          <pre><code class="javascript" data-trim data-line-numbers="12|14-17|19-23|24-31|34-44|47-58|65-71|73-79|82">
+            <script>
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Keyboard,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export default function App() {
+  const [nome, setNome] = useState('');
+
+  const [nomeSalvo, setNomeSalvo] = useState('');
+
+  // Hook de efeito que é executado uma única vez quando o componente é montado
+  useEffect(() => {
+    // Carrega o nome salvo do AsyncStorage quando o app inicia
+    carregarNomeSalvo();
+  }, []);
+
+  // Função assíncrona para salvar o nome no AsyncStorage
+  const salvarNome = async () => {
+    try {
+      // Validação para não permitir nomes vazios
+      if (nome.trim() === '') {
+        Alert.alert('Erro', 'Digite um nome válido');
+        return;
+      }
+
+      // Salva o nome no AsyncStorage com a chave '@nome_usuario'
+      // await- espera a operação ser concluída
+      await AsyncStorage.setItem('@nome_usuario', nome);
+      setNomeSalvo(nome);
+      // Fecha o teclado virtual após salvar
+      Keyboard.dismiss();
+      // Exibe mensagem de sucesso para o usuário
+      Alert.alert('Sucesso', 'Nome salvo com sucesso!');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Função assíncrona para recuperar o nome salvo do AsyncStorage
+  const carregarNomeSalvo = async () => {
+    try {
+      // Busca o item com a chave '@nome_usuario' no AsyncStorage
+      const nomeArmazenado = await AsyncStorage.getItem('@nome_usuario');
+      // Se encontrar um valor (não nulo), atualiza o estado
+      if (nomeArmazenado !== null) {
+        setNomeSalvo(nomeArmazenado);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Renderização da interface do usuário
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>👋 Seja bem-vindo!</Text>
+
+      {/* Renderização condicional: mostra mensagem de boas-vindas com nome se existir, ou instrução caso contrário */}
+      {nomeSalvo ? (
+        <Text style={styles.boasVindas}>Olá, {nomeSalvo} 👨‍💻</Text>
+      ) : (
+        <Text style={styles.boasVindas}>Digite seu nome abaixo:</Text>
+      )}
+
+      {/* Campo de entrada para digitação do nome */}
+      <TextInput
+        style={styles.input}
+        placeholder="Seu nome"
+        value={nome} //Isso torna o TextInput um componente controlado, ou seja, o que aparece no campo sempre vem do estado do React.
+        onChangeText={setNome}
+      />
+
+      {/* Botão para salvar o nome digitado */}
+      <TouchableOpacity style={styles.botao} onPress={salvarNome}>
+        <Text style={styles.textoBotao}>💾 Salvar Nome</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// Definição dos estilos utilizando StyleSheet
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1E1E2A', // Fundo escuro
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  titulo: {
+    fontSize: 30,
+    color: '#FFFFFF', // Texto branco
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  boasVindas: {
+    fontSize: 20,
+    color: '#CCCCCC', // Texto cinza claro
+    marginBottom: 30,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  botao: {
+    backgroundColor: '#3D85C6', // Botão azul
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  textoBotao: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+});
+</script></code></pre>
+        </section>
+        <section>
+            <h3>Armazenamento de objetos JSON</h3>
+            <div class="container">
+                    <div class="column" style="font-size: 0.7em;">
+                            <p>Este exemplo demonstra:</p>
+                            <ul>
+                                    <li>Como armazenar objetos JSON completos no AsyncStorage</li>
+                                    <li>A necessidade de <code>JSON.stringify()</code> antes de armazenar</li>
+                                    <li>Uso de <code>JSON.parse()</code> para recuperar o objeto</li>
+                                    <li>Remoção de objetos armazenados
+                                        <code>AsyncStorage.removeItem</code></li>
+                            </ul>
+                            <p>AsyncStorage só armazena strings, então a conversão para JSON é essencial para objetos.</p>
+                    </div>
+                    <div class="column">
+                            <img src="assets/img2.png" alt="JSON Storage Example" class="demo-image" style="max-width: 80%; height: auto;">
+                    </div>
+            </div>
+        </section>
         <section>
           <h3>Armazenando objetos JSON</h3>
-          <pre><code class="javascript" data-trim data-line-numbers="1-20" data-line="5,14">
-            // Armazenando um objeto JSON
-            const storeObjectData = async (key, value) => {
-              try {
-                // É necessário converter para string
-                const jsonValue = JSON.stringify(value);
-                await AsyncStorage.setItem(key, jsonValue);
-                console.log('Objeto armazenado com sucesso!');
-              } catch (e) {
-                console.error('Erro ao salvar objeto', e);
-              }
-            };
-            
-            // Recuperando um objeto JSON
-            const getObjectData = async (key) => {
-              try {
-                const jsonValue = await AsyncStorage.getItem(key);
-                return jsonValue != null ? JSON.parse(jsonValue) : null;
-              } catch (e) {
-                console.error('Erro ao ler objeto', e);
-                return null;
-              }
-            };
-          </code></pre>
+          <pre><code class="javascript" data-trim data-line-numbers="17-19|40-45|47-48|50-51|67-73|75-78|85-97|105-111"><script>
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Keyboard,
+  ScrollView,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function App() {
+  // Estados para os campos do formulário
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState('');
+  
+  // Estado para armazenar os dados do usuário salvos
+  const [dadosUsuario, setDadosUsuario] = useState(null);
+
+  // Hook de efeito que é executado uma única vez quando o componente é montado
+  useEffect(() => {
+    // Carrega os dados salvos do AsyncStorage quando o app inicia
+    carregarDadosUsuario();
+  }, []);
+
+  // Função assíncrona para salvar os dados do usuário no AsyncStorage como JSON
+  const salvarDados = async () => {
+    try {
+      // Validação para não permitir nome vazio
+      if (nome.trim() === '') {
+        Alert.alert('Erro', 'Digite um nome válido');
+        return;
+      }
+
+      // Criação do objeto de dados do usuário
+      const dadosParaSalvar = {
+        nome: nome,
+        email: email.trim() || 'Não informado',
+        idade: idade.trim() || 'Não informada',
+        dataAtualizacao: new Date().toLocaleString('pt-BR')
+      };
+
+      // Converte o objeto para string JSON e salva no AsyncStorage
+      await AsyncStorage.setItem('@dados_usuario', JSON.stringify(dadosParaSalvar));
+      
+      // Atualiza o estado com os dados salvos
+      setDadosUsuario(dadosParaSalvar);
+      
+      // Fecha o teclado virtual após salvar
+      Keyboard.dismiss();
+      
+      // Exibe mensagem de sucesso para o usuário
+      Alert.alert('Sucesso', 'Dados salvos com sucesso!');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possível salvar os dados');
+    }
+  };
+
+  // Função assíncrona para recuperar os dados salvos do AsyncStorage
+  const carregarDadosUsuario = async () => {
+    try {
+      // Busca o item com a chave '@dados_usuario' no AsyncStorage
+      const dadosArmazenados = await AsyncStorage.getItem('@dados_usuario');
+      
+      // Se encontrar um valor (não nulo), converte de volta para objeto e atualiza o estado
+      if (dadosArmazenados !== null) {
+        const dadosConvertidos = JSON.parse(dadosArmazenados);
+        setDadosUsuario(dadosConvertidos);
+        
+        // Preenche os campos do formulário com os dados salvos
+        setNome(dadosConvertidos.nome || '');
+        setEmail(dadosConvertidos.email || '');
+        setIdade(dadosConvertidos.idade || '');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Função para limpar todos os dados
+  const limparDados = async () => {
+    try {
+      await AsyncStorage.removeItem('@dados_usuario');
+      setDadosUsuario(null);
+      setNome('');
+      setEmail('');
+      setIdade('');
+      Alert.alert('Sucesso', 'Dados removidos com sucesso!');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Renderização da interface do usuário
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.titulo}>👋 Seja bem-vindo!</Text>
+
+        {/* Renderização condicional: mostra dados do usuário se existirem, ou instrução caso contrário */}
+        {dadosUsuario ? (
+          <View style={styles.dadosContainer}>
+            <Text style={styles.boasVindas}>Olá, {dadosUsuario.nome} 👨‍💻</Text>
+            <Text style={styles.dadosTexto}>Email: {dadosUsuario.email}</Text>
+            <Text style={styles.dadosTexto}>Idade: {dadosUsuario.idade}</Text>
+            <Text style={styles.dadosTexto}>Atualizado: {dadosUsuario.dataAtualizacao}</Text>
+          </View>
+        ) : (
+          <Text style={styles.boasVindas}>Preencha seus dados abaixo:</Text>
+        )}
+
+        {/* Campo de entrada para digitação do nome */}
+        <TextInput
+          style={styles.input}
+          placeholder="Seu nome"
+          value={nome}
+          onChangeText={setNome}
+        />
+
+        {/* Campo de entrada para email */}
+        <TextInput
+          style={styles.input}
+          placeholder="Seu email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+
+        {/* Campo de entrada para idade */}
+        <TextInput
+          style={styles.input}
+          placeholder="Sua idade"
+          value={idade}
+          onChangeText={setIdade}
+          keyboardType="numeric"
+        />
+
+        {/* Botão para salvar os dados */}
+        <TouchableOpacity style={styles.botao} onPress={salvarDados}>
+          <Text style={styles.textoBotao}>💾 Salvar Dados</Text>
+        </TouchableOpacity>
+
+        {/* Botão para limpar os dados (aparece apenas se tiver dados salvos) */}
+        {dadosUsuario && (
+          <TouchableOpacity style={styles.botaoLimpar} onPress={limparDados}>
+            <Text style={styles.textoBotao}>🗑️ Limpar Dados</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </ScrollView>
+  );
+}
+
+// Definição dos estilos utilizando StyleSheet
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#1E1E2A', // Fundo escuro
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  titulo: {
+    fontSize: 30,
+    color: '#FFFFFF', // Texto branco
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  boasVindas: {
+    fontSize: 20,
+    color: '#CCCCCC', // Texto cinza claro
+    marginBottom: 10,
+  },
+  dadosContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+    marginBottom: 20,
+  },
+  dadosTexto: {
+    fontSize: 16,
+    color: '#CCCCCC',
+    marginBottom: 5,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 18,
+    marginBottom: 15,
+  },
+  botao: {
+    backgroundColor: '#3D85C6', // Botão azul
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    marginBottom: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  botaoLimpar: {
+    backgroundColor: '#C64444', // Botão vermelho
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  textoBotao: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+});
+</script> </code></pre>
         </section>
 
-        <section>
-          <h3>Removendo dados</h3>
-          <pre><code class="javascript" data-trim data-line-numbers="1-19">
-            // Remover um item específico
-            const removeValue = async (key) => {
-              try {
-                await AsyncStorage.removeItem(key);
-                console.log('Item removido com sucesso!');
-              } catch (e) {
-                console.error('Erro ao remover item', e);
-              }
-            };
-            
-            // Remover todos os itens (limpar o armazenamento)
-            const clearAll = async () => {
-              try {
-                await AsyncStorage.clear();
-                console.log('AsyncStorage limpo com sucesso!');
-              } catch (e) {
-                console.error('Erro ao limpar AsyncStorage', e);
-              }
-            };
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Operações com múltiplos itens</h3>
-          <pre><code class="javascript" data-trim data-line-numbers="1-25">
-            // Armazenar múltiplos itens
-            const storeMultipleItems = async () => {
-              try {
-                const pairs = [
-                  ['@usuario_nome', 'João'],
-                  ['@usuario_email', 'joao@exemplo.com'],
-                  ['@usuario_id', '12345']
-                ];
-                await AsyncStorage.multiSet(pairs);
-                console.log('Dados múltiplos salvos!');
-              } catch (e) {
-                console.error('Erro ao salvar múltiplos itens', e);
-              }
-            };
-            
-            // Obter múltiplos itens
-            const getMultipleItems = async () => {
-              try {
-                const keys = ['@usuario_nome', '@usuario_email', '@usuario_id'];
-                const values = await AsyncStorage.multiGet(keys);
-                // values retorna um array de pares: [['@usuario_nome', 'João'], ...]
-                return values;
-              } catch (e) {
-                console.error('Erro ao recuperar múltiplos itens', e);
-                return [];
-              }
-            };
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Exemplo prático: Persistência de tema</h3>
-          <pre><code class="javascript" data-trim data-line-numbers="1-41" data-line="12-15,30-33">
-            import React, { useState, useEffect } from 'react';
-            import { View, Text, Switch, StyleSheet } from 'react-native';
-            import AsyncStorage from '@react-native-async-storage/async-storage';
-            
-            export default function TemaApp() {
-              const [isDarkMode, setIsDarkMode] = useState(false);
-              
-              // Carrega o tema salvo quando o componente é montado
-              useEffect(() => {
-                const carregarTema = async () => {
-                  try {
-                    const temaArmazenado = await AsyncStorage.getItem('@tema');
-                    if (temaArmazenado !== null) {
-                      setIsDarkMode(temaArmazenado === 'dark');
-                    }
-                  } catch (e) {
-                    console.error('Erro ao carregar tema', e);
-                  }
-                };
-                
-                carregarTema();
-              }, []);
-              
-              // Salva o tema quando o usuário altera
-              const alterarTema = async (value) => {
-                setIsDarkMode(value);
-                
-                try {
-                  // Salva o tema escolhido no AsyncStorage
-                  const temaParaSalvar = value ? 'dark' : 'light';
-                  await AsyncStorage.setItem('@tema', temaParaSalvar);
-                  console.log(`Tema alterado para ${temaParaSalvar}`);
-                } catch (e) {
-                  console.error('Erro ao salvar tema', e);
-                }
-              };
-              
-              return (
-                <View style={[styles.container, isDarkMode ? styles.darkMode : styles.lightMode]}>
-                  <Text style={[styles.text, isDarkMode ? styles.textDark : styles.textLight]}>
-                    {isDarkMode ? 'Modo Escuro' : 'Modo Claro'}
-                  </Text>
-                  <Switch value={isDarkMode} onValueChange={alterarTema} />
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              darkMode: {
-                backgroundColor: '#121212',
-              },
-              lightMode: {
-                backgroundColor: '#FFFFFF',
-              },
-              text: {
-                fontSize: 18,
-                marginBottom: 20,
-              },
-              textDark: {
-                color: '#FFFFFF',
-              },
-              textLight: {
-                color: '#121212',
-              },
-            });
-          </code></pre>
-        </section>
-
+        
         <section>
           <h3>🛠️ Exercício em sala: Lista de Tarefas com AsyncStorage</h3>
           <p>Implemente um aplicativo simples de lista de tarefas que:</p>
@@ -340,9 +596,182 @@
             <li>Exclua tarefas</li>
             <li>Persista os dados usando AsyncStorage</li>
           </ol>
-          <p><strong>Tempo:</strong> 20-25 minutos</p>
         </section>
-      </section>
+        
+        <section>
+          <h3>💡 Dicas de Implementação</h3>
+          <p>Estrutura de dados recomendada para as tarefas:</p>
+          <pre><code class="javascript" data-trim>
+    // Array de objetos para as tarefas
+    const tarefas = [
+      {
+        id: '1', // Use uuid ou Date.now() para gerar IDs únicos
+        titulo: 'Comprar leite',
+        concluida: false,
+        dataCriacao: '2023-05-10T14:30:00Z'
+      },
+      {
+        id: '2',
+        titulo: 'Estudar React Native',
+        concluida: true,
+        dataCriacao: '2023-05-09T10:15:00Z'
+      }
+    ];
+
+    // Chave para armazenar no AsyncStorage
+    const TASKS_STORAGE_KEY = '@minhas_tarefas';
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🧩 Funções Principais</h3>
+          <pre><code class="javascript" data-trim>
+    // Carregar tarefas do AsyncStorage
+    const carregarTarefas = async () => {
+      try {
+        const tarefasSalvas = await AsyncStorage.getItem(TASKS_STORAGE_KEY);
+        if (tarefasSalvas !== null) {
+          setTarefas(JSON.parse(tarefasSalvas));
+        }
+      } catch (erro) {
+        console.error('Erro ao carregar tarefas:', erro);
+      }
+    };
+
+    // Salvar tarefas no AsyncStorage
+    const salvarTarefas = async (novasTarefas) => {
+      try {
+        await AsyncStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(novasTarefas));
+        setTarefas(novasTarefas);
+      } catch (erro) {
+        console.error('Erro ao salvar tarefas:', erro);
+      }
+    };
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🧩 Funções CRUD das Tarefas</h3>
+          <pre><code class="javascript" data-trim>
+    // Adicionar nova tarefa
+    const adicionarTarefa = (titulo) => {
+      const novaTarefa = {
+        id: Date.now().toString(),
+        titulo,
+        concluida: false,
+        dataCriacao: new Date().toISOString()
+      };
+      const novasTarefas = [...tarefas, novaTarefa];
+      salvarTarefas(novasTarefas);
+    };
+
+    // Marcar tarefa como concluída ou não concluída
+    const alternarConclusao = (id) => {
+      const novasTarefas = tarefas.map(tarefa => 
+        tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa
+      );
+      salvarTarefas(novasTarefas);
+    };
+
+    // Excluir tarefa
+    const excluirTarefa = (id) => {
+      const novasTarefas = tarefas.filter(tarefa => tarefa.id !== id);
+      salvarTarefas(novasTarefas);
+    };
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🎨 Interface Básica</h3>
+          <pre><code class="javascript" data-trim>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titulo}>Minhas Tarefas</Text>
+        
+        {/* Formulário para adicionar tarefas */}
+        <View style={styles.inputContainer}>
+          <TextInput
+        style={styles.input}
+        value={novaTarefa}
+        onChangeText={setNovaTarefa}
+        placeholder="Digite uma nova tarefa"
+          />
+          <TouchableOpacity 
+        style={styles.botaoAdicionar} 
+        onPress={() => {
+          if (novaTarefa.trim() !== '') {
+            adicionarTarefa(novaTarefa);
+            setNovaTarefa('');
+          }
+        }}
+          >
+        <Text style={styles.textoBotao}>+</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Lista de tarefas */}
+        <FlatList
+          data={tarefas}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+        // Renderização de cada tarefa...
+          )}
+        />
+      </View>
+    );
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>📝 Renderização de Cada Tarefa</h3>
+          <pre><code class="javascript" data-trim>
+    renderItem={({ item }) => (
+      <View style={styles.itemTarefa}>
+        <TouchableOpacity
+          onPress={() => alternarConclusao(item.id)}
+          style={styles.checkboxContainer}
+        >
+          <View style={[
+        styles.checkbox, 
+        item.concluida && styles.checkboxConcluida
+          ]}>
+        {item.concluida && <Text style={styles.checkmark}>✓</Text>}
+          </View>
+        </TouchableOpacity>
+        
+        <Text style={[
+          styles.textoTarefa,
+          item.concluida && styles.textoTarefaConcluida
+        ]}>
+          {item.titulo}
+        </Text>
+        
+        <TouchableOpacity
+          onPress={() => excluirTarefa(item.id)}
+          style={styles.botaoExcluir}
+        >
+          <Text style={styles.textoExcluir}>🗑️</Text>
+        </TouchableOpacity>
+      </View>
+    )}
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>💪 Desafios Adicionais</h3>
+          <p>Para quem terminar mais cedo ou quiser ir além:</p>
+          <ol>
+            <li>Adicione edição de tarefas</li>
+            <li>Implemente categorias para as tarefas</li>
+            <li>Adicione datas de vencimento com alarmes</li>
+            <li>Crie filtros para mostrar tarefas concluídas/não concluídas</li>
+            <li>Implemente a função de "desfazer" após excluir uma tarefa</li>
+          </ol>
+       
+        </section>
+          </section></code>
+
+
 
       <!-- SQLite -->
       <section>
