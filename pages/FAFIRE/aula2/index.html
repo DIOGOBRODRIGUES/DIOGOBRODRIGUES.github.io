@@ -21,6 +21,11 @@
   <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
 
   <style>
+    :root {
+      --farire-green: #2e8b57;
+      --farire-light-green: #3cb371;
+      --farire-dark-green: #006400;
+    }
     .container {
       display: flex;
       justify-content: space-between;
@@ -28,26 +33,40 @@
     .column {
       width: 48%;
     }
-    .highlight {
-      color: #50fa7b;
-      font-weight: bold;
+    .reveal h1, .reveal h2, .reveal h3 {
+      color: var(--farire-light-green);
     }
-    .warning {
-      color: #ffb86c;
-      font-weight: bold;
+    
+    .farire-header {
+      background-color: rgba(46, 139, 87, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 20px;
     }
-    .fragment.highlight-current-blue.visible.current-fragment {
-      font-weight: bold;
+    
+    .farire-logo {
+      font-size: 2em;
+      color: var(--farire-green);
     }
-    .smaller-text {
-      font-size: 0.8em;
+    
+    .topic-title {
+      color: var(--farire-light-green);
+      border-bottom: 2px solid var(--farire-light-green);
+      padding-bottom: 10px;
     }
-    .center-text {
-      text-align: center;
+    
+    .code-example {
+      background-color: #282a36;
+      border-left: 4px solid var(--farire-green);
     }
-    .align-left {
-      text-align: left;
+    
+    .highlight-box {
+      background-color: rgba(46, 139, 87, 0.1);
+      border-left: 4px solid var(--farire-green);
+      padding: 10px;
+      margin: 15px 0;
     }
+  </style>
   </style>
 </head>
 
@@ -56,16 +75,22 @@
   <div class="reveal">
     <div class="slides">
       <!-- Slide 1 - Título da Aula -->
+     
       <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 2: Estrutura de Pastas e Estilização em React Native</h3>
+        <div class="farire-header">
+          <p><span class="farire-logo">🌳</span> FAFIRE - Pós-graduação em Engenharia de Software</p>
+        </div>
+        <h2>Desenvolvimento de Aplicativos para Dispositivos Móveis</h2>
+        <h4>📱 Aula 2: Estrutura de Pastas e Estilização em React Native</h4>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
+        <div>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
       </section>
 
       <!-- Slide 2 - Objetivos da Aula -->
@@ -139,7 +164,7 @@
 
         <section>
           <h3>📁 Estrutura Básica Expo</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-13|2-5|6-9|10-13" class="language-bash">
+          <pre><code data-trim data-noescape data-line-numbers class="language-bash">
 projeto-expo/
 ├── assets/              # Imagens, fontes e outros recursos
 ├── app.json             # Configuração do Expo
@@ -149,7 +174,6 @@ projeto-expo/
 ├── navigation/          # Navegação entre telas
 ├── services/            # Serviços e APIs
 ├── package.json         # Dependências do projeto
-├── babel.config.js      # Configuração do Babel
 ├── node_modules/        # Módulos instalados
 └── .gitignore           # Arquivos ignorados pelo git
           </code></pre>
@@ -158,7 +182,7 @@ projeto-expo/
 
         <section>
           <h3>📁 Estrutura React Native CLI</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-16|2-7|8-16" class="language-bash">
+          <pre><code data-trim data-noescape data-line-numbers class="language-bash">
 projeto-rn-cli/
 ├── android/             # Código nativo Android
 ├── ios/                 # Código nativo iOS
@@ -181,7 +205,7 @@ projeto-rn-cli/
 
         <section>
           <h3>🔄 Sugestão de Estrutura Organizada</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-16|3-6|7-11|12-16" class="language-bash">
+          <pre><code data-trim data-noescape data-line-numbers class="language-bash">
 meu-app/
 ├── src/
 │   ├── assets/              # Recursos estáticos
@@ -214,8 +238,8 @@ meu-app/
         <section>
           <h2>🎨 Estilização com StyleSheet</h2>
           <p>O React Native utiliza JavaScript para definir estilos</p>
-          <pre><code data-trim data-noescape data-line-numbers="1-3|5-14|16-24" class="language-javascript">
-import React from 'react';
+          <pre><code data-trim data-noescape data-line-numbers="1|3-11|14-25" class="language-javascript">
+
 import { View, Text, StyleSheet } from 'react-native';
 
 // Componente com estilos
@@ -259,7 +283,6 @@ export default Card;
         <section>
           <h3>💪 Vantagens do StyleSheet</h3>
           <ul>
-            <li class="fragment">Validação de propriedades em tempo de desenvolvimento</li>
             <li class="fragment">Otimização de performance (cria referências de ID)</li>
             <li class="fragment">Autocomplete em editores modernos</li>
             <li class="fragment">Separação entre lógica e estilo</li>
@@ -274,7 +297,7 @@ export default Card;
         <section>
           <h3>🎯 Aplicação de Estilos</h3>
           <p>Múltiplas formas de aplicar estilos em componentes:</p>
-          <pre><code data-trim data-noescape data-line-numbers="1-5|7-12|14-20" class="language-javascript">
+          <pre><code data-trim data-noescape data-line-numbers="1-5|6-9|11-17|19-25" class="language-javascript">
 // 1. Estilo único
 &lt;View style={styles.container}>
   &lt;Text>Texto simples&lt;/Text>
@@ -305,8 +328,8 @@ export default Card;
 
         <section>
           <h3>🔄 Estilização Dinâmica</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-10|12-30|32-42" class="language-javascript">
-import React, { useState } from 'react';
+          <pre><code data-trim data-noescape data-line-numbers="1-10|12-30" class="language-javascript">
+import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const DynamicStyleExample = () => {
@@ -375,13 +398,12 @@ export default DynamicStyleExample;
         <section>
           <h2>💅 Styled Components</h2>
           <p>Uma abordagem alternativa para estilização usando CSS-in-JS</p>
-          <pre><code data-trim data-noescape data-line-numbers="1-4|6-17|19-25" class="language-javascript">
+          <pre><code data-trim data-noescape data-line-numbers="5-6|8-119|21-30|33-38|40-49" class="language-javascript">
 // Instalação:
 // npm install styled-components
 // ou
 // yarn add styled-components
-
-import React from 'react';
+import { SafeAreaView} from 'react-native';
 import styled from 'styled-components/native';
 
 // Definindo componentes estilizados
@@ -408,12 +430,6 @@ const Description = styled.Text`
   font-size: 14px;
   color: #666666;
 `;
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>🔍 Usando Styled Components</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-15|17-19" class="language-javascript">
 // Componente com Styled Components
 const StyledCard = ({ title, description, isPrimary }) => (
   &lt;Container>
@@ -433,19 +449,13 @@ const App = () => (
   &lt;/SafeAreaView>
 );
 
-// Estendendo estilos de componentes existentes
-const PrimaryContainer = styled(Container)`
-  background-color: #e3f2fd;
-  border-left-width: 4px;
-  border-left-color: #1e88e5;
-`;
+
           </code></pre>
         </section>
 
         <section>
           <h3>📊 StyleSheet vs Styled Components</h3>
-          <div class="container">
-            <div class="column">
+            
               <h4>StyleSheet 📋</h4>
               <ul>
                 <li class="fragment">Nativo do React Native</li>
@@ -454,8 +464,10 @@ const PrimaryContainer = styled(Container)`
                 <li class="fragment">Validações em tempo de compilação</li>
                 <li class="fragment">Sem dependências externas</li>
               </ul>
-            </div>
-            <div class="column">
+            
+            </section>
+            <section>
+              <h3>📊 StyleSheet vs Styled Components</h3>
               <h4>Styled Components 💅</h4>
               <ul>
                 <li class="fragment">Sintaxe CSS tradicional</li>
@@ -464,8 +476,7 @@ const PrimaryContainer = styled(Container)`
                 <li class="fragment">Temas globais</li>
                 <li class="fragment">Bibliotecas de UI familiares para desenvolvedores web</li>
               </ul>
-            </div>
-          </div>
+            
         </section>
       </section>
 
@@ -550,68 +561,12 @@ const styles = StyleSheet.create({
           </code></pre>
         </section>
 
-        <section>
-          <h3>📱 Layout Simples com Flex</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-15|17-35" class="language-javascript">
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-const FlexboxExample = () => {
-  return (
-    &lt;View style={styles.container}>
-      &lt;View style={styles.header}>
-        &lt;Text style={styles.headerText}>Cabeçalho&lt;/Text>
-      &lt;/View>
-      &lt;View style={styles.content}>
-        &lt;Text>Conteúdo principal&lt;/Text>
-      &lt;/View>
-      &lt;View style={styles.footer}>
-        &lt;Text style={styles.footerText}>Rodapé&lt;/Text>
-      &lt;/View>
-    &lt;/View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,  // ocupa todo o espaço disponível
-    flexDirection: 'column',
-  },
-  header: {
-    height: 60,
-    backgroundColor: '#3498db',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    flex: 1, // expande para ocupar o espaço restante
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ecf0f1',
-  },
-  footer: {
-    height: 50,
-    backgroundColor: '#2c3e50',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerText: {
-    color: 'white',
-    fontSize: 18,
-  },
-  footerText: {
-    color: 'white',
-  }
-});
-
-export default FlexboxExample;
-          </code></pre>
-        </section>
+      
 
         <section>
           <h3>🧩 Cards em Linha com Flexbox</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-24|26-48" class="language-javascript">
-import React from 'react';
+          <pre><code data-trim data-noescape data-line-numbers="5-11|36-47" class="language-javascript">
+
 import { View, Text, StyleSheet } from 'react-native';
 
 const FlexRowExample = () => {
@@ -681,8 +636,8 @@ export default FlexRowExample;
         <section>
           <h2>📐 useWindowDimensions</h2>
           <p>Hook para obter dimensões da janela e criar layouts responsivos</p>
-          <pre><code data-trim data-noescape data-line-numbers="1-7|9-20|22-34" class="language-javascript">
-import React from 'react';
+        <pre><code data-trim data-noescape data-line-numbers="1|7-9|12-13|14-24|26-38" class="language-javascript">
+
 import { View, Text, useWindowDimensions, StyleSheet } from 'react-native';
 
 // O hook retorna as dimensões atuais da janela
@@ -723,12 +678,7 @@ const ResponsiveLayout = () => {
     &lt;/View>
   );
 };
-          </code></pre>
-        </section>
 
-        <section>
-          <h3>🧮 Estilos baseados no tamanho da tela</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-21|23-41" class="language-javascript">
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -752,85 +702,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-// Função para determinar tamanho de fonte responsivo
-const ResponsiveText = () => {
-  const { width } = useWindowDimensions();
-  
-  // Calcula tamanho de fonte baseado na largura da tela
-  const getFontSize = () => {
-    if (width < 350) return 14; // telas muito pequenas
-    if (width < 500) return 16; // telas de smartphones
-    if (width < 700) return 18; // telas maiores e tablets pequenos
-    return 20; // tablets e dispositivos maiores
-  }
-  
-  return (
-    &lt;Text style={{ fontSize: getFontSize() }}>
-      Este texto se adapta ao tamanho da tela
-    &lt;/Text>
-  );
-};
-
-// Componente grid responsivo
-const ResponsiveGrid = ({ items }) => {
-  const { width } = useWindowDimensions();
-  
-  // Determina número de colunas baseado na largura
-  const numColumns = width < 600 ? 2 : 3;
-  
-  return (
-    &lt;FlatList
-      data={items}
-      numColumns={numColumns}
-      renderItem={({ item }) => <GridItem item={item} width={width / numColumns - 20} />}
-      keyExtractor={item => item.id}
-    />
-  );
-};
           </code></pre>
         </section>
 
-        <section>
-          <h3>⚖️ Dimensões vs PixelRatio</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-12|14-27" class="language-javascript">
-import { useWindowDimensions, PixelRatio } from 'react-native';
-
-const DensityAwareComponent = () => {
-  const { width, height } = useWindowDimensions();
-  const pixelRatio = PixelRatio.get();
-  
-  // Calcula dimensões físicas reais (em pixels)
-  const realWidth = width * pixelRatio;
-  const realHeight = height * pixelRatio;
-  
-  // Determina a densidade de tela
-  const getDensity = () => {
-    if (pixelRatio >= 3) return 'xxxhdpi';
-    if (pixelRatio >= 2) return 'xxhdpi';
-    if (pixelRatio >= 1.5) return 'xhdpi';
-    return 'mdpi';
-  };
-  
-  return (
-    &lt;View>
-      &lt;Text>Dimensões lógicas: {width}x{height} dp&lt;/Text>
-      &lt;Text>Dimensões físicas: {realWidth}x{realHeight} px&lt;/Text>
-      &lt;Text>Densidade da tela: {pixelRatio}x ({getDensity()})&lt;/Text>
-      
-      &lt;Text>
-        Px para Dp: {PixelRatio.getPixelSizeForLayoutSize(200)}px equivale a 200dp
-      &lt;/Text>
-      
-      &lt;Text>
-        1 px em dp: {1 / pixelRatio}dp
-      &lt;/Text>
-    &lt;/View>
-  );
-};
-          </code></pre>
-          <p class="fragment">O PixelRatio ajuda a criar interfaces que respeitam a densidade de pixels do dispositivo</p>
-        </section>
       </section>
 
       <!-- Slide 9 - Formulários -->
@@ -839,7 +713,7 @@ const DensityAwareComponent = () => {
           <h2>📝 Formulários em React Native</h2>
           <p>Implementando formulários eficientes e validados</p>
           <pre><code data-trim data-noescape data-line-numbers="1-11|13-29|31-45" class="language-javascript">
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   View, 
   Text, 
