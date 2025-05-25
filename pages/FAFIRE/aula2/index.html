@@ -712,7 +712,8 @@ const styles = StyleSheet.create({
         <section>
           <h2>📝 Formulários em React Native</h2>
           <p>Implementando formulários eficientes e validados</p>
-          <pre><code data-trim data-noescape data-line-numbers="1-11|13-29|31-45" class="language-javascript">
+          <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+<script>
 import { useState } from 'react';
 import { 
   View, 
@@ -724,9 +725,9 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-
+ 
 const SimpleForm = () => {
-  // Estado para os campos do formulário
+  // Estado para os campos do formulário, armazena um objeto com os valores dos campos
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -743,8 +744,8 @@ const SimpleForm = () => {
   // Atualização do estado do formulário
   const handleChange = (field, value) => {
     setFormData({
-      ...formData,
-      [field]: value
+      ...formData, //...formData cria uma cópia de todos os campos atuais do formulário
+      [field]: value //utiliza a sintaxe de propriedades computadas do JavaScript para atualizar dinamicamente apenas o campo específico
     });
     
     // Limpa o erro quando o usuário começa a digitar
@@ -788,12 +789,6 @@ const SimpleForm = () => {
     setErrors(newErrors);
     return isValid;
   };
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>📱 Interface do Formulário</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-21|23-43|45-57" class="language-javascript">
   // Submissão do formulário
   const handleSubmit = () => {
     if (validateForm()) {
@@ -814,24 +809,29 @@ const SimpleForm = () => {
   };
   
   return (
-    &lt;KeyboardAvoidingView 
+    /*Behavior prop: Define como o componente deve se ajustar quando o teclado aparece:
+A expressão Platform.OS === 'ios' ? 'padding' : 'height' é um operador ternário que verifica a plataforma
+Em iOS: usa o comportamento 'padding', que adiciona espaço na parte inferior
+Em Android: usa o comportamento 'height', que redimensiona a altura do componente
+    */
+    <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      &lt;View style={styles.form}>
-        &lt;Text style={styles.header}>Formulário de Cadastro&lt;/Text>
+      <View style={styles.form}>
+        <Text style={styles.header}>Formulário de Cadastro</Text>
         
-        &lt;Text style={styles.label}>Nome:&lt;/Text>
-        &lt;TextInput
+        <Text style={styles.label}>Nome:</Text>
+        <TextInput
           style={[styles.input, errors.name ? styles.inputError : null]}
           placeholder="Digite seu nome"
           value={formData.name}
           onChangeText={(text) => handleChange('name', text)}
         />
-        {errors.name ? &lt;Text style={styles.errorText}>{errors.name}&lt;/Text> : null}
+        {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
         
-        &lt;Text style={styles.label}>Email:&lt;/Text>
-        &lt;TextInput
+        <Text style={styles.label}>Email:</Text>
+        <TextInput
           style={[styles.input, errors.email ? styles.inputError : null]}
           placeholder="Digite seu email"
           value={formData.email}
@@ -839,31 +839,25 @@ const SimpleForm = () => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        {errors.email ? &lt;Text style={styles.errorText}>{errors.email}&lt;/Text> : null}
+        {errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
         
-        &lt;Text style={styles.label}>Senha:&lt;/Text>
-        &lt;TextInput
+        <Text style={styles.label}>Senha:</Text>
+        <  TextInput
           style={[styles.input, errors.password ? styles.inputError : null]}
           placeholder="Digite sua senha"
           value={formData.password}
           onChangeText={(text) => handleChange('password', text)}
           secureTextEntry
         />
-        {errors.password ? &lt;Text style={styles.errorText}>{errors.password}&lt;/Text> : null}
+        {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
         
-        &lt;TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          &lt;Text style={styles.buttonText}>Cadastrar&lt;/Text>
-        &lt;/TouchableOpacity>
-      &lt;/View>
-    &lt;/KeyboardAvoidingView>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>🎨 Estilos do Formulário</h3>
-          <pre><code data-trim data-noescape data-line-numbers="1-15|17-30|32-46" class="language-javascript">
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -919,52 +913,49 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
+ 
 export default SimpleForm;
-          </code></pre>
+</script></code></pre>
         </section>
 
-        <section>
-          <h3>🚀 Melhorias para Formulários</h3>
-          <div class="container">
-            <div class="column">
-              <h4>Acessibilidade</h4>
-              <ul>
-                <li class="fragment">Use prop <code>accessibilityLabel</code></li>
-                <li class="fragment">Adicione <code>accessibilityHint</code></li>
-                <li class="fragment">Implemente navegação com teclado</li>
-              </ul>
-              
-              <h4>UX</h4>
-              <ul>
-                <li class="fragment">Feedback visual de erro</li>
-                <li class="fragment">Valide enquanto digita (debounce)</li>
-                <li class="fragment">Estados de carregamento</li>
-              </ul>
-            </div>
-            
-            <div class="column">
-              <h4>Bibliotecas úteis</h4>
-              <ul>
-                <li class="fragment">Formik</li>
-                <li class="fragment">React Hook Form</li>
-                <li class="fragment">Yup (validação)</li>
-                <li class="fragment">react-native-keyboard-aware-scroll-view</li>
-              </ul>
-              
-              <pre class="fragment"><code data-trim data-noescape class="language-bash">
-# Instalar bibliotecas de formulários
+
+    <section>
+  <h2 style="color:#00cec9;">🔧 Por que usar <strong>Formik</strong>?</h2>
+  <ul>
+    <li class="fragment">✨ Facilita o gerenciamento de formulários em React</li>
+    <li class="fragment">♻️ Menos código repetitivo</li>
+    <li class="fragment">🔗 Integração fácil com <strong>Yup</strong> para validação</li>
+    <li class="fragment">📐 Boas práticas no controle de estado</li>
+  </ul>
+  <aside class="notes">
+    Formik abstrai complexidades comuns no uso de formulários, como onChange, onBlur e validações.
+  </aside>
+</section>
+
+<section>
+  <h2 style="color:#6c5ce7;">✅ Validação com <strong>Yup</strong></h2>
+  <div style="background:#0f0f8c; border-left: 5px solid #6c5ce7; padding: 15px;">
+    <ul>
+      <li class="fragment">📜 Declaração de esquemas de validação claros</li>
+      <li class="fragment">💬 Mensagens de erro personalizadas</li>
+      <li class="fragment">🔗 Totalmente compatível com Formik</li>
+      <li class="fragment">⚡ Validações síncronas e assíncronas</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 style="color:#fd79a8;">📦 Instalação</h2>
+  <p class="fragment">Você pode instalar com <strong>NPM</strong> ou <strong>Yarn</strong>:</p>
+  <pre class="fragment"><code class="language-bash">
 npm install formik yup
 # ou
 yarn add formik yup
-              </code></pre>
-            </div>
-          </div>
-        </section>
-      </section>
-
+  </code></pre>
+  <p class="fragment">💡 Dica: mantenha as versões atualizadas para aproveitar novos recursos.</p>
+</section>
       <!-- Slide 10 - Exercício em Sala -->
-      <section>
+      
         <section>
           <h2>✏️ Exercício em Sala</h2>
           <h3>Card de Produto Responsivo</h3>
@@ -1137,23 +1128,7 @@ const imageSize = isLargeScreen
       </section>
 
       <!-- Slide 13 - Encerramento -->
-      <section>
-        <h2>🎯 Resumo da Aula</h2>
-        <ul>
-          <li class="fragment">Estruturas de pasta (Expo vs CLI) ✅</li>
-          <li class="fragment">Estilização com StyleSheet ✅</li>
-          <li class="fragment">Estilização com Styled Components ✅</li>
-          <li class="fragment">Flexbox para layouts ✅</li>
-          <li class="fragment">useWindowDimensions para responsividade ✅</li>
-          <li class="fragment">Formulários em React Native ✅</li>
-        </ul>
-        
-        <p class="fragment">Próxima aula: Navegação em React Native</p>
-        
-        <div class="fragment" style="margin-top: 40px;">
-          <h4>Dúvidas? 🤔</h4>
-        </div>
-      </section>
+    
     </div>
   </div>
 
