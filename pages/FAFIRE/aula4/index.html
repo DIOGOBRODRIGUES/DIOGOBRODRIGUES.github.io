@@ -88,1260 +88,603 @@
       </section>
 
       <!-- Slide 2 - Objetivos da Aula -->
+      <!-- Slide 3 - O que é FlatList? -->
       <section>
-        <h3>🎯 Objetivos da Aula</h3>
+        <h2>📋 O que é FlatList?</h2>
         <ul>
-          <li>Compreender o que são APIs e sua importância</li>
-          <li>Aprender a consumir APIs RESTful em React Native</li>
-          <li>Dominar o uso do Fetch API e Axios</li>
-          <li>Implementar FlatList para exibir dados das APIs</li>
-          <li>Gerenciar estados de carregamento e erros</li>
-          <li>Criar componentes reutilizáveis para dados de API</li>
+          <li>📲 Componente nativo do React Native para renderizar listas</li>
+          <li>🔄 Alternativa otimizada ao <code>ScrollView</code> com arrays</li>
+          <li>🔍 Implementa <i>lazy loading</i> - apenas renderiza itens visíveis</li>
+          <li>📚 Ideal para listas longas ou com conteúdo dinâmico</li>
+          <li>⚙️ Possui recursos integrados para melhor performance</li>
         </ul>
       </section>
 
-      <!-- Slide 3 - Introdução -->
+      <!-- Slide 4 - Propriedades Principais -->
       <section>
-        <h3>📱 O que são APIs?</h3>
-        <div>
-          <p><span class="highlight">API</span> = <span class="important">A</span>pplication <span class="important">P</span>rogramming <span class="important">I</span>nterface</p>
-          <p>Uma <span class="highlight">interface</span> que permite que diferentes softwares <span class="highlight">se comuniquem</span> entre si.</p>
-          <img src="https://miro.medium.com/max/1400/1*LjkiUO0CsDRK8TBjcI1sTQ.png" alt="Conceito de API" style="width:60%; height:auto; border:none; box-shadow:none; background:none;">
-          <p>Em React Native, as APIs nos permitem interagir com serviços web e obter dados dinâmicos.</p>
-        </div>
+        <section>
+          <h2>🛠️ Propriedades Principais</h2>
+          <ul>
+            <li>📊 <code>data</code>: Array com os itens da lista</li>
+            <li>🎨 <code>renderItem</code>: Função para renderizar cada item</li>
+            <li>🔑 <code>keyExtractor</code>: Função para extrair uma chave única</li>
+            <li>🏠 <code>ListHeaderComponent</code>: Componente de cabeçalho</li>
+          </ul>
+        </section>
+        <section>
+          <h2>🛠️ Propriedades Principais</h2>
+          <ul>
+            <li>👣 <code>ListFooterComponent</code>: Componente de rodapé</li>
+            <li>🚫 <code>ListEmptyComponent</code>: Exibido quando a lista está vazia</li>
+            <li>🔄 <code>onRefresh</code> e <code>refreshing</code>: Controle pull-to-refresh</li>
+          </ul>
+        </section>
       </section>
 
-      <!-- Slide 4 - Motivação -->
+      <!-- Slide 5 - Exemplo Básico -->
       <section>
-        <h3>💡 Por que consumir APIs?</h3>
-        <div class="container">
-          <div class="column">
-            <p><i class="fas fa-server"></i> <span class="highlight">Separação de responsabilidades</span></p>
-            <p>O backend gerencia os dados, o frontend apenas os exibe</p>
-            <p><i class="fas fa-sync-alt"></i> <span class="highlight">Dados atualizados</span></p>
-            <p>Acesso às informações mais recentes a qualquer momento</p>
-            <p><i class="fas fa-database"></i> <span class="highlight">Redução de armazenamento local</span></p>
-            <p>Dados ficam na nuvem, não no dispositivo do usuário</p>
-          </div>
-          <div class="column">
-            <p><i class="fas fa-shield-alt"></i> <span class="highlight">Segurança</span></p>
-            <p>Lógica sensível fica protegida no servidor</p>
-            <p><i class="fas fa-code-branch"></i> <span class="highlight">Escalabilidade</span></p>
-            <p>Backend e frontend podem escalar independentemente</p>
-            <p><i class="fas fa-random"></i> <span class="highlight">Reutilização</span></p>
-            <p>Mesma API pode servir vários clientes (web, mobile, desktop)</p>
-          </div>
-        </div>
+        <h2>Exemplo Básico de FlatList</h2>
+        <pre><code class="javascript">
+      import { FlatList, Text, View, StyleSheet } from 'react-native';
+
+      export default function App() {
+        const dados = [
+          { id: '1', nome: 'João' },
+          { id: '2', nome: 'Maria' },
+          { id: '3', nome: 'Pedro' },
+          { id: '4', nome: 'Ana' },
+        ];
+
+        return (
+          &lt;View style={styles.container}>
+            &lt;FlatList
+              data={dados}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                &lt;Text style={styles.item}>{item.nome}&lt;/Text>
+              )}
+            />
+          &lt;/View>
+        );
+      }
+
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          marginTop: 50,
+        },
+        item: {
+          padding: 20,
+          fontSize: 18,
+          borderBottomWidth: 1,
+          borderBottomColor: '#cccccc',
+        },
+      });
+        </code></pre>
       </section>
 
-      <!-- Slide 5 - APIs RESTful -->
+      <!-- Slide 6 - Personalização de Itens -->
       <section>
-        <h3>🌐 APIs RESTful</h3>
-        <p><span class="highlight">REST</span> = <span class="important">RE</span>presentational <span class="important">S</span>tate <span class="important">T</span>ransfer</p>
-        <div class="container">
-          <div class="column">
-            <h4>Características:</h4>
-            <ul>
-              <li>Baseada em recursos (URLs)</li>
-              <li>Operações através de métodos HTTP</li>
-              <li>Stateless (sem estado)</li>
-              <li>Interface uniforme</li>
-              <li>Comunicação cliente-servidor</li>
-            </ul>
-          </div>
-          <div class="column">
-            <h4>Métodos HTTP principais:</h4>
-            <ul>
-              <li><span class="http-get">GET</span>: Recuperar dados</li>
-              <li><span class="http-post">POST</span>: Criar novos recursos</li>
-              <li><span class="http-put">PUT/PATCH</span>: Atualizar recursos</li>
-              <li><span class="http-delete">DELETE</span>: Remover recursos</li>
-            </ul>
-          </div>
-        </div>
+        <h2>Personalização de Itens</h2>
+        <pre><code class="javascript">
+      renderItem={({ item, index }) => (
+        &lt;View style={styles.itemContainer}>
+          &lt;Image
+            source={{ uri: item.avatar }}
+            style={styles.avatar}
+          />
+          &lt;View style={styles.infoContainer}>
+            &lt;Text style={styles.nome}>{item.nome}&lt;/Text>
+            &lt;Text style={styles.email}>{item.email}&lt;/Text>
+          &lt;/View>
+        &lt;/View>
+      )}
+        </code></pre>
+        <p>Cada item pode ser personalizado com componentes complexos</p>
       </section>
 
-      <!-- Slide 6 - Formatos de Resposta -->
+      <!-- Slide 7 - Otimização de Performance -->
       <section>
-        <h3>📄 Formatos de Resposta</h3>
-        <div class="container">
-          <div class="column">
-            <h4>JSON (JavaScript Object Notation)</h4>
-            <pre><code data-trim data-noescape data-line-numbers class="language-json">
-              {
-                "id": 1,
-                "name": "John Doe",
-                "email": "john@example.com",
-                "active": true,
-                "roles": ["user", "admin"],
-                "address": {
-                  "street": "Main St",
-                  "city": "Boston"
-                }
-              }
-            </code></pre>
-          </div>
-          <div class="column">
-            <h4>XML (menos comum hoje)</h4>
-            <pre><code data-trim data-noescape data-line-numbers class="language-xml">
-              &lt;user&gt;
-                &lt;id&gt;1&lt;/id&gt;
-                &lt;name&gt;John Doe&lt;/name&gt;
-                &lt;email&gt;john@example.com&lt;/email&gt;
-                &lt;active&gt;true&lt;/active&gt;
-                &lt;roles&gt;
-                  &lt;role&gt;user&lt;/role&gt;
-                  &lt;role&gt;admin&lt;/role&gt;
-                &lt;/roles&gt;
-              &lt;/user&gt;
-            </code></pre>
-          </div>
-        </div>
-        <p>No React Native, trabalhamos principalmente com <span class="highlight">JSON</span>.</p>
+        <h2>Otimização de Performance</h2>
+        <ul>
+          <li><code>initialNumToRender</code>: Número inicial de itens (padrão=10)</li>
+          <li><code>maxToRenderPerBatch</code>: Máximo a renderizar por lote</li>
+          <li><code>windowSize</code>: Tamanho da janela de renderização</li>
+          <li><code>removeClippedSubviews</code>: Remove views fora da tela</li>
+          <li><code>getItemLayout</code>: Pré-calcula dimensões dos itens</li>
+        </ul>
+        <pre><code class="javascript">
+      getItemLayout={(data, index) => (
+        { length: 80, offset: 80 * index, index }
+      )}
+        </code></pre>
       </section>
 
-      <!-- Slide 7 - Status HTTP -->
+      <!-- Slide 8 - Recursos Avançados -->
       <section>
-        <h3>🔢 Status HTTP</h3>
-        <div class="container">
-          <div class="column">
-            <h4>Sucesso (2xx)</h4>
-            <ul>
-              <li><span class="highlight">200</span>: OK</li>
-              <li><span class="highlight">201</span>: Created</li>
-              <li><span class="highlight">204</span>: No Content</li>
-            </ul>
-            <h4>Erro do Cliente (4xx)</h4>
-            <ul>
-              <li><span class="warning">400</span>: Bad Request</li>
-              <li><span class="warning">401</span>: Unauthorized</li>
-              <li><span class="warning">403</span>: Forbidden</li>
-              <li><span class="warning">404</span>: Not Found</li>
-            </ul>
-          </div>
-          <div class="column">
-            <h4>Redirecionamento (3xx)</h4>
-            <ul>
-              <li>301: Moved Permanently</li>
-              <li>302: Found</li>
-            </ul>
-            <h4>Erro do Servidor (5xx)</h4>
-            <ul>
-              <li><span class="important">500</span>: Internal Server Error</li>
-              <li><span class="important">502</span>: Bad Gateway</li>
-              <li><span class="important">503</span>: Service Unavailable</li>
-            </ul>
-            <p class="warning">Importante tratar os erros no app!</p>
-          </div>
-        </div>
+        <h2>Recursos Avançados</h2>
+        <ul>
+          <li><b>Separadores:</b> Use <code>ItemSeparatorComponent</code></li>
+          <li><b>Pull-to-refresh:</b> <code>onRefresh</code> e <code>refreshing</code></li>
+          <li><b>Carregar mais:</b> <code>onEndReached</code> e <code>onEndReachedThreshold</code></li>
+          <li><b>Cabeçalho/Rodapé:</b> <code>ListHeaderComponent</code> e <code>ListFooterComponent</code></li>
+          <li><b>Lista vazia:</b> <code>ListEmptyComponent</code></li>
+        </ul>
       </section>
 
-      <!-- Slide 8 - Consumindo APIs no React Native -->
+      <!-- Slide 9 - Exemplo Completo -->
       <section>
-        <h3>🛠️ Consumindo APIs no React Native</h3>
-        <p>Duas abordagens principais:</p>
-        <div class="container">
-          <div class="column">
-            <div style="text-align:center;">
-              <h4><i class="fas fa-box"></i> Fetch API</h4>
-              <p>Nativa do JavaScript</p>
-              <p>Simples e direta</p>
-              <p>Não precisa de instalação</p>
-            </div>
-          </div>
-          <div class="column">
-            <div style="text-align:center;">
-              <h4><i class="fas fa-rocket"></i> Axios</h4>
-              <p>Biblioteca externa</p>
-              <p>Mais recursos</p>
-              <p>Precisa ser instalada:<br><code>npm install axios</code></p>
-            </div>
-          </div>
-        </div>
+        <h2>Exemplo com Pull-to-Refresh</h2>
+        <pre><code class="javascript">
+      import React, { useState, useEffect } from 'react';
+      import { FlatList, Text, View, StyleSheet, RefreshControl } from 'react-native';
+
+      export default function App() {
+        const [dados, setDados] = useState([]);
+        const [refreshing, setRefreshing] = useState(false);
+
+        const carregarDados = () => {
+          // Simula busca de dados da API
+          setDados([
+            { id: '1', nome: 'João', email: 'joao@email.com' },
+            { id: '2', nome: 'Maria', email: 'maria@email.com' },
+            // ...mais dados
+          ]);
+        };
+
+        const onRefresh = () => {
+          setRefreshing(true);
+          // Simula uma chamada de API
+          setTimeout(() => {
+            carregarDados();
+            setRefreshing(false);
+          }, 2000);
+        };
+
+        useEffect(() => {
+          carregarDados();
+        }, []);
+
+        return (
+          &lt;FlatList
+            data={dados}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              &lt;View style={styles.item}>
+                &lt;Text style={styles.nome}>{item.nome}&lt;/Text>
+                &lt;Text>{item.email}&lt;/Text>
+              &lt;/View>
+            )}
+            refreshControl={
+              &lt;RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            ListEmptyComponent={
+              &lt;Text style={styles.empty}>Nenhum dado disponível&lt;/Text>
+            }
+          />
+        );
+      }
+        </code></pre>
       </section>
 
-      <!-- Slide 9 - Fetch API - Uso Básico -->
+      <!-- Slide 10 - SectionList -->
       <section>
-        <h3>📦 Fetch API - Uso Básico</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-5|7-11|13-23" class="language-javascript">
-            // Estrutura básica
-            fetch(url, options)
-              .then(response => response.json())
-              .then(data => console.log(data))
-              .catch(error => console.error('Error:', error));
-            
-            // Exemplo GET simples
-            fetch('https://api.example.com/users')
-              .then(response => response.json())
-              .then(users => setUsers(users))
-              .catch(error => console.error('Error:', error));
-            
-            // Usando async/await (mais limpo)
-            const fetchUsers = async () => {
-              try {
-                const response = await fetch('https://api.example.com/users');
-                
-                if (!response.ok) {
-                  throw new Error('Erro na resposta: ' + response.status);
-                }
-                
-                const data = await response.json();
-                setUsers(data);
-              } catch (error) {
-                console.error('Erro ao buscar usuários:', error);
-                setError(error.message);
-              } finally {
-                setLoading(false);
-              }
-            };
-          </code></pre>
-        </div>
+        <h2>SectionList</h2>
+        <p>Para dados agrupados em seções, use SectionList:</p>
+        <pre><code class="javascript">
+      import { SectionList, Text, View } from 'react-native';
+
+      const DATA = [
+        {
+          title: 'Frutas',
+          data: ['Maçã', 'Banana', 'Laranja'],
+        },
+        {
+          title: 'Legumes',
+          data: ['Cenoura', 'Batata', 'Brócolis'],
+        },
+      ];
+
+      export default function App() {
+        return (
+          &lt;SectionList
+            sections={DATA}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({ item }) => (
+              &lt;Text style={styles.item}>{item}&lt;/Text>
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              &lt;Text style={styles.header}>{title}&lt;/Text>
+            )}
+          />
+        );
+      }
+        </code></pre>
       </section>
 
-      <!-- Slide 10 - Fetch API - Métodos HTTP -->
+      <!-- Slide 11 - Exercício Prático -->
       <section>
-        <h3>📦 Fetch API - Outros métodos HTTP</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-14|16-29|31-43" class="language-javascript">
-            // POST - Criar um novo recurso
-            const createUser = async (userData) => {
-              try {
-                const response = await fetch('https://api.example.com/users', {
-                  method: 'POST', // Especifica o método
-                  headers: {
-                    'Content-Type': 'application/json', // Importante definir o formato
-                  },
-                  body: JSON.stringify(userData), // Converte objeto JS para JSON
-                });
-                return await response.json();
-              } catch (error) {
-                console.error('Error:', error);
-              }
-            };
-            
-            // PUT - Atualizar um recurso existente
-            const updateUser = async (userId, userData) => {
-              try {
-                const response = await fetch(`https://api.example.com/users/${userId}`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(userData),
-                });
-                return await response.json();
-              } catch (error) {
-                console.error('Error:', error);
-              }
-            };
-            
-            // DELETE - Remover um recurso
-            const deleteUser = async (userId) => {
-              try {
-                const response = await fetch(`https://api.example.com/users/${userId}`, {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                });
-                // Muitas APIs de exclusão retornam 204 No Content
-                return response.status === 204 || response.ok;
-              } catch (error) {
-                console.error('Error:', error);
-                return false;
-              }
-            };
-          </code></pre>
-        </div>
+        <h2>Exercício Prático</h2>
+        <p>Crie um componente FlatList que:</p>
+        <ol>
+          <li>Exiba uma lista de usuários com nome, email e avatar</li>
+          <li>Implemente pull-to-refresh</li>
+          <li>Adicione um separador entre os itens</li>
+          <li>Mostre um indicador de carregamento ao final da lista</li>
+          <li>Implemente um cabeçalho e rodapé personalizados</li>
+        </ol>
+        <p>Bônus: Adicione um botão para filtrar a lista</p>
       </section>
+        <section>
+      <h2>1. 🌐 Introdução: Consumindo APIs no Mobile</h2>
+      <p>No desenvolvimento de aplicativos modernos, é comum que os apps precisem buscar dados em servidores externos — como notícias, clima, redes sociais etc.</p>
+      <p>Esses dados geralmente vêm em <strong>formato JSON</strong> e são acessados por <strong>APIs RESTful</strong>.</p>
+      <p>Em React Native, usamos principalmente:</p>
+      <ul>
+        <li><code>fetch</code> (nativo do JavaScript)</li>
+        <li><code>axios</code> (biblioteca externa, mais poderosa e prática)</li>
+      </ul>
+    </section>
+    <!-- Slide 3 - Integração com Fetch API -->
+    <section>
+      <h2>2. 🔄 Integração com Fetch API e Axios</h2>
 
-      <!-- Slide 11 - Headers e Autorização -->
-      <section>
-        <h3>🔐 Headers e Autorização</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-14|16-29" class="language-javascript">
-            // Enviando cabeçalhos personalizados
-            const fetchWithHeaders = async () => {
-              try {
-                const response = await fetch('https://api.example.com/data', {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Accept-Language': 'pt-BR',
-                    'X-API-Key': 'sua_chave_api_aqui',
-                    'User-Agent': 'MinhaApp/1.0',
-                  }
-                });
-                return await response.json();
-              } catch (error) {
-                console.error('Error:', error);
-              }
-            };
-            
-            // Autenticação com token JWT ou Bearer
-            const fetchWithAuth = async () => {
-              // Recupera token do armazenamento (ex: AsyncStorage)
-              const token = await AsyncStorage.getItem('userToken');
-              
-              try {
-                const response = await fetch('https://api.example.com/protected-resource', {
-                  headers: {
-                    'Authorization': `Bearer ${token}`, // Padrão comum de autenticação
-                    'Content-Type': 'application/json',
-                  }
-                });
-                return await response.json();
-              } catch (error) {
-                // Se o erro for 401, pode significar que o token expirou
-                if (error.response && error.response.status === 401) {
-                  // Lógica para renovar token ou fazer logout
-                }
-                console.error('Error:', error);
-              }
-            };
-          </code></pre>
-        </div>
-      </section>
+      <h3>2.1 O que é a Fetch API?</h3>
+      <p><code>fetch</code> é uma função nativa do JavaScript que permite fazer requisições HTTP de forma <strong>assíncrona</strong>.</p>
+      <p>Você não precisa instalar nada — já vem por padrão.</p>
+    </section>
 
-      <!-- Slide 12 - Axios - Instalação e Uso Básico -->
-      <section>
-        <h3>🚀 Axios - Instalação e Uso Básico</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-2|4-10|12-26" class="language-javascript">
-            // Instalação
-            // npm install axios
-            
-            // Importação e uso básico
-            import axios from 'axios';
-            
-            // GET Request
-            axios.get('https://api.example.com/users')
-              .then(response => console.log(response.data))
-              .catch(error => console.error(error));
-            
-            // Usando async/await com Axios
-            const fetchUsers = async () => {
-              try {
-                const response = await axios.get('https://api.example.com/users');
-                // Axios já dá a resposta em .data (não precisa chamar .json())
-                console.log(response.data);
-                setUsers(response.data);
-                setLoading(false);
-              } catch (error) {
-                console.error('Erro ao buscar usuários:', error);
-                
-                // Axios fornece acesso fácil aos detalhes do erro
-                if (error.response) {
-                  // O servidor respondeu com um status diferente de 2xx
-                  setError(`Erro ${error.response.status}: ${error.response.data.message || 'Desconhecido'}`);
-                } else if (error.request) {
-                  // A requisição foi feita mas não houve resposta
-                  setError('Servidor não respondeu. Verifique sua conexão.');
-                } else {
-                  // Erro na configuração da requisição
-                  setError('Erro ao configurar requisição: ' + error.message);
-                }
-                setLoading(false);
-              }
-            };
-          </code></pre>
-        </div>
-      </section>
+    <!-- Slide 4 - Exemplo de Código com Fetch -->
+    <section>
+      <h2>📜 Exemplo de Código com Fetch</h2>
+      <pre><code data-trim data-noescape  data-line-numbers
+                 class="language-javascript"><script>
+import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 
-      <!-- Slide 13 - Axios - Métodos HTTP -->
-      <section>
-        <h3>🚀 Axios - Outros métodos HTTP</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-9|11-19|21-29" class="language-javascript">
-            // POST com Axios
-            const createUser = async (userData) => {
-              try {
-                const response = await axios.post('https://api.example.com/users', userData);
-                console.log('Usuário criado:', response.data);
-                return response.data;
-              } catch (error) {
-                console.error('Erro ao criar usuário:', error);
-              }
-            };
-            
-            // PUT com Axios
-            const updateUser = async (userId, userData) => {
-              try {
-                const response = await axios.put(`https://api.example.com/users/${userId}`, userData);
-                console.log('Usuário atualizado:', response.data);
-                return response.data;
-              } catch (error) {
-                console.error('Erro ao atualizar usuário:', error);
-              }
-            };
-            
-            // DELETE com Axios
-            const deleteUser = async (userId) => {
-              try {
-                const response = await axios.delete(`https://api.example.com/users/${userId}`);
-                console.log('Usuário deletado');
-                return true;
-              } catch (error) {
-                console.error('Erro ao deletar usuário:', error);
-                return false;
-              }
-            };
-          </code></pre>
-        </div>
-      </section>
+export default function App() {
+  const [dados, setDados] = useState([]);
 
-      <!-- Slide 14 - Configuração do Axios -->
-      <section>
-        <h3>🚀 Configuração do Axios</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-15|17-28|30-45" class="language-javascript">
-            // Criando uma instância com configuração padrão
-            import axios from 'axios';
-            
-            // Configuração básica
-            const api = axios.create({
-              baseURL: 'https://api.example.com', // URL base para todas as requisições
-              timeout: 10000, // Tempo máximo de espera (10 segundos)
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              }
-            });
-            
-            // Uso da instância
-            await api.get('/users'); // GET https://api.example.com/users
-            await api.post('/products', newProduct); // POST https://api.example.com/products
-            
-            // Interceptadores de requisição
-            api.interceptors.request.use(
-              (config) => {
-                // Manipule a config antes do envio
-                console.log('Enviando requisição:', config.url);
-                
-                // Adicionar token de autenticação dinamicamente
-                const token = AsyncStorage.getItem('userToken');
-                if (token) {
-                  config.headers.Authorization = `Bearer ${token}`;
-                }
-                
-                return config;
-              },
-              (error) => {
-                return Promise.reject(error);
-              }
-            );
-            
-            // Interceptadores de resposta
-            api.interceptors.response.use(
-              (response) => {
-                // Qualquer código de status entre 200 e 299 aciona esta função
-                console.log('Resposta recebida:', response.status);
-                return response;
-              },
-              (error) => {
-                // Qualquer código fora da faixa 2xx aciona esta função
-                if (error.response && error.response.status === 401) {
-                  // Token expirado ou inválido - fazer logout ou renovar token
-                  console.log('Usuário não autenticado');
-                  // logout();
-                }
-                
-                return Promise.reject(error);
-              }
-            );
-          </code></pre>
-        </div>
-      </section>
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => setDados(data))
+      .catch(error => console.error('Erro:', error));
+  }, []);
 
-      <!-- Slide 15 - Comparação: Fetch vs Axios -->
-      <section>
-        <h3>⚖️ Fetch vs Axios: Comparação</h3>
-        <table class="comparison-table">
+  return (
+    <View>
+      {dados.map(item => (
+        <Text key={item.id}>{item.nome}</Text>
+      ))}
+    </View>
+  );
+}
+  </script></code></pre>
+    </section>
+    <!-- Slide 5 - Linha por linha -->
+    <section>
+      <h2>🧩 Linha por Linha</h2>
+      <table style="font-size: 0.8em; width: 90%;">
+        <thead>
+        <tr>
+          <th style="padding: 5px;">Linha</th>
+          <th style="padding: 5px;">Explicação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td style="padding: 5px;"><code>fetch('https://api.example.com/data')</code></td>
+          <td style="padding: 5px;">Faz uma requisição HTTP GET para a URL da API.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.then(response => response.json())</code></td>
+          <td style="padding: 5px;">Converte a resposta em JSON.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.then(data => setDados(data))</code></td>
+          <td style="padding: 5px;">Salva o resultado no estado <code>dados</code>.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.catch(error => console.error(error))</code></td>
+          <td style="padding: 5px;">Trata erro.</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Slide 6 - Observações sobre Fetch -->
+    <section>
+      <h2>🔎 Observações sobre Fetch</h2>
+      <ul>
+        <li><strong>Conversão manual:</strong> sempre precisa usar <code>.json()</code>.</li>
+        <li><strong>Erros HTTP:</strong> o <code>fetch</code> não gera erro automático para erros de status (404, 500).</li>
+        <li><strong>Verificação de sucesso:</strong></li>
+      </ul>
+      <pre><code class="language-javascript">
+fetch('https://api.example.com/data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro HTTP: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+  </code></pre>
+    </section>
+
+    <!-- Slide 7 - Explicação detalhada do response.ok -->
+    <section>
+      <h2>🛡️ Entendendo <code>response.ok</code></h2>
+
+      <p><strong>response.ok</strong> é uma propriedade booleana:</p>
+      <ul>
+        <li>✅ <strong>true</strong> se o status HTTP for entre <strong>200 e 299</strong> (requisição bem-sucedida)</li>
+        <li>❌ <strong>false</strong> se houver erro (ex: 404, 500, etc.)</li>
+      </ul>
+      <pre><code class="language-javascript">
+if (!response.ok) {
+  throw new Error('Erro HTTP: ' + response.status);
+}
+  </code></pre>
+
+      <ul>
+        <li><strong>!response.ok</strong>: Verifica se a resposta <em>não</em> foi OK.</li>
+        <li><strong>throw new Error</strong>: Lança um erro com o código HTTP.</li>
+        <li><strong>.catch()</strong>: Trata o erro gerado.</li>
+      </ul>
+
+    </section>
+
+    <!-- Slide 8 - O que é o Axios -->
+    <section>
+      <h2>🚀 2.2 O que é o Axios?</h2>
+
+      <p><code>axios</code> é uma <strong>biblioteca externa</strong> que facilita muito o consumo de APIs.</p>
+
+      <h3>🌟 Principais vantagens:</h3>
+      <ul>
+        <li>✅ Converte automaticamente as respostas para JSON</li>
+        <li>✅ Trata erros HTTP de forma automática</li>
+        <li>✅ Facilita o envio de headers e autenticação</li>
+        <li>✅ Sintaxe mais limpa para requisições <code>POST</code>, <code>PUT</code>, <code>DELETE</code></li>
+      </ul>
+    </section>
+
+    <!-- Slide 9 - Instalação e Exemplo com Axios -->
+    <section>
+      <h2>📦 Instalação do Axios</h2>
+
+      <h3>🔧 Instalação:</h3>
+      <pre><code class="language-bash">npm install axios</code></pre>
+
+      <h3>📜 Exemplo de Código:</h3>
+      <pre><code class="language-javascript">
+import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import axios from 'axios';
+
+export default function App() {
+  const [dados, setDados] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://api.example.com/data')
+      .then(response => setDados(response.data))
+      .catch(error => console.error('Erro:', error));
+  }, []);
+
+  return (
+    <View>
+      {dados.map(item => (
+        <Text key={item.id}>{item.nome}</Text>
+      ))}
+    </View>
+  );
+}
+  </code></pre>
+    </section>
+    <!-- Slide 10 - Linha por Linha Axios -->
+    <section>
+      <h2>🧩 Linha por Linha - Axios</h2>
+
+      <div style="font-size: 0.8em;">
+        <table>
+          <thead>
           <tr>
-            <th>Característica</th>
-            <th>Fetch API</th>
-            <th>Axios</th>
+            <th>Linha</th>
+            <th>Explicação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><code>axios.get('https://api.example.com/data')</code></td>
+            <td>Faz a requisição <strong>GET</strong> para a API.</td>
           </tr>
           <tr>
-            <td>Instalação</td>
-            <td>Nativa (sem instalação)</td>
-            <td>Requer instalação</td>
+            <td><code>.then(response => setDados(response.data))</code></td>
+            <td>Pega o conteúdo JSON direto em <code>response.data</code> e salva no estado.</td>
           </tr>
           <tr>
-            <td>Sintaxe</td>
-            <td>Mais verbosa</td>
-            <td>Mais concisa</td>
+            <td><code>.catch(error => console.error(error))</code></td>
+            <td>Captura erros automaticamente, inclusive de <strong>status HTTP</strong>.</td>
           </tr>
-          <tr>
-            <td>Transformação de resposta</td>
-            <td>Manual (.json())</td>
-            <td>Automática (.data)</td>
-          </tr>
-          <tr>
-            <td>Tratamento de erros</td>
-            <td>Básico</td>
-            <td>Robusto</td>
-          </tr>
-          <tr>
-            <td>Interceptadores</td>
-            <td>Não possui</td>
-            <td>Possui</td>
-          </tr>
-          <tr>
-            <td>Cancelamento</td>
-            <td>Complexo</td>
-            <td>Simples</td>
-          </tr>
-          <tr>
-            <td>Suporte a navegadores</td>
-            <td>Mais recentes</td>
-            <td>Maior compatibilidade</td>
-          </tr>
+          </tbody>
         </table>
-        <p><span class="important">Escolha baseada nas necessidades do seu projeto!</span></p>
-      </section>
+      </div>
 
-      <!-- Slide 16 - FlatList - Introdução -->
-      <section>
-        <h3>📋 FlatList - Introdução</h3>
-        <div class="container">
-          <div class="column">
-            <p>Componente para renderizar listas eficientes em React Native</p>
-            <ul>
-              <li><span class="highlight">Virtualização</span>: renderiza apenas os itens visíveis</li>
-              <li><span class="highlight">Alto desempenho</span>: ideal para listas longas</li>
-              <li><span class="highlight">Pull-to-refresh</span>: atualização por gesto</li>
-              <li><span class="highlight">Carregamento paginado</span>: lazy loading</li>
-              <li><span class="highlight">Otimizado</span>: reciclagem de células</li>
-            </ul>
-          </div>
-          <div class="column">
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-              import { FlatList, Text, View } from 'react-native';
-              
-              const DATA = [
-                { id: '1', title: 'Item 1' },
-                { id: '2', title: 'Item 2' },
-                { id: '3', title: 'Item 3' },
-                // ... mais itens
-              ];
-              
-              export default function App() {
-                return (
-                  <FlatList
-                    data={DATA}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                      <Text>{item.title}</Text>
-                    )}
-                  />
-                );
-              }
-            </code></pre>
-          </div>
-        </div>
-      </section>
+    </section>
 
-      <!-- Slide 17 - FlatList - Propriedades Principais -->
-      <section>
-        <h3>📋 FlatList - Propriedades Principais</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-12|13-16|17-20|21-26|27-32|33-36" class="language-javascript">
-            <FlatList
-              // Dados que serão renderizados
-              data={items}
-              
-              // Como renderizar cada item
-              renderItem={({ item, index }) => (
-                <ItemComponent 
-                  item={item} 
-                  index={index} 
-                />
-              )}
-              
-              // Função para extrair uma chave única para cada item
-              keyExtractor={(item) => item.id.toString()}
-              
-              // Componente exibido quando a lista está vazia
-              ListEmptyComponent={<Text>Nenhum item encontrado.</Text>}
-              
-              // Cabeçalho e rodapé da lista
-              ListHeaderComponent={<Text style={styles.header}>Minha Lista</Text>}
-              ListFooterComponent={<Text style={styles.footer}>Fim da lista</Text>}
-              
-              // Estilização
-              contentContainerStyle={styles.listContainer}
-              columnWrapperStyle={styles.row} // Apenas para numColumns > 1
-              
-              // Múltiplas colunas (grid)
-              numColumns={2}
-              
-              // Separador entre itens
-              ItemSeparatorComponent={() => (
-                <View style={{ height: 1, backgroundColor: '#ddd' }} />
-              )}
-              
-              // Pull-to-refresh
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-              
-              // Carregamento infinito / paginação
-              onEndReached={loadMoreItems}
-              onEndReachedThreshold={0.5} // Carrega quando chegar a 50% do final
-            />
-          </code></pre>
-        </div>
-      </section>
 
-      <!-- Slide 18 - FlatList com APIs -->
-      <section>
-        <h3>📱 FlatList com Dados de API</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-14|16-25|27-43|45-61" class="language-javascript">
-            import React, { useState, useEffect } from 'react';
-            import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-            import axios from 'axios';
-            
-            export default function UserList() {
-              // Estados para controlar os dados e o estado da UI
-              const [users, setUsers] = useState([]);
-              const [loading, setLoading] = useState(true);
-              const [error, setError] = useState(null);
-              const [refreshing, setRefreshing] = useState(false);
-              
-              // Função para buscar os dados
-              const fetchUsers = async () => {
-                setLoading(true);
-                setError(null);
-                
-                try {
-                  // Usando uma API pública para exemplo
-                  const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-                  setUsers(response.data);
-                } catch (error) {
-                  console.error('Erro ao buscar usuários:', error);
-                  setError('Não foi possível carregar os usuários. Tente novamente.');
-                } finally {
-                  setLoading(false);
-                  setRefreshing(false);
-                }
-              };
-              
-              // Função de atualizar puxando para baixo
-              const handleRefresh = () => {
-                setRefreshing(true);
-                fetchUsers();
-              };
-              
-              // Carregar dados quando o componente montar
-              useEffect(() => {
-                fetchUsers();
-              }, []);
-              
-              // Renderiza cada item da lista
-              const renderItem = ({ item }) => (
-                <View style={styles.item}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.email}>{item.email}</Text>
-                  <Text style={styles.company}>{item.company.name}</Text>
-                </View>
-              );
-              
-              // Componente para exibir quando há erro
-              const renderError = () => (
-                <View style={styles.centered}>
-                  <Text style={styles.errorText}>{error}</Text>
-                  <TouchableOpacity 
-                    style={styles.retryButton} 
-                    onPress={fetchUsers}
-                  >
-                    <Text style={styles.retryText}>Tentar novamente</Text>
-                  </TouchableOpacity>
-                </View>
-              );
-              
-              // Componente para exibir durante o carregamento
-              const renderLoading = () => (
-                <View style={styles.centered}>
-                  <ActivityIndicator size="large" color="#0066cc" />
-                  <Text style={styles.loadingText}>Carregando usuários...</Text>
-                </View>
-              );
-              
-              // Se estiver no estado inicial de carregamento, mostra o indicador
-              if (loading && !refreshing) {
-                return renderLoading();
-              }
-              
-              // Se houver erro e não estiver atualizando, mostra o erro
-              if (error && !refreshing) {
-                return renderError();
-              }
-              
-              // Renderiza a lista principal
-              return (
-                <FlatList
-                  data={users}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id.toString()}
-                  refreshing={refreshing}
-                  onRefresh={handleRefresh}
-                  ListHeaderComponent={<Text style={styles.header}>Usuários</Text>}
-                  ListEmptyComponent={
-                    !loading && !error ? 
-                    <Text style={styles.emptyText}>Nenhum usuário encontrado</Text> : 
-                    null
-                  }
-                  contentContainerStyle={styles.list}
-                  ItemSeparatorComponent={() => <View style={styles.separator} />}
-                />
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              centered: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 20,
-              },
-              list: {
-                padding: 16,
-              },
-              item: {
-                padding: 15,
-                borderRadius: 8,
-                backgroundColor: '#f8f8f8',
-                marginBottom: 10,
-              },
-              name: {
-                fontSize: 18,
-                fontWeight: 'bold',
-              },
-              email: {
-                color: '#666',
-                marginTop: 5,
-              },
-              company: {
-                fontStyle: 'italic',
-                marginTop: 5,
-              },
-              header: {
-                fontSize: 22,
-                fontWeight: 'bold',
-                marginBottom: 15,
-                textAlign: 'center',
-              },
-              separator: {
-                height: 1,
-                backgroundColor: '#eee',
-              },
-              errorText: {
-                color: 'red',
-                textAlign: 'center',
-                marginBottom: 15,
-              },
-              loadingText: {
-                marginTop: 10,
-              },
-              emptyText: {
-                textAlign: 'center',
-                padding: 20,
-              },
-              retryButton: {
-                padding: 10,
-                backgroundColor: '#0066cc',
-                borderRadius: 5,
-              },
-              retryText: {
-                color: 'white',
-                fontWeight: 'bold',
-              },
-            });
-          </code></pre>
-        </div>
-      </section>
+    <!-- Slide 11 - Observações sobre Axios -->
+    <section>
+      <h2>🛠️ Observações sobre Axios</h2>
 
-      <!-- Slide 19 - Otimização de Performance da FlatList -->
-      <section>
-        <h3>⚡ Otimização de Performance da FlatList</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-9|11-17|19-28|30-37" class="language-javascript">
-            // 1. Use React.memo para evitar re-renderizações
-            const UserItem = React.memo(({ user }) => (
-              <View style={styles.item}>
-                <Text style={styles.name}>{user.name}</Text>
-                <Text style={styles.email}>{user.email}</Text>
-              </View>
-            ));
-            
-            <FlatList 
-              renderItem={({ item }) => <UserItem user={item} />}
-            />
-            
-            // 2. Implemente getItemLayout para dimensões fixas
-            <FlatList
-              getItemLayout={(data, index) => ({
-                length: 80, // altura de cada item
-                offset: 80 * index,
-                index,
-              })}
-            />
-            
-            // 3. Use windowSize para controlar quantos itens são renderizados
-            <FlatList
-              // Define quantas telas de conteúdo são renderizadas
-              // antes, visíveis e depois da área visível
-              windowSize={5} // padrão é 21 (10 antes, 1 visível, 10 depois)
-              
-              // Mantenha os itens montados mesmo quando fora da janela
-              removeClippedSubviews={true} // pode causar problemas em alguns casos
-              
-              // Número de itens para renderizar no lote inicial
-              initialNumToRender={10} // padrão é 10
-            />
-            
-            // 4. Otimize a extraçãp da chave
-            <FlatList
-              // Use keyExtractor em vez de key na renderItem
-              keyExtractor={(item) => item.id.toString()}
-              
-              // OU defina a keyProperty para uso direto
-              keyExtractor={null}
-              keyProperty="id" // FlatList usará item.id como chave
-            />
-          </code></pre>
-        </div>
-      </section>
+      <ul>
+        <li>✅ Não é preciso converter manualmente para <code>JSON</code>.</li>
+        <li>✅ Se o status HTTP for erro (404, 500), automaticamente gera erro tratado no <code>catch</code>.</li>
+        <li>✅ Suporte fácil a requisições <code>POST</code>, <code>PUT</code>, <code>DELETE</code>:</li>
+      </ul>
 
-      <!-- Slide 20 - Paginação com FlatList -->
-      <section>
-        <h3>📄 Paginação com FlatList</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-19|21-36|38-53|55-66" class="language-javascript">
-            import React, { useState, useEffect } from 'react';
-            import { FlatList, ActivityIndicator, Text, View, StyleSheet } from 'react-native';
-            import axios from 'axios';
-            
-            export default function PaginatedList() {
-              const [data, setData] = useState([]);
-              const [page, setPage] = useState(1);
-              const [loading, setLoading] = useState(false);
-              const [loadingMore, setLoadingMore] = useState(false);
-              const [hasMore, setHasMore] = useState(true);
-              const [error, setError] = useState(null);
-              const PER_PAGE = 20;
-              
-              // Função para carregar a página inicial
-              const loadData = async () => {
-                if (loading) return;
-                
-                setLoading(true);
-                setError(null);
-                setPage(1);
-                
-                try {
-                  // API de exemplo que suporta paginação
-                  const response = await axios.get(`https://api.example.com/items?page=1&per_page=${PER_PAGE}`);
-                  
-                  setData(response.data.items);
-                  setHasMore(response.data.items.length === PER_PAGE);
-                } catch (error) {
-                  console.error('Erro ao carregar dados:', error);
-                  setError('Falha ao carregar dados. Tente novamente.');
-                } finally {
-                  setLoading(false);
-                }
-              };
-              
-              // Função para carregar a próxima página
-              const loadMoreData = async () => {
-                if (loadingMore || !hasMore || loading) return;
-                
-                setLoadingMore(true);
-                
-                try {
-                  const nextPage = page + 1;
-                  const response = await axios.get(`https://api.example.com/items?page=${nextPage}&per_page=${PER_PAGE}`);
-                  
-                  const newItems = response.data.items;
-                  
-                  if (newItems.length > 0) {
-                    setData(prevData => [...prevData, ...newItems]);
-                    setPage(nextPage);
-                    setHasMore(newItems.length === PER_PAGE);
-                  } else {
-                    setHasMore(false);
-                  }
-                } catch (error) {
-                  console.error('Erro ao carregar mais dados:', error);
-                } finally {
-                  setLoadingMore(false);
-                }
-              };
-              
-              // Carregar dados iniciais
-              useEffect(() => {
-                loadData();
-              }, []);
-              
-              // Renderiza o rodapé da lista - indicador de loading ou mensagem final
-              const renderFooter = () => {
-                if (!hasMore && data.length > 0) {
-                  return <Text style={styles.endMessage}>Fim da lista</Text>;
-                }
-                
-                if (loadingMore) {
-                  return (
-                    <View style={styles.loadingMore}>
-                      <ActivityIndicator size="small" color="#0066cc" />
-                      <Text style={styles.loadingMoreText}>Carregando mais...</Text>
-                    </View>
-                  );
-                }
-                
-                return null;
-              };
-              
-              // Renderiza o componente principal
-              return (
-                <View style={styles.container}>
-                  {loading ? (
-                    <View style={styles.loading}>
-                      <ActivityIndicator size="large" color="#0066cc" />
-                      <Text>Carregando dados...</Text>
-                    </View>
-                  ) : error ? (
-                    <View style={styles.error}>
-                      <Text style={styles.errorText}>{error}</Text>
-                      <TouchableOpacity style={styles.retryButton} onPress={loadData}>
-                        <Text style={styles.retryText}>Tentar novamente</Text>
-                      </TouchableOpacity>
-                    </View>
-                  ) : (
-                    <FlatList
-                      data={data}
-                      keyExtractor={(item) => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <View style={styles.item}>
-                          <Text style={styles.title}>{item.title}</Text>
-                          <Text>{item.description}</Text>
-                        </View>
-                      )}
-                      onEndReached={loadMoreData} // Chamado quando o usuário chega perto do fim
-                      onEndReachedThreshold={0.5} // Carrega mais quando estiver a 50% do final
-                      ListFooterComponent={renderFooter}
-                      refreshing={loading}
-                      onRefresh={loadData} // Pull to refresh
-                    />
-                  )}
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-              },
-              loading: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              item: {
-                padding: 15,
-                borderBottomWidth: 1,
-                borderBottomColor: '#eee',
-              },
-              title: {
-                fontSize: 16,
-                fontWeight: 'bold',
-              },
-              loadingMore: {
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 10,
-              },
-              loadingMoreText: {
-                marginLeft: 10,
-              },
-              endMessage: {
-                textAlign: 'center',
-                padding: 10,
-                fontStyle: 'italic',
-                color: '#666',
-              },
-              error: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 20,
-              },
-              errorText: {
-                color: 'red',
-                marginBottom: 15,
-                textAlign: 'center',
-              },
-              retryButton: {
-                backgroundColor: '#0066cc',
-                padding: 10,
-                borderRadius: 5,
-              },
-              retryText: {
-                color: 'white',
-                fontWeight: 'bold',
-              },
-            });
-          </code></pre>
-        </div>
-      </section>
+      <div style="font-size: 0.75em;">
+    <pre><code class="language-javascript">
+// POST
+axios.post('https://api.example.com/data', { nome: 'Novo item' });
 
-      <!-- Slide 21 - Imagens de APIs -->
-      <section>
-        <h3>🖼️ Trabalhando com Imagens de APIs</h3>
-        <div class="code-small">
-          <pre><code data-trim data-noescape data-line-numbers="1-22|24-53" class="language-javascript">
-            import React from 'react';
-            import { View, Image, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-            
-            // Componente de imagem com estado de carregamento
-            const ApiImage = ({ uri, style }) => {
-              const [loading, setLoading] = React.useState(true);
-              const [error, setError] = React.useState(false);
-              
-              return (
-                <View style={[styles.imageContainer, style]}>
-                  {loading && (
-                    <ActivityIndicator 
-                      style={styles.imageLoader} 
-                      size="small" 
-                      color="#0066cc" 
-                    />
-                  )}
-                  
-                  <Image
-                    source={{ uri }}
-                    style={[styles.image, style]}
-                    onLoadStart={() => setLoading(true)}
-                    onLoadEnd={() => setLoading(false)}
-                    onError={() => {
-                      setLoading(false);
-                      setError(true);
-                    }}
-                  />
-                  
-                  {error && (
-                    <View style={[styles.errorOverlay, style]}>
-                      <Text style={styles.errorText}>Falha ao carregar imagem</Text>
-                    </View>
-                  )}
-                </View>
-              );
-            };
-            
-            // Exemplo de uso em uma lista de produtos
-            export default function ProductList() {
-              // ... código para buscar produtos de uma API
-              
-              const renderProduct = ({ item }) => (
-                <View style={styles.productCard}>
-                  <ApiImage
-                    uri={item.imageUrl}
-                    style={styles.productImage}
-                  />
-                  <View style={styles.productInfo}>
-                    <Text style={styles.productName}>{item.name}</Text>
-                    <Text style={styles.productPrice}>R$ {item.price.toFixed(2)}</Text>
-                  </View>
-                </View>
-              );
-              
-              return (
-                <FlatList
-                  data={products}
-                  keyExtractor={(item) => item.id.toString()}
-                  renderItem={renderProduct}
-                  numColumns={2}
-                  columnWrapperStyle={styles.row}
-                  contentContainerStyle={styles.list}
-                />
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              imageContainer: {
-                position: 'relative',
-                overflow: 'hidden',
-              },
-              image: {
-                width: '100%',
-                height: '100%',
-                resizeMode: 'cover',
-              },
-              imageLoader: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              errorOverlay: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              errorText: {
-                color: '#ff0000',
-                textAlign: 'center',
-                backgroundColor: 'rgba(255,255,255,0.8)',
-                padding: 5,
-              },
-              productCard: {
-                flex: 1,
-                margin: 8,
-                borderRadius: 8,
-                backgroundColor: 'white',
-                overflow: 'hidden',
-                elevation: 2,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-              },
-              productImage: {
-                height: 150,
-              },
-              productInfo: {
-                padding: 8,
-              },
-              productName: {
-                fontSize: 14,
-                fontWeight: 'bold',
-              },
-              productPrice: {
-                color: '#0066cc',
-                marginTop: 4,
-              },
-              row: {
-                justifyContent: 'space-between',
-              },
-              list: {
-                padding: 8,
-              },
-            });
-          </code></pre>
-        </div>
-      </section>
+// PUT
+axios.put('https://api.example.com/data/1', { nome: 'Atualizado' });
 
-      <!-- Slide 22 - Exercício em Sala 1 -->
-      <section>
-        <h3>💻 Exercício em Sala 1</h3>
-        <div class="exercise">
-          <h4>Lista de Usuários com Fetch</h4>
-          <p>Crie um aplicativo React Native que:</p>
-          <ol>
-            <li>Use Fetch API para obter dados de usuários da API JSONPlaceholder</li>
-            <li>Exiba os dados em uma FlatList com nome, email e empresa</li>
-            <li>Implemente estados de carregamento e erro</li>
-            <li>Adicione funcionalidade de pull-to-refresh</li>
-          </ol>
-          <p>API: <code>https://jsonplaceholder.typicode.com/users</code></p>
-          <p><span class="warning">Tempo:</span> 20 minutos</p>
-        </div>
-      </section>
+// DELETE
+axios.delete('https://api.example.com/data/1');
+    </code></pre>
+      </div>
+    </section>
+    <!-- Slide 12 - Objetivo do Projeto -->
+    <section>
+      <h2>🎯 Projeto: Consumir API e Exibir Lista de Posts</h2>
 
-      <!-- Slide 23 - Exercício em Sala 2 -->
-      <section>
-        <h3>💻 Exercício em Sala 2</h3>
-        <div class="exercise">
-          <h4>Galeria de Fotos com Axios</h4>
-          <p>Crie um aplicativo de galeria de fotos que:</p>
-          <ol>
-            <li>Use Axios para carregar imagens da API JSONPlaceholder Photos</li>
-            <li>Exiba as fotos em um grid de 2 colunas usando FlatList</li>
-            <li>Implemente paginação (carregamento infinito)</li>
-            <li>Adicione um indicador de carregamento de imagem</li>
-            <li>Permita clicar em uma foto para ver detalhes</li>
-          </ol>
-          <p>API: <code>https://jsonplaceholder.typicode.com/photos?_page=1&_limit=20</code></p>
-          <p><span class="warning">Tempo:</span> 30 minutos</p>
-        </div>
-      </section>
+      <p>Vamos construir um app que:</p>
+      <ul>
+        <li>Faz uma requisição para uma API pública</li>
+        <li>Exibe uma lista de posts</li>
+        <li>Mostra um indicador de carregamento enquanto busca os dados</li>
+      </ul>
 
-      <!-- Slide 24 - Exercício para Casa -->
-      <section>
-        <h3>🏠 Exercício para Casa</h3>
-        <div class="exercise">
-          <h4>Aplicativo de Lista de Filmes</h4>
-          <p>Desenvolva um aplicativo de filmes utilizando a API TMDB (The Movie Database):</p>
-          <ol>
-            <li>Crie uma conta gratuita e obtenha uma API Key: <a href="https://developers.themoviedb.org/3/getting-started/introduction">https://developers.themoviedb.org/3/getting-started/introduction</a></li>
-            <li>Implemente telas para:
-              <ul>
-                <li>Lista de filmes populares</li>
-                <li>Detalhes do filme selecionado</li>
-                <li>Pesquisa de filmes</li>
-              </ul>
-            </li>
-            <li>Use FlatList com optimizações de performance</li>
-            <li>Implemente carregamento paginado</li>
-            <li>Use Axios para todas as requisições</li>
-            <li>Crie componentes reutilizáveis para itens de filme</li>
-          </ol>
-          <p><span class="important">Data de entrega:</span> Próxima aula</p>
-        </div>
-      </section>
+      <p>🌟 Usaremos: <code>axios</code>, <code>FlatList</code> e <code>ActivityIndicator</code>.</p>
+    </section>
 
-      <!-- Slide 25 - Dicas e Boas Práticas -->
-      <section>
-        <h3>💡 Dicas e Boas Práticas</h3>
-        <div class="container">
-          <div class="column">
-            <h4>Consumo de APIs:</h4>
-            <ul>
-              <li>Sempre trate erros de rede</li>
-              <li>Implemente timeout para requisições</li>
-              <li>Cache respostas frequentes</li>
-              <li>Use interceptadores para tokens</li>
-              <li>Centralize a lógica de API</li>
-            </ul>
-          </div>
-          <div class="column">
-            <h4>FlatList & Performance:</h4>
-            <ul>
-              <li>Use <code>React.memo</code> para itens da lista</li>
-              <li>Defina <code>keyExtractor</code> adequadamente</li>
-              <li>Evite funções anônimas em <code>renderItem</code></li>
-              <li>Use <code>getItemLayout</code> quando possível</li>
-              <li>Otimize imagens (tamanho e formato)</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+    <!-- Slide 13 - Etapa 1: Setup Inicial -->
+    <section>
+      <h2>🔧 Etapa 1: Setup Inicial</h2>
 
-      <!-- Slide 26 - Referências -->
-      <section>
-        <h3>📚 Referências</h3>
-        <ul>
-          <li><a href="https://reactnative.dev/docs/network">React Native - Networking</a></li>
-          <li><a href="https://reactnative.dev/docs/flatlist">React Native - FlatList</a></li>
-          <li><a href="https://axios-http.com/docs/intro">Axios Documentation</a></li>
-          <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API">MDN - Fetch API</a></li>
-          <li><a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder</a> (API para testes)</li>
-          <li><a href="https://github.com/typicode/json-server">JSON Server</a> (API local para desenvolvimento)</li>
-          <li><a href="https://www.themoviedb.org/documentation/api">The Movie Database API</a></li>
-        </ul>
-        <p style="margin-top: 40px; font-size: 0.8em;">Entre em contato para dúvidas: ✉️ <a href="mailto:diogo.francisco@sereduc.com">diogo.francisco@sereduc.com</a></p>
-      </section>
+      <p>Crie um novo projeto React Native:</p>
+      <pre><code class="language-bash">npx create-expo-app projeto-posts --template  </code></pre>
 
+      <p>Instale o <code>axios</code>:</p>
+      <pre><code class="language-bash">npm install axios</code></pre>
+    </section>
+
+    <!-- Slide 14 - Etapa 2: Estrutura Básica -->
+    <section>
+      <h2>📦 Etapa 2: Estrutura Básica do App</h2>
+
+      <p>Configure a estrutura inicial:</p>
+      <pre><code class="language-javascript">
+import { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text, FlatList, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
+import axios from 'axios';
+
+export default function App() {
+  return (
+    <SafeAreaView>
+      <Text>App de Posts 📚</Text>
+    </SafeAreaView>
+  );
+}
+  </code></pre>
+    </section>
+
+    <!-- Slide 15 - Etapa 3: Criar Estados -->
+    <section>
+      <h2>🧠 Etapa 3: Criar Estados</h2>
+
+      <p>Vamos armazenar os posts e o estado de carregamento:</p>
+      <pre><code class="language-javascript">
+const [posts, setPosts] = useState([]);
+const [loading, setLoading] = useState(true);
+  </code></pre>
+
+      <p>🔵 <code>posts</code> → Guarda a lista de dados</p>
+      <p>🟡 <code>loading</code> → Indica se ainda estamos buscando os dados</p>
+    </section>
+
+    <!-- Slide 16 - Etapa 4: Buscar Dados com Axios -->
+    <section>
+      <h2>🌐 Etapa 4: Buscar Dados com Axios</h2>
+
+      <p>Dentro do <code>useEffect</code>, busque os dados da API:</p>
+      <pre><code class="language-javascript">
+useEffect(() => {
+  axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(response => setPosts(response.data))
+    .catch(error => console.error('Erro ao buscar posts', error))
+    .finally(() => setLoading(false));
+}, []);
+  </code></pre>
+
+      <p>🚀 API pública usada: <strong>jsonplaceholder.typicode.com</strong></p>
+    </section>
+
+    <!-- Slide 17 - Etapa 5: Indicador de Carregamento -->
+    <section>
+      <h2>⏳ Etapa 5: Indicador de Carregamento</h2>
+
+      <p>Enquanto estiver carregando, mostre um <code>ActivityIndicator</code>:</p>
+      <pre><code class="language-javascript">
+if (loading) {
+  return (
+    <SafeAreaView style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#00f" />
+    </SafeAreaView>
+  );
+}
+  </code></pre>
+    </section>
+
+    <!-- Slide 18 - Etapa 6: Exibir Lista com FlatList -->
+    <section>
+      <h2>📜 Etapa 6: Exibir a Lista de Posts</h2>
+
+      <p>Mostre os posts usando <code>FlatList</code>:</p>
+      <pre><code class="language-javascript">
+<FlatList
+        data={posts}
+        keyExtractor={item => item.id.toString()}
+  renderItem={({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.itemTitle}>{item.title}</Text>
+      <Text style={styles.itemBody}>{item.body}</Text>
+    </View>
+  )}
+  ItemSeparatorComponent={() => <View style={styles.separator} />}
+  contentContainerStyle={{ paddingBottom: 20 }}
+/>
+  </code></pre>
+    </section>
+
+    <!-- Slide 19 - Etapa 7: Estilizar o App -->
+    <section>
+      <h2>🎨 Etapa 7: Estilizar o App</h2>
+
+      <p>Adicione estilos para deixar o app bonito:</p>
+      <ul>
+        <li>Fundo claro: <code>backgroundColor: '#f5f5f5'</code></li>
+        <li>Cartões de posts: <code>backgroundColor: '#fff'</code> + sombra</li>
+        <li>Separadores entre os itens</li>
+      </ul>
+
+      <p>🎯 Use o objeto <code>styles</code> com <code>StyleSheet.create()</code>.</p>
+    </section>
+
+    <!-- Slide 20 - Código Final e Demonstração -->
+    <section>
+      <h2>✅ Código Final</h2>
+
+      <p>Agora temos um app que:</p>
+      <ul>
+        <li>Busca dados de uma API externa</li>
+        <li>Exibe enquanto carrega</li>
+        <li>Lista os posts de forma organizada</li>
+      </ul>
+
+      <p><strong>Código completo disponível em:</strong><br>
+      <a href="https://github.com/DIOGOBRODRIGUES/exemplo_api.git" target="_blank">
+        https://github.com/DIOGOBRODRIGUES/exemplo_api.git
+      </a></p>
+
+      <p>🎉 Parabéns! Bora testar no celular ou emulador!</p>
+    </section>
+      
     </div>
   </div>
 
