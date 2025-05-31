@@ -296,6 +296,60 @@
           ✅ <strong>Ambas são excelentes!</strong> Escolha depende do seu projeto.
         </p>
       </section>
+  <section>
+        <h2>Expo Router vs. React Navigation</h2>
+        <table class="r-fit-text">
+          <thead>
+            <tr>
+              <th>Recurso ⚙️</th>
+              <th>Expo Router 🛣️</th>
+              <th>React Navigation 🗺️</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Configuração 🛠️</td>
+              <td>Fácil, automático via estrutura de arquivos 📂</td>
+              <td>Requer configuração manual 📝</td>
+            </tr>
+            <tr>
+              <td>Integração Expo 📦</td>
+              <td>Construído para Expo 🤝</td>
+              <td>Funciona bem com Expo 👍</td>
+            </tr>
+            <tr>
+              <td>Facilidade de Uso 👶</td>
+              <td>Amigável para iniciantes, direto 🎯</td>
+              <td>Mais complexo, mas altamente adaptável 🧩</td>
+            </tr>
+            <tr>
+              <td>Comunidade 👥</td>
+              <td>Crescendo 🌱</td>
+              <td>Grande e madura 🌳</td>
+            </tr>
+            <tr>
+              <td>Flexibilidade 🤸</td>
+              <td>Menos controle, baseado em convenção 📏</td>
+              <td>Alto controle e personalização 🎨</td>
+            </tr>
+            <tr>
+              <td>Funciona fora do Expo 🌐</td>
+              <td>Não 🚫</td>
+              <td>Sim ✅</td>
+            </tr>
+            <tr>
+              <td>Plugins de Terceiros 🔌</td>
+              <td>Limitado 🤏</td>
+              <td>Extenso 🚀</td>
+            </tr>
+            <tr>
+              <td>Casos de Uso Ideais 🎯</td>
+              <td>Desenvolvimento rápido, apps Expo universais ⚡</td>
+              <td>Apps complexos, navegação customizada, projetos não-Expo 🏗️</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
       <!-- Slide 9 - Expo Router -->
       <section>
@@ -360,729 +414,333 @@ react-native-screens expo-linking expo-constants expo-status-bar
         </section>
 
         <!-- Slide 11 - Implementação Expo Router - Páginas -->
-        <section>
-          <h3>📂 Ponto de Entrada com <code>index.js</code></h3>
+  <section>
+  <h3>📂 Ponto de Entrada com <code>index.ts</code></h3>
 
-          <p><strong>3️⃣ Criar o arquivo <code>index.js</code> na raiz do projeto:</strong></p>
+  <p><strong>3️⃣ Criar o arquivo <code>index.ts</code> na raiz do projeto:</strong></p>
 
-          <pre><code class="language-javascript" data-trim>
+  <pre><code class="language-ts" data-trim>
 import { registerRootComponent } from 'expo';
 import { ExpoRoot } from 'expo-router';
+import { ComponentType } from 'react';
 
-export default function App() {
-  return <ExpoRoot context={require.context('app')} />;
-}
+const App: ComponentType = () => {
+  return <ExpoRoot context={require.context('./app', true, /.tsx?$/)} />;
+};
 
 registerRootComponent(App);
   </code></pre>
 
-          <p style="font-size: 0.9em; color: #388e3c; margin-top: 10px;">
-            🌱 Esse arquivo conecta o projeto com a estrutura de rotas baseada na pasta <code>app/</code>.
+  <p>🧠 Esse arquivo conecta o projeto com a estrutura baseada em pastas dentro de <code>app/</code>.</p>
+</section>
+ <section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+        <h2>🗺️ Criando Estruturas de Navegação com Expo Router 📂</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">📁</span> Roteamento baseado em arquivos dentro do diretório <code>app</code>.</li>
+          <li><span style="font-size: 1.2em;">🏠</span> <code>index.tsx</code> na pasta <code>app</code> corresponde à rota raiz (<code>/</code>).</li>
+          <li><span style="font-size: 1.2em;">ℹ️</span> <code>about.tsx</code> na pasta <code>app</code> corresponde à rota <code>/about</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#346888" data-background-transition="zoom">
+        <h2>Expo Router: <code>_layout.tsx</code> 🧩</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🏗️</span> Arquivo especial para definir elementos de UI compartilhados e containers de navegação.</li>
+          <li><span style="font-size: 1.2em;">📂</span> Pode ser colocado na raiz do diretório <code>app</code> ou em subdiretórios.</li>
+          <li><span style="font-size: 1.2em;">🧭</span> Permite especificar navegadores como <code>Stack</code>, <code>Tabs</code> ou <code>Drawer</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Tipos de Navegação com Expo Router 🧭</h2>
+
+        <section data-transition="slide" data-background="#3e4451" data-background-transition="zoom">
+          <h3>Navegação Stack 🥞</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">⬆️</span> Organiza as telas em uma pilha, onde a tela atual cobre a anterior.</li>
+            <li><span style="font-size: 1.2em;">🔙</span> Permite navegar para trás, desempilhando a tela atual.</li>
+            <li><span style="font-size: 1.2em;">📱</span> Ideal para fluxos de navegação lineares, como formulários ou detalhes de um item.</li>
+          </ul>
+          <aside class="notes">Navegação tipo pilha, normalmente telas entram por baixo da tela anterior e saem pelo mesmo lugar.</aside>
+        </section>
+
+        <section data-transition="slide" data-background="#525968" data-background-transition="zoom">
+          <h3>Navegação Tab 📑</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">↔️</span> Permite alternar entre telas com abas na parte inferior ou superior da tela.</li>
+            <li><span style="font-size: 1.2em;">📊</span> Ideal para alternar entre diferentes seções ou funcionalidades principais do aplicativo.</li>
+            <li><span style="font-size: 1.2em;">📌</span> Mantém o estado de cada aba quando se alterna entre elas.</li>
+          </ul>
+          <aside class="notes">Navegação tipo abas, ideal para navegar entre funcionalidades similares, ou principais do app, como seções diferentes, ou telas de configurações</aside>
+        </section>
+
+        <section data-transition="slide" data-background="#667080" data-background-transition="zoom">
+          <h3>Navegação Drawer ☰</h3>
+          <ul>
+            <li><span style="font-size: 1.2em;">➡️</span> Exibe um menu lateral que desliza para dentro da tela.</li>
+            <li><span style="font-size: 1.2em;">📋</span> Permite acessar funcionalidades ou seções secundárias do aplicativo.</li>
+            <li><span style="font-size: 1.2em;">🧭</span> Bom para menus com muitas opções ou hierarquia complexa.</li>
+          </ul>
+          <aside class="notes">Navegação tipo gaveta, normalmente um menu lateral que se expande para mostrar mais telas. Utilizado normalmente para menus de configurações, perfil, ou telas com muitas opções</aside>
+        </section>
+      </section>
+
+      <section data-transition="slide">
+        <h2>Expo Router: Navegação Stack 🥞</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🧱</span> Definir um componente <code>&lt;Stack /&gt;</code> dentro de um arquivo <code>_layout.tsx</code>.</li>
+          <li><span style="font-size: 1.2em;">📺</span> Telas são adicionadas usando <code>&lt;Stack.Screen name="routeName" /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">🔗</span> Navegação entre telas com <code>&lt;Link href="/otherScreen" /&gt;</code>.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Stack 🥞</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+import { Stack } from 'expo-router';
+
+export default function Layout() {
+  return (
+    &lt;Stack&gt;
+      &lt;Stack.Screen name="index" options={{ title: 'Home' }} /&gt;
+      &lt;Stack.Screen name="about" options={{ title: 'Sobre' }} /&gt;
+    &lt;/Stack&gt;
+  );
+}
+</code>
+        </pre>
+
+        <div style="margin-top: 20px;">
+          <p style="font-size: 0.9em;">
+            Este código define um layout de navegação Stack com duas telas:
           </p>
-        </section>
+          <ul style="font-size: 0.9em;">
+            <li><span style="font-size: 1.2em;">🏠</span> <code>index</code>: Tela inicial (Home).</li>
+            <li><span style="font-size: 1.2em;">ℹ️</span> <code>about</code>: Tela "Sobre".</li>
+          </ul>
+        </div>
+      </section>
 
-        <!-- Slide 11 - Implementação Expo Router - Páginas -->
-        <section>
-          <h3>🔄 Expo Router - Páginas</h3>
-          <div class="code-small">
-            <p>Crie arquivos na pasta <code>app/</code> para definir suas rotas:</p>
-            <pre><code data-trim data-noescape data-line-numbers="1-9|11-23" class="language-javascript">
-            // app/index.js - Página inicial
-            import { View, Text, StyleSheet, Button } from 'react-native';
-            import { Link } from 'expo-router';
-            
-            export default function Home() {
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Página Inicial</Text>
-                  <Link href="/about" asChild>
-                    <Button title="Ir para Sobre" />
-                  </Link>
-                </View>
-              );
-            }
-            
-            // app/about.js - Página Sobre
-            import { View, Text, StyleSheet } from 'react-native';
-            import { Link, useRouter } from 'expo-router';
-            
-            export default function About() {
-              const router = useRouter();
-              
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Sobre</Text>
-                  <Button 
-                    title="Voltar" 
-                    onPress={() => router.back()} 
-                  />
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 20,
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-                marginBottom: 20,
-              },
-            });
-          </code></pre>
-          </div>
-        </section>
+      <section data-transition="slide" data-background="#4a148c" data-background-transition="zoom">
+        <h2>Expo Router: Navegação Tab 📑</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">📂</span> Criar um diretório <code>(tabs)</code> dentro de <code>app</code>.</li>
+          <li><span style="font-size: 1.2em;">📄</span> Colocar um arquivo <code>_layout.tsx</code> com o componente <code>&lt;Tabs /&gt;</code> dentro.</li>
+          <li><span style="font-size: 1.2em;">🏷️</span> Cada aba é definida com <code>&lt;Tabs.Screen name="tabRoute" options={{ title: 'Tab Title', tabBarIcon: (...) }} /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">👇</span> A barra de abas aparece na parte inferior da tela por padrão.</li>
+          <li><span style="font-size: 1.2em;">🎨</span> Aparência da barra de abas customizável com a prop <code>options</code>.</li>
+        </ul>
+      </section>
 
-        <!-- Slide 12 - Expo Router - Layouts -->
-        <section>
-          <h3>🔄 Expo Router - Layouts</h3>
-          <div class="code-small">
-            <p>Use arquivos <code>_layout.js</code> para definir layouts compartilhados:</p>
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-            // app/_layout.js - Layout raiz
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Tab 📑</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+        // app/(tabs)/_layout.js
+        import { Tabs } from 'expo-router';
+
+        export default function TabLayout() {
+          return (
+            &lt;Tabs&gt;
+              &lt;Tabs.Screen name="index" options={{ title: 'Home' }} /&gt;
+              &lt;Tabs.Screen name="settings" options={{ title: 'Configurações' }} /&gt;
+            &lt;/Tabs&gt;
+          );
+        }
+      </code>
+        </pre>
+
+        <div style="margin-top: 20px;">
+          <p style="font-size: 0.9em;">
+            Este código define uma navegação Tab simples com três abas:
+          </p>
+          <ul style="font-size: 0.9em;">
+            <li><span style="font-size: 1.2em;">🏠</span> <code>index</code>: Tela inicial (Home).</li>
+            <li><span style="font-size: 1.2em;">⚙️</span> <code>settings</code>: Tela de configurações.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-transition="slide" data-background="#1a237e" data-background-transition="zoom">
+        <h2>Expo Router: Navegação Drawer ☰</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🚪</span> Criar com o componente <code>&lt;Drawer /&gt;</code> em um arquivo <code>_layout.tsx</code>.</li>
+          <li><span style="font-size: 1.2em;">📋</span> Itens do drawer definidos com <code>&lt;Drawer.Screen name="drawerRoute" options={{ drawerLabel: 'Drawer Item' }} /&gt;</code>.</li>
+          <li><span style="font-size: 1.2em;">↔️</span> Drawer é um menu lateral que pode ser aberto e fechado.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#282c34" data-background-transition="zoom">
+        <h2>Exemplo: _layout.js para Navegação Drawer ☰</h2>
+
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim>
+        // app/_layout.js
+        import { Drawer } from 'expo-router';
+
+        export default function Layout() {
+          return (
+            &lt;Drawer&gt;
+              &lt;Drawer.Screen
+                name="index"
+                options={{ drawerLabel: 'Home' }}
+              /&gt;
+              &lt;Drawer.Screen
+                name="settings"
+                options={{ drawerLabel: 'Configurações' }}
+              /&gt;
+              &lt;Drawer.Screen
+                name="profile"
+                options={{ drawerLabel: 'Perfil' }}
+              /&gt;
+            &lt;/Drawer&gt;
+          );
+        }
+      </code>
+        </pre>
+      </section>
+
+      <section data-transition="slide" data-background="#37474f" data-background-transition="zoom">
+        <h2>Organização de Rotas: Expo Router 📂</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🗂️</span> A estrutura de arquivos dentro do diretório <code>app</code> define as rotas.</li>
+          <li><span style="font-size: 1.2em;">🔗</span> Diretórios aninhados criam rotas aninhadas.</li>
+          <li><span style="font-size: 1.2em;">📍</span> Ex: <code>app/settings/profile.tsx</code> -> rota <code>/settings/profile</code>.</li>
+          <li><span style="font-size: 1.2em;">✨</span> Definição de rotas implícita simplifica a configuração básica.</li>
+        </ul>
+      </section>
+
+      <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+        <h2>🚀 Tutorial: Criando um Projeto Expo 📦</h2>
+
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+npx create-expo-app meu-app-js --template blank
+cd meu-app-js
+</code>
+        </pre>
+
+        <p style="margin-top: 20px; font-size: 0.9em;">
+          Este comando cria um novo projeto Expo com o template básico, ideal para iniciantes, já incluindo o Expo Router.
+        </p>
+        <p style="margin-top: 20px; font-size: 0.9em;">
+          <strong>Precisamos instalar as dependencias do Expo Router, para isso, execute o comando:</strong>
+        </p>
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+npx expo install expo-router react-native-safe-area-context 
+react-native-screens expo-linking expo-constants 
+expo-status-bar
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Criando a Tela Inicial (<code>app/index.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+import { View, Text } from 'react-native';
+import { Link } from 'expo-router';
+
+export default function Home() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Tela inicial</Text>
+      <Link href="/about" style={{ margin: 10, color: 'blue' }}>
+        <Text>Ir para Sobre</Text>
+      </Link>
+      <Link href="/details" style={{ margin: 10, color: 'blue' }}>
+        <Text>Detalhes</Text>
+      </Link>
+    </View>
+  );
+}
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Criando a Tela de Detalhes (<code>app/details.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+import { View, Text } from 'react-native';
+import { Link } from 'expo-router';
+
+export default function Details() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Detalhes</Text>
+      <Link href="/" style={{ margin: 10, color: 'blue' }}>
+        <Text>Voltar para Home</Text>
+      </Link>
+    </View>
+  );
+}
+</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Tutorial: Definindo o Stack Navigator (<code>app/_layout.js</code>)</h2>
+        <pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
             import { Stack } from 'expo-router';
-            
-            export default function RootLayout() {
+
+            export default function Layout() {
               return (
                 <Stack>
-                  <Stack.Screen
-                    name="index"
-                    options={{
-                      title: 'Home',
-                    }}
-                  />
-                  <Stack.Screen
-                    name="about"
-                    options={{
-                      title: 'Sobre Nós',
-                      headerStyle: {
-                        backgroundColor: '#4630EB',
-                      },
-                      headerTintColor: '#fff',
-                    }}
-                  />
+                  <Stack.Screen name="index" options={{ title: 'Home' }} />
+                  <Stack.Screen name="about" options={{ title: 'Sobre' }} />
+                  <Stack.Screen name="details" options={{ title: 'Detalhes' }} />
                 </Stack>
               );
             }
-            
-            // app/profile/_layout.js - Layout para seção de perfil
-            import { Stack } from 'expo-router';
-            
-            export default function ProfileLayout() {
-              return (
-                <Stack>
-                  <Stack.Screen
-                    name="index"
-                    options={{
-                      title: 'Meu Perfil',
-                    }}
-                  />
-                  <Stack.Screen
-                    name="[id]"
-                    options={({ route }) => ({
-                      title: `Perfil #${route.params.id}`,
-                    })}
-                  />
-                </Stack>
-              );
-            }
-          </code></pre>
-          </div>
-        </section>
+</code>
+        </pre>
+        <p>Isso configura um navegador Stack básico para gerenciar a navegação entre <code>index.js</code> e <code>details.tsx</code>.</p>
+      </section>
 
-        <!-- Slide 13 - Expo Router - Navegação com Tabs -->
-        <section>
-          <h3>🔄 Expo Router - Navegação com Tabs</h3>
-          <div class="code-small">
-            <p>Crie uma pasta <code>(tabs)</code> com seu layout:</p>
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-            // app/(tabs)/_layout.js
-            import { Tabs } from 'expo-router';
-            import { Ionicons } from '@expo/vector-icons';
-            
-            export default function TabsLayout() {
-              return (
-                <Tabs screenOptions={{ tabBarActiveTintColor: '#4630EB' }}>
-                  <Tabs.Screen
-                    name="home"
-                    options={{
-                      title: 'Home',
-                      tabBarIcon: ({ color }) => (
-                        <Ionicons name="home" size={24} color={color} />
-                      ),
-                    }}
-                  />
-                  <Tabs.Screen
-                    name="settings"
-                    options={{
-                      title: 'Configurações',
-                      tabBarIcon: ({ color }) => (
-                        <Ionicons name="settings" size={24} color={color} />
-                      ),
-                    }}
-                  />
-                </Tabs>
-              );
-            }
-            
-            // app/(tabs)/home.js
-            import { View, Text } from 'react-native';
-            
-            export default function HomeTab() {
-              return (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text>Aba Home</Text>
-                </View>
-              );
-            }
-            
-            // app/(tabs)/settings.js
-            import { View, Text } from 'react-native';
-            
-            export default function SettingsTab() {
-              return (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text>Aba de Configurações</Text>
-                </View>
-              );
-            }
-          </code></pre>
-          </div>
-        </section>
+      <section data-transition="slide" data-background="#263238" data-background-transition="zoom">
+        <h2>▶️ Tutorial: Executando o Aplicativo 📱</h2>
+      
+        <pre data-id="code-animation">
+          <code class="language-bash" data-trim>
+            npx expo start
+          </code>
+        </pre>
+      
+        <ul style="margin-top: 20px; font-size: 0.9em;">
+          <li><span style="font-size: 1.2em;">🌐</span> Isso abrirá o Expo DevTools no seu navegador.</li>
+          <li><span style="font-size: 1.2em;">📷</span> Você pode escanear o QR code com o app Expo Go no seu dispositivo físico ou executar no simulador.</li>
+          <li><span style="font-size: 1.2em;">👉</span> Ao tocar no botão "Ir para Detalhes" na tela inicial, você será levado para a tela de detalhes.</li>
+        </ul>
+      </section>
 
-        <!-- Slide 14 - Expo Router - Parâmetros Dinâmicos -->
-        <section>
-          <h3>🔄 Expo Router - Parâmetros Dinâmicos</h3>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers="1-17|19-30" class="language-javascript">
-            // app/product/[id].js - Rota dinâmica que aceita um parâmetro id
-            import { View, Text, StyleSheet, Button } from 'react-native';
-            import { useLocalSearchParams, useRouter } from 'expo-router';
-            
-            export default function ProductScreen() {
-              const { id, title } = useLocalSearchParams();
-              const router = useRouter();
-              
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Produto #{id}</Text>
-                  {title && <Text style={styles.subtitle}>{title}</Text>}
-                  <Button 
-                    title="Voltar para lista" 
-                    onPress={() => router.back()} 
-                  />
-                </View>
-              );
-            }
-            
-            // Navegando para a rota dinâmica
-            import { View, Button } from 'react-native';
-            import { useRouter } from 'expo-router';
-            
-            export default function ProductList() {
-              const router = useRouter();
-              
-              return (
-                <View style={{ gap: 10, padding: 20 }}>
-                  <Button 
-                    title="Ver Produto #1" 
-                    onPress={() => router.push({
-                      pathname: '/product/[id]',
-                      params: { id: 1, title: 'Smartphone Galaxy' }
-                    })}
-                  />
-                  <Button 
-                    title="Ver Produto #2" 
-                    onPress={() => router.push('/product/2?title=Notebook+Pro')}
-                  />
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-              },
-              subtitle: {
-                fontSize: 18,
-                marginVertical: 10,
-              },
-            });
-          </code></pre>
-          </div>
-        </section>
+      <section data-transition="slide" data-background="#2e7d32" data-background-transition="zoom">
+        <h2>🚀 Melhores Práticas: Performance ⚡</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🎯</span> Usar componentes otimizados e evitar re-renders desnecessários.</li>
+          <li><span style="font-size: 1.2em;">⏳</span> Expo Router inclui otimizações como lazy loading de telas.</li>
+          <li><span style="font-size: 1.2em;">📈</span> Otimizar a lógica de renderização dos componentes de tela.</li>
+        </ul>
+      </section>
 
-        <!-- Slide 15 - React Navigation -->
-        <section>
-          <h3>🧭 React Navigation</h3>
-          <div>
-            <p>Biblioteca completa para navegação em React Native</p>
-            <div class="container">
-              <div class="column">
-                <h4>Principais pacotes:</h4>
-                <ul>
-                  <li><code>@react-navigation/native</code> - Core</li>
-                  <li><code>@react-navigation/native-stack</code> - Stack</li>
-                  <li><code>@react-navigation/bottom-tabs</code> - Tab</li>
-                  <li><code>@react-navigation/drawer</code> - Drawer</li>
-                  <li><code>@react-navigation/material-*</code> - Material Design</li>
-                </ul>
-              </div>
-              <div class="column">
-                <h4>Vantagens:</h4>
-                <ul>
-                  <li>Muito flexível e configurável</li>
-                  <li>Ampla adoção na comunidade</li>
-                  <li>Documentação extensa</li>
-                  <li>Suporte a navegação aninhada</li>
-                  <li>Integrações com Redux, TypeScript, etc.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+      <section data-transition="slide" data-background="#1565c0" data-background-transition="zoom">
+        <h2>🌟 Melhores Práticas: Experiência do Usuário 🚀</h2>
+        <ul>
+          <li><span style="font-size: 1.2em;">🧭</span> Navegação deve ser clara, consistente e intuitiva.</li>
+          <li><span style="font-size: 1.2em;">🤝</span> Usuários devem entender facilmente como se mover no app.</li>
+          <li><span style="font-size: 1.2em;">📐</span> Escolher o padrão de navegação apropriado (Stack, Tabs, Drawer).</li>
+          <li><span style="font-size: 1.2em;">🎬</span> Fornecer feedback visual durante a navegação (animações de transição).</li>
+        </ul>
+      </section>
 
-        <!-- Slide 16 - Instalação do React Navigation -->
-        <section>
-          <h3>⚙️ Configuração do React Navigation</h3>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers class="language-bash">
-            # Instalar as dependências principais
-            npm install @react-navigation/native
-            
-            # Bibliotecas de suporte necessárias
-            npx expo install react-native-screens react-native-safe-area-context
-            
-            # Instalar tipos específicos de navegação (conforme necessidade)
-            npm install @react-navigation/native-stack    # Para Stack Navigation
-            npm install @react-navigation/bottom-tabs     # Para Tab Navigation
-            npm install @react-navigation/drawer          # Para Drawer Navigation
-            
-            # Se usar Drawer, instalar também:
-            npx expo install react-native-gesture-handler react-native-reanimated
-          </code></pre>
-            <p>Configuração básica da aplicação:</p>
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-            // App.js
-            import 'react-native-gesture-handler'; // Importe primeiro se usar Drawer
-            import React from 'react';
-            import { NavigationContainer } from '@react-navigation/native';
-            
-            import AppNavigator from './src/navigation/AppNavigator';
-            
-            export default function App() {
-              return (
-                <NavigationContainer>
-                  <AppNavigator />
-                </NavigationContainer>
-              );
-            }
-          </code></pre>
-          </div>
-        </section>
-
-        <!-- Slide 17 - Implementação Stack Navigation -->
-        <section>
-          <h3>🔄 React Navigation - Stack Navigator</h3>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript"><script>
-            // src/navigation/AppNavigator.js
-            import React from 'react';
-            import { createNativeStackNavigator } from '@react-navigation/native-stack';
-            
-            import HomeScreen from '../screens/HomeScreen';
-            import DetailsScreen from '../screens/DetailsScreen';
-            
-            const Stack = createNativeStackNavigator();
-            
-            export default function AppNavigator() {
-              return (
-                <Stack.Navigator initialRouteName="Home">
-                  <Stack.Screen 
-                      name="Home" 
-                      component={HomeScreen} 
-                      options={{ title: 'Início' }} />
-                  <Stack.Screen 
-                    name="Details" 
-                    component={DetailsScreen} 
-                    options={({ route }) => ({ title: route.params?.title || 'Detalhes' })}
-                  />
-                </Stack.Navigator>
-              );
-            }
-            
-            // src/screens/HomeScreen.js
-            import React from 'react';
-            import { View, Button, StyleSheet } from 'react-native';
-            
-            export default function HomeScreen({ navigation }) {
-              return (
-                <View style={styles.container}>
-                  <Button
-                    title="Ver Detalhes"
-                    onPress={() => navigation.navigate('Details', {
-                      itemId: 86,
-                      title: 'Detalhes do Produto'
-                    })}
-                  />
-                </View>
-              );
-            }
-            
-            // src/screens/DetailsScreen.js
-            import React from 'react';
-            import { View, Text, Button, StyleSheet } from 'react-native';
-            
-            export default function DetailsScreen({ route, navigation }) {
-              // Extrair parâmetros
-              const { itemId, title } = route.params || {};
-              
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>{title}</Text>
-                  <Text>Item ID: {itemId}</Text>
-                  <Button title="Voltar" onPress={() => navigation.goBack()} />
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 20,
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-                marginBottom: 20,
-              }
-            });
-         </script> </code></pre>
-          </div>
-        </section>
-
-        <!-- Slide 18 - Implementação Tab Navigation -->
-        <section>
-          <h3>🔄 React Navigation - Tab Navigator</h3>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers="1-30|32-44|46-58" class="language-javascript">
-            // src/navigation/AppNavigator.js
-            import React from 'react';
-            import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-            import { Ionicons } from '@expo/vector-icons';
-            
-            import HomeScreen from '../screens/HomeScreen';
-            import ProfileScreen from '../screens/ProfileScreen';
-            import SettingsScreen from '../screens/SettingsScreen';
-            
-            const Tab = createBottomTabNavigator();
-            
-            export default function AppNavigator() {
-              return (
-                <Tab.Navigator
-                  screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
-                      let iconName;
-                      
-                      if (route.name === 'Home') {
-                        iconName = focused ? 'home' : 'home-outline';
-                      } else if (route.name === 'Profile') {
-                        iconName = focused ? 'person' : 'person-outline';
-                      } else if (route.name === 'Settings') {
-                        iconName = focused ? 'settings' : 'settings-outline';
-                      }
-                      
-                      return <Ionicons name={iconName} size={size} color={color} />;
-                    },
-                    tabBarActiveTintColor: '#4630EB',
-                    tabBarInactiveTintColor: 'gray',
-                  })}
-                >
-                  <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Início' }} />
-                  <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Perfil' }} />
-                  <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Ajustes' }} />
-                </Tab.Navigator>
-              );
-            }
-            
-            // src/screens/HomeScreen.js
-            import React from 'react';
-            import { View, Text, StyleSheet } from 'react-native';
-            
-            export default function HomeScreen() {
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Tela Inicial</Text>
-                  <Text>Bem-vindo ao nosso app!</Text>
-                </View>
-              );
-            }
-            
-            // src/screens/ProfileScreen.js
-            import React from 'react';
-            import { View, Text, StyleSheet } from 'react-native';
-            
-            export default function ProfileScreen() {
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Perfil</Text>
-                  <Text>Informações do seu perfil</Text>
-                </View>
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 20,
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-                marginBottom: 10,
-              },
-            });
-          </code></pre>
-          </div>
-        </section>
-
-        <!-- Slide 19 - Navegação Aninhada -->
-        <section>
-          <h3>🔄 Navegação Aninhada</h3>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers="1-32|34-52" class="language-javascript">
-            // src/navigation/AppNavigator.js
-            import React from 'react';
-            import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-            import { createNativeStackNavigator } from '@react-navigation/native-stack';
-            import { Ionicons } from '@expo/vector-icons';
-            
-            import HomeScreen from '../screens/HomeScreen';
-            import ProfileScreen from '../screens/ProfileScreen';
-            import SettingsScreen from '../screens/SettingsScreen';
-            import ProductListScreen from '../screens/ProductListScreen';
-            import ProductDetailsScreen from '../screens/ProductDetailsScreen';
-            
-            const Tab = createBottomTabNavigator();
-            const HomeStack = createNativeStackNavigator();
-            
-            // Stack Navigator para a seção de Home
-            function HomeStackNavigator() {
-              return (
-                <HomeStack.Navigator>
-                  <HomeStack.Screen name="HomeMain" component={HomeScreen} options={{ title: 'Início' }} />
-                  <HomeStack.Screen name="ProductList" component={ProductListScreen} options={{ title: 'Produtos' }} />
-                  <HomeStack.Screen name="ProductDetails" component={ProductDetailsScreen} />
-                </HomeStack.Navigator>
-              );
-            }
-            
-            // Navegador principal com tabs
-            export default function AppNavigator() {
-              return (
-                <Tab.Navigator
-                  screenOptions={({ route }) => ({
-                    // ...configuração de ícones igual ao slide anterior
-                  })}
-                >
-                  <Tab.Screen name="HomeTab" component={HomeStackNavigator} options={{ headerShown: false, title: 'Início' }} />
-                  <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Perfil' }} />
-                  <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Ajustes' }} />
-                </Tab.Navigator>
-              );
-            }
-            
-            // src/screens/HomeScreen.js
-            import React from 'react';
-            import { View, Text, Button, StyleSheet } from 'react-native';
-            
-            export default function HomeScreen({ navigation }) {
-              return (
-                <View style={styles.container}>
-                  <Text style={styles.title}>Tela Inicial</Text>
-                  <Button 
-                    title="Ver lista de produtos" 
-                    onPress={() => navigation.navigate('ProductList')}
-                  />
-                </View>
-              );
-            }
-            
-            // src/screens/ProductListScreen.js
-            import React from 'react';
-            import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-            
-            const PRODUCTS = [
-              { id: '1', name: 'Produto 1' },
-              { id: '2', name: 'Produto 2' },
-              { id: '3', name: 'Produto 3' },
-            ];
-            
-            export default function ProductListScreen({ navigation }) {
-              return (
-                <FlatList
-                  data={PRODUCTS}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity 
-                      style={styles.item}
-                      onPress={() => navigation.navigate('ProductDetails', { productId: item.id, productName: item.name })}
-                    >
-                      <Text style={styles.itemText}>{item.name}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              );
-            }
-            
-            const styles = StyleSheet.create({
-              container: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              title: {
-                fontSize: 24,
-                fontWeight: 'bold',
-                marginBottom: 20,
-              },
-              item: {
-                padding: 15,
-                borderBottomWidth: 1,
-                borderBottomColor: '#ccc',
-              },
-              itemText: {
-                fontSize: 16,
-              }
-            });
-          </code></pre>
-          </div>
-        </section>
-
-        <!-- Slide 20 - Criação de Modais -->
-        <section>
-          <h3>🪟 Implementação de Modais</h3>
-          <div class="container">
-            <div class="column">
-              <h4>Com Expo Router:</h4>
-              <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-              // app/modal.js
-              import { View, Text, StyleSheet, Button } from 'react-native';
-              import { useRouter } from 'expo-router';
-              
-              export default function Modal() {
-                const router = useRouter();
-                
-                return (
-                  <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                      <Text style={styles.title}>Modal</Text>
-                      <Text>Este é um modal!</Text>
-                      <Button 
-                        title="Fechar" 
-                        onPress={() => router.back()} 
-                      />
-                    </View>
-                  </View>
-                );
-              }
-              
-              // Abrindo o modal de qualquer lugar
-              import { Button } from 'react-native';
-              import { useRouter } from 'expo-router';
-              
-              export function ShowModalButton() {
-                const router = useRouter();
-                
-                return (
-                  <Button
-                    title="Abrir Modal"
-                    onPress={() => router.push('/modal')}
-                  />
-                );
-              }
-            </code></pre>
-            </div>
-            <div class="column">
-              <h4>Com React Navigation:</h4>
-              <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-              // Usando o modo "presentation" no stack
-              import { createNativeStackNavigator } from '@react-navigation/native-stack';
-              
-              const Stack = createNativeStackNavigator();
-              
-              export default function RootNavigator() {
-                return (
-                  <Stack.Navigator>
-                    <Stack.Screen name="Main" component={MainScreen} />
-                    <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                      <Stack.Screen name="MyModal" component={ModalScreen} />
-                    </Stack.Group>
-                  </Stack.Navigator>
-                );
-              }
-              
-              // Abrindo o modal
-              import { Button } from 'react-native';
-              
-              export function ShowModalButton({ navigation }) {
-                return (
-                  <Button
-                    title="Abrir Modal"
-                    onPress={() => navigation.navigate('MyModal')}
-                  />
-                );
-              }
-            </code></pre>
-            </div>
-          </div>
-          <div class="code-small">
-            <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-            const styles = StyleSheet.create({
-              modalContainer: {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              },
-              modalContent: {
-                width: '80%',
-                backgroundColor: 'white',
-                borderRadius: 10,
-                padding: 20,
-                alignItems: 'center',
-              },
-              title: {
-                fontSize: 20,
-                fontWeight: 'bold',
-                marginBottom: 10,
-              },
-            });
-          </code></pre>
-          </div>
-        </section>
+       
 
         <!-- Slide 21 - Passagem de Parâmetros -->
         <section>
           <h3>📦 Passagem de Parâmetros entre Telas</h3>
-          <div class="container">
-            <div class="column">
+       
+            
               <h4>Expo Router:</h4>
-              <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+              <pre><code data-trim data-noescape data-line-numbers class="language-javascript"><script>
               // Enviando parâmetros
               import { Button } from 'react-native';
               import { useRouter } from 'expo-router';
@@ -1125,48 +783,8 @@ registerRootComponent(App);
                   </View>
                 );
               }
-            </code></pre>
-            </div>
-            <div class="column">
-              <h4>React Navigation:</h4>
-              <pre><code data-trim data-noescape data-line-numbers class="language-javascript">
-              // Enviando parâmetros
-              import { Button } from 'react-native';
-              
-              export default function SendParamsScreen({ navigation }) {
-                const goToDetails = () => {
-                  navigation.navigate('Details', {
-                    id: 101,
-                    title: 'Item Especial',
-                    data: {
-                      price: 99.99,
-                      inStock: true
-                    }
-                  });
-                };
-                
-                return (
-                  <Button title="Ver Detalhes" onPress={goToDetails} />
-                );
-              }
-              
-              // Recebendo parâmetros
-              import { View, Text } from 'react-native';
-              
-              export default function DetailsScreen({ route }) {
-                const { id, title, data } = route.params;
-                
-                return (
-                  <View>
-                    <Text>ID: {id}</Text>
-                    <Text>Título: {title}</Text>
-                    <Text>Preço: {data.price}</Text>
-                  </View>
-                );
-              }
-            </code></pre>
-            </div>
-          </div>
+            </script></code></pre>
+          
         </section>
 
         <!-- Slide 22 - Exercício em Sala 1 -->
@@ -1243,44 +861,6 @@ registerRootComponent(App);
           </div>
         </section>
 
-        <!-- Slide 25 - Dicas e Boas Práticas -->
-        <section>
-          <h3>💡 Dicas e Boas Práticas</h3>
-          <div class="container">
-            <div class="column">
-              <h4>Desempenho:</h4>
-              <ul>
-                <li>Evite re-renderizações desnecessárias</li>
-                <li>Use <code>React.memo</code> para componentes de navegação</li>
-                <li>Cuidado com animações complexas</li>
-                <li>Reutilize telas quando possível</li>
-              </ul>
-              <h4>Estrutura:</h4>
-              <ul>
-                <li>Organize em pastas por funcionalidade</li>
-                <li>Separe navegadores em arquivos diferentes</li>
-                <li>Use constantes para nomes de rota</li>
-              </ul>
-            </div>
-            <div class="column">
-              <h4>UX:</h4>
-              <ul>
-                <li>Mantenha consistência nas transições</li>
-                <li>Adicione feedback visual durante navegação</li>
-                <li>Implemente gestos intuitivos</li>
-                <li>Cuide da navegação por acessibilidade</li>
-              </ul>
-              <h4>Estado:</h4>
-              <ul>
-                <li>Use Context API para compartilhar estado</li>
-                <li>Cuidado com perda de estado ao navegar</li>
-                <li><code>useFocusEffect</code> para efeitos baseados em foco</li>
-                <li>Implemente persistência de dados importantes</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
         <!-- Slide 26 - Referências -->
         <section>
           <h3>📚 Referências</h3>
@@ -1296,10 +876,7 @@ registerRootComponent(App);
             <li><a href="https://github.com/react-navigation/react-navigation/tree/main/example">Exemplos oficiais do
                 React Navigation</a></li>
           </ul>
-          <p style="margin-top: 20px;">
-            <span class="important">Contato para Dúvidas:</span><br>
-            <a href="mailto:diogo.francisco@sereduc.com">diogo.francisco@sereduc.com</a>
-          </p>
+         
         </section>
 
     </div>
