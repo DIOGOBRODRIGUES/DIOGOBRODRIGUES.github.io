@@ -62,7 +62,7 @@
     <div class="slides">
       <!-- Slide 1 - Título da Aula -->
       <section>
-        <p>🏛️ FAFIRE - Pós-Gradução em Engenharia de Software</p>
+       <p><span class="farire-logo">🌳</span> FAFIRE - Pós-graduação em Engenharia de Software</p>
         <h3>Aula 5: Sensores em Aplicações Mobile com Expo</h3>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
         <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
@@ -158,15 +158,15 @@ npx expo install expo-location
       <section>
         <h3>📊 Acelerômetro</h3>
         <p>Mede a aceleração do dispositivo nos eixos x, y e z</p>
-        <pre><code class="javascript"  data-trim data-line-numbers='1-3|5-8|9-10|12-18'>
-import React, { useState, useEffect } from 'react';
+        <pre><code class="javascript"  data-trim data-line-numbers><script>
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
-
+ 
 // Define a taxa de atualização (intervalo em ms)
 const _interval = 100;
 let subscription = null;
-
+ 
 export default function App() {
   const [data, setData] = useState({ x: 0, y: 0, z: 0 });
   
@@ -178,26 +178,19 @@ export default function App() {
     });
     Accelerometer.setUpdateInterval(_interval);
   };
-        </code></pre>
-        <strong>Continua...</strong>
-      </section>
 
-      <!-- Slide 8 - Acelerômetro (continuação) -->
-      <section>
-        <h3>📊 Acelerômetro (continuação)</h3>
-        <pre><code class="javascript" data-trim data-line-numbers data-line="3-5|8-17">
   // Função para cancelar a subscrição
   const _unsubscribe = () => {
     subscription && subscription.remove();
     subscription = null;
   };
-
+ 
   useEffect(() => {
     _subscribe();
     // Limpa a subscrição quando o componente é desmontado
     return () => _unsubscribe();
   }, []);
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Acelerômetro:</Text>
@@ -207,7 +200,24 @@ export default function App() {
     </View>
   );
 }
-        </code></pre>
+
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+    alignItems: 'center',
+    borderRadius: 10,
+    margin: 10,
+  },
+  text: {
+    fontSize: 18,
+    color: '#333',
+    marginVertical: 5,
+  },
+});
+</script>
+</code></pre>
         <p class="code-notes">🔑 Use <code>useEffect</code> para gerenciar o ciclo de vida da subscrição do sensor</p>
       </section>
 
@@ -215,12 +225,12 @@ export default function App() {
       <section>
         <h3>🔄 Giroscópio</h3>
         <p>Detecta a rotação do dispositivo nos eixos x, y e z</p>
-        <pre><code class="javascript" data-trim data-line-numbers ="1-3|5-14|16-18|20-28|30-39|40-50"><script>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
 import React, { useState, useEffect } from 'react';
 import { Gyroscope } from 'expo-sensors';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function GyroscopeScreen() {
+export default function App() {
   const [data, setData] = useState({ x: 0, y: 0, z: 0 });
   const [subscription, setSubscription] = useState(null);
 
@@ -276,7 +286,7 @@ export default function GyroscopeScreen() {
       <section>
         <h3>🧲 Magnetômetro (Bússola)</h3>
         <p>Mede o campo magnético ao redor do dispositivo</p>
-        <pre><code class="javascript" data-trim data-line-numbers="3-5|8-20|21|24-27|29-36|40-43|50-62"><script>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
 
 import React, { useState, useEffect } from 'react';
 import { Magnetometer } from 'expo-sensors';
@@ -340,6 +350,40 @@ export default function CompassScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#eef6f7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#0a3d62',
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 18,
+    color: '#333',
+    marginVertical: 5,
+    textAlign: 'center',
+  },
+  compassContainer: {
+    marginVertical: 30,
+    width: 200,
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  compassImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+});
 </script> </code></pre>
       </section>
 
@@ -348,7 +392,7 @@ export default function CompassScreen() {
       <section>
         <h3>💡 Sensor de Luz Ambiente</h3>
         <p>Mede a intensidade da luz no ambiente ao redor</p>
-        <pre><code class="javascript" data-trim data-line-numbers="3-6|8-12|14-27|29-31|33-34|36-47"><script>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -406,7 +450,7 @@ export default function LightSensorScreen() {
       <section>
         <h3>👣 Pedômetro</h3>
         <p>Conta os passos do usuário usando acelerômetro e giroscópio</p>
-        <pre><code class="javascript" data-trim data-line-numbers="2-4|7-10|13-21|22-23|25-28|30-37|39-45|47-52|54-66"><script>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
 import React, { useState, useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
 import { StyleSheet, Text, View } from 'react-native';
@@ -474,12 +518,155 @@ export default function PedometerScreen() {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 24,
+  },
+  paragraph: {
+    fontSize: 18,
+    color: '#34495e',
+    marginVertical: 8,
+    textAlign: 'center',
+  },
+});
 </script></code></pre>
 <p class="code-notes">👟 Ideal para apps de fitness, saúde ou jogos baseados em movimento</p>
 
       </section>
+      
+      <!-- Slide 12.5 - Câmera -->
+      <section>
+        <h3>📸 Câmera</h3>
+        <p>Acesse e controle a câmera do dispositivo</p>
+        <pre><code class="javascript" data-trim data-line-numbers><script>
+import React, { useState, useEffect, useRef } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Camera } from 'expo-camera';
+import { Ionicons } from '@expo/vector-icons';
 
+export default function CameraScreen() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [photo, setPhoto] = useState(null);
+  const cameraRef = useRef(null);
 
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      const options = { quality: 0.5, base64: true };
+      const data = await cameraRef.current.takePictureAsync(options);
+      setPhoto(data.uri);
+    }
+  };
+
+  const flipCamera = () => {
+    setCameraType(
+      cameraType === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+  };
+
+  if (hasPermission === null) {
+    return <View style={styles.container}><Text>Solicitando permissão da câmera...</Text></View>;
+  }
+  
+  if (hasPermission === false) {
+    return <View style={styles.container}><Text>Sem acesso à câmera</Text></View>;
+  }
+
+  return (
+    <View style={styles.container}>
+      {photo ? (
+        <View style={styles.previewContainer}>
+          <Image source={{ uri: photo }} style={styles.preview} />
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => setPhoto(null)}>
+            <Text style={styles.buttonText}>Nova Foto</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <Camera style={styles.camera} type={cameraType} ref={cameraRef}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.flipButton} onPress={flipCamera}>
+              <Ionicons name="camera-reverse" size={28} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+              <Ionicons name="radio-button-on" size={70} color="white" />
+            </TouchableOpacity>
+          </View>
+        </Camera>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 20,
+    alignItems: 'flex-end',
+  },
+  flipButton: {
+    alignSelf: 'flex-end',
+    padding: 15,
+  },
+  captureButton: {
+    alignSelf: 'center',
+    flex: 1,
+    alignItems: 'center',
+  },
+  previewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  preview: {
+    width: '90%',
+    height: '70%',
+    borderRadius: 10,
+  },
+  button: {
+    backgroundColor: '#2196F3',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  }
+});
+</script></code></pre>
+<p class="code-notes">📱 Para usar a câmera, execute primeiro: <code>npx expo install expo-camera</code></p>
+      </section>
+      
       <!-- Slide 13 - Exercício Prático em Sala -->
       <!-- Slide 13 - Exercício Prático: Introdução -->
       <section>
