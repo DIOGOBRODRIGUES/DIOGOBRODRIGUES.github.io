@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 9 - Build e Distribuição de Aplicações com React Native Expo</title>
+
+  <meta name="description" content="Aula sobre o processo de build e distribuição de aplicações mobile com React Native e Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 9 - Build e Distribuição de Aplicações com React Native Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+      <!-- Slide 2 - Agenda -->
+      <section>
+        <h2>Agenda</h2>
+        <ul>
+          <li>Introdução ao processo de build</li>
+          <li>Opções de build no Expo</li>
+          <li>Configurando seu projeto para distribuição</li>
+          <li>Build para Android e iOS</li>
+          <li>Distribuição nas lojas de aplicativos</li>
+          <li>Atualizações Over-The-Air (OTA)</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Introdução -->
+      <section>
+        <h2>Por que aprender sobre build e distribuição?</h2>
+        <ul>
+          <li>Transformar o código em aplicativo instalável</li>
+          <li>Disponibilizar para usuários finais</li>
+          <li>Manter o aplicativo atualizado</li>
+          <li>Diferenças entre desenvolvimento e produção</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Opções de Build no Expo -->
+      <section>
+        <h2>Opções de Build no Expo</h2>
+        <ul>
+          <li><strong>Expo Go:</strong> Desenvolvimento rápido e testes</li>
+          <li><strong>EAS Build:</strong> Serviço de build na nuvem do Expo</li>
+          <li><strong>expo build:android/ios:</strong> Método clássico (deprecated)</li>
+          <li><strong>Expo Prebuild:</strong> Ejetar para código nativo</li>
+        </ul>
+      </section>
+      
+      <!-- Slide 5 - EAS Build vs Expo Build -->
+      <section>
+        <h2>EAS Build vs Expo Build Clássico</h2>
+        <div style="display: flex; justify-content: space-between;">
+          <div style="width: 48%;">
+            <h3>EAS Build (Recomendado)</h3>
+            <ul>
+              <li>Mais rápido e robusto</li>
+              <li>Suporte a monorepos</li>
+              <li>Builds incrementais</li>
+              <li>Melhor integração com EAS Submit</li>
+            </ul>
+          </div>
+          <div style="width: 48%;">
+            <h3>Expo Build (Deprecated)</h3>
+            <ul>
+              <li>Limitado a configurações específicas</li>
+              <li>Sem suporte para bibliotecas nativas personalizadas</li>
+              <li>Sendo descontinuado</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6 - Configuração do Projeto -->
+      <section>
+        <h2>Preparando seu Projeto para Build</h2>
+        <ol>
+          <li>Configurar <code>app.json</code> com metadados</li>
+          <li>Adicionar ícones e splash screens</li>
+          <li>Configurar versões e bundle IDs</li>
+          <li>Instalar EAS CLI: <code>npm install -g eas-cli</code></li>
+          <li>Fazer login: <code>eas login</code></li>
+        </ol>
+      </section>
+
+      <!-- Slide 7 - Exemplo app.json -->
+      <section>
+        <h2>Configuração do app.json</h2>
+        <pre><code class="json" data-trim data-line-numbers>
+{
+  "expo": {
+    "name": "Meu App",
+    "slug": "meu-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "com.minhaempresa.meuapp",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "com.minhaempresa.meuapp",
+      "buildNumber": "1.0.0"
+    }
+  }
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 8 - EAS JSON -->
+      <section>
+        <h2>Configurando o eas.json</h2>
+        <pre><code class="json" data-trim data-line-numbers>
+{
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "distribution": "store",
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  }
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 9 - Build para Android -->
+      <section>
+        <h2>Build para Android</h2>
+        <ol>
+          <li>Configurar perfil no eas.json</li>
+          <li>Executar: <code>eas build -p android</code></li>
+          <li>Opções de build:
+            <ul>
+              <li><strong>APK:</strong> para testes diretos</li>
+              <li><strong>AAB:</strong> para Google Play</li>
+            </ul>
+          </li>
+          <li>Verificar requisitos para Google Play:
+            <ul>
+              <li>Política de privacidade</li>
+              <li>Classificação de conteúdo</li>
+              <li>Capturas de tela</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Slide 10 - Build para iOS -->
+      <section>
+        <h2>Build para iOS</h2>
+        <ol>
+          <li>Necessário: Conta Apple Developer ($99/ano)</li>
+          <li>Criar certificados e perfis de provisionamento</li>
+          <li>Executar: <code>eas build -p ios</code></li>
+          <li>Para o simulador: <code>eas build -p ios --profile preview</code></li>
+          <li>Para App Store: <code>eas build -p ios --profile production</code></li>
+        </ol>
+      </section>
+
+      <!-- Slide 11 - Testes Internos -->
+      <section>
+        <h2>Distribuição para Testes</h2>
+        <div style="display: flex; justify-content: space-between;">
+          <div style="width: 48%;">
+            <h3>Android</h3>
+            <ul>
+              <li>Internal Testing Track</li>
+              <li>Envio via APK direto</li>
+              <li>Google Play Console</li>
+              <li><code>eas submit -p android</code></li>
+            </ul>
+          </div>
+          <div style="width: 48%;">
+            <h3>iOS</h3>
+            <ul>
+              <li>TestFlight</li>
+              <li>App Store Connect</li>
+              <li>Testadores internos e externos</li>
+              <li><code>eas submit -p ios</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12 - Publicação nas Lojas -->
+      <section>
+        <h2>Publicação nas Lojas de Aplicativos</h2>
+        <ol>
+          <li>Criar conta de desenvolvedor:
+            <ul>
+              <li>Google Play Console ($25 uma vez)</li>
+              <li>Apple Developer Program ($99/ano)</li>
+            </ul>
+          </li>
+          <li>Preparar metadados:
+            <ul>
+              <li>Capturas de tela</li>
+              <li>Descrição, palavras-chave</li>
+              <li>Política de privacidade</li>
+            </ul>
+          </li>
+          <li>Submeter para revisão (1-3 dias para Google Play, 1-2 dias para App Store)</li>
+        </ol>
+      </section>
+
+      <!-- Slide 13 - Comandos EAS Submit -->
+      <section>
+        <h2>Enviando para as Lojas com EAS Submit</h2>
+        <pre><code class="bash" data-trim>
+# Configurar envio
+eas submit:configure
+
+# Enviar para Google Play
+eas submit -p android --latest
+
+# Enviar para App Store
+eas submit -p ios --latest
+        </code></pre>
+        <p>O EAS Submit automatiza o processo de envio para as lojas!</p>
+      </section>
+
+      <!-- Slide 14 - Atualizações OTA -->
+      <section>
+        <h2>Atualizações Over-The-Air (OTA)</h2>
+        <ul>
+          <li>Atualizar JS e assets sem reenviar para as lojas</li>
+          <li>Ideal para fixes rápidos e melhorias de UI</li>
+          <li>Não funciona para mudanças nativas</li>
+          <li>Configurado em app.json:
+            <pre><code class="json" data-trim>
+"updates": {
+  "fallbackToCacheTimeout": 0,
+  "url": "https://u.expo.dev/your-project-id"
+}
+            </code></pre>
+          </li>
+          <li>Publicar update: <code>eas update --branch production</code></li>
+        </ul>
+      </section>
+
+      <!-- Slide 15 - Melhores Práticas -->
+      <section>
+        <h2>Melhores Práticas</h2>
+        <ul>
+          <li>Teste profundamente antes de publicar</li>
+          <li>Use channels/branches para controlar updates</li>
+          <li>Implemente versionamento semântico</li>
+          <li>Mantenha um changelog</li>
+          <li>Configure monitoramento de erros (ex: Sentry)</li>
+          <li>Automatize seu pipeline de CI/CD</li>
+          <li>Teste em dispositivos reais, não apenas emuladores</li>
+        </ul>
+      </section>
+
+      <!-- Slide 16 - Problemas Comuns -->
+      <section>
+        <h2>Problemas Comuns e Soluções</h2>
+        <ul>
+          <li><strong>Android Keystore:</strong> Perda do keystore impede atualizações</li>
+          <li><strong>iOS Certificates:</strong> Expiração ou revogação de certificados</li>
+          <li><strong>App Rejections:</strong> Problemas de metadata ou violação de guidelines</li>
+          <li><strong>Compatibilidade:</strong> Testar em diferentes versões de OS</li>
+          <li><strong>Migrações:</strong> Planejar migrações de banco de dados</li>
+          <li><strong>Tamanho do App:</strong> Otimizar assets e bibliotecas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 17 - Recursos e Referências -->
+      <section>
+        <h2>Recursos e Referências</h2>
+        <ul>
+          <li><a href="https://docs.expo.dev/build/introduction/">Documentação EAS Build</a></li>
+          <li><a href="https://docs.expo.dev/submit/introduction/">Documentação EAS Submit</a></li>
+          <li><a href="https://docs.expo.dev/eas-update/introduction/">Documentação EAS Update</a></li>
+          <li><a href="https://developer.android.com/distribute">Google Play Developer Console</a></li>
+          <li><a href="https://developer.apple.com/app-store/review/">App Store Review Guidelines</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 18 - Perguntas e Discussão -->
+      <section>
+        <h1>Perguntas?</h1>
+        <p>Obrigado pela atenção!</p>
+        <p>
+          <a href="mailto:diogo.rodrigues@professor.uninassau.edu.br">diogo.rodrigues@professor.uninassau.edu.br</a>
+        </p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
