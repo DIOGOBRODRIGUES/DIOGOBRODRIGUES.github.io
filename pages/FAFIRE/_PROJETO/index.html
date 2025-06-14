@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos Técnicos - Projeto de Desenvolvimento de Aplicativos Móveis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .requisito {
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 3px solid #3498db;
+        }
+        .tecnologia {
+            display: inline-block;
+            background-color: #e9f7ef;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .destaque {
+            background-color: #fffbea;
+            padding: 15px;
+            border-left: 5px solid #ffa500;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Requisitos Técnicos para o Projeto de Desenvolvimento de Aplicativos Móveis</h1>
+    
+    <section>
+        <h2>1. Descrição do Projeto</h2>
+        <p>Este projeto consiste no desenvolvimento de um aplicativo móvel completo, desde a concepção até a implementação. O aluno deverá aplicar os conhecimentos adquiridos durante a disciplina para criar uma solução que resolva um problema real, seguindo as boas práticas de desenvolvimento mobile.</p>
+        
+        <div class="destaque">
+            <h3>Tema do Projeto:</h3>
+            <p>O aluno poderá escolher entre as seguintes opções:</p>
+            <ul>
+                <li>Aplicativo de gerenciamento de tarefas pessoais</li>
+                <li>Aplicativo de comércio eletrônico</li>
+                <li>Aplicativo de notícias/informações</li>
+                <li>Rede social específica para um nicho</li>
+                <li>Ferramenta de produtividade para estudantes</li>
+                <li>Aplicativo para área de saúde/bem-estar</li>
+                <li>Tema livre (mediante aprovação do professor)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Requisitos Técnicos</h2>
+        
+        <h3>2.1 Requisitos Fundamentais</h3>
+        <div class="requisito">
+            <ul>
+                <li>O aplicativo deve ser desenvolvido para plataformas iOS e/ou Android</li>
+
+                <li>Implementação de pelo menos 5 telas diferentes com navegação entre elas</li>
+                <li>Persistência de dados (local e/ou remota)</li>
+                <li>Design responsivo adaptável a diferentes tamanhos de tela</li>
+            </ul>
+        </div>
+
+        <h3>2.2 Requisitos Funcionais</h3>
+        <div class="requisito">
+            <ul>
+                <li>Sistema de autenticação de usuários (login/cadastro)</li>
+                <li>CRUD completo (Create, Read, Update, Delete) de pelo menos uma entidade</li>
+                <li>Integração com pelo menos uma API externa</li>
+                <li>Implementação de pelo menos um recurso específico de dispositivos móveis:
+                    <ul>
+                        <li>Câmera</li>
+                        <li>Geolocalização</li>
+                        <li>Notificações push</li>
+                        <li>Sensores (acelerômetro, giroscópio, etc.)</li>
+                        <li>Armazenamento de arquivos</li>
+                    </ul>
+                </li>
+                <li>Interface de usuário intuitiva e amigável seguindo diretrizes de UI/UX para mobile</li>
+            </ul>
+        </div>
+
+        <h3>2.3 Requisitos Não-Funcionais</h3>
+        <div class="requisito">
+            <ul>
+                <li>Desempenho: o aplicativo deve responder em menos de 2 segundos para operações comuns</li>
+                <li>Segurança: implementação de boas práticas para proteção de dados sensíveis</li>
+                <li>Disponibilidade: o aplicativo deve funcionar offline para funcionalidades básicas</li>
+                <li>Tratamento adequado de erros e exceções</li>
+                <li>Documentação completa do código</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Tecnologias Recomendadas</h2>
+        <div>
+            <h3>3.1 Desenvolvimento Frontend</h3>
+            <span class="tecnologia">React Native</span>
+            <span class="tecnologia">Flutter</span>
+            <span class="tecnologia">Swift</span>
+            <span class="tecnologia">Kotlin</span>
+            <span class="tecnologia">Ionic</span>
+
+            <h3>3.2 Desenvolvimento Backend</h3>
+            <span class="tecnologia">Firebase</span>
+            <span class="tecnologia">Node.js</span>
+            <span class="tecnologia">MongoDB</span>
+            <span class="tecnologia">MySQL</span>
+            <span class="tecnologia">SQLite</span>
+
+            <h3>3.3 Ferramentas Auxiliares</h3>
+            <span class="tecnologia">Git/GitHub</span>
+            <span class="tecnologia">Figma/Adobe XD</span>
+            <span class="tecnologia">Postman</span>
+            <span class="tecnologia">Android Studio</span>
+            <span class="tecnologia">Xcode</span>
+            <span class="tecnologia">VS Code</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Etapas de Desenvolvimento</h2>
+        <table>
+            <tr>
+                <th>Etapa</th>
+                <th>Descrição</th>
+                <th>Entrega</th>
+            </tr>
+            <tr>
+                <td>1. Concepção</td>
+                <td>Definição do tema, escopo, e requisitos específicos</td>
+                <td>Documento de proposta e wireframes iniciais</td>
+            </tr>
+            <tr>
+                <td>2. Prototipação</td>
+                <td>Desenvolvimento de protótipos de alta fidelidade</td>
+                <td>Protótipos navegáveis</td>
+            </tr>
+            <tr>
+                <td>3. Desenvolvimento</td>
+                <td>Implementação do frontend e backend</td>
+                <td>Código fonte versionado no GitHub</td>
+            </tr>
+            <tr>
+                <td>4. Testes</td>
+                <td>Validação das funcionalidades e correção de bugs</td>
+                <td>Relatório de testes realizados</td>
+            </tr>
+            <tr>
+                <td>5. Apresentação</td>
+                <td>Demonstração do aplicativo funcionando</td>
+                <td>Aplicativo finalizado e documentação completa</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>5. Critérios de Avaliação</h2>
+        <div class="requisito">
+            <ul>
+                <li><strong>Funcionalidade (30%):</strong> Implementação correta dos requisitos funcionais</li>
+                <li><strong>Qualidade técnica (25%):</strong> Estrutura do código, arquitetura e boas práticas</li>
+                <li><strong>Interface e UX (20%):</strong> Design, usabilidade e experiência do usuário</li>
+                <li><strong>Inovação e criatividade (15%):</strong> Elementos diferenciais e soluções criativas</li>
+                <li><strong>Apresentação e documentação (10%):</strong> Clareza na apresentação e qualidade da documentação</li>
+            </ul>
+        </div>
+    </section>
+
+
+
+    <section>
+        <h2>6. Recursos e Materiais de Apoio</h2>
+      
+    </section>
+
+    <section class="destaque">
+        <h2>Observações Importantes</h2>
+        <ul>
+            <li>Todo código deve ser original e desenvolvido pelo aluno</li>
+            <li>É permitido o uso de bibliotecas e frameworks de código aberto</li>
+            <li>O trabalho pode ser individual ou em grupos de até 3 pessoas (ajustes nos requisitos serão feitos para trabalhos em grupo)</li>
+            <li>Dúvidas e esclarecimentos devem ser encaminhados ao professor via e-mail institucional</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Última atualização: <span id="data-atualizacao">Maio de 2023</span></p>
+        <p>Disciplina: Desenvolvimento de Aplicativos para Dispositivos Móveis</p>
+    </footer>
+</body>
+</html>

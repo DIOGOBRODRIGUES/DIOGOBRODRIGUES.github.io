@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 6: Sensores de Localização e APIs de Mapas com React Native</title>
+
+  <meta name="description" content="Aula sobre implementação de sensores de localização e APIs de mapas em aplicativos utilizando React Native e Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .fafire-green {
+      color: #4CAF50;
+    }
+    .code-example {
+      font-size: 0.8em;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .two-columns {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+  </style>
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+         <p><span class="farire-logo">🌳</span> FAFIRE - Pós-graduação em Engenharia de Software</p>
+        <h2><span class="fafire-green">Aula 6:</span> Sensores de Localização e APIs de Mapas com React Native</h2>
+        <p>Pós-Graduação em Engenharia de Software</p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>Objetivos</h2>
+        <ul>
+          <li>Compreender os conceitos fundamentais sobre sensores de localização</li>
+          <li>Conhecer as APIs de geolocalização disponíveis para React Native</li>
+          <li>Aprender a implementar recursos de localização e mapas com Expo</li>
+          <li>Explorar casos de uso e boas práticas em aplicações reais</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Fundamentos de Geolocalização -->
+      <section>
+        <section>
+          <h2>Fundamentos de Geolocalização</h2>
+          <p>Princípios básicos que norteiam os sistemas de localização</p>
+        </section>
+        
+        <section>
+          <h3>Sistema de Coordenadas</h3>
+          <ul>
+            <li>Latitude: distância angular norte/sul do equador (-90° a 90°)</li>
+            <li>Longitude: distância angular leste/oeste do meridiano principal (-180° a 180°)</li>
+            <li>Altitude: distância vertical acima do nível do mar</li>
+          </ul>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Latitude_and_Longitude_of_the_Earth.svg/600px-Latitude_and_Longitude_of_the_Earth.svg.png" alt="Sistema de Coordenadas" style="height: 250px; border: none; box-shadow: none;">
+        </section>
+
+        <section>
+          <h3>Tecnologias de Localização</h3>
+          <ul>
+            <li><strong>GPS (Global Positioning System)</strong>: Localização por satélite</li>
+            <li><strong>Wi-Fi Positioning</strong>: Triangulação baseada em redes Wi-Fi</li>
+            <li><strong>Cellular Network</strong>: Triangulação baseada em torres de celular</li>
+            <li><strong>Bluetooth Beacons</strong>: Localização em espaços internos</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Precisão e Acurácia</h3>
+          <ul>
+            <li><strong>Precisão</strong>: Quão refinada é a medição (metros, centímetros)</li>
+            <li><strong>Acurácia</strong>: Quão próximo está do valor real</li>
+            <li><strong>Fatores que afetam</strong>: Ambiente urbano, clima, quantidade de satélites visíveis</li>
+          </ul>
+          <p>GPS típico: precisão de 3-5 metros em áreas abertas</p>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Sensores em Dispositivos Móveis -->
+      <section>
+        <section>
+          <h2>Sensores em Dispositivos Móveis</h2>
+          <p>Hardware que possibilita a detecção de localização e movimento</p>
+        </section>
+
+        <section>
+          <h3>Tipos de Sensores</h3>
+          <ul>
+            <li><strong>Receptor GPS</strong>: Captura sinais de satélites para determinar posição</li>
+            <li><strong>Acelerômetro</strong>: Detecta mudanças de velocidade e direção</li>
+            <li><strong>Giroscópio</strong>: Mede rotação e orientação</li>
+            <li><strong>Magnetômetro</strong>: Atua como bússola digital</li>
+            <li><strong>Barômetro</strong>: Estima altitude através da pressão atmosférica</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Fusão de Sensores</h3>
+          <p>A combinação de dados de múltiplos sensores proporciona:</p>
+          <ul>
+            <li>Maior precisão na localização</li>
+            <li>Redução de consumo de bateria</li>
+            <li>Localização em ambientes internos onde GPS falha</li>
+            <li>Detecção de contexto (andando, dirigindo, parado)</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 6 - React Native e Expo -->
+      <section>
+  
+
+        <section>
+          <h3>Expo Location API</h3>
+          <p>Fornece interface para acessar dados de localização do dispositivo</p>
+          <pre><code class="javascript">import * as Location from 'expo-location';
+
+// Solicitar permissões
+const { status } = await Location.requestForegroundPermissionsAsync();
+
+// Obter localização atual
+const location = await Location.getCurrentPositionAsync({});
+console.log(location.coords.latitude, location.coords.longitude);</code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - APIs de Mapas -->
+      <section>
+        <section>
+          <h2>APIs de Mapas</h2>
+          <p>Serviços para visualização e interação com dados geoespaciais</p>
+        </section>
+
+        <section>
+          <h3>Google Maps</h3>
+          <ul>
+            <li>API mais popular para integração de mapas</li>
+            <li>Ampla cobertura global e dados detalhados</li>
+            <li>Serviços adicionais: rotas, geocodificação, lugares</li>
+            <li>Quota gratuita limitada, requer chave API</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Mapbox</h3>
+          <ul>
+            <li>Alternativa ao Google Maps com maior personalização</li>
+            <li>Foco em mapas personalizáveis e design</li>
+            <li>SDK específico para React Native</li>
+            <li>Modelo de preços baseado em carregamento de mapa</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>OpenStreetMap</h3>
+          <ul>
+            <li>Projeto colaborativo de mapeamento global de código aberto</li>
+            <li>Dados gratuitos mantidos pela comunidade</li>
+            <li>Pode ser integrado através de várias bibliotecas</li>
+            <li>Menos recursos avançados, mas sem custo direto</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Comparativo de APIs</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Google Maps</th>
+                <th>Mapbox</th>
+                <th>OpenStreetMap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Precisão dos dados</td>
+                <td>Alta</td>
+                <td>Alta</td>
+                <td>Variável</td>
+              </tr>
+              <tr>
+                <td>Customização</td>
+                <td>Média</td>
+                <td>Alta</td>
+                <td>Alta</td>
+              </tr>
+              <tr>
+                <td>Preço</td>
+                <td>$$</td>
+                <td>$</td>
+                <td>Gratuito</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Implementação Prática com React Native e Expo -->
+      <section>
+        <section>
+          <h2>Implementação Prática</h2>
+          <p>Construindo aplicativo com recursos de localização</p>
+        </section>
+
+        <section>
+          <h3>Configuração do Projeto</h3>
+          <pre><code class="bash"># Criar projeto com Expo
+npx create-expo-app geo-app
+cd geo-app
+
+# Instalar dependências necessárias
+npx expo install expo-location
+npx expo install react-native-maps
+npx expo install expo-task-manager</code></pre>
+        </section>
+
+        <section>
+          <h3>Solicitando Permissões</h3>
+          <pre><code class="javascript"><script>import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, ActivityIndicator, Alert } from 'react-native';
+import MapView, { Marker } from 'react-native-maps'; // Componente de mapa e marcador
+import * as Location from 'expo-location'; // Biblioteca Expo para localização
+
+export default function App() {
+  // Estado para armazenar a localização obtida
+  const [location, setLocation] = useState(null);
+  // Estado para mensagem de erro
+  const [errorMsg, setErrorMsg] = useState('');
+  // Estado para controle de carregamento
+  const [loading, setLoading] = useState(true);
+
+  // useEffect executa uma única vez ao montar o componente
+  useEffect(() => {
+    (async () => {
+      // 1. Solicita permissão de acesso à localização em primeiro plano
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      // 2. Se a permissão for negada...
+      if (status !== 'granted') {
+        setErrorMsg('Permissão de localização negada');
+        Alert.alert('Erro', 'Permissão de localização foi negada');
+        setLoading(false); // Desliga o estado de carregamento
+        return; // Sai da função para não continuar
+      }
+
+      // 3. Se permitida, obtém a localização atual do dispositivo
+      const currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation); // Grava nos dados de estado
+      setLoading(false); // Finaliza o loading
+    })();
+  }, []); // Array vazio garante execução apenas na montagem
+
+  // 4. Enquanto estiver carregando, exibe o spinner
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={styles.loadingText}>Carregando localização...</Text>
+      </View>
+    );
+  }
+
+  // 5. Se não há localização (mas já terminou o loading), exibe erro
+  if (!location) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>{errorMsg || 'Erro desconhecido.'}</Text>
+      </View>
+    );
+  }
+
+  // 6. Desestrutura latitude e longitude da localização obtida
+  const { latitude, longitude } = location.coords;
+
+  // 7. Renderização principal: mapa + coordenadas textuais
+  return (
+    <View style={styles.container}>
+      {/* Mapa centralizado na posição do usuário */}
+      <MapView
+        style={styles.map}
+        showsUserLocation // Mostra o ponto azul nativo
+        initialRegion={{
+          latitude,
+          longitude,
+          latitudeDelta: 0.005, // Zoom vertical
+          longitudeDelta: 0.005, // Zoom horizontal
+        }}
+      >
+        {/* Marcador no ponto atual */}
+        <Marker
+          coordinate={{ latitude, longitude }}
+          title="Você está aqui"
+        />
+      </MapView>
+
+  
+    </View>
+  );
+}
+
+// Estilos aplicados aos componentes
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Preenche toda a tela
+  },
+  map: {
+    flex: 1, // Mapa preenche o espaço disponível
+  },
+  coordinatesBox: {
+    padding: 16,
+    backgroundColor: '#FFF',
+    borderTopWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  coordText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F2F7', // Fundo neutro iOS
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#444',
+  },
+  errorText: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+    padding: 20,
+  },
+});</script></code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Aplicações Avançadas -->
+      <section>
+        <section>
+          <h2>Aplicações Avançadas</h2>
+          <p>Recursos adicionais para enriquecer a experiência do usuário</p>
+        </section>
+
+        <section>
+          <h3>Monitoramento de Localização em Segundo Plano</h3>
+          <pre><code class="javascript">import * as TaskManager from 'expo-task-manager';
+import * as Location from 'expo-location';
+
+const LOCATION_TRACKING = 'location-tracking';
+
+TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
+  if (error) {
+    console.error(error);
+    return;
+  }
+  if (data) {
+    const { locations } = data;
+    // Processar localização recebida
+    console.log('Localização em segundo plano:', locations);
+  }
+});
+
+// Para iniciar o monitoramento:
+async function startLocationTracking() {
+  await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+    accuracy: Location.Accuracy.Balanced,
+    timeInterval: 5000,
+    distanceInterval: 10,
+  });
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>Geocodificação: Conversão entre Endereços e Coordenadas</h3>
+          <pre><code class="javascript">import * as Location from 'expo-location';
+
+// Converter endereço para coordenadas
+async function geocodeAddress(address) {
+  const result = await Location.geocodeAsync(address);
+  console.log('Coordenadas:', result);
+  return result;
+}
+
+// Converter coordenadas para endereço
+async function reverseGeocode(latitude, longitude) {
+  const result = await Location.reverseGeocodeAsync({
+    latitude,
+    longitude
+  });
+  console.log('Endereço:', result);
+  return result;
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>Cálculo de Distância entre Pontos</h3>
+          <pre><code class="javascript">function calcularDistancia(lat1, lon1, lat2, lon2) {
+  // Raio da Terra em quilômetros
+  const R = 6371;
+  
+  // Converter para radianos
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  
+  // Fórmula de Haversine
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const d = R * c; // Distância em km
+  
+  return d;
+}
+
+function toRad(value) {
+  return value * Math.PI / 180;
+}</code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Boas Práticas -->
+      <section>
+        <h2>Boas Práticas</h2>
+        <ul>
+          <li><strong>Permissões</strong>: Solicite apenas quando necessário e explique o motivo</li>
+          <li><strong>Bateria</strong>: Ajuste a precisão conforme o caso de uso</li>
+          <li><strong>Privacidade</strong>: Seja transparente sobre coleta de dados de localização</li>
+          <li><strong>Experiência</strong>: Forneça feedback visual quando aguardando localização</li>
+          <li><strong>Fallback</strong>: Tenha estratégia para quando a localização não estiver disponível</li>
+          <li><strong>Cache</strong>: Armazene dados de localização para reduzir requisições</li>
+          <li><strong>Throttling</strong>: Limite a frequência de atualizações de localização</li>
+        </ul>
+      </section>
+
+      <!-- Slide 11 - Considerações de Performance -->
+      <section>
+        <section>
+          <h2>Considerações de Performance</h2>
+          <p>Otimizando recursos de localização em aplicações móveis</p>
+        </section>
+
+        <section>
+          <h3>Consumo de Bateria</h3>
+          <div class="two-columns">
+            <div class="column">
+              <p><strong>Alto Consumo:</strong></p>
+              <ul>
+                <li>GPS contínuo</li>
+                <li>Alta precisão</li>
+                <li>Atualizações frequentes</li>
+              </ul>
+            </div>
+            <div class="column">
+              <p><strong>Otimizações:</strong></p>
+              <ul>
+                <li>Ajustar precisão (Location.Accuracy)</li>
+                <li>Aumentar intervalo entre atualizações</li>
+                <li>Usar Wi-Fi quando possível</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Ajustes de Precisão</h3>
+          <pre><code class="javascript">// Alta precisão (maior consumo de bateria)
+const options = { accuracy: Location.Accuracy.Highest };
+
+// Precisão moderada (equilíbrio)
+const options = { accuracy: Location.Accuracy.Balanced };
+
+// Baixa precisão (menor consumo)
+const options = { accuracy: Location.Accuracy.Lowest };
+
+await Location.getCurrentPositionAsync(options);</code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Desafios em Produção -->
+      <section>
+        <h2>Desafios em Produção</h2>
+        <ul>
+          <li><strong>Variação entre dispositivos</strong>: Qualidade dos sensores difere entre modelos</li>
+          <li><strong>Ambiente urbano</strong>: Edifícios altos afetam precisão do GPS</li>
+          <li><strong>Compatibilidade</strong>: Diferentes implementações entre Android e iOS</li>
+          <li><strong>Mudanças de política</strong>: Atualizações de SO podem alterar regras de permissão</li>
+          <li><strong>Custos API</strong>: Monitorar uso de APIs pagas (Google Maps, Mapbox)</li>
+          <li><strong>Conexão de rede</strong>: Lidar com dados offline ou baixa conectividade</li>
+        </ul>
+      </section>
+
+      <!-- Slide 13 - Exemplos de Aplicações -->
+      <section>
+        <h2>Exemplos de Aplicações</h2>
+        <ul>
+          <li><strong>Transporte e logística</strong>: Rastreamento de veículos, rotas otimizadas</li>
+          <li><strong>Fitness e saúde</strong>: Registro de corridas, caminhadas e exercícios</li>
+          <li><strong>Redes sociais</strong>: Check-ins, compartilhamento de localização</li>
+          <li><strong>Comércio</strong>: Lojas próximas, entrega baseada em localização</li>
+          <li><strong>Turismo</strong>: Guias de viagem baseados em localização, pontos de interesse</li>
+          <li><strong>Segurança</strong>: Alertas de emergência, monitoramento</li>
+        </ul>
+      </section>
+
+      <!-- Slide 14 - Exercício Prático -->
+      <section>
+        <h2>Exercício Prático</h2>
+        <p>Desenvolver um aplicativo que:</p>
+        <ol>
+          <li>Obtenha a localização atual do usuário</li>
+          <li>Exiba um mapa centrado na posição do usuário</li>
+          <li>Permita marcar pontos de interesse no mapa</li>
+          <li>Calcule a distância entre o usuário e os pontos marcados</li>
+          <li>Armazene histórico das localizações visitadas</li>
+        </ol>
+        
+      </section>
+
+      <!-- Slide 15 - Referências -->
+      <section>
+        <h2>Referências</h2>
+        <ul style="font-size: 0.8em;">
+          <li>Documentação do Expo Location: <a href="https://docs.expo.dev/versions/latest/sdk/location/">https://docs.expo.dev/versions/latest/sdk/location/</a></li>
+          <li>React Native Maps: <a href="https://github.com/react-native-maps/react-native-maps">https://github.com/react-native-maps/react-native-maps</a></li>
+          <li>Google Maps Platform: <a href="https://developers.google.com/maps">https://developers.google.com/maps</a></li>
+          <li>Mapbox GL: <a href="https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/">https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 16 - Contato e Dúvidas -->
+      <section>
+        <h2>Contato e Dúvidas</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github fa-2x"></i>
+          </a>
+        </div>
+        <p style="margin-top: 40px;">Dúvidas? Comentários?</p>
+      </section>
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
