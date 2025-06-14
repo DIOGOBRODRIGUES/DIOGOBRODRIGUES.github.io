@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 10 - Banco de dados com React Native Expo</title>
+
+  <meta name="description" content="AsyncStorage e integração com banco de dados React Native Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .code-highlight {
+      background-color: rgba(255, 255, 0, 0.2);
+    }
+    .important-note {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    .demo-image {
+      max-height: 400px;
+      border: 2px solid #666;
+      border-radius: 5px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+         <p><span class="farire-logo">🌳</span> FAFIRE - Pós-graduação em Engenharia de Software</p>
+        <h3>Aula 07 - Banco de dados com React Native Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      
+
+      <!-- Slide 4 - Introdução -->
+      <section>
+        <h2>🌟 Introdução</h2>
+        <section>
+          <h3>Por que armazenar dados localmente?</h3>
+          <ul>
+            <li>Funcionamento offline da aplicação</li>
+            <li>Melhoria na experiência do usuário (menos tempo de espera)</li>
+            <li>Redução de chamadas de API</li>
+            <li>Persistência de preferências do usuário</li>
+            <li>Cache de dados frequentemente acessados</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Tipos de Armazenamento -->
+      <section>
+        <h2>🗃️ Tipos de Armazenamento no React Native</h2>
+        <div class="container" style="font-size:0.8em">
+          <div class="column">
+            <h3>AsyncStorage</h3>
+            <ul>
+              <li>API de armazenamento chave-valor</li>
+              <li>Semelhante ao localStorage do navegador</li>
+              <li>Adequado para dados simples</li>
+              <li>Não relacional</li>
+              <li>Fácil implementação</li>
+            </ul>
+          </div>
+          <div class="column">
+            <h3>SQLite</h3>
+            <ul>
+              <li>Banco de dados relacional</li>
+              <li>Suporte a consultas SQL</li>
+              <li>Adequado para grandes volumes de dados</li>
+              <li>Relacionamentos complexos</li>
+              <li>Transações e integridade</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- AsyncStorage -->
+      <section>
+        <section>
+          <h2>📦 AsyncStorage</h2>
+          <p>Sistema de armazenamento chave-valor assíncrono, não-criptografado e persistente para React Native</p>
+          <div class="important-note">
+            <p>⚠️ Originalmente, o AsyncStorage fazia parte do core do React Native, mas foi removido do núcleo e passou a ser módulo independente.
+                Por isso, é necessário instalá-lo separadamente com o comando:</p>
+            <pre><code data-trim data-noescape>
+              npm install @react-native-async-storage/async-storage
+            </code></pre>
+          </div>
+        </section>
+        <section>
+            <h2>📦 O que são Promises?</h2>
+            <p>
+              Uma <strong>Promise</strong> em JavaScript representa uma operação <strong>assíncrona</strong> que pode:
+            </p>
+            <ul>
+              <li>✅ Ser <strong>resolvida</strong> (fulfilled)</li>
+              <li>❌ Ser <strong>rejeitada</strong> (rejected)</li>
+              <li>⏳ Estar <strong>pendente</strong> (pending)</li>
+            </ul>
+            <p>Ela permite <strong>trabalhar com resultados futuros</strong>, como chamadas de API ou leitura de arquivos.</p>
+          </section>
+        <section>
+          <h3>Características do AsyncStorage</h3>
+          <ul>
+            <li>🔄 API global e assíncrona. <strong>As operações (getItem, setItem, removeItem) retornam Promises.</strong></li>
+            <li>🔑 Armazenamento no formato chave-valor</li>
+            <li>📱 Específico para cada aplicativo (isolado)</li>
+            <li>⚠️ Não é adequado para dados sensíveis (não é criptografado)</li>
+            <li>📊 Melhor para dados pequenos (preferências,  configurações)</li>
+          </ul>
+        </section>
+        <section>
+            <h2>🧠 Onde o AsyncStorage guarda os dados?</h2>
+            <p>O <code>AsyncStorage</code> armazena dados <strong>localmente</strong> no dispositivo do usuário.</p>
+            <ul>
+              <li>🔐 Persistente (sobrevive ao fechar o app)</li>
+              <li>⚠️ Não criptografado</li>
+              <li>⚙️ Armazenamento do tipo <strong>chave-valor</strong></li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>📱 Android</h3>
+            <p>Os dados ficam dentro da sandbox do app:</p>
+            <pre><code>/data/data/<nome_do_pacote>/shared_prefs/RKStorage.xml</code></pre>
+            <ul>
+              <li>📦 Armazenado como XML</li>
+              <li>🔒 Acesso direto só com root ou Android Studio</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>🍏 iOS</h3>
+            <p>No iOS, o AsyncStorage usa <code>NSUserDefaults</code>:</p>
+            <pre><code><App Sandbox>/Library/Preferences</code></pre>
+            <ul>
+              <li>💾 Integrado ao sistema nativo do iOS</li>
+              <li>🔍 Visível com Xcode ou ferramentas como Flipper</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>🧪 Como inspecionar os dados?</h3>
+            <ul>
+              <li>🧭 <strong>Console do app</strong> com <code>getAllKeys</code> + <code>multiGet</code></li>
+              <li>🧹 <strong>Limpeza rápida:</strong> <code>AsyncStorage.clear()</code></li>
+              
+            </ul>
+          </section>
+          
+          <section>
+            <h2>⚠️ Observações Importantes</h2>
+            <ul>
+              <li>❌ Não armazene informações sensíveis (ex: tokens, senhas)</li>
+              
+              <li>🚫 Dados do AsyncStorage podem ser apagados ao reinstalar o app</li>
+            </ul>
+          </section>
+        <section>
+            <h3>Operações básicas com AsyncStorage <code>setItem</code> e <code>getItem</code></h3>
+            <div class="container">
+                <div class="column" style="font-size: 0.7em;">
+                    <p>Este aplicativo demonstra o uso do AsyncStorage para:</p>
+                    <ul>
+                        <li>Capturar o nome digitado pelo usuário</li>
+                        <li>Armazenar o nome usando <code>setItem</code></li>
+                        <li>Recuperar e exibir o nome usando <code>getItem</code></li>
+                        <li>Persistir os dados entre sessões do app</li>
+                    </ul>
+                    <p>O estado é mantido mesmo quando o app é fechado e reaberto.</p>
+                </div>
+                <div class="column">
+                    <img src="assets/img1.jpeg" alt="AsyncStorage operations example" class="demo-image" style="max-width: 60%; height: auto;">
+                </div>
+            </div>
+        </section>
+        <section>
+          <h3>Operações básicas com AsyncStorage <code>setItem</code> e <code>getItem</code></h3>
+          <pre><code class="javascript" data-trim data-line-numbers="12|14-17|19-23|24-31|34-44|47-58|65-71|73-79|82">
+            <script>
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Keyboard,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function App() {
+  const [nome, setNome] = useState('');
+
+  const [nomeSalvo, setNomeSalvo] = useState('');
+
+  // Hook de efeito que é executado uma única vez quando o componente é montado
+  useEffect(() => {
+    // Carrega o nome salvo do AsyncStorage quando o app inicia
+    carregarNomeSalvo();
+  }, []);
+
+  // Função assíncrona para salvar o nome no AsyncStorage
+  const salvarNome = async () => {
+    try {
+      // Validação para não permitir nomes vazios
+      if (nome.trim() === '') {
+        Alert.alert('Erro', 'Digite um nome válido');
+        return;
+      }
+
+      // Salva o nome no AsyncStorage com a chave '@nome_usuario'
+      // await- espera a operação ser concluída
+      await AsyncStorage.setItem('@nome_usuario', nome);
+      setNomeSalvo(nome);
+      // Fecha o teclado virtual após salvar
+      Keyboard.dismiss();
+      // Exibe mensagem de sucesso para o usuário
+      Alert.alert('Sucesso', 'Nome salvo com sucesso!');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Função assíncrona para recuperar o nome salvo do AsyncStorage
+  const carregarNomeSalvo = async () => {
+    try {
+      // Busca o item com a chave '@nome_usuario' no AsyncStorage
+      const nomeArmazenado = await AsyncStorage.getItem('@nome_usuario');
+      // Se encontrar um valor (não nulo), atualiza o estado
+      if (nomeArmazenado !== null) {
+        setNomeSalvo(nomeArmazenado);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Renderização da interface do usuário
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>👋 Seja bem-vindo!</Text>
+
+      {/* Renderização condicional: mostra mensagem de boas-vindas com nome se existir, ou instrução caso contrário */}
+      {nomeSalvo ? (
+        <Text style={styles.boasVindas}>Olá, {nomeSalvo} 👨‍💻</Text>
+      ) : (
+        <Text style={styles.boasVindas}>Digite seu nome abaixo:</Text>
+      )}
+
+      {/* Campo de entrada para digitação do nome */}
+      <TextInput
+        style={styles.input}
+        placeholder="Seu nome"
+        value={nome} //Isso torna o TextInput um componente controlado, ou seja, o que aparece no campo sempre vem do estado do React.
+        onChangeText={setNome}
+      />
+
+      {/* Botão para salvar o nome digitado */}
+      <TouchableOpacity style={styles.botao} onPress={salvarNome}>
+        <Text style={styles.textoBotao}>💾 Salvar Nome</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// Definição dos estilos utilizando StyleSheet
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1E1E2A', // Fundo escuro
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  titulo: {
+    fontSize: 30,
+    color: '#FFFFFF', // Texto branco
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  boasVindas: {
+    fontSize: 20,
+    color: '#CCCCCC', // Texto cinza claro
+    marginBottom: 30,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  botao: {
+    backgroundColor: '#3D85C6', // Botão azul
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  textoBotao: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+});
+</script></code></pre>
+        </section>
+        <section>
+            <h3>Armazenamento de objetos JSON</h3>
+            <div class="container">
+                    <div class="column" style="font-size: 0.7em;">
+                            <p>Este exemplo demonstra:</p>
+                            <ul>
+                                    <li>Como armazenar objetos JSON completos no AsyncStorage</li>
+                                    <li>A necessidade de <code>JSON.stringify()</code> antes de armazenar</li>
+                                    <li>Uso de <code>JSON.parse()</code> para recuperar o objeto</li>
+                                    <li>Remoção de objetos armazenados
+                                        <code>AsyncStorage.removeItem</code></li>
+                            </ul>
+                            <p>AsyncStorage só armazena strings, então a conversão para JSON é essencial para objetos.</p>
+                    </div>
+                    <div class="column">
+                            <img src="assets/img2.png" alt="JSON Storage Example" class="demo-image" style="max-width: 80%; height: auto;">
+                    </div>
+            </div>
+        </section>
+        <section>
+          <h3>Armazenando objetos JSON</h3>
+          <pre><code class="javascript" data-trim data-line-numbers="17-19|40-45|47-48|50-51|67-73|75-78|85-97|105-111"><script>
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Keyboard,
+  ScrollView,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function App() {
+  // Estados para os campos do formulário
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState('');
+  
+  // Estado para armazenar os dados do usuário salvos
+  const [dadosUsuario, setDadosUsuario] = useState(null);
+
+  // Hook de efeito que é executado uma única vez quando o componente é montado
+  useEffect(() => {
+    // Carrega os dados salvos do AsyncStorage quando o app inicia
+    carregarDadosUsuario();
+  }, []);
+
+  // Função assíncrona para salvar os dados do usuário no AsyncStorage como JSON
+  const salvarDados = async () => {
+    try {
+      // Validação para não permitir nome vazio
+      if (nome.trim() === '') {
+        Alert.alert('Erro', 'Digite um nome válido');
+        return;
+      }
+
+      // Criação do objeto de dados do usuário
+      const dadosParaSalvar = {
+        nome: nome,
+        email: email.trim() || 'Não informado',
+        idade: idade.trim() || 'Não informada',
+        dataAtualizacao: new Date().toLocaleString('pt-BR')
+      };
+
+      // Converte o objeto para string JSON e salva no AsyncStorage
+      await AsyncStorage.setItem('@dados_usuario', JSON.stringify(dadosParaSalvar));
+      
+      // Atualiza o estado com os dados salvos
+      setDadosUsuario(dadosParaSalvar);
+      
+      // Fecha o teclado virtual após salvar
+      Keyboard.dismiss();
+      
+      // Exibe mensagem de sucesso para o usuário
+      Alert.alert('Sucesso', 'Dados salvos com sucesso!');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possível salvar os dados');
+    }
+  };
+
+  // Função assíncrona para recuperar os dados salvos do AsyncStorage
+  const carregarDadosUsuario = async () => {
+    try {
+      // Busca o item com a chave '@dados_usuario' no AsyncStorage
+      const dadosArmazenados = await AsyncStorage.getItem('@dados_usuario');
+      
+      // Se encontrar um valor (não nulo), converte de volta para objeto e atualiza o estado
+      if (dadosArmazenados !== null) {
+        const dadosConvertidos = JSON.parse(dadosArmazenados);
+        setDadosUsuario(dadosConvertidos);
+        
+        // Preenche os campos do formulário com os dados salvos
+        setNome(dadosConvertidos.nome || '');
+        setEmail(dadosConvertidos.email || '');
+        setIdade(dadosConvertidos.idade || '');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Função para limpar todos os dados
+  const limparDados = async () => {
+    try {
+      await AsyncStorage.removeItem('@dados_usuario');
+      setDadosUsuario(null);
+      setNome('');
+      setEmail('');
+      setIdade('');
+      Alert.alert('Sucesso', 'Dados removidos com sucesso!');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Renderização da interface do usuário
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.titulo}>👋 Seja bem-vindo!</Text>
+
+        {/* Renderização condicional: mostra dados do usuário se existirem, ou instrução caso contrário */}
+        {dadosUsuario ? (
+          <View style={styles.dadosContainer}>
+            <Text style={styles.boasVindas}>Olá, {dadosUsuario.nome} 👨‍💻</Text>
+            <Text style={styles.dadosTexto}>Email: {dadosUsuario.email}</Text>
+            <Text style={styles.dadosTexto}>Idade: {dadosUsuario.idade}</Text>
+            <Text style={styles.dadosTexto}>Atualizado: {dadosUsuario.dataAtualizacao}</Text>
+          </View>
+        ) : (
+          <Text style={styles.boasVindas}>Preencha seus dados abaixo:</Text>
+        )}
+
+        {/* Campo de entrada para digitação do nome */}
+        <TextInput
+          style={styles.input}
+          placeholder="Seu nome"
+          value={nome}
+          onChangeText={setNome}
+        />
+
+        {/* Campo de entrada para email */}
+        <TextInput
+          style={styles.input}
+          placeholder="Seu email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+
+        {/* Campo de entrada para idade */}
+        <TextInput
+          style={styles.input}
+          placeholder="Sua idade"
+          value={idade}
+          onChangeText={setIdade}
+          keyboardType="numeric"
+        />
+
+        {/* Botão para salvar os dados */}
+        <TouchableOpacity style={styles.botao} onPress={salvarDados}>
+          <Text style={styles.textoBotao}>💾 Salvar Dados</Text>
+        </TouchableOpacity>
+
+        {/* Botão para limpar os dados (aparece apenas se tiver dados salvos) */}
+        {dadosUsuario && (
+          <TouchableOpacity style={styles.botaoLimpar} onPress={limparDados}>
+            <Text style={styles.textoBotao}>🗑️ Limpar Dados</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </ScrollView>
+  );
+}
+
+// Definição dos estilos utilizando StyleSheet
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#1E1E2A', // Fundo escuro
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  titulo: {
+    fontSize: 30,
+    color: '#FFFFFF', // Texto branco
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  boasVindas: {
+    fontSize: 20,
+    color: '#CCCCCC', // Texto cinza claro
+    marginBottom: 10,
+  },
+  dadosContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+    marginBottom: 20,
+  },
+  dadosTexto: {
+    fontSize: 16,
+    color: '#CCCCCC',
+    marginBottom: 5,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 18,
+    marginBottom: 15,
+  },
+  botao: {
+    backgroundColor: '#3D85C6', // Botão azul
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    marginBottom: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  botaoLimpar: {
+    backgroundColor: '#C64444', // Botão vermelho
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  textoBotao: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+});
+</script> </code></pre>
+        </section>
+
+        
+        <section>
+          <h3>🛠️ Exercício em sala: Lista de Tarefas com AsyncStorage</h3>
+          <p>Implemente um aplicativo simples de lista de tarefas que:</p>
+          <ol>
+            <li>Permita adicionar novas tarefas</li>
+            <li>Marque tarefas como concluídas</li>
+            <li>Exclua tarefas</li>
+            <li>Persista os dados usando AsyncStorage</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h3>💡 Dicas de Implementação</h3>
+          <p>Estrutura de dados recomendada para as tarefas:</p>
+          <pre><code class="javascript" data-trim>
+    // Array de objetos para as tarefas
+    const tarefas = [
+      {
+        id: '1', // Use uuid ou Date.now() para gerar IDs únicos
+        titulo: 'Comprar leite',
+        concluida: false,
+        dataCriacao: '2023-05-10T14:30:00Z'
+      },
+      {
+        id: '2',
+        titulo: 'Estudar React Native',
+        concluida: true,
+        dataCriacao: '2023-05-09T10:15:00Z'
+      }
+    ];
+
+    // Chave para armazenar no AsyncStorage
+    const TASKS_STORAGE_KEY = '@minhas_tarefas';
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🧩 Funções Principais</h3>
+          <pre><code class="javascript" data-trim>
+    // Carregar tarefas do AsyncStorage
+    const carregarTarefas = async () => {
+      try {
+        const tarefasSalvas = await AsyncStorage.getItem(TASKS_STORAGE_KEY);
+        if (tarefasSalvas !== null) {
+          setTarefas(JSON.parse(tarefasSalvas));
+        }
+      } catch (erro) {
+        console.error('Erro ao carregar tarefas:', erro);
+      }
+    };
+
+    // Salvar tarefas no AsyncStorage
+    const salvarTarefas = async (novasTarefas) => {
+      try {
+        await AsyncStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(novasTarefas));
+        setTarefas(novasTarefas);
+      } catch (erro) {
+        console.error('Erro ao salvar tarefas:', erro);
+      }
+    };
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🧩 Funções CRUD das Tarefas</h3>
+          <pre><code class="javascript" data-trim>
+    // Adicionar nova tarefa
+    const adicionarTarefa = (titulo) => {
+      const novaTarefa = {
+        id: Date.now().toString(),
+        titulo,
+        concluida: false,
+        dataCriacao: new Date().toISOString()
+      };
+      const novasTarefas = [...tarefas, novaTarefa];
+      salvarTarefas(novasTarefas);
+    };
+
+    // Marcar tarefa como concluída ou não concluída
+    const alternarConclusao = (id) => {
+      const novasTarefas = tarefas.map(tarefa => 
+        tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa
+      );
+      salvarTarefas(novasTarefas);
+    };
+
+    // Excluir tarefa
+    const excluirTarefa = (id) => {
+      const novasTarefas = tarefas.filter(tarefa => tarefa.id !== id);
+      salvarTarefas(novasTarefas);
+    };
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>🎨 Interface Básica</h3>
+          <pre><code class="javascript" data-trim>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titulo}>Minhas Tarefas</Text>
+        
+        {/* Formulário para adicionar tarefas */}
+        <View style={styles.inputContainer}>
+          <TextInput
+        style={styles.input}
+        value={novaTarefa}
+        onChangeText={setNovaTarefa}
+        placeholder="Digite uma nova tarefa"
+          />
+          <TouchableOpacity 
+        style={styles.botaoAdicionar} 
+        onPress={() => {
+          if (novaTarefa.trim() !== '') {
+            adicionarTarefa(novaTarefa);
+            setNovaTarefa('');
+          }
+        }}
+          >
+        <Text style={styles.textoBotao}>+</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Lista de tarefas */}
+        <FlatList
+          data={tarefas}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+        // Renderização de cada tarefa...
+          )}
+        />
+      </View>
+    );
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>📝 Renderização de Cada Tarefa</h3>
+          <pre><code class="javascript" data-trim>
+    renderItem={({ item }) => (
+      <View style={styles.itemTarefa}>
+        <TouchableOpacity
+          onPress={() => alternarConclusao(item.id)}
+          style={styles.checkboxContainer}
+        >
+          <View style={[
+        styles.checkbox, 
+        item.concluida && styles.checkboxConcluida
+          ]}>
+        {item.concluida && <Text style={styles.checkmark}>✓</Text>}
+          </View>
+        </TouchableOpacity>
+        
+        <Text style={[
+          styles.textoTarefa,
+          item.concluida && styles.textoTarefaConcluida
+        ]}>
+          {item.titulo}
+        </Text>
+        
+        <TouchableOpacity
+          onPress={() => excluirTarefa(item.id)}
+          style={styles.botaoExcluir}
+        >
+          <Text style={styles.textoExcluir}>🗑️</Text>
+        </TouchableOpacity>
+      </View>
+    )}
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>💪 Desafios Adicionais</h3>
+          <p>Para quem terminar mais cedo ou quiser ir além:</p>
+          <ol>
+            <li>Adicione edição de tarefas</li>
+            <li>Implemente categorias para as tarefas</li>
+            <li>Adicione datas de vencimento com alarmes</li>
+            <li>Crie filtros para mostrar tarefas concluídas/não concluídas</li>
+            <li>Implemente a função de "desfazer" após excluir uma tarefa</li>
+          </ol>
+       
+        </section>
+          </section></code>
+
+
+
+      <!-- SQLite -->
+      <section>
+        <section>
+          <h2>🗄️ SQLite no React Native</h2>
+          <p>Banco de dados relacional completo integrado ao seu aplicativo</p>
+          <div class="important-note">
+            <p>📱 Com o Expo, usamos o expo-sqlite:</p>
+            <pre><code data-trim data-noescape>
+              npx expo install expo-sqlite
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Por que usar SQLite?</h3>
+          <ul>
+            <li>🗃️ Banco de dados relacional completo</li>
+            <li>🔍 Suporte a consultas SQL complexas</li>
+            <li>🔄 Transações ACID (Atomicidade, Consistência, Isolamento, Durabilidade)</li>
+            <li>📊 Melhor desempenho para grandes volumes de dados</li>
+            <li>🧩 Capacidade de modelar relacionamentos entre entidades</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Quando escolher SQLite vs AsyncStorage</h3>
+          <div class="container">
+            <div class="column">
+              <h4>Use SQLite quando:</h4>
+              <ul>
+                <li>Dados estruturados</li>
+                <li>Relacionamentos complexos</li>
+                <li>Grandes volumes de dados</li>
+                <li>Necessidade de consultas avançadas</li>
+                <li>Organização por tabelas</li>
+              </ul>
+            </div>
+            <div class="column">
+              <h4>Use AsyncStorage quando:</h4>
+              <ul>
+                <li>Dados simples (chave-valor)</li>
+                <li>Configurações do aplicativo</li>
+                <li>Tokens de autenticação</li>
+                <li>Preferências do usuário</li>
+                <li>Cache temporário simples</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Operações básicas com SQLite</h3>
+          <pre><code class="javascript" data-trim data-line-numbers><script>
+    // Importando a biblioteca
+    import * as SQLite from 'expo-sqlite';
+    
+    // Criando/abrindo um banco de dados com a nova API
+    const db = SQLite.openDatabaseSync('meuapp.db');
+    
+    // Executando a criação de uma tabela com a API assíncrona
+    const inicializarBancoDeDados = async () => {
+      try {
+        // Executando SQL diretamente com runAsync
+        await db.runAsync(
+          'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, email TEXT);'
+        );
+        console.log('Tabela criada com sucesso');
+      } catch (erro) {
+        console.error('Erro ao criar tabela', erro);
+      }
+    };
+    
+    // Chame a função quando seu app iniciar
+    useEffect(() => {
+      inicializarBancoDeDados();
+    }, []);
+  </script></code></pre>
+</section>
+
+<section>
+  <h3>Inserindo dados no SQLite</h3>
+  <pre><code class="javascript" data-trim data-line-numbers><script>
+    // Inserir um novo usuário
+    const adicionarUsuario = async (nome, email) => {
+      try {
+        // Usando runAsync com parâmetros
+        const result = await db.runAsync(
+          'INSERT INTO usuarios (nome, email) VALUES (?, ?)',
+          [nome, email]
+        );
+        
+        // result.lastInsertRowId contém o ID do novo registro
+        console.log(`Usuário adicionado com ID: ${result.lastInsertRowId}`);
+        return result.lastInsertRowId;
+      } catch (erro) {
+        console.error('Erro ao adicionar usuário', erro);
+        throw erro;
+      }
+    };
+    
+    // Uso:
+    const adicionarNovoUsuario = async () => {
+      try {
+        const novoId = await adicionarUsuario('Maria Silva', 'maria@exemplo.com');
+        console.log(`Novo usuário criado com ID: ${novoId}`);
+      } catch (erro) {
+        console.error('Falha ao adicionar usuário', erro);
+      }
+    };
+ </script> </code></pre>
+</section>
+
+<section>
+  <h3>Consultando dados no SQLite</h3>
+  <pre><code class="javascript" data-trim data-line-numbers><script>
+    // Buscar todos os usuários
+    const buscarTodosUsuarios = async () => {
+      try {
+        // Usando getAllAsync para obter todos os registros
+        const usuarios = await db.getAllAsync(
+          'SELECT * FROM usuarios'
+        );
+        return usuarios; // Retorna diretamente o array de resultados
+      } catch (erro) {
+        console.error('Erro ao buscar usuários', erro);
+        throw erro;
+      }
+    };
+    
+    // Buscar usuário por ID
+    const buscarUsuarioPorId = async (id) => {
+      try {
+        // Usando getFirstAsync para obter o primeiro resultado que corresponda
+        const usuario = await db.getFirstAsync(
+          'SELECT * FROM usuarios WHERE id = ?',
+          [id]
+        );
+        
+        // Retorna o usuário ou null se não encontrado
+        return usuario || null;
+      } catch (erro) {
+        console.error('Erro ao buscar usuário', erro);
+        throw erro;
+      }
+    };
+    
+    // Uso:
+    const mostrarUsuarios = async () => {
+      const usuarios = await buscarTodosUsuarios();
+      console.log('Todos os usuários:', usuarios);
+    };
+  </script></code></pre>
+</section>
+
+<section>
+  <h3>Atualizando e excluindo dados</h3>
+  <pre><code class="javascript" data-trim data-line-numbers><script>
+    // Atualizar um usuário
+    const atualizarUsuario = async (id, nome, email) => {
+      try {
+        // Usando runAsync para atualizar registros
+        const result = await db.runAsync(
+          'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?',
+          [nome, email, id]
+        );
+        
+        // result.changes indica quantos registros foram atualizados
+        const registrosAtualizados = result.changes;
+        
+        if (registrosAtualizados > 0) {
+          console.log(`Usuário ${id} atualizado com sucesso`);
+          return true;
+        } else {
+          console.log('Nenhum registro foi atualizado');
+          return false;
+        }
+      } catch (erro) {
+        console.error('Erro ao atualizar usuário', erro);
+        throw erro;
+      }
+    };
+    
+    // Excluir um usuário
+    const excluirUsuario = async (id) => {
+      try {
+        // Usando runAsync para excluir registros
+        const result = await db.runAsync(
+          'DELETE FROM usuarios WHERE id = ?',
+          [id]
+        );
+        
+        const sucesso = result.changes > 0;
+        if (sucesso) console.log(`Usuário ${id} excluído com sucesso`);
+        return sucesso;
+      } catch (erro) {
+        console.error('Erro ao excluir usuário', erro);
+        throw erro;
+      }
+    };
+  </script></code></pre>
+</section>
+
+<section>
+  <h3>Exemplo completo: Gerenciador de contatos</h3>
+  <pre><code class="javascript" data-trim data-line-numbers><script>
+import React, { useState, useEffect } from 'react';
+import {
+  View, Text, TextInput, Button, FlatList,
+  StyleSheet, TouchableOpacity, Platform
+} from 'react-native';
+import * as SQLite from 'expo-sqlite';
+
+const db = SQLite.openDatabaseSync('contatos.db');
+
+export default function App() {
+  const [nome, setNome] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [contatos, setContatos] = useState([]);
+  const [contatoAtual, setContatoAtual] = useState(null);
+
+  useEffect(() => {
+    const inicializarBD = async () => {
+      await db.runAsync(`
+        CREATE TABLE IF NOT EXISTS contatos (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          nome TEXT, telefone TEXT
+        );`);
+      await carregarContatos();
+    };
+    inicializarBD();
+  }, []);
+
+  const carregarContatos = async () => {
+    const resultado = await db.getAllAsync('SELECT * FROM contatos');
+    setContatos(resultado);
+  };
+
+  const salvarContato = async () => {
+    if (!nome || !telefone) return;
+
+    if (contatoAtual) {
+      await db.runAsync(
+        'UPDATE contatos SET nome = ?, telefone = ? WHERE id = ?',
+        [nome, telefone, contatoAtual.id]
+      );
+    } else {
+      await db.runAsync(
+        'INSERT INTO contatos (nome, telefone) VALUES (?, ?)',
+        [nome, telefone]
+      );
+    }
+
+    setNome('');
+    setTelefone('');
+    setContatoAtual(null);
+    await carregarContatos();
+  };
+
+  const excluirContato = async (id) => {
+    await db.runAsync('DELETE FROM contatos WHERE id = ?', [id]);
+    if (contatoAtual?.id === id) {
+      setContatoAtual(null);
+      setNome('');
+      setTelefone('');
+    }
+    await carregarContatos();
+  };
+
+  const editarContato = (contato) => {
+    setContatoAtual(contato);
+    setNome(contato.nome);
+    setTelefone(contato.telefone);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>📇 Contatos</Text>
+
+      <View style={styles.formulario}>
+        <TextInput
+          style={styles.input}
+          value={nome}
+          onChangeText={setNome}
+          placeholder="Nome"
+          placeholderTextColor="#999"
+        />
+        <TextInput
+          style={styles.input}
+          value={telefone}
+          onChangeText={setTelefone}
+          placeholder="Telefone"
+          keyboardType="phone-pad"
+          placeholderTextColor="#999"
+        />
+
+        <TouchableOpacity style={styles.botaoPrincipal} onPress={salvarContato}>
+          <Text style={styles.textoBotao}>
+            {contatoAtual ? 'Atualizar' : 'Adicionar'}
+          </Text>
+        </TouchableOpacity>
+
+        {contatoAtual && (
+          <TouchableOpacity
+            style={styles.botaoCancelar}
+            onPress={() => {
+              setContatoAtual(null);
+              setNome('');
+              setTelefone('');
+            }}
+          >
+            <Text style={[styles.textoBotao, { color: '#555' }]}>Cancelar</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <FlatList
+        data={contatos}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.contato}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.nome}>{item.nome}</Text>
+              <Text style={styles.telefone}>{item.telefone}</Text>
+            </View>
+            <View style={styles.acoes}>
+              <TouchableOpacity onPress={() => editarContato(item)}>
+                <Text style={styles.acaoTexto}>✏️</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => excluirContato(item.id)}>
+                <Text style={[styles.acaoTexto, { color: '#FF3B30' }]}>🗑️</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 24, backgroundColor: '#F2F2F7' },
+  titulo: {
+    fontSize: 28,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#000'
+  },
+  formulario: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 3
+  },
+  input: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 12,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#CCC',
+    color: '#000'
+  },
+  botaoPrincipal: {
+    backgroundColor: '#007AFF',
+    padding: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  botaoCancelar: {
+    backgroundColor: '#E5E5EA',
+    padding: 14,
+    borderRadius: 10,
+    alignItems: 'center'
+  },
+  textoBotao: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff'
+  },
+  contato: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 10
+  },
+  nome: { fontSize: 18, fontWeight: '500', color: '#000' },
+  telefone: { fontSize: 16, color: '#555' },
+  acoes: {
+    flexDirection: 'row',
+    gap: 10,
+    marginLeft: 16
+  },
+  acaoTexto: {
+    fontSize: 22,
+    marginHorizontal: 6
+  }
+});
+  </script></code></pre>
+</section>
+
+        <!-- Melhores práticas -->
+      <section>
+        <h2>👌 Melhores Práticas</h2>
+        <ul>
+          <li><strong>Estrutura de dados:</strong> Escolha o formato mais adequado para os dados</li>
+          <li><strong>Tratamento de erros:</strong> Sempre implemente try/catch em operações assíncronas</li>
+          <li><strong>Desempenho:</strong> Minimize o número de operações de leitura/escrita</li>
+          <li><strong>Transações:</strong> Use transações no SQLite para operações complexas</li>
+          <li><strong>Segurança:</strong> Não armazene dados sensíveis em texto puro</li>
+          <li><strong>Migrations:</strong> Implemente estratégias para atualizações de schema</li>
+          <li><strong>Modularização:</strong> Encapsule as operações de banco de dados em serviços</li>
+        </ul>
+      </section>
+
+      <!-- Exercício final -->
+      <section>
+        <h2>🏠 Exercício para Casa</h2>
+        <p>Desenvolva um aplicativo de Gerenciamento de Despesas que:</p>
+        <ol>
+          <li>Use SQLite para armazenar despesas com: valor, descrição, data e categoria</li>
+          <li>Implemente as operações CRUD completas (criar, ler, atualizar, deletar)</li>
+          <li>Permita filtrar despesas por categoria e período</li>
+          <li>Exiba um resumo com o valor total das despesas</li>
+          <li>Use AsyncStorage para armazenar as preferências do usuário (como moeda preferida)</li>
+        </ol>
+      
+      </section>
+
+      <!-- Referências -->
+      <section>
+        <h2>📚 Referências</h2>
+        <ul>
+          <li><a href="https://react-native-async-storage.github.io/async-storage/" target="_blank">Documentação oficial do AsyncStorage</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/sqlite/" target="_blank">Documentação do expo-sqlite</a></li>
+          <li><a href="https://www.sqlite.org/docs.html" target="_blank">Documentação SQLite</a></li>
+          <li><a href="https://reactnative.dev/docs/security" target="_blank">Segurança no React Native</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide final -->
+      <section>
+        <h2>Obrigado!</h2>
+        <p>Dúvidas?</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          &nbsp;|&nbsp;
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
