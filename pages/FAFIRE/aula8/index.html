@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 8: Interação com Recursos Nativos em Aplicações Móveis</title>
+
+  <meta name="description" content="Interação com recursos nativos do dispositivo como agenda de contatos, galeria, arquivos e implementação de notificações">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+         <p><span class="farire-logo">🌳</span> FAFIRE - Pós-graduação em Engenharia de Software</p>
+        <h3>Aula 8: Interação com Recursos Nativos em Aplicações Móveis</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h3>Objetivos da Aula</h3>
+        <ul>
+          <li>Entender como aplicações móveis interagem com recursos nativos do dispositivo</li>
+          <li>Aprender a acessar agenda de contatos, galeria e sistema de arquivos</li>
+          <li>Implementar notificações em aplicações móveis</li>
+          <li>Compreender boas práticas de permissões e segurança</li>
+        </ul>
+      </section>
+
+  
+
+      <!-- Slide 4 - Agenda de Contatos -->
+      <section>
+        <h3>Acesso à Agenda de Contatos</h3>
+        <div style="display: flex; justify-content: space-around;">
+          <div style="width: 50%;">
+            <p>Funcionalidades:</p>
+            <ul>
+              <li>Leitura de contatos</li>
+              <li>Criação de novos contatos</li>
+              <li>Edição de contatos existentes</li>
+              <li>Busca de contatos específicos</li>
+            </ul>
+          </div>
+          <div style="width: 45%;">
+            <pre><code class="javascript"><script>
+// App.js - Expo Snack para Agenda de Contatos
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, FlatList, Button, Alert } from 'react-native';
+import * as Contacts from 'expo-contacts';
+
+export default function App() {
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getContacts = async () => {
+    setLoading(true);
+    try {
+      const { status } = await Contacts.requestPermissionsAsync();
+      
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
+          sort: Contacts.SortTypes.FirstName,
+        });
+        
+        if (data.length > 0) {
+          setContacts(data);
+        } else {
+          Alert.alert('Sem contatos', 'Nenhum contato encontrado');
+        }
+      } else {
+        Alert.alert('Permissão negada', 'Não foi possível acessar sua agenda de contatos');
+      }
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Criar novo contato
+  const addContact = async () => {
+    try {
+      const contact = {
+        [Contacts.Fields.FirstName]: 'Novo',
+        [Contacts.Fields.LastName]: 'Contato',
+        [Contacts.Fields.PhoneNumbers]: [
+          {
+            label: 'mobile',
+            number: '(123) 456-7890',
+          },
+        ],
+      };
+      
+      await Contacts.presentFormAsync(null, contact);
+      // Recarregar contatos após adicionar
+      getContacts();
+    } catch (error) {
+      Alert.alert('Erro ao criar contato', error.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Meus Contatos</Text>
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="Carregar Contatos" 
+          onPress={getContacts}
+          disabled={loading}
+        />
+        <Button
+          title="Adicionar Contato"
+          onPress={addContact}
+          color="#4CAF50"
+        />
+      </View>
+      
+      {loading ? (
+        <Text style={styles.loading}>Carregando...</Text>
+      ) : (
+        <FlatList
+          data={contacts}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.contact}>
+              <Text style={styles.contactName}>{item.name}</Text>
+              {item.phoneNumbers && item.phoneNumbers.length > 0 && (
+                <Text style={styles.contactPhone}>
+                  {item.phoneNumbers[0].number}
+                </Text>
+              )}
+            </View>
+          )}
+        />
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  contact: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 10,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+  },
+  contactName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  contactPhone: {
+    color: '#666',
+    marginTop: 5,
+  },
+  loading: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+  },
+});
+            </script></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Galeria de Imagens -->
+      <section>
+        <h3>Acesso à Galeria de Imagens</h3>
+        <div style="display: flex; justify-content: space-around;">
+          <div style="width: 50%;">
+            <p>Casos de uso:</p>
+            <ul>
+              <li>Selecionar imagens para upload</li>
+              <li>Tirar fotos com a câmera</li>
+              <li>Listar imagens da galeria</li>
+              <li>Salvar imagens na galeria</li>
+              <li>Edição básica de imagens</li>
+            </ul>
+          </div>
+          <div style="width: 45%;">
+            <pre><code class="javascript"><script>
+// App.js - Expo Snack para Acesso à Galeria
+import React, { useState } from 'react';
+import { Image, View, StyleSheet, Text, Button, Alert, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
+
+export default function App() {
+  const [image, setImage] = useState(null);
+
+  // Função para selecionar imagem da galeria
+  const pickImage = async () => {
+    try {
+      // Solicitar permissões para a galeria
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de permissão para acessar sua galeria!');
+        return;
+      }
+      
+      // Abrir seletor de imagens
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    }
+  };
+
+  // Função para tirar foto com a câmera
+  const takePhoto = async () => {
+    try {
+      // Solicitar permissões da câmera
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de permissão para acessar sua câmera!');
+        return;
+      }
+      
+      // Abrir câmera
+      let result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    }
+  };
+
+  // Função para salvar imagem na galeria
+  const saveToGallery = async () => {
+    try {
+      if (!image) {
+        Alert.alert('Nenhuma imagem', 'Você precisa selecionar ou tirar uma foto primeiro');
+        return;
+      }
+      
+      // Solicitar permissões para salvar
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de permissão para salvar na sua galeria!');
+        return;
+      }
+      
+      // Salvar imagem na galeria
+      const asset = await MediaLibrary.createAssetAsync(image);
+      await MediaLibrary.createAlbumAsync('Expo', asset, false);
+      
+      Alert.alert('Sucesso', 'Imagem salva na galeria!');
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Acesso à Galeria e Câmera</Text>
+      
+      <View style={styles.buttonContainer}>
+        <Button title="Selecionar da Galeria" onPress={pickImage} />
+        <Button title="Tirar Foto" onPress={takePhoto} color="#4CAF50" />
+      </View>
+      
+      {image && (
+        <>
+          <Image source={{ uri: image }} style={styles.image} />
+          <Button title="Salvar na Galeria" onPress={saveToGallery} color="#2196F3" />
+        </>
+      )}
+      
+      {!image && (
+        <View style={styles.placeholder}>
+          <Text style={styles.placeholderText}>Nenhuma imagem selecionada</Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 20,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  placeholder: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#e1e1e1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  placeholderText: {
+    color: '#888',
+    fontSize: 16,
+  },
+});
+            </script></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6 - Manipulação de Arquivos -->
+      <section>
+        <h3>Acesso e Manipulação de Arquivos</h3>
+        <div style="display: flex; justify-content: space-around;">
+          <div style="width: 50%;">
+            <p>Operações comuns:</p>
+            <ul>
+              <li>Leitura e escrita de arquivos</li>
+              <li>Download de arquivos</li>
+              <li>Compartilhamento de arquivos</li>
+              <li>Cache e armazenamento local</li>
+              <li>Acesso a documentos</li>
+            </ul>
+          </div>
+          <div style="width: 45%;">
+            <pre><code class="javascript"><script>
+// App.js - Expo Snack para Manipulação de Arquivos
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Button, TextInput, Alert, ActivityIndicator } from 'react-native';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import * as DocumentPicker from 'expo-document-picker';
+
+export default function App() {
+  const [note, setNote] = useState('');
+  const [savedNote, setSavedNote] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  
+  const notePath = FileSystem.documentDirectory + 'minha_nota.txt';
+  
+  // Carregar nota salva ao iniciar
+  useEffect(() => {
+    loadNote();
+  }, []);
+  
+  // Função para salvar nota em arquivo
+  const saveNote = async () => {
+    try {
+      if (note.trim() === '') {
+        Alert.alert('Erro', 'Digite algum texto para salvar');
+        return;
+      }
+      
+      await FileSystem.writeAsStringAsync(notePath, note);
+      Alert.alert('Sucesso', 'Nota salva com sucesso!');
+      
+      // Atualizar a nota salva
+      await loadNote();
+    } catch (error) {
+      Alert.alert('Erro ao salvar', error.message);
+    }
+  };
+  
+  // Função para carregar nota salva
+  const loadNote = async () => {
+    try {
+      const fileInfo = await FileSystem.getInfoAsync(notePath);
+      
+      if (fileInfo.exists) {
+        const content = await FileSystem.readAsStringAsync(notePath);
+        setSavedNote(content);
+      } else {
+        setSavedNote('');
+      }
+    } catch (error) {
+      Alert.alert('Erro ao carregar', error.message);
+    }
+  };
+  
+  // Função para compartilhar arquivo
+  const shareNote = async () => {
+    try {
+      if (savedNote.trim() === '') {
+        Alert.alert('Sem conteúdo', 'Não há nota para compartilhar');
+        return;
+      }
+      
+      const isSharingAvailable = await Sharing.isAvailableAsync();
+      
+      if (!isSharingAvailable) {
+        Alert.alert('Erro', 'Compartilhamento não disponível neste dispositivo');
+        return;
+      }
+      
+      // Garantir que o arquivo existe
+      await FileSystem.writeAsStringAsync(notePath, savedNote);
+      
+      // Compartilhar o arquivo
+      await Sharing.shareAsync(notePath);
+    } catch (error) {
+      Alert.alert('Erro ao compartilhar', error.message);
+    }
+  };
+  
+  // Função para baixar um arquivo da internet
+  const downloadFile = async () => {
+    setLoading(true);
+    setDownloadProgress(0);
+    
+    try {
+      const downloadResumable = FileSystem.createDownloadResumable(
+        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        FileSystem.documentDirectory + 'arquivo_baixado.pdf',
+        {},
+        (downloadProgress) => {
+          const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
+          setDownloadProgress(progress);
+        }
+      );
+      
+      const { uri } = await downloadResumable.downloadAsync();
+      
+      if (uri) {
+        Alert.alert('Download Concluído', 'Arquivo PDF baixado com sucesso!', [
+          { text: 'Compartilhar', onPress: () => Sharing.shareAsync(uri) },
+          { text: 'OK' }
+        ]);
+      }
+    } catch (error) {
+      Alert.alert('Erro no download', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Função para selecionar e ler um documento
+  const pickDocument = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: '*/*',
+        copyToCacheDirectory: true,
+      });
+      
+      if (result.type === 'success') {
+        // Para arquivos de texto, podemos ler e mostrar o conteúdo
+        if (result.mimeType && result.mimeType.includes('text')) {
+          const content = await FileSystem.readAsStringAsync(result.uri);
+          setNote(content);
+          Alert.alert('Arquivo Carregado', `Nome: ${result.name}\nTamanho: ${result.size} bytes\nConteúdo carregado no editor`);
+        } else {
+          Alert.alert('Arquivo Selecionado', `Nome: ${result.name}\nTamanho: ${result.size} bytes`);
+        }
+      }
+    } catch (error) {
+      Alert.alert('Erro ao selecionar arquivo', error.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Manipulação de Arquivos</Text>
+      
+      <TextInput
+        style={styles.input}
+        multiline
+        numberOfLines={4}
+        placeholder="Digite sua nota aqui..."
+        value={note}
+        onChangeText={setNote}
+      />
+      
+      <View style={styles.buttonRow}>
+        <Button title="Salvar Nota" onPress={saveNote} />
+        <Button title="Compartilhar" onPress={shareNote} color="#2196F3" />
+      </View>
+      
+      <View style={styles.buttonRow}>
+        <Button title="Selecionar Arquivo" onPress={pickDocument} color="#4CAF50" />
+        <Button title="Baixar PDF" onPress={downloadFile} color="#FF9800" />
+      </View>
+      
+      {loading && (
+        <View style={styles.progressContainer}>
+          <ActivityIndicator size="small" color="#0000ff" />
+          <Text style={styles.progressText}>{Math.round(downloadProgress * 100)}%</Text>
+        </View>
+      )}
+      
+      {savedNote ? (
+        <View style={styles.savedNoteContainer}>
+          <Text style={styles.savedNoteTitle}>Nota Salva:</Text>
+          <Text style={styles.savedNoteText}>{savedNote}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    minHeight: 100,
+    marginBottom: 20,
+    textAlignVertical: 'top',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 15,
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  progressText: {
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  savedNoteContainer: {
+    marginTop: 20,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 5,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4CAF50',
+  },
+  savedNoteTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  savedNoteText: {
+    fontSize: 14,
+  },
+});
+            </script></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Notificações - Parte 1 -->
+      <section>
+        <h3>Implementação de Notificações</h3>
+        <p>Tipos de Notificações:</p>
+        <ul>
+          <li><strong>Notificações Locais:</strong> Agendadas pelo próprio aplicativo no dispositivo</li>
+          <li><strong>Notificações Push:</strong> Enviadas de um servidor remoto via FCM/APNS</li>
+          <li><strong>Notificações In-App:</strong> Exibidas dentro da própria aplicação</li>
+        </ul>
+        <p>Componentes de uma notificação:</p>
+        <ul>
+          <li>Título e corpo</li>
+          <li>Ícones e imagens</li>
+          <li>Ações e botões</li>
+          <li>Som e vibração</li>
+        </ul>
+      </section>
+
+      <!-- Slide 8 - Notificações - Parte 2 (Código) -->
+      <section>
+        <h3>Implementação de Notificações - Código</h3>
+        <pre><code class="javascript"><script>
+// App.js - Expo Snack para Notificações Locais
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, View, StyleSheet, Button, TextInput, Platform, Alert } from 'react-native';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+// Configurar como as notificações aparecem quando o app está em primeiro plano
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+export default function App() {
+  const [title, setTitle] = useState('Lembrete!');
+  const [body, setBody] = useState('É hora de verificar seu aplicativo');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState(null);
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    // Obter token de notificação e configurar listeners
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+      Alert.alert('Notificação tocada!', 'Você clicou na notificação');
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  // Função para solicitar permissões e obter token
+  async function registerForPushNotificationsAsync() {
+    let token;
+    
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      
+      if (finalStatus !== 'granted') {
+        Alert.alert('Falha!', 'Precisamos de permissão para enviar notificações!');
+        return;
+      }
+      
+      token = (await Notifications.getExpoPushTokenAsync({ projectId: '12345' })).data;
+    } else {
+      Alert.alert('Atenção', 'Notificações push funcionam apenas em dispositivos físicos');
+    }
+
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    return token;
+  }
+
+  // Função para agendar notificação imediata
+  async function scheduleImmediateNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title,
+        body,
+        data: { data: 'vai com os dados' },
+      },
+      trigger: { seconds: 5 },
+    });
+    
+    Alert.alert('Notificação agendada!', 'Você receberá a notificação em 5 segundos');
+  }
+
+  // Função para agendar notificação em data específica
+  async function scheduleNotificationForDate(date) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title,
+        body,
+        data: { data: 'dados da notificação' },
+      },
+      trigger: date,
+    });
+    
+    Alert.alert('Notificação agendada!', `Agendado para: ${date.toLocaleString()}`);
+  }
+
+  // Funções para exibir/ocultar o seletor de data
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setScheduledDate(date);
+    scheduleNotificationForDate(date);
+    hideDatePicker();
+  };
+
+  // Função para listar todas as notificações agendadas
+  async function listScheduledNotifications() {
+    const notifications = await Notifications.getAllScheduledNotificationsAsync();
+    
+    if (notifications.length > 0) {
+      Alert.alert(
+        'Notificações Agendadas',
+        `Você tem ${notifications.length} notificação(ões) agendada(s).`
+      );
+    } else {
+      Alert.alert('Nenhuma notificação', 'Não há notificações agendadas');
+    }
+  }
+
+  // Função para cancelar todas as notificações
+  async function cancelAllNotifications() {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    Alert.alert('Notificações canceladas', 'Todas as notificações foram canceladas');
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Sistema de Notificações</Text>
+      
+      <Text style={styles.label}>Título da Notificação:</Text>
+      <TextInput
+        style={styles.input}
+        value={title}
+        onChangeText={setTitle}
+        placeholder="Digite o título..."
+      />
+      
+      <Text style={styles.label}>Conteúdo da Notificação:</Text>
+      <TextInput
+        style={styles.input}
+        value={body}
+        onChangeText={setBody}
+        placeholder="Digite o conteúdo..."
+        multiline
+      />
+      
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Notificação em 5s"
+          onPress={scheduleImmediateNotification}
+        />
+        <Button
+          title="Agendar para Data"
+          onPress={showDatePicker}
+          color="#4CAF50"
+        />
+      </View>
+      
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Listar Agendadas"
+          onPress={listScheduledNotifications}
+          color="#FF9800"
+        />
+        <Button
+          title="Cancelar Todas"
+          onPress={cancelAllNotifications}
+          color="#F44336"
+        />
+      </View>
+      
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+      
+      {scheduledDate && (
+        <View style={styles.scheduledContainer}>
+          <Text style={styles.scheduledTitle}>Próxima Notificação:</Text>
+          <Text style={styles.scheduledDate}>
+            {scheduledDate.toLocaleString()}
+          </Text>
+        </View>
+      )}
+      
+      {notification && (
+        <View style={styles.receivedContainer}>
+          <Text style={styles.receivedTitle}>Última Notificação Recebida:</Text>
+          <Text>Título: {notification.request.content.title}</Text>
+          <Text>Conteúdo: {notification.request.content.body}</Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  scheduledContainer: {
+    backgroundColor: '#e8f5e9',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  scheduledTitle: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  scheduledDate: {
+    fontSize: 16,
+  },
+  receivedContainer: {
+    backgroundColor: '#e3f2fd',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  receivedTitle: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+});
+            </script></code></pre>
+      </section>
+
+      
+
+      <!-- Slide 10 - Permissões e Segurança -->
+      <section>
+        <h3>Permissões e Considerações de Segurança</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 20px;">
+          <div>
+            <p><strong>Boas práticas:</strong></p>
+            <ul>
+              <li>Solicite permissões somente quando necessário</li>
+              <li>Explique ao usuário por que a permissão é necessária</li>
+              <li>Mantenha o usuário informado sobre o uso de recursos sensíveis</li>
+              <li>Planeje para cenários onde permissões são negadas</li>
+              <li>Trate dados sensíveis com segurança</li>
+            </ul>
+          </div>
+          <div>
+            <p><strong>Principais permissões:</strong></p>
+            <ul>
+              <li>Contatos: <code>READ_CONTACTS</code>, <code>WRITE_CONTACTS</code></li>
+              <li>Câmera e Galeria: <code>CAMERA</code>, <code>READ_MEDIA_IMAGES</code></li>
+              <li>Armazenamento: <code>READ_EXTERNAL_STORAGE</code>, <code>WRITE_EXTERNAL_STORAGE</code></li>
+              <li>Notificações: <code>POST_NOTIFICATIONS</code></li>
+              <li>Localização: <code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11 - Laboratório Prático -->
+      <section>
+        <h3>Laboratório Prático</h3>
+        <p>Desenvolva um aplicativo com as seguintes funcionalidades:</p>
+        <ol>
+          <li>Interface para listar contatos do dispositivo</li>
+          <li>Opção para selecionar imagens da galeria</li>
+          <li>Funcionalidade para salvar informações em arquivos locais</li>
+          <li>Implementação de notificações locais com agendamento</li>
+        </ol>
+        <p>Ferramentas sugeridas:</p>
+        <ul>
+          <li>React Native + Expo</li>
+          <li>Flutter + plugins relevantes</li>
+          <li>Ionic com Capacitor</li>
+        </ul>
+      </section>
+
+      <!-- Slide 12 - Referências -->
+      <section>
+        <h3>Referências</h3>
+        <ul style="font-size: 0.8em;">
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/contacts/" target="_blank">Expo Contacts Documentation</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/imagepicker/" target="_blank">Expo ImagePicker Documentation</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/filesystem/" target="_blank">Expo FileSystem Documentation</a></li>
+          <li><a href="https://docs.expo.dev/push-notifications/overview/" target="_blank">Expo Push Notifications Documentation</a></li>
+          <li><a href="https://developer.android.com/guide/topics/permissions/overview" target="_blank">Android Permissions Documentation</a></li>
+          <li><a href="https://developer.apple.com/documentation/usernotifications" target="_blank">iOS User Notifications Framework</a></li>
+          <li><a href="https://firebase.google.com/docs/cloud-messaging" target="_blank">Firebase Cloud Messaging Documentation</a></li>
+          <li><a href="https://pub.dev/packages/image_picker" target="_blank">Flutter Image Picker Plugin</a></li>
+          <li><a href="https://capacitorjs.com/docs/apis" target="_blank">Capacitor Native API Documentation</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 13 - Agradecimento -->
+      <section>
+        <h3>Obrigado!</h3>
+        <p>Dúvidas & Discussão</p>
+        <div style="margin-top: 40px;">
+          <p>Entre em contato:</p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" style="margin-left: 20px;">
+            <i class="fab fa-github fa-2x"></i>
+          </a>
+        </div>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

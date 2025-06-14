@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 8 - Testes com React Native Expo</title>
+
+  <meta name="description" content="Aprenda a implementar testes em aplicações React Native usando Expo">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 8 - Testes com React Native Expo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+      
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>Objetivos da Aula</h2>
+        <ul>
+          <li>Compreender a importância dos testes em React Native</li>
+          <li>Conhecer os principais tipos de testes</li>
+          <li>Configurar ambiente de testes em projetos Expo</li>
+          <li>Implementar testes unitários, de integração e E2E</li>
+          <li>Aplicar boas práticas de testes</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que são testes? -->
+      <section>
+        <h2>Por que testar aplicações React Native?</h2>
+        <ul>
+          <li>Garantir que o app funcione como esperado</li>
+          <li>Detectar bugs precocemente</li>
+          <li>Facilitar refatoração segura</li>
+          <li>Documentação viva do comportamento esperado</li>
+          <li>Aumentar confiança no deploy para múltiplas plataformas (iOS/Android)</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Tipos de Testes -->
+      <section>
+        <h2>Tipos de Testes em React Native</h2>
+        <div style="display: flex; justify-content: space-around;">
+          <div style="flex: 1; padding: 10px;">
+            <h3>Testes Unitários</h3>
+            <p>Testam componentes e funções isoladamente</p>
+          </div>
+          <div style="flex: 1; padding: 10px;">
+            <h3>Testes de Integração</h3>
+            <p>Testam interação entre componentes</p>
+          </div>
+          <div style="flex: 1; padding: 10px;">
+            <h3>Testes E2E</h3>
+            <p>Simulam comportamento do usuário no app completo</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Ferramentas de Testes -->
+      <section>
+        <h2>Ferramentas de Testes para React Native Expo</h2>
+        <ul>
+          <li><strong>Jest</strong>: Framework de testes padrão</li>
+          <li><strong>React Native Testing Library</strong>: Facilita testes de componentes</li>
+          <li><strong>Detox</strong>: Framework para testes E2E</li>
+          <li><strong>jest-expo</strong>: Integração do Jest com projetos Expo</li>
+          <li><strong>Cypress</strong>: Alternativa para testes E2E</li>
+        </ul>
+      </section>
+
+      <!-- Slide 6 - Configuração Jest com Expo -->
+      <section>
+        <h2>Configurando Jest com Expo</h2>
+        <pre><code class="language-bash">npm install --save-dev jest-expo jest</code></pre>
+        <p>Adicione ao package.json:</p>
+        <pre><code class="language-json">{
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
+  }
+}</code></pre>
+      </section>
+
+      <!-- Slide 7 - React Native Testing Library -->
+      <section>
+        <h2>React Native Testing Library</h2>
+        <pre><code class="language-bash">npm install --save-dev @testing-library/react-native</code></pre>
+        <p>Recursos principais:</p>
+        <ul>
+          <li>Renderização de componentes para testes</li>
+          <li>Consultas baseadas em acessibilidade</li>
+          <li>Simulação de eventos de usuário</li>
+          <li>Asserções específicas para React Native</li>
+        </ul>
+      </section>
+
+      <!-- Slide 8 - Exemplo de Teste Unitário -->
+      <section>
+        <h2>Exemplo de Teste Unitário</h2>
+        <p>Componente Button.js:</p>
+        <pre><code class="language-jsx">import React from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
+const Button = ({ onPress, title, disabled }) => (
+  &lt;TouchableOpacity 
+    onPress={onPress}
+    style={[styles.button, disabled && styles.disabled]}
+    disabled={disabled}
+    accessibilityLabel={title}
+  &gt;
+    &lt;Text style={styles.text}&gt;{title}&lt;/Text&gt;
+  &lt;/TouchableOpacity&gt;
+);
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#2196F3',
+    padding: 10,
+    borderRadius: 5,
+  },
+  disabled: {
+    backgroundColor: '#cccccc',
+  },
+  text: {
+    color: 'white',
+    textAlign: 'center',
+  },
+});
+
+export default Button;</code></pre>
+      </section>
+
+      <!-- Slide 9 - Teste do Componente Button -->
+      <section>
+        <h2>Teste do Componente Button</h2>
+        <pre><code class="language-jsx">import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import Button from './Button';
+
+describe('Button Component', () => {
+  test('renderiza corretamente com título', () => {
+    const { getByText } = render(&lt;Button title="Clique Aqui" /&gt;);
+    expect(getByText('Clique Aqui')).toBeTruthy();
+  });
+
+  test('chama função onPress quando pressionado', () => {
+    const onPressMock = jest.fn();
+    const { getByText } = render(
+      &lt;Button title="Pressione" onPress={onPressMock} /&gt;
+    );
+    
+    fireEvent.press(getByText('Pressione'));
+    expect(onPressMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('aplica estilo disabled quando disabled=true', () => {
+    const { getByText } = render(
+      &lt;Button title="Desabilitado" disabled={true} /&gt;
+    );
+    
+    const buttonEl = getByText('Desabilitado').parent;
+    expect(buttonEl.props.style).toContainEqual(
+      expect.objectContaining({ backgroundColor: '#cccccc' })
+    );
+  });
+});</code></pre>
+      </section>
+
+      <!-- Slide 10 - Teste de Hooks -->
+      <section>
+        <h2>Testando Custom Hooks</h2>
+        <pre><code class="language-jsx">// useCounter.js
+import { useState, useCallback } from 'react';
+
+export const useCounter = (initialValue = 0) => {
+  const [count, setCount] = useState(initialValue);
+  
+  const increment = useCallback(() => {
+    setCount(prev => prev + 1);
+  }, []);
+  
+  const decrement = useCallback(() => {
+    setCount(prev => prev - 1);
+  }, []);
+  
+  return { count, increment, decrement };
+};</code></pre>
+        <pre><code class="language-jsx">// useCounter.test.js
+import { renderHook, act } from '@testing-library/react-hooks';
+import { useCounter } from './useCounter';
+
+describe('useCounter', () => {
+  test('inicia com valor padrão', () => {
+    const { result } = renderHook(() => useCounter());
+    expect(result.current.count).toBe(0);
+  });
+  
+  test('incrementa contador corretamente', () => {
+    const { result } = renderHook(() => useCounter(5));
+    
+    act(() => {
+      result.current.increment();
+    });
+    
+    expect(result.current.count).toBe(6);
+  });
+});</code></pre>
+      </section>
+
+      <!-- Slide 11 - Mocking API Calls -->
+      <section>
+        <h2>Testando Chamadas de API</h2>
+        <pre><code class="language-jsx">// api.js
+import axios from 'axios';
+
+export const fetchUsers = async () => {
+  const response = await axios.get('https://api.example.com/users');
+  return response.data;
+};</code></pre>
+        <pre><code class="language-jsx">// api.test.js
+import axios from 'axios';
+import { fetchUsers } from './api';
+
+jest.mock('axios');
+
+describe('API Calls', () => {
+  test('fetchUsers retorna dados corretamente', async () => {
+    const mockUsers = [{ id: 1, name: 'João' }, { id: 2, name: 'Maria' }];
+    axios.get.mockResolvedValue({ data: mockUsers });
+    
+    const users = await fetchUsers();
+    
+    expect(axios.get).toHaveBeenCalledWith('https://api.example.com/users');
+    expect(users).toEqual(mockUsers);
+  });
+  
+  test('fetchUsers trata erro corretamente', async () => {
+    axios.get.mockRejectedValue(new Error('API Error'));
+    
+    await expect(fetchUsers()).rejects.toThrow('API Error');
+  });
+});</code></pre>
+      </section>
+
+      <!-- Slide 12 - Testes de Integração -->
+      <section>
+        <h2>Testes de Integração</h2>
+        <pre><code class="language-jsx">// UserList.js
+import React, { useEffect, useState } from 'react';
+import { FlatList, Text, View } from 'react-native';
+import { fetchUsers } from './api';
+
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const data = await fetchUsers();
+        setUsers(data);
+        setLoading(false);
+      } catch (err) {
+        setError('Falha ao carregar usuários');
+        setLoading(false);
+      }
+    };
+    
+    loadUsers();
+  }, []);
+  
+  if (loading) return &lt;Text testID="loading"&gt;Carregando...&lt;/Text&gt;;
+  if (error) return &lt;Text testID="error"&gt;{error}&lt;/Text&gt;;
+  
+  return (
+    &lt;FlatList
+      testID="user-list"
+      data={users}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        &lt;Text&gt;{item.name}&lt;/Text&gt;
+      )}
+    /&gt;
+  );
+};</code></pre>
+      </section>
+
+      <!-- Slide 13 - Teste de Integração -->
+      <section>
+        <h2>Teste de Integração do Componente</h2>
+        <pre><code class="language-jsx">// UserList.test.js
+import React from 'react';
+import { render, waitFor } from '@testing-library/react-native';
+import UserList from './UserList';
+import { fetchUsers } from './api';
+
+jest.mock('./api');
+
+describe('UserList Component', () => {
+  test('exibe loading state inicialmente', () => {
+    const { getByTestId } = render(&lt;UserList /&gt;);
+    expect(getByTestId('loading')).toBeTruthy();
+  });
+  
+  test('exibe lista de usuários após carregar dados', async () => {
+    const mockUsers = [
+      { id: 1, name: 'João' },
+      { id: 2, name: 'Maria' }
+    ];
+    
+    fetchUsers.mockResolvedValueOnce(mockUsers);
+    
+    const { getByText, getByTestId } = render(&lt;UserList /&gt;);
+    
+    await waitFor(() => expect(getByTestId('user-list')).toBeTruthy());
+    
+    expect(getByText('João')).toBeTruthy();
+    expect(getByText('Maria')).toBeTruthy();
+  });
+  
+  test('exibe erro quando API falha', async () => {
+    fetchUsers.mockRejectedValueOnce(new Error('API Error'));
+    
+    const { getByTestId } = render(&lt;UserList /&gt;);
+    
+    await waitFor(() => expect(getByTestId('error')).toBeTruthy());
+    expect(getByTestId('error').props.children).toBe('Falha ao carregar usuários');
+  });
+});</code></pre>
+      </section>
+
+      <!-- Slide 14 - E2E com Detox -->
+      <section>
+        <h2>Testes E2E com Detox</h2>
+        <p>Configuração:</p>
+        <pre><code class="language-bash">npm install detox --save-dev
+npm install jest-circus --save-dev
+detox init -r jest</code></pre>
+        <p>Exemplo de teste E2E:</p>
+        <pre><code class="language-javascript">describe('App', () => {
+  beforeAll(async () => {
+    await device.launchApp();
+  });
+
+  beforeEach(async () => {
+    await device.reloadReactNative();
+  });
+
+  it('deve mostrar a tela de login', async () => {
+    await expect(element(by.id('login-screen'))).toBeVisible();
+  });
+
+  it('deve navegar para a tela principal após login', async () => {
+    await element(by.id('email')).typeText('usuario@exemplo.com');
+    await element(by.id('password')).typeText('senha123');
+    await element(by.id('login-button')).tap();
+    
+    await expect(element(by.id('home-screen'))).toBeVisible();
+  });
+});</code></pre>
+      </section>
+
+      <!-- Slide 15 - Boas Práticas -->
+      <section>
+        <h2>Boas Práticas de Testes</h2>
+        <ul>
+          <li>Use IDs de teste para facilitar a seleção de elementos</li>
+          <li>Teste comportamentos, não implementação</li>
+          <li>Mantenha testes independentes</li>
+          <li>Utilize mocks para APIs e serviços externos</li>
+          <li>Teste casos de erro além dos casos de sucesso</li>
+          <li>Configure testes automatizados no CI/CD</li>
+          <li>Priorize cobertura de código crítico</li>
+        </ul>
+      </section>
+
+      <!-- Slide 16 - Test-Driven Development (TDD) -->
+      <section>
+        <h2>Test-Driven Development (TDD)</h2>
+        <div style="display: flex; justify-content: space-around; align-items: center;">
+          <div>
+            <ol>
+              <li>Escreva um teste que falhe</li>
+              <li>Implemente o código para passar no teste</li>
+              <li>Refatore o código mantendo testes passando</li>
+              <li>Repita o ciclo</li>
+            </ol>
+          </div>
+          <div>
+            <img src="https://www.xenonstack.com/images/blog/test-driven-development-cycle.png" alt="Ciclo TDD" style="height: 300px;">
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17 - Cobertura de Testes -->
+      <section>
+        <h2>Cobertura de Testes</h2>
+        <p>Configure cobertura de testes no package.json:</p>
+        <pre><code class="language-json">"jest": {
+  "preset": "jest-expo",
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}",
+    "!**/node_modules/**",
+    "!**/coverage/**"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "statements": 80,
+      "branches": 80,
+      "functions": 80,
+      "lines": 80
+    }
+  }
+}</code></pre>
+        <p>Execute testes com cobertura:</p>
+        <pre><code class="language-bash">npm test -- --coverage</code></pre>
+      </section>
+
+      <!-- Slide 18 - Conclusão -->
+      <section>
+        <h2>Conclusão</h2>
+        <ul>
+          <li>Testes são investimentos na qualidade do código</li>
+          <li>Combinação de tipos de testes oferece melhor cobertura</li>
+          <li>Jest e React Native Testing Library são essenciais</li>
+          <li>Testes automatizados reduzem bugs em produção</li>
+          <li>Testes documentam o comportamento esperado da aplicação</li>
+        </ul>
+      </section>
+
+      <!-- Slide 19 - Recursos -->
+      <section>
+        <h2>Recursos Adicionais</h2>
+        <ul>
+          <li><a href="https://jestjs.io/docs/tutorial-react-native" target="_blank">Documentação do Jest para React Native</a></li>
+          <li><a href="https://callstack.github.io/react-native-testing-library/" target="_blank">React Native Testing Library</a></li>
+          <li><a href="https://github.com/wix/Detox" target="_blank">Detox para testes E2E</a></li>
+          <li><a href="https://docs.expo.dev/guides/testing/" target="_blank">Guia de Testes do Expo</a></li>
+          <li><a href="https://kentcdodds.com/blog/write-tests" target="_blank">Artigos sobre testes por Kent C. Dodds</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 20 - Perguntas -->
+      <section>
+        <h1>Perguntas?</h1>
+        <p>Obrigado pela atenção!</p>
+        <div>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin fa-2x" style="margin: 0 10px;"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github fa-2x" style="margin: 0 10px;"></i>
+          </a>
+        </div>
+      </section>
+   </div>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
