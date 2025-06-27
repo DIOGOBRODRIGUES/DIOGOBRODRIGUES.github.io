@@ -216,209 +216,124 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Imports da navegação
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator }    from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-// Imports dos contextos
-import { AuthContext } from './context/AuthContext';
+import { AuthContext }  from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
-// Imports das telas
-import WelcomeScreen from './screens/WelcomeScreen';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/Register';
-import HomeScreen from './screens/Home';
-import ProductDetailsScreen from './screens/ProductDetailsScreen';
-import MapScreen from './screens/Map';
-import AboutScreen from './screens/About';
-import ProfileScreen from './screens/Profile';
+import WelcomeScreen          from './screens/WelcomeScreen';
+import LoginScreen            from './screens/LoginScreen';
+import RegisterScreen         from './screens/Register';
+import HomeScreen             from './screens/Home';
+import MapScreen              from './screens/Map';
+import AboutScreen            from './screens/About';
+import ProfileScreen          from './screens/Profile';
+import ProductDetailsScreen   from './screens/ProductDetailsScreen';
 
-// Criação dos navegadores
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+const RootStack = createNativeStackNavigator();
+const Tab       = createBottomTabNavigator();
 
-// Componente de navegação por abas (para usuários logados)
-function TabNavigator() {
+function MainTabs() {
   return (
-    &lt;Tab.Navigator
+    <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          switch (route.name) {
-            case 'Home':
-              iconName = focused ? 'home' : 'home-outline';
-              break;
-            case 'Map':
-              iconName = focused ? 'map' : 'map-outline';
-              break;
-            case 'About':
-              iconName = focused ? 'information-circle' : 'information-circle-outline';
-              break;
-            case 'Profile':
-              iconName = focused ? 'person' : 'person-outline';
-              break;
-            default:
-              iconName = 'circle';
-          }
-
-          return &lt;Ionicons name={iconName} size={size} color={color} /&gt;;
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => {
+          let icon = 'home';
+          if (route.name === 'Mapa')   icon = 'map';
+          if (route.name === 'About')  icon = 'information-circle';
+          if (route.name === 'Perfil') icon = 'person';
+          return <Ionicons name={icon} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#6200ee',
-        tabBarInactiveTintColor: 'gray',
       })}
-    &gt;
-      &lt;Tab.Screen 
-        name="Home" 
-        component={HomeScreen} 
-        options={{ title: 'Início' }} 
-      /&gt;
-      &lt;Tab.Screen 
-        name="Map" 
-        component={MapScreen} 
-        options={{ title: 'Mapa' }} 
-      /&gt;
-      &lt;Tab.Screen 
-        name="About" 
-        component={AboutScreen} 
-        options={{ title: 'Sobre' }} 
-      /&gt;
-      &lt;Tab.Screen 
-        name="Profile" 
-        component={ProfileScreen} 
-        options={{ title: 'Perfil' }} 
-      /&gt;
-    &lt;/Tab.Navigator&gt;
+    >
+      <Tab.Screen name="Home"   component={HomeScreen} />
+      <Tab.Screen name="Mapa"   component={MapScreen} />
+      <Tab.Screen name="About"  component={AboutScreen} />
+      <Tab.Screen name="Perfil" component={ProfileScreen} />
+    </Tab.Navigator>
   );
 }
 
-// Componente principal do App
-export default function App() {
-  // Estados para controle de autenticação
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+function AuthStack() {
+  return (
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen name="Welcome"  component={WelcomeScreen} />
+      <RootStack.Screen name="Login"    component={LoginScreen} />
+      <RootStack.Screen name="Register" component={RegisterScreen} />
+    </RootStack.Navigator>
+  );
+}
 
-  // useEffect que roda uma vez quando o app inicia
-  // Verifica se há usuário logado salvo no AsyncStorage
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+
+  // carrega token do AsyncStorage
   useEffect(() => {
-    checkLoginStatus();
+    (async () => {
+      const token = await AsyncStorage.getItem('userToken');
+      setUserToken(token);
+      setIsLoading(false);
+    })();
   }, []);
 
-  // Função que verifica o status de login
-  const checkLoginStatus = async () => {
-    try {
-      const userData = await AsyncStorage.getItem('userData');
-      
-      if (userData) {
-        const user = JSON.parse(userData);
-        setUser(user);
-        setIsLoggedIn(true);
-      }
-    } catch (error) {
-      console.log('Erro ao verificar login:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const authContext = useMemo(() => ({
+    login: async token => {
+      await AsyncStorage.setItem('userToken', token);
+      setUserToken(token);
+    },
+    logout: async () => {
+      await AsyncStorage.removeItem('userToken');
+      setUserToken(null);
+    },
+    userToken
+  }), [userToken]);
 
-  // Função de login
-  const login = async (userData) => {
-    try {
-      await AsyncStorage.setItem('userData', JSON.stringify(userData));
-      setUser(userData);
-      setIsLoggedIn(true);
-      return { success: true };
-    } catch (error) {
-      console.log('Erro ao fazer login:', error);
-      return { success: false, error: 'Erro interno' };
-    }
-  };
-
-  // Função de logout
-  const logout = async () => {
-    try {
-      await AsyncStorage.removeItem('userData');
-      setUser(null);
-      setIsLoggedIn(false);
-      return { success: true };
-    } catch (error) {
-      console.log('Erro ao fazer logout:', error);
-      return { success: false };
-    }
-  };
-
-  // useMemo otimiza o objeto do contexto
-  // Só recria quando as dependências mudam
-  const authContextValue = useMemo(() => ({
-    isLoggedIn,
-    user,
-    loading,
-    login,
-    logout,
-  }), [isLoggedIn, user, loading]);
-
-  // Mostra loading enquanto verifica autenticação
-  if (loading) {
+  if (isLoading) {
     return (
-      &lt;View style={styles.loadingContainer}&gt;
-        &lt;ActivityIndicator size="large" color="#6200ee" /&gt;
-      &lt;/View&gt;
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 
   return (
-    &lt;AuthContext.Provider value={authContextValue}&gt;
-      &lt;CartProvider&gt;
-        &lt;NavigationContainer&gt;
-          &lt;Stack.Navigator screenOptions={{ headerShown: false }}&gt;
-            {isLoggedIn ? (
-              // Telas para usuários logados
-              &lt;&gt;
-                &lt;Stack.Screen name="MainTabs" component={TabNavigator} /&gt;
-                &lt;Stack.Screen 
-                  name="ProductDetails" 
-                  component={ProductDetailsScreen}
-                  options={{ 
-                    headerShown: true, 
-                    title: 'Detalhes do Produto' 
-                  }}
-                /&gt;
-              &lt;/&gt;
-            ) : (
-              // Telas para usuários não logados
-              &lt;&gt;
-                &lt;Stack.Screen name="Welcome" component={WelcomeScreen} /&gt;
-                &lt;Stack.Screen 
-                  name="Login" 
-                  component={LoginScreen}
-                  options={{ headerShown: true, title: 'Login' }}
-                /&gt;
-                &lt;Stack.Screen 
-                  name="Register" 
-                  component={RegisterScreen}
-                  options={{ headerShown: true, title: 'Cadastro' }}
-                /&gt;
-              &lt;/&gt;
-            )}
-          &lt;/Stack.Navigator&gt;
-        &lt;/NavigationContainer&gt;
-      &lt;/CartProvider&gt;
-    &lt;/AuthContext.Provider&gt;
+    <AuthContext.Provider value={authContext}>
+      <CartProvider>
+        <NavigationContainer>
+          {userToken ? (
+            <RootStack.Navigator>
+              {/* telas principais */}
+              <RootStack.Screen
+                name="Main"
+                component={MainTabs}
+                options={{ headerShown: false }}
+              />
+              {/* detalhes do produto como modal */}
+              <RootStack.Screen
+                name="ProductDetails"
+                component={ProductDetailsScreen}
+                options={{
+                  presentation: 'modal',
+                  title: 'Detalhes do Produto'
+                }}
+              />
+            </RootStack.Navigator>
+          ) : (
+            <AuthStack />
+          )}
+        </NavigationContainer>
+      </CartProvider>
+    </AuthContext.Provider>
   );
 }
 
-// Estilos
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
+  loader: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });</code></pre>
 
             <div class="highlight-box">
