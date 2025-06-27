@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial App Agricultura Familiar - Parte 3: App Principal</title>
+    
+    <!-- Prism.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav-parts {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .nav-parts a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        
+        .nav-parts a:hover {
+            background: #0056b3;
+        }
+        
+        .nav-parts a.current {
+            background: #6f42c1;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.7rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.2rem; }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight-box {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box h4 {
+            color: #1976D2;
+            margin-top: 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .success-box h4 {
+            color: #155724;
+            margin-top: 0;
+        }
+        
+        .dependency-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .dependency-list h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        pre {
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 0.5rem;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .conclusion h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="emoji">📱</span>Tutorial: App de Agricultura Familiar</h1>
+            <div class="subtitle">Parte 3: App Principal e Conclusão</div>
+        </div>
+        
+        <div class="nav-parts">
+            <a href="tutorial_parte1.html">Parte 1: Fundamentos</a>
+            <a href="tutorial_parte2.html">Parte 2: Telas</a>
+            <a href="tutorial_parte3.html" class="current">Parte 3: App Principal</a>
+        </div>
+        
+        <div class="content">
+            <h1><span class="emoji">🎯</span>Passo 4: Arquivo Principal App.js</h1>
+            <p>Este é o arquivo "raiz" do aplicativo. Ele configura a navegação, gerencia o estado de autenticação global e decide quais telas mostrar. É como o "maestro" que coordena todo o app.</p>
+
+            <p>Substitua todo o conteúdo do arquivo <code>App.js</code> pelo seguinte código:</p>
+
+<pre><code class="language-javascript">// App.js
+import React, { useState, useEffect, useMemo } from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Imports da navegação
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+
+// Imports dos contextos
+import { AuthContext } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+
+// Imports das telas
+import WelcomeScreen from './screens/WelcomeScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/Register';
+import HomeScreen from './screens/Home';
+import ProductDetailsScreen from './screens/ProductDetailsScreen';
+import MapScreen from './screens/Map';
+import AboutScreen from './screens/About';
+import ProfileScreen from './screens/Profile';
+
+// Criação dos navegadores
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// Componente de navegação por abas (para usuários logados)
+function TabNavigator() {
+  return (
+    &lt;Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          switch (route.name) {
+            case 'Home':
+              iconName = focused ? 'home' : 'home-outline';
+              break;
+            case 'Map':
+              iconName = focused ? 'map' : 'map-outline';
+              break;
+            case 'About':
+              iconName = focused ? 'information-circle' : 'information-circle-outline';
+              break;
+            case 'Profile':
+              iconName = focused ? 'person' : 'person-outline';
+              break;
+            default:
+              iconName = 'circle';
+          }
+
+          return &lt;Ionicons name={iconName} size={size} color={color} /&gt;;
+        },
+        tabBarActiveTintColor: '#6200ee',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    &gt;
+      &lt;Tab.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{ title: 'Início' }} 
+      /&gt;
+      &lt;Tab.Screen 
+        name="Map" 
+        component={MapScreen} 
+        options={{ title: 'Mapa' }} 
+      /&gt;
+      &lt;Tab.Screen 
+        name="About" 
+        component={AboutScreen} 
+        options={{ title: 'Sobre' }} 
+      /&gt;
+      &lt;Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen} 
+        options={{ title: 'Perfil' }} 
+      /&gt;
+    &lt;/Tab.Navigator&gt;
+  );
+}
+
+// Componente principal do App
+export default function App() {
+  // Estados para controle de autenticação
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  // useEffect que roda uma vez quando o app inicia
+  // Verifica se há usuário logado salvo no AsyncStorage
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  // Função que verifica o status de login
+  const checkLoginStatus = async () => {
+    try {
+      const userData = await AsyncStorage.getItem('userData');
+      
+      if (userData) {
+        const user = JSON.parse(userData);
+        setUser(user);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.log('Erro ao verificar login:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Função de login
+  const login = async (userData) => {
+    try {
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      setUser(userData);
+      setIsLoggedIn(true);
+      return { success: true };
+    } catch (error) {
+      console.log('Erro ao fazer login:', error);
+      return { success: false, error: 'Erro interno' };
+    }
+  };
+
+  // Função de logout
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('userData');
+      setUser(null);
+      setIsLoggedIn(false);
+      return { success: true };
+    } catch (error) {
+      console.log('Erro ao fazer logout:', error);
+      return { success: false };
+    }
+  };
+
+  // useMemo otimiza o objeto do contexto
+  // Só recria quando as dependências mudam
+  const authContextValue = useMemo(() => ({
+    isLoggedIn,
+    user,
+    loading,
+    login,
+    logout,
+  }), [isLoggedIn, user, loading]);
+
+  // Mostra loading enquanto verifica autenticação
+  if (loading) {
+    return (
+      &lt;View style={styles.loadingContainer}&gt;
+        &lt;ActivityIndicator size="large" color="#6200ee" /&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  return (
+    &lt;AuthContext.Provider value={authContextValue}&gt;
+      &lt;CartProvider&gt;
+        &lt;NavigationContainer&gt;
+          &lt;Stack.Navigator screenOptions={{ headerShown: false }}&gt;
+            {isLoggedIn ? (
+              // Telas para usuários logados
+              &lt;&gt;
+                &lt;Stack.Screen name="MainTabs" component={TabNavigator} /&gt;
+                &lt;Stack.Screen 
+                  name="ProductDetails" 
+                  component={ProductDetailsScreen}
+                  options={{ 
+                    headerShown: true, 
+                    title: 'Detalhes do Produto' 
+                  }}
+                /&gt;
+              &lt;/&gt;
+            ) : (
+              // Telas para usuários não logados
+              &lt;&gt;
+                &lt;Stack.Screen name="Welcome" component={WelcomeScreen} /&gt;
+                &lt;Stack.Screen 
+                  name="Login" 
+                  component={LoginScreen}
+                  options={{ headerShown: true, title: 'Login' }}
+                /&gt;
+                &lt;Stack.Screen 
+                  name="Register" 
+                  component={RegisterScreen}
+                  options={{ headerShown: true, title: 'Cadastro' }}
+                /&gt;
+              &lt;/&gt;
+            )}
+          &lt;/Stack.Navigator&gt;
+        &lt;/NavigationContainer&gt;
+      &lt;/CartProvider&gt;
+    &lt;/AuthContext.Provider&gt;
+  );
+}
+
+// Estilos
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+});</code></pre>
+
+            <div class="highlight-box">
+                <h4><span class="emoji">📚</span>Explicações importantes</h4>
+                <p><strong>🔹 NavigationContainer:</strong> Container principal que gerencia toda a navegação.</p>
+                <p><strong>🔹 createNativeStackNavigator:</strong> Cria navegação tipo "pilha" (uma tela sobre a outra).</p>
+                <p><strong>🔹 createBottomTabNavigator:</strong> Cria abas na parte inferior da tela.</p>
+                <p><strong>🔹 useMemo:</strong> Otimização que evita recriar objetos desnecessariamente.</p>
+                <p><strong>🔹 Renderização condicional:</strong> Mostra diferentes telas baseado no estado de login.</p>
+            </div>
+
+            <h1><span class="emoji">🧩</span>Passo 5: Componentes Auxiliares</h1>
+            <p>Vamos criar alguns componentes reutilizáveis para melhorar a organização do código.</p>
+
+            <h2><span class="emoji">🔘</span>5.1 AppButton.js</h2>
+            <p>Na pasta <code>components/</code>, crie o arquivo <code>AppButton.js</code>:</p>
+
+<pre><code class="language-javascript">// components/AppButton.js
+import React from 'react';
+import { Text, Pressable, StyleSheet } from 'react-native';
+
+export default function AppButton({ onPress, title, style, textStyle }) {
+  return (
+    &lt;Pressable 
+      style={[styles.button, style]} 
+      onPress={onPress}
+    &gt;
+      &lt;Text style={[styles.label, textStyle]}&gt;{title}&lt;/Text&gt;
+    &lt;/Pressable&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#6200ee',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 4,
+    elevation: 2,
+  },
+  label: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});</code></pre>
+
+            <h2><span class="emoji">📦</span>5.2 ProdutoCard.js</h2>
+            <p>Na pasta <code>components/</code>, crie o arquivo <code>ProdutoCard.js</code>:</p>
+
+<pre><code class="language-javascript">// components/ProdutoCard.js
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import AppButton from './AppButton';
+
+export default function ProdutoCard({ product, onPress, onAddToCart }) {
+  return (
+    &lt;TouchableOpacity style={styles.card} onPress={onPress}&gt;
+      &lt;View style={styles.info}&gt;
+        &lt;Text style={styles.name}&gt;{product.name}&lt;/Text&gt;
+        &lt;Text style={styles.price}&gt;R$ {product.price.toFixed(2)}&lt;/Text&gt;
+        &lt;Text style={styles.category}&gt;{product.category}&lt;/Text&gt;
+      &lt;/View&gt;
+      
+      &lt;AppButton
+        title="Adicionar"
+        onPress={onAddToCart}
+        style={styles.button}
+      /&gt;
+    &lt;/TouchableOpacity&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    marginVertical: 4,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    elevation: 2,
+  },
+  info: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  price: {
+    fontSize: 16,
+    color: '#2e7d32',
+    fontWeight: 'bold',
+  },
+  category: {
+    fontSize: 12,
+    color: '#666',
+    textTransform: 'capitalize',
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+});</code></pre>
+
+            <h1><span class="emoji">📦</span>Dependências Necessárias</h1>
+            <div class="dependency-list">
+                <h4>📋 Lista completa de dependências (package.json):</h4>
+                <p>No Expo Snack, você precisará garantir que essas dependências estejam instaladas:</p>
+                <ul>
+                    <li><code>@react-navigation/native</code> - Navegação principal</li>
+                    <li><code>@react-navigation/native-stack</code> - Navegação stack</li>
+                    <li><code>@react-navigation/bottom-tabs</code> - Navegação por abas</li>
+                    <li><code>@react-native-async-storage/async-storage</code> - Armazenamento local</li>
+                    <li><code>react-native-screens</code> - Otimização de telas</li>
+                    <li><code>react-native-safe-area-context</code> - Área segura</li>
+                    <li><code>@expo/vector-icons</code> - Ícones (já incluído no Expo)</li>
+                </ul>
+            </div>
+
+            <h1><span class="emoji">🚀</span>Como Executar o Projeto</h1>
+            <ol>
+                <li><strong>Abra o Expo Snack</strong> em <code>snack.expo.dev</code></li>
+                <li><strong>Crie a estrutura de pastas:</strong>
+                    <ul>
+                        <li><code>context/</code> - AuthContext.js, CartContext.js</li>
+                        <li><code>screens/</code> - Todas as telas</li>
+                        <li><code>components/</code> - AppButton.js, ProdutoCard.js</li>
+                    </ul>
+                </li>
+                <li><strong>Cole o código de cada arquivo</strong> nos respectivos locais</li>
+                <li><strong>Configure as dependências</strong> no package.json</li>
+                <li><strong>Execute o projeto</strong> - o Expo fará o build automaticamente</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4><span class="emoji">💡</span>Dicas para o Expo Snack</h4>
+                <p><strong>🔹 Salvamento automático:</strong> O Snack salva automaticamente suas alterações.</p>
+                <p><strong>🔹 Preview em tempo real:</strong> Veja as mudanças instantaneamente no simulador.</p>
+                <p><strong>🔹 Compartilhamento:</strong> Você pode compartilhar o link do projeto com outros.</p>
+                <p><strong>🔹 QR Code:</strong> Use o app Expo Go no seu celular para testar no dispositivo real.</p>
+            </div>
+
+            <h1><span class="emoji">🐛</span>Troubleshooting</h1>
+            <h3>Problemas Comuns e Soluções:</h3>
+            <ul>
+                <li><strong>Erro de importação:</strong> Verifique se todas as dependências estão instaladas</li>
+                <li><strong>Navegação não funciona:</strong> Certifique-se de que o NavigationContainer envolve tudo</li>
+                <li><strong>Context não acessível:</strong> Verifique se o Provider está envolvendo os componentes</li>
+                <li><strong>AsyncStorage não persiste:</strong> No Snack, os dados se perdem ao recarregar</li>
+                <li><strong>API do clima não funciona:</strong> Registre-se no OpenWeatherMap e obtenha uma API key</li>
+            </ul>
+
+          
+
+          
+        </div>
+    </div>
+
+    <!-- Prism.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
