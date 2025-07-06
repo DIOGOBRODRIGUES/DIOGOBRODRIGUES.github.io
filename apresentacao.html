@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prof. Dr. Diogo Francisco Borba Rodrigues - Portfolio Acadêmico</title>
+  
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #1e40af;
+      --secondary-color: #3b82f6;
+      --accent-color: #06b6d4;
+      --dark-color: #1f2937;
+      --light-color: #f8fafc;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-alt: linear-gradient(135deg, #1e40af 0%, #06b6d4 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* Header/Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+      background-size: cover;
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 2;
+      position: relative;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-content .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      margin: 0 auto 30px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content .subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .hero-content .description {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      opacity: 0.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 35px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--primary-color);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      transform: translateY(-100%);
+    }
+
+    .nav.scrolled {
+      transform: translateY(0);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Sections */
+    .section {
+      padding: 100px 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--text-primary);
+    }
+
+    /* About Section */
+    .about {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(30, 64, 175, 0.05) 0%, transparent 70%);
+      transform: rotate(45deg);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-text {
+      background: white;
+      padding: 50px;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .about-text::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      border-radius: 0 25px 0 100px;
+      opacity: 0.1;
+    }
+
+    .about-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-text h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--gradient-alt);
+      border-radius: 2px;
+    }
+
+    .about-text p {
+      margin-bottom: 25px;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: justify;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .about-text p::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -5px;
+      font-size: 2rem;
+      color: var(--accent-color);
+      font-family: 'Playfair Display', serif;
+      opacity: 0.3;
+    }
+
+    .about-text p:last-of-type::before {
+      display: none;
+    }
+
+    .about-text strong {
+      color: var(--primary-color);
+      font-weight: 600;
+      background: linear-gradient(120deg, transparent 0%, rgba(30, 64, 175, 0.1) 50%, transparent 100%);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 40px 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border-top: 4px solid transparent;
+    }
+
+    .stat-item:nth-child(1) {
+      border-top-color: #ef4444;
+    }
+
+    .stat-item:nth-child(2) {
+      border-top-color: #10b981;
+    }
+
+    .stat-item:nth-child(3) {
+      border-top-color: #f59e0b;
+    }
+
+    .stat-item:nth-child(4) {
+      border-top-color: #8b5cf6;
+    }
+
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .stat-item:hover::before {
+      left: 100%;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: block;
+      font-family: 'Playfair Display', serif;
+      background: var(--gradient-alt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* Efeito de destaque para tecnologias */
+    .tech-highlight {
+      display: inline-block;
+      background: var(--gradient-alt);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 2px;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
+    }
+
+    /* Areas de Atuação */
+    .areas {
+      padding: 100px 0;
+    }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .area-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+      border-top: 4px solid transparent;
+    }
+
+    .area-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .area-card:nth-child(1) {
+      border-top-color: #ef4444;
+    }
+
+    .area-card:nth-child(2) {
+      border-top-color: #10b981;
+    }
+
+    .area-card:nth-child(3) {
+      border-top-color: #f59e0b;
+    }
+
+    .area-card:nth-child(4) {
+      border-top-color: #8b5cf6;
+    }
+
+    .area-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: var(--gradient-alt);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .area-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+
+    .area-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: var(--dark-color);
+      color: white;
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      color: var(--accent-color);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .contact-item i {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      width: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-alt);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Footer */
+    .footer {
+      background: #111827;
+      padding: 40px 0;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer p {
+      margin-bottom: 10px;
+    }
+
+    .footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-alt);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .about-text {
+        padding: 30px;
+      }
+
+      .about-text h3 {
+        font-size: 1.5rem;
+      }
+
+      .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .stat-item {
+        padding: 25px 15px;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+      }
+
+      .tech-highlight {
+        font-size: 0.8rem;
+        padding: 2px 6px;
+      }
+
+      .contact-content {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .areas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">Prof. Diogo Rodrigues</a>
+      <ul class="nav-links">
+        <li><a href="#home">Início</a></li>
+        <li><a href="#about">Sobre</a></li>
+        <li><a href="#areas">Áreas de Atuação</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contact">Contato</a></li>
+        <li><a href="index.html">Portal de Aulas</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <img src="https://via.placeholder.com/200x200/667eea/ffffff?text=DR" alt="Prof. Diogo Rodrigues" class="profile-img">
+      <h1>Prof. Dr. Diogo Francisco Borba Rodrigues</h1>
+      <p class="subtitle">Docente & Pesquisador em Tecnologia</p>
+      <p class="description">
+        Professor, pesquisador e analista de dados especializado em desenvolvimento de software, 
+        análise de dados e ensino de tecnologia. Atuo na formação de profissionais e coordeno 
+        projetos de pesquisa focados em inclusão digital e ciência de dados.
+      </p>
+      <div class="cta-buttons">
+        <a href="#about" class="btn btn-primary">
+          <i class="fas fa-user"></i>
+          Conheça meu trabalho
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <i class="fas fa-envelope"></i>
+          Entre em contato
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Sobre Mim</h2>
+      <div class="about-content">
+        <div class="about-text" data-aos="fade-up">
+          <h3>Professor, Pesquisador e Analista de Dados</h3>
+          <p>
+            Professor, pesquisador e analista de dados com ampla experiência no ensino superior, 
+            desenvolvimento de software e análise de dados. Atuo na formação de profissionais 
+            de tecnologia na <strong>UNINASSAU</strong>, ministrando disciplinas em cursos de tecnologia e 
+            orientando alunos em projetos de pesquisa e iniciação científica.
+          </p>
+          <p>
+            Atualmente trabalho como <strong>Analista de Dados</strong> em uma empresa de seguros, 
+            onde estruturo soluções em <strong>SQL</strong>, desenvolvo relatórios estratégicos e implemento 
+            regras de negócios para otimizar a tomada de decisão. Meu foco está na análise 
+            e modelagem de dados para garantir eficiência e precisão nas operações.
+          </p>
+          <p>
+            Destaco-me na estruturação de conteúdos didáticos inovadores, utilizando metodologias 
+            ativas e ferramentas modernas. 
+            <br><br>
+            <span class="tech-highlight">Google Earth Engine</span>
+            <span class="tech-highlight">React</span>
+            <span class="tech-highlight">JavaScript</span>
+            <span class="tech-highlight">T-SQL</span>
+            <span class="tech-highlight">Python</span>
+            <span class="tech-highlight">React Native</span>
+            <span class="tech-highlight">Node.js</span>
+            <span class="tech-highlight">MongoDB</span>
+            <br><br>
+            Sempre busco tornar o aprendizado prático e aplicável ao mercado, conectando teoria 
+            e prática de forma dinâmica.
+          </p>
+          <p>
+            Coordeno projetos de pesquisa focados em <strong>inclusão digital</strong>, como o projeto 
+            "Programação Acessível: Introdução ao JavaScript para Surdos", e projetos de 
+            <strong>ciência de dados</strong> para identificação de áreas com deficiência de saneamento 
+            básico no Recife, utilizando técnicas de <strong>machine learning</strong> e <strong>mineração de dados</strong>.
+          </p>
+        </div>
+        
+        <div class="about-stats" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-item">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Anos de Experiência em Ensino</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Alunos Impactados no Projeto Surdos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Projetos de Pesquisa Ativos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">8+</span>
+            <span class="stat-label">Tecnologias Dominadas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas de Atuação -->
+  <section id="areas" class="areas section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Áreas de Atuação</h2>
+      <div class="areas-grid">
+        <div class="area-card" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-chart-line area-icon"></i>
+          <h3>Análise de Dados & BI</h3>
+          <p>
+            Especialista em análise de dados, SQL, T-SQL e Business Intelligence. 
+            Desenvolvo soluções para empresas de seguros e projetos de Smart Cities 
+            utilizando Python, R e técnicas de machine learning.
+          </p>
+        </div>
+        <div class="area-card" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-code area-icon"></i>
+          <h3>Desenvolvimento Web & Mobile</h3>
+          <p>
+            Desenvolvimento de aplicações com React, JavaScript, React Native e Node.js. 
+            Criação de plataformas digitais para agricultura familiar e e-commerce, 
+            conectando teoria acadêmica com aplicações práticas.
+          </p>
+        </div>
+        <div class="area-card" data-aos="fade-up" data-aos-delay="300">
+          <i class="fas fa-universal-access area-icon"></i>
+          <h3>Educação Inclusiva & Acessibilidade</h3>
+          <p>
+            Pioneiro em projetos de inclusão digital, coordenando o projeto "Programação 
+            Acessível para Surdos" com impacto direto em 20 participantes, promovendo 
+            oportunidades no mercado de tecnologia.
+          </p>
+        </div>
+        <div class="area-card" data-aos="fade-up" data-aos-delay="400">
+          <i class="fas fa-satellite area-icon"></i>
+          <h3>Geoprocessamento & Pesquisa</h3>
+          <p>
+            Especialista em Google Earth Engine e análise de dados geoespaciais. 
+            Coordeno pesquisas em mineração de dados para identificação de áreas 
+            com deficiência de saneamento básico no Recife.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projetos em Destaque -->
+  <section id="projetos" class="areas section" style="background: var(--light-color);">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Projetos em Destaque</h2>
+      <div class="areas-grid">
+        <div class="area-card" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-universal-access area-icon"></i>
+          <h3>Programação Acessível para Surdos</h3>
+          <p>
+            Projeto de extensão na UNINASSAU que capacitou 20 pessoas surdas em JavaScript, 
+            com aulas em Libras e parceria com ASSPE. Uma iniciativa pioneira em inclusão 
+            digital na área de tecnologia.
+          </p>
+          <div style="margin-top: 15px;">
+            <span style="background: #10b981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">
+              Inclusão Digital
+            </span>
+            <span style="background: #3b82f6; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
+              JavaScript
+            </span>
+          </div>
+        </div>
+        <div class="area-card" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-seedling area-icon"></i>
+          <h3>E-commerce para Agricultura Familiar</h3>
+          <p>
+            Plataforma digital para conectar agricultores familiares do Recife a consumidores, 
+            promovendo sustentabilidade e alimentação saudável. Desenvolvida com React Native, 
+            Node.js e MongoDB.
+          </p>
+          <div style="margin-top: 15px;">
+            <span style="background: #10b981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">
+              Sustentabilidade
+            </span>
+            <span style="background: #f59e0b; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
+              React Native
+            </span>
+          </div>
+        </div>
+        <div class="area-card" data-aos="fade-up" data-aos-delay="300">
+          <i class="fas fa-city area-icon"></i>
+          <h3>Mineração de Dados - Saneamento Básico</h3>
+          <p>
+            Projeto de pesquisa utilizando machine learning para identificar áreas com deficiência 
+            de saneamento básico no Recife. Aplicação de algoritmos de clustering e classificação 
+            para subsidiar políticas públicas.
+          </p>
+          <div style="margin-top: 15px;">
+            <span style="background: #8b5cf6; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">
+              Smart Cities
+            </span>
+            <span style="background: #ef4444; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
+              Machine Learning
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Entre em Contato</h2>
+      <div class="contact-content">
+        <div class="contact-info" data-aos="fade-right">
+          <h3>Informações de Contato</h3>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>diogo.borbar@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope-open"></i>
+            <span>010117368@prof.uninassau.edu.br</span>
+          </div>
+          <div class="contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <span>(81) 99804-8112</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-university"></i>
+            <span>UNINASSAU - Universidade Maurício de Nassau</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Recife, Pernambuco - Brasil</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Seg - Sex: 8:00 - 18:00</span>
+          </div>
+          
+          <div class="social-links">
+            <a href="mailto:diogo.borbar@gmail.com" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://wa.me/5581998048112" target="_blank" class="social-link">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" class="social-link">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="index.html" class="social-link">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="contact-form" data-aos="fade-left">
+          <form>
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Assunto</label>
+              <input type="text" id="subject" name="subject" placeholder="Assunto da mensagem" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Mensagem</label>
+              <textarea id="message" name="message" rows="5" placeholder="Sua mensagem..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i>
+              Enviar Mensagem
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Prof. Dr. Diogo Francisco Borba Rodrigues. Todos os direitos reservados.</p>
+      <p>
+        <a href="mailto:diogo.borbar@gmail.com">diogo.borbar@gmail.com</a> | 
+        <a href="https://wa.me/5581998048112" target="_blank">(81) 99804-8112</a> | 
+        <a href="index.html">Portal de Aulas</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const scrollTop = document.getElementById('scrollTop');
+      
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+        scrollTop.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        scrollTop.classList.remove('visible');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Scroll to top button
+    document.getElementById('scrollTop').addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Mensagem enviada! Entrarei em contato em breve.');
+      this.reset();
+    });
+
+    // Fade in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
