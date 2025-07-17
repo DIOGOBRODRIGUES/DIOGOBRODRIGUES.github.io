@@ -191,11 +191,11 @@
         <section>
           <h3>🎯 Objetivos da Calculadora</h3>
           <ul>
-            <li class="fragment">✅ Interface com display e botões</li>
-            <li class="fragment">✅ Operações básicas (+, -, ×, ÷)</li>
-            <li class="fragment">✅ Função limpar (C)</li>
-            <li class="fragment">✅ Validação de entrada</li>
-            <li class="fragment">✅ Design responsivo</li>
+            <li class="fragment">🔢 Entrada de dois números</li>
+            <li class="fragment">➕ Soma simples</li>
+            <li class="fragment">📺 Exibir resultado</li>
+            <li class="fragment">🔄 Botão limpar</li>
+            <li class="fragment">✨ Interface básica e funcional</li>
           </ul>
         </section>
 
@@ -203,101 +203,25 @@
           <h3>🏗️ Estrutura da Calculadora</h3>
           <div style="font-size: 0.7em;">
             <ol>
-              <li><strong>Display:</strong> Label para mostrar números e resultado</li>
-              <li><strong>Botões numéricos:</strong> 0-9</li>
-              <li><strong>Botões de operação:</strong> +, -, ×, ÷</li>
-              <li><strong>Botão igual:</strong> = (calcular resultado)</li>
-              <li><strong>Botão limpar:</strong> C</li>
+              <li><strong>Campo 1:</strong> TextInput para o primeiro número</li>
+              <li><strong>Campo 2:</strong> TextInput para o segundo número</li>
+              <li><strong>Botão Somar:</strong> Button para calcular</li>
+              <li><strong>Resultado:</strong> Label para mostrar o resultado</li>
+              <li><strong>Botão Limpar:</strong> Button para limpar campos</li>
             </ol>
             <br>
             <h4>🧩 Lógica Principal:</h4>
             <ul>
-              <li>Armazenar primeiro número</li>
-              <li>Armazenar operação</li>
-              <li>Armazenar segundo número</li>
-              <li>Calcular e exibir resultado</li>
+              <li>Obter valores dos TextInputs</li>
+              <li>Somar os dois números</li>
+              <li>Exibir resultado no Label</li>
+              <li>Limpar campos quando necessário</li>
             </ul>
           </div>
         </section>
       </section>
 
-      <!-- Slide 9 - APIs no Thunkable -->
-      <section>
-        <h2>🌐 Integração com APIs</h2>
-        <div class="fragment-container">
-          <div class="fragment">
-            <h3>📡 Componente Web API</h3>
-            <ul>
-              <li>🔗 Fazer requisições HTTP</li>
-              <li>📤 GET, POST, PUT, DELETE</li>
-              <li>🗂️ Trabalhar com JSON</li>
-              <li>🔑 Headers e autenticação</li>
-            </ul>
-          </div>
-          <div class="fragment">
-            <h3>📋 Passos para usar APIs:</h3>
-            <ol>
-              <li>Adicionar componente Web API</li>
-              <li>Configurar URL e método</li>
-              <li>Definir headers (se necessário)</li>
-              <li>Tratar resposta nos blocos</li>
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 10 - Projeto Prático 2: App de Clima -->
-      <section>
-        <section>
-          <h2>💡 Projeto Prático 2: App de Clima</h2>
-          <div style="text-align: center;">
-            <p style="font-size: 3em;">🌤️</p>
-            <h3>App que consulta a previsão do tempo!</h3>
-            <p><em>Tempo estimado: 30 minutos</em></p>
-          </div>
-        </section>
-
-        <section>
-          <h3>🎯 Funcionalidades do App</h3>
-          <ul>
-            <li class="fragment">🔍 Buscar clima por cidade</li>
-            <li class="fragment">🌡️ Mostrar temperatura atual</li>
-            <li class="fragment">☁️ Exibir condições do tempo</li>
-            <li class="fragment">💨 Velocidade do vento</li>
-            <li class="fragment">💧 Umidade</li>
-            <li class="fragment">📍 Usar localização atual (opcional)</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>🔧 Componentes Necessários</h3>
-          <div style="font-size: 0.8em;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-              <div>
-                <h4>🎨 Interface:</h4>
-                <ul>
-                  <li>TextInput (nome da cidade)</li>
-                  <li>Button (buscar)</li>
-                  <li>Labels (temperatura, condições)</li>
-                  <li>Image (ícone do tempo)</li>
-                </ul>
-              </div>
-              <div>
-                <h4>⚙️ Funcionalidade:</h4>
-                <ul>
-                  <li>Web API (OpenWeatherMap)</li>
-                  <li>Location (GPS opcional)</li>
-                  <li>Variáveis (dados do clima)</li>
-                </ul>
-              </div>
-            </div>
-            <br>
-            <p><strong>API Gratuita:</strong> 
-            <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a></p>
-          </div>
-        </section>
-      </section>
-
+      
       <!-- Slide 11 - Armazenamento de Dados -->
       <section>
         <h2>💾 Armazenamento de Dados</h2>
