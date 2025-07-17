@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Desenvolvimento Mobile com Thunkable - Aplicações Práticas</title>
+
+  <meta name="description" content="Aula sobre desenvolvimento de aplicativos móveis usando Thunkable com aplicações práticas e projetos hands-on">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h2>📱 Desenvolvimento Mobile com Thunkable</h2>
+        <h3>Aplicações Práticas e Projetos Hands-on</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Agenda da Aula -->
+      <section>
+        <h2>📋 Agenda da Aula</h2>
+        <ul>
+          <li>🎯 Introdução ao Thunkable</li>
+          <li>🔧 Configuração e Primeiros Passos</li>
+          <li>🧩 Componentes e Interface</li>
+          <li>💡 Projeto Prático 1: Calculadora</li>
+          <li>🌐 Integração com APIs</li>
+          <li>📱 Projeto Prático 2: App de Clima</li>
+          <li>💾 Armazenamento de Dados</li>
+          <li>🎮 Projeto Prático 3: Lista de Tarefas</li>
+          <li>🚀 Deploy e Publicação</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é Thunkable? -->
+      <section>
+        <h2>🤔 O que é Thunkable?</h2>
+        <div style="display: flex; align-items: center;">
+          <div style="flex: 1;">
+            <ul>
+              <li>🔧 Plataforma <strong>no-code/low-code</strong></li>
+              <li>📱 Criação de apps nativos para <strong>iOS e Android</strong></li>
+              <li>🖱️ Interface <strong>drag-and-drop</strong></li>
+              <li>🧩 Programação visual com <strong>blocos</strong></li>
+              <li>☁️ Baseado na <strong>nuvem</strong></li>
+              <li>🆓 Versão gratuita disponível</li>
+            </ul>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 4em;">📲</p>
+            <p><em>"Democratizando o desenvolvimento mobile"</em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4 - Vantagens do Thunkable -->
+      <section>
+        <h2>✅ Vantagens do Thunkable</h2>
+        <div class="fragment-container">
+          <div class="fragment">
+            <h3>🚀 Rapidez no Desenvolvimento</h3>
+            <p>Criação de protótipos em minutos, apps completos em horas</p>
+          </div>
+          <div class="fragment">
+            <h3>💰 Custo-Benefício</h3>
+            <p>Redução significativa no tempo e recursos de desenvolvimento</p>
+          </div>
+          <div class="fragment">
+            <h3>📚 Curva de Aprendizado Baixa</h3>
+            <p>Não requer conhecimento profundo de programação</p>
+          </div>
+          <div class="fragment">
+            <h3>🔄 Cross-Platform</h3>
+            <p>Um código para iOS e Android</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Configuração Inicial -->
+      <section>
+        <h2>⚙️ Configuração e Primeiros Passos</h2>
+        <ol>
+          <li class="fragment">
+            <strong>Acesse:</strong> 
+            <a href="https://thunkable.com" target="_blank">thunkable.com</a>
+          </li>
+          <li class="fragment">
+            <strong>Crie uma conta</strong> (gratuita)
+          </li>
+          <li class="fragment">
+            <strong>Escolha o tipo de projeto:</strong>
+            <ul>
+              <li>📱 <strong>StageCanvas:</strong> Drag & Drop visual</li>
+              <li>🧩 <strong>Snap to Place:</strong> Programação por blocos</li>
+            </ul>
+          </li>
+          <li class="fragment">
+            <strong>Instale o app Thunkable Live</strong> para testes
+          </li>
+        </ol>
+      </section>
+
+      <!-- Slide 6 - Interface do Thunkable -->
+      <section>
+        <h2>🖥️ Interface do Thunkable</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h3>📱 Design (StageCanvas)</h3>
+            <ul>
+              <li>🎨 Canvas de design</li>
+              <li>📦 Painel de componentes</li>
+              <li>⚙️ Propriedades</li>
+              <li>📂 Navegador de telas</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🧩 Blocks (Lógica)</h3>
+            <ul>
+              <li>🔧 Eventos</li>
+              <li>🎛️ Controles</li>
+              <li>💾 Variáveis</li>
+              <li>🔗 Funções</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Componentes Principais -->
+      <section>
+        <h2>🧩 Componentes Principais</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+          <div>
+            <h3>📱 Interface</h3>
+            <ul>
+              <li>📝 <strong>Label:</strong> Texto estático</li>
+              <li>🔤 <strong>TextInput:</strong> Campo de entrada</li>
+              <li>🔘 <strong>Button:</strong> Botão de ação</li>
+              <li>🖼️ <strong>Image:</strong> Imagens</li>
+              <li>📋 <strong>List:</strong> Listas</li>
+            </ul>
+          </div>
+          <div>
+            <h3>⚙️ Funcionalidade</h3>
+            <ul>
+              <li>🌐 <strong>Web API:</strong> Requisições HTTP</li>
+              <li>💾 <strong>Local DB:</strong> Banco local</li>
+              <li>📍 <strong>Location:</strong> GPS</li>
+              <li>📷 <strong>Camera:</strong> Fotos/vídeos</li>
+              <li>🔊 <strong>Sound:</strong> Áudio</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8 - Projeto Prático 1: Calculadora -->
+      <section>
+        <section>
+          <h2>💡 Projeto Prático 1: Calculadora</h2>
+          <div style="text-align: center;">
+            <p style="font-size: 3em;">🧮</p>
+            <h3>Vamos criar uma calculadora simples!</h3>
+            <p><em>Tempo estimado: 20 minutos</em></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎯 Objetivos da Calculadora</h3>
+          <ul>
+            <li class="fragment">✅ Interface com display e botões</li>
+            <li class="fragment">✅ Operações básicas (+, -, ×, ÷)</li>
+            <li class="fragment">✅ Função limpar (C)</li>
+            <li class="fragment">✅ Validação de entrada</li>
+            <li class="fragment">✅ Design responsivo</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura da Calculadora</h3>
+          <div style="font-size: 0.7em;">
+            <ol>
+              <li><strong>Display:</strong> Label para mostrar números e resultado</li>
+              <li><strong>Botões numéricos:</strong> 0-9</li>
+              <li><strong>Botões de operação:</strong> +, -, ×, ÷</li>
+              <li><strong>Botão igual:</strong> = (calcular resultado)</li>
+              <li><strong>Botão limpar:</strong> C</li>
+            </ol>
+            <br>
+            <h4>🧩 Lógica Principal:</h4>
+            <ul>
+              <li>Armazenar primeiro número</li>
+              <li>Armazenar operação</li>
+              <li>Armazenar segundo número</li>
+              <li>Calcular e exibir resultado</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 9 - APIs no Thunkable -->
+      <section>
+        <h2>🌐 Integração com APIs</h2>
+        <div class="fragment-container">
+          <div class="fragment">
+            <h3>📡 Componente Web API</h3>
+            <ul>
+              <li>🔗 Fazer requisições HTTP</li>
+              <li>📤 GET, POST, PUT, DELETE</li>
+              <li>🗂️ Trabalhar com JSON</li>
+              <li>🔑 Headers e autenticação</li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <h3>📋 Passos para usar APIs:</h3>
+            <ol>
+              <li>Adicionar componente Web API</li>
+              <li>Configurar URL e método</li>
+              <li>Definir headers (se necessário)</li>
+              <li>Tratar resposta nos blocos</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Projeto Prático 2: App de Clima -->
+      <section>
+        <section>
+          <h2>💡 Projeto Prático 2: App de Clima</h2>
+          <div style="text-align: center;">
+            <p style="font-size: 3em;">🌤️</p>
+            <h3>App que consulta a previsão do tempo!</h3>
+            <p><em>Tempo estimado: 30 minutos</em></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎯 Funcionalidades do App</h3>
+          <ul>
+            <li class="fragment">🔍 Buscar clima por cidade</li>
+            <li class="fragment">🌡️ Mostrar temperatura atual</li>
+            <li class="fragment">☁️ Exibir condições do tempo</li>
+            <li class="fragment">💨 Velocidade do vento</li>
+            <li class="fragment">💧 Umidade</li>
+            <li class="fragment">📍 Usar localização atual (opcional)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🔧 Componentes Necessários</h3>
+          <div style="font-size: 0.8em;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <h4>🎨 Interface:</h4>
+                <ul>
+                  <li>TextInput (nome da cidade)</li>
+                  <li>Button (buscar)</li>
+                  <li>Labels (temperatura, condições)</li>
+                  <li>Image (ícone do tempo)</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚙️ Funcionalidade:</h4>
+                <ul>
+                  <li>Web API (OpenWeatherMap)</li>
+                  <li>Location (GPS opcional)</li>
+                  <li>Variáveis (dados do clima)</li>
+                </ul>
+              </div>
+            </div>
+            <br>
+            <p><strong>API Gratuita:</strong> 
+            <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Armazenamento de Dados -->
+      <section>
+        <h2>💾 Armazenamento de Dados</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h3>🗃️ Local Storage</h3>
+            <ul>
+              <li>📱 Dados armazenados no dispositivo</li>
+              <li>🔄 Persistem entre sessões</li>
+              <li>🚀 Acesso rápido</li>
+              <li>📊 Ideal para configurações</li>
+            </ul>
+          </div>
+          <div>
+            <h3>💾 Local DB</h3>
+            <ul>
+              <li>🗄️ Banco de dados local</li>
+              <li>📋 Listas e tabelas</li>
+              <li>🔍 Busca e filtros</li>
+              <li>📱 Para dados estruturados</li>
+            </ul>
+          </div>
+        </div>
+        <div class="fragment" style="margin-top: 30px;">
+          <h3>☁️ Cloud Storage (Premium)</h3>
+          <p>Sincronização entre dispositivos - Requer plano pago</p>
+        </div>
+      </section>
+
+      <!-- Slide 12 - Projeto Prático 3: Lista de Tarefas -->
+      <section>
+        <section>
+          <h2>💡 Projeto Prático 3: Lista de Tarefas</h2>
+          <div style="text-align: center;">
+            <p style="font-size: 3em;">📝</p>
+            <h3>To-Do List com persistência de dados!</h3>
+            <p><em>Tempo estimado: 35 minutos</em></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎯 Funcionalidades</h3>
+          <ul>
+            <li class="fragment">➕ Adicionar nova tarefa</li>
+            <li class="fragment">✅ Marcar como concluída</li>
+            <li class="fragment">🗑️ Excluir tarefa</li>
+            <li class="fragment">✏️ Editar tarefa</li>
+            <li class="fragment">💾 Salvar dados localmente</li>
+            <li class="fragment">📊 Contador de tarefas</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura do App</h3>
+          <div style="font-size: 0.7em;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <h4>🎨 Interface:</h4>
+                <ul>
+                  <li>TextInput (nova tarefa)</li>
+                  <li>Button (adicionar)</li>
+                  <li>List Viewer (lista de tarefas)</li>
+                  <li>Labels (contadores)</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💾 Dados:</h4>
+                <ul>
+                  <li>Local DB (tarefas)</li>
+                  <li>Variáveis (lista atual)</li>
+                  <li>Estados (concluída/pendente)</li>
+                </ul>
+              </div>
+            </div>
+            <br>
+            <h4>🧩 Lógica Principal:</h4>
+            <ol>
+              <li>Carregar tarefas salvas na inicialização</li>
+              <li>Adicionar/editar/excluir tarefas</li>
+              <li>Atualizar interface em tempo real</li>
+              <li>Salvar mudanças no banco local</li>
+            </ol>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 13 - Testes e Debug -->
+      <section>
+        <h2>🧪 Testes e Depuração</h2>
+        <div class="fragment-container">
+          <div class="fragment">
+            <h3>📱 Thunkable Live</h3>
+            <ul>
+              <li>🔄 Teste em tempo real</li>
+              <li>📱 iOS e Android</li>
+              <li>🔗 QR Code para conexão</li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <h3>🐛 Depuração</h3>
+            <ul>
+              <li>🖥️ Web Preview</li>
+              <li>📋 Console de erros</li>
+              <li>🔍 Alert para debug</li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <h3>📊 Boas Práticas</h3>
+            <ul>
+              <li>✅ Teste em diferentes dispositivos</li>
+              <li>📐 Considere diferentes tamanhos de tela</li>
+              <li>🌐 Teste conexão offline</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14 - Deploy e Publicação -->
+      <section>
+        <h2>🚀 Deploy e Publicação</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+          <div>
+            <h3>📱 Download APK (Android)</h3>
+            <ol>
+              <li>Projeto → Download</li>
+              <li>Selecionar "Android"</li>
+              <li>Aguardar build</li>
+              <li>Download do .apk</li>
+            </ol>
+          </div>
+          <div>
+            <h3>🏪 Publicação nas Stores</h3>
+            <ul>
+              <li>📊 Plano PRO necessário</li>
+              <li>🔑 Certificados de desenvolvimento</li>
+              <li>📝 Metadados da loja</li>
+              <li>🎨 Ícones e screenshots</li>
+            </ul>
+          </div>
+        </div>
+        <div class="fragment" style="margin-top: 30px;">
+          <h3>💡 Alternativas para Distribuição Gratuita:</h3>
+          <ul>
+            <li>📧 Compartilhar APK por email/drive</li>
+            <li>🌐 Progressive Web App (PWA)</li>
+            <li>🔗 Link público do Thunkable Live</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 15 - Recursos Avançados -->
+      <section>
+        <h2>🔥 Recursos Avançados</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+          <div>
+            <h3>🎨 Design Avançado</h3>
+            <ul>
+              <li>🎭 Animações e transições</li>
+              <li>🎨 Temas personalizados</li>
+              <li>📱 Layout responsivo</li>
+              <li>🖼️ Componentes customizados</li>
+            </ul>
+          </div>
+          <div>
+            <h3>⚙️ Funcionalidades Pro</h3>
+            <ul>
+              <li>🔔 Push notifications</li>
+              <li>💳 In-app purchases</li>
+              <li>📊 Analytics</li>
+              <li>🔐 Autenticação avançada</li>
+            </ul>
+          </div>
+        </div>
+        <div class="fragment" style="margin-top: 30px;">
+          <h3>🔌 Extensões e Integrações</h3>
+          <ul>
+            <li>🔥 Firebase</li>
+            <li>📧 SendGrid</li>
+            <li>💰 Stripe</li>
+            <li>🗺️ Google Maps</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 16 - Exercícios Práticos -->
+      <section>
+        <h2>💪 Exercícios Práticos</h2>
+        <div style="font-size: 0.8em;">
+          <h3>🎯 Para Praticar em Casa:</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>🟢 Nível Iniciante:</h4>
+              <ul>
+                <li>🎲 App de dados (random)</li>
+                <li>💰 Conversor de moedas</li>
+                <li>⏱️ Cronômetro simples</li>
+                <li>📏 Calculadora de IMC</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🟡 Nível Intermediário:</h4>
+              <ul>
+                <li>📚 App de notas com categorias</li>
+                <li>🛒 Lista de compras</li>
+                <li>📰 Leitor de notícias (RSS)</li>
+                <li>🎵 Player de música simples</li>
+              </ul>
+            </div>
+          </div>
+          <div class="fragment">
+            <h4>🔴 Nível Avançado:</h4>
+            <ul>
+              <li>💬 App de chat simples</li>
+              <li>📸 Galeria de fotos com filtros</li>
+              <li>🏃 App de exercícios com timer</li>
+              <li>🌍 App de viagem com mapas</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17 - Limitações e Considerações -->
+      <section>
+        <h2>⚠️ Limitações e Considerações</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+          <div>
+            <h3>🚫 Limitações</h3>
+            <ul>
+              <li>⚡ Performance limitada para apps complexos</li>
+              <li>🎨 Customização visual restrita</li>
+              <li>📱 Funcionalidades nativas limitadas</li>
+              <li>☁️ Dependência da plataforma</li>
+              <li>💰 Recursos avançados são pagos</li>
+            </ul>
+          </div>
+          <div>
+            <h3>✅ Quando Usar</h3>
+            <ul>
+              <li>🚀 Prototipagem rápida</li>
+              <li>📚 Projetos educacionais</li>
+              <li>💼 Apps simples de negócio</li>
+              <li>⏰ Desenvolvimento com prazo apertado</li>
+              <li>👥 Equipes sem programadores</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 18 - Recursos de Aprendizado -->
+      <section>
+        <h2>📚 Recursos para Continuar Aprendendo</h2>
+        <div style="font-size: 0.8em;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h3>📖 Documentação Oficial</h3>
+              <ul>
+                <li><a href="https://docs.thunkable.com" target="_blank">docs.thunkable.com</a></li>
+                <li>🎥 Tutoriais em vídeo</li>
+                <li>📋 Guias passo a passo</li>
+                <li>🧩 Biblioteca de componentes</li>
+              </ul>
+            </div>
+            <div>
+              <h3>👥 Comunidade</h3>
+              <ul>
+                <li>💬 <a href="https://community.thunkable.com" target="_blank">Fórum oficial</a></li>
+                <li>📺 Canal no YouTube</li>
+                <li>🐦 Twitter: @thunkable</li>
+                <li>📧 Newsletter</li>
+              </ul>
+            </div>
+          </div>
+          <div class="fragment" style="margin-top: 30px;">
+            <h3>🛠️ Ferramentas Similares</h3>
+            <ul>
+              <li>📱 <strong>App Inventor (MIT):</strong> Educacional, gratuito</li>
+              <li>🔧 <strong>Bubble:</strong> Foco em web apps</li>
+              <li>⚡ <strong>FlutterFlow:</strong> Baseado em Flutter</li>
+              <li>🎨 <strong>Adalo:</strong> Design-first approach</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 19 - Resumo da Aula -->
+      <section>
+        <h2>📋 Resumo da Aula</h2>
+        <div style="font-size: 0.8em;">
+          <div class="fragment-container">
+            <div class="fragment">
+              <h3>✅ O que Aprendemos</h3>
+              <ul>
+                <li>🎯 Conceitos fundamentais do Thunkable</li>
+                <li>🛠️ Configuração e interface da plataforma</li>
+                <li>🧩 Uso de componentes e programação visual</li>
+                <li>💡 3 projetos práticos completos</li>
+                <li>🌐 Integração com APIs</li>
+                <li>💾 Armazenamento de dados</li>
+                <li>🚀 Deploy e publicação</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h3>🎯 Próximos Passos</h3>
+              <ol>
+                <li>Praticar com os exercícios propostos</li>
+                <li>Explorar componentes avançados</li>
+                <li>Desenvolver projeto pessoal</li>
+                <li>Participar da comunidade</li>
+                <li>Considerar upgrade para recursos PRO</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 20 - Perguntas e Respostas -->
+      <section>
+        <h2>❓ Perguntas e Respostas</h2>
+        <div style="text-align: center;">
+          <p style="font-size: 4em;">🤔💭</p>
+          <h3>Dúvidas sobre Thunkable?</h3>
+          <br>
+          <div style="font-size: 0.8em;">
+            <p>📧 <strong>Email:</strong> diogo.rodrigues@mauriciodenassau.edu.br</p>
+            <p>💼 <strong>LinkedIn:</strong> 
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+              Prof. Diogo Rodrigues
+            </a></p>
+            <p>💻 <strong>GitHub:</strong> 
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+              DIOGOBRODRIGUES
+            </a></p>
+          </div>
+          <br>
+          <p><em>"A melhor forma de aprender é praticando!"</em></p>
+        </div>
+      </section>
+  </div>
+
+  
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
