@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 5: Armazenamento e Persistência com SQLite</title>
+
+  <meta name="description" content="SQLite para persistência de dados mobile, DDL e DML para alta performance">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 5: Armazenamento com SQLite</h3>
+        <p><strong>Codificação de Alta Performance Mobile</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/diogofbranco" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li>💾 Implementar banco SQLite em React Native</li>
+          <li>🏗️ Dominar DDL - Data Definition Language</li>
+          <li>📊 Executar DML - Data Manipulation Language</li>
+          <li>⚡ Otimizar performance de queries</li>
+          <li>🔄 Sincronizar dados local/remoto</li>
+          <li>📱 Estruturar banco para apps móveis</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - SQLite Overview -->
+      <section>
+        <h2>💾 SQLite - Banco de Dados Embarcado</h2>
+        <section>
+          <h3>🎯 Por que SQLite para Mobile?</h3>
+          <ul>
+            <li>📱 <strong>Embarcado:</strong> Roda dentro do app, sem servidor</li>
+            <li>⚡ <strong>Performance:</strong> Acesso direto ao sistema de arquivos</li>
+            <li>📦 <strong>Leve:</strong> ~600KB quando compilado</li>
+            <li>🔒 <strong>ACID:</strong> Transações confiáveis</li>
+            <li>🌐 <strong>Padrão SQL:</strong> Sintaxe familiar</li>
+            <li>📱 <strong>Cross-platform:</strong> iOS, Android, Web</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🏗️ Arquitetura SQLite</h3>
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Crect width='800' height='500' fill='%23282c34'/%3E%3Ctext x='400' y='50' text-anchor='middle' font-size='24' fill='%2361dafb'%3ESQLite Architecture%3C/text%3E%3Crect x='100' y='100' width='150' height='60' fill='%23ff6b6b' rx='10'/%3E%3Ctext x='175' y='135' text-anchor='middle' font-size='14' fill='white'%3EReact Native%3C/text%3E%3Crect x='300' y='100' width='200' height='60' fill='%234ecdc4' rx='10'/%3E%3Ctext x='400' y='135' text-anchor='middle' font-size='14' fill='%23282c34'%3ESQLite Bridge%3C/text%3E%3Crect x='550' y='100' width='150' height='60' fill='%23ffd93d' rx='10'/%3E%3Ctext x='625' y='135' text-anchor='middle' font-size='14' fill='%23282c34'%3ESQLite Engine%3C/text%3E%3Crect x='200' y='250' width='400' height='80' fill='%23ff9ff3' rx='10'/%3E%3Ctext x='400' y='295' text-anchor='middle' font-size='16' fill='%23282c34'%3EDatabase File (.db)%3C/text%3E%3Cpath d='M250 160 L300 160' stroke='%23333' stroke-width='3'/%3E%3Cpath d='M500 160 L550 160' stroke='%23333' stroke-width='3'/%3E%3Cpath d='M625 160 L625 220 L400 220 L400 250' stroke='%23333' stroke-width='3'/%3E%3C/svg%3E" alt="SQLite Architecture" style="max-width: 70%;">
+        </section>
+      </section>
+
+      <!-- Slide 4 - Setup React Native SQLite -->
+      <section>
+        <h2>🚀 Configurando SQLite no React Native</h2>
+        <section>
+          <h3>📦 Instalação e Configuração</h3>
+          <pre><code data-trim class="bash">
+# Expo - SQLite já incluído
+expo install expo-sqlite
+
+# React Native CLI
+npm install react-native-sqlite-storage
+# iOS
+cd ios && pod install
+
+# Alternativa moderna
+npm install react-native-sqlite-2
+          </code></pre>
+        </section>
+        <section>
+          <h3>🏗️ Configuração Inicial</h3>
+          <pre><code data-trim class="javascript">
+// services/DatabaseService.js
+import * as SQLite from 'expo-sqlite';
+
+class DatabaseService {
+  constructor() {
+    this.db = null;
+    this.isInitialized = false;
+  }
+
+  async initialize() {
+    try {
+      // Abrir/criar banco de dados
+      this.db = SQLite.openDatabase(
+        'app_database.db',
+        '1.0',
+        'Main application database',
+        2 * 1024 * 1024 // 2MB size limit
+      );
+
+      console.log('Database opened successfully');
+      
+      // Habilitar foreign keys
+      await this.executeSql('PRAGMA foreign_keys = ON;');
+      
+      // Criar tabelas
+      await this.createTables();
+      
+      this.isInitialized = true;
+      console.log('Database initialized successfully');
+    } catch (error) {
+      console.error('Database initialization failed:', error);
+      throw error;
+    }
+  }
+
+  executeSql(query, params = []) {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject(new Error('Database not initialized'));
+        return;
+      }
+
+      this.db.transaction(
+        (tx) => {
+          tx.executeSql(
+            query,
+            params,
+            (_, result) => {
+              resolve(result);
+            },
+            (_, error) => {
+              console.error('SQL Error:', error);
+              reject(error);
+            }
+          );
+        },
+        (error) => {
+          console.error('Transaction Error:', error);
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async createTables() {
+    // Criar tabelas do sistema
+    await this.createUserTable();
+    await this.createPostsTable();
+    await this.createCommentsTable();
+    await this.createCacheTable();
+  }
+}
+
+export default new DatabaseService();
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 5 - DDL - Data Definition Language -->
+      <section>
+        <h2>🏗️ DDL - Definindo Estruturas</h2>
+        <section>
+          <h3>📋 CREATE TABLE - Criando Tabelas</h3>
+          <pre><code data-trim class="sql">
+-- Tabela de Usuários
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  avatar_url TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  is_active BOOLEAN DEFAULT 1,
+  sync_status TEXT DEFAULT 'pending' -- pending, synced, error
+);
+
+-- Tabela de Posts
+CREATE TABLE IF NOT EXISTS posts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid TEXT UNIQUE NOT NULL,
+  user_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  content TEXT,
+  image_url TEXT,
+  likes_count INTEGER DEFAULT 0,
+  comments_count INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  sync_status TEXT DEFAULT 'pending',
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+-- Tabela de Comentários
+CREATE TABLE IF NOT EXISTS comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid TEXT UNIQUE NOT NULL,
+  post_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  sync_status TEXT DEFAULT 'pending',
+  FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+          </code></pre>
+        </section>
+        <section>
+          <h3>📊 Implementando CREATE TABLE</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async createUserTable() {
+    const query = `
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        uuid TEXT UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        avatar_url TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        is_active BOOLEAN DEFAULT 1,
+        sync_status TEXT DEFAULT 'pending'
+      );
+    `;
+    
+    await this.executeSql(query);
+    console.log('Users table created');
+  }
+
+  async createPostsTable() {
+    const query = `
+      CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        uuid TEXT UNIQUE NOT NULL,
+        user_id INTEGER NOT NULL,
+        title TEXT NOT NULL,
+        content TEXT,
+        image_url TEXT,
+        likes_count INTEGER DEFAULT 0,
+        comments_count INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        sync_status TEXT DEFAULT 'pending',
+        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+      );
+    `;
+    
+    await this.executeSql(query);
+    console.log('Posts table created');
+  }
+
+  async createIndexes() {
+    // Índices para melhorar performance
+    const indexes = [
+      'CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);',
+      'CREATE INDEX IF NOT EXISTS idx_users_uuid ON users (uuid);',
+      'CREATE INDEX IF NOT EXISTS idx_posts_user_id ON posts (user_id);',
+      'CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts (created_at);',
+      'CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments (post_id);',
+      'CREATE INDEX IF NOT EXISTS idx_sync_status ON posts (sync_status);'
+    ];
+
+    for (const query of indexes) {
+      await this.executeSql(query);
+    }
+    
+    console.log('Indexes created');
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>🔧 ALTER TABLE - Modificando Estruturas</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async migrateDatabase(fromVersion, toVersion) {
+    console.log(`Migrating database from v${fromVersion} to v${toVersion}`);
+    
+    switch (toVersion) {
+      case 2:
+        await this.migrateTo_v2();
+        break;
+      case 3:
+        await this.migrateTo_v3();
+        break;
+      default:
+        throw new Error(`Unknown version: ${toVersion}`);
+    }
+  }
+
+  async migrateTo_v2() {
+    // Adicionar nova coluna
+    await this.executeSql(
+      'ALTER TABLE users ADD COLUMN phone TEXT;'
+    );
+    
+    // Criar nova tabela
+    await this.executeSql(`
+      CREATE TABLE IF NOT EXISTS user_settings (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        key TEXT NOT NULL,
+        value TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+        UNIQUE(user_id, key)
+      );
+    `);
+
+    console.log('Migration to v2 completed');
+  }
+
+  async migrateTo_v3() {
+    // Adicionar índices compostos
+    await this.executeSql(
+      'CREATE INDEX IF NOT EXISTS idx_user_settings_composite ON user_settings (user_id, key);'
+    );
+    
+    // Adicionar trigger para atualizar updated_at
+    await this.executeSql(`
+      CREATE TRIGGER IF NOT EXISTS trigger_users_updated_at
+      AFTER UPDATE ON users
+      FOR EACH ROW
+      BEGIN
+        UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+      END;
+    `);
+
+    console.log('Migration to v3 completed');
+  }
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - DML - Data Manipulation Language -->
+      <section>
+        <h2>📊 DML - Manipulando Dados</h2>
+        <section>
+          <h3>📝 INSERT - Inserindo Dados</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async insertUser(userData) {
+    const {
+      uuid,
+      name,
+      email,
+      avatarUrl,
+      syncStatus = 'pending'
+    } = userData;
+
+    const query = `
+      INSERT INTO users (uuid, name, email, avatar_url, sync_status)
+      VALUES (?, ?, ?, ?, ?);
+    `;
+    
+    const params = [uuid, name, email, avatarUrl, syncStatus];
+    
+    try {
+      const result = await this.executeSql(query, params);
+      console.log('User inserted with ID:', result.insertId);
+      return result.insertId;
+    } catch (error) {
+      if (error.message.includes('UNIQUE constraint failed')) {
+        throw new Error('Email already exists');
+      }
+      throw error;
+    }
+  }
+
+  async insertPost(postData) {
+    const {
+      uuid,
+      userId,
+      title,
+      content,
+      imageUrl,
+      syncStatus = 'pending'
+    } = postData;
+
+    const query = `
+      INSERT INTO posts (uuid, user_id, title, content, image_url, sync_status)
+      VALUES (?, ?, ?, ?, ?, ?);
+    `;
+    
+    const params = [uuid, userId, title, content, imageUrl, syncStatus];
+    const result = await this.executeSql(query, params);
+    
+    return result.insertId;
+  }
+
+  async batchInsert(tableName, data) {
+    // Inserção em lote para performance
+    const queries = data.map(item => ({
+      query: this.buildInsertQuery(tableName, item),
+      params: Object.values(item)
+    }));
+
+    await this.executeTransaction(queries);
+  }
+
+  async executeTransaction(queries) {
+    return new Promise((resolve, reject) => {
+      this.db.transaction(
+        (tx) => {
+          queries.forEach(({ query, params }) => {
+            tx.executeSql(query, params);
+          });
+        },
+        (error) => reject(error),
+        () => resolve()
+      );
+    });
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>🔍 SELECT - Consultando Dados</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async getUsers(options = {}) {
+    const {
+      limit = 50,
+      offset = 0,
+      orderBy = 'created_at',
+      order = 'DESC',
+      isActive = true
+    } = options;
+
+    const query = `
+      SELECT id, uuid, name, email, avatar_url, created_at, updated_at, is_active
+      FROM users
+      WHERE is_active = ?
+      ORDER BY ${orderBy} ${order}
+      LIMIT ? OFFSET ?;
+    `;
+    
+    const params = [isActive ? 1 : 0, limit, offset];
+    const result = await this.executeSql(query, params);
+    
+    return this.resultToArray(result);
+  }
+
+  async getUserWithPosts(userId) {
+    // Query com JOIN para buscar usuário com posts
+    const query = `
+      SELECT 
+        u.id as user_id,
+        u.uuid as user_uuid,
+        u.name as user_name,
+        u.email as user_email,
+        u.avatar_url as user_avatar,
+        p.id as post_id,
+        p.uuid as post_uuid,
+        p.title as post_title,
+        p.content as post_content,
+        p.likes_count as post_likes,
+        p.created_at as post_created_at
+      FROM users u
+      LEFT JOIN posts p ON u.id = p.user_id
+      WHERE u.id = ?
+      ORDER BY p.created_at DESC;
+    `;
+    
+    const result = await this.executeSql(query, [userId]);
+    const rows = this.resultToArray(result);
+    
+    // Transformar resultado em objeto estruturado
+    if (rows.length === 0) return null;
+    
+    const user = {
+      id: rows[0].user_id,
+      uuid: rows[0].user_uuid,
+      name: rows[0].user_name,
+      email: rows[0].user_email,
+      avatarUrl: rows[0].user_avatar,
+      posts: []
+    };
+
+    rows.forEach(row => {
+      if (row.post_id) {
+        user.posts.push({
+          id: row.post_id,
+          uuid: row.post_uuid,
+          title: row.post_title,
+          content: row.post_content,
+          likesCount: row.post_likes,
+          createdAt: row.post_created_at
+        });
+      }
+    });
+
+    return user;
+  }
+
+  async searchPosts(searchTerm, limit = 20) {
+    const query = `
+      SELECT 
+        p.id, p.uuid, p.title, p.content, p.likes_count, p.created_at,
+        u.name as author_name, u.avatar_url as author_avatar
+      FROM posts p
+      INNER JOIN users u ON p.user_id = u.id
+      WHERE p.title LIKE ? OR p.content LIKE ?
+      ORDER BY p.created_at DESC
+      LIMIT ?;
+    `;
+    
+    const searchPattern = `%${searchTerm}%`;
+    const params = [searchPattern, searchPattern, limit];
+    const result = await this.executeSql(query, params);
+    
+    return this.resultToArray(result);
+  }
+
+  resultToArray(result) {
+    const rows = [];
+    for (let i = 0; i < result.rows.length; i++) {
+      rows.push(result.rows.item(i));
+    }
+    return rows;
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>✏️ UPDATE e DELETE</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async updateUser(userId, updateData) {
+    const fields = Object.keys(updateData);
+    const values = Object.values(updateData);
+    
+    const setClause = fields.map(field => `${field} = ?`).join(', ');
+    
+    const query = `
+      UPDATE users 
+      SET ${setClause}, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?;
+    `;
+    
+    const params = [...values, userId];
+    const result = await this.executeSql(query, params);
+    
+    return result.rowsAffected > 0;
+  }
+
+  async incrementPostLikes(postId) {
+    const query = `
+      UPDATE posts 
+      SET likes_count = likes_count + 1,
+          updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?;
+    `;
+    
+    await this.executeSql(query, [postId]);
+  }
+
+  async deletePost(postId) {
+    // Soft delete - marcar como inativo
+    const query = `
+      UPDATE posts 
+      SET sync_status = 'deleted', updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?;
+    `;
+    
+    const result = await this.executeSql(query, [postId]);
+    return result.rowsAffected > 0;
+  }
+
+  async hardDeletePost(postId) {
+    // Hard delete - remover permanentemente
+    const query = 'DELETE FROM posts WHERE id = ?;';
+    const result = await this.executeSql(query, [postId]);
+    return result.rowsAffected > 0;
+  }
+
+  async cleanupOldData(daysOld = 30) {
+    const query = `
+      DELETE FROM posts 
+      WHERE sync_status = 'deleted' 
+      AND updated_at < datetime('now', '-${daysOld} days');
+    `;
+    
+    const result = await this.executeSql(query);
+    console.log(`Cleaned up ${result.rowsAffected} old posts`);
+  }
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Performance e Otimização -->
+      <section>
+        <h2>⚡ Otimização de Performance</h2>
+        <section>
+          <h3>📊 Índices e Query Optimization</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async createOptimizedIndexes() {
+    const indexes = [
+      // Índices simples
+      'CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);',
+      'CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts (created_at);',
+      
+      // Índices compostos
+      'CREATE INDEX IF NOT EXISTS idx_posts_user_status ON posts (user_id, sync_status);',
+      'CREATE INDEX IF NOT EXISTS idx_comments_post_user ON comments (post_id, user_id);',
+      
+      // Índices parciais (conditional)
+      'CREATE INDEX IF NOT EXISTS idx_active_users ON users (id) WHERE is_active = 1;',
+      'CREATE INDEX IF NOT EXISTS idx_pending_sync ON posts (id) WHERE sync_status = "pending";',
+      
+      // Full-text search (se disponível)
+      'CREATE VIRTUAL TABLE IF NOT EXISTS posts_fts USING fts4(title, content);'
+    ];
+
+    for (const query of indexes) {
+      await this.executeSql(query);
+    }
+  }
+
+  async analyzePerformance(query, params = []) {
+    // Usar EXPLAIN QUERY PLAN para analisar performance
+    const explainQuery = `EXPLAIN QUERY PLAN ${query}`;
+    const result = await this.executeSql(explainQuery, params);
+    
+    console.log('Query Plan:');
+    this.resultToArray(result).forEach(row => {
+      console.log(`${row.selectid}|${row.order}|${row.from}|${row.detail}`);
+    });
+  }
+
+  async getTableStats() {
+    // Estatísticas das tabelas
+    const query = `
+      SELECT name, 
+             (SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=m.name) as table_count,
+             (SELECT COUNT(*) FROM sqlite_master WHERE type='index' AND tbl_name=m.name) as index_count
+      FROM sqlite_master m 
+      WHERE type='table' AND name NOT LIKE 'sqlite_%';
+    `;
+    
+    const result = await this.executeSql(query);
+    return this.resultToArray(result);
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>🔄 Connection Pooling e Transactions</h3>
+          <pre><code data-trim class="javascript">
+class DatabaseService {
+  async performBulkOperations(operations) {
+    // Usar transação para operações em lote
+    return new Promise((resolve, reject) => {
+      this.db.transaction(
+        (tx) => {
+          operations.forEach(({ query, params }) => {
+            tx.executeSql(
+              query,
+              params,
+              (_, result) => {
+                console.log(`Executed: ${query.substring(0, 50)}...`);
+              },
+              (_, error) => {
+                console.error('SQL Error in transaction:', error);
+                return false; // Rollback transaction
+              }
+            );
+          });
+        },
+        (error) => {
+          console.error('Transaction failed:', error);
+          reject(error);
+        },
+        () => {
+          console.log('Bulk operations completed successfully');
+          resolve();
+        }
+      );
+    });
+  }
+
+  async vacuum() {
+    // VACUUM para otimizar e compactar banco
+    await this.executeSql('VACUUM;');
+    console.log('Database vacuumed');
+  }
+
+  async analyze() {
+    // ANALYZE para atualizar estatísticas do query planner
+    await this.executeSql('ANALYZE;');
+    console.log('Database statistics updated');
+  }
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Hooks para SQLite -->
+      <section>
+        <h2>🎣 React Hooks para SQLite</h2>
+        <section>
+          <h3>🔄 useDatabase Hook</h3>
+          <pre><code data-trim class="javascript">
+// hooks/useDatabase.js
+import { useState, useEffect, useCallback } from 'react';
+import DatabaseService from '../services/DatabaseService';
+
+export function useDatabase() {
+  const [isReady, setIsReady] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const initializeDatabase = async () => {
+      try {
+        await DatabaseService.initialize();
+        setIsReady(true);
+      } catch (err) {
+        setError(err);
+        console.error('Database initialization failed:', err);
+      }
+    };
+
+    initializeDatabase();
+  }, []);
+
+  return { isReady, error };
+}
+
+export function useUsers() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const loadUsers = useCallback(async (options = {}) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const userData = await DatabaseService.getUsers(options);
+      setUsers(userData);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const addUser = useCallback(async (userData) => {
+    try {
+      const userId = await DatabaseService.insertUser(userData);
+      await loadUsers(); // Recarregar lista
+      return userId;
+    } catch (err) {
+      setError(err);
+      throw err;
+    }
+  }, [loadUsers]);
+
+  const updateUser = useCallback(async (userId, updateData) => {
+    try {
+      const success = await DatabaseService.updateUser(userId, updateData);
+      if (success) {
+        await loadUsers(); // Recarregar lista
+      }
+      return success;
+    } catch (err) {
+      setError(err);
+      throw err;
+    }
+  }, [loadUsers]);
+
+  useEffect(() => {
+    loadUsers();
+  }, [loadUsers]);
+
+  return {
+    users,
+    loading,
+    error,
+    loadUsers,
+    addUser,
+    updateUser
+  };
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>📱 Componente com SQLite</h3>
+          <pre><code data-trim class="javascript">
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { useDatabase, useUsers } from '../hooks/useDatabase';
+
+function UserListScreen() {
+  const { isReady } = useDatabase();
+  const { users, loading, error, loadUsers, addUser } = useUsers();
+
+  if (!isReady) {
+    return (
+      &lt;View style={styles.center}&gt;
+        &lt;Text&gt;Inicializando banco de dados...&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  if (error) {
+    return (
+      &lt;View style={styles.center}&gt;
+        &lt;Text style={styles.error}&gt;Erro: {error.message}&lt;/Text&gt;
+        &lt;TouchableOpacity onPress={loadUsers} style={styles.retryButton}&gt;
+          &lt;Text&gt;Tentar Novamente&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  const handleAddUser = async () => {
+    try {
+      await addUser({
+        uuid: Date.now().toString(),
+        name: 'Novo Usuário',
+        email: `user${Date.now()}@example.com`,
+        syncStatus: 'pending'
+      });
+      Alert.alert('Sucesso', 'Usuário adicionado!');
+    } catch (error) {
+      Alert.alert('Erro', error.message);
+    }
+  };
+
+  const renderUser = ({ item }) => (
+    &lt;View style={styles.userItem}&gt;
+      &lt;Text style={styles.userName}&gt;{item.name}&lt;/Text&gt;
+      &lt;Text style={styles.userEmail}&gt;{item.email}&lt;/Text&gt;
+      &lt;Text style={styles.syncStatus}&gt;
+        Status: {item.sync_status}
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;TouchableOpacity onPress={handleAddUser} style={styles.addButton}&gt;
+        &lt;Text style={styles.addButtonText}&gt;Adicionar Usuário&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+      
+      &lt;FlatList
+        data={users}
+        renderItem={renderUser}
+        keyExtractor={item =&gt; item.id.toString()}
+        refreshing={loading}
+        onRefresh={loadUsers}
+        ListEmptyComponent={
+          &lt;Text style={styles.emptyText}&gt;Nenhum usuário encontrado&lt;/Text&gt;
+        }
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Exercício Prático -->
+      <section>
+        <h2>💻 Exercício Prático</h2>
+        <section>
+          <h3>🎯 Desafio: Sistema de Blog Offline</h3>
+          <p>Implementar sistema de blog com SQLite:</p>
+          <ul>
+            <li>📝 <strong>Posts CRUD:</strong> Create, Read, Update, Delete</li>
+            <li>💾 <strong>SQLite Local:</strong> Persistência completa offline</li>
+            <li>🔄 <strong>Sync Status:</strong> Controle de sincronização</li>
+            <li>🔍 <strong>Busca Full-text:</strong> Pesquisar em títulos/conteúdo</li>
+            <li>📊 <strong>Analytics:</strong> Contadores e estatísticas</li>
+            <li>🎨 <strong>Categories/Tags:</strong> Organização de conteúdo</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🏗️ Estrutura do Banco</h3>
+          <pre><code data-trim class="sql">
+-- Schema completo do exercício
+CREATE TABLE categories (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  color TEXT DEFAULT '#007AFF',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  usage_count INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE posts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  summary TEXT,
+  category_id INTEGER,
+  author_id INTEGER NOT NULL,
+  status TEXT DEFAULT 'draft', -- draft, published, archived
+  sync_status TEXT DEFAULT 'pending',
+  views_count INTEGER DEFAULT 0,
+  likes_count INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  published_at DATETIME,
+  FOREIGN KEY (category_id) REFERENCES categories (id),
+  FOREIGN KEY (author_id) REFERENCES users (id)
+);
+
+CREATE TABLE post_tags (
+  post_id INTEGER,
+  tag_id INTEGER,
+  PRIMARY KEY (post_id, tag_id),
+  FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
+  FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE
+);
+
+-- Full-text search
+CREATE VIRTUAL TABLE posts_fts USING fts4(title, content, summary);
+          </code></pre>
+        </section>
+        <section>
+          <h3>✅ Funcionalidades Obrigatórias</h3>
+          <ul>
+            <li>📱 <strong>Interface Completa:</strong> Listar, criar, editar posts</li>
+            <li>🔍 <strong>Busca Inteligente:</strong> Full-text search</li>
+            <li>📊 <strong>Dashboard:</strong> Estatísticas e métricas</li>
+            <li>🏷️ <strong>Tags Sistema:</strong> Associar múltiplas tags</li>
+            <li>📈 <strong>Analytics Local:</strong> Views, likes, trending</li>
+            <li>💾 <strong>Backup/Restore:</strong> Exportar/importar dados</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Resumo e Próximos Passos -->
+      <section>
+        <h2>📝 Resumo da Aula</h2>
+        <section>
+          <h3>✅ O que Vimos Hoje</h3>
+          <ul>
+            <li>💾 Configuração e inicialização do SQLite</li>
+            <li>🏗️ DDL - Criação de tabelas, índices e estruturas</li>
+            <li>📊 DML - Inserção, consulta, atualização e exclusão</li>
+            <li>⚡ Otimização de performance e queries</li>
+            <li>🎣 React Hooks personalizados para SQLite</li>
+            <li>📱 Integração completa com React Native</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🚀 Próxima Aula</h3>
+          <h4>Aula 6: Sensores e Geolocalização</h4>
+          <ul>
+            <li>📍 GPS e serviços de localização</li>
+            <li>🧭 Acelerômetro, giroscópio, bússola</li>
+            <li>🗺️ Integração com APIs de mapas</li>
+            <li>📱 Sensores biométricos</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📚 Tarefa de Casa</h3>
+          <ul>
+            <li>📝 Implemente o sistema de blog completo</li>
+            <li>🔍 Configure full-text search funcional</li>
+            <li>📊 Crie dashboard com estatísticas</li>
+            <li>⚡ Otimize queries com índices adequados</li>
+            <li>🔄 Teste performance com dados grandes</li>
+          </ul>
+        </section>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

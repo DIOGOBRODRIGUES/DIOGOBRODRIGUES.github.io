@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 2: Revisão React Native + Expo - Desenvolvimento Mobile Moderno</title>
+
+  <meta name="description" content="Revisão completa do React Native com Expo para desenvolvimento mobile de alta performance">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 2: Revisão React Native + Expo</h3>
+        <p><strong>Codificação de Alta Performance Mobile</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/diogofbranco" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li>📱 Dominar componentes nativos do React Native</li>
+          <li>🎨 Estilização eficiente com StyleSheet</li>
+          <li>⚡ Configurar ambiente Expo Snack</li>
+          <li>🔄 Navegação entre telas</li>
+          <li>📊 Gerenciar estado em aplicações mobile</li>
+          <li>🚀 Criar primeira app de alta performance</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - React Native Overview -->
+      <section>
+        <h2>⚛️ React Native: "Learn Once, Write Anywhere"</h2>
+        <section>
+          <h3>🚀 Por que React Native?</h3>
+          <ul>
+            <li>📱 <strong>Nativo Real:</strong> Não é WebView, são componentes nativos</li>
+            <li>⚡ <strong>Performance:</strong> 60fps com otimizações adequadas</li>
+            <li>🔄 <strong>Code Sharing:</strong> 90% do código entre iOS e Android</li>
+            <li>👨‍💻 <strong>Produtividade:</strong> Hot Reload e Fast Refresh</li>
+            <li>🌍 <strong>Comunidade:</strong> Usado por Facebook, Instagram, Uber, Tesla</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🔄 React vs React Native</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>React Web</h4>
+              <pre><code data-trim class="javascript">
+function App() {
+  return (
+    &lt;div className="container"&gt;
+      &lt;h1&gt;Hello World&lt;/h1&gt;
+      &lt;button onClick={handlePress}&gt;
+        Clique aqui
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+              </code></pre>
+            </div>
+            <div>
+              <h4>React Native</h4>
+              <pre><code data-trim class="javascript">
+function App() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text&gt;Hello World&lt;/Text&gt;
+      &lt;TouchableOpacity onPress={handlePress}&gt;
+        &lt;Text&gt;Clique aqui&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Expo Ecosystem -->
+      <section>
+        <h2>🚀 Expo: Superpowers para React Native</h2>
+        <section>
+          <h3>💎 Vantagens do Expo</h3>
+          <ul>
+            <li>⚡ <strong>Zero Config:</strong> Sem configuração complexa de ambiente</li>
+            <li>📱 <strong>Expo Go:</strong> Teste no dispositivo real instantaneamente</li>
+            <li>🔧 <strong>APIs Prontas:</strong> Camera, GPS, Push Notifications, etc.</li>
+            <li>☁️ <strong>Build Cloud:</strong> Compilação na nuvem</li>
+            <li>🔄 <strong>OTA Updates:</strong> Atualizações over-the-air</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🌐 Expo Snack - Playground Online</h3>
+          <img src="https://docs.expo.dev/static/images/snack/snack-overview.png" alt="Expo Snack" style="max-width: 80%; border-radius: 10px;">
+          <p>💻 <strong>snack.expo.dev</strong> - Desenvolvimento direto no navegador!</p>
+          <ul>
+            <li>📱 Preview em tempo real</li>
+            <li>🔄 Sincronização automática</li>
+            <li>📊 Compartilhamento fácil</li>
+            <li>📚 Bibliotecas pré-instaladas</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Core Components -->
+      <section>
+        <h2>🧩 Componentes Fundamentais</h2>
+        <section>
+          <h3>📦 View - Container Principal</h3>
+          <pre><code data-trim class="javascript">
+import { View, StyleSheet } from 'react-native';
+
+function Container({ children }) {
+  return (
+    &lt;View style={styles.container}&gt;
+      {children}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
+          </code></pre>
+          <ul>
+            <li>🏗️ <strong>Flexbox por padrão:</strong> Layout responsivo</li>
+            <li>📱 <strong>Equivale ao div:</strong> Mas com superpoderes nativos</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📝 Text - Exibição de Texto</h3>
+          <pre><code data-trim class="javascript">
+import { Text, StyleSheet } from 'react-native';
+
+function CustomText({ children, variant = 'body' }) {
+  return (
+    &lt;Text style={[styles.base, styles[variant]]}&gt;
+      {children}
+    &lt;/Text&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  base: {
+    fontFamily: 'System',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  body: {
+    fontSize: 16,
+    color: '#666',
+  },
+  caption: {
+    fontSize: 12,
+    color: '#999',
+  }
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - TouchableOpacity e Interações -->
+      <section>
+        <h2>👆 TouchableOpacity - Interações</h2>
+        <section>
+          <h3>🎯 Botões Interativos</h3>
+          <pre><code data-trim class="javascript">
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
+function Button({ 
+  title, 
+  onPress, 
+  variant = 'primary', 
+  disabled = false 
+}) {
+  return (
+    &lt;TouchableOpacity 
+      style={[
+        styles.button, 
+        styles[variant], 
+        disabled && styles.disabled
+      ]}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={0.7}
+    &gt;
+      &lt;Text style={[styles.text, styles[`${variant}Text`]]}&gt;
+        {title}
+      &lt;/Text&gt;
+    &lt;/TouchableOpacity&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  primary: {
+    backgroundColor: '#007AFF',
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#007AFF',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  primaryText: {
+    color: '#ffffff',
+  },
+  secondaryText: {
+    color: '#007AFF',
+  }
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - TextInput e ScrollView -->
+      <section>
+        <h2>⌨️ TextInput & ScrollView</h2>
+        <section>
+          <h3>📝 Input de Texto</h3>
+          <pre><code data-trim class="javascript">
+import { TextInput, View, Text, StyleSheet } from 'react-native';
+import { useState } from 'react';
+
+function CustomInput({ label, placeholder, value, onChangeText, ...props }) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {label && &lt;Text style={styles.label}&gt;{label}&lt;/Text&gt;}
+      &lt;TextInput
+        style={[styles.input, isFocused && styles.inputFocused]}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+        onFocus={() =&gt; setIsFocused(true)}
+        onBlur={() =&gt; setIsFocused(false)}
+        placeholderTextColor="#999"
+        {...props}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 8,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 4,
+    color: '#333',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    backgroundColor: '#f9f9f9',
+  },
+  inputFocused: {
+    borderColor: '#007AFF',
+    backgroundColor: '#ffffff',
+  }
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>📜 ScrollView - Conteúdo Rolável</h3>
+          <pre><code data-trim class="javascript">
+import { ScrollView, View, Text } from 'react-native';
+
+function ScrollableContent() {
+  return (
+    &lt;ScrollView 
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={false}
+      bounces={true}
+      refreshControl={
+        &lt;RefreshControl refreshing={refreshing} onRefresh={onRefresh} /&gt;
+      }
+    &gt;
+      {/* Conteúdo que pode ser maior que a tela */}
+      {data.map(item =&gt; (
+        &lt;View key={item.id} style={styles.item}&gt;
+          &lt;Text&gt;{item.title}&lt;/Text&gt;
+        &lt;/View&gt;
+      ))}
+    &lt;/ScrollView&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - StyleSheet e Layout -->
+      <section>
+        <h2>🎨 StyleSheet - Estilização Nativa</h2>
+        <section>
+          <h3>🏗️ Flexbox Layout</h3>
+          <pre><code data-trim class="javascript">
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  // Container principal
+  container: {
+    flex: 1, // Ocupa todo espaço disponível
+    flexDirection: 'column', // 'row' para horizontal
+    justifyContent: 'center', // space-between, flex-start, flex-end
+    alignItems: 'center', // stretch, flex-start, flex-end
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+
+  // Header fixo
+  header: {
+    height: 60,
+    width: '100%',
+    backgroundColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+
+  // Card com sombra
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 16,
+    margin: 8,
+    // Shadow para iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Elevation para Android
+    elevation: 3,
+  },
+
+  // Grid layout
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  
+  gridItem: {
+    width: '48%', // Dois itens por linha
+    marginBottom: 16,
+  }
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>📐 Dimensions e Responsive Design</h3>
+          <pre><code data-trim class="javascript">
+import { Dimensions, PixelRatio } from 'react-native';
+
+// Obter dimensões da tela
+const { width, height } = Dimensions.get('window');
+const screenData = Dimensions.get('screen');
+
+// Função para design responsivo
+const responsiveWidth = (percentage) => {
+  return (percentage * width) / 100;
+};
+
+const responsiveHeight = (percentage) => {
+  return (percentage * height) / 100;
+};
+
+// Pixel perfeito
+const normalize = (size) => {
+  const scale = width / 375; // iPhone X como base
+  const newSize = size * scale;
+  
+  if (PixelRatio.get() >= 2 && newSize >= 12) {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  }
+  return Math.round(newSize);
+};
+
+const styles = StyleSheet.create({
+  responsiveContainer: {
+    width: responsiveWidth(90), // 90% da largura
+    height: responsiveHeight(30), // 30% da altura
+  },
+  responsiveText: {
+    fontSize: normalize(16), // Tamanho adaptativo
+  }
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Estado e Performance -->
+      <section>
+        <h2>📊 Estado e Performance Mobile</h2>
+        <section>
+          <h3>⚡ FlatList - Listas Performáticas</h3>
+          <pre><code data-trim class="javascript">
+import { FlatList, View, Text, Image } from 'react-native';
+
+function OptimizedList({ data }) {
+  const renderItem = ({ item, index }) => (
+    &lt;View style={styles.listItem}&gt;
+      &lt;Image 
+        source={{ uri: item.avatar }} 
+        style={styles.avatar}
+        // Performance: placeholder enquanto carrega
+        defaultSource={require('./placeholder.png')}
+      /&gt;
+      &lt;Text style={styles.name}&gt;{item.name}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  const keyExtractor = (item) => item.id.toString();
+
+  return (
+    &lt;FlatList
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      // Performance optimizations
+      removeClippedSubviews={true}
+      maxToRenderPerBatch={10}
+      updateCellsBatchingPeriod={50}
+      initialNumToRender={10}
+      windowSize={10}
+      // Pull to refresh
+      onRefresh={handleRefresh}
+      refreshing={isRefreshing}
+      // Load more
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.5}
+      // Empty state
+      ListEmptyComponent={() => (
+        &lt;View style={styles.empty}&gt;
+          &lt;Text&gt;Nenhum item encontrado&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+    /&gt;
+  );
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>🎯 Otimizações de Estado</h3>
+          <pre><code data-trim class="javascript">
+import { useState, useEffect, useCallback, useMemo } from 'react';
+
+function OptimizedComponent({ data }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Memoiza dados filtrados
+  const filteredData = useMemo(() => {
+    if (!searchTerm) return data;
+    return data.filter(item => 
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [data, searchTerm]);
+
+  // Callback memoizado para performance
+  const handleSearch = useCallback((text) => {
+    setSearchTerm(text);
+  }, []);
+
+  // Debounce para busca
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm) {
+        setIsLoading(true);
+        // Simular busca na API
+        setTimeout(() => setIsLoading(false), 500);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  return (
+    &lt;View&gt;
+      &lt;TextInput
+        placeholder="Buscar..."
+        value={searchTerm}
+        onChangeText={handleSearch}
+      /&gt;
+      {isLoading ? (
+        &lt;ActivityIndicator size="large" /&gt;
+      ) : (
+        &lt;FlatList
+          data={filteredData}
+          renderItem={renderOptimizedItem}
+          keyExtractor={keyExtractor}
+        /&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Navegação -->
+      <section>
+        <h2>🗺️ Navegação com React Navigation</h2>
+        <section>
+          <h3>🏗️ Configuração Básica</h3>
+          <pre><code data-trim class="javascript">
+// npm install @react-navigation/native @react-navigation/stack
+// expo install react-native-screens react-native-safe-area-context
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#007AFF',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      &gt;
+        &lt;Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: 'Início' }}
+        /&gt;
+        &lt;Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen}
+          options={{ title: 'Perfil' }}
+        /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>🔄 Navegação entre Telas</h3>
+          <pre><code data-trim class="javascript">
+function HomeScreen({ navigation }) {
+  const navigateToProfile = () => {
+    navigation.navigate('Profile', {
+      userId: 123,
+      userName: 'João Silva'
+    });
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Tela Inicial&lt;/Text&gt;
+      &lt;TouchableOpacity 
+        style={styles.button} 
+        onPress={navigateToProfile}
+      &gt;
+        &lt;Text style={styles.buttonText}&gt;Ver Perfil&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+
+function ProfileScreen({ route, navigation }) {
+  const { userId, userName } = route.params;
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text&gt;Perfil de {userName}&lt;/Text&gt;
+      &lt;Text&gt;ID: {userId}&lt;/Text&gt;
+      &lt;TouchableOpacity onPress={() =&gt; navigation.goBack()}&gt;
+        &lt;Text&gt;Voltar&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Expo Snack Hands-On -->
+      <section>
+        <h2>💻 Hands-On: Expo Snack</h2>
+        <section>
+          <h3>🚀 Primeiro Projeto</h3>
+          <ol>
+            <li>🌐 Acesse <strong>snack.expo.dev</strong></li>
+            <li>📱 Baixe o app <strong>Expo Go</strong> no seu celular</li>
+            <li>📊 Crie conta e faça login</li>
+            <li>▶️ Execute o projeto exemplo</li>
+            <li>📱 Escaneie QR Code com Expo Go</li>
+          </ol>
+        </section>
+        <section>
+          <h3>🎯 Desafio: Todo App Mobile</h3>
+          <p>Crie um app de tarefas com:</p>
+          <ul>
+            <li>📝 <strong>TextInput:</strong> Adicionar nova tarefa</li>
+            <li>✅ <strong>FlatList:</strong> Listar tarefas</li>
+            <li>👆 <strong>TouchableOpacity:</strong> Marcar como concluída</li>
+            <li>🗑️ <strong>Swipe to delete:</strong> Remover tarefa</li>
+            <li>📊 <strong>Estado persistente:</strong> AsyncStorage</li>
+            <li>🎨 <strong>Design atrativo:</strong> Cores e animações</li>
+          </ul>
+        </section>
+        <section>
+          <h3>💡 Estrutura Sugerida</h3>
+          <pre><code data-trim class="javascript">
+// Componentes
+- App.js (container principal)
+- TodoList.js (FlatList otimizada)
+- TodoItem.js (item individual)
+- AddTodo.js (formulário)
+
+// Hooks personalizados
+- useTodos.js (lógica de estado)
+- useAsyncStorage.js (persistência)
+
+// Utils
+- styles.js (estilos compartilhados)
+- colors.js (paleta de cores)
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Resumo e Próximos Passos -->
+      <section>
+        <h2>📝 Resumo da Aula</h2>
+        <section>
+          <h3>✅ O que Vimos Hoje</h3>
+          <ul>
+            <li>📱 Componentes fundamentais: View, Text, TouchableOpacity</li>
+            <li>🎨 Estilização com StyleSheet e Flexbox</li>
+            <li>⚡ Performance com FlatList e otimizações</li>
+            <li>🗺️ Navegação básica entre telas</li>
+            <li>🚀 Expo Snack para desenvolvimento rápido</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🚀 Próximas Aulas</h3>
+          <h4>Aula 3: Arquitetura de Dispositivos Móveis</h4>
+          <ul>
+            <li>🏗️ Codificação nativa vs híbrida</li>
+            <li>📱 Arquitetura iOS vs Android</li>
+            <li>🔔 Sistema de notificações push</li>
+            <li>🎯 Content Providers e Services</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📚 Tarefa de Casa</h3>
+          <ul>
+            <li>💻 Complete o Todo App no Expo Snack</li>
+            <li>📱 Teste em dispositivo físico</li>
+            <li>🎨 Implemente design personalizado</li>
+            <li>📊 Adicione persistência com AsyncStorage</li>
+            <li>🔄 Experimente diferentes tipos de navegação</li>
+          </ul>
+        </section>
+      </section>
+
+   </div>
+  </div>
+
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

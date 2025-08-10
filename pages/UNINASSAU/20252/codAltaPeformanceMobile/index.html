@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código de Alta Performance Mobile - UNINASSAU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .professor {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .course-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .course-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-topics {
+            margin-bottom: 2rem;
+        }
+
+        .course-topics h4 {
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .topics-list {
+            list-style: none;
+        }
+
+        .topics-list li {
+            color: #666;
+            padding: 0.3rem 0;
+            border-left: 3px solid #667eea;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .course-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .course-link:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: scale(1.05);
+        }
+
+        .unit-divider {
+            text-align: center;
+            margin: 4rem 0 2rem 0;
+            color: white;
+        }
+
+        .unit-divider h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .unit-divider p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Código de Alta Performance Mobile</h1>
+            <p class="subtitle">Centro Universitário Maurício de Nassau - 2025.2</p>
+            <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/diogofbranco" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-number">Aula 1</div>
+                <h3 class="course-title">Revisão React - Fundamentos Essenciais</h3>
+                <p class="course-description">
+                    Revisão completa dos conceitos fundamentais do React necessários para desenvolvimento mobile de alta performance.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>JSX e Componentes Funcionais</li>
+                        <li>Hooks (useState, useEffect, useContext)</li>
+                        <li>Gerenciamento de Estado e Props</li>
+                    </ul>
+                </div>
+                <a href="aula1/index.html" class="course-link">Acessar Aula →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-number">Aula 2</div>
+                <h3 class="course-title">Revisão React Native + Expo</h3>
+                <p class="course-description">
+                    Revisão dos componentes nativos e configuração do ambiente Expo para desenvolvimento mobile moderno.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>Componentes Nativos (View, Text, TouchableOpacity)</li>
+                        <li>Estilização com StyleSheet</li>
+                        <li>Expo Snack para desenvolvimento rápido</li>
+                        <li>Navegação entre telas</li>
+                    </ul>
+                </div>
+                <a href="#" class="course-link">Acessar Aula →</a>
+            </div>
+        </div>
+
+        <div class="unit-divider">
+            <h2>📚 Unidade I</h2>
+            <p>Codificação Nativa e Arquitetura de Dispositivos Móveis</p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-number">Aula 3</div>
+                <h3 class="course-title">Arquitetura de Dispositivos Móveis</h3>
+                <p class="course-description">
+                    Compreensão profunda da arquitetura mobile, codificação nativa vs híbrida e sistema de notificações push.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>Arquitetura iOS vs Android</li>
+                        <li>React Native Architecture</li>
+                        <li>Sistema de Notificações Push</li>
+                        <li>Listeners e Content Providers</li>
+                    </ul>
+                </div>
+                <a href="#" class="course-link">Acessar Aula →</a>
+            </div>
+        </div>
+
+        <div class="unit-divider">
+            <h2>🌐 Unidade II</h2>
+            <p>Comunicação via Rede e Integração com APIs</p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-number">Aula 4</div>
+                <h3 class="course-title">Comunicação via Rede</h3>
+                <p class="course-description">
+                    Implementação de comunicação HTTP/HTTPS eficiente, carregamento em background e integração com APIs REST/GraphQL.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>HTTP/HTTPS com Fetch e Axios</li>
+                        <li>Cache Inteligente e Background Sync</li>
+                        <li>GraphQL com Apollo Client</li>
+                        <li>WebSockets para Real-time</li>
+                    </ul>
+                </div>
+                <a href="#" class="course-link">Acessar Aula →</a>
+            </div>
+        </div>
+
+        <div class="unit-divider">
+            <h2>💾 Unidade III</h2>
+            <p>Armazenamento e Persistência de Dados</p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-number">Aula 5</div>
+                <h3 class="course-title">SQLite - Armazenamento Local</h3>
+                <p class="course-description">
+                    Implementação completa de banco de dados SQLite para persistência local, DDL, DML e otimização de queries.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>Configuração SQLite no React Native</li>
+                        <li>DDL - Data Definition Language</li>
+                        <li>DML - Data Manipulation Language</li>
+                        <li>Otimização de Performance</li>
+                    </ul>
+                </div>
+                <a href="#" class="course-link">Acessar Aula →</a>
+            </div>
+        </div>
+
+        <div class="unit-divider">
+            <h2>📱 Unidade IV</h2>
+            <p>Sensores e Recursos Avançados</p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-number">Aula 6</div>
+                <h3 class="course-title">Sensores e Geolocalização</h3>
+                <p class="course-description">
+                    Operação completa dos sensores móveis, GPS, integração com mapas e implementação de sensores biométricos.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>Geolocalização com Expo Location</li>
+                        <li>Sensores de Movimento (Acelerômetro, Giroscópio)</li>
+                        <li>Integração com Google Maps</li>
+                        <li>Sensores Biométricos (Touch ID, Face ID)</li>
+                    </ul>
+                </div>
+                <a href="#" class="course-link">Acessar Aula →</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; text-align: center; color: white;">
+            <p style="opacity: 0.8;">Desenvolvido com ❤️ para ensino de tecnologia mobile</p>
+            <div style="margin-top: 1rem; opacity: 0.7;">
+                <p>React Native • Expo • SQLite • APIs • Sensores • Performance</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

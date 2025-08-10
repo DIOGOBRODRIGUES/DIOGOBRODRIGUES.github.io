@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 6: Sensores e Geolocalização</title>
+
+  <meta name="description" content="Operação de sensores móveis, GPS, mapas e sensores biométricos para alta performance">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6: Sensores e Geolocalização</h3>
+        <p><strong>Codificação de Alta Performance Mobile</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/diogofbranco" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li>📍 Implementar geolocalização precisa com GPS</li>
+          <li>🧭 Usar sensores de movimento (acelerômetro, giroscópio)</li>
+          <li>🗺️ Integrar APIs de mapas (Google Maps, Apple Maps)</li>
+          <li>🛣️ Criar sistema de rotas e navegação</li>
+          <li>👆 Implementar sensores biométricos</li>
+          <li>⚡ Otimizar consumo de bateria dos sensores</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Sensores Móveis Overview -->
+      <section>
+        <h2>📱 Sensores em Dispositivos Móveis</h2>
+        <section>
+          <h3>🔬 Tipos de Sensores</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🌍 Localização</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📍 <strong>GPS:</strong> Global Positioning</li>
+                <li>📡 <strong>A-GPS:</strong> Assisted GPS</li>
+                <li>🗼 <strong>Cell Tower:</strong> Torres celulares</li>
+                <li>📶 <strong>WiFi:</strong> Triangulação WiFi</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🏃‍♂️ Movimento</h4>
+              <ul style="font-size: 0.8em;">
+                <li>⚡ <strong>Acelerômetro:</strong> Aceleração</li>
+                <li>🌀 <strong>Giroscópio:</strong> Rotação</li>
+                <li>🧭 <strong>Magnetômetro:</strong> Campo magnético</li>
+                <li>📏 <strong>Barômetro:</strong> Pressão/altitude</li>
+              </ul>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+            <div>
+              <h4>👁️ Biométricos</h4>
+              <ul style="font-size: 0.8em;">
+                <li>👆 <strong>Touch ID:</strong> Digital</li>
+                <li>👁️ <strong>Face ID:</strong> Reconhecimento facial</li>
+                <li>🗣️ <strong>Voice:</strong> Reconhecimento de voz</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🌡️ Ambiente</h4>
+              <ul style="font-size: 0.8em;">
+                <li>💡 <strong>Luz:</strong> Sensor de luminosidade</li>
+                <li>🔊 <strong>Áudio:</strong> Microfone</li>
+                <li>📷 <strong>Câmera:</strong> Visual/AR</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>⚡ Desafios de Performance</h3>
+          <ul>
+            <li>🔋 <strong>Bateria:</strong> GPS consome ~20-50% mais energia</li>
+            <li>📊 <strong>Precisão vs Consumo:</strong> Mais precisão = mais energia</li>
+            <li>⏱️ <strong>Latência:</strong> Tempo para primeiro fix GPS</li>
+            <li>🏢 <strong>Indoor vs Outdoor:</strong> Limitações de sinal</li>
+            <li>📱 <strong>Background:</strong> Restrições do sistema</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Geolocalização com Expo -->
+      <section>
+        <h2>📍 Geolocalização com Expo Location</h2>
+        <section>
+          <h3>🚀 Setup e Permissões</h3>
+          <pre><code data-trim class="bash">
+# Instalar expo-location
+expo install expo-location
+
+# app.json - Configurar permissões
+{
+  "expo": {
+    "name": "GeoApp",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "locationAlwaysPermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
+        }
+      ]
+    ]
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>📍 Serviço de Localização</h3>
+          <pre><code data-trim class="javascript">
+// services/LocationService.js
+import * as Location from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+
+const LOCATION_TRACKING = 'location-tracking';
+
+class LocationService {
+  constructor() {
+    this.currentLocation = null;
+    this.isTracking = false;
+    this.subscribers = [];
+  }
+
+  async requestPermissions() {
+    try {
+      // Verificar se serviços estão habilitados
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
+      if (!servicesEnabled) {
+        throw new Error('Location services are disabled');
+      }
+
+      // Solicitar permissões
+      const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
+      if (foregroundStatus !== 'granted') {
+        throw new Error('Foreground location permission denied');
+      }
+
+      // Para background location
+      const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
+      if (backgroundStatus !== 'granted') {
+        console.warn('Background location permission denied');
+      }
+
+      return {
+        foreground: foregroundStatus === 'granted',
+        background: backgroundStatus === 'granted'
+      };
+    } catch (error) {
+      console.error('Permission request failed:', error);
+      throw error;
+    }
+  }
+
+  async getCurrentLocation(options = {}) {
+    const {
+      accuracy = Location.Accuracy.Balanced,
+      maximumAge = 10000, // 10 seconds
+      timeout = 15000,    // 15 seconds
+    } = options;
+
+    try {
+      const location = await Location.getCurrentPositionAsync({
+        accuracy,
+        maximumAge,
+        timeout,
+      });
+
+      this.currentLocation = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        altitude: location.coords.altitude,
+        accuracy: location.coords.accuracy,
+        timestamp: location.timestamp,
+        speed: location.coords.speed,
+        heading: location.coords.heading,
+      };
+
+      this.notifySubscribers(this.currentLocation);
+      return this.currentLocation;
+    } catch (error) {
+      console.error('Get current location failed:', error);
+      throw error;
+    }
+  }
+
+  async startTracking(options = {}) {
+    const {
+      accuracy = Location.Accuracy.Balanced,
+      timeInterval = 5000,        // 5 seconds
+      distanceInterval = 10,      // 10 meters
+      showsBackgroundLocationIndicator = true
+    } = options;
+
+    try {
+      await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+        accuracy,
+        timeInterval,
+        distanceInterval,
+        showsBackgroundLocationIndicator,
+        foregroundService: {
+          notificationTitle: 'Rastreando localização',
+          notificationBody: 'O app está monitorando sua localização',
+          notificationColor: '#007AFF'
+        }
+      });
+
+      this.isTracking = true;
+      console.log('Location tracking started');
+    } catch (error) {
+      console.error('Start tracking failed:', error);
+      throw error;
+    }
+  }
+
+  async stopTracking() {
+    try {
+      await Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
+      this.isTracking = false;
+      console.log('Location tracking stopped');
+    } catch (error) {
+      console.error('Stop tracking failed:', error);
+    }
+  }
+
+  subscribe(callback) {
+    this.subscribers.push(callback);
+    return () => {
+      this.subscribers = this.subscribers.filter(sub => sub !== callback);
+    };
+  }
+
+  notifySubscribers(location) {
+    this.subscribers.forEach(callback => callback(location));
+  }
+}
+
+// Definir task para background tracking
+TaskManager.defineTask(LOCATION_TRACKING, ({ data, error }) => {
+  if (error) {
+    console.error('Background location error:', error);
+    return;
+  }
+  if (data) {
+    const { locations } = data;
+    console.log('Background locations:', locations);
+    // Processar localizações em background
+  }
+});
+
+export default new LocationService();
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Sensores de Movimento -->
+      <section>
+        <h2>🏃‍♂️ Sensores de Movimento</h2>
+        <section>
+          <h3>⚡ Acelerômetro e Giroscópio</h3>
+          <pre><code data-trim class="javascript">
+// expo install expo-sensors
+import { Accelerometer, Gyroscope, Magnetometer } from 'expo-sensors';
+
+class MotionSensorService {
+  constructor() {
+    this.accelerometerData = null;
+    this.gyroscopeData = null;
+    this.magnetometerData = null;
+    this.isMotionTracking = false;
+  }
+
+  async startMotionTracking() {
+    try {
+      // Verificar disponibilidade dos sensores
+      const [accelAvailable, gyroAvailable, magAvailable] = await Promise.all([
+        Accelerometer.isAvailableAsync(),
+        Gyroscope.isAvailableAsync(),
+        Magnetometer.isAvailableAsync()
+      ]);
+
+      console.log('Sensors availability:', {
+        accelerometer: accelAvailable,
+        gyroscope: gyroAvailable,
+        magnetometer: magAvailable
+      });
+
+      // Configurar frequência de atualização (em ms)
+      Accelerometer.setUpdateInterval(100); // 10 Hz
+      Gyroscope.setUpdateInterval(100);     // 10 Hz
+      Magnetometer.setUpdateInterval(1000); // 1 Hz
+
+      // Iniciar listeners
+      this.accelerometerSubscription = Accelerometer.addListener(data => {
+        this.accelerometerData = {
+          x: data.x,
+          y: data.y,
+          z: data.z,
+          timestamp: Date.now()
+        };
+        this.processAccelerometerData(data);
+      });
+
+      this.gyroscopeSubscription = Gyroscope.addListener(data => {
+        this.gyroscopeData = {
+          x: data.x, // rotation around x-axis
+          y: data.y, // rotation around y-axis
+          z: data.z, // rotation around z-axis
+          timestamp: Date.now()
+        };
+        this.processGyroscopeData(data);
+      });
+
+      this.magnetometerSubscription = Magnetometer.addListener(data => {
+        this.magnetometerData = {
+          x: data.x,
+          y: data.y,
+          z: data.z,
+          timestamp: Date.now()
+        };
+        this.processMagnetometerData(data);
+      });
+
+      this.isMotionTracking = true;
+      console.log('Motion tracking started');
+    } catch (error) {
+      console.error('Motion tracking start failed:', error);
+    }
+  }
+
+  processAccelerometerData(data) {
+    // Detectar movimento (shake, tilt, etc)
+    const acceleration = Math.sqrt(data.x * data.x + data.y * data.y + data.z * data.z);
+    
+    // Detectar shake gesture
+    if (acceleration > 2.5) {
+      this.onShakeDetected();
+    }
+
+    // Detectar orientação do dispositivo
+    const orientation = this.getDeviceOrientation(data);
+    this.onOrientationChanged(orientation);
+  }
+
+  processGyroscopeData(data) {
+    // Detectar rotação rápida
+    const rotationMagnitude = Math.sqrt(data.x * data.x + data.y * data.y + data.z * data.z);
+    
+    if (rotationMagnitude > 3.0) {
+      this.onFastRotationDetected();
+    }
+  }
+
+  processMagnetometerData(data) {
+    // Calcular direção da bússola
+    const heading = Math.atan2(data.y, data.x) * (180 / Math.PI);
+    const normalizedHeading = (heading + 360) % 360;
+    
+    this.onCompassHeadingChanged(normalizedHeading);
+  }
+
+  getDeviceOrientation(accelerometerData) {
+    const { x, y, z } = accelerometerData;
+    
+    if (Math.abs(x) > Math.abs(y)) {
+      return x > 0 ? 'left' : 'right';
+    } else {
+      return y > 0 ? 'down' : 'up';
+    }
+  }
+
+  // Event handlers (implementar conforme necessário)
+  onShakeDetected() {
+    console.log('Shake gesture detected!');
+    // Implementar ação do shake
+  }
+
+  onOrientationChanged(orientation) {
+    console.log('Device orientation changed to:', orientation);
+  }
+
+  onFastRotationDetected() {
+    console.log('Fast rotation detected!');
+  }
+
+  onCompassHeadingChanged(heading) {
+    console.log('Compass heading:', heading.toFixed(1), '°');
+  }
+
+  stopMotionTracking() {
+    if (this.accelerometerSubscription) {
+      this.accelerometerSubscription.remove();
+    }
+    if (this.gyroscopeSubscription) {
+      this.gyroscopeSubscription.remove();
+    }
+    if (this.magnetometerSubscription) {
+      this.magnetometerSubscription.remove();
+    }
+    
+    this.isMotionTracking = false;
+    console.log('Motion tracking stopped');
+  }
+}
+
+export default new MotionSensorService();
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Integração com Mapas -->
+      <section>
+        <h2>🗺️ Integração com APIs de Mapas</h2>
+        <section>
+          <h3>🌍 React Native Maps</h3>
+          <pre><code data-trim class="bash">
+# Instalar react-native-maps
+npm install react-native-maps
+
+# iOS - adicionar no Podfile
+pod 'react-native-google-maps', path: '../node_modules/react-native-maps'
+
+# Android - configurar API keys
+# android/app/src/main/res/values/strings.xml
+&lt;string name="google_maps_key"&gt;YOUR_API_KEY&lt;/string&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h3>📍 Componente de Mapa Interativo</h3>
+          <pre><code data-trim class="javascript">
+import React, { useState, useEffect, useRef } from 'react';
+import MapView, { Marker, Polyline, Circle } from 'react-native-maps';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import LocationService from '../services/LocationService';
+
+function InteractiveMap() {
+  const [userLocation, setUserLocation] = useState(null);
+  const [markers, setMarkers] = useState([]);
+  const [route, setRoute] = useState([]);
+  const [isTracking, setIsTracking] = useState(false);
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    initializeMap();
+    
+    return () => {
+      LocationService.stopTracking();
+    };
+  }, []);
+
+  const initializeMap = async () => {
+    try {
+      await LocationService.requestPermissions();
+      const location = await LocationService.getCurrentLocation();
+      setUserLocation(location);
+
+      // Centralizar mapa na localização atual
+      if (mapRef.current && location) {
+        mapRef.current.animateToRegion({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }, 1000);
+      }
+
+      // Subscrever às atualizações de localização
+      LocationService.subscribe((newLocation) => {
+        setUserLocation(newLocation);
+        
+        if (isTracking) {
+          setRoute(prevRoute => [...prevRoute, {
+            latitude: newLocation.latitude,
+            longitude: newLocation.longitude
+          }]);
+        }
+      });
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível acessar sua localização');
+    }
+  };
+
+  const startTracking = async () => {
+    try {
+      await LocationService.startTracking({
+        accuracy: Location.Accuracy.High,
+        timeInterval: 3000,
+        distanceInterval: 5
+      });
+      setIsTracking(true);
+      setRoute([]); // Limpar rota anterior
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível iniciar o rastreamento');
+    }
+  };
+
+  const stopTracking = async () => {
+    await LocationService.stopTracking();
+    setIsTracking(false);
+  };
+
+  const addMarker = (event) => {
+    const { coordinate } = event.nativeEvent;
+    const newMarker = {
+      id: Date.now().toString(),
+      coordinate,
+      title: `Marcador ${markers.length + 1}`,
+      description: `Lat: ${coordinate.latitude.toFixed(6)}, Lng: ${coordinate.longitude.toFixed(6)}`
+    };
+    
+    setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+  };
+
+  const calculateDistance = (coord1, coord2) => {
+    // Fórmula de Haversine para calcular distância
+    const R = 6371e3; // Earth radius in meters
+    const φ1 = coord1.latitude * Math.PI / 180;
+    const φ2 = coord2.latitude * Math.PI / 180;
+    const Δφ = (coord2.latitude - coord1.latitude) * Math.PI / 180;
+    const Δλ = (coord2.longitude - coord1.longitude) * Math.PI / 180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c; // Distance in meters
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {userLocation && (
+        &lt;MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={{
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          followsUserLocation={isTracking}
+          onLongPress={addMarker}
+          mapType="standard"
+        &gt;
+          {/* Marcador da localização atual com precisão */}
+          &lt;Marker
+            coordinate={{
+              latitude: userLocation.latitude,
+              longitude: userLocation.longitude
+            }}
+            title="Você está aqui"
+            description={`Precisão: ${userLocation.accuracy?.toFixed(1)}m`}
+            pinColor="blue"
+          /&gt;
+
+          {/* Círculo de precisão */}
+          {userLocation.accuracy && (
+            &lt;Circle
+              center={{
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude
+              }}
+              radius={userLocation.accuracy}
+              fillColor="rgba(0, 122, 255, 0.2)"
+              strokeColor="rgba(0, 122, 255, 0.5)"
+            /&gt;
+          )}
+
+          {/* Marcadores adicionados pelo usuário */}
+          {markers.map(marker => (
+            &lt;Marker
+              key={marker.id}
+              coordinate={marker.coordinate}
+              title={marker.title}
+              description={marker.description}
+            /&gt;
+          ))}
+
+          {/* Rota do rastreamento */}
+          {route.length > 1 && (
+            &lt;Polyline
+              coordinates={route}
+              strokeColor="#FF0000"
+              strokeWidth={3}
+              lineDashPattern={[5, 5]}
+            /&gt;
+          )}
+        &lt;/MapView&gt;
+      )}
+
+      {/* Controles */}
+      &lt;View style={styles.controls}&gt;
+        &lt;TouchableOpacity
+          style={[styles.button, isTracking && styles.buttonActive]}
+          onPress={isTracking ? stopTracking : startTracking}
+        &gt;
+          &lt;Text style={styles.buttonText}&gt;
+            {isTracking ? 'Parar Rastreamento' : 'Iniciar Rastreamento'}
+          &lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+
+        &lt;View style={styles.info}&gt;
+          &lt;Text style={styles.infoText}&gt;
+            Marcadores: {markers.length}
+          &lt;/Text&gt;
+          {route.length > 1 && (
+            &lt;Text style={styles.infoText}&gt;
+              Distância: {calculateDistance(route[0], route[route.length - 1]).toFixed(0)}m
+            &lt;/Text&gt;
+          )}
+        &lt;/View&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Sistema de Rotas -->
+      <section>
+        <h2>🛣️ Sistema de Rotas e Navegação</h2>
+        <section>
+          <h3>🗺️ Directions API</h3>
+          <pre><code data-trim class="javascript">
+// services/DirectionsService.js
+class DirectionsService {
+  constructor() {
+    this.apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+    this.baseUrl = 'https://maps.googleapis.com/maps/api/directions/json';
+  }
+
+  async getRoute(origin, destination, options = {}) {
+    const {
+      mode = 'driving', // driving, walking, bicycling, transit
+      avoid = '', // tolls, highways, ferries, indoor
+      units = 'metric',
+      alternatives = false
+    } = options;
+
+    const params = new URLSearchParams({
+      origin: `${origin.latitude},${origin.longitude}`,
+      destination: `${destination.latitude},${destination.longitude}`,
+      mode,
+      avoid,
+      units,
+      alternatives,
+      key: this.apiKey
+    });
+
+    try {
+      const response = await fetch(`${this.baseUrl}?${params}`);
+      const data = await response.json();
+
+      if (data.status !== 'OK') {
+        throw new Error(`Directions API error: ${data.status}`);
+      }
+
+      return this.parseDirectionsResponse(data);
+    } catch (error) {
+      console.error('Get route failed:', error);
+      throw error;
+    }
+  }
+
+  parseDirectionsResponse(data) {
+    const route = data.routes[0];
+    const leg = route.legs[0];
+
+    return {
+      coordinates: this.decodePolyline(route.overview_polyline.points),
+      distance: leg.distance,
+      duration: leg.duration,
+      steps: leg.steps.map(step => ({
+        instruction: step.html_instructions.replace(/<[^>]*>/g, ''),
+        distance: step.distance,
+        duration: step.duration,
+        startLocation: step.start_location,
+        endLocation: step.end_location,
+        maneuver: step.maneuver
+      })),
+      bounds: route.bounds
+    };
+  }
+
+  decodePolyline(encoded) {
+    // Decodificar polyline do Google Maps
+    let index = 0;
+    const len = encoded.length;
+    let lat = 0;
+    let lng = 0;
+    const coordinates = [];
+
+    while (index < len) {
+      let b;
+      let shift = 0;
+      let result = 0;
+      do {
+        b = encoded.charCodeAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      const dlat = ((result & 1) !== 0 ? ~(result >> 1) : (result >> 1));
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = encoded.charCodeAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      const dlng = ((result & 1) !== 0 ? ~(result >> 1) : (result >> 1));
+      lng += dlng;
+
+      coordinates.push({
+        latitude: lat / 1e5,
+        longitude: lng / 1e5
+      });
+    }
+
+    return coordinates;
+  }
+
+  async getNearbyPlaces(location, options = {}) {
+    const {
+      radius = 1000,
+      type = 'point_of_interest',
+      keyword = ''
+    } = options;
+
+    const params = new URLSearchParams({
+      location: `${location.latitude},${location.longitude}`,
+      radius,
+      type,
+      keyword,
+      key: this.apiKey
+    });
+
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?${params}`
+      );
+      const data = await response.json();
+
+      if (data.status !== 'OK') {
+        throw new Error(`Places API error: ${data.status}`);
+      }
+
+      return data.results.map(place => ({
+        placeId: place.place_id,
+        name: place.name,
+        rating: place.rating,
+        location: place.geometry.location,
+        types: place.types,
+        vicinity: place.vicinity,
+        photos: place.photos
+      }));
+    } catch (error) {
+      console.error('Get nearby places failed:', error);
+      throw error;
+    }
+  }
+}
+
+export default new DirectionsService();
+          </code></pre>
+        </section>
+        <section>
+          <h3>🧭 Navegação Turn-by-Turn</h3>
+          <pre><code data-trim class="javascript">
+// components/NavigationScreen.js
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import MapView, { Polyline, Marker } from 'react-native-maps';
+import DirectionsService from '../services/DirectionsService';
+import LocationService from '../services/LocationService';
+
+function NavigationScreen({ route }) {
+  const { destination } = route.params;
+  const [userLocation, setUserLocation] = useState(null);
+  const [routeData, setRouteData] = useState(null);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  useEffect(() => {
+    initializeNavigation();
+  }, []);
+
+  const initializeNavigation = async () => {
+    try {
+      const location = await LocationService.getCurrentLocation();
+      setUserLocation(location);
+
+      const directions = await DirectionsService.getRoute(
+        location,
+        destination,
+        { mode: 'driving' }
+      );
+      setRouteData(directions);
+
+      // Iniciar tracking de localização
+      LocationService.subscribe(handleLocationUpdate);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível calcular a rota');
+    }
+  };
+
+  const handleLocationUpdate = (newLocation) => {
+    setUserLocation(newLocation);
+
+    if (isNavigating && routeData) {
+      // Verificar se chegou ao próximo passo
+      const currentStep = routeData.steps[currentStepIndex];
+      if (currentStep) {
+        const distanceToStep = calculateDistance(
+          newLocation,
+          currentStep.endLocation
+        );
+
+        // Se está próximo do final do passo (< 20 metros)
+        if (distanceToStep < 20 && currentStepIndex < routeData.steps.length - 1) {
+          setCurrentStepIndex(prev => prev + 1);
+          announceNextStep();
+        }
+      }
+    }
+  };
+
+  const startNavigation = async () => {
+    try {
+      await LocationService.startTracking({
+        accuracy: Location.Accuracy.BestForNavigation,
+        timeInterval: 1000, // 1 segundo
+        distanceInterval: 1  // 1 metro
+      });
+      setIsNavigating(true);
+      announceNextStep();
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível iniciar a navegação');
+    }
+  };
+
+  const stopNavigation = async () => {
+    await LocationService.stopTracking();
+    setIsNavigating(false);
+  };
+
+  const announceNextStep = () => {
+    if (routeData && currentStepIndex < routeData.steps.length) {
+      const step = routeData.steps[currentStepIndex];
+      // Implementar Text-to-Speech ou notificação
+      console.log('Próxima instrução:', step.instruction);
+    }
+  };
+
+  const calculateDistance = (coord1, coord2) => {
+    const R = 6371e3;
+    const φ1 = coord1.latitude * Math.PI / 180;
+    const φ2 = coord2.latitude * Math.PI / 180;
+    const Δφ = (coord2.latitude - coord1.latitude) * Math.PI / 180;
+    const Δλ = (coord2.longitude - coord1.longitude) * Math.PI / 180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+  };
+
+  if (!userLocation || !routeData) {
+    return (
+      &lt;View style={styles.loading}&gt;
+        &lt;Text&gt;Calculando rota...&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  const currentStep = routeData.steps[currentStepIndex];
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {/* Mapa de navegação */}
+      &lt;MapView
+        style={styles.map}
+        region={{
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        showsUserLocation={true}
+        followsUserLocation={true}
+        showsTraffic={true}
+      &gt;
+        {/* Rota completa */}
+        &lt;Polyline
+          coordinates={routeData.coordinates}
+          strokeColor="#4285F4"
+          strokeWidth={5}
+        /&gt;
+
+        {/* Marcador de destino */}
+        &lt;Marker
+          coordinate={destination}
+          title="Destino"
+          pinColor="red"
+        /&gt;
+      &lt;/MapView&gt;
+
+      {/* Painel de instruções */}
+      &lt;View style={styles.instructionPanel}&gt;
+        {currentStep && (
+          &lt;View&gt;
+            &lt;Text style={styles.instruction}&gt;
+              {currentStep.instruction}
+            &lt;/Text&gt;
+            &lt;Text style={styles.distance}&gt;
+              {currentStep.distance.text} • {currentStep.duration.text}
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        )}
+
+        {/* Informações da rota */}
+        &lt;View style={styles.routeInfo}&gt;
+          &lt;Text style={styles.routeInfoText}&gt;
+            Total: {routeData.distance.text} • {routeData.duration.text}
+          &lt;/Text&gt;
+        &lt;/View&gt;
+
+        {/* Controles */}
+        &lt;TouchableOpacity
+          style={[styles.navButton, isNavigating && styles.navButtonActive]}
+          onPress={isNavigating ? stopNavigation : startNavigation}
+        &gt;
+          &lt;Text style={styles.navButtonText}&gt;
+            {isNavigating ? 'Parar Navegação' : 'Iniciar Navegação'}
+          &lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Sensores Biométricos -->
+      <section>
+        <h2>👆 Sensores Biométricos</h2>
+        <section>
+          <h3>🔐 Local Authentication</h3>
+          <pre><code data-trim class="javascript">
+// expo install expo-local-authentication
+import * as LocalAuthentication from 'expo-local-authentication';
+
+class BiometricAuthService {
+  async checkBiometricSupport() {
+    try {
+      // Verificar se dispositivo tem hardware biométrico
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      if (!hasHardware) {
+        return { supported: false, reason: 'No biometric hardware' };
+      }
+
+      // Verificar se tem biometrias cadastradas
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+      if (!isEnrolled) {
+        return { supported: false, reason: 'No biometrics enrolled' };
+      }
+
+      // Verificar tipos de autenticação disponíveis
+      const supportedTypes = await LocalAuthentication.supportedAuthenticationTypesAsync();
+      
+      return {
+        supported: true,
+        types: supportedTypes.map(type => {
+          switch (type) {
+            case LocalAuthentication.AuthenticationType.FINGERPRINT:
+              return 'fingerprint';
+            case LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION:
+              return 'faceId';
+            case LocalAuthentication.AuthenticationType.IRIS:
+              return 'iris';
+            default:
+              return 'unknown';
+          }
+        })
+      };
+    } catch (error) {
+      console.error('Biometric check failed:', error);
+      return { supported: false, reason: error.message };
+    }
+  }
+
+  async authenticateAsync(options = {}) {
+    const {
+      promptMessage = 'Authenticate to continue',
+      cancelLabel = 'Cancel',
+      fallbackLabel = 'Use Password',
+      disableDeviceFallback = false
+    } = options;
+
+    try {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage,
+        cancelLabel,
+        fallbackLabel,
+        disableDeviceFallback
+      });
+
+      if (result.success) {
+        return {
+          success: true,
+          authType: this.getAuthenticationType(result)
+        };
+      } else {
+        return {
+          success: false,
+          error: result.error,
+          warning: result.warning
+        };
+      }
+    } catch (error) {
+      console.error('Biometric authentication failed:', error);
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
+
+  getAuthenticationType(result) {
+    // Esta função pode precisar ser adaptada baseada na versão do expo-local-authentication
+    if (result.authenticationMethod) {
+      return result.authenticationMethod;
+    }
+    return 'unknown';
+  }
+
+  async promptForBiometricSetup() {
+    Alert.alert(
+      'Configure Biometrics',
+      'To use biometric authentication, please set up Face ID or Touch ID in your device settings.',
+      [
+        { text: 'Later', style: 'cancel' },
+        { text: 'Settings', onPress: () => Linking.openSettings() }
+      ]
+    );
+  }
+}
+
+// Hook para usar autenticação biométrica
+function useBiometricAuth() {
+  const [biometricSupport, setBiometricSupport] = useState(null);
+  const biometricService = new BiometricAuthService();
+
+  useEffect(() => {
+    checkSupport();
+  }, []);
+
+  const checkSupport = async () => {
+    const support = await biometricService.checkBiometricSupport();
+    setBiometricSupport(support);
+  };
+
+  const authenticate = async (options) => {
+    if (!biometricSupport?.supported) {
+      throw new Error('Biometric authentication not supported');
+    }
+
+    return await biometricService.authenticateAsync(options);
+  };
+
+  return {
+    biometricSupport,
+    authenticate,
+    checkSupport
+  };
+}
+
+// Componente de Login com Biometria
+function BiometricLoginScreen() {
+  const { biometricSupport, authenticate } = useBiometricAuth();
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const handleBiometricLogin = async () => {
+    try {
+      setIsAuthenticating(true);
+      
+      const result = await authenticate({
+        promptMessage: 'Use your biometric to login',
+        fallbackLabel: 'Use password instead'
+      });
+
+      if (result.success) {
+        Alert.alert('Success', 'Authentication successful!');
+        // Navegar para tela principal ou executar login
+      } else {
+        Alert.alert('Authentication Failed', result.error || 'Please try again');
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setIsAuthenticating(false);
+    }
+  };
+
+  if (!biometricSupport) {
+    return (
+      &lt;View style={styles.center}&gt;
+        &lt;Text&gt;Checking biometric support...&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  if (!biometricSupport.supported) {
+    return (
+      &lt;View style={styles.center}&gt;
+        &lt;Text&gt;Biometric authentication not available&lt;/Text&gt;
+        &lt;Text style={styles.subtitle}&gt;{biometricSupport.reason}&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Secure Login&lt;/Text&gt;
+      
+      &lt;TouchableOpacity
+        style={[styles.biometricButton, isAuthenticating && styles.buttonDisabled]}
+        onPress={handleBiometricLogin}
+        disabled={isAuthenticating}
+      &gt;
+        &lt;Text style={styles.biometricIcon}&gt;
+          {biometricSupport.types.includes('faceId') ? '👤' : '👆'}
+        &lt;/Text&gt;
+        &lt;Text style={styles.biometricText}&gt;
+          {isAuthenticating ? 'Authenticating...' : 'Use Biometric Login'}
+        &lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+
+      &lt;Text style={styles.supportedTypes}&gt;
+        Supported: {biometricSupport.types.join(', ')}
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Exercício Prático -->
+      <section>
+        <h2>💻 Exercício Prático</h2>
+        <section>
+          <h3>🎯 Desafio: App de Fitness Tracker</h3>
+          <p>Desenvolver aplicativo de fitness com sensores:</p>
+          <ul>
+            <li>📍 <strong>GPS Tracking:</strong> Rastrear corridas/caminhadas</li>
+            <li>🏃‍♂️ <strong>Motion Detection:</strong> Contar passos automático</li>
+            <li>🗺️ <strong>Route Mapping:</strong> Visualizar percurso no mapa</li>
+            <li>📊 <strong>Statistics:</strong> Distância, velocidade, calorias</li>
+            <li>👆 <strong>Biometric Lock:</strong> Proteger dados pessoais</li>
+            <li>🔄 <strong>Background Sync:</strong> Sincronizar atividades</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🏗️ Funcionalidades Obrigatórias</h3>
+          <ul>
+            <li>▶️ <strong>Start/Stop Workout:</strong> Controle de atividade</li>
+            <li>⏱️ <strong>Real-time Stats:</strong> Tempo, distância, pace</li>
+            <li>📱 <strong>Background Tracking:</strong> Funcionar com tela bloqueada</li>
+            <li>🎯 <strong>Goal Setting:</strong> Metas de distância/tempo</li>
+            <li>📈 <strong>Progress Charts:</strong> Gráficos de evolução</li>
+            <li>🏆 <strong>Achievements:</strong> Sistema de conquistas</li>
+          </ul>
+        </section>
+        <section>
+          <h3>⚡ Requisitos Técnicos</h3>
+          <ul>
+            <li>🔋 <strong>Battery Optimization:</strong> Uso eficiente de GPS</li>
+            <li>💾 <strong>Local Storage:</strong> SQLite para histórico</li>
+            <li>🔔 <strong>Notifications:</strong> Marcos de progresso</li>
+            <li>🎨 <strong>Responsive UI:</strong> Adaptação a diferentes telas</li>
+            <li>🔐 <strong>Data Security:</strong> Proteger informações sensíveis</li>
+            <li>📊 <strong>Performance:</strong> < 2s para iniciar tracking</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Resumo e Próximos Passos -->
+      <section>
+        <h2>📝 Resumo da Aula</h2>
+        <section>
+          <h3>✅ O que Vimos Hoje</h3>
+          <ul>
+            <li>📍 Geolocalização precisa com Expo Location</li>
+            <li>🏃‍♂️ Sensores de movimento (acelerômetro, giroscópio)</li>
+            <li>🗺️ Integração com React Native Maps</li>
+            <li>🛣️ Sistema de rotas e navegação turn-by-turn</li>
+            <li>👆 Autenticação biométrica com Local Auth</li>
+            <li>⚡ Otimização de bateria e performance</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🚀 Próxima Aula</h3>
+          <h4>Aula 7: Debug e Inspeção de Código</h4>
+          <ul>
+            <li>🐛 Ferramentas de debugging avançado</li>
+            <li>📊 Performance profiling</li>
+            <li>🔍 Code inspection e análise estática</li>
+            <li>⚡ Otimização de performance final</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📚 Tarefa de Casa</h3>
+          <ul>
+            <li>🏃‍♂️ Implemente o Fitness Tracker completo</li>
+            <li>📍 Configure tracking em background</li>
+            <li>🗺️ Integre mapas e navegação</li>
+            <li>👆 Adicione autenticação biométrica</li>
+            <li>📊 Teste performance com uso prolongado</li>
+          </ul>
+        </section>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
