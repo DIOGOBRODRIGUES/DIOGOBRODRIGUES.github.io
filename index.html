@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Página de Aulas - Prof. Dr. Diogo Francisco Borba Rodrigues</title>
+  <title>Prof. Dr. Diogo Francisco Borba Rodrigues | Professor, Analista de Dados & Pesquisador</title>
+  <meta name="description" content="Professor universitário, analista de dados e pesquisador. Especialista em SQL, Google Earth Engine, análise geoespacial e metodologias ativas de ensino. UNINASSAU - Ensino Superior | Ciência de Dados | Geoprocessamento">
   
   <!-- Fonte Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
@@ -23,24 +24,214 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <img src="https://logo.uninassau.edu.br/img/png/uninassau.png" alt="Logo UNINASSAU" class="logo">
-    <h1>Página de Aulas - 2025.1</h1>
-    <h2>Prof. Dr. Diogo Francisco Borba Rodrigues</h2>
-    <h3>Docente da UNINASSAU</h3>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="#home" class="nav-logo">
+          <span class="logo-text">Dr. Diogo Rodrigues</span>
+        </a>
+        <ul class="nav-menu" id="nav-menu">
+          <li class="nav-item">
+            <a href="#home" class="nav-link">Início</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a href="#expertise" class="nav-link">Especialidades</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contato</a>
+          </li>
+        </ul>
+        <div class="nav-toggle" id="nav-toggle">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <nav>
-    <ul>
-      <!-- <li><a href="#front-end-frameworks">Front-end FrameWorks</a></li> -->
-      <li><a href="apresentacao.html" target="_blank">Apresentação</a></li>
-      <li><a href="#logica-programacao">Lógica de Programação</a></li>
-      <li><a href="#programacao-mobile">Programacao Mobile</a></li>
-      <li><a href="#game-engine">Game Engine</a></li>
-    </ul>
-  </nav>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="greeting">Olá, eu sou</span>
+            <span class="name">Prof. Dr. Diogo Rodrigues</span>
+            <span class="subtitle">Professor | Analista de Dados | Pesquisador</span>
+          </h1>
+          <p class="hero-description">
+            🚀 Transformando dados em insights e estudantes em profissionais de tecnologia. 
+            Professor universitário e analista de dados, especialista em SQL, análise geoespacial e desenvolvimento de soluções inovadoras para educação e negócios.
+          </p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-outline">
+              <i class="fas fa-envelope"></i>
+              Entre em Contato
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="profile-card">
+            <img src="assets/prof_diogo.jpeg" alt="Prof. Dr. Diogo Francisco" class="profile-img">
+            <div class="profile-info">
+              <h3>Prof. Dr. Diogo Rodrigues</h3>
+              <p>Professor | Analista de Dados | Pesquisador</p>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" class="social-link">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="social-link">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/diogofbranco" target="_blank" class="social-link">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:010117368@prof.uninassau.edu.br" class="social-link">
+                  <i class="fas fa-envelope"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <main>
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Sobre Mim</h2>
+        <p class="section-subtitle">Conheça minha jornada acadêmica e profissional</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <div class="about-item">
+            <div class="about-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="about-info">
+              <h3>Formação Acadêmica & Pesquisa</h3>
+              <p>Pós-doutor em Engenharia, com pesquisa na área de Informática aplicada à Agricultura e à Gestão de Recursos Hídricos.</p>
+            </div>
+          </div>
+          
+          <div class="about-item">
+            <div class="about-icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="about-info">
+              <h3>Experiência Profissional</h3>
+              <p>Analista de Dados em empresa de seguros, desenvolvendo soluções em SQL, relatórios estratégicos e regras de negócios. Professor universitário, formando profissionais de tecnologia com metodologias práticas.</p>
+            </div>
+          </div>
+          
+          <div class="about-item">
+            <div class="about-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="about-info">
+              <h3>Analista & Cientista de Dados</h3>
+              <p>Especialista em análise de dados, SQL, T-SQL, Business Intelligence e Google Earth Engine. Transformo dados em insights estratégicos para tomada de decisão em ambientes corporativos e acadêmicos.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">6+</div>
+            <div class="stat-label">Anos de Ensino</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Alunos Formados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Disciplinas Ativas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Projetos de Iniciação Científica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise Section -->
+  <section id="expertise" class="expertise">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Especialidades</h2>
+        <p class="section-subtitle">Áreas de atuação e conhecimento</p>
+      </div>
+      
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <div class="card-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <h3>Análise de Dados & BI</h3>
+          <p>Especialista em análise de dados, modelagem e Business Intelligence. Desenvolvimento de relatórios estratégicos e implementação de regras de negócios para otimização da tomada de decisão.</p>
+          <ul class="tech-list">
+            <li>SQL / T-SQL</li>
+            <li>Business Intelligence</li>
+            <li>Análise de Dados</li>
+            <li>Modelagem de Dados</li>
+          </ul>
+        </div>
+        
+        <div class="expertise-card">
+          <div class="card-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Geoprocessamento & GIS</h3>
+          <p>Análise de dados geoespaciais utilizando Google Earth Engine e ferramentas GIS. Pesquisa e desenvolvimento de soluções para problemas ambientais e geográficos.</p>
+          <ul class="tech-list">
+            <li>Google Earth Engine</li>
+            <li>Geoprocessamento</li>
+            <li>Análise Espacial</li>
+            <li>Sensoriamento Remoto</li>
+          </ul>
+        </div>
+        
+        <div class="expertise-card">
+          <div class="card-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>Educação & Metodologias Ativas</h3>
+          <p>Desenvolvimento de conteúdos didáticos inovadores e metodologias ativas para ensino de tecnologia, conectando teoria e prática de forma dinâmica.</p>
+          <ul class="tech-list">
+            <li>Metodologias Ativas</li>
+            <li>Ensino Superior</li>
+            <li>Pesquisa Acadêmica</li>
+            <li>Orientação de TCC</li>
+          </ul>
+        </div>
+        
+        <div class="expertise-card">
+          <div class="card-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Desenvolvimento Web & Mobile</h3>
+          <p>Desenvolvimento de aplicações web e mobile modernas com JavaScript, React e integração de sistemas. Experiência em soluções computacionais e engenharia de software.</p>
+          <ul class="tech-list">
+            <li>JavaScript</li>
+            <li>React.js</li>
+            <li>React Native</li>
+            <li>Engenharia de Software</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
     <!-- <section id="front-end-frameworks">
       <h2>Front-end FrameWorks</h2>
       <ul>
@@ -54,246 +245,221 @@
       </ul>
     </section> -->
 
-    <section id="logica-programacao">
-      <h2><i class="fas fa-code"></i> Lógica de Programação</h2>
-      <ul>
-        <li>
-          <a href="pages/logicaProgramacao/aula1/index_gr.html" class="btn-aula"
-            target="_blank"
-            >Aula 1: Apresentação da disciplina</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/aula2/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 2: Tipos de Dados, Variáveis e Operadores Aritméticos</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/aula3/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 3: Estruturas Condicionais (if, else, switch)</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/aula4/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 4: Desafios criativos em Portugol</a>
-        </li>
-        <li>
-            <a href="pages/logicaProgramacao/aula5/index.html"  class="btn-aula"
-                target="_blank"
-                >Aula 5: Estruturas de Repetição (for, while, do-while)</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/aula6/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 6 - Revisão e Prática</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/ubiqua/index.html"  class="btn-aula"
-              target="_blank"
-              >Hands On ubiqua – Escape Room Algorítmico</a>
-        </li>
-        <li>
-          <a href="pages/logicaProgramacao/aula7/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 7: Estruturas de Repetição Aninhadas, Vetores e Matrizes em Visualg</a>
-      </ul>
-    </section>
-    <section id="programacao-mobile">
-      <h2><i class="fas fa-mobile-alt"></i> Programação Mobile</h2>
-      <ul>
-        <li>
-          <a href="pages/programacaoMobile/_projeto_1av/index_bank.html"  class="btn-aula"
-            target="_blank"
-            >Requisitos do projeto Serbank (projeto AV 1) </a>
-        </li>
-        <li>
-          <a href="pages/programacaoMobile/_projeto_1av/index_sos.html"  class="btn-aula"
-            target="_blank"
-            >Requisitos do projeto Reeguer (projeto AV 1) </a>
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/_projeto_2av/index_bank.html"  class="btn-aula"
-            target="_blank"
-            >Requisitos do projeto Serbank (projeto AV 2)</a
-          >
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/_projeto_2av/index_sos.html"  class="btn-aula"
-            target="_blank"
-            >Requisitos do projeto Reeguer (projeto AV 2)</a
-          >
-        </li>
-
-        <li>
-          <a
-            href="pages/programacaoMobile/aula1/index.html"  class="btn-aula"
-            target="_blank"
-            >Aula 1: Introdução part I</a
-          >
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/aula2/index.html"  class="btn-aula"
-            target="_blank"
-            >Aula 2: Introdução part II</a>
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/aula3/index.html"  class="btn-aula"
-            target="blank"
-            >Aula 3: Introducao ao React </a>
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/aula4/index.html"  class="btn-aula"
-            target="blank"
-            >Aula 4: Estilização no React Native </a>
-        </li>
-        <li >
-          <a
-            href="pages/programacaoMobile/aula5/index.html"  class="btn-aula"
-            target="blank"
-            >Aula 5 - Fundamentos do React / React Native  </a>
-        </li>
-        <li>
-          <a
-            href="pages/programacaoMobile/aula6/index.html"  class="btn-aula"
-            target="blank"
-            >Aula 6 - Navegação entre Telas com Expo</a>
-        </li>
-
-        <li>
-          <a
-            href="pages/programacaoMobile/aula7/index.html"  class="btn-aula"
-            target="_blank"
-            >Aula 7 - FlatList</a>
-        </li>
-
-
-      <li>
-        <a
-          href="pages/programacaoMobile/ubiqua/index.html"  class="btn-aula"
-          target="_blank"
-          >Hands On ubíqua - Desafio do App Espião</a
-        >
-      </li>
-      <li>
-        <a
-          href="pages/programacaoMobile/aula8/index.html"  class="btn-aula"
-          target="_blank"
-          >Aula 8 - Consumindo APIs no Mobile</a
-        >
-      </li>
-      <li>
-        <a
-          href="pages/programacaoMobile/aula9/index.html"  class="btn-aula"
-          target="_blank"
-          >Aula 9: Sensores em Aplicações Mobile com Expo</a
-        >
-      </li>
-      <li> <a 
-        href="pages/programacaoMobile/aula10/index.html"  class="btn-aula"
-        target="_blank"
-        >Aula 10: Armazenamento Local com AsyncStorage e Banco de Dados </a
-        >
-      </li>
-      </ul>
-    </section>
-
-    <section id="game-engine">
-      <h2><i class="fas fa-gamepad"></i> Game Engine</h2>
-      <ul>
-        <li><a href="pages/gameEngine/_projeto/index.html" class="btn-aula"
-              target="_blank"
-              >Requisitos do projeto 1AV Game Engine
-            </a>
-        </li>
-        <li>
-          <a href="pages/gameEngine/_projeto2av/index.html" class="btn-aula"
-            target="_blank"
-            >Requisitos do projeto 2AV Game Engine
-          </a>
-        </li>
-        <li>
-          <a
-            href="pages/gameEngine/aula1/index.html"  class="btn-aula"
-            target="_blank"
-            >Aula 1: Introdução</a
-          >
-        </li>
-        <li>
-          <a
-            href="pages/gameEngine/aula2/index.html"  class="btn-aula"
-            target="_blank"
-            >Aula 2: Introdução à Godot Engine</a
-          >
-          <li>
-            <a  
-              href="pages/gameEngine/aula3/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 3: Conceitos Fundamentais da Godot e os 3C’s</a>
-          </li>
-          <li>
-            <a  
-              href="pages/gameEngine/aula4/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 4: Câmera, Iluminação e Texturas</a>
-          </li>
-          <li>
-            <a  
-              href="pages/gameEngine/aula5/index.html"  class="btn-aula"
-              target="_blank"
-              >Aula 5: Movimentação, Colisão e Interações</a>
-          </li>
-          <li>
-            <a 
-              href="pages/gameEngine/aula6/index.html" class="btn-aula"
-              target="_blank"
-              >Aula 6: Interação Godot: Nós, Colisão e Gatilhos</a>
-          </li>
-        <li>
-          <a
-            href="pages/gameEngine/aula7/index.html" class="btn-aula"
-            target="_blank"
-            >Aula 7: Revisão Construção de Scripts com GDScript</a>
-        </li>
-          <li>
-            <a
-              href="pages/gameEngine/officina/index.html" class="btn-aula"
-              target="_blank"
-              >Hands on Ubíqua : Missão Pixel: Crie um Microjogo com Impacto Social </a>
-          </li>
-          <li>
-            <a
-              href="pages/gameEngine/aula8/index.html" class="btn-aula"
-              target="_blank"
-              >Aula 8 - Introdução ao desenvolvimento 3D</a>
-            <li>
-              <a
-                href="pages/gameEngine/aula9/index.html" class="btn-aula"
-                target="_blank"
-                >Aula 9 - Importação de Modelos 3D, Animações e Aplicação de Materiais</a>
-            </li>
-      </ul>
-    </section>
+      <!-- Courses Section -->
+  
   </main>
 
-  <footer>
-    <p>Prof. Dr. Diogo Francisco Borba Rodrigues - UNINASSAU</p>
-    <p>010117368@prof.uninassau.edu.br</p>
-    <p>
-      <a href="mailto:010117368@prof.uninassau.edu.br"
-        ><i class="fas fa-envelope"></i> E-mail</a
-      >
-      |
-      <a
-        href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/"
-        target="_blank"
-        ><i class="fab fa-linkedin"></i> LinkedIn</a
-      >
-    </p>
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Entre em Contato</h2>
+        <p class="section-subtitle">Vamos conversar sobre projetos, colaborações ou oportunidades</p>
+      </div>
+      
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email Institucional</h3>
+              <p>010117368@prof.uninassau.edu.br</p>
+              <a href="mailto:010117368@prof.uninassau.edu.br" class="contact-link">Enviar Email</a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <div class="contact-details">
+              <h3>LinkedIn</h3>
+              <p>Conecte-se profissionalmente</p>
+              <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" class="contact-link">Ver Perfil</a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="contact-details">
+              <h3>GitHub</h3>
+              <p>Explore meus projetos e código</p>
+              <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="contact-link">Ver Repositórios</a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Instagram</h3>
+              <p>Acompanhe conteúdos sobre tecnologia e educação</p>
+              <a href="https://www.instagram.com/diogofbranco" target="_blank" class="contact-link">Ver Perfil</a>
+            </div>
+          </div>
+          
+        
+        </div>
+        
+        <div class="contact-cta">
+          <div class="cta-card">
+            <h3>🚀 Interessado em Colaborar?</h3>
+            <p>Estou sempre aberto para novas oportunidades, projetos de pesquisa, consultoria em análise de dados, palestras e colaborações acadêmicas e corporativas.</p>
+            <ul class="cta-list">
+              <li>✨ Orientação de TCC e projetos de pesquisa</li>
+              <li>🎯 Palestras e workshops sobre dados e tecnologia</li>
+              <li>🤝 Consultoria em análise de dados e BI</li>
+              <li>📚 Desenvolvimento de conteúdo educacional</li>
+              <li>🌍 Projetos de geoprocessamento e análise espacial</li>
+            </ul>
+            <a href="mailto:010117368@prof.uninassau.edu.br?subject=Oportunidade de Colaboração" class="btn btn-primary">
+              <i class="fas fa-handshake"></i>
+              Vamos Conversar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div class="footer-logo">
+            <h3>Prof. Dr. Diogo Francisco</h3>
+            <p>Professor | Analista de Dados | Pesquisador</p>
+          </div>
+          <p class="footer-description">
+            Transformando dados em insights estratégicos e formando a próxima geração de profissionais de tecnologia com paixão, dedicação e metodologias inovadoras.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" class="social-link">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="social-link">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/diogofbranco" target="_blank" class="social-link">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:010117368@prof.uninassau.edu.br" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Navegação</h4>
+            <ul>
+              <li><a href="#home">Início</a></li>
+              <li><a href="#about">Sobre</a></li>
+              <li><a href="#expertise">Especialidades</a></li>
+          
+            </ul>
+          </div>
+          
+       
+          
+          <div class="footer-column">
+            <h4>Recursos</h4>
+            <ul>
+              <li><a href="#contact">Contato</a></li>
+              <li><a href="https://www.uninassau.edu.br/" target="_blank">UNINASSAU</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          <p>&copy; 2025 Prof. Dr. Diogo Francisco Borba Rodrigues. Todos os direitos reservados.</p>
+          <p>Centro Universitário Maurício de Nassau - UNINASSAU</p>
+        </div>
+        <div class="footer-update">
+          <p>Última atualização: <span id="last-update">10 de Agosto, 2025</span></p>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+      navToggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+      navToggle.classList.remove('active');
+    }));
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Dropdown functionality
+    document.querySelectorAll('.dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.parentElement.classList.toggle('active');
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Animate stats on scroll
+    const observerOptions = {
+      threshold: 0.7
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-item, .expertise-card, .course-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>

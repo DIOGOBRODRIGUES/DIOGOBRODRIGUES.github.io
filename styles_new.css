@@ -1151,29 +1151,6 @@ body {
   }
 }
 
-/* ===== SOCIAL LINKS ESPECÍFICOS ===== */
-.social-link:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-  border-color: var(--primary-color);
-}
-
-.social-link[href*="linkedin"]:hover {
-  background: #0077b5;
-  border-color: #0077b5;
-}
-
-.social-link[href*="github"]:hover {
-  background: #333;
-  border-color: #333;
-}
-
-.social-link[href*="instagram"]:hover {
-  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  border-color: #e1306c;
-}
-
 /* ===== UTILITIES ===== */
 .animate {
   opacity: 1;

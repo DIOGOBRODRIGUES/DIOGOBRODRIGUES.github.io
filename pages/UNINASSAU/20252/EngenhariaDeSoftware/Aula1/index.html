@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 1 - Introdução à Engenharia de Software</title>
+
+  <meta name="description" content="Introdução aos conceitos fundamentais de Engenharia de Software">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ 
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <div style="margin-bottom: 20px;">
+            <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,h=226,fit=crop/YD04P1L0WvuWvzbw/uninassau-logo-6ea85e82a5-seeklogo.com-mjE9XbxVbKFqeVWE.png" alt="Logo UNINASSAU" style="height: 80px; background-color: lightblue; padding: 10px; border-radius: 5px;">
+           
+        </div>
+        <p>Centro Universitário Maurício de Nassau</p>
+        <h2>Aula 1 - Introdução à Engenharia de Software</h2>
+        <h4>Engenharia de Requisitos, Teste e Qualidade de Software</h4>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+    
+
+      <!-- Slide 3 - O que é Software? -->
+      <section>
+        <h2>O que é Software?</h2>
+        <div style="text-align: left;">
+          <p><strong>Software é mais do que apenas código!</strong></p>
+          <ul>
+            <li><strong>Programas:</strong> instruções executáveis</li>
+            <li><strong>Dados:</strong> estruturas que permitem o funcionamento adequado</li>
+            <li><strong>Documentação:</strong> manuais, especificações, guias</li>
+          </ul>
+          <br>
+          <p><em>"Software é uma coleção de programas executáveis, dados associados e documentação que descreve como usar o sistema."</em></p>
+        </div>
+      </section>
+
+ 
+
+      <!-- Slide 5 - A Crise do Software -->
+      <section>
+        <h2>⚠️ A Crise do Software</h2>
+        <div style="text-align: left;">
+          <h4>Problemas Identificados nos Anos 60-70:</h4>
+          <ul>
+            <li>Projetos atrasados e acima do orçamento</li>
+            <li>Software não confiável</li>
+            <li>Dificuldade de manutenção</li>
+            <li>Falta de métodos sistemáticos</li>
+          </ul>
+          <br>
+          <p><strong>Solução:</strong> Desenvolvimento da disciplina de <em>Engenharia de Software</em></p>
+        </div>
+      </section>
+
+      <!-- Slide 6 - O que é Engenharia de Software? -->
+      <section>
+        <h2>🛠️ O que é Engenharia de Software?</h2>
+        <blockquote style="font-style: italic; border-left: 4px solid #ff79c6; padding-left: 20px;">
+          "Engenharia de Software é uma disciplina de engenharia que se preocupa com todos os aspectos da produção de software, desde os estágios iniciais de especificação do sistema até a manutenção do sistema após entrar em operação."
+          <br><br>
+          <small>- Ian Sommerville</small>
+        </blockquote>
+      </section>
+
+      <!-- Slide 7 - Objetivos da Engenharia de Software -->
+      <section>
+        <h2>Objetivos da Engenharia de Software</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h4>🎯 Principais Metas:</h4>
+            <ul>
+              <li>Produtividade</li>
+              <li>Qualidade</li>
+              <li>Previsibilidade</li>
+              <li>Controle</li>
+            </ul>
+          </div>
+          <div>
+            <h4>📊 Métricas de Sucesso:</h4>
+            <ul>
+              <li>Prazo cumprido</li>
+              <li>Orçamento respeitado</li>
+              <li>Requisitos atendidos</li>
+              <li>Facilidade de manutenção</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8 - Atividades Fundamentais -->
+      <section>
+        <h2>📋 Atividades Fundamentais</h2>
+        <div style="text-align: left;">
+          <ol>
+            <li><strong>Especificação:</strong> definir funcionalidades e restrições</li>
+            <li><strong>Desenvolvimento:</strong> produzir o software que atende às especificações</li>
+            <li><strong>Validação:</strong> verificar se o software atende às expectativas</li>
+            <li><strong>Evolução:</strong> modificar para atender novas necessidades</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Slide 9 - Tipos de Software -->
+      <section>
+        <h2>📱 Tipos de Software</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+          <div>
+            <h4>Por Aplicação:</h4>
+            <ul>
+              <li>Sistemas de informação</li>
+              <li>Software científico</li>
+              <li>Software embarcado</li>
+              <li>Aplicações web</li>
+              <li>Jogos</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Por Arquitetura:</h4>
+            <ul>
+              <li>Desktop</li>
+              <li>Web</li>
+              <li>Mobile</li>
+              <li>Distribuído</li>
+              <li>Cloud</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Atributos de Qualidade -->
+      <section>
+        <h2>⭐ Atributos de Qualidade</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h4>Funcionais:</h4>
+            <ul>
+              <li><strong>Correção:</strong> faz o que deve fazer</li>
+              <li><strong>Completude:</strong> implementa todos os requisitos</li>
+              <li><strong>Consistência:</strong> não há contradições</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Não-Funcionais:</h4>
+            <ul>
+              <li><strong>Usabilidade:</strong> facilidade de uso</li>
+              <li><strong>Confiabilidade:</strong> funciona sem falhas</li>
+              <li><strong>Performance:</strong> resposta adequada</li>
+              <li><strong>Manutenibilidade:</strong> fácil de modificar</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    
+      <!-- Slide 12 - Processos de Software -->
+      <section>
+        <h2>🔄 Processos de Software</h2>
+        <div style="text-align: left;">
+          <p><strong>Processo de Software:</strong> conjunto estruturado de atividades necessárias para desenvolver um sistema de software.</p>
+          <br>
+          <h4>Elementos de um Processo:</h4>
+          <ul>
+            <li><strong>Atividades:</strong> o que deve ser feito</li>
+            <li><strong>Artefatos:</strong> produtos gerados</li>
+            <li><strong>Recursos:</strong> pessoas, tempo, ferramentas</li>
+            <li><strong>Procedimentos:</strong> como fazer</li>
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- Slide 14 - Importância da Disciplina -->
+      <section>
+        <h2>🎓 Por que estudar Engenharia de Software?</h2>
+        <div style="text-align: left;">
+          <ul>
+            <li><strong>Demanda crescente:</strong> software está em todos os lugares</li>
+            <li><strong>Complexidade:</strong> sistemas cada vez mais complexos</li>
+            <li><strong>Qualidade:</strong> falhas podem ter consequências graves</li>
+            <li><strong>Custos:</strong> desenvolvimento e manutenção são caros</li>
+            <li><strong>Competitividade:</strong> software como diferencial competitivo</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 15 - Próximas Aulas -->
+      <section>
+        <h2>📅 Próximas Aulas</h2>
+        <div style="text-align: left;">
+          <h4>Temas que abordaremos:</h4>
+          <ul>
+            <li>Processos de Software e Metodologias</li>
+           
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 16 - Atividade -->
+      <section>
+        <h2>📝 Atividade Prática</h2>
+        <div style="text-align: left;">
+          <h4>Discussão em Grupo:</h4>
+          <p>Identifiquem exemplos de software que vocês usam no dia a dia e classifiquem quanto aos:</p>
+          <ul>
+            <li>Tipo de aplicação</li>
+            <li>Atributos de qualidade mais importantes</li>
+            <li>Possíveis problemas enfrentados</li>
+          </ul>
+          <br>
+          <p><strong>Tempo:</strong> 15 minutos</p>
+          <p><strong>Apresentação:</strong> 2 minutos por grupo</p>
+        </div>
+      </section>
+
+
+      <!-- Slide 18 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <div style="text-align: center; margin-top: 50px;">
+          <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <br>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
