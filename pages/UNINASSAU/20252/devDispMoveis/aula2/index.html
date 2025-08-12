@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 2 - Ambientes de Desenvolvimento</title>
+
+  <meta name="description" content="Ferramentas de desenvolvimento, IDEs e configuração de ambiente para mobile">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .reveal .slides section {
+      text-align: left;
+      font-size: 0.8em;
+      line-height: 1.4;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .social-links a {
+      font-size: 1.8em;
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.2);
+    }
+
+    .code-highlight {
+      background: rgba(98, 114, 164, 0.1);
+      border-left: 4px solid #ff79c6;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.9em;
+    }
+
+    .tool-card {
+      background: rgba(98, 114, 164, 0.2);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+    }
+
+    .tool-card h4 {
+      color: #ff79c6;
+      margin-bottom: 0.5rem;
+    }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .pros {
+      background: rgba(80, 250, 123, 0.1);
+      border-left: 4px solid #50fa7b;
+      padding: 0.8rem;
+      border-radius: 4px;
+    }
+
+    .cons {
+      background: rgba(255, 85, 85, 0.1);
+      border-left: 4px solid #ff5555;
+      padding: 0.8rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 1 - Título -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 2: Ambientes de Desenvolvimento 🛠️</h3>
+        <p><strong>Desenvolvimento para Dispositivos Móveis</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Slide 2 - Objetivos -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        
+        <div class="code-highlight">
+          <h4>Ao final desta aula, você será capaz de:</h4>
+          <ul>
+            <li>🔧 <strong>Conhecer</strong> as principais ferramentas de desenvolvimento mobile</li>
+            <li>💻 <strong>Configurar</strong> ambientes de desenvolvimento (IDEs)</li>
+            <li>📱 <strong>Utilizar</strong> emuladores e dispositivos físicos</li>
+            <li>⚙️ <strong>Comparar</strong> diferentes plataformas de desenvolvimento</li>
+            <li>🚀 <strong>Preparar</strong> o ambiente para desenvolvimento prático</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 3 - Panorama de Ferramentas -->
+      <section>
+        <h2>🌐 Panorama das Ferramentas Mobile</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+          <div class="tool-card">
+            <h4>🍎 Desenvolvimento iOS</h4>
+            <ul>
+              <li><strong>Xcode:</strong> IDE oficial da Apple</li>
+              <li><strong>Swift Playgrounds:</strong> Aprendizado</li>
+              <li><strong>TestFlight:</strong> Distribuição beta</li>
+              <li><strong>Instruments:</strong> Profiling e debug</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🤖 Desenvolvimento Android</h4>
+            <ul>
+              <li><strong>Android Studio:</strong> IDE oficial do Google</li>
+              <li><strong>Eclipse + ADT:</strong> Legado (descontinuado)</li>
+              <li><strong>Gradle:</strong> Sistema de build</li>
+              <li><strong>Firebase:</strong> Backend as a Service</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🔄 Desenvolvimento Híbrido</h4>
+            <ul>
+              <li><strong>React Native:</strong> Facebook/Meta</li>
+              <li><strong>Flutter:</strong> Google (Dart)</li>
+              <li><strong>Xamarin:</strong> Microsoft (C#)</li>
+              <li><strong>Ionic:</strong> Web technologies</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🌐 Ferramentas Web</h4>
+            <ul>
+              <li><strong>Visual Studio Code:</strong> Editor universal</li>
+              <li><strong>Chrome DevTools:</strong> Debug web</li>
+              <li><strong>PWA Tools:</strong> Progressive Web Apps</li>
+              <li><strong>Expo:</strong> React Native simplificado</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4 - Android Studio -->
+      <section>
+        <h2>🤖 Android Studio - IDE Oficial</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>✨ Características Principais</h3>
+            <ul>
+              <li><strong>IntelliJ base:</strong> IDE poderosa</li>
+              <li><strong>Gradle build:</strong> Sistema moderno</li>
+              <li><strong>Layout Editor:</strong> Design visual</li>
+              <li><strong>AVD Manager:</strong> Emuladores</li>
+              <li><strong>Profiler:</strong> Performance analysis</li>
+              <li><strong>APK Analyzer:</strong> Análise de apps</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>🔧 Componentes Incluídos</h3>
+            <ul>
+              <li><strong>Android SDK:</strong> Ferramentas de desenvolvimento</li>
+              <li><strong>Android NDK:</strong> Código nativo (C/C++)</li>
+              <li><strong>Emuladores:</strong> Múltiplas versões Android</li>
+              <li><strong>ADB:</strong> Android Debug Bridge</li>
+              <li><strong>Lint:</strong> Análise de código</li>
+              <li><strong>ProGuard:</strong> Ofuscação de código</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="code-highlight">
+          <h4>💾 Requisitos de Sistema</h4>
+          <ul>
+            <li><strong>RAM:</strong> 8GB mínimo (16GB recomendado)</li>
+            <li><strong>Espaço:</strong> 10GB+ de armazenamento</li>
+            <li><strong>OS:</strong> Windows 10+, macOS 10.14+, Linux Ubuntu 18.04+</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Xcode -->
+      <section>
+        <h2>🍎 Xcode - Ecossistema Apple</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🌟 Recursos Principais</h3>
+            <ul>
+              <li><strong>Interface Builder:</strong> Design visual</li>
+              <li><strong>Swift/Objective-C:</strong> Linguagens nativas</li>
+              <li><strong>Simulator:</strong> Emulador iOS/watchOS</li>
+              <li><strong>Instruments:</strong> Profiling avançado</li>
+              <li><strong>SwiftUI:</strong> Framework moderno de UI</li>
+              <li><strong>Core Data:</strong> Persistência de dados</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>📱 Plataformas Suportadas</h3>
+            <ul>
+              <li><strong>iOS:</strong> iPhone applications</li>
+              <li><strong>iPadOS:</strong> iPad optimized</li>
+              <li><strong>macOS:</strong> Desktop applications</li>
+              <li><strong>watchOS:</strong> Apple Watch</li>
+              <li><strong>tvOS:</strong> Apple TV</li>
+              <li><strong>visionOS:</strong> Apple Vision Pro</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Vantagens</h4>
+            <ul>
+              <li>Integração perfeita com Apple</li>
+              <li>Performance otimizada</li>
+              <li>Ferramentas avançadas incluídas</li>
+              <li>Documentação excelente</li>
+            </ul>
+          </div>
+          
+          <div class="cons">
+            <h4>❌ Limitações</h4>
+            <ul>
+              <li>Apenas em macOS</li>
+              <li>Tamanho grande (15GB+)</li>
+              <li>Curva de aprendizado</li>
+              <li>Hardware Apple necessário</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6 - Visual Studio Code -->
+      <section>
+        <h2>💻 Visual Studio Code - Editor Universal</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🚀 Por que VS Code para Mobile?</h3>
+            <ul>
+              <li><strong>Multiplataforma:</strong> Windows, macOS, Linux</li>
+              <li><strong>Extensões:</strong> React Native, Flutter, Dart</li>
+              <li><strong>Leve:</strong> Rápido e eficiente</li>
+              <li><strong>Integração Git:</strong> Controle de versão</li>
+              <li><strong>Terminal integrado:</strong> Linha de comando</li>
+              <li><strong>IntelliSense:</strong> Autocompletar</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>🔌 Extensões Essenciais</h3>
+            <ul>
+              <li><strong>React Native Tools:</strong> Microsoft</li>
+              <li><strong>Flutter:</strong> Dart Code</li>
+              <li><strong>Prettier:</strong> Formatação de código</li>
+              <li><strong>ESLint:</strong> Linting JavaScript</li>
+              <li><strong>GitLens:</strong> Git super powers</li>
+              <li><strong>Bracket Pair:</strong> Colorização</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="code-highlight">
+          <h4>⚙️ Configuração para React Native</h4>
+          <pre><code class="json">{
+  "react-native": {
+    "packager": {
+      "port": 8081
+    }
+  },
+  "emulator": {
+    "path": "/Users/user/Android/Sdk"
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Emuladores e Simuladores -->
+      <section>
+        <h2>📱 Emuladores e Simuladores</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="tool-card">
+            <h4>🤖 Android Virtual Device (AVD)</h4>
+            <ul>
+              <li><strong>AVD Manager:</strong> Gerenciamento centralizado</li>
+              <li><strong>Google Play Services:</strong> APIs do Google</li>
+              <li><strong>Hardware acceleration:</strong> HAXM, Hyper-V</li>
+              <li><strong>Diferentes resoluções:</strong> Phones, tablets, watches</li>
+              <li><strong>API levels:</strong> Android 4.4 até mais recente</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🍎 iOS Simulator</h4>
+            <ul>
+              <li><strong>Xcode incluído:</strong> Múltiplos dispositivos</li>
+              <li><strong>iPhone/iPad:</strong> Várias gerações</li>
+              <li><strong>Hardware features:</strong> Location, Camera, Touch ID</li>
+              <li><strong>iOS versions:</strong> Múltiplas versões</li>
+              <li><strong>Network conditions:</strong> Simulação de rede</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h3>🔧 Alternativas de Emulação</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+          <div class="tool-card">
+            <h4>Genymotion</h4>
+            <p>Emulador Android rápido e poderoso. Versão gratuita e paga.</p>
+          </div>
+          
+          <div class="tool-card">
+            <h4>BlueStacks</h4>
+            <p>Emulador Android popular para games e apps. Foco em performance.</p>
+          </div>
+          
+          <div class="tool-card">
+            <h4>Browser DevTools</h4>
+            <p>Simulação mobile em navegadores. Bom para PWAs e web apps.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8 - Dispositivos Físicos -->
+      <section>
+        <h2>📲 Teste em Dispositivos Físicos</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>✅ Vantagens dos Dispositivos Reais</h3>
+            <ul>
+              <li><strong>Performance real:</strong> CPU, RAM, GPU reais</li>
+              <li><strong>Sensores autênticos:</strong> GPS, acelerômetro, câmera</li>
+              <li><strong>Conectividade real:</strong> WiFi, 4G/5G, Bluetooth</li>
+              <li><strong>Bateria:</strong> Impacto no consumo</li>
+              <li><strong>UX autêntica:</strong> Touch real, haptic feedback</li>
+              <li><strong>Notificações:</strong> Comportamento real</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>⚙️ Configuração para Debug</h3>
+            
+            <h4>🤖 Android:</h4>
+            <ul>
+              <li><strong>Developer Options:</strong> Habilitar modo desenvolvedor</li>
+              <li><strong>USB Debugging:</strong> Conectar via ADB</li>
+              <li><strong>OEM Unlocking:</strong> Para testes avançados</li>
+            </ul>
+            
+            <h4>🍎 iOS:</h4>
+            <ul>
+              <li><strong>Apple Developer Account:</strong> Necessário</li>
+              <li><strong>Device Registration:</strong> UDID registration</li>
+              <li><strong>Provisioning Profile:</strong> Certificados</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="code-highlight">
+          <h4>📋 Checklist para Testes</h4>
+          <ul>
+            <li>✅ Diferentes tamanhos de tela e resoluções</li>
+            <li>✅ Versões de OS variadas (Android 8+ / iOS 13+)</li>
+            <li>✅ Diferentes fabricantes (Samsung, Xiaomi, OnePlus)</li>
+            <li>✅ Condições de rede variadas (WiFi, 4G, offline)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 9 - React Native & Expo -->
+      <section>
+        <h2>⚛️ React Native & Expo Snack</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🚀 React Native</h3>
+            <ul>
+              <li><strong>Learn Once, Write Anywhere:</strong> Filosofia</li>
+              <li><strong>JavaScript/TypeScript:</strong> Linguagens conhecidas</li>
+              <li><strong>Native Components:</strong> Performance nativa</li>
+              <li><strong>Hot Reload:</strong> Desenvolvimento rápido</li>
+              <li><strong>Large Community:</strong> Libs e suporte</li>
+            </ul>
+            
+            <div class="code-highlight">
+              <h4>📦 Instalação</h4>
+              <pre><code class="bash"># Instalação via npm
+npm install -g react-native-cli
+
+# Criar novo projeto
+npx react-native init MeuApp
+
+# Executar no Android
+npx react-native run-android</code></pre>
+            </div>
+          </div>
+          
+          <div>
+            <h3>🧪 Expo Snack</h3>
+            <ul>
+              <li><strong>Online IDE:</strong> Sem instalação local</li>
+              <li><strong>QR Code:</strong> Teste direto no celular</li>
+              <li><strong>Compartilhamento:</strong> Links para projetos</li>
+              <li><strong>Templates:</strong> Exemplos prontos</li>
+              <li><strong>Live Preview:</strong> Mudanças em tempo real</li>
+            </ul>
+            
+            <div class="tool-card">
+              <h4>🌐 Acesso: snack.expo.dev</h4>
+              <p><strong>Ideal para:</strong></p>
+              <ul style="font-size: 0.9em;">
+                <li>Prototipagem rápida</li>
+                <li>Aprendizado e experimentos</li>
+                <li>Aulas práticas sem setup</li>
+                <li>Demonstrações e provas de conceito</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Flutter & Dart -->
+      <section>
+        <h2>🦋 Flutter & Dart</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🎯 Flutter Características</h3>
+            <ul>
+              <li><strong>Single Codebase:</strong> iOS + Android + Web + Desktop</li>
+              <li><strong>Dart Language:</strong> Linguagem otimizada</li>
+              <li><strong>Widget System:</strong> Tudo é widget</li>
+              <li><strong>Hot Reload:</strong> Mudanças instantâneas</li>
+              <li><strong>Custom Rendering:</strong> Skia engine</li>
+              <li><strong>Google Backing:</strong> Suporte corporativo</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>🛠️ Ferramentas Flutter</h3>
+            <ul>
+              <li><strong>Flutter SDK:</strong> Framework completo</li>
+              <li><strong>Dart SDK:</strong> Linguagem e runtime</li>
+              <li><strong>Flutter Doctor:</strong> Diagnóstico de setup</li>
+              <li><strong>Flutter Inspector:</strong> Debug de widgets</li>
+              <li><strong>DartPad:</strong> Playground online</li>
+            </ul>
+            
+            <div class="code-highlight">
+              <h4>📦 Instalação Flutter</h4>
+              <pre><code class="bash"># Verificar instalação
+flutter doctor
+
+# Criar novo projeto
+flutter create meu_app
+
+# Executar
+flutter run</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Vantagens</h4>
+            <ul>
+              <li>Performance nativa</li>
+              <li>UI consistente entre plataformas</li>
+              <li>Desenvolvimento rápido</li>
+              <li>Ecossistema Google</li>
+            </ul>
+          </div>
+          
+          <div class="cons">
+            <h4>❌ Considerações</h4>
+            <ul>
+              <li>Linguagem Dart menos popular</li>
+              <li>Tamanho do app maior</li>
+              <li>Curva de aprendizado</li>
+              <li>Menos bibliotecas nativas</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11 - Controle de Versão -->
+      <section>
+        <h2>📚 Controle de Versão - Git</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🔧 Git para Projetos Mobile</h3>
+            <ul>
+              <li><strong>Repositórios:</strong> GitHub, GitLab, Bitbucket</li>
+              <li><strong>Branches:</strong> feature/dev/main strategy</li>
+              <li><strong>Gitignore:</strong> Arquivos específicos mobile</li>
+              <li><strong>Large Files:</strong> Git LFS para assets</li>
+              <li><strong>Colaboração:</strong> Pull requests e code review</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>📁 .gitignore para Mobile</h3>
+            <div class="code-highlight">
+              <pre><code class="bash"># React Native
+node_modules/
+*.log
+.DS_Store
+
+# Android
+*.apk
+*.ap_
+*.dex
+build/
+local.properties
+
+# iOS
+*.xcarchive
+DerivedData/
+*.mobileprovision
+*.p12
+
+# Expo
+.expo/
+dist/</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <h3>🔄 Fluxo de Trabalho Recomendado</h3>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+          <div class="tool-card">
+            <h4>1. Clone</h4>
+            <p>git clone [repo]</p>
+          </div>
+          <div class="tool-card">
+            <h4>2. Branch</h4>
+            <p>git checkout -b feature/nova-tela</p>
+          </div>
+          <div class="tool-card">
+            <h4>3. Commit</h4>
+            <p>git commit -m "feat: adiciona tela de login"</p>
+          </div>
+          <div class="tool-card">
+            <h4>4. Push</h4>
+            <p>git push origin feature/nova-tela</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12 - Debugging e Testing -->
+      <section>
+        <h2>🐛 Debugging e Testing</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+          <div class="tool-card">
+            <h4>🔍 Debugging Tools</h4>
+            <ul>
+              <li><strong>React DevTools:</strong> Component inspection</li>
+              <li><strong>Flipper:</strong> Facebook debugging platform</li>
+              <li><strong>Chrome DevTools:</strong> Para React Native</li>
+              <li><strong>Reactotron:</strong> Debugging desktop app</li>
+              <li><strong>Console logs:</strong> Debug básico</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🧪 Testing Frameworks</h4>
+            <ul>
+              <li><strong>Jest:</strong> Unit testing JavaScript</li>
+              <li><strong>React Native Testing Library:</strong> Component testing</li>
+              <li><strong>Detox:</strong> E2E testing</li>
+              <li><strong>Appium:</strong> Cross-platform automation</li>
+              <li><strong>Firebase Test Lab:</strong> Cloud testing</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>📊 Performance Monitoring</h4>
+            <ul>
+              <li><strong>Firebase Performance:</strong> Real-time monitoring</li>
+              <li><strong>Sentry:</strong> Error tracking</li>
+              <li><strong>New Relic:</strong> APM móvel</li>
+              <li><strong>Bugsnag:</strong> Error monitoring</li>
+              <li><strong>App Center:</strong> Microsoft analytics</li>
+            </ul>
+          </div>
+          
+          <div class="tool-card">
+            <h4>🚀 CI/CD Mobile</h4>
+            <ul>
+              <li><strong>GitHub Actions:</strong> Automação gratuita</li>
+              <li><strong>Bitrise:</strong> Mobile-first CI/CD</li>
+              <li><strong>Fastlane:</strong> Deployment automation</li>
+              <li><strong>App Center:</strong> Build e distribuição</li>
+              <li><strong>CodePush:</strong> Over-the-air updates</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Atividade Prática -->
+      <section>
+        <h2>🧪 Atividade Prática: Setup do Ambiente</h2>
+        
+        <div class="code-highlight">
+          <h3>🎯 Objetivo</h3>
+          <p>Configurar ambiente de desenvolvimento e criar primeiro app mobile</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h4>📱 Opção 1: Expo Snack (Recomendado)</h4>
+            <ol>
+              <li>Acesse <strong>snack.expo.dev</strong></li>
+              <li>Crie uma conta gratuita</li>
+              <li>Escolha template "Hello World"</li>
+              <li>Baixe app "Expo Go" no seu celular</li>
+              <li>Escaneie QR code para testar</li>
+              <li>Modifique o texto de boas-vindas</li>
+              <li>Adicione um botão simples</li>
+              <li>Teste mudanças em tempo real</li>
+            </ol>
+          </div>
+          
+          <div>
+            <h4>💻 Opção 2: Local Development</h4>
+            <ol>
+              <li>Instale Node.js (16+)</li>
+              <li>Instale VS Code</li>
+              <li>Extensões: React Native Tools</li>
+              <li>Instale Expo CLI:
+                <pre><code>npm i -g @expo/cli</code></pre>
+              </li>
+              <li>Crie projeto:
+                <pre><code>npx create-expo-app MeuApp</code></pre>
+              </li>
+              <li>Execute:
+                <pre><code>expo start</code></pre>
+              </li>
+              <li>Teste no Expo Go app</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div style="background: rgba(76, 175, 80, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+          <h4>⏰ Tempo: 30 minutos | 💡 Resultado esperado: App funcionando no celular</h4>
+        </div>
+      </section>
+
+      <!-- Slide 14 - Troubleshooting -->
+      <section>
+        <h2>🔧 Troubleshooting Comum</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>❌ Problemas Comuns</h3>
+            <div class="tool-card">
+              <h4>Node.js/npm Issues</h4>
+              <ul>
+                <li><strong>Solução:</strong> Limpar cache npm</li>
+                <li><code>npm cache clean --force</code></li>
+                <li><code>rm -rf node_modules</code></li>
+                <li><code>npm install</code></li>
+              </ul>
+            </div>
+            
+            <div class="tool-card">
+              <h4>Metro bundler não inicia</h4>
+              <ul>
+                <li><strong>Solução:</strong> Reset do metro</li>
+                <li><code>npx react-native start --reset-cache</code></li>
+                <li>Verificar porta 8081 livre</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h3>✅ Dicas de Sucesso</h3>
+            <div class="tool-card">
+              <h4>Performance</h4>
+              <ul>
+                <li>Feche apps desnecessários</li>
+                <li>Use SSD para projetos</li>
+                <li>16GB+ RAM recomendado</li>
+                <li>Internet estável para downloads</li>
+              </ul>
+            </div>
+            
+            <div class="tool-card">
+              <h4>Organização</h4>
+              <ul>
+                <li>Pasta dedicada para projetos</li>
+                <li>Nome de projetos sem espaços</li>
+                <li>Backup regular do código</li>
+                <li>Documentar configurações</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 15 - Próxima Aula e Conclusão -->
+      <section>
+        <h2>🚀 Conclusão & Próxima Aula</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>✅ O que aprendemos hoje</h3>
+            <ul>
+              <li>🔧 Principais ferramentas de desenvolvimento mobile</li>
+              <li>💻 Configuração de IDEs e ambientes</li>
+              <li>📱 Uso de emuladores e dispositivos</li>
+              <li>⚛️ Introdução ao Expo Snack</li>
+              <li>🐛 Ferramentas de debugging e testing</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>🔮 Próxima Aula</h3>
+            <div class="code-highlight">
+              <h4>💻 Aula 3: Linguagens de Programação Mobile</h4>
+              <ul>
+                <li>JavaScript para mobile</li>
+                <li>React Native fundamentals</li>
+                <li>Flutter e Dart básico</li>
+                <li>Comparação de linguagens</li>
+                <li>Primeiro app com lógica</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="code-highlight">
+          <h3>📚 Tarefa para Casa</h3>
+          <p>Explore o Expo Snack e experimente com diferentes templates. Crie pelo menos 2 pequenos projetos de teste.</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+          <h3>❓ Dúvidas & Contato</h3>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+</html>

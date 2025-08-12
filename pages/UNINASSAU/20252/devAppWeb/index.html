@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desenvolvimento de Aplicações Web - UNINASSAU</title>
+
+  <meta name="description" content="Disciplina de Desenvolvimento de Aplicações Web - Centro Universitário Maurício de Nassau">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="keywords" content="desenvolvimento web, html, css, javascript, java ee, uninassau">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --uninassau-primary: #1e3a8a;
+      --uninassau-secondary: #3b82f6;
+      --uninassau-accent: #06b6d4;
+      --uninassau-dark: #0f172a;
+      --uninassau-light: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, var(--uninassau-primary), var(--uninassau-secondary));
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--uninassau-primary), var(--uninassau-secondary));
+      color: white;
+      padding: 80px 0;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-custom {
+      background: var(--uninassau-secondary);
+      border-color: var(--uninassau-secondary);
+      color: white;
+    }
+
+    .btn-custom:hover {
+      background: var(--uninassau-primary);
+      border-color: var(--uninassau-primary);
+      color: white;
+    }
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--uninassau-accent);
+    }
+
+    .professor-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .tech-badge {
+      background: var(--uninassau-light);
+      border: 2px solid var(--uninassau-secondary);
+      color: var(--uninassau-primary);
+    }
+
+    .footer {
+      background: var(--uninassau-dark);
+      color: var(--uninassau-light);
+    }
+
+    .lesson-table td, .lesson-table th {
+      vertical-align: middle;
+    }
+
+    .lesson-link {
+      color: var(--uninassau-secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .lesson-link:hover {
+      color: var(--uninassau-primary);
+    }
+
+    .coming-soon {
+      color: #6b7280;
+      font-style: italic;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-graduation-cap me-2"></i>
+        UNINASSAU
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#inicio">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sobre">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#aulas">Aulas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#professor">Professor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contato">Contato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-4">
+            Desenvolvimento de Aplicações Web
+          </h1>
+          <p class="lead mb-4">
+            Curso completo cobrindo tecnologias modernas de desenvolvimento web, 
+            desde o front-end até aplicações empresariais com Java EE.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#aulas" class="btn btn-light btn-lg">
+              <i class="fas fa-book me-2"></i>Ver Aulas
+            </a>
+            <a href="#sobre" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-info-circle me-2"></i>Saiba Mais
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center">
+          <div class="position-relative">
+            <i class="fas fa-code display-1 text-white opacity-75"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="sobre" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-title">📚 Sobre a Disciplina</h2>
+          <p class="lead text-muted mb-5">
+            Uma jornada completa pelo desenvolvimento web moderno
+          </p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center p-4">
+            <div class="card-body">
+              <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+              <h5>51 Horas</h5>
+              <p class="text-muted">Carga horária total distribuída em 17 aulas práticas</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center p-4">
+            <div class="card-body">
+              <i class="fas fa-laptop-code fa-3x text-success mb-3"></i>
+              <h5>7 Tecnologias</h5>
+              <p class="text-muted">HTML5, CSS3, JavaScript, Bootstrap, jQuery, Java EE, PostgreSQL</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center p-4">
+            <div class="card-body">
+              <i class="fas fa-project-diagram fa-3x text-warning mb-3"></i>
+              <h5>4 Projetos</h5>
+              <p class="text-muted">Projetos práticos do básico ao avançado</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 text-center p-4">
+            <div class="card-body">
+              <i class="fas fa-certificate fa-3x text-info mb-3"></i>
+              <h5>2 Avaliações</h5>
+              <p class="text-muted">Avaliação contínua com projetos práticos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objectives -->
+      <div class="row mt-5">
+        <div class="col-lg-6">
+          <h3 class="section-title">🎯 Objetivos</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dominar HTML5, CSS3 e JavaScript</li>
+            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Aplicar frameworks como Bootstrap e jQuery</li>
+            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Desenvolver aplicações Java EE</li>
+            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Integrar front-end com back-end</li>
+            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Implementar padrões arquiteturais (MVC)</li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-6">
+          <h3 class="section-title">🛠️ Tecnologias</h3>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge tech-badge p-2">HTML5</span>
+            <span class="badge tech-badge p-2">CSS3</span>
+            <span class="badge tech-badge p-2">JavaScript</span>
+            <span class="badge tech-badge p-2">Bootstrap</span>
+            <span class="badge tech-badge p-2">jQuery</span>
+            <span class="badge tech-badge p-2">Java EE</span>
+            <span class="badge tech-badge p-2">Servlets</span>
+            <span class="badge tech-badge p-2">JSP</span>
+            <span class="badge tech-badge p-2">PostgreSQL</span>
+            <span class="badge tech-badge p-2">Apache Tomcat</span>
+            <span class="badge tech-badge p-2">MVC</span>
+            <span class="badge tech-badge p-2">Eclipse IDE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lessons Section -->
+  <section id="aulas" class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-title">📖 Cronograma de Aulas</h2>
+          <p class="lead text-muted mb-5">
+            17 aulas distribuídas em módulos front-end e back-end
+          </p>
+        </div>
+      </div>
+
+      <!-- Front-End Module -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4 class="mb-0">🎨 Módulo Front-End (Aulas 1-8)</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table lesson-table">
+                  <thead>
+                    <tr>
+                      <th>Aula</th>
+                      <th>Tema</th>
+                      <th>CH</th>
+                      <th>Tipo</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a href="aula1/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>1
+                        </a>
+                      </td>
+                      <td>Introdução sobre Aplicações Web</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-info">Teórica</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula2/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>2
+                        </a>
+                      </td>
+                      <td>HTML & Criação no Eclipse</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula3/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>3
+                        </a>
+                      </td>
+                      <td>CSS & Criação no Eclipse</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula4/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>4
+                        </a>
+                      </td>
+                      <td>JavaScript & Bootstrap</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula5/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>5
+                        </a>
+                      </td>
+                      <td>jQuery & Páginas Dinâmicas</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula6/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>6
+                        </a>
+                      </td>
+                      <td>Página completa com HTML, CSS e JS</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-danger">Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="aula7/index.html" class="lesson-link">
+                          <i class="fas fa-play-circle me-1"></i>7
+                        </a>
+                      </td>
+                      <td>Melhoria de layout com Bootstrap</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-danger">Prática</span></td>
+                      <td><span class="badge bg-success">Disponível</span></td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>1ª Avaliação</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-dark">Avaliação</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em breve</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back-End Module -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-warning text-dark">
+              <h4 class="mb-0">⚙️ Módulo Back-End (Aulas 9-17)</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table lesson-table">
+                  <thead>
+                    <tr>
+                      <th>Aula</th>
+                      <th>Tema</th>
+                      <th>CH</th>
+                      <th>Tipo</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>9</td>
+                      <td>Java EE e Principais APIs</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-info">Teórica</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>Ambientes de Desenvolvimento</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-info">Teórica</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>Apache Tomcat & Configuração</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>API de Servlets & Aplicação</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>13</td>
+                      <td>Deployment & Containers Java</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-danger">Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>14</td>
+                      <td>JSP & Criação no Eclipse</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>15</td>
+                      <td>Integração com Banco & Web</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>16</td>
+                      <td>Arquitetura MVC & Implementação</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-warning">Teórica + Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                    <tr>
+                      <td>17</td>
+                      <td>Aplicação PostgreSQL + MVC</td>
+                      <td>3h</td>
+                      <td><span class="badge bg-danger">Prática</span></td>
+                      <td><span class="badge bg-secondary coming-soon">Em desenvolvimento</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professor Section -->
+  <section id="professor" class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card professor-card">
+            <div class="card-body p-5">
+              <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                  <div class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center" 
+                       style="width: 120px; height: 120px;">
+                    <i class="fas fa-user-tie fa-4x text-primary"></i>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <h3 class="fw-bold mb-3">Prof. Dr. Diogo Francisco Borba Rodrigues</h3>
+                  <p class="mb-4">
+                    Doutor em Ciência da Computação com especialização em Desenvolvimento Web e 
+                    Tecnologias Java. Experiência de mais de 10 anos em ensino superior e 
+                    desenvolvimento de aplicações empresariais.
+                  </p>
+                  <div class="d-flex gap-3">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" 
+                       target="_blank" class="btn btn-light">
+                      <i class="fab fa-linkedin me-2"></i>LinkedIn
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="btn btn-light">
+                      <i class="fab fa-github me-2"></i>GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-title">📚 Recursos Complementares</h2>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-book fa-3x text-primary mb-3"></i>
+              <h5>Documentação</h5>
+              <ul class="list-unstyled">
+                <li><a href="https://developer.mozilla.org/pt-BR/" target="_blank">MDN Web Docs</a></li>
+                <li><a href="https://getbootstrap.com/" target="_blank">Bootstrap Docs</a></li>
+                <li><a href="https://docs.oracle.com/javaee/" target="_blank">Java EE Docs</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-tools fa-3x text-success mb-3"></i>
+              <h5>Ferramentas</h5>
+              <ul class="list-unstyled">
+                <li><a href="https://www.eclipse.org/ide/" target="_blank">Eclipse IDE</a></li>
+                <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
+                <li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-code fa-3x text-warning mb-3"></i>
+              <h5>Prática</h5>
+              <ul class="list-unstyled">
+                <li><a href="https://codepen.io/" target="_blank">CodePen</a></li>
+                <li><a href="https://github.com/" target="_blank">GitHub</a></li>
+                <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-graduation-cap fa-3x text-info mb-3"></i>
+              <h5>Aprendizado</h5>
+              <ul class="list-unstyled">
+                <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a></li>
+                <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
+                <li><a href="https://www.udemy.com/" target="_blank">Udemy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contato" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-title">📞 Contato</h2>
+          <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body p-4">
+                  <h4>Centro Universitário Maurício de Nassau</h4>
+                  <p class="text-muted mb-4">Disciplina: Desenvolvimento de Aplicações Web</p>
+                  
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <i class="fas fa-envelope text-primary me-2"></i>
+                      <strong>Email:</strong><br>
+                      diogo.rodrigues@uninassau.edu.br
+                    </div>
+                    <div class="col-md-6">
+                      <i class="fas fa-clock text-primary me-2"></i>
+                      <strong>Horário:</strong><br>
+                      Consulte o cronograma acadêmico
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  
+                  <div class="d-flex justify-content-center gap-3">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" 
+                       target="_blank" class="btn btn-outline-primary">
+                      <i class="fab fa-linkedin me-2"></i>LinkedIn
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" class="btn btn-outline-dark">
+                      <i class="fab fa-github me-2"></i>GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      <!-- Slide 1 - Título do Curso -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h2>Desenvolvimento de Aplicações Web</h2>
+        <h3>Índice do Curso</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Sobre o Curso -->
+      <section>
+        <h2>📚 Sobre o Curso</h2>
+        <p>Curso completo de Desenvolvimento de Aplicações Web cobrindo tecnologias front-end e back-end.</p>
+        
+        <div class="fragment">
+          <h3>� Objetivos:</h3>
+          <ul>
+            <li>Dominar HTML5, CSS3 e JavaScript</li>
+            <li>Aplicar frameworks como Bootstrap e jQuery</li>
+            <li>Desenvolver aplicações Java EE</li>
+            <li>Integrar front-end com back-end</li>
+            <li>Implementar padrões arquiteturais (MVC)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 3 - Aulas Front-End -->
+      <section>
+        <section>
+          <h2>🎨 Módulo Front-End</h2>
+          <p>Aulas 1-7: Tecnologias do lado cliente</p>
+        </section>
+
+        <section>
+          <h3>📋 Aulas Teóricas e Práticas</h3>
+          <div style="font-size: 0.8em;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aula</th>
+                  <th>Tema</th>
+                  <th>CH</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="aula1/index.html">1</a></td>
+                  <td>Introdução sobre Aplicações Web</td>
+                  <td>3h</td>
+                  <td>Teórica</td>
+                </tr>
+                <tr>
+                  <td><a href="aula2/index.html">2</a></td>
+                  <td>HTML & Criação no Eclipse</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td><a href="aula3/index.html">3</a></td>
+                  <td>CSS & Criação no Eclipse</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td><a href="aula4/index.html">4</a></td>
+                  <td>JavaScript & Bootstrap</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td><a href="aula5/index.html">5</a></td>
+                  <td>jQuery & Páginas Dinâmicas</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>🛠️ Projetos Front-End</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Aula</th>
+                <th>Projeto</th>
+                <th>CH</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="aula6/index.html">6</a></td>
+                <td>Página completa com HTML, CSS e JS</td>
+                <td>3h</td>
+              </tr>
+              <tr>
+                <td><a href="aula7/index.html">7</a></td>
+                <td>Melhoria de layout com Bootstrap</td>
+                <td>3h</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>1ª Avaliação</td>
+                <td>3h</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Aulas Back-End -->
+      <section>
+        <section>
+          <h2>⚙️ Módulo Back-End</h2>
+          <p>Aulas 9-17: Tecnologias do lado servidor</p>
+        </section>
+
+        <section>
+          <h3>☕ Java EE e Infraestrutura</h3>
+          <div style="font-size: 0.7em;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aula</th>
+                  <th>Tema</th>
+                  <th>CH</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>9</td>
+                  <td>Java EE e Principais APIs</td>
+                  <td>3h</td>
+                  <td>Teórica</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Ambientes de Desenvolvimento</td>
+                  <td>3h</td>
+                  <td>Teórica</td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>Apache Tomcat & Configuração</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>API de Servlets & Aplicação</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td>Deployment & Containers Java</td>
+                  <td>3h</td>
+                  <td>Prática</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>🗃️ JSP e Banco de Dados</h3>
+          <div style="font-size: 0.7em;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aula</th>
+                  <th>Tema</th>
+                  <th>CH</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>14</td>
+                  <td>JSP & Criação no Eclipse</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td>Integração com Banco & Web</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>Arquitetura MVC & Implementação</td>
+                  <td>3h</td>
+                  <td>Teórica + Prática</td>
+                </tr>
+                <tr>
+                  <td>17</td>
+                  <td>Aplicação PostgreSQL + MVC</td>
+                  <td>3h</td>
+                  <td>Prática</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Tecnologias Abordadas -->
+      <section>
+        <h2>🛠️ Tecnologias do Curso</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+          <div>
+            <h3>🎨 Front-End</h3>
+            <ul>
+              <li class="fragment">📝 <strong>HTML5</strong> - Estrutura e semântica</li>
+              <li class="fragment">🎨 <strong>CSS3</strong> - Estilos e layout responsivo</li>
+              <li class="fragment">⚡ <strong>JavaScript</strong> - Interatividade</li>
+              <li class="fragment">🥾 <strong>Bootstrap</strong> - Framework CSS</li>
+              <li class="fragment">💙 <strong>jQuery</strong> - Biblioteca JavaScript</li>
+            </ul>
+          </div>
+          <div>
+            <h3>⚙️ Back-End</h3>
+            <ul>
+              <li class="fragment">☕ <strong>Java EE</strong> - Platform empresarial</li>
+              <li class="fragment">🌐 <strong>Servlets</strong> - Componentes web</li>
+              <li class="fragment">📄 <strong>JSP</strong> - JavaServer Pages</li>
+              <li class="fragment">🗄️ <strong>PostgreSQL</strong> - Banco de dados</li>
+              <li class="fragment">🏗️ <strong>MVC</strong> - Padrão arquitetural</li>
+              <li class="fragment">🐱 <strong>Apache Tomcat</strong> - Servidor web</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6 - Ferramentas -->
+      <section>
+        <h2>🔧 Ferramentas de Desenvolvimento</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+          <div>
+            <h3>💻 IDEs</h3>
+            <ul>
+              <li class="fragment">🌙 <strong>Eclipse IDE</strong></li>
+              <li class="fragment">💎 <strong>VS Code</strong></li>
+              <li class="fragment">🧠 <strong>IntelliJ IDEA</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h3>🗄️ Banco de Dados</h3>
+            <ul>
+              <li class="fragment">🐘 <strong>PostgreSQL</strong></li>
+              <li class="fragment">🛢️ <strong>pgAdmin</strong></li>
+              <li class="fragment">📊 <strong>DBeaver</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h3>🌐 Servidores</h3>
+            <ul>
+              <li class="fragment">🐱 <strong>Apache Tomcat</strong></li>
+              <li class="fragment">🦬 <strong>WildFly</strong></li>
+              <li class="fragment">💼 <strong>GlassFish</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Metodologia -->
+      <section>
+        <h2>📖 Metodologia</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+          <div>
+            <h3>📚 Aulas Teóricas</h3>
+            <ul>
+              <li class="fragment">Conceitos fundamentais</li>
+              <li class="fragment">Demonstrações práticas</li>
+              <li class="fragment">Exemplos de código</li>
+              <li class="fragment">Discussão de boas práticas</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🛠️ Aulas Práticas</h3>
+            <ul>
+              <li class="fragment">Exercícios hands-on</li>
+              <li class="fragment">Projetos reais</li>
+              <li class="fragment">Resolução de problemas</li>
+              <li class="fragment">Trabalho em equipe</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="fragment" style="margin-top: 30px;">
+          <h3>🎯 Avaliação</h3>
+          <p>Projetos práticos, participação em aula e avaliação teórica.</p>
+        </div>
+      </section>
+
+      <!-- Slide 8 - Recursos -->
+      <section>
+        <h2>📚 Recursos Complementares</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+          <div>
+            <h3>🌐 Documentação</h3>
+            <ul>
+              <li class="fragment"><strong>MDN Web Docs</strong> - HTML, CSS, JS</li>
+              <li class="fragment"><strong>Oracle Docs</strong> - Java EE</li>
+              <li class="fragment"><strong>Bootstrap Docs</strong> - Framework</li>
+              <li class="fragment"><strong>jQuery API</strong> - Biblioteca</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🔧 Ferramentas Online</h3>
+            <ul>
+              <li class="fragment"><strong>CodePen</strong> - Prototipagem</li>
+              <li class="fragment"><strong>GitHub</strong> - Controle de versão</li>
+              <li class="fragment"><strong>Heroku</strong> - Deploy gratuito</li>
+              <li class="fragment"><strong>Can I Use</strong> - Compatibilidade</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9 - Contato -->
+      <section>
+        <h2>📞 Contato</h2>
+        <div style="text-align: center;">
+          <h3>Prof. Dr. Diogo Francisco Borba Rodrigues</h3>
+          
+          <div style="margin: 30px 0;">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+              <i class="fab fa-linkedin fa-2x"></i> LinkedIn
+            </a>
+            <br><br>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+              <i class="fab fa-github fa-2x"></i> GitHub
+            </a>
+          </div>
+          
+          <p>Centro Universitário Maurício de Nassau</p>
+          <p><strong>Email:</strong> diogo.rodrigues@uninassau.edu.br</p>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Navegação -->
+      <section>
+        <h2>🧭 Navegação do Curso</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 0.8em;">
+          <div>
+            <h4>Aulas 1-3</h4>
+            <ul>
+              <li><a href="aula1/index.html">Aula 1 - Aplicações Web</a></li>
+              <li><a href="aula2/index.html">Aula 2 - HTML</a></li>
+              <li><a href="aula3/index.html">Aula 3 - CSS</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Aulas 4-6</h4>
+            <ul>
+              <li><a href="aula4/index.html">Aula 4 - JS & Bootstrap</a></li>
+              <li><a href="aula5/index.html">Aula 5 - jQuery</a></li>
+              <li><a href="aula6/index.html">Aula 6 - Projeto Front</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Próximas</h4>
+            <ul>
+              <li><a href="aula7/index.html">Aula 7 - Bootstrap Avançado</a></li>
+              <li>Aula 8 - Avaliação</li>
+              <li>Aula 9 - Java EE</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+   </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h5 class="text-white">Desenvolvimento de Aplicações Web</h5>
+          <p class="text-light">Centro Universitário Maurício de Nassau</p>
+        </div>
+        <div class="col-lg-6 text-lg-end">
+          <p class="text-light mb-1">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+          <p class="text-light mb-0">
+            <small>&copy; 2025 UNINASSAU. Todos os direitos reservados.</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Custom JavaScript -->
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add active class to navigation based on scroll position
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Add animation to cards on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

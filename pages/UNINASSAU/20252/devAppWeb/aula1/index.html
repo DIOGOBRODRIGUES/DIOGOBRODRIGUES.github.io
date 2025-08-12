@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 1 - Introdução sobre Aplicações Web</title>
+
+  <meta name="description" content="Introdução sobre Aplicações Web (HTTP, Server Side, Client Side)">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 1 - Introdução sobre Aplicações Web</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Compreender o conceito de aplicações web</li>
+          <li class="fragment">Entender o protocolo HTTP</li>
+          <li class="fragment">Diferençar Server Side vs Client Side</li>
+          <li class="fragment">Conhecer a arquitetura web básica</li>
+          <li class="fragment">Identificar tecnologias web fundamentais</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que são Aplicações Web? -->
+      <section>
+        <section>
+          <h2>🌐 O que são Aplicações Web?</h2>
+          <p class="fragment">Aplicações web são programas de computador que rodam em servidores web e são acessadas através de navegadores.</p>
+          <div class="fragment">
+            <h3>Características Principais:</h3>
+            <ul>
+              <li>Acesso através de URL</li>
+              <li>Interface baseada em HTML/CSS/JavaScript</li>
+              <li>Comunicação via protocolo HTTP/HTTPS</li>
+              <li>Execução distribuída (cliente-servidor)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>📱 Exemplos de Aplicações Web</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Tradicionais</h4>
+              <ul>
+                <li>Gmail</li>
+                <li>Facebook</li>
+                <li>Wikipedia</li>
+                <li>YouTube</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Modernas (SPA)</h4>
+              <ul>
+                <li>Google Docs</li>
+                <li>Trello</li>
+                <li>WhatsApp Web</li>
+                <li>Netflix</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Protocolo HTTP -->
+      <section>
+        <section>
+          <h2>🌍 Protocolo HTTP</h2>
+          <p><strong>HTTP (HyperText Transfer Protocol)</strong></p>
+          <p class="fragment">É o protocolo de comunicação utilizado para transferir dados na World Wide Web.</p>
+          
+          <div class="fragment">
+            <h3>Características do HTTP:</h3>
+            <ul>
+              <li>Stateless (sem estado)</li>
+              <li>Baseado em requisição-resposta</li>
+              <li>Utiliza porta 80 (HTTP) ou 443 (HTTPS)</li>
+              <li>Texto simples (legível por humanos)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>📨 Métodos HTTP Principais</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Método</th>
+                <th>Descrição</th>
+                <th>Uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td><strong>GET</strong></td>
+                <td>Solicitar dados</td>
+                <td>Buscar páginas, imagens</td>
+              </tr>
+              <tr class="fragment">
+                <td><strong>POST</strong></td>
+                <td>Enviar dados</td>
+                <td>Formulários, upload</td>
+              </tr>
+              <tr class="fragment">
+                <td><strong>PUT</strong></td>
+                <td>Atualizar dados</td>
+                <td>Modificar recursos</td>
+              </tr>
+              <tr class="fragment">
+                <td><strong>DELETE</strong></td>
+                <td>Remover dados</td>
+                <td>Excluir recursos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>📋 Códigos de Status HTTP</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Sucesso (2xx)</h4>
+              <ul>
+                <li><strong>200</strong> - OK</li>
+                <li><strong>201</strong> - Criado</li>
+                <li><strong>204</strong> - Sem conteúdo</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Erro (4xx/5xx)</h4>
+              <ul>
+                <li><strong>404</strong> - Não encontrado</li>
+                <li><strong>403</strong> - Proibido</li>
+                <li><strong>500</strong> - Erro interno</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Server Side vs Client Side -->
+      <section>
+        <section>
+          <h2>⚖️ Server Side vs Client Side</h2>
+        </section>
+
+        <section>
+          <h3>🖥️ Server Side (Lado do Servidor)</h3>
+          <p>Processamento que ocorre no servidor antes de enviar para o cliente.</p>
+          
+          <div class="fragment">
+            <h4>Características:</h4>
+            <ul>
+              <li>Executa no servidor</li>
+              <li>Gera HTML dinamicamente</li>
+              <li>Acesso direto ao banco de dados</li>
+              <li>Invisível ao usuário final</li>
+            </ul>
+          </div>
+
+          <div class="fragment">
+            <h4>Tecnologias:</h4>
+            <p>Java (Servlets/JSP), PHP, Python, Node.js, C#, Ruby</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>💻 Client Side (Lado do Cliente)</h3>
+          <p>Processamento que ocorre no navegador do usuário.</p>
+          
+          <div class="fragment">
+            <h4>Características:</h4>
+            <ul>
+              <li>Executa no navegador</li>
+              <li>Interação dinâmica com usuário</li>
+              <li>Manipulação da interface</li>
+              <li>Visível ao usuário final</li>
+            </ul>
+          </div>
+
+          <div class="fragment">
+            <h4>Tecnologias:</h4>
+            <p>HTML, CSS, JavaScript, TypeScript, Frameworks JS</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🔄 Comparação Visual</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>🖥️ Server Side</h4>
+              <pre><code class="language-java">
+// Java Servlet
+@WebServlet("/usuario")
+public class UsuarioServlet {
+  protected void doGet(request, response) {
+    String nome = database.getNome(id);
+    response.getWriter()
+      .println("<h1>Olá " + nome + "</h1>");
+  }
+}
+              </code></pre>
+            </div>
+            <div>
+              <h4>💻 Client Side</h4>
+              <pre><code class="language-javascript">
+// JavaScript
+document.getElementById('botao')
+  .addEventListener('click', function() {
+    fetch('/api/usuario/1')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('nome')
+          .innerText = 'Olá ' + data.nome;
+      });
+  });
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Arquitetura Web -->
+      <section>
+        <section>
+          <h2>🏗️ Arquitetura Web Básica</h2>
+        </section>
+
+        <section>
+          <h3>📐 Modelo Cliente-Servidor</h3>
+          <div class="mermaid">
+            <pre><code>
+graph LR
+    A[Cliente<br/>Navegador] -->|HTTP Request| B[Servidor Web]
+    B -->|HTTP Response| A
+    B -->|SQL| C[Banco de Dados]
+    C -->|Dados| B
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>🔄 Fluxo de Requisição</h3>
+          <ol>
+            <li class="fragment"><strong>Cliente</strong> faz requisição HTTP</li>
+            <li class="fragment"><strong>Servidor</strong> processa a requisição</li>
+            <li class="fragment"><strong>Servidor</strong> consulta banco de dados (se necessário)</li>
+            <li class="fragment"><strong>Servidor</strong> gera resposta (HTML/JSON/XML)</li>
+            <li class="fragment"><strong>Cliente</strong> recebe e renderiza resposta</li>
+            <li class="fragment"><strong>JavaScript</strong> pode fazer novas requisições (AJAX)</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>🎨 Camadas da Aplicação Web</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+            <div class="fragment">
+              <h4>🖼️ Apresentação</h4>
+              <p>HTML, CSS, JavaScript</p>
+              <p>Interface do usuário</p>
+            </div>
+            <div class="fragment">
+              <h4>⚙️ Lógica de Negócio</h4>
+              <p>Servlets, JSP, APIs</p>
+              <p>Regras da aplicação</p>
+            </div>
+            <div class="fragment">
+              <h4>🗄️ Dados</h4>
+              <p>Banco de Dados</p>
+              <p>Armazenamento persistente</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Tecnologias Web -->
+      <section>
+        <section>
+          <h2>🛠️ Tecnologias Web Fundamentais</h2>
+        </section>
+
+        <section>
+          <h3>🌐 Front-end (Cliente)</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="fragment">
+              <h4>HTML</h4>
+              <p>Estrutura e conteúdo</p>
+              <ul>
+                <li>Elementos semânticos</li>
+                <li>Formulários</li>
+                <li>Multimedia</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4>CSS</h4>
+              <p>Estilo e layout</p>
+              <ul>
+                <li>Seletores</li>
+                <li>Flexbox/Grid</li>
+                <li>Responsividade</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4>JavaScript</h4>
+              <p>Interatividade</p>
+              <ul>
+                <li>DOM Manipulation</li>
+                <li>AJAX</li>
+                <li>Frameworks</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🖥️ Back-end (Servidor)</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Java EE</h4>
+              <ul class="fragment">
+                <li>Servlets</li>
+                <li>JSP (JavaServer Pages)</li>
+                <li>JDBC</li>
+                <li>EJB (Enterprise JavaBeans)</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Infraestrutura</h4>
+              <ul class="fragment">
+                <li>Apache Tomcat</li>
+                <li>JDK/JRE</li>
+                <li>Banco de Dados</li>
+                <li>Eclipse IDE</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Evolução das Aplicações Web -->
+      <section>
+        <section>
+          <h2>📈 Evolução das Aplicações Web</h2>
+        </section>
+
+        <section>
+          <h3>🕰️ Linha do Tempo</h3>
+          <div style="font-size: 0.8em;">
+            <div class="fragment">
+              <h4>1990s - Web 1.0</h4>
+              <p>Páginas estáticas, HTML simples, pouca interatividade</p>
+            </div>
+            <div class="fragment">
+              <h4>2000s - Web 2.0</h4>
+              <p>Conteúdo dinâmico, AJAX, redes sociais</p>
+            </div>
+            <div class="fragment">
+              <h4>2010s - Mobile First</h4>
+              <p>Responsive design, aplicações mobile</p>
+            </div>
+            <div class="fragment">
+              <h4>2020s - Web 3.0</h4>
+              <p>PWAs, WebAssembly, AI integration</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🚀 Tendências Atuais</h3>
+          <ul>
+            <li class="fragment"><strong>Progressive Web Apps (PWA)</strong> - Apps web com funcionalidades nativas</li>
+            <li class="fragment"><strong>Single Page Applications (SPA)</strong> - Navegação sem recarregar página</li>
+            <li class="fragment"><strong>API-First</strong> - Desenvolvimento centrado em APIs</li>
+            <li class="fragment"><strong>Jamstack</strong> - JavaScript, APIs e Markup</li>
+            <li class="fragment"><strong>Serverless</strong> - Funções sem gerenciamento de servidor</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Exercícios -->
+      <section>
+        <h2>📝 Exercícios</h2>
+        <ol>
+          <li class="fragment">Identifique 5 aplicações web que você usa diariamente e classifique-as como tradicionais ou SPA</li>
+          <li class="fragment">Explique a diferença entre uma página estática e uma aplicação web dinâmica</li>
+          <li class="fragment">Descreva o que acontece quando você digita uma URL no navegador e pressiona Enter</li>
+          <li class="fragment">Liste 3 vantagens e 3 desvantagens do processamento server-side vs client-side</li>
+        </ol>
+      </section>
+
+      <!-- Slide 10 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aula 2 - Introdução à Linguagem HTML</h3>
+        <ul>
+          <li class="fragment">Estrutura básica do HTML</li>
+          <li class="fragment">Tags e elementos fundamentais</li>
+          <li class="fragment">Formulários HTML</li>
+          <li class="fragment">Semântica e acessibilidade</li>
+          <li class="fragment">Prática: Criação de página HTML no Eclipse</li>
+        </ul>
+      </section>
+
+      <!-- Slide 11 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

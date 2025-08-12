@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 2 - Introdução à Linguagem HTML</title>
+
+  <meta name="description" content="Introdução à Linguagem HTML e Criação de páginas HTML no Eclipse">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 2 - Introdução à Linguagem HTML</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Compreender a estrutura básica do HTML</li>
+          <li class="fragment">Conhecer as principais tags HTML</li>
+          <li class="fragment">Criar formulários HTML</li>
+          <li class="fragment">Aplicar semântica e acessibilidade</li>
+          <li class="fragment">Praticar no Eclipse IDE</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é HTML? -->
+      <section>
+        <section>
+          <h2>📝 O que é HTML?</h2>
+          <p><strong>HTML (HyperText Markup Language)</strong></p>
+          <p class="fragment">É a linguagem de marcação padrão para criar páginas web.</p>
+          
+          <div class="fragment">
+            <h3>Características:</h3>
+            <ul>
+              <li>Linguagem de marcação (não programação)</li>
+              <li>Utiliza tags para estruturar conteúdo</li>
+              <li>Interpretada pelos navegadores</li>
+              <li>Padrão W3C (World Wide Web Consortium)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura Básica</h3>
+          <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Título da Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Minha Primeira Página&lt;/h1&gt;
+    &lt;p&gt;Este é um parágrafo.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Anatomia de uma Tag -->
+      <section>
+        <section>
+          <h2>🔍 Anatomia de uma Tag HTML</h2>
+          <pre><code class="language-html">
+&lt;tagname attribute="value"&gt;Conteúdo&lt;/tagname&gt;
+          </code></pre>
+          
+          <div class="fragment">
+            <h3>Componentes:</h3>
+            <ul>
+              <li><strong>Tag de abertura:</strong> &lt;tagname&gt;</li>
+              <li><strong>Atributos:</strong> attribute="value"</li>
+              <li><strong>Conteúdo:</strong> texto entre as tags</li>
+              <li><strong>Tag de fechamento:</strong> &lt;/tagname&gt;</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>🏷️ Tipos de Tags</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Container (com fechamento)</h4>
+              <pre><code class="language-html">
+&lt;p&gt;Parágrafo&lt;/p&gt;
+&lt;div&gt;Divisão&lt;/div&gt;
+&lt;h1&gt;Título&lt;/h1&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Vazia (auto-fechamento)</h4>
+              <pre><code class="language-html">
+&lt;br&gt;
+&lt;img src="foto.jpg" alt="Foto"&gt;
+&lt;input type="text"&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Tags Fundamentais -->
+      <section>
+        <section>
+          <h2>📋 Tags Fundamentais</h2>
+        </section>
+
+        <section>
+          <h3>📄 Estrutura do Documento</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Descrição</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>&lt;html&gt;</td>
+                <td>Elemento raiz</td>
+                <td>&lt;html lang="pt-BR"&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;head&gt;</td>
+                <td>Metadados</td>
+                <td>&lt;head&gt;&lt;title&gt;...&lt;/title&gt;&lt;/head&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;body&gt;</td>
+                <td>Conteúdo visível</td>
+                <td>&lt;body&gt;&lt;h1&gt;...&lt;/h1&gt;&lt;/body&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;title&gt;</td>
+                <td>Título da aba</td>
+                <td>&lt;title&gt;Minha Página&lt;/title&gt;</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>📝 Tags de Texto</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Descrição</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>&lt;h1&gt; a &lt;h6&gt;</td>
+                <td>Títulos</td>
+                <td>&lt;h1&gt;Título Principal&lt;/h1&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;p&gt;</td>
+                <td>Parágrafo</td>
+                <td>&lt;p&gt;Este é um parágrafo&lt;/p&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;br&gt;</td>
+                <td>Quebra de linha</td>
+                <td>Linha 1&lt;br&gt;Linha 2</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;strong&gt;</td>
+                <td>Texto importante</td>
+                <td>&lt;strong&gt;Importante&lt;/strong&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>&lt;em&gt;</td>
+                <td>Ênfase</td>
+                <td>&lt;em&gt;Ênfase&lt;/em&gt;</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>🔗 Links e Imagens</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Links</h4>
+              <pre><code class="language-html">
+&lt;!-- Link externo --&gt;
+&lt;a href="https://google.com" target="_blank"&gt;
+  Google
+&lt;/a&gt;
+
+&lt;!-- Link interno --&gt;
+&lt;a href="#secao1"&gt;Ir para Seção 1&lt;/a&gt;
+
+&lt;!-- Email --&gt;
+&lt;a href="mailto:email@exemplo.com"&gt;
+  Enviar Email
+&lt;/a&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Imagens</h4>
+              <pre><code class="language-html">
+&lt;!-- Imagem básica --&gt;
+&lt;img src="foto.jpg" alt="Descrição"&gt;
+
+&lt;!-- Com dimensões --&gt;
+&lt;img src="logo.png" 
+     alt="Logo da empresa"
+     width="200" 
+     height="100"&gt;
+
+&lt;!-- Link com imagem --&gt;
+&lt;a href="pagina.html"&gt;
+  &lt;img src="botao.jpg" alt="Botão"&gt;
+&lt;/a&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Listas -->
+      <section>
+        <section>
+          <h2>📝 Listas HTML</h2>
+        </section>
+
+        <section>
+          <h3>📋 Tipos de Listas</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div>
+              <h4>Lista Ordenada</h4>
+              <pre><code class="language-html">
+&lt;ol&gt;
+  &lt;li&gt;Primeiro item&lt;/li&gt;
+  &lt;li&gt;Segundo item&lt;/li&gt;
+  &lt;li&gt;Terceiro item&lt;/li&gt;
+&lt;/ol&gt;
+              </code></pre>
+              <ol>
+                <li>Primeiro item</li>
+                <li>Segundo item</li>
+                <li>Terceiro item</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Lista Não Ordenada</h4>
+              <pre><code class="language-html">
+&lt;ul&gt;
+  &lt;li&gt;Item A&lt;/li&gt;
+  &lt;li&gt;Item B&lt;/li&gt;
+  &lt;li&gt;Item C&lt;/li&gt;
+&lt;/ul&gt;
+              </code></pre>
+              <ul>
+                <li>Item A</li>
+                <li>Item B</li>
+                <li>Item C</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Lista de Definição</h4>
+              <pre><code class="language-html">
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Linguagem de marcação&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Folha de estilo&lt;/dd&gt;
+&lt;/dl&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Tabelas -->
+      <section>
+        <section>
+          <h2>📊 Tabelas HTML</h2>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura de Tabela</h3>
+          <pre><code class="language-html">
+&lt;table&gt;
+  &lt;caption&gt;Título da Tabela&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nome&lt;/th&gt;
+      &lt;th&gt;Idade&lt;/th&gt;
+      &lt;th&gt;Cidade&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;João&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;São Paulo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Maria&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+      &lt;td&gt;Rio de Janeiro&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Atributos Importantes</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Atributo</th>
+                <th>Descrição</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>colspan</td>
+                <td>Mescla colunas</td>
+                <td>&lt;td colspan="2"&gt;Mesclado&lt;/td&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>rowspan</td>
+                <td>Mescla linhas</td>
+                <td>&lt;td rowspan="3"&gt;Mesclado&lt;/td&gt;</td>
+              </tr>
+              <tr class="fragment">
+                <td>scope</td>
+                <td>Escopo do cabeçalho</td>
+                <td>&lt;th scope="col"&gt;Coluna&lt;/th&gt;</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Formulários -->
+      <section>
+        <section>
+          <h2>📝 Formulários HTML</h2>
+          <p>Elementos fundamentais para interação do usuário</p>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura Básica</h3>
+          <pre><code class="language-html">
+&lt;form action="/processar" method="POST"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Dados Pessoais&lt;/legend&gt;
+    
+    &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+    &lt;input type="text" id="nome" name="nome" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎛️ Tipos de Input</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+            <div>
+              <pre><code class="language-html">
+&lt;!-- Texto --&gt;
+&lt;input type="text"&gt;
+&lt;input type="email"&gt;
+&lt;input type="password"&gt;
+&lt;input type="url"&gt;
+&lt;input type="tel"&gt;
+
+&lt;!-- Números --&gt;
+&lt;input type="number"&gt;
+&lt;input type="range"&gt;
+
+&lt;!-- Datas --&gt;
+&lt;input type="date"&gt;
+&lt;input type="time"&gt;
+&lt;input type="datetime-local"&gt;
+              </code></pre>
+            </div>
+            <div>
+              <pre><code class="language-html">
+&lt;!-- Seleção --&gt;
+&lt;input type="checkbox"&gt;
+&lt;input type="radio"&gt;
+&lt;select&gt;
+  &lt;option&gt;Opção 1&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Texto longo --&gt;
+&lt;textarea rows="4" cols="50"&gt;&lt;/textarea&gt;
+
+&lt;!-- Arquivos --&gt;
+&lt;input type="file"&gt;
+&lt;input type="file" multiple&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>✅ Validação HTML5</h3>
+          <pre><code class="language-html">
+&lt;form&gt;
+  &lt;!-- Campo obrigatório --&gt;
+  &lt;input type="text" required&gt;
+  
+  &lt;!-- Padrão com regex --&gt;
+  &lt;input type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+         placeholder="123-456-7890"&gt;
+  
+  &lt;!-- Limites numéricos --&gt;
+  &lt;input type="number" min="1" max="100"&gt;
+  
+  &lt;!-- Tamanho do texto --&gt;
+  &lt;input type="text" minlength="3" maxlength="20"&gt;
+  
+  &lt;!-- Validação customizada --&gt;
+  &lt;input type="email" title="Digite um email válido"&gt;
+&lt;/form&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - HTML Semântico -->
+      <section>
+        <section>
+          <h2>🎯 HTML Semântico</h2>
+          <p>Utilizando tags com significado para melhor estrutura e acessibilidade</p>
+        </section>
+
+        <section>
+          <h3>🏗️ Tags Semânticas HTML5</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Estrutura da Página</h4>
+              <ul>
+                <li class="fragment"><strong>&lt;header&gt;</strong> - Cabeçalho</li>
+                <li class="fragment"><strong>&lt;nav&gt;</strong> - Navegação</li>
+                <li class="fragment"><strong>&lt;main&gt;</strong> - Conteúdo principal</li>
+                <li class="fragment"><strong>&lt;article&gt;</strong> - Artigo independente</li>
+                <li class="fragment"><strong>&lt;section&gt;</strong> - Seção de conteúdo</li>
+                <li class="fragment"><strong>&lt;aside&gt;</strong> - Conteúdo lateral</li>
+                <li class="fragment"><strong>&lt;footer&gt;</strong> - Rodapé</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Conteúdo</h4>
+              <ul>
+                <li class="fragment"><strong>&lt;figure&gt;</strong> - Figura com legenda</li>
+                <li class="fragment"><strong>&lt;figcaption&gt;</strong> - Legenda</li>
+                <li class="fragment"><strong>&lt;time&gt;</strong> - Data/hora</li>
+                <li class="fragment"><strong>&lt;mark&gt;</strong> - Texto destacado</li>
+                <li class="fragment"><strong>&lt;details&gt;</strong> - Detalhes expansíveis</li>
+                <li class="fragment"><strong>&lt;summary&gt;</strong> - Resumo</li>
+                <li class="fragment"><strong>&lt;address&gt;</strong> - Informações de contato</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📐 Exemplo de Estrutura Semântica</h3>
+          <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Meu Site&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  
+  &lt;main&gt;
+    &lt;article&gt;
+      &lt;h2&gt;Título do Artigo&lt;/h2&gt;
+      &lt;p&gt;Conteúdo do artigo...&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;aside&gt;
+      &lt;h3&gt;Links Relacionados&lt;/h3&gt;
+      &lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;Link 1&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+  
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2025 Meu Site&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Acessibilidade -->
+      <section>
+        <section>
+          <h2>♿ Acessibilidade Web</h2>
+          <p>Tornando o conteúdo acessível para todos os usuários</p>
+        </section>
+
+        <section>
+          <h3>🎯 Princípios WCAG</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div class="fragment">
+              <h4>🔍 Perceptível</h4>
+              <ul>
+                <li>Alt text em imagens</li>
+                <li>Contraste adequado</li>
+                <li>Legendas em vídeos</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4>⌨️ Operável</h4>
+              <ul>
+                <li>Navegação por teclado</li>
+                <li>Tempo suficiente</li>
+                <li>Sem epilepsia</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4>🧠 Compreensível</h4>
+              <ul>
+                <li>Texto legível</li>
+                <li>Funcionamento previsível</li>
+                <li>Ajuda na entrada</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4>🔧 Robusto</h4>
+              <ul>
+                <li>Compatível com tecnologias assistivas</li>
+                <li>Código válido</li>
+                <li>Adaptável</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🛠️ Técnicas de Acessibilidade</h3>
+          <pre><code class="language-html">
+&lt;!-- Texto alternativo --&gt;
+&lt;img src="grafico.jpg" alt="Gráfico mostrando aumento de vendas em 2025"&gt;
+
+&lt;!-- Labels para formulários --&gt;
+&lt;label for="nome"&gt;Nome completo:&lt;/label&gt;
+&lt;input type="text" id="nome" name="nome" required&gt;
+
+&lt;!-- Hierarquia de títulos --&gt;
+&lt;h1&gt;Título Principal&lt;/h1&gt;
+  &lt;h2&gt;Seção&lt;/h2&gt;
+    &lt;h3&gt;Subseção&lt;/h3&gt;
+
+&lt;!-- Link descritivo --&gt;
+&lt;a href="relatorio.pdf"&gt;Baixar relatório anual (PDF, 2MB)&lt;/a&gt;
+
+&lt;!-- Atributos ARIA --&gt;
+&lt;button aria-label="Fechar janela"&gt;×&lt;/button&gt;
+&lt;div role="alert" aria-live="polite"&gt;Mensagem importante&lt;/div&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Prática no Eclipse -->
+      <section>
+        <section>
+          <h2>💻 Prática: HTML no Eclipse</h2>
+        </section>
+
+        <section>
+          <h3>🚀 Configurando o Projeto</h3>
+          <ol>
+            <li class="fragment">Abrir Eclipse IDE</li>
+            <li class="fragment">File → New → Dynamic Web Project</li>
+            <li class="fragment">Nome do projeto: "AulaHTML"</li>
+            <li class="fragment">Target Runtime: Apache Tomcat</li>
+            <li class="fragment">Configurar Web Module version: 4.0</li>
+            <li class="fragment">Finalizar projeto</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 1</h3>
+          <p><strong>Criar página pessoal</strong></p>
+          <ul>
+            <li class="fragment">Criar arquivo: WebContent/index.html</li>
+            <li class="fragment">Estrutura HTML5 completa</li>
+            <li class="fragment">Header com nome e profissão</li>
+            <li class="fragment">Navegação (Home, Sobre, Contato)</li>
+            <li class="fragment">Seção "Sobre" com parágrafo</li>
+            <li class="fragment">Lista de habilidades</li>
+            <li class="fragment">Formulário de contato</li>
+            <li class="fragment">Footer com links sociais</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 2</h3>
+          <p><strong>Página de currículo</strong></p>
+          <ul>
+            <li class="fragment">Criar arquivo: WebContent/curriculo.html</li>
+            <li class="fragment">Dados pessoais em tabela</li>
+            <li class="fragment">Experiência profissional (lista ordenada)</li>
+            <li class="fragment">Formação acadêmica (lista ordenada)</li>
+            <li class="fragment">Habilidades técnicas (lista não ordenada)</li>
+            <li class="fragment">Idiomas com níveis (tabela)</li>
+            <li class="fragment">Links para projetos</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎯 Validação e Testes</h3>
+          <ul>
+            <li class="fragment">Validar HTML: <a href="https://validator.w3.org/" target="_blank">W3C Validator</a></li>
+            <li class="fragment">Testar em diferentes navegadores</li>
+            <li class="fragment">Verificar acessibilidade básica</li>
+            <li class="fragment">Validar formulários</li>
+            <li class="fragment">Testar navegação por teclado</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Boas Práticas -->
+      <section>
+        <h2>✨ Boas Práticas HTML</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h3>✅ Faça</h3>
+            <ul>
+              <li class="fragment">Use DOCTYPE html</li>
+              <li class="fragment">Defina lang no html</li>
+              <li class="fragment">Use UTF-8 charset</li>
+              <li class="fragment">Tags em minúsculas</li>
+              <li class="fragment">Feche todas as tags</li>
+              <li class="fragment">Use semântica apropriada</li>
+              <li class="fragment">Alt text em imagens</li>
+              <li class="fragment">Labels em formulários</li>
+            </ul>
+          </div>
+          <div>
+            <h3>❌ Evite</h3>
+            <ul>
+              <li class="fragment">Tags obsoletas (&lt;center&gt;, &lt;font&gt;)</li>
+              <li class="fragment">Inline styles</li>
+              <li class="fragment">IDs duplicados</li>
+              <li class="fragment">Div para tudo</li>
+              <li class="fragment">Tabelas para layout</li>
+              <li class="fragment">Texto em imagens</li>
+              <li class="fragment">Links vagos ("clique aqui")</li>
+              <li class="fragment">Hierarquia de títulos incorreta</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aula 3 - Introdução à Linguagem CSS</h3>
+        <ul>
+          <li class="fragment">Sintaxe e seletores CSS</li>
+          <li class="fragment">Propriedades de texto e cores</li>
+          <li class="fragment">Box Model (margem, padding, border)</li>
+          <li class="fragment">Layout com Flexbox e Grid</li>
+          <li class="fragment">Prática: Estilização no Eclipse</li>
+        </ul>
+      </section>
+
+      <!-- Slide 14 - Exercícios para Casa -->
+      <section>
+        <h2>🏠 Exercícios para Casa</h2>
+        <ol>
+          <li class="fragment">Complete a página pessoal iniciada em aula</li>
+          <li class="fragment">Crie uma página "Portfólio" com galeria de projetos</li>
+          <li class="fragment">Desenvolva um formulário de cadastro completo</li>
+          <li class="fragment">Faça uma página de artigo com comentários</li>
+          <li class="fragment">Valide todos os HTMLs no W3C Validator</li>
+        </ol>
+      </section>
+
+      <!-- Slide 15 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

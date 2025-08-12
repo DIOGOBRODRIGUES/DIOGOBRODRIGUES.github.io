@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aula 3: Vue.js Framework - Frameworks Front-End</title>
+    <link rel="stylesheet" href="../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../reveal.js-master/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            color: #ff79c6 !important;
+        }
+        
+        .reveal .progress {
+            color: #ff79c6;
+        }
+        
+        .reveal .controls {
+            color: #ff79c6;
+        }
+        
+        .highlight-text {
+            color: #50fa7b !important;
+            font-weight: bold;
+        }
+        
+        .warning-text {
+            color: #ffb86c !important;
+            font-weight: bold;
+        }
+        
+        .danger-text {
+            color: #ff5555 !important;
+            font-weight: bold;
+        }
+        
+        .info-text {
+            color: #8be9fd !important;
+            font-weight: bold;
+        }
+        
+        .vue-green { color: #4fc08d !important; }
+        .vue-dark { color: #2c3e50 !important; }
+        
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .code-title {
+            background: #44475a;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        
+        .code-container pre {
+            margin: 0 !important;
+            border-radius: 0 0 5px 5px !important;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8em;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #6272a4;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background: #44475a;
+            color: #f8f8f2;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #282a36;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #282a36;
+            border: 2px solid #6272a4;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff79c6;
+        }
+        
+        .lifecycle-steps {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .lifecycle-step {
+            background: #44475a;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8f8f2;
+            font-weight: bold;
+            margin: 10px;
+            font-size: 0.8em;
+        }
+        
+        .vue-concept {
+            background: linear-gradient(135deg, #4fc08d, #42b883);
+            border: 2px solid #4fc08d;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .progressive-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .progressive-step {
+            background: #4fc08d;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Título -->
+            <section data-background-gradient="linear-gradient(45deg, #4fc08d, #42b883)">
+                <h1>💚 Vue.js Framework</h1>
+                <h3>Aula 3: Framework Progressivo para Desenvolvimento Front-End</h3>
+                <p><strong>Frameworks Front-End</strong></p>
+                <p>Centro Universitário Maurício de Nassau</p>
+                <br>
+                <p><small>Prof. Dr. Diogo Francisco Borba Rodrigues</small></p>
+                <p><small><i class="fab fa-linkedin"></i> LinkedIn | <i class="fab fa-github"></i> GitHub</small></p>
+            </section>
+
+            <!-- Slide 2: Agenda da Aula -->
+            <section>
+                <h2>📋 Agenda da Aula</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-heart vue-green"></i>
+                        <h4>O que é Vue.js?</h4>
+                        <p>Framework progressivo</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-layer-group vue-green"></i>
+                        <h4>Conceitos Fundamentais</h4>
+                        <p>Reatividade e componentes</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-magic vue-green"></i>
+                        <h4>Diretivas Vue</h4>
+                        <p>v-if, v-for, v-model</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-code vue-green"></i>
+                        <h4>Projeto Prático</h4>
+                        <p>Lista de tarefas</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: O que é Vue.js? -->
+            <section>
+                <h2>💚 O que é Vue.js?</h2>
+                <div class="vue-concept">
+                    <div class="fragment">
+                        <h3>"Framework Progressivo"</h3>
+                        <p>Criado por <strong>Evan You</strong> em 2014</p>
+                    </div>
+                    <br>
+                    <div class="fragment">
+                        <i class="fab fa-vuejs" style="font-size: 3em; color: white;"></i>
+                        <p><strong>Versão Atual:</strong> Vue 3.4+ (Composition API)</p>
+                        <p><strong>Filosofia:</strong> "Incrementally adoptable"</p>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="highlight-text">💡 "Vue é projetado para ser adotável incrementalmente"</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: Por que "Progressivo"? -->
+            <section>
+                <h2>📈 Por que "Framework Progressivo"?</h2>
+                <div class="progressive-demo">
+                    <div class="progressive-step fragment">
+                        <h4>Nível 1</h4>
+                        <p>Usar Vue em parte da página</p>
+                        <small>Apenas uma div</small>
+                    </div>
+                    <div style="color: #4fc08d; font-size: 2em;">→</div>
+                    <div class="progressive-step fragment">
+                        <h4>Nível 2</h4>
+                        <p>Componentes Vue</p>
+                        <small>Reutilização</small>
+                    </div>
+                    <div style="color: #4fc08d; font-size: 2em;">→</div>
+                    <div class="progressive-step fragment">
+                        <h4>Nível 3</h4>
+                        <p>SPA Completa</p>
+                        <small>Vue Router + Vuex</small>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="vue-green">✨ Você pode começar pequeno e crescer conforme necessário!</p>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Exemplo: Vue em uma div simples</div>
+                    <pre><code class="html" data-trim>
+<!-- HTML -->
+<div id="app">
+  {{ message }}
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        message: 'Olá, Vue!'
+      }
+    }
+  }).mount('#app')
+</script>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 5: Vantagens do Vue.js -->
+            <section>
+                <h2>✅ Vantagens do Vue.js</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-graduation-cap vue-green"></i>
+                        <h4>Fácil de Aprender</h4>
+                        <p>Curva de aprendizado suave</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-feather vue-green"></i>
+                        <h4>Leve e Rápido</h4>
+                        <p>~40KB minificado</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-puzzle-piece vue-green"></i>
+                        <h4>Flexível</h4>
+                        <p>Componentes ou aplicação completa</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-rocket vue-green"></i>
+                        <h4>Performance</h4>
+                        <p>Virtual DOM otimizado</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-file-code vue-green"></i>
+                        <h4>Single File Components</h4>
+                        <p>Template, Script e Style juntos</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-heart vue-green"></i>
+                        <h4>Developer Experience</h4>
+                        <p>Ferramentas excelentes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Vue vs Angular vs React -->
+            <section>
+                <h2>⚔️ Vue vs Angular vs React</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th class="vue-green">Vue.js</th>
+                            <th style="color: #dd0031;">Angular</th>
+                            <th style="color: #61dafb;">React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment">
+                            <td><strong>Curva de Aprendizado</strong></td>
+                            <td class="highlight-text">Fácil</td>
+                            <td class="danger-text">Difícil</td>
+                            <td class="warning-text">Moderada</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Tamanho</strong></td>
+                            <td class="highlight-text">Pequeno (~40KB)</td>
+                            <td class="danger-text">Grande (~130KB)</td>
+                            <td class="highlight-text">Pequeno (~42KB)</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Flexibilidade</strong></td>
+                            <td class="highlight-text">Muito Alta</td>
+                            <td class="warning-text">Estruturado</td>
+                            <td class="highlight-text">Muito Alta</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Performance</strong></td>
+                            <td class="highlight-text">Excelente</td>
+                            <td class="highlight-text">Muito Boa</td>
+                            <td class="highlight-text">Excelente</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Comunidade</strong></td>
+                            <td class="warning-text">Crescendo</td>
+                            <td class="highlight-text">Grande</td>
+                            <td class="highlight-text">Muito Grande</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 7: Conceitos Fundamentais -->
+            <section>
+                <h2>🏗️ Conceitos Fundamentais do Vue</h2>
+                <div class="lifecycle-steps">
+                    <div class="lifecycle-step fragment">
+                        <div>
+                            <i class="fas fa-data"></i>
+                            <div style="font-size: 0.7em;">Data</div>
+                        </div>
+                    </div>
+                    <div style="color: #4fc08d; font-size: 2em;">→</div>
+                    <div class="lifecycle-step fragment">
+                        <div>
+                            <i class="fas fa-eye"></i>
+                            <div style="font-size: 0.7em;">Template</div>
+                        </div>
+                    </div>
+                    <div style="color: #4fc08d; font-size: 2em;">→</div>
+                    <div class="lifecycle-step fragment">
+                        <div>
+                            <i class="fas fa-cogs"></i>
+                            <div style="font-size: 0.7em;">Methods</div>
+                        </div>
+                    </div>
+                    <div style="color: #4fc08d; font-size: 2em;">→</div>
+                    <div class="lifecycle-step fragment">
+                        <div>
+                            <i class="fas fa-sync"></i>
+                            <div style="font-size: 0.7em;">Reactivity</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Estrutura Básica de um Vue Component</div>
+                    <pre><code class="javascript" data-trim>
+const { createApp } = Vue
+
+createApp({
+  data() {
+    return {
+      nome: 'Vue.js',
+      contador: 0,
+      usuarios: []
+    }
+  },
+  methods: {
+    incrementar() {
+      this.contador++
+    },
+    adicionarUsuario(user) {
+      this.usuarios.push(user)
+    }
+  },
+  mounted() {
+    console.log('Componente montado!')
+  }
+}).mount('#app')
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 8: Reatividade no Vue -->
+            <section>
+                <h2>⚡ Sistema de Reatividade</h2>
+                <p class="vue-green">O coração do Vue.js é seu sistema de reatividade</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-sync vue-green"></i>
+                        <h4>Automatic</h4>
+                        <p>Vue detecta mudanças automaticamente</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-bolt vue-green"></i>
+                        <h4>Efficient</h4>
+                        <p>Apenas o que mudou é atualizado</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-magic vue-green"></i>
+                        <h4>Transparent</h4>
+                        <p>Funciona "magicamente"</p>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Exemplo de Reatividade</div>
+                    <pre><code class="html" data-trim>
+<div id="app">
+  <h1>{{ titulo }}</h1>
+  <p>Contador: {{ contador }}</p>
+  <button @click="incrementar">+1</button>
+  <button @click="resetar">Reset</button>
+</div>
+
+<script>
+createApp({
+  data() {
+    return {
+      titulo: 'Sistema Reativo',
+      contador: 0
+    }
+  },
+  methods: {
+    incrementar() {
+      this.contador++ // Vue detecta e atualiza automaticamente!
+    },
+    resetar() {
+      this.contador = 0 // Também é detectado!
+    }
+  }
+}).mount('#app')
+</script>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 9: Diretivas Vue -->
+            <section>
+                <h2>🎯 Diretivas do Vue</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-eye vue-green"></i>
+                        <h4>v-if / v-show</h4>
+                        <p>Renderização condicional</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-list vue-green"></i>
+                        <h4>v-for</h4>
+                        <p>Listas e repetições</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-exchange-alt vue-green"></i>
+                        <h4>v-model</h4>
+                        <p>Two-way binding</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-mouse-pointer vue-green"></i>
+                        <h4>v-on (@)</h4>
+                        <p>Event listeners</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-link vue-green"></i>
+                        <h4>v-bind (:)</h4>
+                        <p>Property binding</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-code vue-green"></i>
+                        <h4>v-html</h4>
+                        <p>Render HTML</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Exemplos de Diretivas -->
+            <section>
+                <h2>💡 Diretivas na Prática</h2>
+                <div class="code-container fragment">
+                    <div class="code-title">v-if e v-for em ação</div>
+                    <pre><code class="html" data-trim>
+<div id="app">
+  <!-- v-if: Renderização condicional -->
+  <div v-if="usuario.logado">
+    Bem-vindo, {{ usuario.nome }}!
+  </div>
+  <div v-else>
+    Faça login para continuar
+  </div>
+  
+  <!-- v-show: Mostra/esconde (display: none) -->
+  <div v-show="carregando">Carregando...</div>
+  
+  <!-- v-for: Loop através de array -->
+  <ul>
+    <li v-for="(produto, index) in produtos" :key="produto.id">
+      {{ index + 1 }}. {{ produto.nome }} - R$ {{ produto.preco }}
+    </li>
+  </ul>
+  
+  <!-- v-for com objetos -->
+  <div v-for="(valor, chave) in configuracoes" :key="chave">
+    {{ chave }}: {{ valor }}
+  </div>
+</div>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 11: v-model e Two-way Binding -->
+            <section>
+                <h2>🔄 Two-way Binding com v-model</h2>
+                <p class="vue-green">Sincronização automática entre formulário e dados</p>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Formulários Reativos</div>
+                    <pre><code class="html" data-trim>
+<div id="app">
+  <!-- Input de texto -->
+  <input v-model="nome" placeholder="Seu nome">
+  <p>Olá, {{ nome }}!</p>
+  
+  <!-- Textarea -->
+  <textarea v-model="mensagem" placeholder="Sua mensagem"></textarea>
+  <p>{{ mensagem }}</p>
+  
+  <!-- Checkbox -->
+  <input type="checkbox" v-model="aceito" id="termos">
+  <label for="termos">Aceito os termos</label>
+  <p v-if="aceito">Obrigado por aceitar!</p>
+  
+  <!-- Radio buttons -->
+  <input type="radio" v-model="tamanho" value="P" id="p">
+  <label for="p">P</label>
+  
+  <input type="radio" v-model="tamanho" value="M" id="m">
+  <label for="m">M</label>
+  
+  <input type="radio" v-model="tamanho" value="G" id="g">
+  <label for="g">G</label>
+  
+  <p>Tamanho selecionado: {{ tamanho }}</p>
+</div>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 12: Event Handling -->
+            <section>
+                <h2>🖱️ Manipulação de Eventos</h2>
+                <div class="code-container fragment">
+                    <div class="code-title">Event Listeners com v-on (@)</div>
+                    <pre><code class="html" data-trim>
+<div id="app">
+  <!-- Sintaxe completa -->
+  <button v-on:click="contador++">Clique: {{ contador }}</button>
+  
+  <!-- Sintaxe abreviada -->
+  <button @click="decrementar">-1</button>
+  
+  <!-- Passando parâmetros -->
+  <button @click="somar(5)">+5</button>
+  
+  <!-- Modificadores de evento -->
+  <form @submit.prevent="enviarFormulario">
+    <input @keyup.enter="buscar" v-model="termo">
+    <button type="submit">Enviar</button>
+  </form>
+  
+  <!-- Múltiplos eventos -->
+  <div @mouseenter="destacar" @mouseleave="removerDestaque">
+    Passe o mouse aqui
+  </div>
+</div>
+
+<script>
+createApp({
+  data() {
+    return {
+      contador: 0,
+      termo: ''
+    }
+  },
+  methods: {
+    decrementar() {
+      this.contador--
+    },
+    somar(valor) {
+      this.contador += valor
+    },
+    enviarFormulario() {
+      console.log('Formulário enviado!')
+    },
+    buscar() {
+      console.log('Buscando:', this.termo)
+    }
+  }
+}).mount('#app')
+</script>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 13: Atividade Prática - Parte 1 -->
+            <section>
+                <h2>💻 Atividade Prática - Lista de Tarefas</h2>
+                <h3 class="vue-green">Vamos criar uma todo list com Vue.js!</h3>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-plus vue-green"></i>
+                        <h4>Funcionalidades</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Adicionar tarefas</li>
+                            <li>Marcar como concluída</li>
+                            <li>Remover tarefas</li>
+                            <li>Filtrar tarefas</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-tools vue-green"></i>
+                        <h4>Conceitos Usados</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>v-model para input</li>
+                            <li>v-for para lista</li>
+                            <li>v-if para condições</li>
+                            <li>@click para eventos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 14: Atividade Prática - HTML -->
+            <section>
+                <h2>💻 Atividade - Estrutura HTML</h2>
+                <div class="code-container fragment">
+                    <div class="code-title">todo-list.html</div>
+                    <pre><code class="html" data-trim>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Todo List</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .todo-item { padding: 10px; border-bottom: 1px solid #eee; display: flex; align-items: center; }
+        .todo-item.completed { text-decoration: line-through; opacity: 0.6; }
+        input[type="text"] { padding: 10px; width: 70%; margin-right: 10px; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .filters { margin: 20px 0; }
+        .filters button.active { background: #4fc08d; color: white; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>📝 Vue Todo List</h1>
+        
+        <!-- Formulário para adicionar tarefa -->
+        <div>
+            <input 
+                type="text" 
+                v-model="novaTarefa" 
+                @keyup.enter="adicionarTarefa"
+                placeholder="Digite uma nova tarefa...">
+            <button @click="adicionarTarefa">Adicionar</button>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="filters">
+            <button @click="filtro = 'todos'" :class="{ active: filtro === 'todos' }">Todos</button>
+            <button @click="filtro = 'ativas'" :class="{ active: filtro === 'ativas' }">Ativas</button>
+            <button @click="filtro = 'concluidas'" :class="{ active: filtro === 'concluidas' }">Concluídas</button>
+        </div>
+        
+        <!-- Lista de tarefas -->
+        <div v-for="tarefa in tarefasFiltradas" :key="tarefa.id" 
+             :class="{ 'todo-item': true, 'completed': tarefa.concluida }">
+            <input type="checkbox" v-model="tarefa.concluida">
+            <span>{{ tarefa.texto }}</span>
+            <button @click="removerTarefa(tarefa.id)" style="margin-left: auto;">❌</button>
+        </div>
+        
+        <!-- Estatísticas -->
+        <div v-if="tarefas.length > 0">
+            <p>{{ tarefasAtivas.length }} de {{ tarefas.length }} tarefas restantes</p>
+        </div>
+    </div>
+</body>
+</html>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 15: Atividade Prática - JavaScript -->
+            <section>
+                <h2>💻 Atividade - Lógica Vue.js</h2>
+                <div class="code-container fragment">
+                    <div class="code-title">Script Vue.js para Todo List</div>
+                    <pre><code class="javascript" data-trim>
+const { createApp } = Vue
+
+createApp({
+  data() {
+    return {
+      novaTarefa: '',
+      filtro: 'todos',
+      tarefas: [
+        { id: 1, texto: 'Aprender Vue.js', concluida: false },
+        { id: 2, texto: 'Fazer exercícios', concluida: true },
+        { id: 3, texto: 'Criar projeto', concluida: false }
+      ]
+    }
+  },
+  
+  computed: {
+    tarefasFiltradas() {
+      if (this.filtro === 'ativas') {
+        return this.tarefas.filter(t => !t.concluida)
+      } else if (this.filtro === 'concluidas') {
+        return this.tarefas.filter(t => t.concluida)
+      }
+      return this.tarefas
+    },
+    
+    tarefasAtivas() {
+      return this.tarefas.filter(t => !t.concluida)
+    }
+  },
+  
+  methods: {
+    adicionarTarefa() {
+      if (this.novaTarefa.trim() !== '') {
+        this.tarefas.push({
+          id: Date.now(),
+          texto: this.novaTarefa.trim(),
+          concluida: false
+        })
+        this.novaTarefa = ''
+      }
+    },
+    
+    removerTarefa(id) {
+      this.tarefas = this.tarefas.filter(t => t.id !== id)
+    }
+  }
+}).mount('#app')
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 16: Computed Properties -->
+            <section>
+                <h2>⚙️ Computed Properties</h2>
+                <p class="vue-green">Propriedades calculadas que são reativas e cacheadas</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-bolt vue-green"></i>
+                        <h4>Reativas</h4>
+                        <p>Atualizadas quando dependências mudam</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-save vue-green"></i>
+                        <h4>Cacheadas</h4>
+                        <p>Resultado salvo até mudanças</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-rocket vue-green"></i>
+                        <h4>Performance</h4>
+                        <p>Melhor que methods para cálculos</p>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Computed vs Methods</div>
+                    <pre><code class="javascript" data-trim>
+createApp({
+  data() {
+    return {
+      produtos: [
+        { nome: 'Notebook', preco: 2000 },
+        { nome: 'Mouse', preco: 50 },
+        { nome: 'Teclado', preco: 150 }
+      ]
+    }
+  },
+  
+  computed: {
+    // ✅ Computed - Cacheado e reativo
+    totalProdutos() {
+      console.log('Calculando total...') // Executado apenas quando produtos muda
+      return this.produtos.reduce((total, p) => total + p.preco, 0)
+    },
+    
+    produtosCaros() {
+      return this.produtos.filter(p => p.preco > 100)
+    }
+  },
+  
+  methods: {
+    // ❌ Method - Executado a cada chamada
+    getTotalProdutos() {
+      console.log('Calculando total via method...') // Executado toda vez
+      return this.produtos.reduce((total, p) => total + p.preco, 0)
+    }
+  }
+}).mount('#app')
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 17: Single File Components -->
+            <section>
+                <h2>📄 Single File Components (SFC)</h2>
+                <p class="vue-green">Template, Script e Style em um arquivo .vue</p>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">TodoItem.vue</div>
+                    <pre><code class="html" data-trim>
+<template>
+  <div class="todo-item" :class="{ completed: tarefa.concluida }">
+    <input 
+      type="checkbox" 
+      v-model="tarefa.concluida"
+      @change="$emit('toggle', tarefa.id)">
+    
+    <span class="texto">{{ tarefa.texto }}</span>
+    
+    <button @click="$emit('remove', tarefa.id)" class="remove-btn">
+      ❌
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TodoItem',
+  props: {
+    tarefa: {
+      type: Object,
+      required: true
+    }
+  },
+  emits: ['toggle', 'remove']
+}
+</script>
+
+<style scoped>
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.completed .texto {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.remove-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+</style>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 18: Vue CLI e Vite -->
+            <section>
+                <h2>⚡ Ferramentas de Desenvolvimento</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-terminal vue-green"></i>
+                        <h4>Vue CLI</h4>
+                        <p>Ferramenta oficial completa</p>
+                        <code style="color: #8be9fd;">npm install -g @vue/cli</code>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-lightning-bolt vue-green"></i>
+                        <h4>Vite</h4>
+                        <p>Build tool moderno e rápido</p>
+                        <code style="color: #8be9fd;">npm create vue@latest</code>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Criando projeto Vue</div>
+                    <pre><code class="bash" data-trim>
+# Usando Vite (Recomendado)
+npm create vue@latest meu-projeto-vue
+
+# Navegue para o projeto
+cd meu-projeto-vue
+
+# Instale dependências
+npm install
+
+# Execute em modo de desenvolvimento
+npm run dev
+
+# Build para produção
+npm run build
+                    </code></pre>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💡 <strong>Vite</strong> é mais rápido e moderno que Vue CLI</p>
+                </div>
+            </section>
+
+            <!-- Slide 19: Ecossistema Vue -->
+            <section>
+                <h2>🌍 Ecossistema Vue.js</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-route vue-green"></i>
+                        <h4>Vue Router</h4>
+                        <p>Roteamento para SPAs</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-database vue-green"></i>
+                        <h4>Pinia</h4>
+                        <p>Gerenciamento de estado</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-paint-brush vue-green"></i>
+                        <h4>Vuetify</h4>
+                        <p>Material Design components</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-mobile-alt vue-green"></i>
+                        <h4>Nuxt.js</h4>
+                        <p>Framework para Vue (SSR)</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-tools vue-green"></i>
+                        <h4>Vue Devtools</h4>
+                        <p>Debugging no browser</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-vial vue-green"></i>
+                        <h4>Vue Test Utils</h4>
+                        <p>Testes de componentes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 20: Quando Usar Vue.js -->
+            <section>
+                <h2>🎯 Quando Usar Vue.js?</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment highlight-green">
+                        <i class="fas fa-thumbs-up"></i>
+                        <h4>✅ Use Vue Para:</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Projetos pequenos a médios</li>
+                            <li>Prototipagem rápida</li>
+                            <li>Migração gradual</li>
+                            <li>Equipes iniciantes</li>
+                            <li>Quando precisa de flexibilidade</li>
+                            <li>Progressive Web Apps</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment highlight-red">
+                        <i class="fas fa-thumbs-down"></i>
+                        <h4>❌ Considere Alternativas Para:</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Aplicações enterprise complexas</li>
+                            <li>Projetos que precisam do ecossistema React</li>
+                            <li>Quando performance é crítica</li>
+                            <li>Projetos com muitas integrações</li>
+                            <li>Apps móveis nativas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="vue-green">💼 <strong>Mercado:</strong> Vue.js tem crescido rapidamente e é muito procurado em startups e empresas de médio porte</p>
+                </div>
+            </section>
+
+            <!-- Slide 21: Composition API (Vue 3) -->
+            <section>
+                <h2>🆕 Composition API - Vue 3</h2>
+                <p class="vue-green">Nova forma de organizar lógica de componentes</p>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Options API vs Composition API</div>
+                    <pre><code class="javascript" data-trim>
+// Options API (Vue 2 style)
+export default {
+  data() {
+    return {
+      contador: 0
+    }
+  },
+  methods: {
+    incrementar() {
+      this.contador++
+    }
+  },
+  mounted() {
+    console.log('Montado!')
+  }
+}
+
+// Composition API (Vue 3)
+import { ref, onMounted } from 'vue'
+
+export default {
+  setup() {
+    const contador = ref(0)
+    
+    const incrementar = () => {
+      contador.value++
+    }
+    
+    onMounted(() => {
+      console.log('Montado!')
+    })
+    
+    return {
+      contador,
+      incrementar
+    }
+  }
+}
+                    </code></pre>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💡 Composition API permite melhor reutilização de lógica entre componentes</p>
+                </div>
+            </section>
+
+            <!-- Slide 22: Resumo da Aula -->
+            <section>
+                <h2>📚 Resumo da Aula</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-check-circle highlight-text"></i>
+                        <h4>O que Aprendemos</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>Vue.js é um framework progressivo</li>
+                            <li>Sistema de reatividade automático</li>
+                            <li>Diretivas: v-if, v-for, v-model</li>
+                            <li>Event handling com v-on (@)</li>
+                            <li>Computed properties vs methods</li>
+                            <li>Single File Components</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-lightbulb warning-text"></i>
+                        <h4>Principais Vantagens</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>Fácil de aprender e usar</li>
+                            <li>Performance excelente</li>
+                            <li>Flexibilidade de adoção</li>
+                            <li>Documentação excepcional</li>
+                            <li>Comunidade acolhedora</li>
+                            <li>Ferramentas de desenvolvimento</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <h3 class="highlight-text">🎯 Próxima aula: React Native - Desenvolvimento Mobile</h3>
+                    <p>Vamos partir para o desenvolvimento mobile multiplataforma!</p>
+                </div>
+            </section>
+
+            <!-- Slide 23: Atividades e Recursos -->
+            <section>
+                <h2>📖 Atividades e Recursos</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-tasks vue-green"></i>
+                        <h4>Para Casa</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Completar a Todo List</li>
+                            <li>Adicionar localStorage</li>
+                            <li>Criar componente de filtros</li>
+                            <li>Implementar edição de tarefas</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-book vue-green"></i>
+                        <h4>Recursos Recomendados</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>📚 <a href="https://vuejs.org" style="color: #8be9fd;">vuejs.org</a></li>
+                            <li>🎓 <a href="https://vueschool.io" style="color: #8be9fd;">Vue School</a></li>
+                            <li>📺 <a href="https://www.vuemastery.com" style="color: #8be9fd;">Vue Mastery</a></li>
+                            <li>💻 <a href="https://codesandbox.io" style="color: #8be9fd;">CodeSandbox</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="vue-green">💡 <strong>Dica Extra:</strong> Explore o Vue DevTools no navegador para debugar aplicações Vue!</p>
+                </div>
+            </section>
+
+            <!-- Slide 24: Obrigado -->
+            <section data-background-gradient="linear-gradient(45deg, #4fc08d, #42b883)">
+                <h1>💚 Obrigado!</h1>
+                <h3>Vue.js Framework - Aula 3</h3>
+                <br>
+                <p><strong>Próxima aula:</strong> React Native - Desenvolvimento Mobile</p>
+                <br>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <div class="social-links" style="margin-top: 2rem;">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" style="color: white; margin: 0 1rem;">
+                        <i class="fab fa-linkedin" style="font-size: 2rem;"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" style="color: white; margin: 0 1rem;">
+                        <i class="fab fa-github" style="font-size: 2rem;"></i>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <p style="font-size: 0.8em;">🌟 "The Progressive Framework" - Vue.js</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script src="../../reveal.js-master/plugin/math/math.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 6 - Banco de Dados Mobile</title>
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>.reveal .slides section{text-align:left;font-size:0.8em}.reveal h1,.reveal h2,.reveal h3,.reveal h4{text-align:center;margin-bottom:1rem}.social-links{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem}.code-highlight{background:rgba(98,114,164,0.1);border-left:4px solid #ff79c6;border-radius:8px;padding:1rem;margin:1rem 0}</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6: Banco de Dados Mobile 🗄️</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+      <section>
+        <h2>🎯 Objetivos</h2>
+        <div class="code-highlight">
+          <ul>
+            <li>🗃️ <strong>Compreender</strong> armazenamento local vs remoto</li>
+            <li>📱 <strong>Implementar</strong> SQLite para dados complexos</li>
+            <li>💾 <strong>Utilizar</strong> AsyncStorage para dados simples</li>
+            <li>☁️ <strong>Integrar</strong> Firebase Firestore</li>
+            <li>🔄 <strong>Gerenciar</strong> sincronização de dados</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>🗃️ Tipos de Armazenamento Mobile</h2>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>📱 Local Storage</h4>
+            <ul>
+              <li><strong>SQLite:</strong> Banco relacional completo</li>
+              <li><strong>AsyncStorage:</strong> Key-value store</li>
+              <li><strong>Realm:</strong> Database object</li>
+              <li><strong>Files:</strong> Documents/Cache</li>
+            </ul>
+            <p><strong>Vantagens:</strong> Offline, rápido, privado</p>
+            <p><strong>Desvantagens:</strong> Limitado ao dispositivo</p>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>☁️ Cloud Storage</h4>
+            <ul>
+              <li><strong>Firebase Firestore:</strong> NoSQL real-time</li>
+              <li><strong>AWS DynamoDB:</strong> NoSQL serverless</li>
+              <li><strong>MongoDB Atlas:</strong> Document database</li>
+              <li><strong>REST APIs:</strong> Custom backends</li>
+            </ul>
+            <p><strong>Vantagens:</strong> Sincronização, backup</p>
+            <p><strong>Desvantagens:</strong> Requer internet</p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>💾 AsyncStorage - React Native</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>📦 Instalação e Uso</h3>
+            <pre><code>npm install @react-native-async-storage/async-storage
+
+// Import
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Store data
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem('@storage_Key', value);
+  } catch (e) {
+    console.error('Error saving data', e);
+  }
+};
+
+// Retrieve data
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@storage_Key');
+    return value != null ? value : null;
+  } catch(e) {
+    console.error('Error retrieving data', e);
+  }
+};</code></pre>
+          </div>
+          <div>
+            <h3>🔧 Uso Prático</h3>
+            <pre><code>// Save user preferences
+const saveUserPrefs = async (prefs) => {
+  await AsyncStorage.setItem('user_prefs', JSON.stringify(prefs));
+};
+
+// Load user preferences
+const loadUserPrefs = async () => {
+  const prefs = await AsyncStorage.getItem('user_prefs');
+  return prefs ? JSON.parse(prefs) : {};
+};
+
+// Save authentication token
+const saveToken = async (token) => {
+  await AsyncStorage.setItem('auth_token', token);
+};
+
+// Check if user is logged in
+const isLoggedIn = async () => {
+  const token = await AsyncStorage.getItem('auth_token');
+  return token !== null;
+};</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🔥 Firebase Firestore</h2>
+        <div class="code-highlight">
+          <h3>☁️ NoSQL Real-time Database</h3>
+          <ul>
+            <li><strong>Real-time sync:</strong> Dados em tempo real</li>
+            <li><strong>Offline support:</strong> Funciona sem internet</li>
+            <li><strong>Security rules:</strong> Controle de acesso</li>
+            <li><strong>Scalable:</strong> Milhões de usuários</li>
+          </ul>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h4>📦 Setup Firebase</h4>
+            <pre><code>npm install firebase
+
+// firebase.js
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
+const firebaseConfig = {
+  // your config
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);</code></pre>
+          </div>
+          <div>
+            <h4>🔄 CRUD Operations</h4>
+            <pre><code>import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+
+// Create
+const addUser = async (userData) => {
+  await addDoc(collection(db, "users"), userData);
+};
+
+// Read
+const getUsers = async () => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  return querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+};
+
+// Update
+const updateUser = async (id, updateData) => {
+  await updateDoc(doc(db, "users", id), updateData);
+};
+
+// Delete
+const deleteUser = async (id) => {
+  await deleteDoc(doc(db, "users", id));
+};</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🧪 Atividade Prática</h2>
+        <div class="code-highlight">
+          <h3>🎯 Todo List com Persistência</h3>
+          <p>Criar app de tarefas com armazenamento local e sincronização na nuvem</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h4>📱 Local Storage (AsyncStorage)</h4>
+            <pre><code>const TodoApp = () => {
+  const [todos, setTodos] = useState([]);
+
+  const saveTodos = async (newTodos) => {
+    await AsyncStorage.setItem('todos', JSON.stringify(newTodos));
+    setTodos(newTodos);
+  };
+
+  const loadTodos = async () => {
+    const stored = await AsyncStorage.getItem('todos');
+    if (stored) setTodos(JSON.parse(stored));
+  };
+
+  const addTodo = async (text) => {
+    const newTodo = {id: Date.now(), text, completed: false};
+    const updatedTodos = [...todos, newTodo];
+    await saveTodos(updatedTodos);
+  };
+
+  useEffect(() => {
+    loadTodos();
+  }, []);
+};</code></pre>
+          </div>
+          <div>
+            <h4>☁️ Cloud Sync (Firebase)</h4>
+            <pre><code>const syncWithFirebase = async () => {
+  // Upload local todos to Firebase
+  for (let todo of todos) {
+    await addDoc(collection(db, "todos"), {
+      ...todo,
+      userId: auth.currentUser.uid,
+      createdAt: new Date()
+    });
+  }
+  
+  // Listen for real-time updates
+  const unsubscribe = onSnapshot(collection(db, "todos"), (snapshot) => {
+    const cloudTodos = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    setTodos(cloudTodos);
+    // Save to local storage as backup
+    AsyncStorage.setItem('todos', JSON.stringify(cloudTodos));
+  });
+  
+  return unsubscribe;
+};</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <div class="code-highlight">
+          <h4>🔄 Aula 7: Aplicações Híbridas</h4>
+          <ul>
+            <li>React Native vs Flutter vs Ionic</li>
+            <li>Desenvolvimento multiplataforma</li>
+            <li>Compartilhamento de código</li>
+            <li>Performance comparativa</li>
+            <li>Expo advanced features</li>
+          </ul>
+        </div>
+        <div style="text-align:center;margin-top:2rem;">
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>Reveal.initialize({controls:true,progress:true,center:true,hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

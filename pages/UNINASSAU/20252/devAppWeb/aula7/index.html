@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 7 - Melhoria de Layout com Bootstrap</title>
+
+  <meta name="description" content="Refatoração e melhoria do projeto usando Bootstrap Framework">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7 - Melhoria de Layout com Bootstrap</h3>
+        <h4>Framework CSS para Desenvolvimento Ágil</h4>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Refatorar o projeto da aula anterior com Bootstrap</li>
+          <li class="fragment">Aplicar componentes avançados do framework</li>
+          <li class="fragment">Implementar customizações e temas</li>
+          <li class="fragment">Otimizar performance e responsividade</li>
+          <li class="fragment">Preparar para deploy e publicação</li>
+          <li class="fragment">Comparar abordagem vanilla vs framework</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - Por que Bootstrap? -->
+      <section>
+        <section>
+          <h2>🤔 Por que usar Bootstrap?</h2>
+        </section>
+
+        <section>
+          <h3>✅ Vantagens do Bootstrap</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>🚀 Desenvolvimento</h4>
+              <ul>
+                <li class="fragment">Desenvolvimento mais rápido</li>
+                <li class="fragment">Componentes prontos</li>
+                <li class="fragment">Consistência visual</li>
+                <li class="fragment">Documentação completa</li>
+              </ul>
+            </div>
+            <div>
+              <h4>📱 Responsividade</h4>
+              <ul>
+                <li class="fragment">Mobile-first por padrão</li>
+                <li class="fragment">Sistema de grid flexível</li>
+                <li class="fragment">Utilities responsivas</li>
+                <li class="fragment">Breakpoints padronizados</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>⚖️ Bootstrap vs CSS Vanilla</h3>
+          <table style="font-size: 0.8em;">
+            <thead>
+              <tr>
+                <th>Aspecto</th>
+                <th>CSS Vanilla</th>
+                <th>Bootstrap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tempo desenvolvimento</strong></td>
+                <td>🐌 Mais lento</td>
+                <td>🚀 Mais rápido</td>
+              </tr>
+              <tr>
+                <td><strong>Tamanho arquivo</strong></td>
+                <td>📦 Customizado</td>
+                <td>📊 Maior inicialmente</td>
+              </tr>
+              <tr>
+                <td><strong>Flexibilidade</strong></td>
+                <td>🎨 Total controle</td>
+                <td>🏗️ Dentro do framework</td>
+              </tr>
+              <tr>
+                <td><strong>Manutenção</strong></td>
+                <td>🔧 Mais complexa</td>
+                <td>📚 Documentada</td>
+              </tr>
+              <tr>
+                <td><strong>Responsividade</strong></td>
+                <td>🎯 Manual</td>
+                <td>📱 Automática</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Setup e Configuração -->
+      <section>
+        <section>
+          <h2>⚙️ Setup e Configuração</h2>
+        </section>
+
+        <section>
+          <h3>📦 Instalação via CDN</h3>
+          <pre><code class="language-html">
+&lt;!-- HTML Head --&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Portal de Notícias - Bootstrap&lt;/title&gt;
+  
+  &lt;!-- Bootstrap CSS --&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+  
+  &lt;!-- Font Awesome --&gt;
+  &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
+  
+  &lt;!-- CSS customizado --&gt;
+  &lt;link rel="stylesheet" href="css/custom.css"&gt;
+&lt;/head&gt;
+
+&lt;!-- Antes do fechamento do body --&gt;
+&lt;body&gt;
+  &lt;!-- Conteúdo da página --&gt;
+  
+  &lt;!-- Bootstrap JavaScript --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+  
+  &lt;!-- JavaScript customizado --&gt;
+  &lt;script src="js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura com Bootstrap</h3>
+          <pre><code class="language-html">
+&lt;!-- Navbar Bootstrap --&gt;
+&lt;nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;
+      &lt;i class="fas fa-newspaper"&gt;&lt;/i&gt; Portal News
+    &lt;/a&gt;
+    
+    &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    
+    &lt;div class="collapse navbar-collapse" id="navbarNav"&gt;
+      &lt;ul class="navbar-nav me-auto"&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link active" href="#home"&gt;Home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#politica"&gt;Política&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#economia"&gt;Economia&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#esporte"&gt;Esporte&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#tecnologia"&gt;Tecnologia&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      
+      &lt;div class="d-flex align-items-center"&gt;
+        &lt;form class="d-flex me-3" role="search"&gt;
+          &lt;input class="form-control me-2" type="search" placeholder="Buscar notícias..."&gt;
+          &lt;button class="btn btn-outline-light" type="submit"&gt;
+            &lt;i class="fas fa-search"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/form&gt;
+        
+        &lt;button class="btn btn-outline-light" id="themeToggle"&gt;
+          &lt;i class="fas fa-moon"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📱 Sistema de Grid</h3>
+          <pre><code class="language-html">
+&lt;!-- Hero Section com Bootstrap --&gt;
+&lt;section class="hero-section py-5 mt-5"&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+      &lt;div class="col-lg-8"&gt;
+        &lt;div class="card border-0 shadow-lg"&gt;
+          &lt;img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Notícia Principal"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;span class="badge bg-primary mb-2"&gt;Política&lt;/span&gt;
+            &lt;h2 class="card-title"&gt;Título da Notícia Principal&lt;/h2&gt;
+            &lt;p class="card-text"&gt;Resumo da notícia principal que aparece em destaque...&lt;/p&gt;
+            &lt;div class="d-flex justify-content-between align-items-center"&gt;
+              &lt;div class="text-muted"&gt;
+                &lt;small&gt;&lt;i class="fas fa-calendar"&gt;&lt;/i&gt; 10 de Janeiro, 2025&lt;/small&gt;
+                &lt;small class="ms-3"&gt;&lt;i class="fas fa-user"&gt;&lt;/i&gt; João Silva&lt;/small&gt;
+              &lt;/div&gt;
+              &lt;button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal"&gt;
+                Ler Mais &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      &lt;div class="col-lg-4"&gt;
+        &lt;div class="card border-0 shadow"&gt;
+          &lt;div class="card-header bg-secondary text-white"&gt;
+            &lt;h5 class="mb-0"&gt;&lt;i class="fas fa-fire"&gt;&lt;/i&gt; Em Destaque&lt;/h5&gt;
+          &lt;/div&gt;
+          &lt;div class="card-body"&gt;
+            &lt;div class="d-flex align-items-center mb-3"&gt;
+              &lt;img src="https://via.placeholder.com/60x60" class="rounded me-3" alt="Mini notícia"&gt;
+              &lt;div&gt;
+                &lt;h6 class="mb-1"&gt;Título da mini notícia&lt;/h6&gt;
+                &lt;small class="text-muted"&gt;Há 2 horas&lt;/small&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!-- Mais mini notícias --&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Componentes Avançados -->
+      <section>
+        <section>
+          <h2>🧩 Componentes Avançados</h2>
+        </section>
+
+        <section>
+          <h3>🃏 Cards Responsivos</h3>
+          <pre><code class="language-html">
+&lt;!-- Grid de Notícias com Cards Bootstrap --&gt;
+&lt;section class="news-grid py-5"&gt;
+  &lt;div class="container"&gt;
+    &lt;!-- Filtros como Pills --&gt;
+    &lt;ul class="nav nav-pills justify-content-center mb-4" id="categoryTabs"&gt;
+      &lt;li class="nav-item"&gt;
+        &lt;button class="nav-link active" data-bs-toggle="pill" data-category="all"&gt;
+          Todas
+        &lt;/button&gt;
+      &lt;/li&gt;
+      &lt;li class="nav-item"&gt;
+        &lt;button class="nav-link" data-bs-toggle="pill" data-category="politica"&gt;
+          Política
+        &lt;/button&gt;
+      &lt;/li&gt;
+      &lt;li class="nav-item"&gt;
+        &lt;button class="nav-link" data-bs-toggle="pill" data-category="economia"&gt;
+          Economia
+        &lt;/button&gt;
+      &lt;/li&gt;
+      &lt;!-- Mais categorias --&gt;
+    &lt;/ul&gt;
+    
+    &lt;!-- Cards Grid --&gt;
+    &lt;div class="row g-4" id="newsContainer"&gt;
+      &lt;div class="col-xl-4 col-lg-6 col-md-6"&gt;
+        &lt;div class="card h-100 shadow-sm hover-card"&gt;
+          &lt;img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Notícia"&gt;
+          &lt;div class="card-body d-flex flex-column"&gt;
+            &lt;div class="mb-2"&gt;
+              &lt;span class="badge bg-success"&gt;Economia&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;h5 class="card-title"&gt;Título da Notícia&lt;/h5&gt;
+            &lt;p class="card-text flex-grow-1"&gt;
+              Resumo da notícia que descreve o conteúdo principal...
+            &lt;/p&gt;
+            &lt;div class="mt-auto"&gt;
+              &lt;div class="d-flex justify-content-between align-items-center"&gt;
+                &lt;small class="text-muted"&gt;
+                  &lt;i class="fas fa-clock"&gt;&lt;/i&gt; Há 3 horas
+                &lt;/small&gt;
+                &lt;button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newsModal"&gt;
+                  Ler Mais
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- Mais cards --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎪 Modal Avançado</h3>
+          <pre><code class="language-html">
+&lt;!-- Modal para Leitura Completa --&gt;
+&lt;div class="modal fade" id="newsModal" tabindex="-1"&gt;
+  &lt;div class="modal-dialog modal-lg modal-dialog-scrollable"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;div&gt;
+          &lt;span class="badge bg-primary mb-2" id="modalCategory"&gt;Categoria&lt;/span&gt;
+          &lt;h4 class="modal-title" id="modalTitle"&gt;Título da Notícia&lt;/h4&gt;
+        &lt;/div&gt;
+        &lt;button type="button" class="btn-close" data-bs-dismiss="modal"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      
+      &lt;div class="modal-body"&gt;
+        &lt;img id="modalImage" src="" class="img-fluid rounded mb-3" alt=""&gt;
+        
+        &lt;div class="d-flex align-items-center text-muted mb-3"&gt;
+          &lt;i class="fas fa-calendar me-2"&gt;&lt;/i&gt;
+          &lt;span id="modalDate"&gt;Data&lt;/span&gt;
+          &lt;i class="fas fa-user ms-4 me-2"&gt;&lt;/i&gt;
+          &lt;span id="modalAuthor"&gt;Autor&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div id="modalContent" class="modal-text"&gt;
+          &lt;!-- Conteúdo da notícia --&gt;
+        &lt;/div&gt;
+        
+        &lt;hr&gt;
+        
+        &lt;!-- Ações sociais --&gt;
+        &lt;div class="d-flex justify-content-between align-items-center"&gt;
+          &lt;div&gt;
+            &lt;button class="btn btn-outline-primary btn-sm"&gt;
+              &lt;i class="fas fa-thumbs-up"&gt;&lt;/i&gt; Curtir
+            &lt;/button&gt;
+            &lt;button class="btn btn-outline-info btn-sm ms-2"&gt;
+              &lt;i class="fas fa-share"&gt;&lt;/i&gt; Compartilhar
+            &lt;/button&gt;
+          &lt;/div&gt;
+          &lt;button class="btn btn-outline-secondary btn-sm"&gt;
+            &lt;i class="fas fa-bookmark"&gt;&lt;/i&gt; Salvar
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-secondary" data-bs-dismiss="modal"&gt;
+          Fechar
+        &lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary"&gt;
+          Próxima Notícia &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🍞 Toast Notifications</h3>
+          <pre><code class="language-html">
+&lt;!-- Container para Toasts --&gt;
+&lt;div class="toast-container position-fixed bottom-0 end-0 p-3"&gt;
+  &lt;div id="successToast" class="toast" role="alert"&gt;
+    &lt;div class="toast-header"&gt;
+      &lt;div class="rounded me-2 bg-success" style="width: 20px; height: 20px;"&gt;&lt;/div&gt;
+      &lt;strong class="me-auto"&gt;Portal News&lt;/strong&gt;
+      &lt;small&gt;agora&lt;/small&gt;
+      &lt;button type="button" class="btn-close" data-bs-dismiss="toast"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="toast-body"&gt;
+      Ação realizada com sucesso!
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+
+          <pre><code class="language-javascript">
+// JavaScript para Toasts
+function showToast(message, type = 'success') {
+  const toastElement = document.getElementById('successToast');
+  const toastBody = toastElement.querySelector('.toast-body');
+  const colorDiv = toastElement.querySelector('.rounded');
+  
+  toastBody.textContent = message;
+  colorDiv.className = `rounded me-2 bg-${type}`;
+  
+  const toast = new bootstrap.Toast(toastElement);
+  toast.show();
+}
+
+// Exemplo de uso
+document.getElementById('saveBtn').addEventListener('click', () => {
+  showToast('Notícia salva nos favoritos!', 'success');
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Customização e Temas -->
+      <section>
+        <section>
+          <h2>🎨 Customização e Temas</h2>
+        </section>
+
+        <section>
+          <h3>🔧 CSS Custom Properties</h3>
+          <pre><code class="language-css">
+/* custom.css - Variáveis personalizadas */
+:root {
+  /* Cores do tema claro */
+  --bs-primary: #2c5aa0;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  
+  /* Cores customizadas */
+  --portal-primary: #1e3a8a;
+  --portal-accent: #3b82f6;
+  --portal-text: #1f2937;
+  --portal-bg: #ffffff;
+  --portal-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  
+  /* Tipografia */
+  --portal-font-family: 'Inter', system-ui, sans-serif;
+  --portal-font-size-base: 1rem;
+  --portal-line-height: 1.6;
+}
+
+/* Tema escuro */
+[data-bs-theme="dark"] {
+  --portal-primary: #3b82f6;
+  --portal-accent: #60a5fa;
+  --portal-text: #f9fafb;
+  --portal-bg: #111827;
+  --portal-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
+}
+
+/* Aplicação das variáveis customizadas */
+body {
+  font-family: var(--portal-font-family);
+  background-color: var(--portal-bg);
+  color: var(--portal-text);
+  line-height: var(--portal-line-height);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--portal-shadow);
+}
+
+/* Customização de componentes Bootstrap */
+.btn-primary {
+  background-color: var(--portal-primary);
+  border-color: var(--portal-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--portal-accent);
+  border-color: var(--portal-accent);
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--portal-primary);
+}
+
+.badge {
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.modal-content {
+  border-radius: 0.75rem;
+  border: none;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🌙 Implementação Dark Mode</h3>
+          <pre><code class="language-javascript">
+// Gerenciamento de tema
+class ThemeManager {
+  constructor() {
+    this.currentTheme = localStorage.getItem('theme') || 'light';
+    this.themeToggle = document.getElementById('themeToggle');
+    this.init();
+  }
+  
+  init() {
+    this.applyTheme();
+    this.bindEvents();
+  }
+  
+  bindEvents() {
+    this.themeToggle?.addEventListener('click', () => {
+      this.toggleTheme();
+    });
+  }
+  
+  applyTheme() {
+    document.documentElement.setAttribute('data-bs-theme', this.currentTheme);
+    this.updateThemeIcon();
+    localStorage.setItem('theme', this.currentTheme);
+  }
+  
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    this.applyTheme();
+    
+    // Feedback visual
+    showToast(`Tema ${this.currentTheme === 'dark' ? 'escuro' : 'claro'} ativado!`, 'info');
+  }
+  
+  updateThemeIcon() {
+    if (this.themeToggle) {
+      const icon = this.themeToggle.querySelector('i');
+      icon.className = this.currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+  }
+}
+
+// Inicializar gerenciador de tema
+document.addEventListener('DOMContentLoaded', () => {
+  new ThemeManager();
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📱 Utilities Responsivas</h3>
+          <pre><code class="language-html">
+&lt;!-- Exemplos de utilities responsivas --&gt;
+
+&lt;!-- Visibility utilities --&gt;
+&lt;div class="d-none d-md-block"&gt;Visível apenas em telas médias e maiores&lt;/div&gt;
+&lt;div class="d-block d-md-none"&gt;Visível apenas em mobile&lt;/div&gt;
+
+&lt;!-- Spacing utilities --&gt;
+&lt;div class="p-2 p-md-4 p-lg-5"&gt;Padding responsivo&lt;/div&gt;
+&lt;div class="mb-3 mb-lg-5"&gt;Margin bottom responsiva&lt;/div&gt;
+
+&lt;!-- Typography utilities --&gt;
+&lt;h1 class="fs-6 fs-md-4 fs-lg-1"&gt;Título responsivo&lt;/h1&gt;
+&lt;p class="text-center text-md-start"&gt;Alinhamento responsivo&lt;/p&gt;
+
+&lt;!-- Flexbox utilities --&gt;
+&lt;div class="d-flex flex-column flex-md-row justify-content-center justify-content-md-between"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Grid responsivo avançado --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"&gt;
+    Card responsivo
+  &lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - JavaScript com Bootstrap -->
+      <section>
+        <section>
+          <h2>⚡ JavaScript com Bootstrap</h2>
+        </section>
+
+        <section>
+          <h3>🔧 Inicialização de Componentes</h3>
+          <pre><code class="language-javascript">
+// Portal News - Aplicação principal com Bootstrap
+class PortalNews {
+  constructor() {
+    this.newsData = [];
+    this.currentFilter = 'all';
+    this.searchTerm = '';
+    this.init();
+  }
+  
+  async init() {
+    try {
+      // Carregar dados
+      await this.loadNews();
+      
+      // Inicializar componentes Bootstrap
+      this.initializeBootstrapComponents();
+      
+      // Bind de eventos
+      this.bindEvents();
+      
+      // Renderizar conteúdo
+      this.renderNews();
+      
+      console.log('Portal News inicializado com Bootstrap!');
+    } catch (error) {
+      console.error('Erro ao inicializar aplicação:', error);
+      this.showError('Erro ao carregar a aplicação');
+    }
+  }
+  
+  initializeBootstrapComponents() {
+    // Inicializar tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    
+    // Inicializar popovers
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    
+    // Configurar modal
+    this.newsModal = new bootstrap.Modal(document.getElementById('newsModal'), {
+      backdrop: 'static',
+      keyboard: false
+    });
+  }
+  
+  bindEvents() {
+    // Filtros de categoria
+    document.querySelectorAll('[data-category]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        this.handleCategoryFilter(e.target.dataset.category);
+      });
+    });
+    
+    // Busca
+    const searchForm = document.querySelector('form[role="search"]');
+    searchForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleSearch();
+    });
+    
+    // Cards de notícias
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('[data-news-id]')) {
+        const newsId = parseInt(e.target.dataset.newsId);
+        this.openNewsModal(newsId);
+      }
+    });
+  }
+  
+  async loadNews() {
+    // Simular carregamento de dados
+    this.newsData = [
+      {
+        id: 1,
+        title: "Bootstrap 5.3 lança novas funcionalidades",
+        excerpt: "Novo update traz melhorias significativas para desenvolvimento web.",
+        category: "tecnologia",
+        image: "https://via.placeholder.com/350x200",
+        author: "Tech News",
+        date: "2025-01-10",
+        content: "O Bootstrap 5.3 foi lançado com diversas melhorias..."
+      },
+      // Mais dados...
+    ];
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Métodos de Renderização</h3>
+          <pre><code class="language-javascript">
+// Métodos de renderização e interação
+class PortalNews {
+  // ... código anterior
+  
+  renderNews() {
+    const container = document.getElementById('newsContainer');
+    if (!container) return;
+    
+    const filteredNews = this.getFilteredNews();
+    container.innerHTML = '';
+    
+    // Mostrar loading
+    container.innerHTML = this.createLoadingSpinner();
+    
+    // Simular delay de carregamento
+    setTimeout(() => {
+      container.innerHTML = filteredNews.map(news => this.createNewsCard(news)).join('');
+      
+      // Animar entrada dos cards
+      this.animateCards();
+      
+      // Mostrar resultado
+      this.showSearchResults(filteredNews.length);
+    }, 300);
+  }
+  
+  createNewsCard(news) {
+    return `
+      &lt;div class="col-xl-4 col-lg-6 col-md-6"&gt;
+        &lt;div class="card h-100 shadow-sm hover-card" style="opacity: 0; transform: translateY(20px);"&gt;
+          &lt;img src="${news.image}" class="card-img-top" alt="${news.title}" loading="lazy"&gt;
+          &lt;div class="card-body d-flex flex-column"&gt;
+            &lt;div class="mb-2"&gt;
+              &lt;span class="badge bg-${this.getCategoryColor(news.category)}"&gt;
+                ${this.getCategoryName(news.category)}
+              &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;h5 class="card-title"&gt;${news.title}&lt;/h5&gt;
+            &lt;p class="card-text flex-grow-1"&gt;${news.excerpt}&lt;/p&gt;
+            &lt;div class="mt-auto"&gt;
+              &lt;div class="d-flex justify-content-between align-items-center"&gt;
+                &lt;small class="text-muted"&gt;
+                  &lt;i class="fas fa-clock"&gt;&lt;/i&gt; ${this.formatDate(news.date)}
+                &lt;/small&gt;
+                &lt;button class="btn btn-outline-primary btn-sm" 
+                        data-news-id="${news.id}"
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        title="Ler notícia completa"&gt;
+                  Ler Mais &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    `;
+  }
+  
+  createLoadingSpinner() {
+    return `
+      &lt;div class="col-12 text-center"&gt;
+        &lt;div class="spinner-border text-primary" role="status"&gt;
+          &lt;span class="visually-hidden"&gt;Carregando...&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p class="mt-3 text-muted"&gt;Carregando notícias...&lt;/p&gt;
+      &lt;/div&gt;
+    `;
+  }
+  
+  animateCards() {
+    const cards = document.querySelectorAll('.hover-card');
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.transition = 'all 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  }
+  
+  openNewsModal(newsId) {
+    const news = this.newsData.find(n => n.id === newsId);
+    if (!news) return;
+    
+    // Preencher modal
+    document.getElementById('modalTitle').textContent = news.title;
+    document.getElementById('modalCategory').textContent = this.getCategoryName(news.category);
+    document.getElementById('modalCategory').className = `badge bg-${this.getCategoryColor(news.category)} mb-2`;
+    document.getElementById('modalImage').src = news.image;
+    document.getElementById('modalDate').textContent = this.formatDate(news.date);
+    document.getElementById('modalAuthor').textContent = news.author;
+    document.getElementById('modalContent').innerHTML = news.content;
+    
+    // Mostrar modal
+    this.newsModal.show();
+  }
+  
+  showSearchResults(count) {
+    if (this.searchTerm) {
+      showToast(`${count} notícia(s) encontrada(s) para "${this.searchTerm}"`, 'info');
+    }
+  }
+}
+
+// Inicializar aplicação
+document.addEventListener('DOMContentLoaded', () => {
+  new PortalNews();
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Performance e Otimização -->
+      <section>
+        <section>
+          <h2>🚀 Performance e Otimização</h2>
+        </section>
+
+        <section>
+          <h3>📦 Bundle Customizado</h3>
+          <pre><code class="language-scss">
+// custom-bootstrap.scss - Bundle customizado
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+// Importar apenas os componentes necessários
+@import "node_modules/bootstrap/scss/root";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/containers";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/tables";
+@import "node_modules/bootstrap/scss/forms";
+@import "node_modules/bootstrap/scss/buttons";
+@import "node_modules/bootstrap/scss/transitions";
+@import "node_modules/bootstrap/scss/dropdown";
+@import "node_modules/bootstrap/scss/button-group";
+@import "node_modules/bootstrap/scss/nav";
+@import "node_modules/bootstrap/scss/navbar";
+@import "node_modules/bootstrap/scss/card";
+@import "node_modules/bootstrap/scss/badge";
+@import "node_modules/bootstrap/scss/modal";
+@import "node_modules/bootstrap/scss/tooltip";
+@import "node_modules/bootstrap/scss/popover";
+@import "node_modules/bootstrap/scss/toast";
+@import "node_modules/bootstrap/scss/utilities";
+
+// Customizações
+:root {
+  --bs-blue: #0d6efd;
+  --bs-primary: #{$primary};
+}
+
+// Utilities customizadas
+$utilities: map-merge(
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      values: auto pointer grab,
+    ),
+    "user-select": (
+      property: user-select,
+      class: user-select,
+      values: all auto none,
+    ),
+  )
+);
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>⚡ Lazy Loading e Otimizações</h3>
+          <pre><code class="language-javascript">
+// Otimizações de performance
+class PerformanceOptimizer {
+  constructor() {
+    this.observer = null;
+    this.init();
+  }
+  
+  init() {
+    this.setupLazyLoading();
+    this.setupVirtualScrolling();
+    this.optimizeImages();
+  }
+  
+  setupLazyLoading() {
+    // Intersection Observer para lazy loading
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            this.observer.unobserve(img);
+            
+            // Fade in animation
+            img.style.opacity = '0';
+            img.onload = () => {
+              img.style.transition = 'opacity 0.3s';
+              img.style.opacity = '1';
+            };
+          }
+        }
+      });
+    }, {
+      rootMargin: '50px'
+    });
+    
+    // Observar todas as imagens com data-src
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      this.observer.observe(img);
+    });
+  }
+  
+  optimizeImages() {
+    // Redimensionar imagens baseado no container
+    document.querySelectorAll('.card-img-top').forEach(img => {
+      const card = img.closest('.card');
+      const cardWidth = card.offsetWidth;
+      
+      // Ajustar src baseado no tamanho
+      if (cardWidth <= 300) {
+        img.src = img.src.replace(/\d+x\d+/, '300x200');
+      } else if (cardWidth <= 400) {
+        img.src = img.src.replace(/\d+x\d+/, '400x250');
+      }
+    });
+  }
+  
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    }
+  }
+}
+
+// Service Worker para caching
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('SW registrado: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW falhou: ', registrationError);
+      });
+  });
+}
+
+// Inicializar otimizador
+new PerformanceOptimizer();
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Deploy e Publicação -->
+      <section>
+        <section>
+          <h2>🚀 Deploy e Publicação</h2>
+        </section>
+
+        <section>
+          <h3>📂 Estrutura de Produção</h3>
+          <pre><code class="language-text">
+portal-noticias/
+├── index.html
+├── css/
+│   ├── bootstrap.min.css
+│   ├── custom.css
+│   └── animations.css
+├── js/
+│   ├── bootstrap.bundle.min.js
+│   ├── main.js
+│   └── performance.js
+├── images/
+│   ├── logo.png
+│   ├── news/
+│   └── placeholders/
+├── fonts/
+├── manifest.json
+├── sw.js (Service Worker)
+└── .htaccess (Apache)
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>⚙️ Configurações de Produção</h3>
+          <pre><code class="language-html">
+&lt;!-- index.html otimizado --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;meta name="description" content="Portal de Notícias - Sua fonte confiável de informações"&gt;
+  &lt;meta name="keywords" content="notícias, política, economia, esporte, tecnologia"&gt;
+  
+  &lt;!-- Preconnect para recursos externos --&gt;
+  &lt;link rel="preconnect" href="https://cdn.jsdelivr.net"&gt;
+  &lt;link rel="preconnect" href="https://cdnjs.cloudflare.com"&gt;
+  
+  &lt;!-- CSS crítico inline --&gt;
+  &lt;style&gt;
+    /* Critical CSS aqui */
+    body { margin: 0; font-family: system-ui; }
+    .loading { display: flex; justify-content: center; align-items: center; height: 100vh; }
+  &lt;/style&gt;
+  
+  &lt;!-- CSS não crítico com loading assíncrono --&gt;
+  &lt;link rel="preload" href="css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;
+  &lt;link rel="preload" href="css/custom.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt;
+  
+  &lt;!-- PWA --&gt;
+  &lt;link rel="manifest" href="manifest.json"&gt;
+  &lt;meta name="theme-color" content="#2c5aa0"&gt;
+  
+  &lt;title&gt;Portal de Notícias - Sua fonte confiável&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="loading" class="loading"&gt;
+    &lt;div class="spinner-border text-primary" role="status"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Conteúdo da aplicação --&gt;
+  
+  &lt;!-- JavaScript com defer --&gt;
+  &lt;script src="js/bootstrap.bundle.min.js" defer&gt;&lt;/script&gt;
+  &lt;script src="js/main.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔒 .htaccess e Segurança</h3>
+          <pre><code class="language-apache">
+# .htaccess - Configurações de produção
+
+# Compressão GZIP
+&lt;IfModule mod_deflate.c&gt;
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+&lt;/IfModule&gt;
+
+# Cache de recursos estáticos
+&lt;IfModule mod_expires.c&gt;
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+&lt;/IfModule&gt;
+
+# Segurança
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Strict-Transport-Security "max-age=63072000"
+
+# Redirect HTTP para HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Comparação Final -->
+      <section>
+        <h2>📊 Comparação: Antes vs Depois</h2>
+        <table style="font-size: 0.7em;">
+          <thead>
+            <tr>
+              <th>Aspecto</th>
+              <th>CSS Vanilla (Aula 6)</th>
+              <th>Bootstrap (Aula 7)</th>
+              <th>Melhoria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Linhas CSS</strong></td>
+              <td>~500 linhas</td>
+              <td>~200 linhas</td>
+              <td>🎯 60% redução</td>
+            </tr>
+            <tr>
+              <td><strong>Tempo desenvolvimento</strong></td>
+              <td>3-4 horas</td>
+              <td>1-2 horas</td>
+              <td>⏰ 50% mais rápido</td>
+            </tr>
+            <tr>
+              <td><strong>Responsividade</strong></td>
+              <td>Manual, complexa</td>
+              <td>Automática, robusta</td>
+              <td>📱 Melhor suporte</td>
+            </tr>
+            <tr>
+              <td><strong>Componentes</strong></td>
+              <td>Codificados do zero</td>
+              <td>Prontos e testados</td>
+              <td>🧩 Maior qualidade</td>
+            </tr>
+            <tr>
+              <td><strong>Manutenção</strong></td>
+              <td>Requer expertise</td>
+              <td>Documentada</td>
+              <td>📚 Mais fácil</td>
+            </tr>
+            <tr>
+              <td><strong>Consistência</strong></td>
+              <td>Depende do dev</td>
+              <td>Padrão garantido</td>
+              <td>✅ Profissional</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Slide 11 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aula 8 - Avaliação Prática</h3>
+        <ul>
+          <li class="fragment">Desenvolvimento individual de projeto</li>
+          <li class="fragment">Aplicação de todos os conceitos aprendidos</li>
+          <li class="fragment">Avaliação técnica e apresentação</li>
+          <li class="fragment">Feedback e melhorias</li>
+          <li class="fragment">Preparação para backend (Java EE)</li>
+        </ul>
+      </section>
+
+      <!-- Slide 12 - Recursos e Referências -->
+      <section>
+        <h2>📚 Recursos e Referências</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h4>🌐 Bootstrap</h4>
+            <ul>
+              <li><a href="https://getbootstrap.com/" target="_blank">Bootstrap 5 Docs</a></li>
+              <li><a href="https://bootstrap-themes.org/" target="_blank">Temas Bootstrap</a></li>
+              <li><a href="https://bootsnipp.com/" target="_blank">Code Snippets</a></li>
+            </ul>
+            
+            <h4>🛠️ Ferramentas</h4>
+            <ul>
+              <li><a href="https://www.layoutit.com/bootstrap" target="_blank">Bootstrap Builder</a></li>
+              <li><a href="https://bootstrapshuffle.com/" target="_blank">Bootstrap Shuffle</a></li>
+              <li><a href="https://www.codeply.com/" target="_blank">Codeply</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>🎨 Customização</h4>
+            <ul>
+              <li><a href="https://bootstrap.build/" target="_blank">Bootstrap Build</a></li>
+              <li><a href="https://themestr.app/" target="_blank">Themestr.app</a></li>
+              <li><a href="https://bootswatch.com/" target="_blank">Bootswatch</a></li>
+            </ul>
+            
+            <h4>📱 Inspiração</h4>
+            <ul>
+              <li><a href="https://startbootstrap.com/" target="_blank">Start Bootstrap</a></li>
+              <li><a href="https://mdbootstrap.com/" target="_blank">Material Design</a></li>
+              <li><a href="https://creative-tim.com/" target="_blank">Creative Tim</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

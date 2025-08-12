@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 8 - Projeto Final</title>
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>.reveal .slides section{text-align:left;font-size:0.8em}.reveal h1,.reveal h2,.reveal h3,.reveal h4{text-align:center;margin-bottom:1rem}.social-links{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem}.code-highlight{background:rgba(98,114,164,0.1);border-left:4px solid #ff79c6;border-radius:8px;padding:1rem;margin:1rem 0}</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 8: Projeto Final 🚀</h3>
+        <p><strong>Desenvolvimento para Dispositivos Móveis</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+      <section>
+        <h2>🎯 Projeto Final</h2>
+        <div class="code-highlight">
+          <h3>🍕 DeliveryApp - Aplicativo de Entrega</h3>
+          <p>Desenvolvimento completo de aplicativo mobile com todas as funcionalidades de um app real de delivery</p>
+          <ul>
+            <li>🔐 <strong>Autenticação:</strong> Login, registro, perfil</li>
+            <li>🛒 <strong>E-commerce:</strong> Catálogo, carrinho, checkout</li>
+            <li>📍 <strong>Geolocalização:</strong> Endereços e rastreamento</li>
+            <li>💳 <strong>Pagamentos:</strong> Múltiplas formas de pagamento</li>
+            <li>📱 <strong>Notificações:</strong> Push notifications</li>
+            <li>⭐ <strong>Avaliações:</strong> Sistema de reviews</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>🏗️ Arquitetura do Projeto</h2>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>📱 Frontend (React Native + Expo)</h4>
+            <ul>
+              <li><strong>Screens:</strong> Login, Home, Product, Cart, Profile</li>
+              <li><strong>Navigation:</strong> Stack + Tab Navigation</li>
+              <li><strong>State Management:</strong> Context API + useReducer</li>
+              <li><strong>Components:</strong> Reutilizáveis e modulares</li>
+              <li><strong>Styling:</strong> StyleSheet + responsivo</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>☁️ Backend (Firebase)</h4>
+            <ul>
+              <li><strong>Authentication:</strong> Email/password, Google</li>
+              <li><strong>Firestore:</strong> Users, Products, Orders</li>
+              <li><strong>Storage:</strong> Imagens de produtos</li>
+              <li><strong>Functions:</strong> Serverless functions</li>
+              <li><strong>Hosting:</strong> Deploy da admin web</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>📱 Principais Telas</h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;font-size:0.85em;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🔐 Autenticação</h4>
+            <ul>
+              <li>Splash Screen</li>
+              <li>Login/Register</li>
+              <li>Esqueci senha</li>
+              <li>Onboarding</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🛒 E-commerce</h4>
+            <ul>
+              <li>Lista de restaurantes</li>
+              <li>Menu de produtos</li>
+              <li>Detalhes do produto</li>
+              <li>Carrinho de compras</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>📍 Checkout</h4>
+            <ul>
+              <li>Endereço de entrega</li>
+              <li>Forma de pagamento</li>
+              <li>Resumo do pedido</li>
+              <li>Rastreamento</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🔧 Setup do Projeto</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>📦 Criação do Projeto</h3>
+            <pre><code># Criar projeto Expo
+npx create-expo-app DeliveryApp
+cd DeliveryApp
+
+# Instalar dependências
+npm install @react-navigation/native
+npm install @react-navigation/stack
+npm install @react-navigation/bottom-tabs
+npm install react-native-screens
+npm install react-native-safe-area-context
+npm install firebase
+npm install @expo/vector-icons
+npm install expo-location
+npm install expo-notifications</code></pre>
+          </div>
+          <div>
+            <h3>🔥 Configuração Firebase</h3>
+            <pre><code># firebase.js
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+
+const firebaseConfig = {
+  // Suas credenciais do Firebase
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🧪 Implementação Prática</h2>
+        <div class="code-highlight">
+          <h3>⏰ Cronograma de Desenvolvimento (4 horas)</h3>
+          <ul>
+            <li><strong>Hora 1:</strong> Setup, navegação e autenticação básica</li>
+            <li><strong>Hora 2:</strong> Telas principais e integração Firebase</li>
+            <li><strong>Hora 3:</strong> Funcionalidades do carrinho e checkout</li>
+            <li><strong>Hora 4:</strong> Finalização, testes e apresentação</li>
+          </ul>
+        </div>
+        <div style="background: rgba(76, 175, 80, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+          <h4>🎯 Metodologia: Desenvolvimento Ágil</h4>
+          <p>Trabalho em equipes de 3-4 pessoas, com roles definidos:</p>
+          <ul>
+            <li><strong>Frontend Developer:</strong> Telas e componentes</li>
+            <li><strong>Backend Developer:</strong> Firebase integration</li>
+            <li><strong>UI/UX Designer:</strong> Design e usabilidade</li>
+            <li><strong>QA Tester:</strong> Testes e validação</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>📊 Critérios de Avaliação</h2>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+          <div>
+            <h3>🎯 Funcionalidade (40%)</h3>
+            <ul>
+              <li><strong>Autenticação:</strong> Login/register funcionais</li>
+              <li><strong>Navegação:</strong> Fluxo completo do app</li>
+              <li><strong>CRUD:</strong> Operações com banco de dados</li>
+              <li><strong>Integração:</strong> APIs e serviços externos</li>
+            </ul>
+            
+            <h3>🎨 Interface (30%)</h3>
+            <ul>
+              <li><strong>Design:</strong> Interface atrativa e intuitiva</li>
+              <li><strong>Responsividade:</strong> Adaptação a diferentes telas</li>
+              <li><strong>UX:</strong> Facilidade de uso</li>
+              <li><strong>Consistência:</strong> Padrões visuais</li>
+            </ul>
+          </div>
+          <div>
+            <h3>💻 Código (20%)</h3>
+            <ul>
+              <li><strong>Estrutura:</strong> Organização e modularização</li>
+              <li><strong>Boas práticas:</strong> Clean code principles</li>
+              <li><strong>Performance:</strong> Otimização e eficiência</li>
+              <li><strong>Comentários:</strong> Documentação do código</li>
+            </ul>
+            
+            <h3>🎤 Apresentação (10%)</h3>
+            <ul>
+              <li><strong>Demonstração:</strong> Showcase das features</li>
+              <li><strong>Explicação técnica:</strong> Decisões arquiteturais</li>
+              <li><strong>Trabalho em equipe:</strong> Colaboração efetiva</li>
+              <li><strong>Inovação:</strong> Funcionalidades extras</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🚀 Entregáveis</h2>
+        <div class="code-highlight">
+          <h3>📋 O que deve ser entregue:</h3>
+          <ul>
+            <li>📱 <strong>Aplicativo funcionando:</strong> Deploy no Expo ou APK</li>
+            <li>💾 <strong>Código fonte:</strong> Repositório Git organizado</li>
+            <li>📄 <strong>Documentação:</strong> README com instruções</li>
+            <li>🎥 <strong>Vídeo demo:</strong> 3-5 minutos mostrando o app</li>
+            <li>📊 <strong>Apresentação:</strong> 10 minutos por equipe</li>
+          </ul>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>💡 Features Opcionais (Bônus)</h4>
+            <ul>
+              <li>🔔 Push notifications</li>
+              <li>📍 Rastreamento em tempo real</li>
+              <li>💳 Integração pagamento real</li>
+              <li>⭐ Sistema de avaliações</li>
+              <li>🌙 Modo escuro</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🛠️ Recursos Disponíveis</h4>
+            <ul>
+              <li>📚 Documentação completa</li>
+              <li>💬 Suporte do professor</li>
+              <li>🔧 Templates e exemplos</li>
+              <li>☁️ Créditos Firebase gratuitos</li>
+              <li>📱 Dispositivos para teste</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🎓 Conclusão do Curso</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>✅ O que aprendemos</h3>
+            <ul>
+              <li>📱 Fundamentos dos dispositivos móveis</li>
+              <li>🛠️ Configuração de ambientes de desenvolvimento</li>
+              <li>💻 Linguagens para mobile (JS, Dart)</li>
+              <li>🤖 Plataforma Android em detalhes</li>
+              <li>🎨 Design de interfaces mobile</li>
+              <li>🗄️ Gerenciamento de dados local e remoto</li>
+              <li>🔄 Desenvolvimento multiplataforma</li>
+              <li>🚀 Projeto completo end-to-end</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🔮 Próximos Passos</h3>
+            <ul>
+              <li>📚 <strong>Especialização:</strong> React Native ou Flutter</li>
+              <li>☁️ <strong>Backend:</strong> Node.js, Firebase, AWS</li>
+              <li>🎨 <strong>Design:</strong> Figma, Adobe XD</li>
+              <li>📊 <strong>Analytics:</strong> Google Analytics, Mixpanel</li>
+              <li>🚀 <strong>DevOps:</strong> CI/CD, App Store deployment</li>
+              <li>🌐 <strong>Web:</strong> PWAs, responsive design</li>
+            </ul>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:3rem;">
+          <h2>🎉 Parabéns por completar o curso!</h2>
+          <p><em>Vocês agora estão preparados para o mercado de desenvolvimento mobile!</em></p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>Reveal.initialize({controls:true,progress:true,center:true,hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

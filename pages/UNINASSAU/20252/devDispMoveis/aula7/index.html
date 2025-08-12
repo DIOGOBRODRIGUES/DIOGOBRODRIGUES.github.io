@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 7 - Aplicações Híbridas</title>
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>.reveal .slides section{text-align:left;font-size:0.8em}.reveal h1,.reveal h2,.reveal h3,.reveal h4{text-align:center;margin-bottom:1rem}.social-links{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem}.code-highlight{background:rgba(98,114,164,0.1);border-left:4px solid #ff79c6;border-radius:8px;padding:1rem;margin:1rem 0}</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7: Aplicações Híbridas 🔄</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+      <section>
+        <h2>🎯 Objetivos</h2>
+        <div class="code-highlight">
+          <ul>
+            <li>🔄 <strong>Compreender</strong> desenvolvimento multiplataforma</li>
+            <li>⚛️ <strong>Dominar</strong> React Native avançado</li>
+            <li>🦋 <strong>Explorar</strong> Flutter cross-platform</li>
+            <li>📊 <strong>Comparar</strong> frameworks híbridos</li>
+            <li>🚀 <strong>Implementar</strong> app completo multiplataforma</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>🔄 Desenvolvimento Multiplataforma</h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>⚛️ React Native</h4>
+            <ul>
+              <li><strong>Language:</strong> JavaScript/TypeScript</li>
+              <li><strong>Approach:</strong> Bridge to native</li>
+              <li><strong>Performance:</strong> Good (near-native)</li>
+              <li><strong>Learning curve:</strong> Low for web devs</li>
+              <li><strong>Community:</strong> Very large</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🦋 Flutter</h4>
+            <ul>
+              <li><strong>Language:</strong> Dart</li>
+              <li><strong>Approach:</strong> Custom rendering engine</li>
+              <li><strong>Performance:</strong> Excellent (compiled)</li>
+              <li><strong>Learning curve:</strong> Medium</li>
+              <li><strong>Community:</strong> Growing rapidly</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🌐 Ionic</h4>
+            <ul>
+              <li><strong>Language:</strong> HTML/CSS/JS</li>
+              <li><strong>Approach:</strong> WebView based</li>
+              <li><strong>Performance:</strong> Good for simple apps</li>
+              <li><strong>Learning curve:</strong> Very low</li>
+              <li><strong>Community:</strong> Established</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>⚛️ React Native Avançado</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>🔧 Native Modules</h3>
+            <pre><code>// Accessing device features
+import { Camera } from 'expo-camera';
+import * as Location from 'expo-location';
+import { Audio } from 'expo-av';
+
+const CameraScreen = () => {
+  const [hasPermission, setHasPermission] = useState(null);
+  
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (hasPermission === null) return &lt;View /&gt;;
+  if (hasPermission === false) return &lt;Text&gt;No access to camera&lt;/Text&gt;;
+  
+  return &lt;Camera style={{flex: 1}} /&gt;;
+};</code></pre>
+          </div>
+          <div>
+            <h3>🎨 Navigation</h3>
+            <pre><code>// React Navigation v6
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name="Home" component={HomeScreen} /&gt;
+        &lt;Stack.Screen name="Details" component={DetailsScreen} /&gt;
+        &lt;Stack.Screen name="Profile" component={ProfileScreen} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🦋 Flutter Advanced Features</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>🏗️ State Management</h3>
+            <pre><code>// Provider pattern
+class CounterModel extends ChangeNotifier {
+  int _count = 0;
+  int get count => _count;
+  
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
+}
+
+class CounterWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer&lt;CounterModel&gt;(
+      builder: (context, counter, child) {
+        return Text('${counter.count}');
+      },
+    );
+  }
+}</code></pre>
+          </div>
+          <div>
+            <h3>🎨 Custom Widgets</h3>
+            <pre><code>class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final Color color;
+  
+  CustomButton({
+    required this.text,
+    required this.onPressed,
+    this.color = Colors.blue,
+  });
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [BoxShadow(blurRadius: 5)],
+      ),
+      child: TextButton(
+        onPressed: onPressed,
+        child: Text(text, style: TextStyle(color: Colors.white)),
+      ),
+    );
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>📊 Comparação Performance</h2>
+        <div class="code-highlight">
+          <h3>🚀 Benchmarks e Características</h3>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;font-size:0.85em;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;text-align:center;">
+            <h4>📊 Métrica</h4>
+            <p><strong>Startup Time</strong></p>
+            <p><strong>Memory Usage</strong></p>
+            <p><strong>CPU Usage</strong></p>
+            <p><strong>Bundle Size</strong></p>
+            <p><strong>Animation</strong></p>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;text-align:center;">
+            <h4>📱 Native</h4>
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐⭐</p>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;text-align:center;">
+            <h4>🦋 Flutter</h4>
+            <p>⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐⭐</p>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;text-align:center;">
+            <h4>⚛️ React Native</h4>
+            <p>⭐⭐⭐</p>
+            <p>⭐⭐⭐</p>
+            <p>⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐</p>
+            <p>⭐⭐⭐⭐</p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🧪 Projeto Final</h2>
+        <div class="code-highlight">
+          <h3>🎯 App de Delivery Multiplataforma</h3>
+          <p>Desenvolver aplicativo completo com autenticação, catálogo, carrinho e pagamento</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+          <div>
+            <h4>📱 Features Principais</h4>
+            <ul>
+              <li><strong>Autenticação:</strong> Login/Register</li>
+              <li><strong>Catálogo:</strong> Lista de produtos</li>
+              <li><strong>Carrinho:</strong> Adicionar/remover itens</li>
+              <li><strong>Pagamento:</strong> Integração simulada</li>
+              <li><strong>Histórico:</strong> Pedidos anteriores</li>
+              <li><strong>Localização:</strong> GPS para entrega</li>
+            </ul>
+          </div>
+          <div>
+            <h4>🛠️ Stack Técnica</h4>
+            <ul>
+              <li><strong>Frontend:</strong> React Native/Expo</li>
+              <li><strong>Backend:</strong> Firebase/Firestore</li>
+              <li><strong>Auth:</strong> Firebase Auth</li>
+              <li><strong>Storage:</strong> AsyncStorage + Cloud</li>
+              <li><strong>Maps:</strong> React Native Maps</li>
+              <li><strong>Push:</strong> Expo Notifications</li>
+            </ul>
+          </div>
+        </div>
+        <div style="background: rgba(76, 175, 80, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+          <h4>⏰ Tempo: 3 aulas para desenvolvimento completo</h4>
+        </div>
+      </section>
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <div class="code-highlight">
+          <h4>🚀 Aula 8: Projeto Final - Desenvolvimento</h4>
+          <ul>
+            <li>Setup do projeto delivery app</li>
+            <li>Implementação da arquitetura</li>
+            <li>Integração com serviços</li>
+            <li>Testes e debugging</li>
+            <li>Deploy e publicação</li>
+          </ul>
+        </div>
+        <div style="text-align:center;margin-top:2rem;">
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>Reveal.initialize({controls:true,progress:true,center:true,hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

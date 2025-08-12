@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 4 - JavaScript e Framework Bootstrap</title>
+
+  <meta name="description" content="JavaScript e Frameworks (Bootstrap) - Uso do Bootstrap em páginas web">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 4 - JavaScript e Framework Bootstrap</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Introdução ao JavaScript</li>
+          <li class="fragment">Manipulação básica do DOM</li>
+          <li class="fragment">Conceitos fundamentais de eventos</li>
+          <li class="fragment">Conhecer o framework Bootstrap</li>
+          <li class="fragment">Implementar componentes Bootstrap</li>
+          <li class="fragment">Criar layouts responsivos profissionais</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - JavaScript Introdução -->
+      <section>
+        <section>
+          <h2>🟨 JavaScript - Introdução</h2>
+          <p><strong>JavaScript (JS)</strong> é uma linguagem de programação interpretada</p>
+          <p class="fragment">Criada em 1995 por Brendan Eich na Netscape</p>
+          
+          <div class="fragment">
+            <h3>Características:</h3>
+            <ul>
+              <li>Linguagem interpretada (não compilada)</li>
+              <li>Dinâmica e fracamente tipada</li>
+              <li>Orientada a objetos e funcional</li>
+              <li>Executa no cliente (navegador) e servidor (Node.js)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>📍 Onde usar JavaScript</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div>
+              <h4>🖥️ Client-Side</h4>
+              <ul class="fragment">
+                <li>Interatividade em páginas</li>
+                <li>Validação de formulários</li>
+                <li>Manipulação do DOM</li>
+                <li>AJAX/Fetch API</li>
+                <li>Animações</li>
+                <li>Single Page Applications</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🔧 Outras Aplicações</h4>
+              <ul class="fragment">
+                <li>Server-Side (Node.js)</li>
+                <li>Mobile (React Native)</li>
+                <li>Desktop (Electron)</li>
+                <li>IoT e automação</li>
+                <li>APIs e microsserviços</li>
+                <li>Machine Learning</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>💻 Como incluir JavaScript</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div>
+              <h4>Inline</h4>
+              <pre><code class="language-html">
+&lt;button onclick="alert('Clicou!')"&gt;
+  Botão
+&lt;/button&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Interno</h4>
+              <pre><code class="language-html">
+&lt;script&gt;
+  function minhaFuncao() {
+    alert('Olá Mundo!');
+  }
+&lt;/script&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Externo</h4>
+              <pre><code class="language-html">
+&lt;script src="script.js"&gt;&lt;/script&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - JavaScript Básico -->
+      <section>
+        <section>
+          <h2>📝 JavaScript Fundamentals</h2>
+        </section>
+
+        <section>
+          <h3>🔤 Variáveis e Tipos</h3>
+          <pre><code class="language-javascript">
+// Declaração de variáveis
+let nome = "João";           // String
+const idade = 25;            // Number
+var ativo = true;            // Boolean
+let salario = null;          // Null
+let endereco;                // Undefined
+
+// Arrays
+let frutas = ["maçã", "banana", "laranja"];
+let numeros = [1, 2, 3, 4, 5];
+
+// Objetos
+let pessoa = {
+  nome: "Maria",
+  idade: 30,
+  profissao: "Desenvolvedora",
+  ativa: true
+};
+
+// Funções
+function saudacao(nome) {
+  return "Olá, " + nome + "!";
+}
+
+// Arrow Functions (ES6+)
+const soma = (a, b) => a + b;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔀 Estruturas de Controle</h3>
+          <pre><code class="language-javascript">
+// Condicionais
+if (idade >= 18) {
+  console.log("Maior de idade");
+} else if (idade >= 13) {
+  console.log("Adolescente");
+} else {
+  console.log("Criança");
+}
+
+// Switch
+switch (dia) {
+  case 1:
+    console.log("Segunda-feira");
+    break;
+  case 2:
+    console.log("Terça-feira");
+    break;
+  default:
+    console.log("Outro dia");
+}
+
+// Loops
+for (let i = 0; i < 5; i++) {
+  console.log("Número: " + i);
+}
+
+frutas.forEach(function(fruta, indice) {
+  console.log(indice + ": " + fruta);
+});
+
+// While
+let contador = 0;
+while (contador < 3) {
+  console.log("Contador: " + contador);
+  contador++;
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 5 - DOM Manipulation -->
+      <section>
+        <section>
+          <h2>🎭 Manipulação do DOM</h2>
+          <p><strong>DOM (Document Object Model)</strong> - representação da estrutura HTML</p>
+        </section>
+
+        <section>
+          <h3>🔍 Selecionando Elementos</h3>
+          <pre><code class="language-javascript">
+// Por ID
+let titulo = document.getElementById("titulo");
+
+// Por classe
+let botoes = document.getElementsByClassName("botao");
+let primeiroCard = document.querySelector(".card");
+let todosCards = document.querySelectorAll(".card");
+
+// Por tag
+let paragrafos = document.getElementsByTagName("p");
+let primeiroParagrafo = document.querySelector("p");
+
+// Seletores CSS avançados
+let linkExterno = document.querySelector("a[href^='http']");
+let primeiroItem = document.querySelector("li:first-child");
+let ultimoItem = document.querySelector("li:last-child");
+
+// Relações entre elementos
+let pai = elemento.parentNode;
+let filhos = elemento.children;
+let proximoIrmao = elemento.nextElementSibling;
+let irmaoAnterior = elemento.previousElementSibling;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>✏️ Modificando Conteúdo</h3>
+          <pre><code class="language-javascript">
+// Alterando texto
+titulo.innerText = "Novo Título";
+titulo.textContent = "Título com formatação";
+
+// Alterando HTML
+div.innerHTML = "&lt;strong&gt;Texto em negrito&lt;/strong&gt;";
+
+// Alterando atributos
+imagem.src = "nova-imagem.jpg";
+imagem.alt = "Nova descrição";
+link.href = "https://exemplo.com";
+
+// Classes CSS
+elemento.classList.add("ativa");
+elemento.classList.remove("inativa");
+elemento.classList.toggle("highlight");
+elemento.classList.contains("especial"); // retorna boolean
+
+// Estilos inline
+elemento.style.color = "red";
+elemento.style.backgroundColor = "yellow";
+elemento.style.fontSize = "20px";
+
+// Múltiplos estilos
+Object.assign(elemento.style, {
+  color: "blue",
+  padding: "10px",
+  borderRadius: "5px"
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>➕ Criando e Removendo Elementos</h3>
+          <pre><code class="language-javascript">
+// Criando novos elementos
+let novoParagrafo = document.createElement("p");
+novoParagrafo.textContent = "Parágrafo criado dinamicamente";
+novoParagrafo.className = "destaque";
+
+// Adicionando ao DOM
+let container = document.getElementById("container");
+container.appendChild(novoParagrafo);
+
+// Inserindo em posição específica
+let lista = document.getElementById("lista");
+let novoItem = document.createElement("li");
+novoItem.textContent = "Novo item";
+lista.insertBefore(novoItem, lista.firstChild);
+
+// Removendo elementos
+let elementoParaRemover = document.getElementById("remover");
+elementoParaRemover.parentNode.removeChild(elementoParaRemover);
+
+// Método moderno (ES6+)
+elementoParaRemover.remove();
+
+// Substituindo elementos
+let elementoNovo = document.createElement("div");
+elementoNovo.textContent = "Elemento substituto";
+pai.replaceChild(elementoNovo, elementoAntigo);
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Eventos JavaScript -->
+      <section>
+        <section>
+          <h2>⚡ Eventos em JavaScript</h2>
+          <p>Interagindo com ações do usuário</p>
+        </section>
+
+        <section>
+          <h3>👆 Tipos de Eventos</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div>
+              <h4>🖱️ Mouse</h4>
+              <ul>
+                <li><strong>click</strong> - Clique simples</li>
+                <li><strong>dblclick</strong> - Clique duplo</li>
+                <li><strong>mouseenter</strong> - Mouse entra</li>
+                <li><strong>mouseleave</strong> - Mouse sai</li>
+                <li><strong>mouseover</strong> - Mouse sobre</li>
+                <li><strong>mouseout</strong> - Mouse fora</li>
+              </ul>
+            </div>
+            <div>
+              <h4>⌨️ Teclado & Form</h4>
+              <ul>
+                <li><strong>keydown</strong> - Tecla pressionada</li>
+                <li><strong>keyup</strong> - Tecla solta</li>
+                <li><strong>submit</strong> - Envio de form</li>
+                <li><strong>change</strong> - Mudança em input</li>
+                <li><strong>input</strong> - Entrada de dados</li>
+                <li><strong>focus/blur</strong> - Foco/desfoque</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎧 Adicionando Event Listeners</h3>
+          <pre><code class="language-javascript">
+// Método recomendado - addEventListener
+let botao = document.getElementById("meuBotao");
+
+botao.addEventListener("click", function() {
+  alert("Botão clicado!");
+});
+
+// Com arrow function
+botao.addEventListener("click", () => {
+  console.log("Clique detectado!");
+});
+
+// Função nomeada
+function handleClick(event) {
+  console.log("Elemento clicado:", event.target);
+  console.log("Tipo do evento:", event.type);
+  console.log("Posição do mouse:", event.clientX, event.clientY);
+}
+
+botao.addEventListener("click", handleClick);
+
+// Removendo event listener
+botao.removeEventListener("click", handleClick);
+
+// Múltiplos eventos no mesmo elemento
+botao.addEventListener("mouseenter", () => {
+  botao.style.backgroundColor = "lightblue";
+});
+
+botao.addEventListener("mouseleave", () => {
+  botao.style.backgroundColor = "";
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exemplo Prático - Formulário</h3>
+          <pre><code class="language-javascript">
+// Validação de formulário
+let formulario = document.getElementById("meuFormulario");
+let campoEmail = document.getElementById("email");
+let campoSenha = document.getElementById("senha");
+
+formulario.addEventListener("submit", function(event) {
+  event.preventDefault(); // Impede envio padrão
+  
+  let email = campoEmail.value.trim();
+  let senha = campoSenha.value.trim();
+  
+  // Validações
+  if (email === "") {
+    alert("Por favor, preencha o email");
+    campoEmail.focus();
+    return;
+  }
+  
+  if (!email.includes("@")) {
+    alert("Email inválido");
+    campoEmail.focus();
+    return;
+  }
+  
+  if (senha.length < 6) {
+    alert("Senha deve ter pelo menos 6 caracteres");
+    campoSenha.focus();
+    return;
+  }
+  
+  // Se chegou até aqui, dados são válidos
+  console.log("Formulário válido!");
+  // Aqui você enviaria os dados para o servidor
+});
+
+// Validação em tempo real
+campoEmail.addEventListener("input", function() {
+  if (this.value.includes("@")) {
+    this.style.borderColor = "green";
+  } else {
+    this.style.borderColor = "red";
+  }
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Bootstrap Introduction -->
+      <section>
+        <section>
+          <h2>🥾 Bootstrap Framework</h2>
+          <p>Framework CSS mais popular para desenvolvimento responsivo</p>
+          <p class="fragment">Desenvolvido pelo Twitter em 2011</p>
+        </section>
+
+        <section>
+          <h3>✨ Vantagens do Bootstrap</h3>
+          <ul>
+            <li class="fragment">🚀 <strong>Desenvolvimento rápido</strong> - componentes prontos</li>
+            <li class="fragment">📱 <strong>Responsivo por padrão</strong> - mobile-first</li>
+            <li class="fragment">🔧 <strong>Customizável</strong> - temas e variáveis</li>
+            <li class="fragment">🌐 <strong>Cross-browser</strong> - compatibilidade</li>
+            <li class="fragment">📚 <strong>Bem documentado</strong> - comunidade ativa</li>
+            <li class="fragment">🎨 <strong>Design consistente</strong> - padrões estabelecidos</li>
+            <li class="fragment">⚡ <strong>Performance</strong> - otimizado e testado</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>📦 Instalação do Bootstrap</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Via CDN (mais fácil)</h4>
+              <pre><code class="language-html">
+&lt;!-- CSS --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- JavaScript (antes do &lt;/body&gt;) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Download local</h4>
+              <ol>
+                <li>Baixar do site oficial</li>
+                <li>Extrair arquivos</li>
+                <li>Copiar para projeto</li>
+                <li>Linkar arquivos CSS e JS</li>
+              </ol>
+              <pre><code class="language-html">
+&lt;link rel="stylesheet" href="css/bootstrap.min.css"&gt;
+&lt;script src="js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Sistema de Grid Bootstrap -->
+      <section>
+        <section>
+          <h2>🔢 Sistema de Grid Bootstrap</h2>
+          <p>Layout flexível baseado em 12 colunas</p>
+        </section>
+
+        <section>
+          <h3>📐 Estrutura Básica</h3>
+          <pre><code class="language-html">
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6"&gt;Coluna 1 (50%)&lt;/div&gt;
+    &lt;div class="col-md-6"&gt;Coluna 2 (50%)&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-4"&gt;Coluna 1 (33%)&lt;/div&gt;
+    &lt;div class="col-md-4"&gt;Coluna 2 (33%)&lt;/div&gt;
+    &lt;div class="col-md-4"&gt;Coluna 3 (33%)&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-8"&gt;Conteúdo principal (67%)&lt;/div&gt;
+    &lt;div class="col-md-4"&gt;Sidebar (33%)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📱 Breakpoints Responsivos</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Classe</th>
+                <th>Dispositivo</th>
+                <th>Largura</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>.col-*</td>
+                <td>Extra pequeno</td>
+                <td>&lt; 576px</td>
+              </tr>
+              <tr class="fragment">
+                <td>.col-sm-*</td>
+                <td>Pequeno</td>
+                <td>≥ 576px</td>
+              </tr>
+              <tr class="fragment">
+                <td>.col-md-*</td>
+                <td>Médio</td>
+                <td>≥ 768px</td>
+              </tr>
+              <tr class="fragment">
+                <td>.col-lg-*</td>
+                <td>Grande</td>
+                <td>≥ 992px</td>
+              </tr>
+              <tr class="fragment">
+                <td>.col-xl-*</td>
+                <td>Extra grande</td>
+                <td>≥ 1200px</td>
+              </tr>
+              <tr class="fragment">
+                <td>.col-xxl-*</td>
+                <td>Extra extra grande</td>
+                <td>≥ 1400px</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>🎯 Exemplos Avançados de Grid</h3>
+          <pre><code class="language-html">
+&lt;!-- Layout responsivo combinado --&gt;
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-12 col-md-8 col-lg-9"&gt;
+      Conteúdo principal
+      &lt;!-- 100% em mobile, 67% em tablet, 75% em desktop --&gt;
+    &lt;/div&gt;
+    &lt;div class="col-12 col-md-4 col-lg-3"&gt;
+      Sidebar
+      &lt;!-- 100% em mobile, 33% em tablet, 25% em desktop --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Offset (deslocamento) --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-4 offset-md-4"&gt;
+    Centralizado (4 colunas com 4 de offset em cada lado)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Auto-sizing --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col"&gt;Largura automática&lt;/div&gt;
+  &lt;div class="col"&gt;Largura automática&lt;/div&gt;
+  &lt;div class="col-6"&gt;Largura fixa (50%)&lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Componentes Bootstrap -->
+      <section>
+        <section>
+          <h2>🧩 Componentes Bootstrap</h2>
+        </section>
+
+        <section>
+          <h3>🎛️ Navbar</h3>
+          <pre><code class="language-html">
+&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;Meu Site&lt;/a&gt;
+    
+    &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    
+    &lt;div class="collapse navbar-collapse" id="navbarNav"&gt;
+      &lt;ul class="navbar-nav ms-auto"&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link active" href="#"&gt;Home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;Sobre&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item dropdown"&gt;
+          &lt;a class="nav-link dropdown-toggle" href="#" role="button" 
+             data-bs-toggle="dropdown"&gt;Serviços&lt;/a&gt;
+          &lt;ul class="dropdown-menu"&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Web Design&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Desenvolvimento&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Consultoria&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;Contato&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🃏 Cards</h3>
+          <pre><code class="language-html">
+&lt;div class="row"&gt;
+  &lt;div class="col-md-4 mb-4"&gt;
+    &lt;div class="card h-100"&gt;
+      &lt;img src="imagem1.jpg" class="card-img-top" alt="..."&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="card-title"&gt;Título do Card&lt;/h5&gt;
+        &lt;p class="card-text"&gt;Descrição do conteúdo do card. 
+           Este texto pode ser longo ou curto.&lt;/p&gt;
+        &lt;a href="#" class="btn btn-primary"&gt;Saiba mais&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;div class="card-footer text-muted"&gt;
+        Atualizado há 3 mins
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="col-md-4 mb-4"&gt;
+    &lt;div class="card h-100"&gt;
+      &lt;div class="card-header"&gt;
+        Em destaque
+      &lt;/div&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="card-title"&gt;Card especial&lt;/h5&gt;
+        &lt;p class="card-text"&gt;Card com header personalizado.&lt;/p&gt;
+        &lt;a href="#" class="btn btn-success"&gt;Ação&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔘 Botões e Badges</h3>
+          <pre><code class="language-html">
+&lt;!-- Botões com diferentes estilos --&gt;
+&lt;button type="button" class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button type="button" class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button type="button" class="btn btn-success"&gt;Success&lt;/button&gt;
+&lt;button type="button" class="btn btn-danger"&gt;Danger&lt;/button&gt;
+&lt;button type="button" class="btn btn-warning"&gt;Warning&lt;/button&gt;
+&lt;button type="button" class="btn btn-info"&gt;Info&lt;/button&gt;
+
+&lt;!-- Botões outline --&gt;
+&lt;button type="button" class="btn btn-outline-primary"&gt;Outline&lt;/button&gt;
+&lt;button type="button" class="btn btn-outline-success"&gt;Outline&lt;/button&gt;
+
+&lt;!-- Tamanhos de botões --&gt;
+&lt;button type="button" class="btn btn-primary btn-lg"&gt;Grande&lt;/button&gt;
+&lt;button type="button" class="btn btn-primary"&gt;Normal&lt;/button&gt;
+&lt;button type="button" class="btn btn-primary btn-sm"&gt;Pequeno&lt;/button&gt;
+
+&lt;!-- Badges --&gt;
+&lt;span class="badge bg-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge bg-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge bg-danger"&gt;Danger&lt;/span&gt;
+
+&lt;!-- Badge em botão --&gt;
+&lt;button type="button" class="btn btn-primary"&gt;
+  Notificações &lt;span class="badge bg-secondary"&gt;4&lt;/span&gt;
+&lt;/button&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Formulários Bootstrap -->
+      <section>
+        <section>
+          <h2>📝 Formulários Bootstrap</h2>
+        </section>
+
+        <section>
+          <h3>📋 Formulário Básico</h3>
+          <pre><code class="language-html">
+&lt;form&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;
+    &lt;input type="email" class="form-control" id="email" 
+           placeholder="nome@exemplo.com"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-3"&gt;
+    &lt;label for="password" class="form-label"&gt;Senha&lt;/label&gt;
+    &lt;input type="password" class="form-control" id="password"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-3"&gt;
+    &lt;label for="select" class="form-label"&gt;Estado&lt;/label&gt;
+    &lt;select class="form-select" id="select"&gt;
+      &lt;option selected disabled&gt;Escolha um estado...&lt;/option&gt;
+      &lt;option value="sp"&gt;São Paulo&lt;/option&gt;
+      &lt;option value="rj"&gt;Rio de Janeiro&lt;/option&gt;
+      &lt;option value="mg"&gt;Minas Gerais&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-3"&gt;
+    &lt;label for="textarea" class="form-label"&gt;Mensagem&lt;/label&gt;
+    &lt;textarea class="form-control" id="textarea" rows="3"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-3 form-check"&gt;
+    &lt;input type="checkbox" class="form-check-input" id="check"&gt;
+    &lt;label class="form-check-label" for="check"&gt;
+      Concordo com os termos
+    &lt;/label&gt;
+  &lt;/div&gt;
+  
+  &lt;button type="submit" class="btn btn-primary"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Input Groups e Validação</h3>
+          <pre><code class="language-html">
+&lt;!-- Input group com ícones --&gt;
+&lt;div class="input-group mb-3"&gt;
+  &lt;span class="input-group-text"&gt;@&lt;/span&gt;
+  &lt;input type="text" class="form-control" placeholder="Username"&gt;
+&lt;/div&gt;
+
+&lt;div class="input-group mb-3"&gt;
+  &lt;input type="text" class="form-control" placeholder="Preço"&gt;
+  &lt;span class="input-group-text"&gt;R$&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Validação --&gt;
+&lt;form class="needs-validation" novalidate&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="validationCustom01" class="form-label"&gt;Nome&lt;/label&gt;
+    &lt;input type="text" class="form-control" id="validationCustom01" required&gt;
+    &lt;div class="valid-feedback"&gt;Perfeito!&lt;/div&gt;
+    &lt;div class="invalid-feedback"&gt;Por favor, informe o nome.&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-3"&gt;
+    &lt;label for="validationCustom02" class="form-label"&gt;Email&lt;/label&gt;
+    &lt;input type="email" class="form-control" id="validationCustom02" required&gt;
+    &lt;div class="invalid-feedback"&gt;Por favor, informe um email válido.&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;button class="btn btn-primary" type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Prática no Eclipse -->
+      <section>
+        <section>
+          <h2>💻 Prática: Bootstrap no Eclipse</h2>
+        </section>
+
+        <section>
+          <h3>🚀 Setup do Projeto</h3>
+          <ol>
+            <li class="fragment">Abrir projeto "AulaHTML" no Eclipse</li>
+            <li class="fragment">Criar nova página: WebContent/bootstrap.html</li>
+            <li class="fragment">Adicionar links para Bootstrap via CDN</li>
+            <li class="fragment">Criar estrutura HTML5 básica</li>
+            <li class="fragment">Configurar container responsivo</li>
+          </ol>
+
+          <pre class="fragment"><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Prática Bootstrap&lt;/title&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Conteúdo aqui --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício 1: Landing Page</h3>
+          <p>Criar uma landing page com:</p>
+          <ul>
+            <li class="fragment">Navbar responsiva com logo e links</li>
+            <li class="fragment">Hero section com jumbotron</li>
+            <li class="fragment">Seção de serviços com cards (3 colunas)</li>
+            <li class="fragment">Formulário de contato responsivo</li>
+            <li class="fragment">Footer com informações</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>📝 Exercício 2: Dashboard</h3>
+          <p>Desenvolver um painel administrativo:</p>
+          <ul>
+            <li class="fragment">Sidebar fixa com navegação</li>
+            <li class="fragment">Cards com estatísticas</li>
+            <li class="fragment">Tabela responsiva com dados</li>
+            <li class="fragment">Modais para ações</li>
+            <li class="fragment">Breadcrumbs para navegação</li>
+            <li class="fragment">Alerts para feedback</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>⚡ Adicionando JavaScript</h3>
+          <pre><code class="language-javascript">
+// Validação de formulário Bootstrap
+document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
+  
+  // Buscar todos os formulários com validação
+  var forms = document.querySelectorAll('.needs-validation');
+  
+  Array.prototype.slice.call(forms).forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+  
+  // Inicializar tooltips
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+  
+  // Modal personalizado
+  var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+  document.getElementById('openModal').addEventListener('click', function() {
+    myModal.show();
+  });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Customização Bootstrap -->
+      <section>
+        <section>
+          <h2>🎨 Customizando Bootstrap</h2>
+        </section>
+
+        <section>
+          <h3>🔧 CSS Personalizado</h3>
+          <pre><code class="language-css">
+/* Sobrescrevendo estilos Bootstrap */
+:root {
+  --bs-primary: #007bff;
+  --bs-secondary: #6c757d;
+  --bs-success: #28a745;
+}
+
+/* Customizando navbar */
+.navbar-custom {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.navbar-custom .navbar-brand {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: white;
+}
+
+/* Cards personalizados */
+.card-custom {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+}
+
+/* Botões personalizados */
+.btn-custom {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  transform: scale(1.05);
+  color: white;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎪 Temas Bootstrap</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Temas Gratuitos</h4>
+              <ul>
+                <li><strong>Bootswatch</strong> - bootswatch.com</li>
+                <li><strong>Start Bootstrap</strong> - startbootstrap.com</li>
+                <li><strong>Bootstrap Made</strong> - bootstrapmade.com</li>
+                <li><strong>Colorlib</strong> - colorlib.com</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Implementação</h4>
+              <pre><code class="language-html">
+&lt;!-- Tema Bootswatch Darkly --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/darkly/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- Tema Bootswatch Lux --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/lux/bootstrap.min.css" rel="stylesheet"&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 13 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aula 5 - Biblioteca jQuery</h3>
+        <ul>
+          <li class="fragment">Introdução ao jQuery</li>
+          <li class="fragment">Seletores e manipulação DOM</li>
+          <li class="fragment">Eventos jQuery</li>
+          <li class="fragment">Efeitos e animações</li>
+          <li class="fragment">AJAX com jQuery</li>
+          <li class="fragment">Prática: Páginas dinâmicas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 14 - Exercícios para Casa -->
+      <section>
+        <h2>🏠 Exercícios para Casa</h2>
+        <ol>
+          <li class="fragment">Complete a landing page com Bootstrap iniciada em aula</li>
+          <li class="fragment">Crie uma página de portfólio responsiva</li>
+          <li class="fragment">Desenvolva um formulário de cadastro completo com validação</li>
+          <li class="fragment">Implemente um carousel de imagens</li>
+          <li class="fragment">Adicione JavaScript para interatividade</li>
+        </ol>
+      </section>
+
+      <!-- Slide 15 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aula 2: Angular Framework - Frameworks Front-End</title>
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            color: #ff79c6 !important;
+        }
+        
+        .reveal .progress {
+            color: #ff79c6;
+        }
+        
+        .reveal .controls {
+            color: #ff79c6;
+        }
+        
+        .highlight-text {
+            color: #50fa7b !important;
+            font-weight: bold;
+        }
+        
+        .warning-text {
+            color: #ffb86c !important;
+            font-weight: bold;
+        }
+        
+        .danger-text {
+            color: #ff5555 !important;
+            font-weight: bold;
+        }
+        
+        .info-text {
+            color: #8be9fd !important;
+            font-weight: bold;
+        }
+        
+        .reveal .slides section .fragment.highlight-red.visible {
+            color: #ff5555;
+        }
+        
+        .reveal .slides section .fragment.highlight-green.visible {
+            color: #50fa7b;
+        }
+        
+        .reveal .slides section .fragment.highlight-blue.visible {
+            color: #8be9fd;
+        }
+        
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .code-title {
+            background: #44475a;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        
+        .code-container pre {
+            margin: 0 !important;
+            border-radius: 0 0 5px 5px !important;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8em;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #6272a4;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background: #44475a;
+            color: #f8f8f2;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #282a36;
+        }
+        
+        .angular-red { color: #dd0031 !important; }
+        .typescript-blue { color: #3178c6 !important; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #282a36;
+            border: 2px solid #6272a4;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff79c6;
+        }
+        
+        .architecture-diagram {
+            background: #282a36;
+            border: 2px solid #6272a4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .lifecycle-steps {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .lifecycle-step {
+            background: #44475a;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8f8f2;
+            font-weight: bold;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Título -->
+            <section data-background-gradient="linear-gradient(45deg, #dd0031, #c3002f)">
+                <h1>🅰️ Angular Framework</h1>
+                <h3>Aula 2: Desenvolvimento Front-End Estruturado</h3>
+                <p><strong>Frameworks Front-End</strong></p>
+                <p>Centro Universitário Maurício de Nassau</p>
+                <br>
+                <p><small>Prof. Dr. Diogo Francisco Borba Rodrigues</small></p>
+                <p><small><i class="fab fa-linkedin"></i> LinkedIn | <i class="fab fa-github"></i> GitHub</small></p>
+            </section>
+
+            <!-- Slide 2: Agenda da Aula -->
+            <section>
+                <h2>📋 Agenda da Aula</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-info-circle"></i>
+                        <h4>O que é Angular?</h4>
+                        <p>Introdução e história</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fab fa-js"></i>
+                        <h4>TypeScript</h4>
+                        <p>Base do Angular</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-cubes"></i>
+                        <h4>Arquitetura</h4>
+                        <p>Módulos e Componentes</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-code"></i>
+                        <h4>Prática</h4>
+                        <p>Primeiro projeto</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: O que é Angular? -->
+            <section>
+                <h2>🅰️ O que é o Angular?</h2>
+                <div class="architecture-diagram">
+                    <div class="fragment">
+                        <h3 class="angular-red">Framework Completo para Web</h3>
+                        <p>Desenvolvido e mantido pelo Google</p>
+                    </div>
+                    <br>
+                    <div class="fragment">
+                        <i class="fas fa-rocket" style="font-size: 3em; color: #dd0031;"></i>
+                        <p><strong>Versão Atual:</strong> Angular 17+ (2024)</p>
+                        <p><strong>Primeira Versão:</strong> AngularJS (2010) → Angular 2+ (2016)</p>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="highlight-text">💡 "Angular é uma plataforma para construir aplicações web móveis e desktop"</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: Angular vs AngularJS -->
+            <section>
+                <h2>⚡ Angular vs AngularJS</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th class="warning-text">AngularJS (1.x)</th>
+                            <th class="angular-red">Angular (2+)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment">
+                            <td><strong>Linguagem</strong></td>
+                            <td>JavaScript</td>
+                            <td class="typescript-blue">TypeScript</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Arquitetura</strong></td>
+                            <td>MVC</td>
+                            <td>Componentes</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Mobile</strong></td>
+                            <td>Não otimizado</td>
+                            <td>Mobile-first</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Performance</strong></td>
+                            <td>Two-way binding</td>
+                            <td>Change Detection</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>CLI</strong></td>
+                            <td>Não oficial</td>
+                            <td>Angular CLI oficial</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 5: Por que TypeScript? -->
+            <section>
+                <h2>🔷 Por que TypeScript no Angular?</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-shield-alt typescript-blue"></i>
+                        <h4>Tipagem Estática</h4>
+                        <p>Previne erros em tempo de compilação</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-brain typescript-blue"></i>
+                        <h4>IntelliSense</h4>
+                        <p>Autocompletar inteligente</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-tools typescript-blue"></i>
+                        <h4>Refatoração</h4>
+                        <p>Mudanças seguras no código</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-rocket typescript-blue"></i>
+                        <h4>Features ES6+</h4>
+                        <p>Sintaxe moderna JavaScript</p>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <div class="code-container">
+                        <div class="code-title">TypeScript vs JavaScript</div>
+                        <pre><code class="typescript" data-trim>
+// JavaScript
+function somar(a, b) {
+    return a + b;
+}
+
+// TypeScript
+function somar(a: number, b: number): number {
+    return a + b;
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Arquitetura do Angular -->
+            <section>
+                <h2>🏗️ Arquitetura do Angular</h2>
+                <div class="architecture-diagram">
+                    <div class="lifecycle-steps">
+                        <div class="lifecycle-step fragment">
+                            <div>
+                                <i class="fas fa-cube"></i>
+                                <div style="font-size: 0.7em;">Módulos</div>
+                            </div>
+                        </div>
+                        <div style="color: #ff79c6; font-size: 2em;">→</div>
+                        <div class="lifecycle-step fragment">
+                            <div>
+                                <i class="fas fa-puzzle-piece"></i>
+                                <div style="font-size: 0.7em;">Componentes</div>
+                            </div>
+                        </div>
+                        <div style="color: #ff79c6; font-size: 2em;">→</div>
+                        <div class="lifecycle-step fragment">
+                            <div>
+                                <i class="fas fa-cogs"></i>
+                                <div style="font-size: 0.7em;">Serviços</div>
+                            </div>
+                        </div>
+                        <div style="color: #ff79c6; font-size: 2em;">→</div>
+                        <div class="lifecycle-step fragment">
+                            <div>
+                                <i class="fas fa-route"></i>
+                                <div style="font-size: 0.7em;">Roteamento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <h4 class="angular-red">Módulos (NgModule)</h4>
+                        <p>Organizam a aplicação em blocos funcionais</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="angular-red">Componentes</h4>
+                        <p>Controlam parte da tela (view)</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="angular-red">Serviços</h4>
+                        <p>Lógica de negócio e dados</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="angular-red">Dependência</h4>
+                        <p>Injeção de dependências</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Componentes Angular -->
+            <section>
+                <h2>🧩 Componentes no Angular</h2>
+                <p class="highlight-text">Um componente controla uma parte da tela chamada <em>view</em></p>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Estrutura de um Componente</div>
+                    <pre><code class="typescript" data-trim>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-exemplo',
+  template: `
+    <h1>{{titulo}}</h1>
+    <p>Bem-vindo, {{nome}}!</p>
+    <button (click)="cumprimentar()">Clique aqui</button>
+  `,
+  styleUrls: ['./exemplo.component.css']
+})
+export class ExemploComponent {
+  titulo = 'Meu Primeiro Componente';
+  nome = 'Estudante';
+  
+  cumprimentar() {
+    alert(`Olá, ${this.nome}!`);
+  }
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 8: Data Binding -->
+            <section>
+                <h2>🔗 Data Binding no Angular</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <h4 class="info-text">{{ }} Interpolação</h4>
+                        <p>Exibe dados do componente</p>
+                        <code>{{nome}}</code>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="info-text">[ ] Property Binding</h4>
+                        <p>Liga propriedades HTML</p>
+                        <code>[disabled]="isDisabled"</code>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="info-text">( ) Event Binding</h4>
+                        <p>Captura eventos</p>
+                        <code>(click)="onClick()"</code>
+                    </div>
+                    <div class="feature-card fragment">
+                        <h4 class="info-text">[( )] Two-way</h4>
+                        <p>Binding bidirecional</p>
+                        <code>[(ngModel)]="nome"</code>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Exemplo Prático</div>
+                    <pre><code class="html" data-trim>
+<div>
+  <!-- Interpolação -->
+  <h2>Olá, {{usuario.nome}}</h2>
+  
+  <!-- Property Binding -->
+  <img [src]="usuario.foto" [alt]="usuario.nome">
+  
+  <!-- Event Binding -->
+  <button (click)="salvar()" [disabled]="!formularioValido">
+    Salvar
+  </button>
+  
+  <!-- Two-way Binding -->
+  <input [(ngModel)]="usuario.email" placeholder="Email">
+</div>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 9: Diretivas Angular -->
+            <section>
+                <h2>📋 Diretivas do Angular</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-eye highlight-text"></i>
+                        <h4>*ngIf</h4>
+                        <p>Condicional</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-list highlight-text"></i>
+                        <h4>*ngFor</h4>
+                        <p>Loop/Repetição</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-toggle-on highlight-text"></i>
+                        <h4>ngSwitch</h4>
+                        <p>Múltiplas condições</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-palette highlight-text"></i>
+                        <h4>ngClass / ngStyle</h4>
+                        <p>Estilos dinâmicos</p>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Exemplos de Diretivas</div>
+                    <pre><code class="html" data-trim>
+<!-- *ngIf - Condicional -->
+<div *ngIf="usuario.logado">
+  Bem-vindo, {{usuario.nome}}!
+</div>
+
+<!-- *ngFor - Loop -->
+<ul>
+  <li *ngFor="let produto of produtos; let i = index">
+    {{i + 1}}. {{produto.nome}} - R$ {{produto.preco}}
+  </li>
+</ul>
+
+<!-- ngClass - Classes dinâmicas -->
+<button [ngClass]="{
+  'btn-success': status === 'ativo',
+  'btn-danger': status === 'inativo'
+}">
+  Status: {{status}}
+</button>
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 10: Angular CLI -->
+            <section>
+                <h2>⚡ Angular CLI - Command Line Interface</h2>
+                <p class="highlight-text">Ferramenta oficial para criar e gerenciar projetos Angular</p>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Comandos Essenciais</div>
+                    <pre><code class="bash" data-trim>
+# Instalar Angular CLI
+npm install -g @angular/cli
+
+# Criar novo projeto
+ng new meu-projeto
+
+# Servir aplicação (desenvolvimento)
+ng serve
+
+# Gerar componente
+ng generate component meu-componente
+
+# Gerar serviço
+ng generate service meu-servico
+
+# Build para produção
+ng build --prod
+                    </code></pre>
+                </div>
+                
+                <div class="features-grid fragment">
+                    <div class="feature-card">
+                        <i class="fas fa-magic angular-red"></i>
+                        <h4>Scaffolding</h4>
+                        <p>Cria estrutura automaticamente</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-server angular-red"></i>
+                        <h4>Dev Server</h4>
+                        <p>Servidor de desenvolvimento</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-hammer angular-red"></i>
+                        <h4>Build System</h4>
+                        <p>Compilação otimizada</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-vial angular-red"></i>
+                        <h4>Testing</h4>
+                        <p>Suporte a testes integrado</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: Estrutura do Projeto -->
+            <section>
+                <h2>📁 Estrutura do Projeto Angular</h2>
+                <div class="code-container">
+                    <div class="code-title">Estrutura de Pastas</div>
+                    <pre><code class="text" data-trim>
+meu-projeto/
+├── src/
+│   ├── app/
+│   │   ├── app.component.ts     # Componente principal
+│   │   ├── app.component.html   # Template principal
+│   │   ├── app.component.css    # Estilos principais
+│   │   ├── app.module.ts        # Módulo principal
+│   │   └── app-routing.module.ts # Configuração de rotas
+│   ├── assets/                  # Recursos estáticos
+│   ├── environments/            # Configurações de ambiente
+│   ├── index.html              # Página principal
+│   ├── main.ts                 # Bootstrap da aplicação
+│   └── styles.css              # Estilos globais
+├── angular.json                # Configuração do projeto
+├── package.json               # Dependências
+└── tsconfig.json             # Configuração TypeScript
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 12: Atividade Prática - Parte 1 -->
+            <section>
+                <h2>💻 Atividade Prática - Parte 1</h2>
+                <h3 class="highlight-text">Criando seu primeiro projeto Angular</h3>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-download angular-red"></i>
+                        <h4>Passo 1</h4>
+                        <p>Instalar Node.js e Angular CLI</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-plus angular-red"></i>
+                        <h4>Passo 2</h4>
+                        <p>Criar projeto "minha-loja"</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-play angular-red"></i>
+                        <h4>Passo 3</h4>
+                        <p>Executar o projeto</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-eye angular-red"></i>
+                        <h4>Passo 4</h4>
+                        <p>Explorar a estrutura</p>
+                    </div>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">Comandos para Executar</div>
+                    <pre><code class="bash" data-trim>
+# 1. Verificar se Node.js está instalado
+node --version
+npm --version
+
+# 2. Instalar Angular CLI globalmente
+npm install -g @angular/cli
+
+# 3. Criar novo projeto
+ng new minha-loja --routing --style=css
+
+# 4. Entrar na pasta e executar
+cd minha-loja
+ng serve --open
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 13: Atividade Prática - Parte 2 -->
+            <section>
+                <h2>💻 Atividade Prática - Parte 2</h2>
+                <h3 class="highlight-text">Criando componente de produto</h3>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">1. Gerar componente produto</div>
+                    <pre><code class="bash" data-trim>
+ng generate component produto
+                    </code></pre>
+                </div>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">2. Editar produto.component.ts</div>
+                    <pre><code class="typescript" data-trim>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-produto',
+  templateUrl: './produto.component.html',
+  styleUrls: ['./produto.component.css']
+})
+export class ProdutoComponent {
+  produto = {
+    nome: 'Smartphone Galaxy',
+    preco: 1299.99,
+    descricao: 'Smartphone com 128GB de armazenamento',
+    disponivel: true,
+    imagem: 'https://via.placeholder.com/200'
+  };
+  
+  comprar() {
+    alert(`Produto ${this.produto.nome} adicionado ao carrinho!`);
+  }
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 14: Atividade Prática - Parte 3 -->
+            <section>
+                <h2>💻 Atividade Prática - Parte 3</h2>
+                <h3 class="highlight-text">Template do componente produto</h3>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">produto.component.html</div>
+                    <pre><code class="html" data-trim>
+<div class="produto-card">
+  <img [src]="produto.imagem" [alt]="produto.nome">
+  
+  <div class="produto-info">
+    <h3>{{produto.nome}}</h3>
+    <p>{{produto.descricao}}</p>
+    <p class="preco">R$ {{produto.preco}}</p>
+    
+    <div class="status" *ngIf="produto.disponivel; else indisponivel">
+      <span class="disponivel">✅ Disponível</span>
+    </div>
+    
+    <ng-template #indisponivel>
+      <span class="indisponivel">❌ Indisponível</span>
+    </ng-template>
+    
+    <button 
+      (click)="comprar()" 
+      [disabled]="!produto.disponivel"
+      class="btn-comprar">
+      Comprar
+    </button>
+  </div>
+</div>
+                    </code></pre>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💡 Adicione <code>&lt;app-produto&gt;&lt;/app-produto&gt;</code> no app.component.html</p>
+                </div>
+            </section>
+
+            <!-- Slide 15: Atividade Prática - Parte 4 -->
+            <section>
+                <h2>💻 Atividade Prática - Parte 4</h2>
+                <h3 class="highlight-text">Estilizando o componente</h3>
+                
+                <div class="code-container fragment">
+                    <div class="code-title">produto.component.css</div>
+                    <pre><code class="css" data-trim>
+.produto-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.produto-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.produto-info h3 {
+  color: #dd0031;
+  margin: 15px 0 10px 0;
+}
+
+.preco {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.btn-comprar {
+  background: #dd0031;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-comprar:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.disponivel { color: #28a745; }
+.indisponivel { color: #dc3545; }
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Slide 16: Vantagens do Angular -->
+            <section>
+                <h2>✅ Vantagens do Angular</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-shield-alt angular-red"></i>
+                        <h4>Enterprise Ready</h4>
+                        <p>Robusto para aplicações grandes</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fab fa-google angular-red"></i>
+                        <h4>Google Support</h4>
+                        <p>Mantido pelo Google</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-tools angular-red"></i>
+                        <h4>Ferramentas Completas</h4>
+                        <p>CLI, Testing, DevTools</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-mobile-alt angular-red"></i>
+                        <h4>Mobile Ready</h4>
+                        <p>PWA e Ionic integration</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fab fa-js typescript-blue"></i>
+                        <h4>TypeScript</h4>
+                        <p>Tipagem estática por padrão</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-rocket angular-red"></i>
+                        <h4>Performance</h4>
+                        <p>Change detection otimizado</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 17: Desvantagens do Angular -->
+            <section>
+                <h2>⚠️ Desafios do Angular</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-mountain danger-text"></i>
+                        <h4>Curva de Aprendizado</h4>
+                        <p>Complexo para iniciantes</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-weight-hanging warning-text"></i>
+                        <h4>Bundle Size</h4>
+                        <p>Aplicações podem ser pesadas</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-code-branch warning-text"></i>
+                        <h4>Frequent Updates</h4>
+                        <p>Versões novas regularmente</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-cogs warning-text"></i>
+                        <h4>Complexidade</h4>
+                        <p>Muitos conceitos para dominar</p>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💡 <strong>Dica:</strong> Angular é ideal para projetos grandes e equipes experientes</p>
+                </div>
+            </section>
+
+            <!-- Slide 18: Angular vs Concorrentes -->
+            <section>
+                <h2>⚔️ Angular vs Outros Frameworks</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th class="angular-red">Angular</th>
+                            <th style="color: #61dafb;">React</th>
+                            <th style="color: #4fc08d;">Vue.js</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment">
+                            <td><strong>Tipo</strong></td>
+                            <td>Framework Completo</td>
+                            <td>Library</td>
+                            <td>Framework Progressivo</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Linguagem</strong></td>
+                            <td class="typescript-blue">TypeScript</td>
+                            <td>JavaScript/JSX</td>
+                            <td>JavaScript</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Curva de Aprendizado</strong></td>
+                            <td class="danger-text">Íngreme</td>
+                            <td class="warning-text">Moderada</td>
+                            <td class="highlight-text">Suave</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Performance</strong></td>
+                            <td class="highlight-text">Muito Boa</td>
+                            <td class="highlight-text">Excelente</td>
+                            <td class="highlight-text">Muito Boa</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>Ecossistema</strong></td>
+                            <td class="highlight-text">Completo</td>
+                            <td class="highlight-text">Rico</td>
+                            <td class="warning-text">Crescendo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 19: Quando Usar Angular -->
+            <section>
+                <h2>🎯 Quando Usar Angular?</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment highlight-green">
+                        <i class="fas fa-thumbs-up"></i>
+                        <h4>✅ Use Angular Para:</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Aplicações enterprise</li>
+                            <li>Projetos de longo prazo</li>
+                            <li>Equipes grandes</li>
+                            <li>Aplicações complexas</li>
+                            <li>Quando precisa de estrutura</li>
+                            <li>PWAs (Progressive Web Apps)</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment highlight-red">
+                        <i class="fas fa-thumbs-down"></i>
+                        <h4>❌ Evite Angular Para:</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Projetos pequenos/simples</li>
+                            <li>Prototipagem rápida</li>
+                            <li>Equipes iniciantes</li>
+                            <li>Landing pages</li>
+                            <li>Sites estáticos</li>
+                            <li>Quando performance é crítica</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💼 <strong>Mercado de Trabalho:</strong> Angular é muito procurado em empresas grandes e projetos corporativos</p>
+                </div>
+            </section>
+
+            <!-- Slide 20: Próximos Passos -->
+            <section>
+                <h2>🚀 Próximos Passos com Angular</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-route angular-red"></i>
+                        <h4>Roteamento</h4>
+                        <p>Angular Router para navegação</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-database angular-red"></i>
+                        <h4>Serviços HTTP</h4>
+                        <p>Consumir APIs REST</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-check-square angular-red"></i>
+                        <h4>Formulários</h4>
+                        <p>Reactive Forms e validação</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-plug angular-red"></i>
+                        <h4>Pipes & Directives</h4>
+                        <p>Transformação de dados</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-mobile angular-red"></i>
+                        <h4>PWA</h4>
+                        <p>Progressive Web Apps</p>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-vial angular-red"></i>
+                        <h4>Testing</h4>
+                        <p>Jasmine e Karma</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 21: Resumo da Aula -->
+            <section>
+                <h2>📚 Resumo da Aula</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-check-circle highlight-text"></i>
+                        <h4>O que Aprendemos</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>O que é Angular e TypeScript</li>
+                            <li>Arquitetura: Módulos, Componentes</li>
+                            <li>Data Binding e Diretivas</li>
+                            <li>Angular CLI na prática</li>
+                            <li>Primeiro projeto funcional</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-lightbulb warning-text"></i>
+                        <h4>Principais Conceitos</h4>
+                        <ul style="text-align: left; font-size: 0.9em;">
+                            <li>Framework completo e estruturado</li>
+                            <li>TypeScript como base</li>
+                            <li>Component-based architecture</li>
+                            <li>Two-way data binding</li>
+                            <li>Dependency Injection</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <h3 class="highlight-text">🎯 Na próxima aula: Vue.js - Framework Progressivo</h3>
+                    <p>Vamos explorar uma abordagem mais simples e flexível para desenvolvimento front-end!</p>
+                </div>
+            </section>
+
+            <!-- Slide 22: Atividades e Recursos -->
+            <section>
+                <h2>📖 Atividades e Recursos</h2>
+                <div class="features-grid">
+                    <div class="feature-card fragment">
+                        <i class="fas fa-tasks angular-red"></i>
+                        <h4>Para Casa</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>Completar o projeto "minha-loja"</li>
+                            <li>Adicionar mais produtos</li>
+                            <li>Criar componente de lista</li>
+                            <li>Implementar carrinho simples</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card fragment">
+                        <i class="fas fa-book angular-red"></i>
+                        <h4>Recursos Recomendados</h4>
+                        <ul style="text-align: left; font-size: 0.8em;">
+                            <li>📚 <a href="https://angular.io" style="color: #8be9fd;">angular.io</a></li>
+                            <li>🎓 <a href="https://angular.io/tutorial" style="color: #8be9fd;">Tour of Heroes</a></li>
+                            <li>📺 <a href="https://www.youtube.com/angular" style="color: #8be9fd;">Angular YouTube</a></li>
+                            <li>💻 <a href="https://stackblitz.com" style="color: #8be9fd;">StackBlitz</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="fragment">
+                    <p class="info-text">💡 <strong>Dica de Estudo:</strong> Pratique criando pequenos componentes diariamente</p>
+                </div>
+            </section>
+
+            <!-- Slide 23: Obrigado -->
+            <section data-background-gradient="linear-gradient(45deg, #dd0031, #c3002f)">
+                <h1>🅰️ Obrigado!</h1>
+                <h3>Angular Framework - Aula 2</h3>
+                <br>
+                <p><strong>Próxima aula:</strong> Vue.js - Framework Progressivo</p>
+                <br>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <div class="social-links" style="margin-top: 2rem;">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" style="color: white; margin: 0 1rem;">
+                        <i class="fab fa-linkedin" style="font-size: 2rem;"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" style="color: white; margin: 0 1rem;">
+                        <i class="fab fa-github" style="font-size: 2rem;"></i>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <p style="font-size: 0.8em;">🚀 Continue explorando o mundo dos frameworks!</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/math/math.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+        });
+    </script>
+</body>
+</html>

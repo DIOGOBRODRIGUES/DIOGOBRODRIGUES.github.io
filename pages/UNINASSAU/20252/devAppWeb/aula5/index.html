@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 5 - Biblioteca jQuery</title>
+
+  <meta name="description" content="Biblioteca jQuery - Uso do jQuery para páginas dinâmicas">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 5 - Biblioteca jQuery</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Compreender o que é jQuery</li>
+          <li class="fragment">Dominar seletores jQuery</li>
+          <li class="fragment">Manipular DOM com jQuery</li>
+          <li class="fragment">Trabalhar com eventos</li>
+          <li class="fragment">Criar efeitos e animações</li>
+          <li class="fragment">Implementar AJAX básico</li>
+          <li class="fragment">Desenvolver páginas dinâmicas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é jQuery -->
+      <section>
+        <section>
+          <h2>💙 O que é jQuery?</h2>
+          <p><strong>"Write less, do more"</strong></p>
+          <p class="fragment">Biblioteca JavaScript rápida, pequena e rica em recursos</p>
+          
+          <div class="fragment">
+            <h3>Vantagens:</h3>
+            <ul>
+              <li>Sintaxe simplificada</li>
+              <li>Cross-browser compatibility</li>
+              <li>Seletores CSS poderosos</li>
+              <li>Efeitos e animações integradas</li>
+              <li>AJAX simplificado</li>
+              <li>Plugin ecosystem extenso</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>📊 JavaScript vs jQuery</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>JavaScript Puro</h4>
+              <pre><code class="language-javascript">
+document.getElementById('botao')
+  .addEventListener('click', function() {
+    var elementos = document
+      .querySelectorAll('.item');
+    
+    for (var i = 0; i < elementos.length; i++) {
+      elementos[i].style.display = 'none';
+    }
+  });
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <h4>jQuery</h4>
+              <pre><code class="language-javascript">
+$('#botao').click(function() {
+  $('.item').hide();
+});
+              </code></pre>
+              <p><strong>Menos código, mais funcionalidade!</strong></p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📦 Instalação do jQuery</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Via CDN</h4>
+              <pre><code class="language-html">
+&lt;!-- jQuery 3.6.0 via CDN --&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- ou via jsDelivr --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"&gt;&lt;/script&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>Download Local</h4>
+              <pre><code class="language-html">
+&lt;!-- Baixar do jquery.com --&gt;
+&lt;script src="js/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Verificar se carregou --&gt;
+&lt;script&gt;
+if (typeof jQuery !== 'undefined') {
+  console.log('jQuery carregado!');
+} else {
+  console.error('jQuery não carregou');
+}
+&lt;/script&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Sintaxe jQuery -->
+      <section>
+        <section>
+          <h2>📝 Sintaxe Básica jQuery</h2>
+        </section>
+
+        <section>
+          <h3>💲 A Função $</h3>
+          <pre><code class="language-javascript">
+// $ é um alias para jQuery
+$(selector).action();
+
+// Equivalente a:
+jQuery(selector).action();
+
+// Document Ready
+$(document).ready(function() {
+  // Código executa quando DOM estiver pronto
+  console.log('DOM carregado!');
+});
+
+// Shorthand para document ready
+$(function() {
+  // Código aqui executa quando DOM estiver pronto
+  console.log('DOM pronto!');
+});
+
+// Window load (após todos os recursos carregarem)
+$(window).on('load', function() {
+  console.log('Tudo carregado!');
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Seletores jQuery</h3>
+          <pre><code class="language-javascript">
+// Seletores básicos
+$('#id')              // Por ID
+$('.classe')          // Por classe  
+$('elemento')         // Por tag
+$('*')               // Todos os elementos
+
+// Seletores de atributo
+$('[name="email"]')   // Por atributo
+$('input[type="text"]') // Input de texto
+$('a[href^="http"]')  // Links externos
+
+// Pseudo-seletores
+$('li:first')         // Primeiro li
+$('li:last')          // Último li
+$('li:eq(2)')         // Li no índice 2
+$('li:odd')           // Li ímpares
+$('li:even')          // Li pares
+$('input:checked')    // Inputs marcados
+$('input:disabled')   // Inputs desabilitados
+
+// Seletores hierárquicos
+$('div p')            // P dentro de div
+$('div > p')          // P filho direto de div
+$('h2 + p')           // P imediatamente após h2
+$('h2 ~ p')           // Todos P após h2
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔗 Encadeamento (Chaining)</h3>
+          <pre><code class="language-javascript">
+// Múltiplas ações em sequência
+$('#meuElemento')
+  .addClass('destaque')
+  .css('color', 'red')
+  .fadeIn('slow')
+  .delay(1000)
+  .fadeOut('slow');
+
+// Com quebras de linha para melhor legibilidade
+$('.card')
+  .hide()                    // Esconder
+  .css({                     // Aplicar estilos
+    'background': '#f0f0f0',
+    'border': '1px solid #ccc',
+    'padding': '20px'
+  })
+  .addClass('processado')    // Adicionar classe
+  .fadeIn(1000)             // Mostrar com fade
+  .delay(500)               // Aguardar 500ms
+  .animate({                // Animar
+    'margin-left': '50px',
+    'opacity': 0.8
+  }, 800);
+
+// Quebrando o encadeamento quando necessário
+var $elemento = $('#exemplo');
+$elemento.addClass('ativo');
+
+if ($elemento.hasClass('especial')) {
+  $elemento.css('font-weight', 'bold');
+}
+
+$elemento.click(function() {
+  $(this).toggleClass('clicado');
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Manipulação DOM -->
+      <section>
+        <section>
+          <h2>🎭 Manipulação do DOM</h2>
+        </section>
+
+        <section>
+          <h3>📝 Conteúdo e Atributos</h3>
+          <pre><code class="language-javascript">
+// Alterando conteúdo
+$('#titulo').text('Novo título');                    // Texto puro
+$('#conteudo').html('&lt;strong&gt;HTML&lt;/strong&gt;');        // HTML
+$('#input').val('Novo valor');                       // Valor de input
+
+// Obtendo conteúdo
+var titulo = $('#titulo').text();
+var html = $('#conteudo').html();
+var valor = $('#input').val();
+
+// Atributos
+$('#link').attr('href', 'https://exemplo.com');     // Definir atributo
+$('#imagem').attr({                                  // Múltiplos atributos
+  'src': 'nova-imagem.jpg',
+  'alt': 'Nova descrição',
+  'title': 'Nova imagem'
+});
+
+var href = $('#link').attr('href');                  // Obter atributo
+$('#link').removeAttr('target');                     // Remover atributo
+
+// Propriedades (para elementos de formulário)
+$('#checkbox').prop('checked', true);                // Marcar checkbox
+$('#select').prop('disabled', false);               // Habilitar select
+
+// Data attributes
+$('#elemento').data('info', 'valor');               // Definir data-info
+var info = $('#elemento').data('info');             // Obter data-info
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎨 CSS e Classes</h3>
+          <pre><code class="language-javascript">
+// Manipulação de classes
+$('.card').addClass('destaque');                    // Adicionar classe
+$('.card').removeClass('inativa');                  // Remover classe
+$('.card').toggleClass('expandida');                // Alternar classe
+$('.card').hasClass('especial');                    // Verificar classe (true/false)
+
+// Múltiplas classes
+$('.elemento').addClass('classe1 classe2 classe3');
+
+// CSS inline
+$('#elemento').css('color', 'red');                 // Uma propriedade
+$('#elemento').css({                                // Múltiplas propriedades
+  'background-color': '#f0f0f0',
+  'font-size': '16px',
+  'margin': '10px',
+  'border-radius': '5px'
+});
+
+// Obter valores CSS
+var cor = $('#elemento').css('color');
+var largura = $('#elemento').css('width');
+
+// Dimensões
+$('#elemento').width(200);                          // Largura do conteúdo
+$('#elemento').height(100);                         // Altura do conteúdo
+$('#elemento').innerWidth();                        // Largura + padding
+$('#elemento').innerHeight();                       // Altura + padding
+$('#elemento').outerWidth();                        // Largura + padding + border
+$('#elemento').outerHeight(true);                   // + margin também
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>➕ Inserindo e Removendo Elementos</h3>
+          <pre><code class="language-javascript">
+// Inserindo conteúdo
+$('#container').append('&lt;p&gt;Ao final&lt;/p&gt;');           // No final
+$('#container').prepend('&lt;p&gt;No início&lt;/p&gt;');        // No início
+$('#elemento').after('&lt;p&gt;Após&lt;/p&gt;');                 // Depois do elemento
+$('#elemento').before('&lt;p&gt;Antes&lt;/p&gt;');               // Antes do elemento
+
+// Inserindo com objeto jQuery
+var $novoParagrafo = $('&lt;p&gt;').text('Texto novo').addClass('novo');
+$('#container').append($novoParagrafo);
+
+// Envolvendo elementos
+$('.card').wrap('&lt;div class="card-wrapper"&gt;&lt;/div&gt;'); // Envolver individualmente
+$('.item').wrapAll('&lt;div class="items-container"&gt;&lt;/div&gt;'); // Envolver todos juntos
+$('.conteudo').wrapInner('&lt;div class="inner"&gt;&lt;/div&gt;'); // Envolver conteúdo interno
+
+// Removendo elementos
+$('.temporario').remove();                          // Remove completamente
+$('.oculto').detach();                             // Remove mas mantém dados/eventos
+$('#container').empty();                           // Remove filhos
+
+// Substituindo elementos
+$('.antigo').replaceWith('&lt;p class="novo"&gt;Novo conteúdo&lt;/p&gt;');
+
+// Clonando elementos
+var $clone = $('.original').clone();               // Clonar sem eventos
+var $cloneCompleto = $('.original').clone(true);   // Clonar com eventos
+$('#destino').append($clone);
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Eventos jQuery -->
+      <section>
+        <section>
+          <h2>⚡ Eventos em jQuery</h2>
+        </section>
+
+        <section>
+          <h3>🖱️ Eventos de Mouse e Teclado</h3>
+          <pre><code class="language-javascript">
+// Eventos de mouse
+$('#botao').click(function() {
+  alert('Botão clicado!');
+});
+
+$('#elemento').dblclick(function() {              // Duplo clique
+  $(this).toggleClass('destaque');
+});
+
+$('#area').mouseenter(function() {               // Mouse entra
+  $(this).css('background-color', '#f0f0f0');
+}).mouseleave(function() {                       // Mouse sai
+  $(this).css('background-color', '');
+});
+
+$('#item').hover(
+  function() {                                   // Mouse entra (mouseenter)
+    $(this).addClass('hover');
+  },
+  function() {                                   // Mouse sai (mouseleave)
+    $(this).removeClass('hover');
+  }
+);
+
+// Eventos de teclado
+$('#input').keydown(function(e) {               // Tecla pressionada
+  console.log('Tecla pressionada:', e.which);
+});
+
+$('#input').keyup(function(e) {                 // Tecla solta
+  if (e.which === 13) { // Enter
+    console.log('Enter pressionado!');
+  }
+});
+
+$('#campo').on('input', function() {            // Mudança em tempo real
+  var valor = $(this).val();
+  $('#preview').text(valor);
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📋 Eventos de Formulário</h3>
+          <pre><code class="language-javascript">
+// Evento de submit
+$('#meuForm').submit(function(e) {
+  e.preventDefault(); // Prevenir envio padrão
+  
+  var email = $('#email').val();
+  var senha = $('#senha').val();
+  
+  // Validação simples
+  if (!email || !senha) {
+    alert('Preencha todos os campos!');
+    return false;
+  }
+  
+  // Aqui você faria o envio via AJAX
+  console.log('Formulário válido!');
+});
+
+// Eventos de mudança
+$('#select').change(function() {
+  var valorSelecionado = $(this).val();
+  $('#resultado').text('Você selecionou: ' + valorSelecionado);
+});
+
+$('#checkbox').change(function() {
+  if ($(this).is(':checked')) {
+    $('#opcoes').show();
+  } else {
+    $('#opcoes').hide();
+  }
+});
+
+// Evento focus e blur
+$('#input').focus(function() {
+  $(this).addClass('focado');
+}).blur(function() {
+  $(this).removeClass('focado');
+  
+  // Validar quando perder foco
+  var valor = $(this).val();
+  if (valor.length < 3) {
+    $(this).addClass('erro');
+  } else {
+    $(this).removeClass('erro');
+  }
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Método .on() Avançado</h3>
+          <pre><code class="language-javascript">
+// Método .on() - mais flexível
+$('#botao').on('click', function() {
+  console.log('Clicado!');
+});
+
+// Múltiplos eventos
+$('#elemento').on('mouseenter mouseleave', function(e) {
+  if (e.type === 'mouseenter') {
+    $(this).addClass('hover');
+  } else {
+    $(this).removeClass('hover');
+  }
+});
+
+// Eventos com namespace
+$('#botao').on('click.meuPlugin', function() {
+  console.log('Evento do plugin');
+});
+
+// Remover eventos específicos
+$('#botao').off('click.meuPlugin');
+
+// Delegação de eventos (para elementos criados dinamicamente)
+$('#container').on('click', '.botao-dinamico', function() {
+  console.log('Botão dinâmico clicado!');
+});
+
+// Evento que executa apenas uma vez
+$('#botao').one('click', function() {
+  alert('Este alerta aparece apenas uma vez!');
+  $(this).text('Já clicado!');
+});
+
+// Passando dados para eventos
+$('#botao').on('click', {nome: 'João', idade: 25}, function(e) {
+  console.log('Nome:', e.data.nome);
+  console.log('Idade:', e.data.idade);
+});
+
+// Trigger - disparar eventos programaticamente
+$('#botao').trigger('click');          // Simular clique
+$('#input').trigger('focus');          // Dar foco
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Efeitos e Animações -->
+      <section>
+        <section>
+          <h2>✨ Efeitos e Animações</h2>
+        </section>
+
+        <section>
+          <h3>👻 Efeitos de Visibilidade</h3>
+          <pre><code class="language-javascript">
+// Mostrar e esconder
+$('#elemento').show();                    // Mostrar instantaneamente
+$('#elemento').hide();                    // Esconder instantaneamente
+$('#elemento').toggle();                  // Alternar visibilidade
+
+// Com duração
+$('#elemento').show('slow');              // 600ms
+$('#elemento').hide('fast');              // 200ms
+$('#elemento').toggle(1000);              // 1 segundo
+
+// Fade (transparência)
+$('#elemento').fadeIn();                  // Aparecer gradualmente
+$('#elemento').fadeOut();                 // Desaparecer gradualmente
+$('#elemento').fadeToggle();              // Alternar fade
+$('#elemento').fadeTo(1000, 0.5);        // Fade para 50% opacidade
+
+// Slide (deslizar)
+$('#painel').slideDown();                 // Deslizar para baixo
+$('#painel').slideUp();                   // Deslizar para cima
+$('#painel').slideToggle();               // Alternar slide
+
+// Com callback
+$('#elemento').fadeOut('slow', function() {
+  console.log('Fade out completado!');
+  $(this).text('Conteúdo alterado').fadeIn();
+});
+
+// Exemplos práticos
+$('#mostrar').click(function() {
+  $('.conteudo').slideDown('slow');
+});
+
+$('#esconder').click(function() {
+  $('.conteudo').slideUp('fast');
+});
+
+$('.card').hover(
+  function() { $(this).fadeTo(200, 0.8); },
+  function() { $(this).fadeTo(200, 1.0); }
+);
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎬 Animações Personalizadas</h3>
+          <pre><code class="language-javascript">
+// animate() - animações CSS personalizadas
+$('#caixa').animate({
+  left: '200px',
+  width: '300px',
+  height: '200px',
+  opacity: 0.8
+}, 1000);
+
+// Com diferentes easings
+$('#elemento').animate({
+  marginLeft: '100px',
+  fontSize: '20px'
+}, {
+  duration: 1500,
+  easing: 'swing',  // 'linear' ou 'swing'
+  complete: function() {
+    console.log('Animação concluída!');
+  }
+});
+
+// Animações sequenciais
+$('#bola')
+  .animate({ left: '200px' }, 1000)
+  .animate({ top: '100px' }, 1000)
+  .animate({ left: '0px' }, 1000)
+  .animate({ top: '0px' }, 1000);
+
+// Delay entre animações
+$('#elemento')
+  .fadeOut(500)
+  .delay(1000)
+  .fadeIn(500);
+
+// Parar animações
+$('#parar').click(function() {
+  $('#elemento').stop();           // Para animação atual
+  $('#elemento').stop(true);       // Para todas as animações na fila
+  $('#elemento').stop(true, true); // Para e completa animação atual
+});
+
+// Finish - completa todas as animações
+$('#finalizar').click(function() {
+  $('#elemento').finish();
+});
+
+// Exemplo prático: Menu animado
+$('.menu-toggle').click(function() {
+  $('.menu').animate({
+    width: 'toggle',
+    height: 'toggle'
+  }, {
+    duration: 800,
+    easing: 'swing'
+  });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - AJAX com jQuery -->
+      <section>
+        <section>
+          <h2>🌐 AJAX com jQuery</h2>
+          <p>Comunicação assíncrona com o servidor</p>
+        </section>
+
+        <section>
+          <h3>📡 Métodos AJAX Básicos</h3>
+          <pre><code class="language-javascript">
+// $.get() - Requisição GET simples
+$.get('api/dados.php', function(data) {
+  $('#resultado').html(data);
+});
+
+// $.post() - Requisição POST
+$.post('api/salvar.php', {
+  nome: 'João',
+  email: 'joao@email.com'
+}, function(response) {
+  alert('Dados salvos: ' + response);
+});
+
+// $.load() - Carregar conteúdo em elemento
+$('#conteudo').load('pagina.html');
+$('#conteudo').load('pagina.html #secao-especifica'); // Apenas uma parte
+
+// $.getJSON() - Para dados JSON
+$.getJSON('api/usuarios.json', function(usuarios) {
+  $.each(usuarios, function(index, usuario) {
+    $('#lista').append('&lt;li&gt;' + usuario.nome + '&lt;/li&gt;');
+  });
+});
+
+// $.ajax() - Método completo
+$.ajax({
+  url: 'api/dados.php',
+  method: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    console.log('Sucesso:', data);
+    $('#resultado').text(data.message);
+  },
+  error: function(xhr, status, error) {
+    console.error('Erro:', error);
+    alert('Erro ao carregar dados');
+  },
+  complete: function() {
+    console.log('Requisição concluída');
+    $('#loading').hide();
+  }
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📋 Exemplo Prático - Formulário AJAX</h3>
+          <pre><code class="language-javascript">
+$(document).ready(function() {
+  // Formulário de contato via AJAX
+  $('#formContato').submit(function(e) {
+    e.preventDefault();
+    
+    // Mostrar loading
+    $('#btnEnviar').prop('disabled', true).text('Enviando...');
+    $('#mensagem').removeClass('success error').empty();
+    
+    // Coletar dados do formulário
+    var formData = {
+      nome: $('#nome').val(),
+      email: $('#email').val(),
+      assunto: $('#assunto').val(),
+      mensagem: $('#mensagemTexto').val()
+    };
+    
+    // Enviar via AJAX
+    $.ajax({
+      url: 'processar_contato.php',
+      method: 'POST',
+      data: formData,
+      dataType: 'json',
+      success: function(response) {
+        if (response.success) {
+          $('#mensagem')
+            .addClass('success')
+            .text('Mensagem enviada com sucesso!');
+          $('#formContato')[0].reset(); // Limpar formulário
+        } else {
+          $('#mensagem')
+            .addClass('error')
+            .text('Erro: ' + response.message);
+        }
+      },
+      error: function(xhr, status, error) {
+        $('#mensagem')
+          .addClass('error')
+          .text('Erro de conexão. Tente novamente.');
+        console.error('Erro AJAX:', error);
+      },
+      complete: function() {
+        $('#btnEnviar').prop('disabled', false).text('Enviar');
+      }
+    });
+  });
+  
+  // Validação em tempo real
+  $('#email').on('input', function() {
+    var email = $(this).val();
+    if (email && !isValidEmail(email)) {
+      $(this).addClass('invalid');
+      $('#emailError').text('Email inválido').show();
+    } else {
+      $(this).removeClass('invalid');
+      $('#emailError').hide();
+    }
+  });
+});
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Prática no Eclipse -->
+      <section>
+        <section>
+          <h2>💻 Prática: jQuery no Eclipse</h2>
+        </section>
+
+        <section>
+          <h3>🚀 Setup Inicial</h3>
+          <ol>
+            <li class="fragment">Abrir projeto "AulaHTML" no Eclipse</li>
+            <li class="fragment">Criar: WebContent/jquery.html</li>
+            <li class="fragment">Adicionar Bootstrap e jQuery CDNs</li>
+            <li class="fragment">Criar: WebContent/js/app.js</li>
+            <li class="fragment">Configurar estrutura base</li>
+          </ol>
+
+          <pre class="fragment"><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Prática jQuery&lt;/title&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+  &lt;link rel="stylesheet" href="css/custom.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Conteúdo --&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+  &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício 1: Dashboard Dinâmico</h3>
+          <p>Criar dashboard interativo com:</p>
+          <ul>
+            <li class="fragment">Cards que expandem ao clicar</li>
+            <li class="fragment">Gráficos animados com barra de progresso</li>
+            <li class="fragment">Filtros dinâmicos para tabela</li>
+            <li class="fragment">Modais com formulários</li>
+            <li class="fragment">Notificações toast</li>
+          </ul>
+
+          <pre class="fragment"><code class="language-javascript">
+$(document).ready(function() {
+  // Expandir cards
+  $('.card-expandable').click(function() {
+    $(this).find('.card-body').slideToggle();
+    $(this).find('.expand-icon').toggleClass('rotated');
+  });
+  
+  // Animar barras de progresso
+  $('.progress-bar').each(function() {
+    var $bar = $(this);
+    var width = $bar.data('width');
+    $bar.animate({ width: width + '%' }, 2000);
+  });
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício 2: Formulário Inteligente</h3>
+          <p>Desenvolver formulário com:</p>
+          <ul>
+            <li class="fragment">Validação em tempo real</li>
+            <li class="fragment">Auto-complete em campos</li>
+            <li class="fragment">Upload de arquivo com preview</li>
+            <li class="fragment">Campos dependentes (cascata)</li>
+            <li class="fragment">Salvamento automático</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>📝 Exercício 3: Galeria Interativa</h3>
+          <p>Criar galeria de imagens:</p>
+          <ul>
+            <li class="fragment">Lightbox personalizado</li>
+            <li class="fragment">Filtros por categoria</li>
+            <li class="fragment">Lazy loading</li>
+            <li class="fragment">Zoom e navegação</li>
+            <li class="fragment">Slideshow automático</li>
+          </ul>
+
+          <pre class="fragment"><code class="language-javascript">
+// Exemplo de lightbox simples
+$('.gallery img').click(function() {
+  var src = $(this).attr('src');
+  var alt = $(this).attr('alt');
+  
+  var lightbox = $('&lt;div class="lightbox"&gt;')
+    .append('&lt;img src="' + src + '" alt="' + alt + '"&gt;')
+    .append('&lt;button class="close"&gt;×&lt;/button&gt;');
+    
+  $('body').append(lightbox);
+  lightbox.fadeIn();
+  
+  lightbox.on('click', '.close, .lightbox', function(e) {
+    if (e.target === this) {
+      lightbox.fadeOut(function() {
+        $(this).remove();
+      });
+    }
+  });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Plugins jQuery -->
+      <section>
+        <section>
+          <h2>🔌 Plugins jQuery</h2>
+          <p>Estendendo funcionalidades</p>
+        </section>
+
+        <section>
+          <h3>⭐ Plugins Populares</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>UI/UX</h4>
+              <ul>
+                <li><strong>jQuery UI</strong> - Widgets e interações</li>
+                <li><strong>Select2</strong> - Select boxes melhorados</li>
+                <li><strong>DataTables</strong> - Tabelas avançadas</li>
+                <li><strong>Slick</strong> - Carrosséis responsivos</li>
+                <li><strong>Lightbox2</strong> - Galeria de imagens</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Formulários</h4>
+              <ul>
+                <li><strong>jQuery Validation</strong> - Validação</li>
+                <li><strong>Mask Plugin</strong> - Máscaras de input</li>
+                <li><strong>Datepicker</strong> - Seletor de data</li>
+                <li><strong>Autocomplete</strong> - Auto-completar</li>
+                <li><strong>File Upload</strong> - Upload de arquivos</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🛠️ Criando Plugin Simples</h3>
+          <pre><code class="language-javascript">
+// Estrutura básica de plugin
+(function($) {
+  $.fn.meuPlugin = function(options) {
+    // Configurações padrão
+    var settings = $.extend({
+      cor: 'blue',
+      tamanho: '16px',
+      animacao: true
+    }, options);
+    
+    return this.each(function() {
+      var $element = $(this);
+      
+      // Aplicar estilos
+      $element.css({
+        color: settings.cor,
+        fontSize: settings.tamanho
+      });
+      
+      // Adicionar comportamento
+      if (settings.animacao) {
+        $element.hover(
+          function() { $(this).animate({fontSize: '20px'}, 200); },
+          function() { $(this).animate({fontSize: settings.tamanho}, 200); }
+        );
+      }
+    });
+  };
+})(jQuery);
+
+// Uso do plugin
+$('.texto').meuPlugin({
+  cor: 'red',
+  tamanho: '18px',
+  animacao: true
+});
+
+// Plugin mais avançado - Contador animado
+(function($) {
+  $.fn.contadorAnimado = function(options) {
+    var settings = $.extend({
+      inicio: 0,
+      fim: 100,
+      duracao: 2000,
+      sufixo: ''
+    }, options);
+    
+    return this.each(function() {
+      var $this = $(this);
+      var inicio = settings.inicio;
+      var fim = settings.fim;
+      
+      $({ counter: inicio }).animate({ counter: fim }, {
+        duration: settings.duracao,
+        step: function() {
+          $this.text(Math.ceil(this.counter) + settings.sufixo);
+        },
+        complete: function() {
+          $this.text(fim + settings.sufixo);
+        }
+      });
+    });
+  };
+})(jQuery);
+
+// Uso
+$('.contador').contadorAnimado({
+  inicio: 0,
+  fim: 1500,
+  duracao: 3000,
+  sufixo: ' vendas'
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aulas 6-7 - Projetos Práticos</h3>
+        <ul>
+          <li class="fragment">Aula 6: Página completa com HTML, CSS e JS</li>
+          <li class="fragment">Aula 7: Melhoria de layout com Bootstrap</li>
+          <li class="fragment">Integração de todas as tecnologias</li>
+          <li class="fragment">Projetos reais e funcionais</li>
+          <li class="fragment">Deploy e otimização</li>
+        </ul>
+      </section>
+
+      <!-- Slide 12 - Exercícios -->
+      <section>
+        <h2>🏠 Exercícios para Casa</h2>
+        <ol>
+          <li class="fragment">Complete o dashboard dinâmico iniciado em aula</li>
+          <li class="fragment">Crie um sistema de to-do list com jQuery</li>
+          <li class="fragment">Desenvolva uma calculadora interativa</li>
+          <li class="fragment">Implemente um jogo da velha</li>
+          <li class="fragment">Crie sua própria biblioteca de efeitos</li>
+        </ol>
+      </section>
+
+      <!-- Slide 13 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

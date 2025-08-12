@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 3 - Introdução à Linguagem CSS</title>
+
+  <meta name="description" content="Introdução à Linguagem CSS e Criação de CSS no Eclipse">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 3 - Introdução à Linguagem CSS</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Compreender o que é CSS e sua importância</li>
+          <li class="fragment">Aprender sintaxe e seletores CSS</li>
+          <li class="fragment">Dominar o Box Model</li>
+          <li class="fragment">Aplicar layout com Flexbox</li>
+          <li class="fragment">Criar estilos responsivos</li>
+          <li class="fragment">Praticar CSS no Eclipse</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é CSS? -->
+      <section>
+        <section>
+          <h2>🎨 O que é CSS?</h2>
+          <p><strong>CSS (Cascading Style Sheets)</strong></p>
+          <p class="fragment">É a linguagem de estilo usada para descrever a apresentação de documentos HTML.</p>
+          
+          <div class="fragment">
+            <h3>Características:</h3>
+            <ul>
+              <li>Separação de conteúdo e apresentação</li>
+              <li>Reutilização de estilos</li>
+              <li>Manutenção facilitada</li>
+              <li>Melhor performance</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>🔄 HTML sem CSS vs com CSS</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Sem CSS</h4>
+              <img src="https://via.placeholder.com/300x200?text=HTML+Sem+CSS" alt="Página sem CSS">
+              <p>Conteúdo funcional mas sem estilo</p>
+            </div>
+            <div class="fragment">
+              <h4>Com CSS</h4>
+              <img src="https://via.placeholder.com/300x200?text=HTML+Com+CSS" alt="Página com CSS">
+              <p>Visual atraente e profissional</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Como adicionar CSS -->
+      <section>
+        <section>
+          <h2>📝 Como Adicionar CSS</h2>
+        </section>
+
+        <section>
+          <h3>1️⃣ CSS Inline</h3>
+          <pre><code class="language-html">
+&lt;p style="color: blue; font-size: 18px;"&gt;
+  Texto com estilo inline
+&lt;/p&gt;
+          </code></pre>
+          <div class="fragment">
+            <h4>Prós:</h4>
+            <ul>
+              <li>Rápido para testes</li>
+              <li>Alta especificidade</li>
+            </ul>
+            <h4>Contras:</h4>
+            <ul>
+              <li>Não reutilizável</li>
+              <li>Difícil manutenção</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>2️⃣ CSS Interno</h3>
+          <pre><code class="language-html">
+&lt;head&gt;
+  &lt;style&gt;
+    p {
+      color: blue;
+      font-size: 18px;
+    }
+    
+    .destaque {
+      background-color: yellow;
+      padding: 10px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+          </code></pre>
+          <div class="fragment">
+            <h4>Prós:</h4>
+            <ul>
+              <li>Reutilizável na página</li>
+              <li>Não requer arquivo adicional</li>
+            </ul>
+            <h4>Contras:</h4>
+            <ul>
+              <li>Não reutilizável entre páginas</li>
+              <li>Aumenta tamanho do HTML</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>3️⃣ CSS Externo (Recomendado)</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>HTML</h4>
+              <pre><code class="language-html">
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>styles.css</h4>
+              <pre><code class="language-css">
+p {
+  color: blue;
+  font-size: 18px;
+}
+
+.destaque {
+  background-color: yellow;
+  padding: 10px;
+}
+              </code></pre>
+            </div>
+          </div>
+          <div class="fragment">
+            <h4>Vantagens:</h4>
+            <ul>
+              <li>Reutilizável em múltiplas páginas</li>
+              <li>Cache do navegador</li>
+              <li>Organização do código</li>
+              <li>Facilita manutenção</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Sintaxe CSS -->
+      <section>
+        <section>
+          <h2>📝 Sintaxe CSS</h2>
+        </section>
+
+        <section>
+          <h3>🏗️ Estrutura Básica</h3>
+          <pre><code class="language-css">
+seletor {
+  propriedade: valor;
+  propriedade: valor;
+}
+          </code></pre>
+          
+          <div class="fragment">
+            <h3>Exemplo:</h3>
+            <pre><code class="language-css">
+h1 {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎯 Tipos de Seletores</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Sintaxe</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>Elemento</td>
+                <td>elemento</td>
+                <td>p { color: blue; }</td>
+              </tr>
+              <tr class="fragment">
+                <td>Classe</td>
+                <td>.classe</td>
+                <td>.destaque { font-weight: bold; }</td>
+              </tr>
+              <tr class="fragment">
+                <td>ID</td>
+                <td>#id</td>
+                <td>#cabecalho { height: 100px; }</td>
+              </tr>
+              <tr class="fragment">
+                <td>Atributo</td>
+                <td>[atributo]</td>
+                <td>[type="email"] { border: 2px solid green; }</td>
+              </tr>
+              <tr class="fragment">
+                <td>Universal</td>
+                <td>*</td>
+                <td>* { margin: 0; padding: 0; }</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>🔗 Seletores Combinados</h3>
+          <pre><code class="language-css">
+/* Descendente */
+article p { color: gray; }
+
+/* Filho direto */
+nav > ul { list-style: none; }
+
+/* Irmão adjacente */
+h2 + p { margin-top: 0; }
+
+/* Irmão geral */
+h2 ~ p { color: #666; }
+
+/* Múltiplos seletores */
+h1, h2, h3 { font-family: Arial, sans-serif; }
+
+/* Pseudo-classes */
+a:hover { color: red; }
+li:first-child { font-weight: bold; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Propriedades de Texto e Cores -->
+      <section>
+        <section>
+          <h2>🎨 Cores e Texto</h2>
+        </section>
+
+        <section>
+          <h3>🌈 Definindo Cores</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div>
+              <h4>Formatos de Cor</h4>
+              <pre><code class="language-css">
+/* Nome da cor */
+color: red;
+color: blue;
+
+/* Hexadecimal */
+color: #ff0000;
+color: #00f;
+
+/* RGB */
+color: rgb(255, 0, 0);
+
+/* RGBA (com transparência) */
+color: rgba(255, 0, 0, 0.5);
+
+/* HSL */
+color: hsl(0, 100%, 50%);
+
+/* HSLA */
+color: hsla(0, 100%, 50%, 0.5);
+              </code></pre>
+            </div>
+            <div>
+              <h4>Aplicando Cores</h4>
+              <pre><code class="language-css">
+p {
+  color: #333;              /* Cor do texto */
+  background-color: #f5f5f5; /* Cor de fundo */
+}
+
+a {
+  color: #0066cc;
+}
+
+a:hover {
+  color: #ff6600;
+}
+
+.destaque {
+  background: linear-gradient(
+    to right, 
+    #ff6b6b, 
+    #4ecdc4
+  );
+}
+              </code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📝 Propriedades de Texto</h3>
+          <pre><code class="language-css">
+h1 {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+  line-height: 1.5;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+p {
+  text-indent: 20px;
+  text-justify: inter-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔤 Web Fonts</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Google Fonts</h4>
+              <pre><code class="language-html">
+&lt;!-- No HTML --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"&gt;
+              </code></pre>
+              
+              <pre><code class="language-css">
+/* No CSS */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+              </code></pre>
+            </div>
+            <div>
+              <h4>@font-face</h4>
+              <pre><code class="language-css">
+@font-face {
+  font-family: 'MinhaFonte';
+  src: url('fonts/minhafonte.woff2') format('woff2'),
+       url('fonts/minhafonte.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.titulo {
+  font-family: 'MinhaFonte', Arial, sans-serif;
+}
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Box Model -->
+      <section>
+        <section>
+          <h2>📦 Box Model</h2>
+          <p>Todo elemento HTML é tratado como uma caixa retangular</p>
+        </section>
+
+        <section>
+          <h3>🏗️ Componentes do Box Model</h3>
+          <div style="text-align: center;">
+            <img src="https://via.placeholder.com/500x300?text=Box+Model" alt="Box Model Diagram">
+          </div>
+          <ol>
+            <li class="fragment"><strong>Content</strong> - O conteúdo real</li>
+            <li class="fragment"><strong>Padding</strong> - Espaço entre conteúdo e borda</li>
+            <li class="fragment"><strong>Border</strong> - Borda ao redor do padding</li>
+            <li class="fragment"><strong>Margin</strong> - Espaço externo entre elementos</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>📏 Definindo Dimensões</h3>
+          <pre><code class="language-css">
+.caixa {
+  /* Conteúdo */
+  width: 300px;
+  height: 200px;
+  
+  /* Padding (interno) */
+  padding: 20px;                    /* Todos os lados */
+  padding: 10px 20px;              /* Vertical | Horizontal */
+  padding: 10px 15px 20px 25px;    /* Cima | Direita | Baixo | Esquerda */
+  
+  /* Border */
+  border: 2px solid #333;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #333;
+  
+  /* Margin (externo) */
+  margin: 20px auto;               /* Centralizar horizontalmente */
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📦 Box-sizing</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>content-box (padrão)</h4>
+              <pre><code class="language-css">
+.caixa1 {
+  box-sizing: content-box;
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  
+  /* Largura total: 350px */
+  /* 300px + 40px + 10px */
+}
+              </code></pre>
+            </div>
+            <div>
+              <h4>border-box (recomendado)</h4>
+              <pre><code class="language-css">
+.caixa2 {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  
+  /* Largura total: 300px */
+  /* Padding e border inclusos */
+}
+
+/* Reset global recomendado */
+* {
+  box-sizing: border-box;
+}
+              </code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎨 Estilos de Border</h3>
+          <pre><code class="language-css">
+.border-styles {
+  /* Estilos básicos */
+  border: 2px solid #333;
+  border: 3px dashed red;
+  border: 1px dotted blue;
+  border: 5px double green;
+  
+  /* Bordas individuais */
+  border-top: 3px solid red;
+  border-right: 2px dashed blue;
+  border-bottom: 1px dotted green;
+  border-left: 4px solid orange;
+  
+  /* Border radius (bordas arredondadas) */
+  border-radius: 10px;
+  border-radius: 50%;                    /* Círculo */
+  border-radius: 10px 20px 30px 40px;   /* Cada canto diferente */
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Display e Position -->
+      <section>
+        <section>
+          <h2>📐 Display e Posicionamento</h2>
+        </section>
+
+        <section>
+          <h3>📊 Propriedade Display</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Valor</th>
+                <th>Comportamento</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>block</td>
+                <td>Ocupa linha inteira</td>
+                <td>div, h1, p</td>
+              </tr>
+              <tr class="fragment">
+                <td>inline</td>
+                <td>Na mesma linha</td>
+                <td>span, a, strong</td>
+              </tr>
+              <tr class="fragment">
+                <td>inline-block</td>
+                <td>Inline com dimensões</td>
+                <td>img, input</td>
+              </tr>
+              <tr class="fragment">
+                <td>flex</td>
+                <td>Container flexível</td>
+                <td>Layout moderno</td>
+              </tr>
+              <tr class="fragment">
+                <td>grid</td>
+                <td>Layout em grade</td>
+                <td>Layouts complexos</td>
+              </tr>
+              <tr class="fragment">
+                <td>none</td>
+                <td>Oculta elemento</td>
+                <td>Invisível</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>📍 Propriedade Position</h3>
+          <pre><code class="language-css">
+/* Static (padrão) - fluxo normal */
+.normal { position: static; }
+
+/* Relative - relativo à posição original */
+.relativo {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+
+/* Absolute - relativo ao parent posicionado */
+.absoluto {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Fixed - relativo à viewport */
+.fixo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* Sticky - combinação de relative e fixed */
+.grudento {
+  position: sticky;
+  top: 0;
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Flexbox -->
+      <section>
+        <section>
+          <h2>🔄 Flexbox Layout</h2>
+          <p>Sistema de layout unidimensional para distribuir espaço e alinhar itens</p>
+        </section>
+
+        <section>
+          <h3>🏗️ Container Flex</h3>
+          <pre><code class="language-css">
+.container {
+  display: flex;
+  
+  /* Direção dos itens */
+  flex-direction: row;        /* padrão: horizontal */
+  flex-direction: column;     /* vertical */
+  flex-direction: row-reverse; /* horizontal reverso */
+  
+  /* Quebra de linha */
+  flex-wrap: nowrap;          /* padrão: não quebra */
+  flex-wrap: wrap;            /* quebra linha */
+  
+  /* Shorthand */
+  flex-flow: row wrap;        /* direction + wrap */
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📐 Alinhamento com Flexbox</h3>
+          <pre><code class="language-css">
+.container {
+  display: flex;
+  
+  /* Alinhamento horizontal (eixo principal) */
+  justify-content: flex-start;    /* início */
+  justify-content: center;        /* centro */
+  justify-content: flex-end;      /* fim */
+  justify-content: space-between; /* espaçado */
+  justify-content: space-around;  /* espaçado com margem */
+  justify-content: space-evenly;  /* espaço igual */
+  
+  /* Alinhamento vertical (eixo cruzado) */
+  align-items: stretch;        /* estica (padrão) */
+  align-items: flex-start;     /* início */
+  align-items: center;         /* centro */
+  align-items: flex-end;       /* fim */
+  align-items: baseline;       /* linha base */
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎛️ Itens Flexíveis</h3>
+          <pre><code class="language-css">
+.item {
+  /* Crescimento proporcional */
+  flex-grow: 1;     /* cresce igualmente */
+  flex-grow: 2;     /* cresce 2x mais */
+  
+  /* Encolhimento */
+  flex-shrink: 1;   /* encolhe proporcionalmente */
+  flex-shrink: 0;   /* não encolhe */
+  
+  /* Base/tamanho inicial */
+  flex-basis: 200px;  /* tamanho base */
+  flex-basis: auto;   /* baseado no conteúdo */
+  
+  /* Shorthand */
+  flex: 1;           /* grow: 1, shrink: 1, basis: 0% */
+  flex: 0 0 200px;   /* não cresce, não encolhe, 200px */
+  
+  /* Alinhamento individual */
+  align-self: center;  /* sobrescreve align-items */
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>💼 Exemplos Práticos</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+              <h4>Navbar Flexível</h4>
+              <pre><code class="language-css">
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+              </code></pre>
+            </div>
+            <div>
+              <h4>Layout de 3 Colunas</h4>
+              <pre><code class="language-css">
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar { flex: 0 0 200px; }
+.main { flex: 1; }
+.aside { flex: 0 0 150px; }
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Responsividade -->
+      <section>
+        <section>
+          <h2>📱 Design Responsivo</h2>
+          <p>Adaptando layouts para diferentes tamanhos de tela</p>
+        </section>
+
+        <section>
+          <h3>🔍 Media Queries</h3>
+          <pre><code class="language-css">
+/* Mobile first approach */
+.container {
+  width: 100%;
+  padding: 10px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .container {
+    width: 1000px;
+    padding: 30px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Print */
+@media print {
+  .no-print { display: none; }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📐 Unidades Responsivas</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Unidade</th>
+                <th>Descrição</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fragment">
+                <td>%</td>
+                <td>Porcentagem do pai</td>
+                <td>width: 50%;</td>
+              </tr>
+              <tr class="fragment">
+                <td>vw</td>
+                <td>% da largura da viewport</td>
+                <td>width: 100vw;</td>
+              </tr>
+              <tr class="fragment">
+                <td>vh</td>
+                <td>% da altura da viewport</td>
+                <td>height: 100vh;</td>
+              </tr>
+              <tr class="fragment">
+                <td>rem</td>
+                <td>Relativo ao font-size raiz</td>
+                <td>font-size: 1.5rem;</td>
+              </tr>
+              <tr class="fragment">
+                <td>em</td>
+                <td>Relativo ao font-size pai</td>
+                <td>margin: 2em;</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h3>🖼️ Imagens Responsivas</h3>
+          <pre><code class="language-css">
+/* Imagem responsiva básica */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Background responsivo */
+.hero {
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+}
+
+/* Diferentes imagens por breakpoint */
+.logo {
+  background-image: url('logo-mobile.png');
+}
+
+@media (min-width: 768px) {
+  .logo {
+    background-image: url('logo-desktop.png');
+  }
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Prática no Eclipse -->
+      <section>
+        <section>
+          <h2>💻 Prática: CSS no Eclipse</h2>
+        </section>
+
+        <section>
+          <h3>🚀 Preparando o Ambiente</h3>
+          <ol>
+            <li class="fragment">Abrir projeto "AulaHTML" criado anteriormente</li>
+            <li class="fragment">Criar pasta: WebContent/css/</li>
+            <li class="fragment">Criar arquivo: css/styles.css</li>
+            <li class="fragment">Linkar CSS no HTML existente</li>
+            <li class="fragment">Testar aplicação no servidor</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 1: Reset e Base</h3>
+          <pre><code class="language-css">
+/* Reset CSS básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typography */
+h1, h2, h3 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 2: Header e Navigation</h3>
+          <pre><code class="language-css">
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+nav {
+  background-color: #333;
+  padding: 1rem 0;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #555;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 3: Cards e Layout</h3>
+          <pre><code class="language-css">
+/* Layout principal */
+main {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.content {
+  flex: 2;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+aside {
+  flex: 1;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📝 Exercício Prático 4: Responsividade</h3>
+          <pre><code class="language-css">
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  nav li {
+    text-align: center;
+  }
+  
+  main {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .content, aside {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 1rem 0;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  nav a {
+    display: block;
+    padding: 1rem;
+    border-bottom: 1px solid #555;
+  }
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Boas Práticas CSS -->
+      <section>
+        <h2>✨ Boas Práticas CSS</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <h3>📋 Organização</h3>
+            <ul>
+              <li class="fragment">Use CSS externo</li>
+              <li class="fragment">Organize por seções</li>
+              <li class="fragment">Comente o código</li>
+              <li class="fragment">Use nomes descritivos</li>
+              <li class="fragment">Mantenha consistência</li>
+            </ul>
+
+            <h3>⚡ Performance</h3>
+            <ul>
+              <li class="fragment">Minifique CSS em produção</li>
+              <li class="fragment">Evite seletores complexos</li>
+              <li class="fragment">Use shorthand properties</li>
+              <li class="fragment">Remova CSS não utilizado</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🎨 Design</h3>
+            <ul>
+              <li class="fragment">Mobile-first approach</li>
+              <li class="fragment">Use unidades relativas</li>
+              <li class="fragment">Teste em múltiplos dispositivos</li>
+              <li class="fragment">Mantenha hierarquia visual</li>
+              <li class="fragment">Cuide da acessibilidade</li>
+            </ul>
+
+            <h3>🔧 Manutenção</h3>
+            <ul>
+              <li class="fragment">Evite !important</li>
+              <li class="fragment">Use metodologias (BEM, OOCSS)</li>
+              <li class="fragment">Prefira classes a IDs</li>
+              <li class="fragment">Valide CSS regularmente</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Próxima Aula -->
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <h3>Aula 4 - JavaScript e Bootstrap</h3>
+        <ul>
+          <li class="fragment">Introdução ao JavaScript</li>
+          <li class="fragment">Manipulação do DOM</li>
+          <li class="fragment">Framework Bootstrap</li>
+          <li class="fragment">Componentes responsivos</li>
+          <li class="fragment">Prática: Bootstrap em páginas web</li>
+        </ul>
+      </section>
+
+      <!-- Slide 14 - Exercícios para Casa -->
+      <section>
+        <h2>🏠 Exercícios para Casa</h2>
+        <ol>
+          <li class="fragment">Finalize o estilo da página pessoal</li>
+          <li class="fragment">Crie um layout de blog responsivo</li>
+          <li class="fragment">Desenvolva uma página de landing page</li>
+          <li class="fragment">Experimente diferentes layouts com Flexbox</li>
+          <li class="fragment">Teste responsividade em diferentes dispositivos</li>
+        </ol>
+      </section>
+
+      <!-- Slide 15 - Perguntas -->
+      <section>
+        <h2>❓ Perguntas?</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

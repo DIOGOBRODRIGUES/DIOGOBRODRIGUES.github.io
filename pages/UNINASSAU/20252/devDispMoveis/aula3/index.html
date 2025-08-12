@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 3 - Linguagens de Programação Mobile</title>
+  <meta name="description" content="JavaScript, React Native, Flutter e linguagens para desenvolvimento mobile">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>
+    .reveal .slides section { text-align: left; font-size: 0.8em; line-height: 1.4; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-align: center; margin-bottom: 1rem; }
+    .social-links { margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; }
+    .social-links a { font-size: 1.8em; transition: all 0.3s ease; padding: 0.5rem; border-radius: 50%; }
+    .social-links a:hover { transform: scale(1.2); }
+    .code-highlight { background: rgba(98, 114, 164, 0.1); border-left: 4px solid #ff79c6; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.9em; }
+    .lang-card { background: rgba(98, 114, 164, 0.2); padding: 1rem; border-radius: 8px; margin: 0.5rem 0; }
+    .lang-card h4 { color: #ff79c6; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 3: Linguagens de Programação Mobile 💻</h3>
+        <p><strong>Desenvolvimento para Dispositivos Móveis</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <div class="code-highlight">
+          <h4>Ao final desta aula, você será capaz de:</h4>
+          <ul>
+            <li>📝 <strong>Compreender</strong> linguagens nativas vs híbridas</li>
+            <li>⚛️ <strong>Dominar</strong> JavaScript para React Native</li>
+            <li>🦋 <strong>Conhecer</strong> Dart para Flutter</li>
+            <li>📊 <strong>Comparar</strong> vantagens e desvantagens</li>
+            <li>🚀 <strong>Implementar</strong> primeiro app com lógica</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>🗺️ Panorama das Linguagens Mobile</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+          <div class="lang-card">
+            <h4>📱 Nativas</h4>
+            <ul>
+              <li><strong>iOS:</strong> Swift, Objective-C</li>
+              <li><strong>Android:</strong> Kotlin, Java</li>
+              <li><strong>Vantagens:</strong> Performance máxima</li>
+              <li><strong>Desvantagens:</strong> 2 codebases</li>
+            </ul>
+          </div>
+          <div class="lang-card">
+            <h4>🔄 Híbridas/Cross-platform</h4>
+            <ul>
+              <li><strong>React Native:</strong> JavaScript</li>
+              <li><strong>Flutter:</strong> Dart</li>
+              <li><strong>Xamarin:</strong> C#</li>
+              <li><strong>Ionic:</strong> Web technologies</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>⚛️ JavaScript para React Native</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>✨ ES6+ Features</h3>
+            <pre><code class="javascript">// Arrow Functions
+const greeting = (name) => `Hello ${name}`;
+
+// Destructuring
+const {title, author} = book;
+const [first, second] = array;
+
+// Template Literals
+const message = `Welcome ${user.name}!`;
+
+// Async/Await
+const fetchData = async () => {
+  const response = await fetch(url);
+  return response.json();
+};</code></pre>
+          </div>
+          <div>
+            <h3>📦 JSX Syntax</h3>
+            <pre><code class="jsx">import React from 'react';
+import { View, Text, Button } from 'react-native';
+
+const MyComponent = ({ title }) => {
+  const handlePress = () => {
+    console.log('Button pressed!');
+  };
+
+  return (
+    &lt;View style={{padding: 20}}&gt;
+      &lt;Text&gt;{title}&lt;/Text&gt;
+      &lt;Button 
+        title="Press me" 
+        onPress={handlePress} 
+      /&gt;
+    &lt;/View&gt;
+  );
+};</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🦋 Dart para Flutter</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>🎯 Dart Basics</h3>
+            <pre><code class="dart">// Variables
+var name = 'Flutter';
+String title = 'Mobile App';
+int counter = 0;
+bool isVisible = true;
+
+// Functions
+String greet(String name) {
+  return 'Hello $name';
+}
+
+// Classes
+class User {
+  String name;
+  int age;
+  
+  User(this.name, this.age);
+  
+  void sayHello() {
+    print('Hi, I am $name');
+  }
+}</code></pre>
+          </div>
+          <div>
+            <h3>🏗️ Widget System</h3>
+            <pre><code class="dart">import 'package:flutter/material.dart';
+
+class MyWidget extends StatelessWidget {
+  final String title;
+  
+  MyWidget({required this.title});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Column(
+        children: [
+          Text('Welcome to Flutter'),
+          ElevatedButton(
+            onPressed: () =&gt; print('Pressed'),
+            child: Text('Click me'),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>📊 Comparação Detalhada</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.85em;">
+          <div class="lang-card">
+            <h4>⚛️ React Native</h4>
+            <ul>
+              <li><strong>Linguagem:</strong> JavaScript/TypeScript</li>
+              <li><strong>Performance:</strong> Boa (bridge)</li>
+              <li><strong>UI:</strong> Native components</li>
+              <li><strong>Curva aprendizado:</strong> Baixa (web devs)</li>
+              <li><strong>Comunidade:</strong> Muito grande</li>
+              <li><strong>Empresas:</strong> Meta, Netflix, Uber</li>
+            </ul>
+          </div>
+          <div class="lang-card">
+            <h4>🦋 Flutter</h4>
+            <ul>
+              <li><strong>Linguagem:</strong> Dart</li>
+              <li><strong>Performance:</strong> Excelente (compilado)</li>
+              <li><strong>UI:</strong> Custom rendering</li>
+              <li><strong>Curva aprendizado:</strong> Média</li>
+              <li><strong>Comunidade:</strong> Crescente</li>
+              <li><strong>Empresas:</strong> Google, BMW, eBay</li>
+            </ul>
+          </div>
+          <div class="lang-card">
+            <h4>📱 Nativo</h4>
+            <ul>
+              <li><strong>Linguagem:</strong> Swift/Kotlin</li>
+              <li><strong>Performance:</strong> Máxima</li>
+              <li><strong>UI:</strong> Platform-specific</li>
+              <li><strong>Curva aprendizado:</strong> Alta</li>
+              <li><strong>Comunidade:</strong> Estabelecida</li>
+              <li><strong>Empresas:</strong> Apple, Google</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🧪 Atividade Prática: Primeiro App com Lógica</h2>
+        <div class="code-highlight">
+          <h3>🎯 Objetivo: Criar um contador simples</h3>
+          <p>Vamos implementar um contador que incrementa/decrementa valores</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h4>⚛️ React Native Version</h4>
+            <pre><code class="jsx">import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}&gt;
+      &lt;Text style={{fontSize: 32}}&gt;{count}&lt;/Text&gt;
+      &lt;Button title="+" onPress={() =&gt; setCount(count + 1)} /&gt;
+      &lt;Button title="-" onPress={() =&gt; setCount(count - 1)} /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+          </div>
+          <div>
+            <h4>🦋 Flutter Version</h4>
+            <pre><code class="dart">class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() =&gt; _CounterState();
+}
+
+class _CounterState extends State&lt;Counter&gt; {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('$count', style: TextStyle(fontSize: 32)),
+          ElevatedButton(
+            onPressed: () =&gt; setState(() =&gt; count++),
+            child: Text('+'),
+          ),
+          ElevatedButton(
+            onPressed: () =&gt; setState(() =&gt; count--),
+            child: Text('-'),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>🚀 Próxima Aula & Conclusão</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h3>✅ Revisão</h3>
+            <ul>
+              <li>📝 Linguagens nativas vs híbridas</li>
+              <li>⚛️ JavaScript/JSX para React Native</li>
+              <li>🦋 Dart para Flutter</li>
+              <li>📊 Comparação detalhada</li>
+              <li>🧪 Primeiro app funcional</li>
+            </ul>
+          </div>
+          <div>
+            <h3>🔮 Próxima Aula</h3>
+            <div class="code-highlight">
+              <h4>🤖 Aula 4: Plataforma Android</h4>
+              <ul>
+                <li>Arquitetura Android</li>
+                <li>Activity lifecycle</li>
+                <li>Manifest e permissões</li>
+                <li>Gradle build system</li>
+                <li>Android Studio hands-on</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+          <h3>❓ Dúvidas & Contato</h3>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+</html>

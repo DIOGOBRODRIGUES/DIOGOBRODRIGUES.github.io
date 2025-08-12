@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 5 - Interface Gráfica e Layouts</title>
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>.reveal .slides section{text-align:left;font-size:0.8em}.reveal h1,.reveal h2,.reveal h3,.reveal h4{text-align:center;margin-bottom:1rem}.social-links{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem}.code-highlight{background:rgba(98,114,164,0.1);border-left:4px solid #ff79c6;border-radius:8px;padding:1rem;margin:1rem 0}</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 5: Interface Gráfica e Layouts 🎨</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+      <section>
+        <h2>🎯 Objetivos</h2>
+        <div class="code-highlight">
+          <ul>
+            <li>🏗️ <strong>Dominar</strong> Views e ViewGroups</li>
+            <li>📐 <strong>Utilizar</strong> diferentes tipos de layouts</li>
+            <li>🎨 <strong>Aplicar</strong> Material Design principles</li>
+            <li>📱 <strong>Criar</strong> interfaces responsivas</li>
+            <li>✨ <strong>Implementar</strong> componentes interativos</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>🏗️ Views e ViewGroups</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h3>📱 Basic Views</h3>
+            <ul>
+              <li><strong>TextView:</strong> Exibir texto</li>
+              <li><strong>Button:</strong> Ações do usuário</li>
+              <li><strong>ImageView:</strong> Exibir imagens</li>
+              <li><strong>EditText:</strong> Entrada de texto</li>
+              <li><strong>CheckBox:</strong> Múltipla seleção</li>
+              <li><strong>RadioButton:</strong> Seleção única</li>
+            </ul>
+          </div>
+          <div>
+            <h3>📐 Layout Types</h3>
+            <ul>
+              <li><strong>LinearLayout:</strong> Horizontal/Vertical</li>
+              <li><strong>RelativeLayout:</strong> Posições relativas</li>
+              <li><strong>ConstraintLayout:</strong> Flexível e eficiente</li>
+              <li><strong>FrameLayout:</strong> Sobreposição</li>
+              <li><strong>GridLayout:</strong> Grade de elementos</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🎨 Material Design</h2>
+        <div class="code-highlight">
+          <h3>📱 Princípios do Material Design</h3>
+          <ul>
+            <li><strong>Material is the metaphor:</strong> Inspirado no mundo físico</li>
+            <li><strong>Bold, graphic, intentional:</strong> Design gráfico como fundação</li>
+            <li><strong>Motion provides meaning:</strong> Movimento significativo</li>
+          </ul>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🎯 Components</h4>
+            <ul>
+              <li>FloatingActionButton</li>
+              <li>CardView</li>
+              <li>RecyclerView</li>
+              <li>Navigation Drawer</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>🎨 Colors & Typography</h4>
+            <ul>
+              <li>Primary/Secondary colors</li>
+              <li>Material color palette</li>
+              <li>Roboto font family</li>
+              <li>Text styles hierarchy</li>
+            </ul>
+          </div>
+          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
+            <h4>✨ Motion & Interaction</h4>
+            <ul>
+              <li>Ripple effects</li>
+              <li>Shared element transitions</li>
+              <li>Elevation & shadows</li>
+              <li>Responsive animations</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🧪 Atividade Prática</h2>
+        <div class="code-highlight">
+          <h3>🎯 Criar Interface de Login Material Design</h3>
+          <p>Implementar tela de login com componentes Material Design</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h4>React Native</h4>
+            <pre><code>import {View,Text,TextInput,Button} from 'react-native';
+
+export default function LoginScreen(){
+  return(
+    &lt;View style={{flex:1,justifyContent:'center',padding:20}}&gt;
+      &lt;Text style={{fontSize:24,textAlign:'center',marginBottom:30}}&gt;Login&lt;/Text&gt;
+      &lt;TextInput placeholder="Email" style={{borderWidth:1,padding:10,marginBottom:15,borderRadius:5}}/&gt;
+      &lt;TextInput placeholder="Password" secureTextEntry style={{borderWidth:1,padding:10,marginBottom:20,borderRadius:5}}/&gt;
+      &lt;Button title="Login" onPress={()=&gt;{/*logic*/}}/&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+          </div>
+          <div>
+            <h4>Flutter</h4>
+            <pre><code>class LoginScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body:Padding(
+        padding:EdgeInsets.all(20),
+        child:Column(
+          mainAxisAlignment:MainAxisAlignment.center,
+          children:[
+            Text('Login',style:TextStyle(fontSize:24)),
+            SizedBox(height:30),
+            TextField(decoration:InputDecoration(labelText:'Email')),
+            TextField(decoration:InputDecoration(labelText:'Password'),obscureText:true),
+            SizedBox(height:20),
+            ElevatedButton(onPressed:(){},child:Text('Login'))
+          ]
+        )
+      )
+    );
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>🔮 Próxima Aula</h2>
+        <div class="code-highlight">
+          <h4>🗄️ Aula 6: Banco de Dados Mobile</h4>
+          <ul>
+            <li>SQLite local database</li>
+            <li>AsyncStorage para dados simples</li>
+            <li>Firebase Firestore</li>
+            <li>Sincronização de dados</li>
+            <li>CRUD operations</li>
+          </ul>
+        </div>
+        <div style="text-align:center;margin-top:2rem;">
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>Reveal.initialize({controls:true,progress:true,center:true,hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

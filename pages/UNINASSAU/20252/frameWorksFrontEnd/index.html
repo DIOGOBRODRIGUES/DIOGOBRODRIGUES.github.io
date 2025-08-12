@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenvolvimento para Dispositivos Móveis - UNINASSAU</title>
+    <title>Frameworks Front-End - UNINASSAU</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             line-height: 1.6;
             min-height: 100vh;
@@ -34,13 +34,13 @@
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            color: #ffc107;
+            color: #fff;
         }
 
         .header h2 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #e3f2fd;
+            color: #f0f8ff;
         }
 
         .professor-info {
@@ -52,7 +52,7 @@
         }
 
         .professor-info h3 {
-            color: #ffc107;
+            color: #ffd700;
             margin-bottom: 1rem;
         }
 
@@ -64,19 +64,19 @@
         }
 
         .social-links a {
-            color: #e3f2fd;
+            color: #f0f8ff;
             font-size: 1.8rem;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            color: #ffc107;
+            color: #ffd700;
             transform: scale(1.2);
         }
 
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
@@ -100,13 +100,13 @@
         }
 
         .course-card h3 {
-            color: #ffc107;
+            color: #ffd700;
             font-size: 1.4rem;
             margin-bottom: 1rem;
         }
 
         .course-card p {
-            color: #e3f2fd;
+            color: #f0f8ff;
             margin-bottom: 0.5rem;
         }
 
@@ -123,26 +123,26 @@
 
         .units-section h2 {
             text-align: center;
-            color: #ffc107;
+            color: #ffd700;
             margin-bottom: 2rem;
         }
 
         .units-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
         .unit-card {
-            background: rgba(255, 193, 7, 0.1);
-            border: 2px solid #ffc107;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
             border-radius: 10px;
             padding: 1.5rem;
             text-align: center;
         }
 
         .unit-card h4 {
-            color: #ffc107;
+            color: #ffd700;
             margin-bottom: 1rem;
         }
 
@@ -153,15 +153,15 @@
 
         .unit-card ul li {
             margin-bottom: 0.5rem;
-            color: #e3f2fd;
+            color: #f0f8ff;
         }
 
         .unit-card ul li::before {
-            content: "📱 ";
+            content: "⚛️ ";
             margin-right: 0.5rem;
         }
 
-        .practical-note {
+        .framework-highlight {
             background: rgba(76, 175, 80, 0.2);
             border: 2px solid #4caf50;
             border-radius: 10px;
@@ -170,25 +170,25 @@
             text-align: center;
         }
 
-        .practical-note h3 {
+        .framework-highlight h3 {
             color: #4caf50;
             margin-bottom: 1rem;
         }
 
-        .expo-link {
-            display: inline-block;
-            background: #4caf50;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            margin-top: 1rem;
+        .framework-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .framework-icons i {
+            font-size: 3rem;
             transition: all 0.3s ease;
         }
 
-        .expo-link:hover {
-            background: #45a049;
-            transform: scale(1.05);
+        .framework-icons i:hover {
+            transform: scale(1.2);
         }
 
         @media (max-width: 768px) {
@@ -209,12 +209,12 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>📱 Desenvolvimento para Dispositivos Móveis</h1>
+            <h1>⚛️ Frameworks Front-End</h1>
             <h2>🏛️ Centro Universitário Maurício de Nassau</h2>
             
             <div class="professor-info">
                 <h3>Prof. Dr. Diogo Francisco Borba Rodrigues</h3>
-                <p>Especialista em Desenvolvimento Mobile e Tecnologias Emergentes</p>
+                <p>Especialista em Desenvolvimento Web e Frameworks Modernos</p>
                 
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
@@ -230,66 +230,50 @@
         <main>
             <div class="course-grid">
                 <a href="aula1/index.html" class="course-card">
-                    <span class="icon">📱</span>
-                    <h3>Aula 1: Introdução aos Dispositivos Móveis</h3>
-                    <p><strong>Conteúdo:</strong> Tipos de dispositivos móveis</p>
-                    <p><strong>Foco:</strong> Características e sistemas operacionais</p>
+                    <span class="icon">🚀</span>
+                    <h3>Aula 1: Introdução a Frameworks</h3>
+                    <p><strong>Conteúdo:</strong> O que são frameworks front-end</p>
+                    <p><strong>Foco:</strong> Conceitos fundamentais e panorama geral</p>
                     <p><strong>Duração:</strong> 2 horas</p>
                 </a>
 
                 <a href="aula2/index.html" class="course-card">
-                    <span class="icon">🛠️</span>
-                    <h3>Aula 2: Ambientes de Desenvolvimento</h3>
-                    <p><strong>Conteúdo:</strong> Ferramentas de desenvolvimento</p>
-                    <p><strong>Foco:</strong> Setup e configuração</p>
+                    <span class="icon">🅰️</span>
+                    <h3>Aula 2: Angular - Framework Completo</h3>
+                    <p><strong>Conteúdo:</strong> Arquitetura, TypeScript, Components</p>
+                    <p><strong>Foco:</strong> Desenvolvimento estruturado e robusto</p>
                     <p><strong>Duração:</strong> 2 horas</p>
                 </a>
 
                 <a href="aula3/index.html" class="course-card">
-                    <span class="icon">💻</span>
-                    <h3>Aula 3: Linguagens de Programação Mobile</h3>
-                    <p><strong>Conteúdo:</strong> JavaScript, React Native, Flutter</p>
-                    <p><strong>Foco:</strong> Fundamentos de programação mobile</p>
+                    <span class="icon">💚</span>
+                    <h3>Aula 3: Vue.js - Framework Progressivo</h3>
+                    <p><strong>Conteúdo:</strong> Reatividade, Diretivas, Single File Components</p>
+                    <p><strong>Foco:</strong> Simplicidade e flexibilidade</p>
                     <p><strong>Duração:</strong> 2 horas</p>
                 </a>
 
                 <a href="aula4/index.html" class="course-card">
-                    <span class="icon">🤖</span>
-                    <h3>Aula 4: Plataforma Android</h3>
-                    <p><strong>Conteúdo:</strong> Conceitos, versões, ambiente</p>
-                    <p><strong>Foco:</strong> Visão geral da plataforma Android</p>
+                    <span class="icon">⚛️</span>
+                    <h3>Aula 4: React - Biblioteca JavaScript</h3>
+                    <p><strong>Conteúdo:</strong> Componentes, JSX, Props, State</p>
+                    <p><strong>Foco:</strong> Desenvolvimento de interfaces reativas</p>
                     <p><strong>Duração:</strong> 2 horas</p>
                 </a>
 
                 <a href="aula5/index.html" class="course-card">
-                    <span class="icon">🎨</span>
-                    <h3>Aula 5: Interface Gráfica e Layouts</h3>
-                    <p><strong>Conteúdo:</strong> Views, layouts e componentes</p>
-                    <p><strong>Foco:</strong> Design de interfaces mobile</p>
+                    <span class="icon">🔗</span>
+                    <h3>Aula 5: Integração Back-End e Front-End</h3>
+                    <p><strong>Conteúdo:</strong> APIs REST, HTTP, Estado Global</p>
+                    <p><strong>Foco:</strong> Comunicação entre camadas</p>
                     <p><strong>Duração:</strong> 2 horas</p>
                 </a>
 
                 <a href="aula6/index.html" class="course-card">
-                    <span class="icon">🗄️</span>
-                    <h3>Aula 6: Banco de Dados Mobile</h3>
-                    <p><strong>Conteúdo:</strong> SQLite, AsyncStorage, Firebase</p>
-                    <p><strong>Foco:</strong> Persistência de dados</p>
-                    <p><strong>Duração:</strong> 2 horas</p>
-                </a>
-
-                <a href="aula7/index.html" class="course-card">
-                    <span class="icon">🔄</span>
-                    <h3>Aula 7: Aplicações Híbridas</h3>
-                    <p><strong>Conteúdo:</strong> React Native, Expo, Cordova</p>
-                    <p><strong>Foco:</strong> Desenvolvimento multiplataforma</p>
-                    <p><strong>Duração:</strong> 2 horas</p>
-                </a>
-
-                <a href="aula8/index.html" class="course-card">
                     <span class="icon">🚀</span>
-                    <h3>Aula 8: Projeto Final</h3>
-                    <p><strong>Conteúdo:</strong> Desenvolvimento de app completo</p>
-                    <p><strong>Foco:</strong> Aplicação prática dos conceitos</p>
+                    <h3>Aula 6: Projeto Prático Final</h3>
+                    <p><strong>Conteúdo:</strong> Aplicação completa com React Native</p>
+                    <p><strong>Foco:</strong> Implementação de projeto real</p>
                     <p><strong>Duração:</strong> 4 horas</p>
                 </a>
             </div>
@@ -299,59 +283,66 @@
                 
                 <div class="units-grid">
                     <div class="unit-card">
-                        <h4>UNIDADE I: Fundamentos</h4>
+                        <h4>UNIDADE I: Introdução</h4>
                         <ul>
-                            <li>Introdução aos dispositivos móveis</li>
-                            <li>Tipos de dispositivos móveis</li>
-                            <li>Características dos dispositivos</li>
-                            <li>Sistemas operacionais mobile</li>
-                            <li>Ambientes de desenvolvimento</li>
+                            <li>Introdução à frameworks</li>
+                            <li>O que são frameworks</li>
+                            <li>Principais frameworks front-end</li>
+                            <li>Comparação inicial entre opções</li>
                         </ul>
                     </div>
 
                     <div class="unit-card">
-                        <h4>UNIDADE II: Programação</h4>
+                        <h4>UNIDADE II: Classificação</h4>
                         <ul>
-                            <li>Linguagens para mobile</li>
-                            <li>Desenvolvimento em plataformas</li>
-                            <li>Android - conceitos</li>
-                            <li>Visão geral da plataforma</li>
-                            <li>Versionamento e ambiente</li>
+                            <li>Classificação por linguagem</li>
+                            <li>Comparação entre frameworks</li>
+                            <li>Angular vs Vue.js vs React</li>
+                            <li>Casos de uso específicos</li>
                         </ul>
                     </div>
 
                     <div class="unit-card">
-                        <h4>UNIDADE III: Interface</h4>
+                        <h4>UNIDADE III: Desenvolvimento</h4>
                         <ul>
-                            <li>Interface gráfica mobile</li>
-                            <li>Geradores de layout</li>
-                            <li>Views e componentes</li>
-                            <li>Recursos do Android</li>
-                            <li>Práticas em laboratório</li>
+                            <li>Requisitos do desenvolvimento</li>
+                            <li>Especificação de aplicação</li>
+                            <li>Desenvolvimento de aplicação</li>
+                            <li>React na prática</li>
                         </ul>
                     </div>
 
                     <div class="unit-card">
-                        <h4>UNIDADE IV: Dados e Híbridas</h4>
+                        <h4>UNIDADE IV: Integração</h4>
                         <ul>
-                            <li>Bases de dados mobile</li>
-                            <li>Integração com BD</li>
-                            <li>Aplicações híbridas</li>
-                            <li>Desenvolvimento multiplataforma</li>
-                            <li>Projeto final</li>
+                            <li>Integração back-end e front-end</li>
+                            <li>APIs e comunicação</li>
+                            <li>Projeto prático</li>
+                            <li>Deploy e publicação</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="practical-note">
-                <h3>🧪 Atividades Práticas</h3>
-                <p>Por limitações de hardware, utilizaremos o <strong>Expo Snack</strong> para as atividades práticas.</p>
-                <p>Plataforma online que permite desenvolvimento React Native diretamente no navegador!</p>
+            <div class="framework-highlight">
+                <h3>🎯 Foco Principal: React</h3>
+                <p>A partir da Aula 4, iremos aprofundar no <strong>React</strong> para desenvolvimento de interfaces web modernas</p>
                 
-                <a href="https://snack.expo.dev" target="_blank" class="expo-link">
-                    <i class="fas fa-external-link-alt"></i> Acessar Expo Snack
-                </a>
+                <div class="framework-icons">
+                    <i class="fab fa-react" style="color: #61dafb;"></i>
+                    <i class="fab fa-js-square" style="color: #f7df1e;"></i>
+                    <i class="fab fa-html5" style="color: #e34f26;"></i>
+                    <i class="fab fa-css3-alt" style="color: #1572b6;"></i>
+                </div>
+                
+                <p><strong>Por que React?</strong></p>
+                <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                    <li>🚀 Biblioteca mais popular do mercado</li>
+                    <li>⚡ Performance com Virtual DOM</li>
+                    <li>💼 Alta demanda no mercado de trabalho</li>
+                    <li>🔄 Reutilização de componentes</li>
+                    <li>🌐 Ecosistema rico e ativo</li>
+                </ul>
             </div>
         </main>
     </div>
