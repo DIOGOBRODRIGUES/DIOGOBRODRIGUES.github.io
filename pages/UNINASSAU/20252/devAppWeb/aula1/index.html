@@ -37,6 +37,9 @@
         <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
           <i class="fab fa-github"></i>
         </a>
+        <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
       </section>
 
       <!-- Slide 2 - Objetivos da Aula -->
@@ -62,34 +65,10 @@
               <li>Acesso através de URL</li>
               <li>Interface baseada em HTML/CSS/JavaScript</li>
               <li>Comunicação via protocolo HTTP/HTTPS</li>
-              <li>Execução distribuída (cliente-servidor)</li>
             </ul>
           </div>
         </section>
 
-        <section>
-          <h3>📱 Exemplos de Aplicações Web</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-              <h4>Tradicionais</h4>
-              <ul>
-                <li>Gmail</li>
-                <li>Facebook</li>
-                <li>Wikipedia</li>
-                <li>YouTube</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Modernas (SPA)</h4>
-              <ul>
-                <li>Google Docs</li>
-                <li>Trello</li>
-                <li>WhatsApp Web</li>
-                <li>Netflix</li>
-              </ul>
-            </div>
-          </div>
-        </section>
       </section>
 
       <!-- Slide 4 - Protocolo HTTP -->
@@ -98,18 +77,49 @@
           <h2>🌍 Protocolo HTTP</h2>
           <p><strong>HTTP (HyperText Transfer Protocol)</strong></p>
           <p class="fragment">É o protocolo de comunicação utilizado para transferir dados na World Wide Web.</p>
-          
+        </section>
+
+        <section>
+          <h3>🔍 O que é o HTTP?</h3>
           <div class="fragment">
-            <h3>Características do HTTP:</h3>
-            <ul>
-              <li>Stateless (sem estado)</li>
               <li>Baseado em requisição-resposta</li>
               <li>Utiliza porta 80 (HTTP) ou 443 (HTTPS)</li>
               <li>Texto simples (legível por humanos)</li>
             </ul>
           </div>
         </section>
+        <section>
+          <h3>🚪 O que são Portas?</h3>
+          <p class="fragment">Portas são pontos de acesso lógicos em um servidor que permitem diferentes tipos de comunicação.</p>
+          
+          <div class="fragment">
+            <h4>Características das Portas:</h4>
+            <ul>
+              <li>Números de 0 a 65535</li>
+              <li>Identificam serviços específicos</li>
+              <li>Permitem múltiplas conexões simultâneas</li>
+              <li>Separadas por protocolo (TCP/UDP)</li>
+            </ul>
+          </div>
 
+          <div class="fragment">
+            <h4>Principais Portas Web:</h4>
+            <table style="font-size: 0.8em;">
+              <tr>
+            <td><strong>80</strong></td>
+            <td>HTTP (navegação web)</td>
+              </tr>
+              <tr>
+            <td><strong>443</strong></td>
+            <td>HTTPS (navegação segura)</td>
+              </tr>
+              <tr>
+            <td><strong>8080</strong></td>
+            <td>HTTP alternativo (desenvolvimento)</td>
+              </tr>
+            </table>
+          </div>
+        </section>
         <section>
           <h3>📨 Métodos HTTP Principais</h3>
           <table>
@@ -214,40 +224,7 @@
           </div>
         </section>
 
-        <section>
-          <h3>🔄 Comparação Visual</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-              <h4>🖥️ Server Side</h4>
-              <pre><code class="language-java">
-// Java Servlet
-@WebServlet("/usuario")
-public class UsuarioServlet {
-  protected void doGet(request, response) {
-    String nome = database.getNome(id);
-    response.getWriter()
-      .println("<h1>Olá " + nome + "</h1>");
-  }
-}
-              </code></pre>
-            </div>
-            <div>
-              <h4>💻 Client Side</h4>
-              <pre><code class="language-javascript">
-// JavaScript
-document.getElementById('botao')
-  .addEventListener('click', function() {
-    fetch('/api/usuario/1')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('nome')
-          .innerText = 'Olá ' + data.nome;
-      });
-  });
-              </code></pre>
-            </div>
-          </div>
-        </section>
+       
       </section>
 
       <!-- Slide 6 - Arquitetura Web -->
@@ -256,18 +233,7 @@ document.getElementById('botao')
           <h2>🏗️ Arquitetura Web Básica</h2>
         </section>
 
-        <section>
-          <h3>📐 Modelo Cliente-Servidor</h3>
-          <div class="mermaid">
-            <pre><code>
-graph LR
-    A[Cliente<br/>Navegador] -->|HTTP Request| B[Servidor Web]
-    B -->|HTTP Response| A
-    B -->|SQL| C[Banco de Dados]
-    C -->|Dados| B
-            </code></pre>
-          </div>
-        </section>
+     
 
         <section>
           <h3>🔄 Fluxo de Requisição</h3>
@@ -342,29 +308,185 @@ graph LR
           </div>
         </section>
 
-        <section>
-          <h3>🖥️ Back-end (Servidor)</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-              <h4>Java EE</h4>
-              <ul class="fragment">
+            <section>
+              <h3>🖥️ Back-end (Servidor)</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                  <h4>Java EE</h4>
+                  <ul class="fragment">
                 <li>Servlets</li>
                 <li>JSP (JavaServer Pages)</li>
                 <li>JDBC</li>
                 <li>EJB (Enterprise JavaBeans)</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Infraestrutura</h4>
-              <ul class="fragment">
+                  </ul>
+                </div>
+                <div>
+                  <h4>Infraestrutura</h4>
+                  <ul class="fragment"></ul>
                 <li>Apache Tomcat</li>
                 <li>JDK/JRE</li>
                 <li>Banco de Dados</li>
                 <li>Eclipse IDE</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h3>☕ Java Servlets - Conceitos</h3>
+              <p class="fragment">Servlets são classes Java que processam requisições HTTP no servidor.</p>
+              
+              <div class="fragment">
+                <h4>Características Principais:</h4>
+                <ul>
+                  <li>Executam no servidor (server-side)</li>
+                  <li>Independentes de plataforma</li>
+                </ul>
+              </div>
+
+              <div class="fragment">
+                <h4>Métodos Principais:</h4>
+                <ul>
+                  <li><code>doGet()</code> - Processa requisições GET</li>
+                  <li><code>doPost()</code> - Processa requisições POST</li>
+                  <li><code>init()</code> - Inicialização do servlet</li>
+                  <li><code>destroy()</code> - Limpeza de recursos</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h3>📄 JSP - JavaServer Pages</h3>
+              <p class="fragment">JSP permite incorporar código Java diretamente em páginas HTML.</p>
+              
+              <div class="fragment">
+                <h4>Vantagens:</h4>
+                <ul>
+                  <li>Sintaxe similar ao HTML</li>
+                  <li>Separação de apresentação e lógica</li>
+                  <li>Reutilização de componentes</li>
+                  
+                </ul>
+              </div>
+
+           
+            </section>
+
+            <section>
+              <h3>🗄️ JDBC - Java Database Connectivity</h3>
+              <p class="fragment">API Java para conectar e interagir com bancos de dados.</p>
+              
+              <div class="fragment">
+                <h4>Componentes Principais:</h4>
+                <ul>
+                  <li><strong>DriverManager</strong> - Gerencia drivers de banco</li>
+                  <li><strong>Connection</strong> - Conexão com banco</li>
+                  <li><strong>Statement</strong> - Execução de SQL</li>
+                  <li><strong>ResultSet</strong> - Resultados de consultas</li>
+                </ul>
+              </div>
+
+              <div class="fragment">
+                <h4>Fluxo Típico:</h4>
+                <ol>
+                  <li>Carregar driver</li>
+                  <li>Estabelecer conexão</li>
+                  <li>Criar statement</li>
+                  <li>Executar query</li>
+                  <li>Processar resultados</li>
+                  <li>Fechar conexões</li>
+                </ol>
+              </div>
+            </section>
+
+            <section>
+              <h3>🏢 Apache Tomcat</h3>
+              <p class="fragment">Servidor web e container de servlets open-source.</p>
+              
+              <div class="fragment">
+                <h4>Funcionalidades:</h4>
+                <ul>
+                  <li>Execução de servlets e JSP</li>
+                  <li>Gerenciamento de sessões</li>
+                  <li>Segurança integrada</li>
+                </ul>
+              </div>
+
+            </section>
+
+            <section>
+              <h3>🛠️ Eclipse IDE para Web</h3>
+              <p class="fragment">Ambiente de desenvolvimento integrado para aplicações Java web.</p>
+              
+              <div class="fragment">
+                <h4>Recursos para Web:</h4>
+                <ul>
+                  <li>Editor HTML/CSS/JS com syntax highlighting</li>
+                  <li>Integração com servidores (Tomcat)</li>
+                  <li>Debug de aplicações web</li>
+                  <li>Deploy automático</li>
+                </ul>
+              </div>
+
+              <div class="fragment">
+                <h4>Estrutura do Projeto Web:</h4>
+                <ul>
+                  <li><code>src/</code> - Código fonte Java</li>
+                  <li><code>WebContent/</code> - Recursos web (HTML, CSS, JS)</li>
+                  <li><code>WEB-INF/</code> - Configurações (web.xml, lib/)</li>
+                  <li><code>META-INF/</code> - Metadados</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h3>🔄 Arquitetura MVC com Java Web</h3>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; font-size: 0.9em;">
+                <div class="fragment">
+                  <h4>🎭 Model</h4>
+                  <p><strong>JavaBeans/POJOs</strong></p>
+                  <ul>
+                <li>Dados da aplicação</li>
+                <li>Lógica de negócio</li>
+                <li>Acesso ao banco (JDBC)</li>
+                  </ul>
+                </div>
+                <div class="fragment">
+                  <h4>👁️ View</h4>
+                  <p><strong>JSP/HTML</strong></p>
+                  <ul>
+                <li>Interface do usuário</li>
+                <li>Apresentação dos dados</li>
+                <li>Formulários</li>
+                  </ul>
+                </div>
+                <div class="fragment">
+                  <h4>🎮 Controller</h4>
+                  <p><strong>Servlets</strong></p>
+                  <ul>
+                <li>Controle de fluxo</li>
+                <li>Processamento de requisições</li>
+                <li>Coordenação Model/View</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h3>⚡ Exemplo Prático - Fluxo Completo</h3>
+              <div style="font-size: 0.8em;">
+                <ol>
+                  <li class="fragment"><strong>Cliente</strong> acessa <code>http://localhost:8080/app/login</code></li>
+                  <li class="fragment"><strong>Servlet</strong> recebe requisição via <code>doGet()</code></li>
+                  <li class="fragment"><strong>Servlet</strong> encaminha para <code>login.jsp</code></li>
+                  <li class="fragment"><strong>Usuário</strong> preenche formulário e submete</li>
+                  <li class="fragment"><strong>Servlet</strong> recebe dados via <code>doPost()</code></li>
+                  <li class="fragment"><strong>JDBC</strong> consulta banco de dados</li>
+                  <li class="fragment"><strong>ResultSet</strong> retorna dados do usuário</li>
+                  <li class="fragment"><strong>Servlet</strong> redireciona para página inicial</li>
+                </ol>
+              </div>
+            </section>
       </section>
 
       <!-- Slide 8 - Evolução das Aplicações Web -->
@@ -407,29 +529,8 @@ graph LR
         </section>
       </section>
 
-      <!-- Slide 9 - Exercícios -->
-      <section>
-        <h2>📝 Exercícios</h2>
-        <ol>
-          <li class="fragment">Identifique 5 aplicações web que você usa diariamente e classifique-as como tradicionais ou SPA</li>
-          <li class="fragment">Explique a diferença entre uma página estática e uma aplicação web dinâmica</li>
-          <li class="fragment">Descreva o que acontece quando você digita uma URL no navegador e pressiona Enter</li>
-          <li class="fragment">Liste 3 vantagens e 3 desvantagens do processamento server-side vs client-side</li>
-        </ol>
-      </section>
+      
 
-      <!-- Slide 10 - Próxima Aula -->
-      <section>
-        <h2>🔮 Próxima Aula</h2>
-        <h3>Aula 2 - Introdução à Linguagem HTML</h3>
-        <ul>
-          <li class="fragment">Estrutura básica do HTML</li>
-          <li class="fragment">Tags e elementos fundamentais</li>
-          <li class="fragment">Formulários HTML</li>
-          <li class="fragment">Semântica e acessibilidade</li>
-          <li class="fragment">Prática: Criação de página HTML no Eclipse</li>
-        </ul>
-      </section>
 
       <!-- Slide 11 - Perguntas -->
       <section>
@@ -441,6 +542,10 @@ graph LR
         <br>
         <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
           <i class="fab fa-github"></i> GitHub
+        </a>
+        <br>
+        <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+          <i class="fab fa-instagram"></i> Instagram
         </a>
       </section>
 
