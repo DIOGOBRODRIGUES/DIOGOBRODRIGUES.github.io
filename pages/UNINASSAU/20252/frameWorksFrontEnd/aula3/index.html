@@ -36,19 +36,6 @@
                 <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
             </section>
 
-            <section>
-                <h2>🎯 Objetivos de Hoje</h2>
-                <ul style="font-size: 1.2em;">
-                    <li>🧩 <b>Dominar</b> a sintaxe JSX em profundidade</li>
-                    <li>📦 <b>Criar</b> componentes reutilizáveis</li>
-                    <li>🎨 <b>Estilizar</b> componentes com CSS</li>
-                    <li>🔄 <b>Organizar</b> código com import/export</li>
-                    <li>🏗️ <b>Estruturar</b> aplicação modular</li>
-                </ul>
-                <div style="background: #61dafb; color: black; padding: 15px; border-radius: 10px; margin: 20px 0;">
-                    <p><b>💡 Meta da aula:</b> Criar uma biblioteca pessoal de componentes!</p>
-                </div>
-            </section>
 
             <section>
                 <h2>🔄 Recapitulando: O que Aprendemos?</h2>
@@ -72,13 +59,13 @@
                         </ul>
                     </div>
                 </div>
-                <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; font-size: 0.6em;">
                     <p><b>🚀 Quem conseguiu fazer o desafio da aula passada?</b></p>
                 </div>
             </section>
 
             <section>
-                <h2>🧩 JSX: Mergulho Profundo</h2>
+        
                 <section>
                     <h3>💡 Analogia: Receita de Bolo</h3>
                     <div style="display: flex; justify-content: space-around; align-items: center;">
@@ -106,7 +93,7 @@
 
                 <section>
                     <h3>🔍 JSX vs HTML: As Diferenças</h3>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.6em;">
                         <thead>
                             <tr style="background: #444;">
                                 <th style="border: 1px solid #666; padding: 10px;">HTML</th>
@@ -202,7 +189,7 @@
             </section>
 
             <section>
-                <h2>📦 Componentes: Os Blocos de LEGO</h2>
+                
                 <section>
                     <h3>🎮 Analogia: Videogame</h3>
                     <div style="text-align: center;">
@@ -301,12 +288,12 @@ export default BotaoEstiloso;</code></pre>
             </section>
 
             <section>
-                <h2>🎨 Estilização: Deixando Bonito</h2>
+               
                 <section>
-                    <h3>🎭 As 4 Maneiras de Estilizar</h3>
+                    <h3>As 4 Maneiras de Estilizar</h3>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
                         <div style="background: #e91e63; padding: 15px; border-radius: 10px; color: white;">
-                            <h4>1. 🎨 CSS Tradicional</h4>
+                            <h4>1.CSS Tradicional</h4>
                             <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
                                 <pre style="margin: 0;"><code>/* styles.css */
 .botao-azul {
@@ -318,7 +305,7 @@ export default BotaoEstiloso;</code></pre>
                             </div>
                         </div>
                         <div style="background: #9c27b0; padding: 15px; border-radius: 10px; color: white;">
-                            <h4>2. 📦 CSS Modules</h4>
+                            <h4>2.CSS Modules</h4>
                             <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
                                 <pre style="margin: 0;"><code>/* Botao.module.css */
 .azul {
@@ -330,7 +317,7 @@ import styles from './Botao.module.css';</code></pre>
                             </div>
                         </div>
                         <div style="background: #ff9800; padding: 15px; border-radius: 10px; color: white;">
-                            <h4>3. 💄 Inline Styles</h4>
+                            <h4>3.Inline Styles</h4>
                             <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
                                 <pre style="margin: 0;"><code>const estilos = {
   backgroundColor: '#2196f3',
@@ -342,7 +329,7 @@ import styles from './Botao.module.css';</code></pre>
                             </div>
                         </div>
                         <div style="background: #4caf50; padding: 15px; border-radius: 10px; color: white;">
-                            <h4>4. 💅 Styled Components</h4>
+                            <h4>4.Styled Components</h4>
                             <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
                                 <pre style="margin: 0;"><code>import styled from 'styled-components';
 
@@ -433,8 +420,9 @@ function CardProduto() {
             </section>
 
             <section>
-                <h2>🔄 Import/Export: Organizando o Código</h2>
+                
                 <section>
+                    <h2>🔄 Import/Export: Organizando o Código</h2>
                     <h3>📦 Export: Enviando Componentes</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div>
@@ -534,10 +522,11 @@ src/
             </section>
 
             <section>
-                <h2>🏭 DINÂMICA: "Component Factory"</h2>
+               
                 <section>
+                     <h2>🏭 DINÂMICA: "Component Factory"</h2>
                     <h3>🎯 Como Funciona a Fábrica</h3>
-                    <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; border: 2px solid #4CAF50;">
+                    <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; border: 2px solid #4CAF50; font-size: 0.6em;">
                         <p>Cada grupo será uma "fábrica" especializada em um tipo de componente:</p>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
                             <div style="background: #2196f3; padding: 15px; border-radius: 10px;">
@@ -601,7 +590,7 @@ src/
                             <li>🛒 <b>10 min:</b> Marketplace - Grupos "compram" uns dos outros</li>
                         </ul>
                     </div>
-                    <div style="background: #ff9800; color: black; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                    <div style="background: #ff9800; color: black; padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 0.6em;">
                         <p><b>💡 Dica:</b> Pensem em como seu componente seria usado em um site/app real!</p>
                     </div>
                 </section>
@@ -620,38 +609,13 @@ src/
                         </ol>
                     </div>
                 </section>
-
-                <section>
-                    <h3>🏆 Critérios de Avaliação</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                        <div>
-                            <h4>💻 Qualidade Técnica (50%)</h4>
-                            <ul style="font-size: 0.9em;">
-                                <li>🧩 JSX bem estruturado</li>
-                                <li>🎨 CSS organizado</li>
-                                <li>📁 Estrutura de arquivos</li>
-                                <li>🔄 Import/export corretos</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>🎭 Apresentação (50%)</h4>
-                            <ul style="font-size: 0.9em;">
-                                <li>🎪 Criatividade na apresentação</li>
-                                <li>🎯 Clareza na explicação</li>
-                                <li>✨ Design dos componentes</li>
-                                <li>🤝 Trabalho em equipe</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div style="background: #ffd700; color: black; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
-                        <p><b>🎁 Prêmio Especial:</b> Fábrica vencedora escolhe o tema da próxima dinâmica!</p>
-                    </div>
-                </section>
+s
             </section>
 
             <section>
-                <h2>💻 Exemplo Prático: Construindo Juntos</h2>
+                
                 <section>
+                    <h2>💻 Exemplo Prático: Construindo Juntos</h2>
                     <h3>🎯 Vamos Criar: Header de Site</h3>
                     <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
                         <pre style="margin: 0;"><code>// components/Header/Header.js
@@ -826,18 +790,6 @@ export default App;</code></pre>
                     </div>
                 </section>
 
-                <section>
-                    <h3>⏱️ Tempo e Entrega</h3>
-                    <ul style="font-size: 1.2em;">
-                        <li>⏰ <b>Tempo:</b> 15 minutos</li>
-                        <li>📤 <b>Entrega:</b> Mostrar funcionando no navegador</li>
-                        <li>🎯 <b>Extra:</b> Push para GitHub (+2 pontos)</li>
-                        <li>🏆 <b>Showcase:</b> 3 melhores apresentam para turma</li>
-                    </ul>
-                    <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0;">
-                        <p><b>💡 Dica:</b> Use o que aprendemos hoje - JSX, CSS, estrutura de componentes!</p>
-                    </div>
-                </section>
             </section>
 
             <section>
@@ -911,36 +863,8 @@ return (
             </section>
 
             <section>
-                <h2>🎯 Resumo da Aula</h2>
-                <section>
-                    <div style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); padding: 20px; border-radius: 15px;">
-                        <h3>✨ O que dominamos hoje?</h3>
-                        <ul style="font-size: 1.1em;">
-                            <li>🧩 JSX em profundidade com suas regras</li>
-                            <li>📦 Criamos componentes reutilizáveis</li>
-                            <li>🎨 Múltiplas formas de estilização</li>
-                            <li>🔄 Import/export para organização</li>
-                            <li>🏗️ Estrutura de projeto modular</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>🚀 Próxima Aula: Props e Composição</h3>
-                    <div style="background: #2d2d2d; padding: 20px; border-radius: 10px;">
-                        <h4>📚 O que vamos aprender:</h4>
-                        <ul>
-                            <li>📡 Props: comunicação entre componentes</li>
-                            <li>🧪 PropTypes para validação</li>
-                            <li>👶 children e composição</li>
-                            <li>🔄 Renderização condicional</li>
-                            <li>📋 Listas e keys</li>
-                        </ul>
-                    </div>
-                    <p style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
-                        <b>🏠 Para casa: Crie mais 2 componentes para seu projeto pessoal!</b>
-                    </p>
-                </section>
+               
+            
 
                 <section>
                     <h3>💎 Frase Inspiradora</h3>
@@ -953,7 +877,7 @@ return (
             </section>
 
             <section>
-                <h2>❓ Q&A: Perguntas e Respostas</h2>
+            
                 <div style="text-align: center; margin: 30px 0;">
                     <h3>🙋‍♂️ Dúvidas sobre JSX e Componentes?</h3>
                     <p style="font-size: 1.2em;">Momento para esclarecer tudo!</p>
@@ -969,11 +893,7 @@ return (
                         </ul>
                     </div>
 
-                    <div style="background: #61dafb; color: black; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h4>🎯 Próxima Semana:</h4>
-                        <p>Vamos fazer nossos componentes "conversarem" uns com os outros usando Props!</p>
-                        <p><b>Preparem-se para a mágica da comunicação entre componentes! 🎭</b></p>
-                    </div>
+                    
 
                     <div style="margin: 20px 0;">
                         <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
@@ -983,10 +903,7 @@ return (
                             <i class="fab fa-github" style="font-size: 2em; margin: 0 10px;"></i>
                         </a>
                     </div>
-                    
-                    <p style="background: #666; padding: 10px; border-radius: 5px; margin: 20px auto; max-width: 500px;">
-                        📧 Compartilhem seus componentes no GitHub!
-                    </p>
+                 
                 </div>
             </section>
 
