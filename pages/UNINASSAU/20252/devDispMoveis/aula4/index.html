@@ -1,317 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <title>Aula 4 - Plataforma Android</title>
-  <meta name="description" content="Conceitos, arquitetura e desenvolvimento para plataforma Android">
-  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
-  <style>
-    .reveal .slides section { text-align: left; font-size: 0.8em; line-height: 1.4; }
-    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-align: center; margin-bottom: 1rem; }
-    .social-links { margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; }
-    .social-links a { font-size: 1.8em; transition: all 0.3s ease; padding: 0.5rem; border-radius: 50%; }
-    .code-highlight { background: rgba(98, 114, 164, 0.1); border-left: 4px solid #ff79c6; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.9em; }
-    .android-card { background: rgba(139, 195, 74, 0.2); padding: 1rem; border-radius: 8px; margin: 0.5rem 0; border-left: 4px solid #8bc34a; }
-  </style>
+  <title>Aula 4: Introdução ao React Native</title>
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../reveal.js-master/plugin/highlight/monokai.css">
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
-      
       <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 4: Plataforma Android 🤖</h3>
-        <p><strong>Desenvolvimento para Dispositivos Móveis</strong></p>
-        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
+        <h2>📱⚛️ Aula 4: Introdução ao React Native</h2>
+        <p>Primeiros passos para criar apps mobile com React Native.</p>
       </section>
-
       <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <div class="code-highlight">
-          <ul>
-            <li>🏗️ <strong>Compreender</strong> a arquitetura do Android</li>
-            <li>📱 <strong>Conhecer</strong> o ciclo de vida das Activities</li>
-            <li>📋 <strong>Configurar</strong> Android Manifest</li>
-            <li>🔧 <strong>Utilizar</strong> sistema de build Gradle</li>
-            <li>🧪 <strong>Criar</strong> primeiro app nativo Android</li>
-          </ul>
-        </div>
+        <h3>O que é React Native?</h3>
+        <ul>
+          <li>Framework para criar aplicativos móveis nativos usando JavaScript e React</li>
+          <li>Desenvolvido pelo Facebook</li>
+          <li>Permite criar apps para Android e iOS com o mesmo código</li>
+        </ul>
       </section>
-
       <section>
-        <h2>🏗️ Arquitetura do Android</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <div class="android-card">
-              <h4>📱 Application Layer</h4>
-              <ul>
-                <li>Apps do usuário</li>
-                <li>System Apps</li>
-                <li>Activities, Services, etc.</li>
-              </ul>
-            </div>
-            <div class="android-card">
-              <h4>🔧 Application Framework</h4>
-              <ul>
-                <li>Activity Manager</li>
-                <li>Content Providers</li>
-                <li>Resource Manager</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <div class="android-card">
-              <h4>📚 Libraries & Runtime</h4>
-              <ul>
-                <li>Android Runtime (ART)</li>
-                <li>Core Libraries</li>
-                <li>Native C/C++ Libraries</li>
-              </ul>
-            </div>
-            <div class="android-card">
-              <h4>🐧 Linux Kernel</h4>
-              <ul>
-                <li>Hardware drivers</li>
-                <li>Memory management</li>
-                <li>Process management</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <h3>React Native x React Web</h3>
+        <ul>
+          <li>Componentes diferentes: <code>View</code>, <code>Text</code>, <code>Button</code> (não há <code>div</code>, <code>span</code>)</li>
+          <li>Estilização via objeto JavaScript (não CSS tradicional)</li>
+          <li>Sem HTML, tudo é componente</li>
+        </ul>
       </section>
-
       <section>
-        <h2>🔄 Activity Lifecycle</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>📱 Estados da Activity</h3>
-            <ul>
-              <li><strong>Created:</strong> Activity criada</li>
-              <li><strong>Started:</strong> Visível mas não focada</li>
-              <li><strong>Resumed:</strong> Visível e focada</li>
-              <li><strong>Paused:</strong> Parcialmente visível</li>
-              <li><strong>Stopped:</strong> Não visível</li>
-              <li><strong>Destroyed:</strong> Removida da memória</li>
-            </ul>
-          </div>
-          <div>
-            <h3>🔧 Métodos Callback</h3>
-            <pre><code class="java">public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-    
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Activity se torna visível
-    }
-    
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Activity ganha foco
-    }
+        <h3>Estrutura de um App React Native</h3>
+        <ul>
+          <li>Arquivo principal: <code>App.js</code></li>
+          <li>Importação de componentes do React Native</li>
+          <li>Função principal retorna JSX com componentes nativos</li>
+        </ul>
+        <pre><code class="language-jsx">import React from 'react';
+import { View, Text } from 'react-native';
+
+export default function App() {
+  return (
+    <View>
+      <Text>Olá, React Native!</Text>
+    </View>
+  );
 }</code></pre>
-          </div>
-        </div>
       </section>
-
       <section>
-        <h2>📋 Android Manifest</h2>
-        <div class="code-highlight">
-          <h3>AndroidManifest.xml</h3>
-          <pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.uninassau.meuapp"&gt;
-
-    &lt;!-- Permissões --&gt;
-    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
-
-    &lt;application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"&gt;
-        
-        &lt;activity android:name=".MainActivity"
-            android:exported="true"&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name="android.intent.action.MAIN" /&gt;
-                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
-    &lt;/application&gt;
-&lt;/manifest&gt;</code></pre>
-        </div>
+        <h3>Componentes Básicos</h3>
+        <ul>
+          <li><code>View</code>: container genérico</li>
+          <li><code>Text</code>: exibe textos</li>
+          <li><code>Button</code>: botão nativo</li>
+          <li><code>Image</code>: exibe imagens</li>
+        </ul>
+        <pre><code class="language-jsx">import { View, Text, Button, Image } from 'react-native';</code></pre>
       </section>
-
       <section>
-        <h2>🔧 Gradle Build System</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>📦 build.gradle (Module: app)</h3>
-            <pre><code class="gradle">android {
-    compileSdk 34
-    
-    defaultConfig {
-        applicationId "com.uninassau.app"
-        minSdk 21
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-    }
-    
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-        }
-    }
-}
+        <h3>Estilos no React Native</h3>
+        <ul>
+          <li>Estilos são objetos JS, não CSS</li>
+          <li>Usa <code>StyleSheet.create</code> para organizar estilos</li>
+        </ul>
+        <pre><code class="language-jsx">import { StyleSheet } from 'react-native';
 
-dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-}</code></pre>
-          </div>
-          <div>
-            <h3>🎯 Conceitos Importantes</h3>
-            <ul>
-              <li><strong>compileSdk:</strong> Versão para compilação</li>
-              <li><strong>minSdk:</strong> Versão mínima suportada</li>
-              <li><strong>targetSdk:</strong> Versão alvo</li>
-              <li><strong>versionCode:</strong> Número interno</li>
-              <li><strong>versionName:</strong> Versão visível</li>
-              <li><strong>dependencies:</strong> Bibliotecas externas</li>
-            </ul>
-          </div>
-        </div>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});</code></pre>
       </section>
-
       <section>
-        <h2>🧪 Atividade Prática</h2>
-        <div class="code-highlight">
-          <h3>🎯 Criar App Android Simples</h3>
-          <p>Vamos usar o Android Studio para criar nossa primeira aplicação</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h4>📱 MainActivity.java</h4>
-            <pre><code class="java">public class MainActivity extends AppCompatActivity {
-    private TextView textView;
-    private Button button;
-    private int counter = 0;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        textView = findViewById(R.id.textView);
-        button = findViewById(R.id.button);
-        
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                counter++;
-                textView.setText("Contador: " + counter);
-            }
-        });
-    }
-}</code></pre>
-          </div>
-          <div>
-            <h4>🎨 activity_main.xml</h4>
-            <pre><code class="xml">&lt;LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"&gt;
-
-    &lt;TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contador: 0"
-        android:textSize="24sp" /&gt;
-
-    &lt;Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Incrementar" /&gt;
-
-&lt;/LinearLayout&gt;</code></pre>
-          </div>
-        </div>
+        <h3>Navegação</h3>
+        <ul>
+          <li>React Navigation é a biblioteca mais usada</li>
+          <li>Permite criar pilhas de telas, abas, etc.</li>
+        </ul>
+        <pre><code class="language-jsx">// Exemplo básico de navegação
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';</code></pre>
       </section>
-
       <section>
-        <h2>🚀 Próxima Aula & Conclusão</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>✅ O que aprendemos</h3>
-            <ul>
-              <li>🏗️ Arquitetura do Android em camadas</li>
-              <li>🔄 Ciclo de vida das Activities</li>
-              <li>📋 Configuração do Manifest</li>
-              <li>🔧 Sistema de build Gradle</li>
-              <li>🧪 Primeiro app Android nativo</li>
-            </ul>
-          </div>
-          <div>
-            <h3>🔮 Próxima Aula</h3>
-            <div class="code-highlight">
-              <h4>🎨 Aula 5: Interface Gráfica e Layouts</h4>
-              <ul>
-                <li>Views e ViewGroups</li>
-                <li>Layout types (Linear, Relative, Constraint)</li>
-                <li>Material Design</li>
-                <li>Responsive design</li>
-                <li>Interface rica e interativa</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 2rem;">
-          <h3>❓ Dúvidas & Contato</h3>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
+        <h3>Expo</h3>
+        <ul>
+          <li>Ferramenta que facilita o desenvolvimento com React Native</li>
+          <li>Permite testar apps rapidamente no navegador ou celular</li>
+          <li>Dispensa configuração de ambiente nativo</li>
+        </ul>
+        <p><a href="https://snack.expo.dev" target="_blank">Acesse o Expo Snack para praticar!</a></p>
       </section>
-
+      <section>
+        <h3>Comparação: React Native x Web</h3>
+        <ul>
+          <li>Web: usa HTML, CSS, DOM</li>
+          <li>React Native: usa componentes nativos, sem HTML/CSS</li>
+          <li>Estilos e navegação são diferentes</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Resumo e Prática</h3>
+        <ul>
+          <li>React Native permite criar apps reais para Android/iOS</li>
+          <li>Pratique criando telas simples e usando Expo</li>
+        </ul>
+        <p><strong>Dica:</strong> Veja a <a href="https://reactnative.dev/docs/getting-started" target="_blank">documentação oficial do React Native</a>!</p>
+      </section>
     </div>
   </div>
-
-  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script src="../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../reveal.js-master/plugin/highlight/highlight.js"></script>
   <script>
     Reveal.initialize({
-      controls: true, progress: true, center: true, hash: true, slideNumber: true,
-      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealMarkdown, RevealHighlight]
     });
   </script>
 </body>

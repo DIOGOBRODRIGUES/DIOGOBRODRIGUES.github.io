@@ -2,321 +2,746 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Aula 3 - Linguagens de Programação Mobile</title>
-  <meta name="description" content="JavaScript, React Native, Flutter e linguagens para desenvolvimento mobile">
-  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Aula 3: Introdução React - Fundamentos Essenciais</title>
+  
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
-  <style>
-    .reveal .slides section { text-align: left; font-size: 0.8em; line-height: 1.4; }
-    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-align: center; margin-bottom: 1rem; }
-    .social-links { margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; }
-    .social-links a { font-size: 1.8em; transition: all 0.3s ease; padding: 0.5rem; border-radius: 50%; }
-    .social-links a:hover { transform: scale(1.2); }
-    .code-highlight { background: rgba(98, 114, 164, 0.1); border-left: 4px solid #ff79c6; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.9em; }
-    .lang-card { background: rgba(98, 114, 164, 0.2); padding: 1rem; border-radius: 8px; margin: 0.5rem 0; }
-    .lang-card h4 { color: #ff79c6; margin-bottom: 0.5rem; }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
 </head>
+
 <body>
+ 
   <div class="reveal">
     <div class="slides">
-      
+      <!-- Slide 1 - Título da Aula -->
       <section>
         <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 3: Linguagens de Programação Mobile 💻</h3>
-        <p><strong>Desenvolvimento para Dispositivos Móveis</strong></p>
+        <h3>Aula 3: Introdução de React - Fundamentos e Conceitos Essenciais</h3>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
         <div class="social-links">
-          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
         </div>
       </section>
 
+  
+
+      <!-- Slide 3 - O que é React? -->
       <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <div class="code-highlight">
-          <h4>Ao final desta aula, você será capaz de:</h4>
+        <!-- <h2>⚛️ O que é React? Conceitos Fundamentais</h2> -->
+        <section>
+          <h3>📚 Definição Completa</h3>
           <ul>
-            <li>📝 <strong>Compreender</strong> linguagens nativas vs híbridas</li>
-            <li>⚛️ <strong>Dominar</strong> JavaScript para React Native</li>
-            <li>🦋 <strong>Conhecer</strong> Dart para Flutter</li>
-            <li>📊 <strong>Comparar</strong> vantagens e desvantagens</li>
-            <li>🚀 <strong>Implementar</strong> primeiro app com lógica</li>
+            <li>🏗️ <strong>Biblioteca JavaScript:</strong> Criada pelo Facebook em 2013</li>
+            <li>🎯 <strong>Foco principal:</strong> Construção de interfaces de usuário (UI)</li>
+            <li>🧩 <strong>Baseado em componentes:</strong> Pequenas peças reutilizáveis</li>
+            <li>⚡ <strong>Declarativo:</strong> Você descreve "o que" quer, não "como" fazer</li>
+            <li>🔄 <strong>Unidirecional:</strong> Fluxo de dados sempre em uma direção</li>
           </ul>
-        </div>
-      </section>
-
-      <section>
-        <h2>🗺️ Panorama das Linguagens Mobile</h2>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-          <div class="lang-card">
-            <h4>📱 Nativas</h4>
-            <ul>
-              <li><strong>iOS:</strong> Swift, Objective-C</li>
-              <li><strong>Android:</strong> Kotlin, Java</li>
-              <li><strong>Vantagens:</strong> Performance máxima</li>
-              <li><strong>Desvantagens:</strong> 2 codebases</li>
-            </ul>
-          </div>
-          <div class="lang-card">
-            <h4>🔄 Híbridas/Cross-platform</h4>
-            <ul>
-              <li><strong>React Native:</strong> JavaScript</li>
-              <li><strong>Flutter:</strong> Dart</li>
-              <li><strong>Xamarin:</strong> C#</li>
-              <li><strong>Ionic:</strong> Web technologies</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>⚛️ JavaScript para React Native</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>✨ ES6+ Features</h3>
-            <pre><code class="javascript">// Arrow Functions
-const greeting = (name) => `Hello ${name}`;
-
-// Destructuring
-const {title, author} = book;
-const [first, second] = array;
-
-// Template Literals
-const message = `Welcome ${user.name}!`;
-
-// Async/Await
-const fetchData = async () => {
-  const response = await fetch(url);
-  return response.json();
-};</code></pre>
-          </div>
-          <div>
-            <h3>📦 JSX Syntax</h3>
-            <pre><code class="jsx">import React from 'react';
-import { View, Text, Button } from 'react-native';
-
-const MyComponent = ({ title }) => {
-  const handlePress = () => {
-    console.log('Button pressed!');
-  };
-
-  return (
-    &lt;View style={{padding: 20}}&gt;
-      &lt;Text&gt;{title}&lt;/Text&gt;
-      &lt;Button 
-        title="Press me" 
-        onPress={handlePress} 
-      /&gt;
-    &lt;/View&gt;
-  );
-};</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>🦋 Dart para Flutter</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>🎯 Dart Basics</h3>
-            <pre><code class="dart">// Variables
-var name = 'Flutter';
-String title = 'Mobile App';
-int counter = 0;
-bool isVisible = true;
-
-// Functions
-String greet(String name) {
-  return 'Hello $name';
-}
-
-// Classes
-class User {
-  String name;
-  int age;
-  
-  User(this.name, this.age);
-  
-  void sayHello() {
-    print('Hi, I am $name');
-  }
-}</code></pre>
-          </div>
-          <div>
-            <h3>🏗️ Widget System</h3>
-            <pre><code class="dart">import 'package:flutter/material.dart';
-
-class MyWidget extends StatelessWidget {
-  final String title;
-  
-  MyWidget({required this.title});
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Column(
-        children: [
-          Text('Welcome to Flutter'),
-          ElevatedButton(
-            onPressed: () =&gt; print('Pressed'),
-            child: Text('Click me'),
-          ),
-        ],
-      ),
-    );
-  }
-}</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>📊 Comparação Detalhada</h2>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.85em;">
-          <div class="lang-card">
-            <h4>⚛️ React Native</h4>
-            <ul>
-              <li><strong>Linguagem:</strong> JavaScript/TypeScript</li>
-              <li><strong>Performance:</strong> Boa (bridge)</li>
-              <li><strong>UI:</strong> Native components</li>
-              <li><strong>Curva aprendizado:</strong> Baixa (web devs)</li>
-              <li><strong>Comunidade:</strong> Muito grande</li>
-              <li><strong>Empresas:</strong> Meta, Netflix, Uber</li>
-            </ul>
-          </div>
-          <div class="lang-card">
-            <h4>🦋 Flutter</h4>
-            <ul>
-              <li><strong>Linguagem:</strong> Dart</li>
-              <li><strong>Performance:</strong> Excelente (compilado)</li>
-              <li><strong>UI:</strong> Custom rendering</li>
-              <li><strong>Curva aprendizado:</strong> Média</li>
-              <li><strong>Comunidade:</strong> Crescente</li>
-              <li><strong>Empresas:</strong> Google, BMW, eBay</li>
-            </ul>
-          </div>
-          <div class="lang-card">
-            <h4>📱 Nativo</h4>
-            <ul>
-              <li><strong>Linguagem:</strong> Swift/Kotlin</li>
-              <li><strong>Performance:</strong> Máxima</li>
-              <li><strong>UI:</strong> Platform-specific</li>
-              <li><strong>Curva aprendizado:</strong> Alta</li>
-              <li><strong>Comunidade:</strong> Estabelecida</li>
-              <li><strong>Empresas:</strong> Apple, Google</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>🧪 Atividade Prática: Primeiro App com Lógica</h2>
-        <div class="code-highlight">
-          <h3>🎯 Objetivo: Criar um contador simples</h3>
-          <p>Vamos implementar um contador que incrementa/decrementa valores</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h4>⚛️ React Native Version</h4>
-            <pre><code class="jsx">import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
-
-export default function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    &lt;View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}&gt;
-      &lt;Text style={{fontSize: 32}}&gt;{count}&lt;/Text&gt;
-      &lt;Button title="+" onPress={() =&gt; setCount(count + 1)} /&gt;
-      &lt;Button title="-" onPress={() =&gt; setCount(count - 1)} /&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-          </div>
-          <div>
-            <h4>🦋 Flutter Version</h4>
-            <pre><code class="dart">class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() =&gt; _CounterState();
-}
-
-class _CounterState extends State&lt;Counter&gt; {
-  int count = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('$count', style: TextStyle(fontSize: 32)),
-          ElevatedButton(
-            onPressed: () =&gt; setState(() =&gt; count++),
-            child: Text('+'),
-          ),
-          ElevatedButton(
-            onPressed: () =&gt; setState(() =&gt; count--),
-            child: Text('-'),
-          ),
-        ],
-      ),
-    );
-  }
-}</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>🚀 Próxima Aula & Conclusão</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-          <div>
-            <h3>✅ Revisão</h3>
-            <ul>
-              <li>📝 Linguagens nativas vs híbridas</li>
-              <li>⚛️ JavaScript/JSX para React Native</li>
-              <li>🦋 Dart para Flutter</li>
-              <li>📊 Comparação detalhada</li>
-              <li>🧪 Primeiro app funcional</li>
-            </ul>
-          </div>
-          <div>
-            <h3>🔮 Próxima Aula</h3>
-            <div class="code-highlight">
-              <h4>🤖 Aula 4: Plataforma Android</h4>
-              <ul>
-                <li>Arquitetura Android</li>
-                <li>Activity lifecycle</li>
-                <li>Manifest e permissões</li>
-                <li>Gradle build system</li>
-                <li>Android Studio hands-on</li>
+        </section>
+        <section>
+          <h3>🆚 React vs. Desenvolvimento Web Tradicional</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>HTML + CSS + JS Tradicional</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📄 Arquivos separados</li>
+                <li>🔄 Manipulação direta do DOM</li>
+                <li>⚠️ Código duplicado</li>
+                <li>🐛 Difícil manutenção</li>
+                
+              </ul>
+            </div>
+            <div>
+              <h4>React Moderno</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🧩 Componentes unificados</li>
+                <li>🔄 Virtual DOM otimizado</li>
+                <li>♻️ Componentes reutilizáveis</li>
+                <li>🔧 Fácil manutenção</li>
+                
               </ul>
             </div>
           </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 2rem;">
-          <h3>❓ Dúvidas & Contato</h3>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
+        </section>
       </section>
 
+      <!-- Slide 4 - Por que React? -->
+      <section>
+       
+        <section>
+          <h3>💪 Vantagens Técnicas do React</h3>
+          <ul>
+            <li>🔄 <strong>Virtual DOM:</strong> Cria uma representação em memória da interface real, comparando mudanças e atualizando apenas o necessário</li>
+            <li>🧩 <strong>Componentes Reutilizáveis:</strong> Escreva uma vez, use em qualquer lugar da aplicação</li>
+            <li>⚡ <strong>Performance Otimizada:</strong> Algoritmo de reconciliação inteligente</li>
+            <li>🌍 <strong>Ecossistema Rico:</strong> +100.000 bibliotecas no NPM</li>
+            <li>👥 <strong>Comunidade Ativa:</strong> +10 milhões de desenvolvedores</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📱 Conexão com React Native</h3>
+          <ul>
+            <li>🔄 <strong>Mesma filosofia:</strong> "Learn once, write anywhere" - Facebook</li>
+            <li>⚛️ <strong>Conceitos idênticos:</strong> JSX, Hooks, estado, props</li>
+            <li>🚀 <strong>Transferência de conhecimento:</strong> 90% dos conceitos se aplicam</li>
+            <li>💼 <strong>Mercado de trabalho:</strong> Mesma base para web e mobile</li>
+            <li>⏰ <strong>Desenvolvimento ágil:</strong> Equipe pode trabalhar em ambas plataformas</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Comparação Prática: Contador -->
+      <section>
+        <!-- <h2>🔍 Exemplo Prático: Contador Web Tradicional vs React</h2> -->
+        <section>
+          <h3>🔍 Exemplo Prático: Contador Web Tradicional vs React -📄 Abordagem Tradicional (HTML + JS)</h3>
+<pre data-id="code-animation"><code class="html" data-trim data-line-numbers>
+&lt;!-- HTML --&gt;
+&lt;div id="contador"&gt;
+  &lt;h2 id="valor"&gt;0&lt;/h2&gt;
+  &lt;button id="btn-incrementar"&gt;Incrementar&lt;/button&gt;
+  &lt;button id="btn-decrementar"&gt;Decrementar&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// JavaScript tradicional
+let contador = 0;
+const valorElement = document.getElementById('valor');
+const btnIncrement = document.getElementById('btn-incrementar');
+const btnDecrement = document.getElementById('btn-decrementar');
+
+btnIncrement.addEventListener('click', () => {
+  contador++;
+  // Manipulação manual do DOM
+  valorElement.textContent = contador; 
+});
+
+btnDecrement.addEventListener('click', () => {
+  contador--;
+  // Repetição de código
+  valorElement.textContent = contador; 
+});
+&lt;/script&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h3>⚛️ Abordagem React (Moderna)</h3>
+<pre><code class="hljs javascript"  data-line-numbers><script>
+import React, { useState } from 'react';
+
+export function App(props) {
+  const [contador, setContador] = useState(0);
+
+  return (
+    <div>
+      <h2>{contador}</h2>
+      <button onClick={() => setContador(contador + 1)}>
+        Incrementar
+      </button>
+      <button onClick={() => setContador(contador - 1)}>
+        Decrementar
+      </button>
     </div>
+  );
+}
+          </script></code></pre>
+</section>
+    <section>
+          <div class="code-highlight">
+            <p><strong>🎯 Vantagens do React:</strong></p>
+            <ul>
+              <li>✅ Código mais limpo e legível</li>
+              <li>✅ Não precisa manipular DOM manualmente</li>
+              <li>✅ Estado centralizado e automático</li>
+              <li>✅ Componente reutilizável</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - JSX Essencial -->
+      <section>
+       
+        <section>
+          <h3>🎯 O que é JSX?</h3>
+          <ul>
+            <li>🔤 <strong>JSX = JavaScript + XML:</strong> Sintaxe que parece HTML dentro do JavaScript</li>
+            <li>🔄 <strong>Transpilação:</strong> Babel converte JSX para JavaScript puro</li>
+            <li>📖 <strong>Legibilidade:</strong> Mais fácil de ler e escrever que JavaScript puro</li>
+            <li>⚡ <strong>Produtividade:</strong> Desenvolvimento mais rápido e intuitivo</li>
+          </ul>
+        </section>
+        <section>
+          <h3>⚡ JSX vs JavaScript Puro - Comparação Detalhada</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+              <h4>✅ JSX (Fácil de ler)</h4>
+              <pre><code data-trim class="javascript">
+const element = (
+  &lt;div className="card"&gt;
+    &lt;h1&gt;Título&lt;/h1&gt;
+    &lt;p&gt;Descrição aqui&lt;/p&gt;
+    &lt;button onClick={handleClick}&gt;
+      Clique aqui
+    &lt;/button&gt;
+  &lt;/div&gt;
+);
+              </code></pre>
+            </div>
+            <div>
+              <h4>😵 JavaScript Puro (Complexo)</h4>
+              <pre><code data-trim class="javascript">
+const element = React.createElement(
+  'div',
+  {className: 'card'},
+  React.createElement('h1', null, 'Título'),
+  React.createElement('p', null, 'Descrição aqui'),
+  React.createElement(
+    'button',
+    {onClick: handleClick},
+    'Clique aqui'
+  )
+);
+              </code></pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>🔍 JSX - Regras Importantes</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>✅ Correto</h4>
+              <pre><code data-trim class="javascript">
+// 1. className (não class)
+&lt;div className="container"&gt;
+
+// 2. Fechamento obrigatório
+&lt;img src="foto.jpg" /&gt;
+&lt;input type="text" /&gt;
+
+// 3. camelCase para atributos
+&lt;div onClick={handle} tabIndex={1}&gt;
+
+// 4. Expressões em {}
+&lt;p&gt;{user.name}&lt;/p&gt;
+&lt;h1&gt;{2 + 2}&lt;/h1&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>❌ Incorreto</h4>
+              <pre><code data-trim class="javascript">
+// 1. class (palavra reservada JS)
+&lt;div class="container"&gt;
+
+// 2. Tags não fechadas
+&lt;img src="foto.jpg"&gt;
+&lt;input type="text"&gt;
+
+// 3. kebab-case (HTML tradicional)
+&lt;div onclick={handle} tab-index={1}&gt;
+
+// 4. Strings sem {}
+&lt;p&gt;user.name&lt;/p&gt;
+&lt;h1&gt;2 + 2&lt;/h1&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Componentes Funcionais -->
+      <section>
+        <!-- <h2>🧩 Componentes Funcionais - Conceito Fundamental</h2> -->
+        <section>
+          <h3>🧩 Componentes Funcionais - Conceito Fundamental-📚 O que são Componentes?</h3>
+          <ul>
+            <li>🏗️ <strong>Definição:</strong> Funções JavaScript que retornam JSX</li>
+            <li>🧩 <strong>Modularização:</strong> Dividem a UI em peças independentes</li>
+            <li>♻️ <strong>Reutilização:</strong> Podem ser usados várias vezes</li>
+            <li>🔧 <strong>Manutenibilidade:</strong> Código organizado e fácil de debugar</li>
+            <li>👥 <strong>Colaboração:</strong> Equipe pode trabalhar em componentes diferentes</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🏗️ Anatomia de um Componente</h3>
+          <pre><code data-trim class="javascript">
+// 1. Importações necessárias
+import React from 'react';
+
+// 2. Definição do componente (sempre com letra maiúscula!)
+function Button({ title, onPress, disabled, type = 'primary' }) {
+  // 3. Lógica do componente (se houver)
+  const handleClick = () => {
+    console.log(`Botão ${title} clicado!`);
+    if (onPress) onPress(); // Chama função do pai se existir
+  };
+
+  // 4. Render (retorno do JSX)
+  return (
+    &lt;button 
+      onClick={handleClick} 
+      disabled={disabled}
+      className={`btn btn-${type} ${disabled ? 'btn-disabled' : ''}`}
+      style={{
+        padding: '10px 20px',
+        borderRadius: '5px',
+        border: 'none',
+        cursor: disabled ? 'not-allowed' : 'pointer'
+      }}
+    &gt;
+      {title}
+    &lt;/button&gt;
+  );
+}
+
+// 5. Exportação para uso em outros arquivos
+export default Button;
+          </code></pre>
+        </section>
+        <section>
+          <h3>💻 Usando o Componente na Prática</h3>
+          <pre><code data-trim class="javascript">
+import Button from './Button'; // Importa o componente
+
+function App() {
+  const handleSave = () => {
+    alert('Dados salvos!');
+  };
+
+  const handleDelete = () => {
+    if (confirm('Deseja realmente excluir?')) {
+      alert('Item excluído!');
+    }
+  };
+
+  return (
+    &lt;div className="app"&gt;
+      &lt;h1&gt;Minha Aplicação&lt;/h1&gt;
+      
+      {/* Mesmo componente, comportamentos diferentes */}
+      &lt;Button 
+        title="Salvar Dados" 
+        onPress={handleSave}
+        type="primary"
+      /&gt;
+      
+      &lt;Button 
+        title="Excluir Item" 
+        onPress={handleDelete}
+        type="danger"
+      /&gt;
+      
+      &lt;Button 
+        title="Botão Desabilitado" 
+        disabled={true}
+        type="secondary"
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>📊 Props - Propriedades</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🔍 Como funcionam</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📤 <strong>Pai → Filho:</strong> Dados fluem apenas para baixo</li>
+                <li>🔒 <strong>Imutáveis:</strong> Componente filho não pode alterar</li>
+                <li>📦 <strong>Objeto props:</strong> Recebidas como parâmetro</li>
+                <li>⚡ <strong>Re-render:</strong> Mudança nas props causa nova renderização</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🎯 Benefícios</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🔄 <strong>Reutilização:</strong> Mesmo componente, dados diferentes</li>
+                <li>🧪 <strong>Testabilidade:</strong> Entrada previsível = saída previsível</li>
+                <li>🔧 <strong>Manutenção:</strong> Mudanças localizadas</li>
+                <li>⚡ <strong>Performance:</strong> React otimiza com base nas props</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 8 - useState Hook -->
+      <section>
+        
+        <section>
+          <h3>🔥 useState - Estado no React -📚 O que é Estado (State)?</h3>
+          <ul>
+            <li>💾 <strong>Definição:</strong> Dados que podem mudar ao longo do tempo</li>
+            <li>� <strong>Reatividade:</strong> Mudanças no estado atualizam a interface automaticamente</li>
+            <li>🏠 <strong>Local:</strong> Cada componente pode ter seu próprio estado</li>
+            <li>⚡ <strong>Performance:</strong> React otimiza re-renders baseado no estado</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🎯 Comparação: Web Tradicional vs React useState</h3>
+         
+              <h4>❌ Abordagem Tradicional</h4>
+              <pre><code data-trim class="javascript">
+// HTML
+&lt;p id="contador"&gt;0&lt;/p&gt;
+&lt;button id="btn"&gt;+1&lt;/button&gt;
+
+// JavaScript
+let count = 0; // Variável global
+document.getElementById('btn')
+  .addEventListener('click', () => {
+    count++; // Muda variável
+    document.getElementById('contador')
+      .textContent = count; // Atualiza DOM manualmente
+  });
+
+// ❌ Problemas:
+// - Manipulação manual do DOM
+// - Estado global (difícil controle)
+// - Código repetitivo
+// - Difícil de testar
+              </code></pre>
+</section>
+        <section>
+              <h4>✅ useState (React)</h4>
+              <pre><code data-trim class="javascript">
+function Counter() {
+  // Estado local do componente
+  const [count, setCount] = useState(0);
+  //     ↑       ↑              ↑
+  //   valor   setter      valor inicial
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        +1
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ✅ Vantagens:
+// - React atualiza automaticamente
+// - Estado encapsulado
+// - Código limpo
+// - Fácil de testar
+              </code></pre>
+           
+          </section>
+        </section>
+        <section>
+          <h3>📊 useState - Exemplo Completo</h3>
+          <pre><code data-trim class="javascript">
+import { useState } from 'react';
+
+function FormularioCompleto() {
+  // Múltiplos estados no mesmo componente
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [erro, setErro] = useState('');
+
+  // Função assíncrona para enviar dados
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Previne reload da página
+    setIsLoading(true); // Mostra carregamento
+    setErro(''); // Limpa erros anteriores
+
+    try {
+      // Simulação de envio para API
+      const response = await fetch('/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, idade })
+      });
+
+      if (!response.ok) throw new Error('Erro no servidor');
+      
+      // Sucesso - limpa o formulário
+      setNome('');
+      setEmail('');
+      setIdade(0);
+      alert('Usuário cadastrado com sucesso!');
+      
+    } catch (error) {
+      setErro(error.message); // Mostra erro para usuário
+    } finally {
+      setIsLoading(false); // Remove carregamento
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;h2&gt;Cadastro de Usuário&lt;/h2&gt;
+      
+      {erro && &lt;div className="erro"&gt;{erro}&lt;/div&gt;}
+      
+      &lt;input
+        type="text"
+        placeholder="Nome"
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
+        required
+      /&gt;
+      
+      &lt;input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      /&gt;
+      
+      &lt;input
+        type="number"
+        placeholder="Idade"
+        value={idade}
+        onChange={(e) => setIdade(Number(e.target.value))}
+        required
+      /&gt;
+      
+      &lt;button type="submit" disabled={isLoading}&gt;
+        {isLoading ? 'Enviando...' : 'Cadastrar'}
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+          </code></pre>
+        </section>
+        
+      </section>
+
+      <!-- Slide 9 - Virtual DOM Explicado -->
+      <section>
+        <!-- <h2>🔄 Virtual DOM - O Segredo da Performance do React</h2> -->
+        <section>
+          <h3>🔄 Virtual DOM - O Segredo da Performance do React🤔 O que é o DOM Real?</h3>
+          <ul>
+            <li>🌐 <strong>DOM (Document Object Model):</strong> Representação em árvore do HTML</li>
+            <li>🐌 <strong>Lento:</strong> Manipulação direta é custosa computacionalmente</li>
+            <li>🔄 <strong>Re-flows e Re-paints:</strong> Mudanças causam recálculos caros</li>
+            <li>⚠️ <strong>Problemático:</strong> Muitas mudanças = interface travando</li>
+          </ul>
+          </section>
+          <section>
+          <div class="code-highlight">
+            <h4>💻 Exemplo: Performance ruim com DOM tradicional</h4>
+            <pre><code data-trim class="javascript">
+// ❌ DOM tradicional - MUITO LENTO para muitos elementos
+for (let i = 0; i < 1000; i++) {
+  const div = document.createElement('div');
+  div.textContent = `Item ${i}`;
+  document.body.appendChild(div); // 1000 manipulações do DOM!
+}
+// Resultado: Interface trava, usuário insatisfeito 😞
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>⚡ Virtual DOM - A Solução Inteligente</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🔍 Como funciona</h4>
+              <ul style="font-size: 0.8em;">
+                <li>💾 <strong>Cópia em memória:</strong> Representação virtual do DOM real</li>
+                <li>⚡ <strong>Operações rápidas:</strong> JavaScript puro, sem acesso ao browser</li>
+                <li>🔄 <strong>Diff Algorithm:</strong> Compara versões antigas vs novas</li>
+                <li>🎯 <strong>Reconciliation:</strong> Atualiza apenas o que mudou</li>
+              </ul>
+            </div>
+            <div>
+              <h4>📊 Processo Step-by-Step</h4>
+              <ol style="font-size: 0.8em;">
+                <li><strong>Estado muda</strong> → Trigger re-render</li>
+                <li><strong>Nova árvore virtual</strong> → Criada em memória</li>
+                <li><strong>Diff</strong> → Compara antiga vs nova</li>
+                <li><strong>Patch</strong> → Aplica apenas diferenças</li>
+                <li><strong>DOM atualizado</strong> → Mínimo de mudanças</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>🎯 Virtual DOM na Prática - Exemplo Real</h3>
+          <pre><code data-trim class="javascript">
+// Exemplo: Lista de tarefas que muda
+function TodoList({ todos }) {
+  return (
+    &lt;ul&gt;
+      {todos.map(todo => (
+        &lt;li key={todo.id} className={todo.completed ? 'done' : 'pending'}&gt;
+          {todo.text}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+// Estado inicial: 3 tarefas
+const initialTodos = [
+  { id: 1, text: 'Estudar React', completed: false },
+  { id: 2, text: 'Fazer exercícios', completed: true },
+  { id: 3, text: 'Assistir aula', completed: false }
+];
+
+// Estado após mudança: marca tarefa como completa
+const updatedTodos = [
+  { id: 1, text: 'Estudar React', completed: true }, // ← SÓ ISSO MUDOU!
+  { id: 2, text: 'Fazer exercícios', completed: true },
+  { id: 3, text: 'Assistir aula', completed: false }
+];
+
+// Virtual DOM:
+// ✅ Identifica que apenas o item 1 mudou de classe
+// ✅ Atualiza APENAS a classe CSS desse elemento
+// ✅ Outros 2 elementos permanecem intocados
+// Resultado: Performance máxima! 🚀
+          </code></pre>
+        </section>
+        <section>
+          <h3>📈 Comparação de Performance: DOM vs Virtual DOM</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>❌ Manipulação Direta do DOM</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🐌 <strong>1000 mudanças:</strong> 1000 operações custosas</li>
+                <li>🔄 <strong>Re-flows:</strong> Recálculo de layout a cada mudança</li>
+                <li>🎨 <strong>Re-paints:</strong> Redesenho visual constante</li>
+                <li>⏱️ <strong>Tempo:</strong> ~100ms+ para atualizar lista</li>
+                <li>😞 <strong>UX:</strong> Interface trava e usuário frustra</li>
+              </ul>
+            </div>
+            <div>
+              <h4>✅ React Virtual DOM</h4>
+              <ul style="font-size: 0.8em;">
+                <li>⚡ <strong>1000 mudanças:</strong> ~10-50 operações reais no DOM</li>
+                <li>🎯 <strong>Batch updates:</strong> Agrupa mudanças em lote</li>
+                <li>🧠 <strong>Smart diffing:</strong> Algoritmo otimizado</li>
+                <li>⏱️ <strong>Tempo:</strong> ~5-10ms para mesma lista</li>
+                <li>😍 <strong>UX:</strong> Interface fluida e responsiva</li>
+              </ul>
+            </div>
+          </div>
+          <div class="code-highlight">
+            <p><strong>🚀 Resultado:</strong> React é 10-20x mais rápido para atualizações complexas!</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 10 - useEffect Hook -->
+      <section>
+      
+        <section>
+          <h3>🔄 useEffect - Efeitos Colaterais -📚 O que são Efeitos Colaterais?</h3>
+          <ul>
+            <li>🎯 <strong>Definição:</strong> Operações que afetam algo fora do componente</li>
+            <li>🌐 <strong>Exemplos:</strong> APIs, DOM, timers, subscriptions, localStorage</li>
+            <li>⏰ <strong>Quando executar:</strong> Após renderização, quando dependências mudam</li>
+            <li>🔄 <strong>Lifecycle:</strong> Substitui componentDidMount, componentDidUpdate, componentWillUnmount</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🎯 useEffect - Três Padrões Fundamentais</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; font-size: 0.7em;">
+            <div>
+              <h4>1️⃣ Executa Sempre</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('Toda renderização');
+  // Executa a cada render
+  // ⚠️ Cuidado: pode causar loops!
+});
+              </code></pre>
+            </div>
+            <div>
+              <h4>2️⃣ Executa Uma Vez</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('Apenas no mount');
+  // Só executa quando componente monta
+  // ✅ Ideal para: APIs, subscriptions
+}, []); // Array vazio = sem dependências
+              </code></pre>
+               <h4>3️⃣ Executa Quando Muda</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('userId mudou:', userId);
+  // Executa quando userId muda
+  // ✅ Ideal para: buscar dados específicos
+}, [userId]); // Dependência específica
+              </code></pre>
+            </div>
+           
+          </div>
+        </section>
+      
+</section>
+     
+
+      
+
+
+      <!-- Slide 11 - Preparação para React Native -->
+      <section>
+        <h2>📱 Preparando para React Native</h2>
+        <section>
+          <h3>🔄 Conceitos que se Transferem</h3>
+          <ul>
+            <li>⚛️ <strong>Hooks:</strong> useState, useEffect, useContext funcionam igual</li>
+            <li>🧩 <strong>Componentes:</strong> Mesma estrutura, elementos diferentes</li>
+            <li>📊 <strong>Estado e Props:</strong> Lógica idêntica</li>
+            <li>⚡ <strong>Performance:</strong> React.memo, useMemo, useCallback</li>
+            <li>🎯 <strong>Context API:</strong> Gerenciamento de estado global</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🔄 Principais Diferenças</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>React Web</h4>
+              <ul>
+                <li><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code></li>
+                <li><code>&lt;button&gt;</code>, <code>&lt;input&gt;</code></li>
+                <li><code>onClick</code>, <code>onChange</code></li>
+                <li>CSS classes</li>
+              </ul>
+            </div>
+            <div>
+              <h4>React Native</h4>
+              <ul>
+                <li><code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code></li>
+                <li><code>&lt;TouchableOpacity&gt;</code>, <code>&lt;TextInput&gt;</code></li>
+                <li><code>onPress</code>, <code>onChangeText</code></li>
+                <li>StyleSheet objects</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Resumo e Próximos Passos -->
+      
+
+   </div>
   </div>
 
+  
   <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
   <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
   <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
@@ -334,4 +759,5 @@ class _CounterState extends State&lt;Counter&gt; {
     });
   </script>
 </body>
+
 </html>

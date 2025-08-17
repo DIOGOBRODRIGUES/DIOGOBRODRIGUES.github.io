@@ -1,0 +1,141 @@
+/* Estilos para Card de Produto */
+/* components/CardProduto/CardProduto.css */
+
+.card-produto {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px;
+  margin: 20px;
+}
+
+.card-produto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.categoria {
+  background: #2196f3;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.status.disponivel {
+  background: #e8f5e8;
+  color: #4caf50;
+}
+
+.status.indisponivel {
+  background: #ffeaea;
+  color: #f44336;
+}
+
+.card-image {
+  padding: 20px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.card-image img {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.produto-nome {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.produto-preco {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-actions {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-acao {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-comprar {
+  background: #4caf50;
+  color: white;
+}
+
+.btn-comprar:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.btn-indisponivel {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.btn-favorito {
+  background: transparent;
+  border: 2px solid #ff4081;
+  color: #ff4081;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-favorito:hover {
+  background: #ff4081;
+  color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .card-produto {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+}

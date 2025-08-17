@@ -1,1185 +1,1008 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aula 3: Vue.js Framework - Frameworks Front-End</title>
-    <link rel="stylesheet" href="../../reveal.js-master/dist/reset.css">
-    <link rel="stylesheet" href="../../reveal.js-master/dist/reveal.css">
-    <link rel="stylesheet" href="../../reveal.js-master/dist/theme/dracula.css" id="theme">
-    <link rel="stylesheet" href="../../reveal.js-master/plugin/highlight/monokai.css">
+    <title>Aula 3: JSX e Componentes Básicos</title>
+
+    <meta name="description" content="Aula 3: JSX e Componentes Básicos | Criando seus primeiros componentes React">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-            color: #ff79c6 !important;
-        }
-        
-        .reveal .progress {
-            color: #ff79c6;
-        }
-        
-        .reveal .controls {
-            color: #ff79c6;
-        }
-        
-        .highlight-text {
-            color: #50fa7b !important;
-            font-weight: bold;
-        }
-        
-        .warning-text {
-            color: #ffb86c !important;
-            font-weight: bold;
-        }
-        
-        .danger-text {
-            color: #ff5555 !important;
-            font-weight: bold;
-        }
-        
-        .info-text {
-            color: #8be9fd !important;
-            font-weight: bold;
-        }
-        
-        .vue-green { color: #4fc08d !important; }
-        .vue-dark { color: #2c3e50 !important; }
-        
-        .code-container {
-            position: relative;
-            margin: 20px 0;
-        }
-        
-        .code-title {
-            background: #44475a;
-            color: #f8f8f2;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-            font-weight: bold;
-            font-size: 0.8em;
-        }
-        
-        .code-container pre {
-            margin: 0 !important;
-            border-radius: 0 0 5px 5px !important;
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8em;
-        }
-        
-        .comparison-table th,
-        .comparison-table td {
-            border: 1px solid #6272a4;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .comparison-table th {
-            background: #44475a;
-            color: #f8f8f2;
-            font-weight: bold;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background: #282a36;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .feature-card {
-            background: #282a36;
-            border: 2px solid #6272a4;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .feature-card i {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #ff79c6;
-        }
-        
-        .lifecycle-steps {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .lifecycle-step {
-            background: #44475a;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f8f8f2;
-            font-weight: bold;
-            margin: 10px;
-            font-size: 0.8em;
-        }
-        
-        .vue-concept {
-            background: linear-gradient(135deg, #4fc08d, #42b883);
-            border: 2px solid #4fc08d;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            color: white;
-        }
-        
-        .progressive-demo {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .progressive-step {
-            background: #4fc08d;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px;
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
 </head>
+
 <body>
+
     <div class="reveal">
         <div class="slides">
-            <!-- Slide 1: Título -->
-            <section data-background-gradient="linear-gradient(45deg, #4fc08d, #42b883)">
-                <h1>💚 Vue.js Framework</h1>
-                <h3>Aula 3: Framework Progressivo para Desenvolvimento Front-End</h3>
-                <p><strong>Frameworks Front-End</strong></p>
-                <p>Centro Universitário Maurício de Nassau</p>
-                <br>
-                <p><small>Prof. Dr. Diogo Francisco Borba Rodrigues</small></p>
-                <p><small><i class="fab fa-linkedin"></i> LinkedIn | <i class="fab fa-github"></i> GitHub</small></p>
-            </section>
 
-            <!-- Slide 2: Agenda da Aula -->
             <section>
-                <h2>📋 Agenda da Aula</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-heart vue-green"></i>
-                        <h4>O que é Vue.js?</h4>
-                        <p>Framework progressivo</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-layer-group vue-green"></i>
-                        <h4>Conceitos Fundamentais</h4>
-                        <p>Reatividade e componentes</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-magic vue-green"></i>
-                        <h4>Diretivas Vue</h4>
-                        <p>v-if, v-for, v-model</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-code vue-green"></i>
-                        <h4>Projeto Prático</h4>
-                        <p>Lista de tarefas</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 3: O que é Vue.js? -->
-            <section>
-                <h2>💚 O que é Vue.js?</h2>
-                <div class="vue-concept">
-                    <div class="fragment">
-                        <h3>"Framework Progressivo"</h3>
-                        <p>Criado por <strong>Evan You</strong> em 2014</p>
-                    </div>
-                    <br>
-                    <div class="fragment">
-                        <i class="fab fa-vuejs" style="font-size: 3em; color: white;"></i>
-                        <p><strong>Versão Atual:</strong> Vue 3.4+ (Composition API)</p>
-                        <p><strong>Filosofia:</strong> "Incrementally adoptable"</p>
-                    </div>
-                </div>
-                
-                <div class="fragment">
-                    <p class="highlight-text">💡 "Vue é projetado para ser adotável incrementalmente"</p>
-                </div>
-            </section>
-
-            <!-- Slide 4: Por que "Progressivo"? -->
-            <section>
-                <h2>📈 Por que "Framework Progressivo"?</h2>
-                <div class="progressive-demo">
-                    <div class="progressive-step fragment">
-                        <h4>Nível 1</h4>
-                        <p>Usar Vue em parte da página</p>
-                        <small>Apenas uma div</small>
-                    </div>
-                    <div style="color: #4fc08d; font-size: 2em;">→</div>
-                    <div class="progressive-step fragment">
-                        <h4>Nível 2</h4>
-                        <p>Componentes Vue</p>
-                        <small>Reutilização</small>
-                    </div>
-                    <div style="color: #4fc08d; font-size: 2em;">→</div>
-                    <div class="progressive-step fragment">
-                        <h4>Nível 3</h4>
-                        <p>SPA Completa</p>
-                        <small>Vue Router + Vuex</small>
-                    </div>
-                </div>
-                
-                <div class="fragment">
-                    <p class="vue-green">✨ Você pode começar pequeno e crescer conforme necessário!</p>
-                </div>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Exemplo: Vue em uma div simples</div>
-                    <pre><code class="html" data-trim>
-<!-- HTML -->
-<div id="app">
-  {{ message }}
-</div>
-
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script>
-  Vue.createApp({
-    data() {
-      return {
-        message: 'Olá, Vue!'
-      }
-    }
-  }).mount('#app')
-</script>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 5: Vantagens do Vue.js -->
-            <section>
-                <h2>✅ Vantagens do Vue.js</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-graduation-cap vue-green"></i>
-                        <h4>Fácil de Aprender</h4>
-                        <p>Curva de aprendizado suave</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-feather vue-green"></i>
-                        <h4>Leve e Rápido</h4>
-                        <p>~40KB minificado</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-puzzle-piece vue-green"></i>
-                        <h4>Flexível</h4>
-                        <p>Componentes ou aplicação completa</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-rocket vue-green"></i>
-                        <h4>Performance</h4>
-                        <p>Virtual DOM otimizado</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-file-code vue-green"></i>
-                        <h4>Single File Components</h4>
-                        <p>Template, Script e Style juntos</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-heart vue-green"></i>
-                        <h4>Developer Experience</h4>
-                        <p>Ferramentas excelentes</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 6: Vue vs Angular vs React -->
-            <section>
-                <h2>⚔️ Vue vs Angular vs React</h2>
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Aspecto</th>
-                            <th class="vue-green">Vue.js</th>
-                            <th style="color: #dd0031;">Angular</th>
-                            <th style="color: #61dafb;">React</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="fragment">
-                            <td><strong>Curva de Aprendizado</strong></td>
-                            <td class="highlight-text">Fácil</td>
-                            <td class="danger-text">Difícil</td>
-                            <td class="warning-text">Moderada</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td><strong>Tamanho</strong></td>
-                            <td class="highlight-text">Pequeno (~40KB)</td>
-                            <td class="danger-text">Grande (~130KB)</td>
-                            <td class="highlight-text">Pequeno (~42KB)</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td><strong>Flexibilidade</strong></td>
-                            <td class="highlight-text">Muito Alta</td>
-                            <td class="warning-text">Estruturado</td>
-                            <td class="highlight-text">Muito Alta</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td><strong>Performance</strong></td>
-                            <td class="highlight-text">Excelente</td>
-                            <td class="highlight-text">Muito Boa</td>
-                            <td class="highlight-text">Excelente</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td><strong>Comunidade</strong></td>
-                            <td class="warning-text">Crescendo</td>
-                            <td class="highlight-text">Grande</td>
-                            <td class="highlight-text">Muito Grande</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- Slide 7: Conceitos Fundamentais -->
-            <section>
-                <h2>🏗️ Conceitos Fundamentais do Vue</h2>
-                <div class="lifecycle-steps">
-                    <div class="lifecycle-step fragment">
-                        <div>
-                            <i class="fas fa-data"></i>
-                            <div style="font-size: 0.7em;">Data</div>
-                        </div>
-                    </div>
-                    <div style="color: #4fc08d; font-size: 2em;">→</div>
-                    <div class="lifecycle-step fragment">
-                        <div>
-                            <i class="fas fa-eye"></i>
-                            <div style="font-size: 0.7em;">Template</div>
-                        </div>
-                    </div>
-                    <div style="color: #4fc08d; font-size: 2em;">→</div>
-                    <div class="lifecycle-step fragment">
-                        <div>
-                            <i class="fas fa-cogs"></i>
-                            <div style="font-size: 0.7em;">Methods</div>
-                        </div>
-                    </div>
-                    <div style="color: #4fc08d; font-size: 2em;">→</div>
-                    <div class="lifecycle-step fragment">
-                        <div>
-                            <i class="fas fa-sync"></i>
-                            <div style="font-size: 0.7em;">Reactivity</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Estrutura Básica de um Vue Component</div>
-                    <pre><code class="javascript" data-trim>
-const { createApp } = Vue
-
-createApp({
-  data() {
-    return {
-      nome: 'Vue.js',
-      contador: 0,
-      usuarios: []
-    }
-  },
-  methods: {
-    incrementar() {
-      this.contador++
-    },
-    adicionarUsuario(user) {
-      this.usuarios.push(user)
-    }
-  },
-  mounted() {
-    console.log('Componente montado!')
-  }
-}).mount('#app')
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 8: Reatividade no Vue -->
-            <section>
-                <h2>⚡ Sistema de Reatividade</h2>
-                <p class="vue-green">O coração do Vue.js é seu sistema de reatividade</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-sync vue-green"></i>
-                        <h4>Automatic</h4>
-                        <p>Vue detecta mudanças automaticamente</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-bolt vue-green"></i>
-                        <h4>Efficient</h4>
-                        <p>Apenas o que mudou é atualizado</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-magic vue-green"></i>
-                        <h4>Transparent</h4>
-                        <p>Funciona "magicamente"</p>
-                    </div>
-                </div>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Exemplo de Reatividade</div>
-                    <pre><code class="html" data-trim>
-<div id="app">
-  <h1>{{ titulo }}</h1>
-  <p>Contador: {{ contador }}</p>
-  <button @click="incrementar">+1</button>
-  <button @click="resetar">Reset</button>
-</div>
-
-<script>
-createApp({
-  data() {
-    return {
-      titulo: 'Sistema Reativo',
-      contador: 0
-    }
-  },
-  methods: {
-    incrementar() {
-      this.contador++ // Vue detecta e atualiza automaticamente!
-    },
-    resetar() {
-      this.contador = 0 // Também é detectado!
-    }
-  }
-}).mount('#app')
-</script>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 9: Diretivas Vue -->
-            <section>
-                <h2>🎯 Diretivas do Vue</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-eye vue-green"></i>
-                        <h4>v-if / v-show</h4>
-                        <p>Renderização condicional</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-list vue-green"></i>
-                        <h4>v-for</h4>
-                        <p>Listas e repetições</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-exchange-alt vue-green"></i>
-                        <h4>v-model</h4>
-                        <p>Two-way binding</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-mouse-pointer vue-green"></i>
-                        <h4>v-on (@)</h4>
-                        <p>Event listeners</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-link vue-green"></i>
-                        <h4>v-bind (:)</h4>
-                        <p>Property binding</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-code vue-green"></i>
-                        <h4>v-html</h4>
-                        <p>Render HTML</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 10: Exemplos de Diretivas -->
-            <section>
-                <h2>💡 Diretivas na Prática</h2>
-                <div class="code-container fragment">
-                    <div class="code-title">v-if e v-for em ação</div>
-                    <pre><code class="html" data-trim>
-<div id="app">
-  <!-- v-if: Renderização condicional -->
-  <div v-if="usuario.logado">
-    Bem-vindo, {{ usuario.nome }}!
-  </div>
-  <div v-else>
-    Faça login para continuar
-  </div>
-  
-  <!-- v-show: Mostra/esconde (display: none) -->
-  <div v-show="carregando">Carregando...</div>
-  
-  <!-- v-for: Loop através de array -->
-  <ul>
-    <li v-for="(produto, index) in produtos" :key="produto.id">
-      {{ index + 1 }}. {{ produto.nome }} - R$ {{ produto.preco }}
-    </li>
-  </ul>
-  
-  <!-- v-for com objetos -->
-  <div v-for="(valor, chave) in configuracoes" :key="chave">
-    {{ chave }}: {{ valor }}
-  </div>
-</div>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 11: v-model e Two-way Binding -->
-            <section>
-                <h2>🔄 Two-way Binding com v-model</h2>
-                <p class="vue-green">Sincronização automática entre formulário e dados</p>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Formulários Reativos</div>
-                    <pre><code class="html" data-trim>
-<div id="app">
-  <!-- Input de texto -->
-  <input v-model="nome" placeholder="Seu nome">
-  <p>Olá, {{ nome }}!</p>
-  
-  <!-- Textarea -->
-  <textarea v-model="mensagem" placeholder="Sua mensagem"></textarea>
-  <p>{{ mensagem }}</p>
-  
-  <!-- Checkbox -->
-  <input type="checkbox" v-model="aceito" id="termos">
-  <label for="termos">Aceito os termos</label>
-  <p v-if="aceito">Obrigado por aceitar!</p>
-  
-  <!-- Radio buttons -->
-  <input type="radio" v-model="tamanho" value="P" id="p">
-  <label for="p">P</label>
-  
-  <input type="radio" v-model="tamanho" value="M" id="m">
-  <label for="m">M</label>
-  
-  <input type="radio" v-model="tamanho" value="G" id="g">
-  <label for="g">G</label>
-  
-  <p>Tamanho selecionado: {{ tamanho }}</p>
-</div>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 12: Event Handling -->
-            <section>
-                <h2>🖱️ Manipulação de Eventos</h2>
-                <div class="code-container fragment">
-                    <div class="code-title">Event Listeners com v-on (@)</div>
-                    <pre><code class="html" data-trim>
-<div id="app">
-  <!-- Sintaxe completa -->
-  <button v-on:click="contador++">Clique: {{ contador }}</button>
-  
-  <!-- Sintaxe abreviada -->
-  <button @click="decrementar">-1</button>
-  
-  <!-- Passando parâmetros -->
-  <button @click="somar(5)">+5</button>
-  
-  <!-- Modificadores de evento -->
-  <form @submit.prevent="enviarFormulario">
-    <input @keyup.enter="buscar" v-model="termo">
-    <button type="submit">Enviar</button>
-  </form>
-  
-  <!-- Múltiplos eventos -->
-  <div @mouseenter="destacar" @mouseleave="removerDestaque">
-    Passe o mouse aqui
-  </div>
-</div>
-
-<script>
-createApp({
-  data() {
-    return {
-      contador: 0,
-      termo: ''
-    }
-  },
-  methods: {
-    decrementar() {
-      this.contador--
-    },
-    somar(valor) {
-      this.contador += valor
-    },
-    enviarFormulario() {
-      console.log('Formulário enviado!')
-    },
-    buscar() {
-      console.log('Buscando:', this.termo)
-    }
-  }
-}).mount('#app')
-</script>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 13: Atividade Prática - Parte 1 -->
-            <section>
-                <h2>💻 Atividade Prática - Lista de Tarefas</h2>
-                <h3 class="vue-green">Vamos criar uma todo list com Vue.js!</h3>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-plus vue-green"></i>
-                        <h4>Funcionalidades</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>Adicionar tarefas</li>
-                            <li>Marcar como concluída</li>
-                            <li>Remover tarefas</li>
-                            <li>Filtrar tarefas</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-tools vue-green"></i>
-                        <h4>Conceitos Usados</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>v-model para input</li>
-                            <li>v-for para lista</li>
-                            <li>v-if para condições</li>
-                            <li>@click para eventos</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 14: Atividade Prática - HTML -->
-            <section>
-                <h2>💻 Atividade - Estrutura HTML</h2>
-                <div class="code-container fragment">
-                    <div class="code-title">todo-list.html</div>
-                    <pre><code class="html" data-trim>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Todo List</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
-        .todo-item { padding: 10px; border-bottom: 1px solid #eee; display: flex; align-items: center; }
-        .todo-item.completed { text-decoration: line-through; opacity: 0.6; }
-        input[type="text"] { padding: 10px; width: 70%; margin-right: 10px; }
-        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
-        .filters { margin: 20px 0; }
-        .filters button.active { background: #4fc08d; color: white; }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <h1>📝 Vue Todo List</h1>
-        
-        <!-- Formulário para adicionar tarefa -->
-        <div>
-            <input 
-                type="text" 
-                v-model="novaTarefa" 
-                @keyup.enter="adicionarTarefa"
-                placeholder="Digite uma nova tarefa...">
-            <button @click="adicionarTarefa">Adicionar</button>
-        </div>
-        
-        <!-- Filtros -->
-        <div class="filters">
-            <button @click="filtro = 'todos'" :class="{ active: filtro === 'todos' }">Todos</button>
-            <button @click="filtro = 'ativas'" :class="{ active: filtro === 'ativas' }">Ativas</button>
-            <button @click="filtro = 'concluidas'" :class="{ active: filtro === 'concluidas' }">Concluídas</button>
-        </div>
-        
-        <!-- Lista de tarefas -->
-        <div v-for="tarefa in tarefasFiltradas" :key="tarefa.id" 
-             :class="{ 'todo-item': true, 'completed': tarefa.concluida }">
-            <input type="checkbox" v-model="tarefa.concluida">
-            <span>{{ tarefa.texto }}</span>
-            <button @click="removerTarefa(tarefa.id)" style="margin-left: auto;">❌</button>
-        </div>
-        
-        <!-- Estatísticas -->
-        <div v-if="tarefas.length > 0">
-            <p>{{ tarefasAtivas.length }} de {{ tarefas.length }} tarefas restantes</p>
-        </div>
-    </div>
-</body>
-</html>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 15: Atividade Prática - JavaScript -->
-            <section>
-                <h2>💻 Atividade - Lógica Vue.js</h2>
-                <div class="code-container fragment">
-                    <div class="code-title">Script Vue.js para Todo List</div>
-                    <pre><code class="javascript" data-trim>
-const { createApp } = Vue
-
-createApp({
-  data() {
-    return {
-      novaTarefa: '',
-      filtro: 'todos',
-      tarefas: [
-        { id: 1, texto: 'Aprender Vue.js', concluida: false },
-        { id: 2, texto: 'Fazer exercícios', concluida: true },
-        { id: 3, texto: 'Criar projeto', concluida: false }
-      ]
-    }
-  },
-  
-  computed: {
-    tarefasFiltradas() {
-      if (this.filtro === 'ativas') {
-        return this.tarefas.filter(t => !t.concluida)
-      } else if (this.filtro === 'concluidas') {
-        return this.tarefas.filter(t => t.concluida)
-      }
-      return this.tarefas
-    },
-    
-    tarefasAtivas() {
-      return this.tarefas.filter(t => !t.concluida)
-    }
-  },
-  
-  methods: {
-    adicionarTarefa() {
-      if (this.novaTarefa.trim() !== '') {
-        this.tarefas.push({
-          id: Date.now(),
-          texto: this.novaTarefa.trim(),
-          concluida: false
-        })
-        this.novaTarefa = ''
-      }
-    },
-    
-    removerTarefa(id) {
-      this.tarefas = this.tarefas.filter(t => t.id !== id)
-    }
-  }
-}).mount('#app')
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 16: Computed Properties -->
-            <section>
-                <h2>⚙️ Computed Properties</h2>
-                <p class="vue-green">Propriedades calculadas que são reativas e cacheadas</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-bolt vue-green"></i>
-                        <h4>Reativas</h4>
-                        <p>Atualizadas quando dependências mudam</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-save vue-green"></i>
-                        <h4>Cacheadas</h4>
-                        <p>Resultado salvo até mudanças</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-rocket vue-green"></i>
-                        <h4>Performance</h4>
-                        <p>Melhor que methods para cálculos</p>
-                    </div>
-                </div>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Computed vs Methods</div>
-                    <pre><code class="javascript" data-trim>
-createApp({
-  data() {
-    return {
-      produtos: [
-        { nome: 'Notebook', preco: 2000 },
-        { nome: 'Mouse', preco: 50 },
-        { nome: 'Teclado', preco: 150 }
-      ]
-    }
-  },
-  
-  computed: {
-    // ✅ Computed - Cacheado e reativo
-    totalProdutos() {
-      console.log('Calculando total...') // Executado apenas quando produtos muda
-      return this.produtos.reduce((total, p) => total + p.preco, 0)
-    },
-    
-    produtosCaros() {
-      return this.produtos.filter(p => p.preco > 100)
-    }
-  },
-  
-  methods: {
-    // ❌ Method - Executado a cada chamada
-    getTotalProdutos() {
-      console.log('Calculando total via method...') // Executado toda vez
-      return this.produtos.reduce((total, p) => total + p.preco, 0)
-    }
-  }
-}).mount('#app')
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 17: Single File Components -->
-            <section>
-                <h2>📄 Single File Components (SFC)</h2>
-                <p class="vue-green">Template, Script e Style em um arquivo .vue</p>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">TodoItem.vue</div>
-                    <pre><code class="html" data-trim>
-<template>
-  <div class="todo-item" :class="{ completed: tarefa.concluida }">
-    <input 
-      type="checkbox" 
-      v-model="tarefa.concluida"
-      @change="$emit('toggle', tarefa.id)">
-    
-    <span class="texto">{{ tarefa.texto }}</span>
-    
-    <button @click="$emit('remove', tarefa.id)" class="remove-btn">
-      ❌
-    </button>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'TodoItem',
-  props: {
-    tarefa: {
-      type: Object,
-      required: true
-    }
-  },
-  emits: ['toggle', 'remove']
-}
-</script>
-
-<style scoped>
-.todo-item {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-.completed .texto {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
-
-.remove-btn {
-  margin-left: auto;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2em;
-}
-</style>
-                    </code></pre>
-                </div>
-            </section>
-
-            <!-- Slide 18: Vue CLI e Vite -->
-            <section>
-                <h2>⚡ Ferramentas de Desenvolvimento</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-terminal vue-green"></i>
-                        <h4>Vue CLI</h4>
-                        <p>Ferramenta oficial completa</p>
-                        <code style="color: #8be9fd;">npm install -g @vue/cli</code>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-lightning-bolt vue-green"></i>
-                        <h4>Vite</h4>
-                        <p>Build tool moderno e rápido</p>
-                        <code style="color: #8be9fd;">npm create vue@latest</code>
-                    </div>
-                </div>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Criando projeto Vue</div>
-                    <pre><code class="bash" data-trim>
-# Usando Vite (Recomendado)
-npm create vue@latest meu-projeto-vue
-
-# Navegue para o projeto
-cd meu-projeto-vue
-
-# Instale dependências
-npm install
-
-# Execute em modo de desenvolvimento
-npm run dev
-
-# Build para produção
-npm run build
-                    </code></pre>
-                </div>
-                
-                <div class="fragment">
-                    <p class="info-text">💡 <strong>Vite</strong> é mais rápido e moderno que Vue CLI</p>
-                </div>
-            </section>
-
-            <!-- Slide 19: Ecossistema Vue -->
-            <section>
-                <h2>🌍 Ecossistema Vue.js</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-route vue-green"></i>
-                        <h4>Vue Router</h4>
-                        <p>Roteamento para SPAs</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-database vue-green"></i>
-                        <h4>Pinia</h4>
-                        <p>Gerenciamento de estado</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-paint-brush vue-green"></i>
-                        <h4>Vuetify</h4>
-                        <p>Material Design components</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-mobile-alt vue-green"></i>
-                        <h4>Nuxt.js</h4>
-                        <p>Framework para Vue (SSR)</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-tools vue-green"></i>
-                        <h4>Vue Devtools</h4>
-                        <p>Debugging no browser</p>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-vial vue-green"></i>
-                        <h4>Vue Test Utils</h4>
-                        <p>Testes de componentes</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 20: Quando Usar Vue.js -->
-            <section>
-                <h2>🎯 Quando Usar Vue.js?</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment highlight-green">
-                        <i class="fas fa-thumbs-up"></i>
-                        <h4>✅ Use Vue Para:</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>Projetos pequenos a médios</li>
-                            <li>Prototipagem rápida</li>
-                            <li>Migração gradual</li>
-                            <li>Equipes iniciantes</li>
-                            <li>Quando precisa de flexibilidade</li>
-                            <li>Progressive Web Apps</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card fragment highlight-red">
-                        <i class="fas fa-thumbs-down"></i>
-                        <h4>❌ Considere Alternativas Para:</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>Aplicações enterprise complexas</li>
-                            <li>Projetos que precisam do ecossistema React</li>
-                            <li>Quando performance é crítica</li>
-                            <li>Projetos com muitas integrações</li>
-                            <li>Apps móveis nativas</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="fragment">
-                    <p class="vue-green">💼 <strong>Mercado:</strong> Vue.js tem crescido rapidamente e é muito procurado em startups e empresas de médio porte</p>
-                </div>
-            </section>
-
-            <!-- Slide 21: Composition API (Vue 3) -->
-            <section>
-                <h2>🆕 Composition API - Vue 3</h2>
-                <p class="vue-green">Nova forma de organizar lógica de componentes</p>
-                
-                <div class="code-container fragment">
-                    <div class="code-title">Options API vs Composition API</div>
-                    <pre><code class="javascript" data-trim>
-// Options API (Vue 2 style)
-export default {
-  data() {
-    return {
-      contador: 0
-    }
-  },
-  methods: {
-    incrementar() {
-      this.contador++
-    }
-  },
-  mounted() {
-    console.log('Montado!')
-  }
-}
-
-// Composition API (Vue 3)
-import { ref, onMounted } from 'vue'
-
-export default {
-  setup() {
-    const contador = ref(0)
-    
-    const incrementar = () => {
-      contador.value++
-    }
-    
-    onMounted(() => {
-      console.log('Montado!')
-    })
-    
-    return {
-      contador,
-      incrementar
-    }
-  }
-}
-                    </code></pre>
-                </div>
-                
-                <div class="fragment">
-                    <p class="info-text">💡 Composition API permite melhor reutilização de lógica entre componentes</p>
-                </div>
-            </section>
-
-            <!-- Slide 22: Resumo da Aula -->
-            <section>
-                <h2>📚 Resumo da Aula</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-check-circle highlight-text"></i>
-                        <h4>O que Aprendemos</h4>
-                        <ul style="text-align: left; font-size: 0.9em;">
-                            <li>Vue.js é um framework progressivo</li>
-                            <li>Sistema de reatividade automático</li>
-                            <li>Diretivas: v-if, v-for, v-model</li>
-                            <li>Event handling com v-on (@)</li>
-                            <li>Computed properties vs methods</li>
-                            <li>Single File Components</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-lightbulb warning-text"></i>
-                        <h4>Principais Vantagens</h4>
-                        <ul style="text-align: left; font-size: 0.9em;">
-                            <li>Fácil de aprender e usar</li>
-                            <li>Performance excelente</li>
-                            <li>Flexibilidade de adoção</li>
-                            <li>Documentação excepcional</li>
-                            <li>Comunidade acolhedora</li>
-                            <li>Ferramentas de desenvolvimento</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="fragment">
-                    <h3 class="highlight-text">🎯 Próxima aula: React Native - Desenvolvimento Mobile</h3>
-                    <p>Vamos partir para o desenvolvimento mobile multiplataforma!</p>
-                </div>
-            </section>
-
-            <!-- Slide 23: Atividades e Recursos -->
-            <section>
-                <h2>📖 Atividades e Recursos</h2>
-                <div class="features-grid">
-                    <div class="feature-card fragment">
-                        <i class="fas fa-tasks vue-green"></i>
-                        <h4>Para Casa</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>Completar a Todo List</li>
-                            <li>Adicionar localStorage</li>
-                            <li>Criar componente de filtros</li>
-                            <li>Implementar edição de tarefas</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card fragment">
-                        <i class="fas fa-book vue-green"></i>
-                        <h4>Recursos Recomendados</h4>
-                        <ul style="text-align: left; font-size: 0.8em;">
-                            <li>📚 <a href="https://vuejs.org" style="color: #8be9fd;">vuejs.org</a></li>
-                            <li>🎓 <a href="https://vueschool.io" style="color: #8be9fd;">Vue School</a></li>
-                            <li>📺 <a href="https://www.vuemastery.com" style="color: #8be9fd;">Vue Mastery</a></li>
-                            <li>💻 <a href="https://codesandbox.io" style="color: #8be9fd;">CodeSandbox</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="fragment">
-                    <p class="vue-green">💡 <strong>Dica Extra:</strong> Explore o Vue DevTools no navegador para debugar aplicações Vue!</p>
-                </div>
-            </section>
-
-            <!-- Slide 24: Obrigado -->
-            <section data-background-gradient="linear-gradient(45deg, #4fc08d, #42b883)">
-                <h1>💚 Obrigado!</h1>
-                <h3>Vue.js Framework - Aula 3</h3>
-                <br>
-                <p><strong>Próxima aula:</strong> React Native - Desenvolvimento Mobile</p>
-                <br>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 3: JSX e Componentes Básicos</h3>
                 <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-                <div class="social-links" style="margin-top: 2rem;">
-                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" style="color: white; margin: 0 1rem;">
-                        <i class="fab fa-linkedin" style="font-size: 2rem;"></i>
-                    </a>
-                    <a href="https://github.com/DIOGOBRODRIGUES" style="color: white; margin: 0 1rem;">
-                        <i class="fab fa-github" style="font-size: 2rem;"></i>
-                    </a>
+                <div style="margin-top: 30px;">
+                    <p>🧩 <em>"Construindo com blocos de LEGO digitais"</em></p>
                 </div>
-                
-                <div style="margin-top: 2rem;">
-                    <p style="font-size: 0.8em;">🌟 "The Progressive Framework" - Vue.js</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>🎯 Objetivos de Hoje</h2>
+                <ul style="font-size: 1.2em;">
+                    <li>🧩 <b>Dominar</b> a sintaxe JSX em profundidade</li>
+                    <li>📦 <b>Criar</b> componentes reutilizáveis</li>
+                    <li>🎨 <b>Estilizar</b> componentes com CSS</li>
+                    <li>🔄 <b>Organizar</b> código com import/export</li>
+                    <li>🏗️ <b>Estruturar</b> aplicação modular</li>
+                </ul>
+                <div style="background: #61dafb; color: black; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                    <p><b>💡 Meta da aula:</b> Criar uma biblioteca pessoal de componentes!</p>
                 </div>
             </section>
+
+            <section>
+                <h2>🔄 Recapitulando: O que Aprendemos?</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>✅ Aula Anterior</h4>
+                        <ul>
+                            <li>🛠️ Ambiente React configurado</li>
+                            <li>📁 Estrutura de projeto</li>
+                            <li>⚛️ Primeiro contato com JSX</li>
+                            <li>🔧 Ferramentas de desenvolvimento</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>🎯 Hoje Vamos Evoluir</h4>
+                        <ul>
+                            <li>📦 Componentes modulares</li>
+                            <li>🎨 Estilização avançada</li>
+                            <li>🧩 JSX mais complexo</li>
+                            <li>🏗️ Arquitetura de componentes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                    <p><b>🚀 Quem conseguiu fazer o desafio da aula passada?</b></p>
+                </div>
+            </section>
+
+            <section>
+                <h2>🧩 JSX: Mergulho Profundo</h2>
+                <section>
+                    <h3>💡 Analogia: Receita de Bolo</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="text-align: center;">
+                            <h4>🍰 HTML Tradicional</h4>
+                            <p>Ingredientes separados:</p>
+                            <div style="background: #2d2d2d; padding: 10px; border-radius: 5px; font-size: 0.8em;">
+                                <p>HTML + CSS + JS</p>
+                                <p><em>Misturar na hora</em></p>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4>🧁 JSX</h4>
+                            <p>Tudo misturado na medida certa:</p>
+                            <div style="background: #2d2d2d; padding: 10px; border-radius: 5px; font-size: 0.8em;">
+                                <p>HTML + JS = JSX</p>
+                                <p><em>Receita pronta!</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: #ff9800; color: black; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                        <p><b>🎯 JSX é JavaScript disfarçado de HTML!</b></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🔍 JSX vs HTML: As Diferenças</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                        <thead>
+                            <tr style="background: #444;">
+                                <th style="border: 1px solid #666; padding: 10px;">HTML</th>
+                                <th style="border: 1px solid #666; padding: 10px;">JSX</th>
+                                <th style="border: 1px solid #666; padding: 10px;">Por quê?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>class="botao"</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>className="botao"</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;">class é palavra reservada do JS</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>onclick="funcao()"</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>onClick={funcao}</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;">camelCase + função como valor</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>&lt;input&gt;</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>&lt;input /&gt;</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;">Tags devem ser fechadas</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>for="nome"</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;"><code>htmlFor="nome"</code></td>
+                                <td style="border: 1px solid #666; padding: 10px;">for é palavra reservada do JS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>🎯 JavaScript Dentro do JSX</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
+                        <pre style="margin: 0;"><code>function ComponenteCompleto() {
+  const usuario = {
+    nome: "Maria",
+    idade: 28,
+    profissao: "Desenvolvedora"
+  };
+  
+  const estiloTitulo = {
+    color: "#61dafb",
+    fontSize: "24px",
+    fontWeight: "bold"
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1 style={estiloTitulo}&gt;
+        Olá, {usuario.nome}! 👋
+      &lt;/h1&gt;
+      &lt;p&gt;Idade: {usuario.idade} anos&lt;/p&gt;
+      &lt;p&gt;Profissão: {usuario.profissao}&lt;/p&gt;
+      &lt;p&gt;Ano de nascimento: {2025 - usuario.idade}&lt;/p&gt;
+      {usuario.idade >= 18 ? (
+        &lt;button&gt;✅ Maior de idade&lt;/button&gt;
+      ) : (
+        &lt;button&gt;⚠️ Menor de idade&lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🚨 Regras de Ouro do JSX</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>✅ Sempre Faça</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔒 <b>Um elemento pai:</b> &lt;div&gt; ou &lt;&gt;&lt;/&gt;</li>
+                                <li>🏷️ <b>className</b> em vez de class</li>
+                                <li>📝 <b>camelCase</b> nos atributos</li>
+                                <li>🔐 <b>Fechar tags:</b> &lt;img /&gt;, &lt;br /&gt;</li>
+                                <li>🧮 <b>{}</b> para JavaScript</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>❌ Nunca Faça</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🚫 Múltiplos elementos sem wrapper</li>
+                                <li>🚫 Misturar HTML e JSX</li>
+                                <li>🚫 Usar palavras reservadas do JS</li>
+                                <li>🚫 Esquecer de fechar tags</li>
+                                <li>🚫 Usar string para funções</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>📦 Componentes: Os Blocos de LEGO</h2>
+                <section>
+                    <h3>🎮 Analogia: Videogame</h3>
+                    <div style="text-align: center;">
+                        <p>Imagine que você está criando um jogo...</p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: #4caf50; padding: 15px; border-radius: 10px; color: white;">
+                                <h4>🎮 Personagem</h4>
+                                <p>Componente com:</p>
+                                <ul style="font-size: 0.8em; list-style: none;">
+                                    <li>💝 Props: nome, vida</li>
+                                    <li>🎭 Visual: sprite</li>
+                                    <li>⚡ Ações: mover, atacar</li>
+                                </ul>
+                            </div>
+                            <div style="background: #2196f3; padding: 15px; border-radius: 10px; color: white;">
+                                <h4>💰 Item</h4>
+                                <p>Componente com:</p>
+                                <ul style="font-size: 0.8em; list-style: none;">
+                                    <li>💝 Props: tipo, valor</li>
+                                    <li>🎭 Visual: ícone</li>
+                                    <li>⚡ Ações: coletar</li>
+                                </ul>
+                            </div>
+                            <div style="background: #ff9800; padding: 15px; border-radius: 10px; color: white;">
+                                <h4>🏠 Cenário</h4>
+                                <p>Componente com:</p>
+                                <ul style="font-size: 0.8em; list-style: none;">
+                                    <li>💝 Props: tema, tamanho</li>
+                                    <li>🎭 Visual: background</li>
+                                    <li>⚡ Ações: interagir</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p><b>🎯 Cada componente é reutilizável infinitas vezes!</b></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🧱 Anatomia de um Componente</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
+                        <pre style="margin: 0;"><code>// 1. 📥 Importações (se necessário)
+import React from 'react';
+import './BotaoEstiloso.css';
+
+// 2. 🏗️ Função do Componente
+function BotaoEstiloso() {
+  // 3. 🧠 Lógica (variáveis, funções)
+  const corPrimaria = "#61dafb";
+  
+  const cliquei = () => {
+    alert("Botão clicado! 🎉");
+  };
+
+  // 4. 📤 Retorno JSX
+  return (
+    &lt;button 
+      className="botao-estiloso"
+      style={{ backgroundColor: corPrimaria }}
+      onClick={cliquei}
+    &gt;
+      Clique em mim! 🚀
+    &lt;/button&gt;
+  );
+}
+
+// 5. 📤 Exportação
+export default BotaoEstiloso;</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>📝 Convenções de Nomenclatura</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>✅ Boas Práticas</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔤 <b>PascalCase:</b> MinhaComponente</li>
+                                <li>📁 <b>Arquivo:</b> MinhaComponente.js</li>
+                                <li>📝 <b>Descritivo:</b> BotaoEnviar</li>
+                                <li>🎯 <b>Específico:</b> CardProduto</li>
+                                <li>📦 <b>Função:</b> HeaderPrincipal</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>❌ Evite</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔻 <b>camelCase:</b> minhaComponente</li>
+                                <li>🔻 <b>kebab-case:</b> minha-componente</li>
+                                <li>❓ <b>Genérico:</b> Componente1</li>
+                                <li>❓ <b>Vago:</b> Item, Coisa</li>
+                                <li>❓ <b>Abreviado:</b> Btn, Hdr</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎨 Estilização: Deixando Bonito</h2>
+                <section>
+                    <h3>🎭 As 4 Maneiras de Estilizar</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div style="background: #e91e63; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>1. 🎨 CSS Tradicional</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>/* styles.css */
+.botao-azul {
+  background: #2196f3;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div style="background: #9c27b0; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>2. 📦 CSS Modules</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>/* Botao.module.css */
+.azul {
+  background: #2196f3;
+}
+
+// Botao.js
+import styles from './Botao.module.css';</code></pre>
+                            </div>
+                        </div>
+                        <div style="background: #ff9800; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>3. 💄 Inline Styles</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>const estilos = {
+  backgroundColor: '#2196f3',
+  padding: '10px 20px',
+  border: 'none'
+};
+
+&lt;button style={estilos}&gt;</code></pre>
+                            </div>
+                        </div>
+                        <div style="background: #4caf50; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>4. 💅 Styled Components</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>import styled from 'styled-components';
+
+const BotaoAzul = styled.button`
+  background: #2196f3;
+  padding: 10px 20px;
+`;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🎯 Quando Usar Cada Um?</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8em;">
+                        <thead>
+                            <tr style="background: #444;">
+                                <th style="border: 1px solid #666; padding: 8px;">Método</th>
+                                <th style="border: 1px solid #666; padding: 8px;">Quando Usar</th>
+                                <th style="border: 1px solid #666; padding: 8px;">Prós</th>
+                                <th style="border: 1px solid #666; padding: 8px;">Contras</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 8px;"><b>CSS Tradicional</b></td>
+                                <td style="border: 1px solid #666; padding: 8px;">Projetos simples, estilos globais</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Familiar, simples</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Conflitos de nomes</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 8px;"><b>CSS Modules</b></td>
+                                <td style="border: 1px solid #666; padding: 8px;">Componentes específicos</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Escopo local</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Setup extra</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 8px;"><b>Inline Styles</b></td>
+                                <td style="border: 1px solid #666; padding: 8px;">Estilos dinâmicos</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Dinâmico, rápido</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Performance, limitado</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 8px;"><b>Styled Components</b></td>
+                                <td style="border: 1px solid #666; padding: 8px;">Design systems</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Poderoso, moderno</td>
+                                <td style="border: 1px solid #666; padding: 8px;">Curva de aprendizado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>🎨 Exemplo Prático: Card de Produto</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
+                        <pre style="margin: 0;"><code>// CardProduto.js
+import './CardProduto.css';
+
+function CardProduto() {
+  const produto = {
+    nome: "iPhone 15",
+    preco: 4999.99,
+    imagem: "iphone.jpg",
+    disponivel: true
+  };
+
+  const estiloPreco = {
+    color: produto.disponivel ? '#4caf50' : '#f44336',
+    fontWeight: 'bold',
+    fontSize: '18px'
+  };
+
+  return (
+    &lt;div className="card-produto"&gt;
+      &lt;img src={produto.imagem} alt={produto.nome} /&gt;
+      &lt;h3&gt;{produto.nome}&lt;/h3&gt;
+      &lt;p style={estiloPreco}&gt;
+        R$ {produto.preco.toFixed(2)}
+      &lt;/p&gt;
+      &lt;button className={produto.disponivel ? 'btn-comprar' : 'btn-indisponivel'}&gt;
+        {produto.disponivel ? '🛒 Comprar' : '❌ Indisponível'}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔄 Import/Export: Organizando o Código</h2>
+                <section>
+                    <h3>📦 Export: Enviando Componentes</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>🎯 Export Default (Um por arquivo)</h4>
+                            <div style="background: #2d2d2d; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>// Botao.js
+function Botao() {
+  return &lt;button&gt;Click&lt;/button&gt;;
+}
+
+export default Botao;
+
+// OU direto na função
+export default function Botao() {
+  return &lt;button&gt;Click&lt;/button&gt;;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>📎 Named Export (Vários por arquivo)</h4>
+                            <div style="background: #2d2d2d; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>// Botoes.js
+export function BotaoPrimario() {
+  return &lt;button className="primary"&gt;Primary&lt;/button&gt;;
+}
+
+export function BotaoSecundario() {
+  return &lt;button className="secondary"&gt;Secondary&lt;/button&gt;;
+}
+
+export const BotaoPequeno = () =&gt; 
+  &lt;button className="small"&gt;Small&lt;/button&gt;;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>📥 Import: Recebendo Componentes</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
+                        <pre style="margin: 0;"><code>// App.js
+
+// 🎯 Import Default
+import Botao from './components/Botao';
+import CardProduto from './components/CardProduto';
+
+// 📎 Named Imports
+import { BotaoPrimario, BotaoSecundario } from './components/Botoes';
+
+// 🔄 Import tudo como namespace
+import * as Botoes from './components/Botoes';
+
+// 🎨 Import CSS
+import './App.css';
+
+function App() {
+  return (
+    &lt;div className="App"&gt;
+      &lt;Botao /&gt;
+      &lt;BotaoPrimario /&gt;
+      &lt;BotaoSecundario /&gt;
+      &lt;Botoes.BotaoPequeno /&gt;
+      &lt;CardProduto /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>📁 Estrutura de Pastas Recomendada</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
+                        <pre style="margin: 0;">
+src/
+├── 📁 components/
+│   ├── 📁 Botao/
+│   │   ├── Botao.js
+│   │   ├── Botao.css
+│   │   └── index.js          ← export { default } from './Botao';
+│   ├── 📁 CardProduto/
+│   │   ├── CardProduto.js
+│   │   ├── CardProduto.css
+│   │   └── index.js
+│   └── 📁 Header/
+│       ├── Header.js
+│       └── Header.css
+├── 📁 assets/
+│   ├── 📁 images/
+│   └── 📁 icons/
+├── 📁 styles/
+│   ├── globals.css
+│   └── variables.css
+└── App.js
+                        </pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🏭 DINÂMICA: "Component Factory"</h2>
+                <section>
+                    <h3>🎯 Como Funciona a Fábrica</h3>
+                    <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; border: 2px solid #4CAF50;">
+                        <p>Cada grupo será uma "fábrica" especializada em um tipo de componente:</p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: #2196f3; padding: 15px; border-radius: 10px;">
+                                <h4>🏷️ CardFactory</h4>
+                                <p><b>Produtos:</b> Cards de usuário, produto, notícia</p>
+                                <p><b>Meta:</b> 3 tipos diferentes de cards</p>
+                            </div>
+                            <div style="background: #4caf50; padding: 15px; border-radius: 10px;">
+                                <h4>🔘 ButtonFactory</h4>
+                                <p><b>Produtos:</b> Botões primary, secondary, danger</p>
+                                <p><b>Meta:</b> 3 tipos diferentes de botões</p>
+                            </div>
+                            <div style="background: #ff9800; padding: 15px; border-radius: 10px;">
+                                <h4>📝 FormFactory</h4>
+                                <p><b>Produtos:</b> Inputs, selects, textareas</p>
+                                <p><b>Meta:</b> 3 tipos diferentes de inputs</p>
+                            </div>
+                            <div style="background: #9c27b0; padding: 15px; border-radius: 10px;">
+                                <h4>🧭 NavigationFactory</h4>
+                                <p><b>Produtos:</b> Menus, breadcrumbs, tabs</p>
+                                <p><b>Meta:</b> 3 tipos diferentes de navegação</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>📋 Especificações da Produção</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>✅ Requisitos Obrigatórios</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>📦 <b>3 componentes</b> diferentes do seu tipo</li>
+                                <li>🎨 <b>Estilização</b> com CSS</li>
+                                <li>🧩 <b>JSX</b> bem estruturado</li>
+                                <li>📁 <b>Organização</b> em pastas</li>
+                                <li>📤 <b>Export/import</b> corretos</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🌟 Extras (+Pontos)</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🎭 <b>Interatividade</b> (hover, click)</li>
+                                <li>📱 <b>Responsividade</b></li>
+                                <li>✨ <b>Animações</b> CSS</li>
+                                <li>🎨 <b>Tema</b> consistente</li>
+                                <li>💡 <b>Criatividade</b> no design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>⏱️ Timeline da Produção</h3>
+                    <div style="background: #2d2d2d; padding: 20px; border-radius: 10px;">
+                        <ul style="font-size: 1.1em;">
+                            <li>📋 <b>5 min:</b> Planejamento - O que vamos criar?</li>
+                            <li>🛠️ <b>20 min:</b> Desenvolvimento - Mãos na massa!</li>
+                            <li>🎨 <b>10 min:</b> Finalização - Testes e ajustes</li>
+                            <li>🎪 <b>15 min:</b> Feira de Componentes - Apresentações</li>
+                            <li>🛒 <b>10 min:</b> Marketplace - Grupos "compram" uns dos outros</li>
+                        </ul>
+                    </div>
+                    <div style="background: #ff9800; color: black; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                        <p><b>💡 Dica:</b> Pensem em como seu componente seria usado em um site/app real!</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🎪 Feira de Componentes</h3>
+                    <p><b>Cada grupo terá 3 minutos para "vender" seus produtos:</b></p>
+                    <div style="background: #4caf50; padding: 20px; border-radius: 10px; color: white;">
+                        <h4>🎭 Roteiro da Apresentação:</h4>
+                        <ol style="font-size: 0.9em;">
+                            <li>🏭 <b>"Bem-vindos à [Nome da Fábrica]!"</b></li>
+                            <li>📦 <b>Mostrar os 3 produtos</b> criados</li>
+                            <li>🎯 <b>Explicar quando usar</b> cada um</li>
+                            <li>✨ <b>Destacar o diferencial</b> da fábrica</li>
+                            <li>💰 <b>"Preço especial"</b> (brincadeira com pontos)</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🏆 Critérios de Avaliação</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div>
+                            <h4>💻 Qualidade Técnica (50%)</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🧩 JSX bem estruturado</li>
+                                <li>🎨 CSS organizado</li>
+                                <li>📁 Estrutura de arquivos</li>
+                                <li>🔄 Import/export corretos</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🎭 Apresentação (50%)</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🎪 Criatividade na apresentação</li>
+                                <li>🎯 Clareza na explicação</li>
+                                <li>✨ Design dos componentes</li>
+                                <li>🤝 Trabalho em equipe</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #ffd700; color: black; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                        <p><b>🎁 Prêmio Especial:</b> Fábrica vencedora escolhe o tema da próxima dinâmica!</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>💻 Exemplo Prático: Construindo Juntos</h2>
+                <section>
+                    <h3>🎯 Vamos Criar: Header de Site</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
+                        <pre style="margin: 0;"><code>// components/Header/Header.js
+import './Header.css';
+
+function Header() {
+  const menuItems = ['Home', 'Sobre', 'Serviços', 'Contato'];
+  
+  return (
+    &lt;header className="header"&gt;
+      &lt;div className="container"&gt;
+        &lt;div className="logo"&gt;
+          &lt;h1&gt;🚀 MinhaEmpresa&lt;/h1&gt;
+        &lt;/div&gt;
+        
+        &lt;nav className="navigation"&gt;
+          &lt;ul className="menu"&gt;
+            {menuItems.map((item, index) =&gt; (
+              &lt;li key={index} className="menu-item"&gt;
+                &lt;a href={`#${item.toLowerCase()}`}&gt;{item}&lt;/a&gt;
+              &lt;/li&gt;
+            ))}
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+        
+        &lt;div className="actions"&gt;
+          &lt;button className="btn-login"&gt;Login&lt;/button&gt;
+          &lt;button className="btn-signup"&gt;Cadastrar&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+  );
+}
+
+export default Header;</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🎨 CSS do Header</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.6em;">
+                        <pre style="margin: 0;"><code>/* components/Header/Header.css */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.menu-item a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.menu-item a:hover {
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-login, .btn-signup {
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-signup {
+  background: white;
+  color: #667eea;
+}
+
+.btn-login:hover {
+  background: white;
+  color: #667eea;
+}
+
+.btn-signup:hover {
+  background: transparent;
+  color: white;
+}</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🔧 Usando o Componente</h3>
+                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
+                        <pre style="margin: 0;"><code>// App.js
+import Header from './components/Header/Header';
+// OU se usarmos index.js na pasta Header:
+// import Header from './components/Header';
+
+function App() {
+  return (
+    &lt;div className="App"&gt;
+      &lt;Header /&gt;
+      
+      &lt;main&gt;
+        &lt;h2&gt;Conteúdo da página&lt;/h2&gt;
+        &lt;p&gt;Aqui fica o resto do site...&lt;/p&gt;
+      &lt;/main&gt;
+      
+      &lt;footer&gt;
+        &lt;p&gt;© 2025 MinhaEmpresa&lt;/p&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎯 Desafio Individual</h2>
+                <section>
+                    <h3>🏗️ Missão: Card de Perfil Pessoal</h3>
+                    <div style="background: #2d2d2d; padding: 20px; border-radius: 10px;">
+                        <p><b>Criar um componente CardPerfil com:</b></p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                            <div>
+                                <h4>✅ Obrigatório:</h4>
+                                <ul style="font-size: 0.9em;">
+                                    <li>🖼️ Foto de perfil</li>
+                                    <li>👤 Nome completo</li>
+                                    <li>💼 Profissão/curso</li>
+                                    <li>📧 Email</li>
+                                    <li>🎨 Estilização CSS</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>🌟 Extras:</h4>
+                                <ul style="font-size: 0.9em;">
+                                    <li>🔗 Links para redes sociais</li>
+                                    <li>📊 Skills/tecnologias</li>
+                                    <li>✨ Hover effects</li>
+                                    <li>📱 Design responsivo</li>
+                                    <li>🎭 Animações CSS</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>⏱️ Tempo e Entrega</h3>
+                    <ul style="font-size: 1.2em;">
+                        <li>⏰ <b>Tempo:</b> 15 minutos</li>
+                        <li>📤 <b>Entrega:</b> Mostrar funcionando no navegador</li>
+                        <li>🎯 <b>Extra:</b> Push para GitHub (+2 pontos)</li>
+                        <li>🏆 <b>Showcase:</b> 3 melhores apresentam para turma</li>
+                    </ul>
+                    <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                        <p><b>💡 Dica:</b> Use o que aprendemos hoje - JSX, CSS, estrutura de componentes!</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🚨 Debugging: Erros Comuns</h2>
+                <section>
+                    <h3>🐛 Top 5 Erros de Iniciantes</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>❌ Erro: Múltiplos elementos</h4>
+                            <div style="background: #f44336; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>// ❌ Não funciona
+return (
+  &lt;h1&gt;Título&lt;/h1&gt;
+  &lt;p&gt;Parágrafo&lt;/p&gt;
+);</code></pre>
+                            </div>
+                            <div style="background: #4caf50; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em; margin-top: 10px;">
+                                <pre style="margin: 0;"><code>// ✅ Funciona
+return (
+  &lt;&gt;
+    &lt;h1&gt;Título&lt;/h1&gt;
+    &lt;p&gt;Parágrafo&lt;/p&gt;
+  &lt;/&gt;
+);</code></pre>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>❌ Erro: class em vez de className</h4>
+                            <div style="background: #f44336; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em;">
+                                <pre style="margin: 0;"><code>// ❌ Não funciona
+&lt;div class="container"&gt;
+  Conteúdo
+&lt;/div&gt;</code></pre>
+                            </div>
+                            <div style="background: #4caf50; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.7em; margin-top: 10px;">
+                                <pre style="margin: 0;"><code>// ✅ Funciona
+&lt;div className="container"&gt;
+  Conteúdo
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🔧 Outros Erros Frequentes</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                        <div style="background: #ff9800; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>3. Tags não fechadas</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 5px; border-radius: 3px; font-family: monospace; font-size: 0.6em;">
+                                <p>❌ &lt;img src="foto.jpg"&gt;</p>
+                                <p>✅ &lt;img src="foto.jpg" /&gt;</p>
+                            </div>
+                        </div>
+                        <div style="background: #9c27b0; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>4. Função como string</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 5px; border-radius: 3px; font-family: monospace; font-size: 0.6em;">
+                                <p>❌ onClick="minhaFuncao()"</p>
+                                <p>✅ onClick={minhaFuncao}</p>
+                            </div>
+                        </div>
+                        <div style="background: #607d8b; padding: 15px; border-radius: 10px; color: white;">
+                            <h4>5. Esquecer export</h4>
+                            <div style="background: rgba(0,0,0,0.3); padding: 5px; border-radius: 3px; font-family: monospace; font-size: 0.6em;">
+                                <p>❌ function Botao() {}</p>
+                                <p>✅ export default Botao;</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎯 Resumo da Aula</h2>
+                <section>
+                    <div style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); padding: 20px; border-radius: 15px;">
+                        <h3>✨ O que dominamos hoje?</h3>
+                        <ul style="font-size: 1.1em;">
+                            <li>🧩 JSX em profundidade com suas regras</li>
+                            <li>📦 Criamos componentes reutilizáveis</li>
+                            <li>🎨 Múltiplas formas de estilização</li>
+                            <li>🔄 Import/export para organização</li>
+                            <li>🏗️ Estrutura de projeto modular</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🚀 Próxima Aula: Props e Composição</h3>
+                    <div style="background: #2d2d2d; padding: 20px; border-radius: 10px;">
+                        <h4>📚 O que vamos aprender:</h4>
+                        <ul>
+                            <li>📡 Props: comunicação entre componentes</li>
+                            <li>🧪 PropTypes para validação</li>
+                            <li>👶 children e composição</li>
+                            <li>🔄 Renderização condicional</li>
+                            <li>📋 Listas e keys</li>
+                        </ul>
+                    </div>
+                    <p style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                        <b>🏠 Para casa: Crie mais 2 componentes para seu projeto pessoal!</b>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>💎 Frase Inspiradora</h3>
+                    <div style="background: #ffd700; color: #333; padding: 30px; border-radius: 15px; text-align: center; font-size: 1.3em;">
+                        <p><b>"Componentes são como tijolos de LEGO:</b></p>
+                        <p><b>Quanto mais você tem, mais incrível fica o que você pode construir!"</b></p>
+                        <p style="font-size: 0.7em; margin-top: 20px;">🧱 Lei Universal dos Componentes React</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>❓ Q&A: Perguntas e Respostas</h2>
+                <div style="text-align: center; margin: 30px 0;">
+                    <h3>🙋‍♂️ Dúvidas sobre JSX e Componentes?</h3>
+                    <p style="font-size: 1.2em;">Momento para esclarecer tudo!</p>
+                    
+                    <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4>💬 Tópicos para discussão:</h4>
+                        <ul style="text-align: left;">
+                            <li>🤔 Dificuldades com JSX</li>
+                            <li>🧩 Quando criar um componente?</li>
+                            <li>🎨 Qual método de CSS escolher?</li>
+                            <li>📁 Como organizar melhor os arquivos?</li>
+                            <li>🚀 Ideias para próximos componentes</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #61dafb; color: black; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4>🎯 Próxima Semana:</h4>
+                        <p>Vamos fazer nossos componentes "conversarem" uns com os outros usando Props!</p>
+                        <p><b>Preparem-se para a mágica da comunicação entre componentes! 🎭</b></p>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                            <i class="fab fa-linkedin" style="font-size: 2em; margin: 0 10px;"></i>
+                        </a>
+                        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                            <i class="fab fa-github" style="font-size: 2em; margin: 0 10px;"></i>
+                        </a>
+                    </div>
+                    
+                    <p style="background: #666; padding: 10px; border-radius: 5px; margin: 20px auto; max-width: 500px;">
+                        📧 Compartilhem seus componentes no GitHub!
+                    </p>
+                </div>
+            </section>
+
         </div>
     </div>
 
-    <script src="../../reveal.js-master/dist/reveal.js"></script>
-    <script src="../../reveal.js-master/plugin/notes/notes.js"></script>
-    <script src="../../reveal.js-master/plugin/markdown/markdown.js"></script>
-    <script src="../../reveal.js-master/plugin/highlight/highlight.js"></script>
-    <script src="../../reveal.js-master/plugin/math/math.js"></script>
-
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
-            transition: 'slide',
-            transitionSpeed: 'default',
-            backgroundTransition: 'fade',
-            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
         });
     </script>
 </body>
+
 </html>
