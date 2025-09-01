@@ -304,30 +304,40 @@ const styles = StyleSheet.create({
         </section>
         <section>
           <h3>📜 ScrollView - Conteúdo Rolável</h3>
-          <pre><code data-trim class="javascript">
-import { ScrollView, View, Text } from 'react-native';
+          <pre><code data-trim class="javascript"><script>
 
-function ScrollableContent() {
+import { ScrollView, View, Text, StyleSheet, RefreshControl } from 'react-native';
+
+function ScrollableContent({ data, refreshing, onRefresh }) {
   return (
-    &lt;ScrollView 
+    <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.contentContainer}
-      showsVerticalScrollIndicator={false}
-      bounces={true}
       refreshControl={
-        &lt;RefreshControl refreshing={refreshing} onRefresh={onRefresh} /&gt;
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-    &gt;
-      {/* Conteúdo que pode ser maior que a tela */}
-      {data.map(item =&gt; (
-        &lt;View key={item.id} style={styles.item}&gt;
-          &lt;Text&gt;{item.title}&lt;/Text&gt;
-        &lt;/View&gt;
+    >
+      {data.map(item => (
+        <View key={item.id} style={styles.item}>
+          <Text>{item.title}</Text>
+        </View>
       ))}
-    &lt;/ScrollView&gt;
+    </ScrollView>
   );
 }
-          </code></pre>
+
+export default ScrollableContent;
+
+const styles = StyleSheet.create({
+  scrollView: { flex: 1, backgroundColor: '#f5f5f5' },
+  contentContainer: { padding: 16 },
+  item: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+  },
+});
+         </script> </code></pre>
         </section>
       </section>
 
