@@ -118,6 +118,36 @@
       color: #6b7280;
       font-style: italic;
     }
+
+    .alert-board {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      border-left: 5px solid #991b1b;
+      color: white;
+      animation: alertPulse 2s infinite;
+    }
+
+    .alert-board .alert-icon {
+      font-size: 2rem;
+      animation: alertBounce 1.5s infinite;
+    }
+
+    @keyframes alertPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+    }
+
+    @keyframes alertBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .exam-date {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 5px 0;
+    }
   </style>
 
 </head>
@@ -182,6 +212,65 @@
         <div class="col-lg-4 text-center">
           <div class="position-relative">
             <i class="fas fa-code display-1 text-white opacity-75"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quadro de Avisos -->
+  <section class="py-4 bg-white">
+    <div class="container">
+      <div class="alert alert-board" role="alert">
+        <div class="row align-items-center">
+          <div class="col-md-1 text-center">
+            <i class="fas fa-exclamation-triangle alert-icon"></i>
+          </div>
+          <div class="col-md-11">
+            <h4 class="alert-heading mb-3">
+              <i class="fas fa-megaphone me-2"></i>
+              AVISOS IMPORTANTES
+            </h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="exam-date">
+                  <h5><i class="fas fa-calendar-alt me-2"></i>Prova - Turma A</h5>
+                  <p class="mb-0"><strong>Data:</strong> 03 de Outubro de 2025</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="exam-date">
+                  <h5><i class="fas fa-calendar-alt me-2"></i>Prova - Turma B</h5>
+                  <p class="mb-0"><strong>Data:</strong> 06 de Outubro de 2025</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <div class="exam-date">
+                  <h5><i class="fas fa-project-diagram me-2"></i>Projeto 1ª AV - Turma A</h5>
+                  <p class="mb-2"><strong>Prazo:</strong> 10 de Outubro de 2025</p>
+                  <a href="projeto1Av/index.html" class="btn btn-light btn-sm" target="_blank">
+                    <i class="fas fa-file-alt me-1"></i>Ver Instruções
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="exam-date">
+                  <h5><i class="fas fa-project-diagram me-2"></i>Projeto 1ª AV - Turma B</h5>
+                  <p class="mb-2"><strong>Prazo:</strong> 13 de Outubro de 2025</p>
+                  <a href="projeto1Av/index.html" class="btn btn-light btn-sm" target="_blank">
+                    <i class="fas fa-file-alt me-1"></i>Ver Instruções
+                  </a>
+                </div>
+              </div>
+            </div>
+            <hr class="my-3" style="border-color: rgba(255,255,255,0.3);">
+            <p class="mb-0">
+              <i class="fas fa-info-circle me-2"></i>
+              Mantenha-se atualizado com os avisos da disciplina. Verifique regularmente esta seção.
+            </p>
           </div>
         </div>
       </div>

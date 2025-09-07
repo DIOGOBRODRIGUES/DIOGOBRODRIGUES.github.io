@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Projeto 1AV: Sistema de Cadastro Interativo</title>
+
+  <meta name="description" content="Projeto Final - Sistema de Cadastro com HTML, CSS e JavaScript">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Projeto 1AV: Sistema de Cadastro Interativo</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </section>
+
+
+      <!-- Slide 4 - Apresentação do Projeto -->
+      <section>
+        <section>
+          <h2>🚀 Projeto</h2>
+          <h3>Sistema de Cadastro de Usuários</h3>
+          <p class="fragment">Desenvolver uma aplicação web completa que permita:</p>
+          <ul class="fragment">
+            <li>Cadastrar novos usuários</li>
+            <li>Listar usuários cadastrados</li>
+            <li>Editar informações</li>
+            <li>Excluir registros</li>
+            <li>Buscar usuários</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎯 Funcionalidades Principais</h3>
+          <div class="fragment">
+            <h4>✅ CRUD Completo</h4>
+            <ul>
+              <li><strong>C</strong>reate - Criar novos registros</li>
+              <li><strong>R</strong>ead - Ler/Listar registros</li>
+              <li><strong>U</strong>pdate - Atualizar registros</li>
+              <li><strong>D</strong>elete - Deletar registros</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>📱 Interface Responsiva</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="fragment">
+              <h4>Desktop</h4>
+              <i class="fas fa-desktop" style="font-size: 3em; color: #61dafb;"></i>
+              <p>Layout completo com sidebar</p>
+            </div>
+            <div class="fragment">
+              <h4>Mobile</h4>
+              <i class="fas fa-mobile-alt" style="font-size: 3em; color: #61dafb;"></i>
+              <p>Menu hambúrguer e cards</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Requisitos Técnicos -->
+      <section>
+        <section>
+          <h2>⚙️ Requisitos Técnicos</h2>
+        </section>
+
+        <section>
+          <h3>📝 HTML (30 pontos)</h3>
+          <ul>
+            <li class="fragment">✅ Estrutura semântica (header, nav, main, footer)</li>
+            <li class="fragment">✅ Formulário de cadastro completo</li>
+            <li class="fragment">✅ Tabela para listagem de dados</li>
+            <li class="fragment">✅ Meta tags para responsividade</li>
+            <li class="fragment">✅ Validação HTML5 (required, type, pattern)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎨 CSS (30 pontos)</h3>
+          <ul>
+            <li class="fragment">✅ Design responsivo (mobile-first)</li>
+            <li class="fragment">✅ Flexbox ou Grid Layout</li>
+            <li class="fragment">✅ Estilização profissional</li>
+            <li class="fragment">✅ Efeitos de hover e transições</li>
+            <li class="fragment">✅ Media queries para diferentes telas</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>⚡ JavaScript (40 pontos)</h3>
+          <ul>
+            <li class="fragment">✅ Manipulação do DOM</li>
+            <li class="fragment">✅ Eventos de formulário</li>
+            <li class="fragment">✅ Validação client-side</li>
+            <li class="fragment">✅ LocalStorage para persistência</li>
+            <li class="fragment">✅ Funções de CRUD</li>
+            
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Estrutura do Projeto -->
+      <section>
+        <section>
+          <h2>📁 Estrutura do Projeto</h2>
+        </section>
+
+        <section>
+          <h3>🗂️ Organização de Arquivos</h3>
+          <pre><code class="language-text">
+projeto-cadastro/
+├── index.html
+├── css/
+│   ├── style.css
+│   └── responsive.css
+├── js/
+│   ├── main.js
+│   ├── crud.js
+│   └── validation.js
+├── assets/
+│   ├── images/
+│   └── icons/
+└── README.md
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📄 Campos do Formulário</h3>
+          <ul>
+            <li class="fragment"><strong>Nome Completo</strong> (obrigatório, min 3 caracteres)</li>
+            <li class="fragment"><strong>Email</strong> (obrigatório, formato válido)</li>
+            <li class="fragment"><strong>Telefone</strong> (obrigatório, máscara (99) 99999-9999)</li>
+            <li class="fragment"><strong>Data de Nascimento</strong> (obrigatório, maior de 16 anos)</li>
+            <li class="fragment"><strong>Endereço</strong> (obrigatório)</li>
+            <li class="fragment"><strong>Cidade</strong> (obrigatório)</li>
+            <li class="fragment"><strong>Estado</strong> (select com estados brasileiros)</li>
+            <li class="fragment"><strong>Profissão</strong> (opcional)</li>
+          </ul>
+        </section>
+      </section>
+
+
+      <!-- Slide 8 - Funcionalidades Extras -->
+      <section>
+        <section>
+          <h2>⭐ Funcionalidades Extras (Bônus)</h2>
+          <p class="fragment">Para quem quiser ir além do básico:</p>
+        </section>
+
+        <section>
+          <h3>🔍 Sistema de Busca</h3>
+          <pre><code class="language-javascript">
+function searchUsers(query) {
+    const users = userManager.getUsers();
+    return users.filter(user => 
+        user.name.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase()) ||
+        user.city.toLowerCase().includes(query.toLowerCase())
+    );
+}
+
+// Implementar busca em tempo real
+document.getElementById('search-input').addEventListener('input', function(e) {
+    const query = e.target.value;
+    const filteredUsers = searchUsers(query);
+    renderUserTable(filteredUsers);
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>📊 Dashboard com Estatísticas</h3>
+          <ul>
+            <li class="fragment">Total de usuários cadastrados</li>
+            <li class="fragment">Gráfico de usuários por estado</li>
+            <li class="fragment">Usuários cadastrados por mês</li>
+            <li class="fragment">Profissões mais comuns</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>📱 Progressive Web App (PWA)</h3>
+          <ul>
+            <li class="fragment">Manifest.json</li>
+            <li class="fragment">Service Worker para cache</li>
+            <li class="fragment">Funcionalidade offline</li>
+            <li class="fragment">Instalável no celular</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎨 Temas e Personalização</h3>
+          <ul>
+            <li class="fragment">Modo escuro/claro</li>
+            <li class="fragment">Múltiplos temas de cores</li>
+            <li class="fragment">Configurações salvas no localStorage</li>
+            <li class="fragment">Animações e micro-interações</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Critérios de Avaliação -->
+      <section>
+        <section>
+          <h2>📋 Critérios de Avaliação</h2>
+        </section>
+
+        <section>
+          <h3>🏆 Pontuação Detalhada</h3>
+          <div style="text-align: left; font-size: 0.8em;">
+            <h4>HTML (30 pontos)</h4>
+            <ul style="font-size: 0.8em;">
+              <li>Estrutura semântica correta (8 pontos)</li>
+              <li>Formulário completo e funcional (10 pontos)</li>
+              <li>Validação HTML5 (7 pontos)</li>
+              <li>Acessibilidade básica (5 pontos)</li>
+            </ul>
+            
+            <h4>CSS (30 pontos)</h4>
+            <ul style="font-size: 0.8em;">
+              <li>Design responsivo (10 pontos)</li>
+              <li>Layout organizado (8 pontos)</li>
+              <li>Estilização profissional (7 pontos)</li>
+              <li>Efeitos e transições (5 pontos)</li>
+            </ul>
+            
+            <h4>JavaScript (40 pontos)</h4>
+            <ul style="font-size: 0.8em;">
+              <li>CRUD completo (15 pontos)</li>
+              <li>Validação client-side (10 pontos)</li>
+              <li>Manipulação DOM (8 pontos)</li>
+              <li>LocalStorage (7 pontos)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>⭐ Critérios de Excelência</h3>
+          <ul>
+            <li class="fragment"><strong>Funcionalidade:</strong> Todas as features funcionam corretamente</li>
+            <li class="fragment"><strong>Usabilidade:</strong> Interface intuitiva e fácil de usar</li>
+            <li class="fragment"><strong>Código Limpo:</strong> Organização, comentários e boas práticas</li>
+            <li class="fragment"><strong>Responsividade:</strong> Funciona bem em diferentes dispositivos</li>
+            <li class="fragment"><strong>Criatividade:</strong> Soluções inovadoras e design atrativo</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>❌ Erros Comuns a Evitar</h3>
+          <ul>
+            <li class="fragment">Não validar dados no frontend</li>
+            <li class="fragment">Layout quebrado no mobile</li>
+            <li class="fragment">Não usar localStorage corretamente</li>
+            <li class="fragment">Código JavaScript sem organização</li>
+            <li class="fragment">Design não responsivo</li>
+            <li class="fragment">Funcionalidades incompletas</li>
+          </ul>
+        </section>
+      </section>
+
+
+      <!-- Slide 11 - Recursos e Dicas -->
+      <section>
+        <section>
+          <h2>🔧 Recursos e Dicas</h2>
+        </section>
+
+        <section>
+          <h3>📚 Recursos Recomendados</h3>
+          <ul>
+            <li class="fragment"><strong>MDN Web Docs:</strong> Documentação oficial HTML/CSS/JS</li>
+            <li class="fragment"><strong>W3Schools:</strong> Tutoriais e exemplos práticos</li>
+            <li class="fragment"><strong>CSS Grid Generator:</strong> Ferramenta para layouts</li>
+            <li class="fragment"><strong>Google Fonts:</strong> Fontes gratuitas</li>
+            <li class="fragment"><strong>Font Awesome:</strong> Ícones gratuitos</li>
+            <li class="fragment"><strong>Unsplash:</strong> Imagens gratuitas</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>💡 Dicas de Desenvolvimento</h3>
+          <ul>
+            <li class="fragment">Comece pelo HTML, depois CSS, por último JavaScript</li>
+            <li class="fragment">Teste em diferentes navegadores e dispositivos</li>
+            <li class="fragment">Use console.log() para debugar JavaScript</li>
+            <li class="fragment">Mantenha o código organizado e comentado</li>
+            <li class="fragment">Faça commits frequentes no Git</li>
+            <li class="fragment">Teste cada funcionalidade antes de prosseguir</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🛠️ Ferramentas Úteis</h3>
+          <ul>
+            <li class="fragment"><strong>VS Code:</strong> Editor com extensões úteis</li>
+            <li class="fragment"><strong>Live Server:</strong> Para testar localmente</li>
+            <li class="fragment"><strong>DevTools:</strong> Para debug e responsividade</li>
+            <li class="fragment"><strong>GitHub:</strong> Para versionamento</li>
+            <li class="fragment"><strong>GitHub Pages:</strong> Para publicar online</li>
+            <li class="fragment"><strong>Figma:</strong> Para criar mockups</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎨 Inspirações de Design</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="fragment">
+              <h4>Material Design</h4>
+              <p>Design system do Google com componentes modernos</p>
+            </div>
+            <div class="fragment">
+              <h4>Bootstrap</h4>
+              <p>Framework CSS com componentes prontos</p>
+            </div>
+            <div class="fragment">
+              <h4>Dribbble</h4>
+              <p>Inspirações de design e interfaces</p>
+            </div>
+            <div class="fragment">
+              <h4>Behance</h4>
+              <p>Portfólio de designers profissionais</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Exemplos de Interface -->
+      <section>
+        <section>
+          <h2>🖼️ Exemplos de Interface</h2>
+        </section>
+
+        <section>
+          <h3>📱 Layout Mobile</h3>
+          <div style="border: 2px solid #333; border-radius: 20px; padding: 20px; max-width: 300px; margin: 0 auto;">
+            <div style="background: #f8f9fa; padding: 10px; margin-bottom: 10px; border-radius: 8px;">
+              <h4 style="margin: 0; font-size: 1em;">📋 Sistema de Cadastro</h4>
+            </div>
+            <div style="background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.8em;">
+              Nome: _________________
+            </div>
+            <div style="background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.8em;">
+              Email: ________________
+            </div>
+            <div style="background: #007bff; color: white; padding: 8px; margin: 10px 0; border-radius: 4px; font-size: 0.8em; text-align: center;">
+              💾 Salvar
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>💻 Layout Desktop</h3>
+          <div style="border: 2px solid #333; border-radius: 8px; padding: 15px;">
+            <div style="background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px;">
+              <h4 style="margin: 0;">📋 Sistema de Cadastro de Usuários</h4>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+              <div style="background: #e9ecef; padding: 15px; border-radius: 8px;">
+                <h5>Formulário</h5>
+                <div style="margin: 8px 0; font-size: 0.8em;">Nome: ____________</div>
+                <div style="margin: 8px 0; font-size: 0.8em;">Email: ___________</div>
+                <div style="margin: 8px 0; font-size: 0.8em;">Telefone: ________</div>
+                <button style="background: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 4px; margin-top: 10px;">Salvar</button>
+              </div>
+              <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                <h5>Lista de Usuários</h5>
+                <div style="font-size: 0.7em; margin: 5px 0;">👤 João Silva - joao@email.com</div>
+                <div style="font-size: 0.7em; margin: 5px 0;">👤 Maria Santos - maria@email.com</div>
+                <div style="font-size: 0.7em; margin: 5px 0;">👤 Pedro Costa - pedro@email.com</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 13 - Perguntas e Respostas -->
+      <section>
+        <section>
+          <h2>❓ Perguntas Frequentes</h2>
+        </section>
+
+        <section>
+          <h3>🤔 Dúvidas Comuns</h3>
+          <div style="text-align: left; font-size: 0.9em;">
+            <div class="fragment">
+              <h4>Q: Posso usar bibliotecas externas?</h4>
+              <p><strong>R:</strong> Sim, mas o foco deve ser em JavaScript vanilla. Bootstrap e jQuery são permitidos.</p>
+            </div>
+            
+            <div class="fragment">
+              <h4>Q: Precisa funcionar em todos os navegadores?</h4>
+              <p><strong>R:</strong> Foque nos navegadores modernos (Chrome, Firefox, Safari, Edge).</p>
+            </div>
+            
+            <div class="fragment">
+              <h4>Q: Como faço para persistir os dados?</h4>
+              <p><strong>R:</strong> Use localStorage do navegador. Não é necessário backend.</p>
+            </div>
+            
+        
+          </div>
+        </section>
+
+        <section>
+          <h3>🆘 Onde Buscar Ajuda</h3>
+          <ul>
+            <li class="fragment"><strong>Professor:</strong> Durante as aulas ou por email</li>
+            <li class="fragment"><strong>Colegas:</strong> Grupos de estudo e discussão</li>
+            <li class="fragment"><strong>Stack Overflow:</strong> Comunidade de desenvolvedores</li>
+            <li class="fragment"><strong>MDN Web Docs:</strong> Documentação oficial</li>
+            <li class="fragment"><strong>YouTube:</strong> Tutoriais em vídeo</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 14 - Próximos Passos -->
+      <section>
+        <section>
+          <h2>🚀 Próximos Passos</h2>
+        </section>
+
+        <section>
+          <h3>📋 Checklist para Começar</h3>
+          <ul>
+            <li class="fragment">☐ Criar estrutura de pastas do projeto</li>
+            <li class="fragment">☐ Definir o design e layout</li>
+            <li class="fragment">☐ Criar arquivo HTML básico</li>
+            <li class="fragment">☐ Implementar CSS responsivo</li>
+            <li class="fragment">☐ Desenvolver JavaScript básico</li>
+            <li class="fragment">☐ Testar funcionalidades</li>
+            <li class="fragment">☐ Refinar e polir o projeto</li>
+            
+          </ul>
+        </section>
+
+        <section>
+          <h3>🎯 Metas Semanais</h3>
+          <div style="text-align: left; font-size: 0.8em;">
+            <h4>Semana 1: Planejamento e HTML</h4>
+            <ul>
+              <li>Estruturar projeto</li>
+              <li>Criar HTML semântico</li>
+              <li>Formulário completo</li>
+            </ul>
+            
+            <h4>Semana 2: CSS e Design</h4>
+            <ul>
+              <li>Estilização completa</li>
+              <li>Layout responsivo</li>
+              <li>Efeitos visuais</li>
+            </ul>
+            
+            <h4>Semana 3: JavaScript</h4>
+            <ul>
+              <li>CRUD básico</li>
+              <li>Validações</li>
+              <li>LocalStorage</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 15 - Conclusão -->
+      <section>
+        <section>
+          <h2>🎉 Conclusão</h2>
+          <p class="fragment">Este projeto é a oportunidade de consolidar todo o conhecimento adquirido!</p>
+        </section>
+
+        <section>
+          <h3>🌟 Objetivos do Projeto</h3>
+          <ul>
+            <li class="fragment">Aplicar conhecimentos práticos</li>
+            <li class="fragment">Desenvolver um portfólio</li>
+            <li class="fragment">Ganhar experiência real</li>
+            <li class="fragment">Preparar para o mercado</li>
+          </ul>
+        </section>
+
+      <!-- Slide 16 - Contato -->
+      <section>
+        <h2>📞 Contato</h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div style="font-size: 1.2em; margin: 20px 0;">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a><br>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a><br>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        </div>
+        <p style="font-size: 0.8em; margin-top: 30px;">
+          🏛️ Centro Universitário Maurício de Nassau<br>
+          Desenvolvimento de Aplicações Web - 2025.2
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+  </script>
+
+</body>
+
+</html>
