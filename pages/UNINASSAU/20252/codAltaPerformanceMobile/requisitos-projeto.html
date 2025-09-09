@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 Requisitos do Projeto - Código de Alta Performance Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .requirements-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .requirement-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .requirement-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .requirement-icon {
+            font-size: 2rem;
+            color: #ffd700;
+        }
+
+        .requirement-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .requirement-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .requirement-list li {
+            padding: 0.5rem 0;
+            border-left: 3px solid #ffd700;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .requirement-list li::before {
+            content: "✓";
+            color: #ffd700;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .presentation-info {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b7d 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .presentation-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .presentation-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .evaluation-criteria {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .criteria-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .criteria-percentage {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .requirement-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Voltar ao Menu Principal
+        </a>
+
+        <div class="header">
+            <h1>📋 Requisitos do Projeto</h1>
+            <p class="subtitle">Código de Alta Performance Mobile - 2025.2</p>
+            <p>Abordando conteúdo das Aulas 1 a 4</p>
+        </div>
+
+        <div class="requirements-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Requisitos Funcionais
+            </h2>
+
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">⚛️</div>
+                        <div class="requirement-title">React & React Native</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Uso de componentes funcionais</li>
+                        <li>Implementação de Hooks (useState, useEffect)</li>
+                        <li>Gerenciamento de estado eficiente</li>
+                        <li>Componentes reutilizáveis</li>
+                        <li>Props e estado bem estruturados</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">📱</div>
+                        <div class="requirement-title">Interface e Navegação</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>FlatList para exibição de dados</li>
+                        <li>React Navigation (Stack Navigator)</li>
+                        <li>Mínimo de 3 telas funcionais</li>
+                        <li>Passagem de parâmetros entre telas</li>
+                        <li>Interface responsiva e moderna</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">🏗️</div>
+                        <div class="requirement-title">Arquitetura Mobile</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Estrutura de pastas organizada</li>
+                        <li>Separação de componentes e telas</li>
+                        <li>Código limpo e comentado</li>
+                        <li>Boas práticas do React Native</li>
+                        <li>Performance otimizada</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">🌐</div>
+                        <div class="requirement-title">Comunicação via Rede</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Integração com API REST</li>
+                        <li>Uso de Fetch ou Axios</li>
+                        <li>Tratamento de estados de loading</li>
+                        <li>Tratamento de erros de rede</li>
+                        <li>Cache básico de dados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="requirements-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Sugestões de Projeto
+            </h2>
+            
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">🎬</div>
+                        <div class="requirement-title">App de Filmes/Séries</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Lista de filmes populares</li>
+                        <li>Tela de detalhes do filme</li>
+                        <li>Sistema de favoritos</li>
+                        <li>Busca por título ou gênero</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">🛒</div>
+                        <div class="requirement-title">E-commerce Simples</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Catálogo de produtos</li>
+                        <li>Carrinho de compras</li>
+                        <li>Tela de produto individual</li>
+                        <li>Sistema de categorias</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">📰</div>
+                        <div class="requirement-title">App de Notícias</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Feed de notícias</li>
+                        <li>Leitura completa da notícia</li>
+                        <li>Categorias de notícias</li>
+                        <li>Sistema de bookmark</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">🍔</div>
+                        <div class="requirement-title">App de Restaurante</div>
+                    </div>
+                    <ul class="requirement-list">
+                        <li>Menu de produtos</li>
+                        <li>Tela de detalhes do prato</li>
+                        <li>Carrinho de pedidos</li>
+                        <li>Categorias de comida</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="presentation-info">
+            <h2 class="presentation-title">
+                <i class="fas fa-presentation"></i>
+                Informações da Apresentação
+            </h2>
+            
+            <div class="presentation-details">
+                <div class="detail-item">
+                    <div class="detail-title">
+                        <i class="fas fa-clock"></i>
+                        Duração
+                    </div>
+                    <div>5 a 7 minutos por grupo</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-title">
+                        <i class="fas fa-calendar"></i>
+                        Data
+                    </div>
+                    <div>14 de Outubro de 2025</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-title">
+                        <i class="fas fa-users"></i>
+                        Formato
+                    </div>
+                    <div>Individual ou 6 integrantes</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        Demonstração
+                    </div>
+                    <div>App funcionando no dispositivo</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="evaluation-criteria">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Critérios de Avaliação
+            </h2>
+            
+            <div class="criteria-grid">
+                <div class="criteria-item">
+                    <div class="criteria-percentage">25%</div>
+                    <div>Implementação dos Requisitos</div>
+                </div>
+                
+                <div class="criteria-item">
+                    <div class="criteria-percentage">25%</div>
+                    <div>Qualidade do Código</div>
+                </div>
+                
+                <div class="criteria-item">
+                    <div class="criteria-percentage">25%</div>
+                    <div>Interface e UX</div>
+                </div>
+                
+                <div class="criteria-item">
+                    <div class="criteria-percentage">25%</div>
+                    <div>Apresentação e Explicação</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <span class="tech-badge">React Native</span>
+            <span class="tech-badge">Expo</span>
+            <span class="tech-badge">React Navigation</span>
+            <span class="tech-badge">FlatList</span>
+            <span class="tech-badge">Fetch/Axios</span>
+            <span class="tech-badge">Hooks</span>
+            <span class="tech-badge">StyleSheet</span>
+        </div>
+
+        <div style="margin-top: 4rem; text-align: center; opacity: 0.8;">
+            <p>💡 <strong>Dica:</strong> Comece simples e vá evoluindo. É melhor ter poucas funcionalidades bem implementadas do que muitas mal feitas!</p>
+            <div style="margin-top: 2rem;">
+                <p>Desenvolvido com ❤️ para ensino de tecnologia mobile</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

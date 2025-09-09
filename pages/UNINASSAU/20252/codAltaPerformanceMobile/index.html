@@ -165,6 +165,76 @@
             opacity: 0.9;
         }
 
+        .announcements-section {
+            background: linear-gradient(45deg, #ff4757, #ff6b7d);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .announcements-title {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .announcement-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .announcement-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .announcement-date {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .announcement-title-item {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .announcement-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .announcement-highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -184,6 +254,18 @@
             
             .course-card {
                 padding: 1.5rem;
+            }
+
+            .announcements-section {
+                padding: 1.5rem;
+            }
+
+            .announcements-title {
+                font-size: 1.8rem;
+            }
+
+            .announcement-item {
+                padding: 1.2rem;
             }
         }
     </style>
@@ -205,6 +287,61 @@
                 <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
                     <i class="fab fa-instagram"></i>
                 </a>
+            </div>
+        </div>
+
+        <!-- Seção de Avisos -->
+        <div class="announcements-section">
+            <h2 class="announcements-title">
+                <i class="fas fa-bullhorn"></i>
+                Avisos Importantes
+            </h2>
+            
+            <div class="announcement-item">
+                <div class="announcement-date">
+                    <i class="fas fa-calendar-alt"></i> 07 de Outubro de 2025
+                </div>
+                <div class="announcement-title-item">
+                    <i class="fas fa-clipboard-check"></i>
+                    1ª Avaliação (1AV)
+                </div>
+                <div class="announcement-description">
+                    Primeira avaliação da disciplina cobrindo todo o conteúdo das <span class="announcement-highlight">Unidades I e II</span>. 
+                    Estude os conceitos de arquitetura mobile, FlatList, navegação entre telas e comunicação via rede.
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <div class="announcement-date">
+                    <i class="fas fa-calendar-alt"></i> 14 de Outubro de 2025
+                </div>
+                <div class="announcement-title-item">
+                    <i class="fas fa-presentation"></i>
+                    Apresentação do Projeto
+                </div>
+                <div class="announcement-description">
+                    Apresentação dos projetos desenvolvidos pelos alunos. Prepare uma demonstração de 
+                    <span class="announcement-highlight">5-7 minutos</span> mostrando as funcionalidades implementadas 
+                    e explicando as tecnologias utilizadas.
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <div class="announcement-date">
+                    <i class="fas fa-clipboard-list"></i> Requisitos do Projeto
+                </div>
+                <div class="announcement-title-item">
+                    <i class="fas fa-code"></i>
+                    Especificações Técnicas
+                </div>
+                <div class="announcement-description">
+                    Confira todos os <span class="announcement-highlight">requisitos técnicos</span> do projeto, 
+                    sugestões de apps e critérios de avaliação. Baseado no conteúdo das aulas 1 a 4.
+                    <br><br>
+                    <a href="requisitos-projeto.html" style="color: white; background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none; display: inline-block; margin-top: 0.5rem; transition: all 0.3s ease;">
+                        <i class="fas fa-external-link-alt"></i> Ver Requisitos Completos
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -266,7 +403,25 @@
                         <li>Listeners e Content Providers</li>
                     </ul>
                 </div>
-                <a href="#" class="course-link">Acessar Aula →</a>
+                <a href="/pages/UNINASSAU/20252/codAltaPerformanceMobile/aula3/index.html" class="course-link">Acessar Aula →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-number">Aula 3.1</div>
+                <h3 class="course-title">🎬 App Lista de Filmes - FlatList e Navegação</h3>
+                <p class="course-description">
+                    Desenvolvimento prático de um app completo de lista de filmes, explorando FlatList, navegação entre telas e passagem de parâmetros.
+                </p>
+                <div class="course-topics">
+                    <h4>Tópicos Abordados:</h4>
+                    <ul class="topics-list">
+                        <li>FlatList para listas otimizadas</li>
+                        <li>React Navigation (Stack Navigator)</li>
+                        <li>Passagem de parâmetros entre telas</li>
+                        <li>Interface moderna e responsiva</li>
+                    </ul>
+                </div>
+                <a href="/pages/UNINASSAU/20252/codAltaPerformanceMobile/aula3_1/index.html" class="course-link">Acessar Aula →</a>
             </div>
         </div>
 
