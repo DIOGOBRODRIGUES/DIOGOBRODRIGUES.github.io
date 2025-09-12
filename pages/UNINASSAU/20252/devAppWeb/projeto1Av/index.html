@@ -3,142 +3,429 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Projeto 1AV: Sistema de Cadastro Interativo</title>
+  <title>Projeto 1AV: Sistema de Cadastro Interativo | Desenvolvimento de Aplicações Web</title>
 
-  <meta name="description" content="Projeto Final - Sistema de Cadastro com HTML, CSS e JavaScript">
+  <meta name="description" content="Projeto Final - Sistema de Cadastro com HTML, CSS e JavaScript - Centro Universitário Maurício de Nassau">
   <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Syntax Highlighting -->
-  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      color: #667eea;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: #764ba2;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0;
+    }
+
+    .hero {
+      text-align: center;
+      color: white;
+      padding: 4rem 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero .university {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Content Sections */
+    .content-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h3 {
+      color: #764ba2;
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-item {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .feature-item i {
+      font-size: 2.5rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .requirement-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .requirement-card h4 {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .requirement-card ul {
+      list-style: none;
+    }
+
+    .requirement-card li {
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .requirement-card li:before {
+      content: "✓";
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 1rem 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+
+    .timeline-date {
+      background: #667eea;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-right: 1rem;
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .timeline-date {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
- 
-  <div class="reveal">
-    <div class="slides">
-      <!-- Slide 1 - Título da Aula -->
-      <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Projeto 1AV: Sistema de Cadastro Interativo</h3>
-        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </section>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          Maurício de Nassau
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <p class="university">🏛️ Centro Universitário Maurício de Nassau</p>
+      <h1>Projeto 1AV: Sistema de Cadastro Interativo</h1>
+      <p>Desenvolva uma aplicação web completa com HTML, CSS e JavaScript</p>
+      <p><strong>Prof. Dr. Diogo Francisco Borba Rodrigues</strong></p>
+    </div>
+  </section>
 
-      <!-- Slide 4 - Apresentação do Projeto -->
-      <section>
-        <section>
-          <h2>🚀 Projeto</h2>
-          <h3>Sistema de Cadastro de Usuários</h3>
-          <p class="fragment">Desenvolver uma aplicação web completa que permita:</p>
-          <ul class="fragment">
-            <li>Cadastrar novos usuários</li>
-            <li>Listar usuários cadastrados</li>
-            <li>Editar informações</li>
-            <li>Excluir registros</li>
-            <li>Buscar usuários</li>
-          </ul>
-        </section>
-
-        <section>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="content-grid">
+        
+        <!-- Sobre o Projeto -->
+        <div class="card">
+          <h2><i class="fas fa-rocket"></i> Sobre o Projeto</h2>
+          <p>Desenvolver uma aplicação web completa que permita gerenciar usuários com todas as operações de CRUD (Create, Read, Update, Delete).</p>
+          
           <h3>🎯 Funcionalidades Principais</h3>
-          <div class="fragment">
-            <h4>✅ CRUD Completo</h4>
-            <ul>
-              <li><strong>C</strong>reate - Criar novos registros</li>
-              <li><strong>R</strong>ead - Ler/Listar registros</li>
-              <li><strong>U</strong>pdate - Atualizar registros</li>
-              <li><strong>D</strong>elete - Deletar registros</li>
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <h3>📱 Interface Responsiva</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="fragment">
-              <h4>Desktop</h4>
-              <i class="fas fa-desktop" style="font-size: 3em; color: #61dafb;"></i>
-              <p>Layout completo com sidebar</p>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <i class="fas fa-plus-circle"></i>
+              <h4>Cadastrar</h4>
+              <p>Criar novos usuários</p>
             </div>
-            <div class="fragment">
-              <h4>Mobile</h4>
-              <i class="fas fa-mobile-alt" style="font-size: 3em; color: #61dafb;"></i>
-              <p>Menu hambúrguer e cards</p>
+            <div class="feature-item">
+              <i class="fas fa-list"></i>
+              <h4>Listar</h4>
+              <p>Visualizar todos os registros</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-edit"></i>
+              <h4>Editar</h4>
+              <p>Atualizar informações</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-trash"></i>
+              <h4>Excluir</h4>
+              <p>Remover registros</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-search"></i>
+              <h4>Buscar</h4>
+              <p>Filtrar usuários</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-mobile-alt"></i>
+              <h4>Responsivo</h4>
+              <p>Desktop e Mobile</p>
             </div>
           </div>
-        </section>
-      </section>
+        </div>
 
-      <!-- Slide 5 - Requisitos Técnicos -->
-      <section>
-        <section>
-          <h2>⚙️ Requisitos Técnicos</h2>
-        </section>
-
-        <section>
-          <h3>📝 HTML (30 pontos)</h3>
-          <ul>
-            <li class="fragment">✅ Estrutura semântica (header, nav, main, footer)</li>
-            <li class="fragment">✅ Formulário de cadastro completo</li>
-            <li class="fragment">✅ Tabela para listagem de dados</li>
-            <li class="fragment">✅ Meta tags para responsividade</li>
-            <li class="fragment">✅ Validação HTML5 (required, type, pattern)</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>🎨 CSS (30 pontos)</h3>
-          <ul>
-            <li class="fragment">✅ Design responsivo (mobile-first)</li>
-            <li class="fragment">✅ Flexbox ou Grid Layout</li>
-            <li class="fragment">✅ Estilização profissional</li>
-            <li class="fragment">✅ Efeitos de hover e transições</li>
-            <li class="fragment">✅ Media queries para diferentes telas</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>⚡ JavaScript (40 pontos)</h3>
-          <ul>
-            <li class="fragment">✅ Manipulação do DOM</li>
-            <li class="fragment">✅ Eventos de formulário</li>
-            <li class="fragment">✅ Validação client-side</li>
-            <li class="fragment">✅ LocalStorage para persistência</li>
-            <li class="fragment">✅ Funções de CRUD</li>
+        <!-- Requisitos Técnicos -->
+        <div class="card">
+          <h2><i class="fas fa-cogs"></i> Requisitos Técnicos</h2>
+          <div class="requirements-grid">
+            <div class="requirement-card">
+              <h4><i class="fab fa-html5"></i> HTML (30 pontos)</h4>
+              <ul>
+                <li>Estrutura semântica (header, nav, main, footer)</li>
+                <li>Formulário de cadastro completo</li>
+                <li>Tabela para listagem de dados</li>
+                <li>Meta tags para responsividade</li>
+                <li>Validação HTML5 (required, type, pattern)</li>
+              </ul>
+            </div>
             
-          </ul>
-        </section>
-      </section>
+            <div class="requirement-card">
+              <h4><i class="fab fa-css3-alt"></i> CSS (30 pontos)</h4>
+              <ul>
+                <li>Design responsivo (mobile-first)</li>
+                <li>Flexbox ou Grid Layout</li>
+                <li>Estilização profissional</li>
+                <li>Efeitos de hover e transições</li>
+                <li>Media queries para diferentes telas</li>
+              </ul>
+            </div>
+            
+            <div class="requirement-card">
+              <h4><i class="fab fa-js-square"></i> JavaScript (40 pontos)</h4>
+              <ul>
+                <li>Manipulação do DOM</li>
+                <li>Eventos de formulário</li>
+                <li>Validação client-side</li>
+                <li>LocalStorage para persistência</li>
+                <li>Funções de CRUD completas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-      <!-- Slide 6 - Estrutura do Projeto -->
-      <section>
-        <section>
-          <h2>📁 Estrutura do Projeto</h2>
-        </section>
-
-        <section>
-          <h3>🗂️ Organização de Arquivos</h3>
-          <pre><code class="language-text">
-projeto-cadastro/
+        <!-- Estrutura do Projeto -->
+        <div class="card">
+          <h2><i class="fas fa-folder-open"></i> Estrutura do Projeto</h2>
+          <div class="code-block">projeto-cadastro/
 ├── index.html
 ├── css/
 │   ├── style.css
@@ -148,402 +435,182 @@ projeto-cadastro/
 │   ├── crud.js
 │   └── validation.js
 ├── assets/
-│   ├── images/
-│   └── icons/
-└── README.md
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>📄 Campos do Formulário</h3>
-          <ul>
-            <li class="fragment"><strong>Nome Completo</strong> (obrigatório, min 3 caracteres)</li>
-            <li class="fragment"><strong>Email</strong> (obrigatório, formato válido)</li>
-            <li class="fragment"><strong>Telefone</strong> (obrigatório, máscara (99) 99999-9999)</li>
-            <li class="fragment"><strong>Data de Nascimento</strong> (obrigatório, maior de 16 anos)</li>
-            <li class="fragment"><strong>Endereço</strong> (obrigatório)</li>
-            <li class="fragment"><strong>Cidade</strong> (obrigatório)</li>
-            <li class="fragment"><strong>Estado</strong> (select com estados brasileiros)</li>
-            <li class="fragment"><strong>Profissão</strong> (opcional)</li>
+│   └── images/
+└── README.md</div>
+          
+          <h3>📋 Funcionalidades Obrigatórias</h3>
+          <ul style="margin-top: 1rem;">
+            <li><strong>Formulário de Cadastro:</strong> Nome, Email, Telefone, Idade, Endereço</li>
+            <li><strong>Listagem:</strong> Tabela responsiva com todos os usuários</li>
+            <li><strong>Busca:</strong> Filtro por nome ou email</li>
+            <li><strong>Validação:</strong> Campos obrigatórios e formatos corretos</li>
+            <li><strong>Persistência:</strong> Dados salvos no LocalStorage</li>
+            <li><strong>Modal:</strong> Para confirmação de exclusão</li>
           </ul>
-        </section>
-      </section>
+        </div>
 
-
-      <!-- Slide 8 - Funcionalidades Extras -->
-      <section>
-        <section>
-          <h2>⭐ Funcionalidades Extras (Bônus)</h2>
-          <p class="fragment">Para quem quiser ir além do básico:</p>
-        </section>
-
-        <section>
-          <h3>🔍 Sistema de Busca</h3>
-          <pre><code class="language-javascript">
-function searchUsers(query) {
-    const users = userManager.getUsers();
-    return users.filter(user => 
-        user.name.toLowerCase().includes(query.toLowerCase()) ||
-        user.email.toLowerCase().includes(query.toLowerCase()) ||
-        user.city.toLowerCase().includes(query.toLowerCase())
-    );
-}
-
-// Implementar busca em tempo real
-document.getElementById('search-input').addEventListener('input', function(e) {
-    const query = e.target.value;
-    const filteredUsers = searchUsers(query);
-    renderUserTable(filteredUsers);
-});
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>📊 Dashboard com Estatísticas</h3>
-          <ul>
-            <li class="fragment">Total de usuários cadastrados</li>
-            <li class="fragment">Gráfico de usuários por estado</li>
-            <li class="fragment">Usuários cadastrados por mês</li>
-            <li class="fragment">Profissões mais comuns</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>📱 Progressive Web App (PWA)</h3>
-          <ul>
-            <li class="fragment">Manifest.json</li>
-            <li class="fragment">Service Worker para cache</li>
-            <li class="fragment">Funcionalidade offline</li>
-            <li class="fragment">Instalável no celular</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>🎨 Temas e Personalização</h3>
-          <ul>
-            <li class="fragment">Modo escuro/claro</li>
-            <li class="fragment">Múltiplos temas de cores</li>
-            <li class="fragment">Configurações salvas no localStorage</li>
-            <li class="fragment">Animações e micro-interações</li>
-          </ul>
-        </section>
-      </section>
-
-      <!-- Slide 9 - Critérios de Avaliação -->
-      <section>
-        <section>
-          <h2>📋 Critérios de Avaliação</h2>
-        </section>
-
-        <section>
-          <h3>🏆 Pontuação Detalhada</h3>
-          <div style="text-align: left; font-size: 0.8em;">
-            <h4>HTML (30 pontos)</h4>
-            <ul style="font-size: 0.8em;">
-              <li>Estrutura semântica correta (8 pontos)</li>
-              <li>Formulário completo e funcional (10 pontos)</li>
-              <li>Validação HTML5 (7 pontos)</li>
-              <li>Acessibilidade básica (5 pontos)</li>
-            </ul>
+        <!-- Critérios de Avaliação -->
+        <div class="card">
+          <h2><i class="fas fa-star"></i> Critérios de Avaliação</h2>
+          <div class="requirements-grid">
+            <div style="background: white; border: 2px solid #667eea; padding: 1.5rem; border-radius: 10px;">
+              <h4 style="color: #667eea;"><i class="fas fa-code"></i> Qualidade do Código</h4>
+              <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                <li>Organização e estrutura</li>
+                <li>Comentários explicativos</li>
+                <li>Boas práticas</li>
+                <li>Código limpo e legível</li>
+              </ul>
+            </div>
             
-            <h4>CSS (30 pontos)</h4>
-            <ul style="font-size: 0.8em;">
-              <li>Design responsivo (10 pontos)</li>
-              <li>Layout organizado (8 pontos)</li>
-              <li>Estilização profissional (7 pontos)</li>
-              <li>Efeitos e transições (5 pontos)</li>
-            </ul>
+            <div style="background: white; border: 2px solid #764ba2; padding: 1.5rem; border-radius: 10px;">
+              <h4 style="color: #764ba2;"><i class="fas fa-desktop"></i> Interface</h4>
+              <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                <li>Design atrativo</li>
+                <li>Usabilidade</li>
+                <li>Responsividade</li>
+                <li>Experiência do usuário</li>
+              </ul>
+            </div>
             
-            <h4>JavaScript (40 pontos)</h4>
-            <ul style="font-size: 0.8em;">
-              <li>CRUD completo (15 pontos)</li>
-              <li>Validação client-side (10 pontos)</li>
-              <li>Manipulação DOM (8 pontos)</li>
-              <li>LocalStorage (7 pontos)</li>
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <h3>⭐ Critérios de Excelência</h3>
-          <ul>
-            <li class="fragment"><strong>Funcionalidade:</strong> Todas as features funcionam corretamente</li>
-            <li class="fragment"><strong>Usabilidade:</strong> Interface intuitiva e fácil de usar</li>
-            <li class="fragment"><strong>Código Limpo:</strong> Organização, comentários e boas práticas</li>
-            <li class="fragment"><strong>Responsividade:</strong> Funciona bem em diferentes dispositivos</li>
-            <li class="fragment"><strong>Criatividade:</strong> Soluções inovadoras e design atrativo</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>❌ Erros Comuns a Evitar</h3>
-          <ul>
-            <li class="fragment">Não validar dados no frontend</li>
-            <li class="fragment">Layout quebrado no mobile</li>
-            <li class="fragment">Não usar localStorage corretamente</li>
-            <li class="fragment">Código JavaScript sem organização</li>
-            <li class="fragment">Design não responsivo</li>
-            <li class="fragment">Funcionalidades incompletas</li>
-          </ul>
-        </section>
-      </section>
-
-
-      <!-- Slide 11 - Recursos e Dicas -->
-      <section>
-        <section>
-          <h2>🔧 Recursos e Dicas</h2>
-        </section>
-
-        <section>
-          <h3>📚 Recursos Recomendados</h3>
-          <ul>
-            <li class="fragment"><strong>MDN Web Docs:</strong> Documentação oficial HTML/CSS/JS</li>
-            <li class="fragment"><strong>W3Schools:</strong> Tutoriais e exemplos práticos</li>
-            <li class="fragment"><strong>CSS Grid Generator:</strong> Ferramenta para layouts</li>
-            <li class="fragment"><strong>Google Fonts:</strong> Fontes gratuitas</li>
-            <li class="fragment"><strong>Font Awesome:</strong> Ícones gratuitos</li>
-            <li class="fragment"><strong>Unsplash:</strong> Imagens gratuitas</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>💡 Dicas de Desenvolvimento</h3>
-          <ul>
-            <li class="fragment">Comece pelo HTML, depois CSS, por último JavaScript</li>
-            <li class="fragment">Teste em diferentes navegadores e dispositivos</li>
-            <li class="fragment">Use console.log() para debugar JavaScript</li>
-            <li class="fragment">Mantenha o código organizado e comentado</li>
-            <li class="fragment">Faça commits frequentes no Git</li>
-            <li class="fragment">Teste cada funcionalidade antes de prosseguir</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>🛠️ Ferramentas Úteis</h3>
-          <ul>
-            <li class="fragment"><strong>VS Code:</strong> Editor com extensões úteis</li>
-            <li class="fragment"><strong>Live Server:</strong> Para testar localmente</li>
-            <li class="fragment"><strong>DevTools:</strong> Para debug e responsividade</li>
-            <li class="fragment"><strong>GitHub:</strong> Para versionamento</li>
-            <li class="fragment"><strong>GitHub Pages:</strong> Para publicar online</li>
-            <li class="fragment"><strong>Figma:</strong> Para criar mockups</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>🎨 Inspirações de Design</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="fragment">
-              <h4>Material Design</h4>
-              <p>Design system do Google com componentes modernos</p>
-            </div>
-            <div class="fragment">
-              <h4>Bootstrap</h4>
-              <p>Framework CSS com componentes prontos</p>
-            </div>
-            <div class="fragment">
-              <h4>Dribbble</h4>
-              <p>Inspirações de design e interfaces</p>
-            </div>
-            <div class="fragment">
-              <h4>Behance</h4>
-              <p>Portfólio de designers profissionais</p>
+            <div style="background: white; border: 2px solid #4ade80; padding: 1.5rem; border-radius: 10px;">
+              <h4 style="color: #4ade80;"><i class="fas fa-check-circle"></i> Funcionalidade</h4>
+              <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                <li>Todas as operações CRUD</li>
+                <li>Validações funcionando</li>
+                <li>Tratamento de erros</li>
+                <li>Performance</li>
+              </ul>
             </div>
           </div>
-        </section>
-      </section>
+        </div>
 
-      <!-- Slide 12 - Exemplos de Interface -->
-      <section>
-        <section>
-          <h2>🖼️ Exemplos de Interface</h2>
-        </section>
-
-        <section>
-          <h3>📱 Layout Mobile</h3>
-          <div style="border: 2px solid #333; border-radius: 20px; padding: 20px; max-width: 300px; margin: 0 auto;">
-            <div style="background: #f8f9fa; padding: 10px; margin-bottom: 10px; border-radius: 8px;">
-              <h4 style="margin: 0; font-size: 1em;">📋 Sistema de Cadastro</h4>
-            </div>
-            <div style="background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.8em;">
-              Nome: _________________
-            </div>
-            <div style="background: #e9ecef; padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.8em;">
-              Email: ________________
-            </div>
-            <div style="background: #007bff; color: white; padding: 8px; margin: 10px 0; border-radius: 4px; font-size: 0.8em; text-align: center;">
-              💾 Salvar
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h3>💻 Layout Desktop</h3>
-          <div style="border: 2px solid #333; border-radius: 8px; padding: 15px;">
-            <div style="background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 8px;">
-              <h4 style="margin: 0;">📋 Sistema de Cadastro de Usuários</h4>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
-              <div style="background: #e9ecef; padding: 15px; border-radius: 8px;">
-                <h5>Formulário</h5>
-                <div style="margin: 8px 0; font-size: 0.8em;">Nome: ____________</div>
-                <div style="margin: 8px 0; font-size: 0.8em;">Email: ___________</div>
-                <div style="margin: 8px 0; font-size: 0.8em;">Telefone: ________</div>
-                <button style="background: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 4px; margin-top: 10px;">Salvar</button>
+        <!-- Timeline de Entrega -->
+        <div class="card">
+          <h2><i class="fas fa-calendar-alt"></i> Timeline de Entrega</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">Semana 1</div>
+              <div>
+                <h4>Planejamento e Estrutura HTML</h4>
+                <p>Definir layout, criar estrutura HTML semântica e formulários</p>
               </div>
-              <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                <h5>Lista de Usuários</h5>
-                <div style="font-size: 0.7em; margin: 5px 0;">👤 João Silva - joao@email.com</div>
-                <div style="font-size: 0.7em; margin: 5px 0;">👤 Maria Santos - maria@email.com</div>
-                <div style="font-size: 0.7em; margin: 5px 0;">👤 Pedro Costa - pedro@email.com</div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-date">Semana 2</div>
+              <div>
+                <h4>Estilização CSS</h4>
+                <p>Aplicar estilos, criar layout responsivo e animações</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-date">Semana 3</div>
+              <div>
+                <h4>Funcionalidades JavaScript</h4>
+                <p>Implementar CRUD, validações e integração com LocalStorage</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-date">Semana 4</div>
+              <div>
+                <h4>Testes e Refinamentos</h4>
+                <p>Testar funcionalidades, corrigir bugs e melhorar UX</p>
               </div>
             </div>
           </div>
-        </section>
-      </section>
+        </div>
 
-      <!-- Slide 13 - Perguntas e Respostas -->
-      <section>
-        <section>
-          <h2>❓ Perguntas Frequentes</h2>
-        </section>
-
-        <section>
-          <h3>🤔 Dúvidas Comuns</h3>
-          <div style="text-align: left; font-size: 0.9em;">
-            <div class="fragment">
-              <h4>Q: Posso usar bibliotecas externas?</h4>
-              <p><strong>R:</strong> Sim, mas o foco deve ser em JavaScript vanilla. Bootstrap e jQuery são permitidos.</p>
+        <!-- Recursos e Dicas -->
+        <div class="card">
+          <h2><i class="fas fa-lightbulb"></i> Recursos e Dicas</h2>
+          
+          <h3>📚 Tecnologias Recomendadas</h3>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <i class="fab fa-html5"></i>
+              <h4>HTML5</h4>
+              <p>Estrutura semântica</p>
             </div>
-            
-            <div class="fragment">
-              <h4>Q: Precisa funcionar em todos os navegadores?</h4>
-              <p><strong>R:</strong> Foque nos navegadores modernos (Chrome, Firefox, Safari, Edge).</p>
+            <div class="feature-item">
+              <i class="fab fa-css3-alt"></i>
+              <h4>CSS3</h4>
+              <p>Flexbox, Grid, Animations</p>
             </div>
-            
-            <div class="fragment">
-              <h4>Q: Como faço para persistir os dados?</h4>
-              <p><strong>R:</strong> Use localStorage do navegador. Não é necessário backend.</p>
+            <div class="feature-item">
+              <i class="fab fa-js-square"></i>
+              <h4>JavaScript ES6+</h4>
+              <p>DOM, Events, LocalStorage</p>
             </div>
-            
-        
+            <div class="feature-item">
+              <i class="fab fa-bootstrap"></i>
+              <h4>Framework CSS</h4>
+              <p>Bootstrap/Tailwind (opcional)</p>
+            </div>
           </div>
-        </section>
 
-        <section>
-          <h3>🆘 Onde Buscar Ajuda</h3>
-          <ul>
-            <li class="fragment"><strong>Professor:</strong> Durante as aulas ou por email</li>
-            <li class="fragment"><strong>Colegas:</strong> Grupos de estudo e discussão</li>
-            <li class="fragment"><strong>Stack Overflow:</strong> Comunidade de desenvolvedores</li>
-            <li class="fragment"><strong>MDN Web Docs:</strong> Documentação oficial</li>
-            <li class="fragment"><strong>YouTube:</strong> Tutoriais em vídeo</li>
+          <h3>💡 Dicas de Implementação</h3>
+          <ul style="margin-top: 1rem;">
+            <li><strong>Mobile First:</strong> Comece o design pela versão mobile</li>
+            <li><strong>Validação:</strong> Use HTML5 + JavaScript para validar dados</li>
+            <li><strong>UX:</strong> Adicione feedbacks visuais para o usuário</li>
+            <li><strong>Performance:</strong> Otimize o código e minimize reflows</li>
+            <li><strong>Acessibilidade:</strong> Use labels, aria-labels e navegação por teclado</li>
           </ul>
-        </section>
-      </section>
+        </div>
 
-      <!-- Slide 14 - Próximos Passos -->
-      <section>
-        <section>
-          <h2>🚀 Próximos Passos</h2>
-        </section>
-
-        <section>
-          <h3>📋 Checklist para Começar</h3>
-          <ul>
-            <li class="fragment">☐ Criar estrutura de pastas do projeto</li>
-            <li class="fragment">☐ Definir o design e layout</li>
-            <li class="fragment">☐ Criar arquivo HTML básico</li>
-            <li class="fragment">☐ Implementar CSS responsivo</li>
-            <li class="fragment">☐ Desenvolver JavaScript básico</li>
-            <li class="fragment">☐ Testar funcionalidades</li>
-            <li class="fragment">☐ Refinar e polir o projeto</li>
-            
-          </ul>
-        </section>
-
-        <section>
-          <h3>🎯 Metas Semanais</h3>
-          <div style="text-align: left; font-size: 0.8em;">
-            <h4>Semana 1: Planejamento e HTML</h4>
-            <ul>
-              <li>Estruturar projeto</li>
-              <li>Criar HTML semântico</li>
-              <li>Formulário completo</li>
-            </ul>
-            
-            <h4>Semana 2: CSS e Design</h4>
-            <ul>
-              <li>Estilização completa</li>
-              <li>Layout responsivo</li>
-              <li>Efeitos visuais</li>
-            </ul>
-            
-            <h4>Semana 3: JavaScript</h4>
-            <ul>
-              <li>CRUD básico</li>
-              <li>Validações</li>
-              <li>LocalStorage</li>
+        <!-- Entrega e Avaliação -->
+        <div class="card">
+          <h2><i class="fas fa-upload"></i> Entrega e Avaliação</h2>
+          
+          <div style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%); color: white; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+            <h3><i class="fas fa-exclamation-triangle"></i> Importante</h3>
+            <ul style="margin-top: 1rem;">
+              <li>Entregar via GitHub Pages ou ZIP</li>
+              <li>Incluir README.md com instruções</li>
+              <li>Código comentado e organizado</li>
+              <li>Testar em diferentes dispositivos</li>
+              <li>Apresentação de 10 minutos</li>
             </ul>
           </div>
-        </section>
-      </section>
 
-      <!-- Slide 15 - Conclusão -->
-      <section>
-        <section>
-          <h2>🎉 Conclusão</h2>
-          <p class="fragment">Este projeto é a oportunidade de consolidar todo o conhecimento adquirido!</p>
-        </section>
-
-        <section>
-          <h3>🌟 Objetivos do Projeto</h3>
-          <ul>
-            <li class="fragment">Aplicar conhecimentos práticos</li>
-            <li class="fragment">Desenvolver um portfólio</li>
-            <li class="fragment">Ganhar experiência real</li>
-            <li class="fragment">Preparar para o mercado</li>
+          <h3>🎯 Objetivos de Aprendizagem</h3>
+          <ul style="margin-top: 1rem;">
+            <li>Aplicar conhecimentos práticos de desenvolvimento web</li>
+            <li>Desenvolver um projeto para o portfólio</li>
+            <li>Ganhar experiência com ferramentas reais</li>
+            <li>Preparar-se para o mercado de trabalho</li>
           </ul>
-        </section>
+        </div>
 
-      <!-- Slide 16 - Contato -->
-      <section>
-        <h2>📞 Contato</h2>
-        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <div style="font-size: 1.2em; margin: 20px 0;">
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <p><strong>Prof. Dr. Diogo Francisco Borba Rodrigues</strong></p>
+          <p>Desenvolvimento de Aplicações Web - 2025.2</p>
+        </div>
+        <div class="social-links">
           <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
             <i class="fab fa-linkedin"></i> LinkedIn
-          </a><br>
+          </a>
           <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
             <i class="fab fa-github"></i> GitHub
-          </a><br>
+          </a>
           <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
             <i class="fab fa-instagram"></i> Instagram
           </a>
         </div>
-        <p style="font-size: 0.8em; margin-top: 30px;">
-          🏛️ Centro Universitário Maurício de Nassau<br>
-          Desenvolvimento de Aplicações Web - 2025.2
-        </p>
-      </section>
+      </div>
     </div>
-  </div>
-
-  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
-
-  <script>
-    Reveal.initialize({
-      hash: true,
-      transition: 'slide',
-      backgroundTransition: 'fade',
-      plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
-    });
-  </script>
+  </footer>
 
 </body>
-
 </html>
