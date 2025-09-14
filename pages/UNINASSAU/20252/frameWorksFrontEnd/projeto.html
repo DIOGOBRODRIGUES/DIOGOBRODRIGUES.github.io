@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto StreamFlix | Frameworks Front-End - Prof. Dr. Diogo Rodrigues</title>
+    <meta name="description" content="Projeto da disciplina de Frameworks Front-End: desenvolvimento de aplicação similar à Netflix usando React.js">
+    
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #61dafb;
+        }
+
+        .react-logo {
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #61dafb;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #61dafb, #0066cc);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e50914 0%, #221f1f 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffc107, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #adb5bd;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .deadline-alert {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .deadline-alert h3 {
+            color: #ffc107;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Projeto Styles */
+        .project-overview {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-intro {
+            background: linear-gradient(135deg, #e50914, #221f1f);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .project-intro h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .project-intro i {
+            font-size: 2.5rem;
+            color: #ffc107;
+        }
+
+        .project-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .spec-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #e50914;
+        }
+
+        .spec-card h4 {
+            color: #e50914;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .spec-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .requirements-section {
+            margin-bottom: 3rem;
+        }
+
+        .requirements-section h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .requirement-category {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #61dafb;
+        }
+
+        .requirement-category h4 {
+            color: #61dafb;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirement-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirement-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .requirement-category li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .requirement-category li:last-child {
+            border-bottom: none;
+        }
+
+        .tech-requirements {
+            margin-bottom: 3rem;
+        }
+
+        .tech-requirements h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #ffc107;
+        }
+
+        .tech-item h4 {
+            color: #ffc107;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-item li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .tech-item li:before {
+            content: "⚙️";
+            position: absolute;
+            left: 0;
+        }
+
+        .tech-item li:last-child {
+            border-bottom: none;
+        }
+
+        .delivery-requirements {
+            margin-bottom: 3rem;
+        }
+
+        .delivery-requirements h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .delivery-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #28a745;
+        }
+
+        .delivery-item h4 {
+            color: #28a745;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delivery-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .delivery-item li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .delivery-item li:before {
+            content: "📋";
+            position: absolute;
+            left: 0;
+        }
+
+        .delivery-item li:last-child {
+            border-bottom: none;
+        }
+
+        .evaluation-criteria {
+            margin-bottom: 3rem;
+        }
+
+        .evaluation-criteria h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .criteria-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .criteria-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+        }
+
+        .criteria-row:last-child {
+            border-bottom: none;
+        }
+
+        .criteria-row:nth-child(odd) {
+            background: #f8f9fa;
+        }
+
+        .criteria-item {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .criteria-weight {
+            background: #e50914;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .bonus-features {
+            margin-bottom: 3rem;
+        }
+
+        .bonus-features h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .bonus-item {
+            background: linear-gradient(135deg, #ffc107, #ff8c00);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .bonus-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .bonus-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .bonus-item h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .bonus-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .project-tips {
+            margin-bottom: 3rem;
+        }
+
+        .project-tips h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-item {
+            background: linear-gradient(135deg, #61dafb, #0066cc);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tip-item h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tip-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .project-resources {
+            margin-bottom: 3rem;
+        }
+
+        .project-resources h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            border-top: 4px solid #28a745;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            color: #333;
+            text-decoration: none;
+        }
+
+        .resource-card i {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 0.5rem;
+            color: #28a745;
+        }
+
+        .resource-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            background: #343a40;
+            color: #adb5bd;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .project-intro h3 {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .project-intro i {
+                font-size: 2rem;
+            }
+
+            .project-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .requirements-grid,
+            .tech-grid,
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bonus-grid,
+            .tips-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .criteria-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+
+        .countdown {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Animação de fade-in para as seções */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        function calculateDaysRemaining(targetDate) {
+            const target = new Date(targetDate);
+            const today = new Date();
+            const diffTime = target - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays > 0 ? diffDays : 0;
+        }
+
+        function updateCountdown() {
+            const projectDate = '2025-10-09';
+            const daysRemaining = calculateDaysRemaining(projectDate);
+            const countdownElement = document.getElementById('dias-restantes');
+            if (countdownElement) {
+                countdownElement.textContent = daysRemaining;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-container">
+                    <div class="nav-brand">
+                        <i class="fab fa-react react-logo"></i>
+                        <span>Projeto StreamFlix</span>
+                    </div>
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar para Disciplina
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">
+                <span class="gradient-text">StreamFlix</span>
+            </h1>
+            <p class="hero-subtitle">Projeto da Disciplina de Frameworks Front-End</p>
+            <p class="hero-description">
+                Desenvolva uma aplicação web de streaming inspirada na Netflix utilizando React.js. 
+                Este projeto aplicará todos os conceitos fundamentais aprendidos durante o curso.
+            </p>
+            
+            <div class="deadline-alert">
+                <h3>
+                    <i class="fas fa-clock"></i>
+                    Prazo de Entrega
+                </h3>
+                <p class="countdown">
+                    <strong>09 de Outubro de 2025</strong> - Faltam <span id="dias-restantes"></span> dias
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projeto Overview -->
+    <section class="section fade-in">
+        <div class="container">
+            <div class="project-overview">
+                <div class="project-intro">
+                    <h3><i class="fas fa-tv"></i> Visão Geral do Projeto</h3>
+                    <p>O projeto consiste no desenvolvimento de uma aplicação web front-end inspirada na Netflix, utilizando React.js como framework principal. O objetivo é aplicar os conceitos aprendidos em aula para criar uma interface moderna, responsiva e funcional.</p>
+                </div>
+
+                <div class="project-specs">
+                    <div class="spec-card">
+                        <h4><i class="fas fa-calendar-alt"></i> Prazo de Entrega</h4>
+                        <p><strong>09 de Outubro de 2025</strong></p>
+                        <p>Apresentação do projeto em sala de aula</p>
+                    </div>
+
+                    <div class="spec-card">
+                        <h4><i class="fas fa-users"></i> Formato</h4>
+                        <p><strong>Individual ou Dupla</strong></p>
+                        <p>Máximo 10 integrantes por grupo</p>
+                    </div>
+
+                    <div class="spec-card">
+                        <h4><i class="fas fa-star"></i> Valor</h4>
+                        <p><strong>2 pontos extras</strong></p>
+                        <p>Primeira avaliação da disciplina</p>
+                    </div>
+                </div>
+
+                <div class="requirements-section">
+                    <h3><i class="fas fa-list-check"></i> Requisitos Funcionais</h3>
+                    
+                    <div class="requirements-grid">
+                        <div class="requirement-category">
+                            <h4><i class="fas fa-home"></i> Página Inicial</h4>
+                            <ul>
+                                <li>Banner principal com filme/série em destaque</li>
+                                <li>Carrosséis horizontais por categoria (Ação, Drama, Comédia, etc.)</li>
+                                <li>Header com logo, menu de navegação e busca</li>
+                                <li>Footer com informações da plataforma</li>
+                            </ul>
+                        </div>
+
+                       
+
+                        <div class="requirement-category">
+                            <h4><i class="fas fa-info-circle"></i> Detalhes do Conteúdo</h4>
+                            <ul>
+                                <li>Página individual para cada filme/série</li>
+                                <li>Exibição de poster, sinopse, elenco e ano</li>
+                                <li>Botões "Assistir" e "Minha Lista"</li>
+                                <li>Conteúdos relacionados/similares</li>
+                            </ul>
+                        </div>
+
+                        <div class="requirement-category">
+                            <h4><i class="fas fa-heart"></i> Minha Lista</h4>
+                            <ul>
+                                <li>Adicionar/remover filmes da lista pessoal</li>
+                                <li>Página dedicada aos favoritos</li>
+                                <li>Persistência usando localStorage</li>
+                                <li>Contador de itens na lista</li>
+                            </ul>
+                        </div>
+
+                        <div class="requirement-category">
+                            <h4><i class="fas fa-tags"></i> Categorias</h4>
+                            <ul>
+                                <li>Pelo menos 5 categorias diferentes</li>
+                                <li>Navegação entre categorias</li>
+                                <li>Mínimo 8 títulos por categoria</li>
+                                <li>Indicadores visuais da categoria ativa</li>
+                            </ul>
+                        </div>
+
+                        <div class="requirement-category">
+                            <h4><i class="fas fa-mobile-alt"></i> Responsividade</h4>
+                            <ul>
+                                <li>Layout adaptável para desktop, tablet e mobile</li>
+                                <li>Carrosséis funcionais em todos os dispositivos</li>
+                                <li>Menu mobile com hamburger</li>
+                                <li>Teste em pelo menos 3 resoluções diferentes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-requirements">
+                    <h3><i class="fas fa-code"></i> Requisitos Técnicos</h3>
+                    
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <h4><i class="fab fa-react"></i> React.js</h4>
+                            <ul>
+                                <li>Usar Create React App ou Vite</li>
+                                <li>Componentes funcionais com Hooks</li>
+                                <li>Mínimo 8 componentes personalizados</li>
+                                <li>useState e useEffect obrigatórios</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-item">
+                            <h4><i class="fas fa-sitemap"></i> Estrutura</h4>
+                            <ul>
+                                <li>React Router para navegação</li>
+                                <li>Pelo menos 4 rotas diferentes</li>
+                                <li>Componentes organizados em pastas</li>
+                                <li>Separação de responsabilidades</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-item">
+                            <h4><i class="fas fa-palette"></i> Estilização</h4>
+                            <ul>
+                                <li>CSS Modules ou Styled Components</li>
+                                <li>Design similar à Netflix</li>
+                                <li>Animações e transições suaves</li>
+                                <li>Cores escuras como tema principal</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-item">
+                            <h4><i class="fas fa-database"></i> Dados</h4>
+                            <ul>
+                                <li>JSON local ou API externa (TMDb recomendado)</li>
+                                <li>Mínimo 40 filmes/séries</li>
+                                <li>Dados realistas com posters</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delivery-requirements">
+                    <h3><i class="fas fa-upload"></i> Critérios de Entrega</h3>
+                    
+                    <div class="delivery-grid">
+                        <div class="delivery-item">
+                            <h4><i class="fab fa-github"></i> Repositório GitHub</h4>
+                            <ul>
+                                <li>Código-fonte completo no GitHub</li>
+                                <li>README.md com instruções de instalação</li>
+                                <li>Commits organizados e descritivos</li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="delivery-item">
+                            <h4><i class="fas fa-rocket"></i> Deploy</h4>
+                            <ul>
+                                <li>Aplicação publicada (Vercel, Netlify ou GitHub Pages)</li>
+                                <li>Link funcionando no dia da apresentação</li>
+                                <li>Performance otimizada</li>
+                                <li>Build sem erros ou warnings</li>
+                            </ul>
+                        </div>
+
+                       
+
+                        <div class="delivery-item">
+                            <h4><i class="fas fa-presentation"></i> Apresentação</h4>
+                            <ul>
+                                <li>Demo ao vivo da aplicação (5-7 minutos)</li>
+                                <li>Explicação do código principal</li>
+                                <li>Demonstração das funcionalidades</li>
+                                <li>Responder perguntas técnicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evaluation-criteria">
+                    <h3><i class="fas fa-chart-line"></i> Critérios de Avaliação</h3>
+                    
+                    <div class="criteria-table">
+                        <div class="criteria-row">
+                            <span class="criteria-item">Funcionalidades Implementadas</span>
+                            <span class="criteria-weight">25%</span>
+                        </div>
+                        <div class="criteria-row">
+                            <span class="criteria-item">Qualidade do Código React</span>
+                            <span class="criteria-weight">20%</span>
+                        </div>
+                        <div class="criteria-row">
+                            <span class="criteria-item">Interface e Experiência do Usuário</span>
+                            <span class="criteria-weight">20%</span>
+                        </div>
+                        <div class="criteria-row">
+                            <span class="criteria-item">Responsividade</span>
+                            <span class="criteria-weight">15%</span>
+                        </div>
+                        <div class="criteria-row">
+                            <span class="criteria-item">Apresentação </span>
+                            <span class="criteria-weight">20%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bonus-features">
+                    <h3><i class="fas fa-star"></i> Funcionalidades Extras (Bônus)</h3>
+                    <div class="bonus-grid">
+                        <div class="bonus-item">
+                            <i class="fas fa-play"></i>
+                            <h4>Player de Vídeo</h4>
+                            <p>Implementar player funcional com trailer ou vídeo demo</p>
+                        </div>
+                        <div class="bonus-item">
+                            <i class="fas fa-user"></i>
+                            <h4>Sistema de Perfis</h4>
+                            <p>Múltiplos perfis de usuário com preferências</p>
+                        </div>
+                        <div class="bonus-item">
+                            <i class="fas fa-robot"></i>
+                            <h4>Recomendações</h4>
+                            <p>Sistema de sugestões baseado no histórico</p>
+                        </div>
+                        <div class="bonus-item">
+                            <i class="fas fa-star-half-alt"></i>
+                            <h4>Sistema de Avaliação</h4>
+                            <p>Permitir avaliar filmes com estrelas</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="project-resources">
+                    <h3><i class="fas fa-link"></i> Recursos Úteis</h3>
+                    <div class="resources-grid">
+                        <a href="https://www.themoviedb.org/documentation/api" target="_blank" class="resource-card">
+                            <i class="fas fa-film"></i>
+                            <h4>TMDb API</h4>
+                            <p>API gratuita com dados de filmes e séries</p>
+                        </a>
+                        <a href="https://react-icons.github.io/react-icons/" target="_blank" class="resource-card">
+                            <i class="fas fa-icons"></i>
+                            <h4>React Icons</h4>
+                            <p>Biblioteca de ícones para React</p>
+                        </a>
+                        <a href="https://www.figma.com/" target="_blank" class="resource-card">
+                            <i class="fas fa-palette"></i>
+                            <h4>Figma</h4>
+                            <p>Ferramenta para design e prototipação</p>
+                        </a>
+                        <a href="https://vercel.com/" target="_blank" class="resource-card">
+                            <i class="fas fa-cloud"></i>
+                            <h4>Vercel</h4>
+                            <p>Deploy gratuito para aplicações React</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Prof. Dr. Diogo Francisco Borba Rodrigues - Centro Universitário Maurício de Nassau</p>
+            <p>Disciplina: Frameworks Front-End | Projeto StreamFlix</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navegação suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Adicionar classe fade-in quando elementos entram na viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.requirements-section, .tech-requirements, .delivery-requirements, .evaluation-criteria, .bonus-features, .project-tips, .project-resources').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
