@@ -344,7 +344,7 @@ axios.delete('https://api.example.com/data/1');
       <h2>📦 Etapa 2: Estrutura Básica do App</h2>
 
       <p>Configure a estrutura inicial:</p>
-      <pre><code class="language-javascript">
+      <pre><code class="language-javascript"><script>
 import { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, FlatList, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
 import axios from 'axios';
@@ -356,7 +356,7 @@ export default function App() {
     </SafeAreaView>
   );
 }
-  </code></pre>
+ </script> </code></pre>
     </section>
 
     <!-- Slide 15 - Etapa 3: Criar Estados -->
@@ -378,12 +378,13 @@ const [loading, setLoading] = useState(true);
       <h2>🌐 Etapa 4: Buscar Dados com Axios</h2>
 
       <p>Dentro do <code>useEffect</code>, busque os dados da API:</p>
-      <pre><code class="language-javascript">
+      <pre><code class="language-javascript"><script>
 useEffect(() => {
   axios.get('https://jsonplaceholder.typicode.com/posts')
     .then(response => setPosts(response.data))
     .catch(error => console.error('Erro ao buscar posts', error))
     .finally(() => setLoading(false));
+</script></code></pre>
 }, []);
   </code></pre>
 
@@ -395,7 +396,7 @@ useEffect(() => {
       <h2>⏳ Etapa 5: Indicador de Carregamento</h2>
 
       <p>Enquanto estiver carregando, mostre um <code>ActivityIndicator</code>:</p>
-      <pre><code class="language-javascript">
+      <pre><code class="language-javascript"><script>
 if (loading) {
   return (
     <SafeAreaView style={styles.loadingContainer}>
@@ -403,7 +404,7 @@ if (loading) {
     </SafeAreaView>
   );
 }
-  </code></pre>
+  </script></code></pre>
     </section>
 
     <!-- Slide 18 - Etapa 6: Exibir Lista com FlatList -->
@@ -411,7 +412,7 @@ if (loading) {
       <h2>📜 Etapa 6: Exibir a Lista de Posts</h2>
 
       <p>Mostre os posts usando <code>FlatList</code>:</p>
-      <pre><code class="language-javascript">
+      <pre><code class="language-javascript"> <script>
 <FlatList
         data={posts}
         keyExtractor={item => item.id.toString()}
@@ -423,7 +424,7 @@ if (loading) {
   )}
   ItemSeparatorComponent={() => <View style={styles.separator} />}
   contentContainerStyle={{ paddingBottom: 20 }}
-/>
+/></script>
   </code></pre>
     </section>
 
