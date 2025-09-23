@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Aula 4: Comunicação via Rede e Integração com APIs</title>
+  <title>Aula 4 - Consumo de APIs em React Native</title>
 
-  <meta name="description" content="Carregamento de dados em segundo plano, HTTP/HTTPS e integração com webservices e APIs">
+  <meta name="description" content="Como consumir APIs RESTful com Fetch e Axios em aplicações React Native">
   <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,24 +13,71 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reset.css">
-  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
 
   <!-- Syntax Highlighting -->
-  <link rel="stylesheet" href="../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .column {
+      width: 48%;
+    }
+    .highlight {
+      color: #50fa7b;
+      font-weight: bold;
+    }
+    .warning {
+      color: #ffb86c;
+      font-weight: bold;
+    }
+    .important {
+      color: #ff79c6;
+      font-weight: bold;
+    }
+    .exercise {
+      background-color: rgba(80, 250, 123, 0.2);
+      border-left: 4px solid #50fa7b;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .code-small code {
+      font-size: 0.7em !important;
+      line-height: 1.2em !important;
+    }
+    .comparison-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .comparison-table th, .comparison-table td {
+      border:, 1px solid #444;
+      padding: 8px;
+      text-align: left;
+    }
+    .comparison-table th {
+      background-color: #282a36;
+    }
+    .http-get { color: #8be9fd; }     /* Cyan */
+    .http-post { color: #50fa7b; }    /* Green */
+    .http-put { color: #f1fa8c; }     /* Yellow */
+    .http-delete { color: #ff79c6; }  /* Pink */
+  </style>
 
 </head>
 
 <body>
- 
+
   <div class="reveal">
     <div class="slides">
       <!-- Slide 1 - Título da Aula -->
       <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 4: Comunicação via Rede</h3>
-        <p><strong>Codificação de Alta Performance Mobile</strong></p>
+         <p>🏛️ UNINASSAU</p>
+        <h3>Aula 4 - Consumo de APIs em React Native</h3>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
         <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
           <i class="fab fa-linkedin"></i>
@@ -38,904 +85,390 @@
         <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
           <i class="fab fa-github"></i>
         </a>
-        <a href="https://www.instagram.com/diogofbranco" target="_blank">
-          <i class="fab fa-instagram"></i>
-        </a>
       </section>
 
-      <!-- Slide 2 - Objetivos da Aula -->
-      <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <ul>
-          <li>🌐 Implementar comunicação HTTP/HTTPS eficiente</li>
-          <li>⏱️ Carregamento de dados em segundo plano</li>
-          <li>📡 Consumir APIs REST e GraphQL</li>
-          <li>🔄 Sincronização offline e cache inteligente</li>
-          <li>🔒 Implementar autenticação e segurança</li>
-          <li>⚡ Otimizar performance de rede</li>
-        </ul>
-      </section>
-
-      <!-- Slide 3 - Fundamentos de Networking -->
-      <section>
-        <h2>🌐 Fundamentos de Networking Mobile</h2>
-        <section>
-          <h3>📱 Desafios da Rede Mobile</h3>
-          <ul>
-            <li>📶 <strong>Conectividade Variável:</strong> WiFi, 4G, 5G, offline</li>
-            <li>⚡ <strong>Latência:</strong> 20ms (WiFi) até 200ms+ (3G)</li>
-            <li>🔋 <strong>Consumo de Bateria:</strong> Rádio é um dos maiores consumidores</li>
-            <li>💰 <strong>Dados Limitados:</strong> Planos com franquia</li>
-            <li>📊 <strong>Performance:</strong> Timeouts e retry strategies</li>
-          </ul>
-        </section>
-        <section>
-          <h3>🔄 Padrões de Comunicação</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-            <div>
-              <h4>📥 Request-Response</h4>
-              <ul style="font-size: 0.8em;">
-                <li>REST APIs</li>
-                <li>GraphQL</li>
-                <li>HTTP/HTTPS</li>
-              </ul>
-            </div>
-            <div>
-              <h4>🔄 Real-time</h4>
-              <ul style="font-size: 0.8em;">
-                <li>WebSockets</li>
-                <li>Server-Sent Events</li>
-                <li>Push Notifications</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- Slide 4 - Fetch API e Axios -->
-      <section>
-        <h2>📡 APIs de Comunicação</h2>
-        <section>
-          <h3>🌐 Fetch API Nativo</h3>
-          <pre><code data-trim class="javascript">
-// Fetch básico com error handling
-async function fetchUserData(userId) {
-  try {
-    const response = await fetch(`https://api.example.com/users/${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getAuthToken()}`,
-        'Accept': 'application/json',
-      },
-      timeout: 10000, // 10 segundos
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const userData = await response.json();
-    return userData;
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      console.log('Request was cancelled');
-    } else if (error.name === 'TypeError') {
-      console.log('Network error occurred');
-    } else {
-      console.log('An error occurred:', error.message);
-    }
-    throw error;
-  }
-}
-
-// Fetch com AbortController para cancelamento
-const controller = new AbortController();
-
-fetch('/api/data', {
-  signal: controller.signal
-})
-.then(response => response.json())
-.catch(error => {
-  if (error.name === 'AbortError') {
-    console.log('Fetch cancelled');
-  }
-});
-
-// Cancelar request se necessário
-controller.abort();
-          </code></pre>
-        </section>
-        <section>
-          <h3>⚡ Axios - Cliente HTTP Avançado</h3>
-          <pre><code data-trim class="javascript">
-// npm install axios
-import axios from 'axios';
-
-// Configuração global do Axios
-const apiClient = axios.create({
-  baseURL: 'https://api.example.com',
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Interceptors para requests
-apiClient.interceptors.request.use(
-  (config) => {
-    // Adicionar token de autenticação
-    const token = getAuthToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+     
     
-    console.log('Request enviado:', config);
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
-// Interceptors para responses
-apiClient.interceptors.response.use(
-  (response) => {
-    console.log('Response recebido:', response);
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      
-      // Tentar renovar token
-      try {
-        await refreshAuthToken();
-        const newToken = getAuthToken();
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return apiClient(originalRequest);
-      } catch (refreshError) {
-        // Redirect para login
-        navigateToLogin();
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
-  }
-);
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Slide 5 - Cache e Performance -->
-      <section>
-        <h2>🗄️ Cache e Estratégias de Performance</h2>
         <section>
-          <h3>💾 Sistema de Cache Inteligente</h3>
-          <pre><code data-trim class="javascript">
-// Cache Service com AsyncStorage
-class CacheService {
-  static CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+      <h2>1. 🌐 Introdução: Consumindo APIs no Mobile</h2>
+      <p>No desenvolvimento de aplicativos modernos, é comum que os apps precisem buscar dados em servidores externos — como notícias, clima, redes sociais etc.</p>
+      <p>Esses dados geralmente vêm em <strong>formato JSON</strong> e são acessados por <strong>APIs RESTful</strong>.</p>
+      <p>Em React Native, usamos principalmente:</p>
+      <ul>
+        <li><code>fetch</code> (nativo do JavaScript)</li>
+        <li><code>axios</code> (biblioteca externa, mais poderosa e prática)</li>
+      </ul>
+    </section>
+    <!-- Slide 3 - Integração com Fetch API -->
+    <section>
+      <h2>2. 🔄 Integração com Fetch API e Axios</h2>
 
-  static async get(key) {
-    try {
-      const cached = await AsyncStorage.getItem(`cache_${key}`);
-      if (!cached) return null;
+      <h3>2.1 O que é a Fetch API?</h3>
+      <p><code>fetch</code> é uma função nativa do JavaScript que permite fazer requisições HTTP de forma <strong>assíncrona</strong>.</p>
+      <p>Você não precisa instalar nada — já vem por padrão.</p>
+    </section>
 
-      const { data, timestamp } = JSON.parse(cached);
-      
-      // Verificar se cache ainda é válido
-      if (Date.now() - timestamp > this.CACHE_DURATION) {
-        await AsyncStorage.removeItem(`cache_${key}`);
-        return null;
-      }
+    <!-- Slide 4 - Exemplo de Código com Fetch -->
+    <section>
+      <h2>📜 Exemplo de Código com Fetch</h2>
+      <pre><code data-trim data-noescape  data-line-numbers
+                 class="language-javascript"><script>
+import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 
-      return data;
-    } catch (error) {
-      console.error('Cache get error:', error);
-      return null;
-    }
-  }
-
-  static async set(key, data) {
-    try {
-      const cacheData = {
-        data,
-        timestamp: Date.now(),
-      };
-      await AsyncStorage.setItem(`cache_${key}`, JSON.stringify(cacheData));
-    } catch (error) {
-      console.error('Cache set error:', error);
-    }
-  }
-
-  static async clear() {
-    try {
-      const keys = await AsyncStorage.getAllKeys();
-      const cacheKeys = keys.filter(key => key.startsWith('cache_'));
-      await AsyncStorage.multiRemove(cacheKeys);
-    } catch (error) {
-      console.error('Cache clear error:', error);
-    }
-  }
-}
-
-// Hook personalizado para dados com cache
-function useApiData(endpoint, options = {}) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default function App() {
+  const [dados, setDados] = useState([]);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Tentar cache primeiro
-        const cachedData = await CacheService.get(endpoint);
-        if (cachedData && !options.bypassCache) {
-          setData(cachedData);
-          setLoading(false);
-          return;
-        }
-
-        // Fetch da API
-        const response = await apiClient.get(endpoint);
-        
-        if (!cancelled) {
-          setData(response.data);
-          // Salvar no cache
-          await CacheService.set(endpoint, response.data);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [endpoint, options.bypassCache]);
-
-  return { data, loading, error };
-}
-          </code></pre>
-        </section>
-      </section>
-
-      <!-- Slide 6 - Background Data Loading -->
-      <section>
-        <h2>⏱️ Carregamento em Segundo Plano</h2>
-        <section>
-          <h3>🔄 Background Sync Pattern</h3>
-          <pre><code data-trim class="javascript">
-// Background Data Service
-class BackgroundDataService {
-  static syncQueue = [];
-  static isOnline = true;
-
-  static async initialize() {
-    // Monitorar conectividade
-    const unsubscribe = NetInfo.addEventListener(state => {
-      this.isOnline = state.isConnected;
-      
-      if (state.isConnected) {
-        this.processSyncQueue();
-      }
-    });
-
-    // Carregar queue persistida
-    await this.loadSyncQueue();
-    
-    return unsubscribe;
-  }
-
-  static async addToSyncQueue(operation) {
-    this.syncQueue.push({
-      id: Date.now().toString(),
-      operation,
-      timestamp: Date.now(),
-      retryCount: 0,
-    });
-
-    await this.saveSyncQueue();
-
-    if (this.isOnline) {
-      this.processSyncQueue();
-    }
-  }
-
-  static async processSyncQueue() {
-    if (!this.isOnline || this.syncQueue.length === 0) return;
-
-    const operations = [...this.syncQueue];
-    this.syncQueue = [];
-
-    for (const { id, operation, retryCount } of operations) {
-      try {
-        await this.executeOperation(operation);
-        console.log(`Operation ${id} completed successfully`);
-      } catch (error) {
-        console.error(`Operation ${id} failed:`, error);
-        
-        // Retry com backoff exponencial
-        if (retryCount < 3) {
-          const delay = Math.pow(2, retryCount) * 1000;
-          setTimeout(() => {
-            this.syncQueue.push({
-              id,
-              operation,
-              timestamp: Date.now(),
-              retryCount: retryCount + 1,
-            });
-          }, delay);
-        }
-      }
-    }
-
-    await this.saveSyncQueue();
-  }
-
-  static async executeOperation(operation) {
-    switch (operation.type) {
-      case 'CREATE':
-        return await apiClient.post(operation.endpoint, operation.data);
-      case 'UPDATE':
-        return await apiClient.put(operation.endpoint, operation.data);
-      case 'DELETE':
-        return await apiClient.delete(operation.endpoint);
-      default:
-        throw new Error(`Unknown operation type: ${operation.type}`);
-    }
-  }
-
-  static async saveSyncQueue() {
-    await AsyncStorage.setItem('syncQueue', JSON.stringify(this.syncQueue));
-  }
-
-  static async loadSyncQueue() {
-    try {
-      const stored = await AsyncStorage.getItem('syncQueue');
-      this.syncQueue = stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error('Failed to load sync queue:', error);
-      this.syncQueue = [];
-    }
-  }
-}
-          </code></pre>
-        </section>
-        <section>
-          <h3>📊 Hook para Sync Automático</h3>
-          <pre><code data-trim class="javascript">
-// Hook para sync automático de dados
-function useAutoSync() {
-  const [syncStatus, setSyncStatus] = useState('idle');
-  const [pendingOperations, setPendingOperations] = useState(0);
-
-  useEffect(() => {
-    let interval;
-
-    const startAutoSync = async () => {
-      // Sync a cada 30 segundos quando online
-      interval = setInterval(async () => {
-        if (BackgroundDataService.isOnline) {
-          setSyncStatus('syncing');
-          
-          try {
-            await BackgroundDataService.processSyncQueue();
-            setSyncStatus('completed');
-            
-            // Atualizar contador de operações pendentes
-            const queue = await AsyncStorage.getItem('syncQueue');
-            const operations = queue ? JSON.parse(queue) : [];
-            setPendingOperations(operations.length);
-            
-          } catch (error) {
-            setSyncStatus('error');
-            console.error('Auto sync failed:', error);
-          }
-
-          // Resetar status após 2 segundos
-          setTimeout(() => setSyncStatus('idle'), 2000);
-        }
-      }, 30000);
-    };
-
-    startAutoSync();
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(data => setDados(data))
+      .catch(error => console.error('Erro:', error));
   }, []);
 
-  const manualSync = async () => {
-    setSyncStatus('syncing');
-    try {
-      await BackgroundDataService.processSyncQueue();
-      setSyncStatus('completed');
-    } catch (error) {
-      setSyncStatus('error');
-    }
-    setTimeout(() => setSyncStatus('idle'), 2000);
-  };
-
-  return {
-    syncStatus,
-    pendingOperations,
-    manualSync,
-  };
-}
-
-// Componente de status de sync
-function SyncStatusIndicator() {
-  const { syncStatus, pendingOperations, manualSync } = useAutoSync();
-
-  const getStatusIcon = () => {
-    switch (syncStatus) {
-      case 'syncing': return '🔄';
-      case 'completed': return '✅';
-      case 'error': return '❌';
-      default: return '⏸️';
-    }
-  };
-
   return (
-    &lt;View style={styles.syncContainer}&gt;
-      &lt;TouchableOpacity onPress={manualSync} style={styles.syncButton}&gt;
-        &lt;Text style={styles.syncIcon}&gt;{getStatusIcon()}&lt;/Text&gt;
-        &lt;Text style={styles.syncText}&gt;
-          {pendingOperations &gt; 0 ? `${pendingOperations} pendente(s)` : 'Sincronizado'}
-        &lt;/Text&gt;
-      &lt;/TouchableOpacity&gt;
-    &lt;/View&gt;
+    <View>
+      {dados.map(item => (
+        <Text key={item.id}>{item.nome}</Text>
+      ))}
+    </View>
   );
 }
-          </code></pre>
-        </section>
-      </section>
+  </script></code></pre>
+    </section>
+    <!-- Slide 5 - Linha por linha -->
+    <section>
+      <h2>🧩 Linha por Linha</h2>
+      <table style="font-size: 0.8em; width: 90%;">
+        <thead>
+        <tr>
+          <th style="padding: 5px;">Linha</th>
+          <th style="padding: 5px;">Explicação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td style="padding: 5px;"><code>fetch('https://api.example.com/data')</code></td>
+          <td style="padding: 5px;">Faz uma requisição HTTP GET para a URL da API.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.then(response => response.json())</code></td>
+          <td style="padding: 5px;">Converte a resposta em JSON.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.then(data => setDados(data))</code></td>
+          <td style="padding: 5px;">Salva o resultado no estado <code>dados</code>.</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><code>.catch(error => console.error(error))</code></td>
+          <td style="padding: 5px;">Trata erro.</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
 
-      <!-- Slide 7 - GraphQL Integration -->
-      <section>
-        <h2>🚀 GraphQL - Query Language Moderna</h2>
-        <section>
-          <h3>⚡ Vantagens do GraphQL</h3>
-          <ul>
-            <li>🎯 <strong>Single Endpoint:</strong> Uma URL para todas as operações</li>
-            <li>📊 <strong>Flexible Queries:</strong> Cliente define os dados necessários</li>
-            <li>🔄 <strong>Real-time:</strong> Subscriptions para dados ao vivo</li>
-            <li>📱 <strong>Mobile Optimized:</strong> Reduz over-fetching</li>
-            <li>🛠️ <strong>Strong Typing:</strong> Schema bem definido</li>
-          </ul>
-        </section>
-        <section>
-          <h3>📡 Apollo Client Setup</h3>
-          <pre><code data-trim class="javascript">
-// npm install @apollo/client graphql
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { onError } from '@apollo/client/link/error';
-
-// HTTP Link
-const httpLink = createHttpLink({
-  uri: 'https://api.example.com/graphql',
-});
-
-// Auth Link
-const authLink = setContext(async (_, { headers }) => {
-  const token = await getAuthToken();
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+    <!-- Slide 6 - Observações sobre Fetch -->
+    <section>
+      <h2>🔎 Observações sobre Fetch</h2>
+      <ul>
+        <li><strong>Conversão manual:</strong> sempre precisa usar <code>.json()</code>.</li>
+        <li><strong>Erros HTTP:</strong> o <code>fetch</code> não gera erro automático para erros de status (404, 500).</li>
+        <li><strong>Verificação de sucesso:</strong></li>
+      </ul>
+      <pre><code class="language-javascript">
+fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro HTTP: ' + response.status);
     }
-  };
-});
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+  </code></pre>
+    </section>
 
-// Error Link
-const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-    );
-  }
+    <!-- Slide 7 - Explicação detalhada do response.ok -->
+    <section>
+      <h2>🛡️ Entendendo <code>response.ok</code></h2>
 
-  if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
-    
-    if (networkError.statusCode === 401) {
-      // Handle authentication error
-      redirectToLogin();
-    }
-  }
-});
-
-// Apollo Client
-const client = new ApolloClient({
-  link: from([errorLink, authLink, httpLink]),
-  cache: new InMemoryCache({
-    typePolicies: {
-      User: {
-        fields: {
-          posts: {
-            merge: false, // Replace array instead of merging
-          },
-        },
-      },
-    },
-  }),
-  defaultOptions: {
-    watchQuery: {
-      errorPolicy: 'ignore',
-    },
-    query: {
-      errorPolicy: 'all',
-    },
-  },
-});
-          </code></pre>
-        </section>
-        <section>
-          <h3>🔍 GraphQL Queries e Mutations</h3>
-          <pre><code data-trim class="javascript">
-import { gql, useQuery, useMutation } from '@apollo/client';
-
-// Definir queries
-const GET_USER_PROFILE = gql`
-  query GetUserProfile($userId: ID!) {
-    user(id: $userId) {
-      id
-      name
-      email
-      avatar
-      posts {
-        id
-        title
-        content
-        createdAt
-        likes {
-          count
-        }
-        comments {
-          id
-          content
-          author {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-
-const UPDATE_USER_PROFILE = gql`
-  mutation UpdateUserProfile($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      id
-      name
-      email
-      avatar
-    }
-  }
-`;
-
-// Hook personalizado para perfil do usuário
-function useUserProfile(userId) {
-  const { data, loading, error, refetch } = useQuery(GET_USER_PROFILE, {
-    variables: { userId },
-    fetchPolicy: 'cache-and-network', // Usa cache mas busca dados atualizados
-    errorPolicy: 'all',
-  });
-
-  const [updateProfile, { loading: updating }] = useMutation(UPDATE_USER_PROFILE, {
-    onCompleted: (data) => {
-      console.log('Profile updated:', data);
-    },
-    onError: (error) => {
-      console.error('Update failed:', error);
-    },
-    // Atualizar cache automaticamente
-    update: (cache, { data: { updateUser } }) => {
-      cache.updateQuery({ query: GET_USER_PROFILE, variables: { userId } }, (existingData) => {
-        return {
-          ...existingData,
-          user: {
-            ...existingData.user,
-            ...updateUser,
-          },
-        };
-      });
-    },
-  });
-
-  return {
-    user: data?.user,
-    loading,
-    error,
-    refetch,
-    updateProfile,
-    updating,
-  };
+      <p><strong>response.ok</strong> é uma propriedade booleana:</p>
+      <ul>
+        <li>✅ <strong>true</strong> se o status HTTP for entre <strong>200 e 299</strong> (requisição bem-sucedida)</li>
+        <li>❌ <strong>false</strong> se houver erro (ex: 404, 500, etc.)</li>
+      </ul>
+      <pre><code class="language-javascript">
+if (!response.ok) {
+  throw new Error('Erro HTTP: ' + response.status);
 }
-          </code></pre>
-        </section>
-      </section>
+  </code></pre>
 
-      <!-- Slide 8 - WebSockets e Real-time -->
-      <section>
-        <h2>🔄 Comunicação Real-time</h2>
-        <section>
-          <h3>🌐 WebSockets com Socket.io</h3>
-          <pre><code data-trim class="javascript">
-// npm install socket.io-client
-import io from 'socket.io-client';
+      <ul>
+        <li><strong>!response.ok</strong>: Verifica se a resposta <em>não</em> foi OK.</li>
+        <li><strong>throw new Error</strong>: Lança um erro com o código HTTP.</li>
+        <li><strong>.catch()</strong>: Trata o erro gerado.</li>
+      </ul>
 
-class SocketService {
-  constructor() {
-    this.socket = null;
-    this.listeners = new Map();
-  }
+    </section>
 
-  connect(url, token) {
-    this.socket = io(url, {
-      auth: {
-        token: token
-      },
-      transports: ['websocket', 'polling'], // Fallback para polling
-      timeout: 20000,
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-    });
+    <!-- Slide 8 - O que é o Axios -->
+    <section>
+      <h2>🚀 2.2 O que é o Axios?</h2>
 
-    this.setupEventListeners();
-  }
+      <p><code>axios</code> é uma <strong>biblioteca externa</strong> que facilita muito o consumo de APIs.</p>
 
-  setupEventListeners() {
-    this.socket.on('connect', () => {
-      console.log('Connected to server');
-      this.emit('status_changed', 'connected');
-    });
+      <h3>🌟 Principais vantagens:</h3>
+      <ul>
+        <li>✅ Converte automaticamente as respostas para JSON</li>
+        <li>✅ Trata erros HTTP de forma automática</li>
+        <li>✅ Facilita o envio de headers e autenticação</li>
+        <li>✅ Sintaxe mais limpa para requisições <code>POST</code>, <code>PUT</code>, <code>DELETE</code></li>
+      </ul>
+    </section>
 
-    this.socket.on('disconnect', (reason) => {
-      console.log('Disconnected:', reason);
-      this.emit('status_changed', 'disconnected');
-    });
+    <!-- Slide 9 - Instalação e Exemplo com Axios -->
+    <section>
+      <h2>📦 Instalação do Axios</h2>
 
-    this.socket.on('reconnect', (attemptNumber) => {
-      console.log('Reconnected after', attemptNumber, 'attempts');
-      this.emit('status_changed', 'reconnected');
-    });
+      <h3>🔧 Instalação:</h3>
+      <pre><code class="language-bash">npm install axios</code></pre>
 
-    this.socket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
-      this.emit('status_changed', 'error');
-    });
-  }
+      <h3>📜 Exemplo de Código:</h3>
+      <pre><code class="language-javascript">
+import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import axios from 'axios';
 
-  on(event, callback) {
-    if (!this.listeners.has(event)) {
-      this.listeners.set(event, []);
-    }
-    this.listeners.get(event).push(callback);
-
-    if (this.socket) {
-      this.socket.on(event, callback);
-    }
-  }
-
-  off(event, callback) {
-    const eventListeners = this.listeners.get(event);
-    if (eventListeners) {
-      const index = eventListeners.indexOf(callback);
-      if (index > -1) {
-        eventListeners.splice(index, 1);
-      }
-    }
-
-    if (this.socket) {
-      this.socket.off(event, callback);
-    }
-  }
-
-  emit(event, data) {
-    if (this.socket && this.socket.connected) {
-      this.socket.emit(event, data);
-    }
-  }
-
-  disconnect() {
-    if (this.socket) {
-      this.socket.disconnect();
-      this.socket = null;
-    }
-    this.listeners.clear();
-  }
-}
-
-export default new SocketService();
-          </code></pre>
-        </section>
-        <section>
-          <h3>💬 Hook para Chat Real-time</h3>
-          <pre><code data-trim class="javascript">
-function useChat(roomId) {
-  const [messages, setMessages] = useState([]);
-  const [isConnected, setIsConnected] = useState(false);
-  const [users, setUsers] = useState([]);
+export default function App() {
+  const [dados, setDados] = useState([]);
 
   useEffect(() => {
-    // Conectar ao socket
-    SocketService.connect('ws://localhost:3001', getAuthToken());
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(response => setDados(response.data))
+      .catch(error => console.error('Erro:', error));
+  }, []);
 
-    // Listeners do chat
-    SocketService.on('status_changed', (status) => {
-      setIsConnected(status === 'connected' || status === 'reconnected');
-    });
-
-    SocketService.on('message_received', (message) => {
-      setMessages(prev => [...prev, message]);
-    });
-
-    SocketService.on('user_joined', (user) => {
-      setUsers(prev => [...prev, user]);
-    });
-
-    SocketService.on('user_left', (userId) => {
-      setUsers(prev => prev.filter(u => u.id !== userId));
-    });
-
-    // Entrar na sala
-    SocketService.emit('join_room', { roomId });
-
-    return () => {
-      SocketService.emit('leave_room', { roomId });
-      SocketService.disconnect();
-    };
-  }, [roomId]);
-
-  const sendMessage = useCallback((content) => {
-    const message = {
-      id: Date.now().toString(),
-      content,
-      timestamp: new Date().toISOString(),
-      roomId,
-    };
-
-    SocketService.emit('send_message', message);
-  }, [roomId]);
-
-  const typing = useCallback((isTyping) => {
-    SocketService.emit('typing', { roomId, isTyping });
-  }, [roomId]);
-
-  return {
-    messages,
-    users,
-    isConnected,
-    sendMessage,
-    typing,
-  };
+  return (
+    <View>
+      {dados.map(item => (
+        <Text key={item.id}>{item.nome}</Text>
+      ))}
+    </View>
+  );
 }
-          </code></pre>
-        </section>
-      </section>
+  </code></pre>
+    </section>
+    <!-- Slide 10 - Linha por Linha Axios -->
+    <section>
+      <h2>🧩 Linha por Linha - Axios</h2>
 
-      <!-- Slide 9 - Exercício Prático -->
-      <section>
-        <h2>💻 Exercício Prático</h2>
-        <section>
-          <h3>🎯 Desafio: App de Notícias com Sync Offline</h3>
-          <p>Desenvolver aplicativo de notícias com:</p>
-          <ul>
-            <li>📰 <strong>API REST:</strong> Consumir feed de notícias</li>
-            <li>💾 <strong>Cache Inteligente:</strong> Notícias offline</li>
-            <li>🔄 <strong>Background Sync:</strong> Atualização automática</li>
-            <li>🔍 <strong>Busca:</strong> Filtros e pesquisa local</li>
-            <li>❤️ <strong>Favoritos:</strong> Salvar artigos offline</li>
-            <li>📊 <strong>Analytics:</strong> Tracking de engajamento</li>
-          </ul>
-        </section>
-        <section>
-          <h3>🏗️ Arquitetura do Projeto</h3>
-          <pre><code data-trim class="javascript">
-src/
-├── services/
-│   ├── ApiService.js
-│   ├── CacheService.js
-│   ├── BackgroundSyncService.js
-│   └── AnalyticsService.js
-├── hooks/
-│   ├── useNews.js
-│   ├── useOfflineSync.js
-│   └── useFavorites.js
-├── components/
-│   ├── NewsCard.js
-│   ├── LoadingSkeletons.js
-│   └── SyncStatus.js
-├── screens/
-│   ├── NewsListScreen.js
-│   ├── ArticleDetailScreen.js
-│   ├── FavoritesScreen.js
-│   └── SearchScreen.js
-└── utils/
-    ├── networkUtils.js
-    └── dateUtils.js
-          </code></pre>
-        </section>
-        <section>
-          <h3>✅ Funcionalidades Obrigatórias</h3>
-          <ul>
-            <li>📱 <strong>Interface Responsiva:</strong> FlatList otimizada</li>
-            <li>🔄 <strong>Pull to Refresh:</strong> Atualizar manualmente</li>
-            <li>📊 <strong>Loading States:</strong> Skeletons enquanto carrega</li>
-            <li>❌ <strong>Error Handling:</strong> Retry automático e manual</li>
-            <li>🌐 <strong>Offline Mode:</strong> Funcionar sem internet</li>
-            <li>📈 <strong>Performance:</strong> < 3s para carregar primeira tela</li>
-          </ul>
-        </section>
-      </section>
+      <div style="font-size: 0.8em;">
+        <table>
+          <thead>
+          <tr>
+            <th>Linha</th>
+            <th>Explicação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><code>axios.get('https://jsonplaceholder.typicode.com/posts')</code></td>
+            <td>Faz a requisição <strong>GET</strong> para a API.</td>
+          </tr>
+          <tr>
+            <td><code>.then(response => setDados(response.data))</code></td>
+            <td>Pega o conteúdo JSON direto em <code>response.data</code> e salva no estado.</td>
+          </tr>
+          <tr>
+            <td><code>.catch(error => console.error(error))</code></td>
+            <td>Captura erros automaticamente, inclusive de <strong>status HTTP</strong>.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Slide 10 - Resumo e Próximos Passos -->
-      <section>
-        <h2>📝 Resumo da Aula</h2>
-        <section>
-          <h3>✅ O que Vimos Hoje</h3>
-          <ul>
-            <li>🌐 Comunicação HTTP/HTTPS com Fetch e Axios</li>
-            <li>💾 Sistema de cache inteligente e estratégias</li>
-            <li>⏱️ Carregamento de dados em segundo plano</li>
-            <li>🚀 GraphQL para queries otimizadas</li>
-            <li>🔄 WebSockets para comunicação real-time</li>
-            <li>📱 Padrões de sincronização offline</li>
-          </ul>
-        </section>
-        <section>
-          <h3>🚀 Próxima Aula</h3>
-          <h4>Aula 5: Armazenamento e Persistência com SQLite</h4>
-          <ul>
-            <li>💾 Banco de dados SQLite local</li>
-            <li>📊 Data Definition Language (DDL)</li>
-            <li>🔄 Data Manipulation Language (DML)</li>
-            <li>⚡ ORMs e query builders</li>
-          </ul>
-        </section>
-        <section>
-          <h3>📚 Tarefa de Casa</h3>
-          <ul>
-            <li>📰 Implemente o app de notícias completo</li>
-            <li>🔄 Configure background sync funcional</li>
-            <li>💾 Teste cache offline extensivamente</li>
-            <li>📊 Monitore performance de rede</li>
-            <li>🚀 Experimente GraphQL subscriptions</li>
-          </ul>
-        </section>
-      </section>
+    </section>
 
-   </div>
+
+    <!-- Slide 11 - Observações sobre Axios -->
+    <section>
+      <h2>🛠️ Observações sobre Axios</h2>
+
+      <ul>
+        <li>✅ Não é preciso converter manualmente para <code>JSON</code>.</li>
+        <li>✅ Se o status HTTP for erro (404, 500), automaticamente gera erro tratado no <code>catch</code>.</li>
+        <li>✅ Suporte fácil a requisições <code>POST</code>, <code>PUT</code>, <code>DELETE</code>:</li>
+      </ul>
+
+      <div style="font-size: 0.75em;">
+    <pre><code class="language-javascript">
+// POST
+axios.post('https://api.example.com/data', { nome: 'Novo item' });
+
+// PUT
+axios.put('https://api.example.com/data/1', { nome: 'Atualizado' });
+
+// DELETE
+axios.delete('https://api.example.com/data/1');
+    </code></pre>
+      </div>
+    </section>
+    <!-- Slide 12 - Objetivo do Projeto -->
+    <section>
+      <h2>🎯 Projeto: Consumir API e Exibir Lista de Posts</h2>
+
+      <p>Vamos construir um app que:</p>
+      <ul>
+        <li>Faz uma requisição para uma API pública</li>
+        <li>Exibe uma lista de posts</li>
+        <li>Mostra um indicador de carregamento enquanto busca os dados</li>
+      </ul>
+
+      <p>🌟 Usaremos: <code>axios</code>, <code>FlatList</code> e <code>ActivityIndicator</code>.</p>
+    </section>
+
+    <!-- Slide 13 - Etapa 1: Setup Inicial -->
+    <section>
+      <h2>🔧 Etapa 1: Setup Inicial</h2>
+
+      <p>Crie um novo projeto React Native:</p>
+      <pre><code class="language-bash">npx create-expo-app projeto-posts --template  </code></pre>
+
+      <p>Instale o <code>axios</code>:</p>
+      <pre><code class="language-bash">npm install axios</code></pre>
+    </section>
+
+    <!-- Slide 14 - Etapa 2: Estrutura Básica -->
+    <section>
+      <h2>📦 Etapa 2: Estrutura Básica do App</h2>
+
+      <p>Configure a estrutura inicial:</p>
+      <pre><code class="language-javascript">
+import { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text, FlatList, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
+import axios from 'axios';
+
+export default function App() {
+  return (
+    <SafeAreaView>
+      <Text>App de Posts 📚</Text>
+    </SafeAreaView>
+  );
+}
+  </code></pre>
+    </section>
+
+    <!-- Slide 15 - Etapa 3: Criar Estados -->
+    <section>
+      <h2>🧠 Etapa 3: Criar Estados</h2>
+
+      <p>Vamos armazenar os posts e o estado de carregamento:</p>
+      <pre><code class="language-javascript">
+const [posts, setPosts] = useState([]);
+const [loading, setLoading] = useState(true);
+  </code></pre>
+
+      <p>🔵 <code>posts</code> → Guarda a lista de dados</p>
+      <p>🟡 <code>loading</code> → Indica se ainda estamos buscando os dados</p>
+    </section>
+
+    <!-- Slide 16 - Etapa 4: Buscar Dados com Axios -->
+    <section>
+      <h2>🌐 Etapa 4: Buscar Dados com Axios</h2>
+
+      <p>Dentro do <code>useEffect</code>, busque os dados da API:</p>
+      <pre><code class="language-javascript">
+useEffect(() => {
+  axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(response => setPosts(response.data))
+    .catch(error => console.error('Erro ao buscar posts', error))
+    .finally(() => setLoading(false));
+}, []);
+  </code></pre>
+
+      <p>🚀 API pública usada: <strong>jsonplaceholder.typicode.com</strong></p>
+    </section>
+
+    <!-- Slide 17 - Etapa 5: Indicador de Carregamento -->
+    <section>
+      <h2>⏳ Etapa 5: Indicador de Carregamento</h2>
+
+      <p>Enquanto estiver carregando, mostre um <code>ActivityIndicator</code>:</p>
+      <pre><code class="language-javascript">
+if (loading) {
+  return (
+    <SafeAreaView style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#00f" />
+    </SafeAreaView>
+  );
+}
+  </code></pre>
+    </section>
+
+    <!-- Slide 18 - Etapa 6: Exibir Lista com FlatList -->
+    <section>
+      <h2>📜 Etapa 6: Exibir a Lista de Posts</h2>
+
+      <p>Mostre os posts usando <code>FlatList</code>:</p>
+      <pre><code class="language-javascript">
+<FlatList
+        data={posts}
+        keyExtractor={item => item.id.toString()}
+  renderItem={({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.itemTitle}>{item.title}</Text>
+      <Text style={styles.itemBody}>{item.body}</Text>
+    </View>
+  )}
+  ItemSeparatorComponent={() => <View style={styles.separator} />}
+  contentContainerStyle={{ paddingBottom: 20 }}
+/>
+  </code></pre>
+    </section>
+
+    <!-- Slide 19 - Etapa 7: Estilizar o App -->
+    <section>
+      <h2>🎨 Etapa 7: Estilizar o App</h2>
+
+      <p>Adicione estilos para deixar o app bonito:</p>
+      <ul>
+        <li>Fundo claro: <code>backgroundColor: '#f5f5f5'</code></li>
+        <li>Cartões de posts: <code>backgroundColor: '#fff'</code> + sombra</li>
+        <li>Separadores entre os itens</li>
+      </ul>
+
+      <p>🎯 Use o objeto <code>styles</code> com <code>StyleSheet.create()</code>.</p>
+    </section>
+
+    <!-- Slide 20 - Código Final e Demonstração -->
+    <section>
+      <h2>✅ Código Final</h2>
+
+      <p>Agora temos um app que:</p>
+      <ul>
+        <li>Busca dados de uma API externa</li>
+        <li>Exibe enquanto carrega</li>
+        <li>Lista os posts de forma organizada</li>
+      </ul>
+
+      <p><strong>Código completo disponível em:</strong><br>
+      <a href="https://github.com/DIOGOBRODRIGUES/exemplo_api.git" target="_blank">
+        https://github.com/DIOGOBRODRIGUES/exemplo_api.git
+      </a></p>
+
+      <p>🎉 Parabéns! Bora testar no celular ou emulador!</p>
+    </section>
+      
+    </div>
   </div>
 
-  
-  <script src="../../../../reveal.js-master/dist/reveal.js"></script>
-  <script src="../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-  <script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
-  <script src="../../../../reveal.js-master/plugin/search/search.js"></script>
-  <script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-  <script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
   <script>
     Reveal.initialize({
       controls: true,
