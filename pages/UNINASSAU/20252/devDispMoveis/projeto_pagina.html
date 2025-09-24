@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Final - Desenvolvimento para Dispositivos Móveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .university {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ecf0f1;
+        }
+
+        .professor {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .nav-menu {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .section {
+            margin: 3rem 0;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .tech-item {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(33, 150, 243, 0.2);
+        }
+
+        .tech-item h4 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #f44336;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            margin-left: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.25rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .grading-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .grading-table th,
+        .grading-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .grading-table th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .grading-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .nav-menu ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="university">🏛️ Centro Universitário Maurício de Nassau</div>
+                <h1 class="title">📱 Projeto Final</h1>
+                <div class="subtitle">Desenvolvimento para Dispositivos Móveis</div>
+                <div class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</div>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Menu -->
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#visao-geral">📋 Visão Geral</a></li>
+                <li><a href="#requisitos">⚙️ Requisitos</a></li>
+                <li><a href="#funcionalidades">✅ Funcionalidades</a></li>
+                <li><a href="#sugestoes">💡 Sugestões</a></li>
+                <li><a href="#cronograma">📅 Cronograma</a></li>
+                <li><a href="#entregaveis">📦 Entregáveis</a></li>
+                <li><a href="#avaliacao">📊 Avaliação</a></li>
+                <li><a href="#recursos">🔧 Recursos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Visão Geral -->
+            <section id="visao-geral" class="section">
+                <h2 class="section-title">📋 Visão Geral do Projeto</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">🎯 Objetivo</h3>
+                    <p>Desenvolver um aplicativo móvel funcional que demonstre o domínio dos conceitos estudados nas aulas 1-5, aplicando os conhecimentos de:</p>
+                    <ul>
+                        <li>🔧 Ambientes de desenvolvimento móvel</li>
+                        <li>⚛️ Fundamentos do React/React Native</li>
+                        <li>🎨 Interface gráfica e layouts responsivos</li>
+                        <li>📱 Características e limitações dos dispositivos móveis</li>
+                        <li>🚀 Desenvolvimento com Expo</li>
+                    </ul>
+                </div>
+
+                <div class="highlight">
+                    <strong>📝 Modalidade:</strong> Individual OU Grupos de até 3 pessoas
+                </div>
+            </section>
+
+            <!-- Requisitos Técnicos -->
+            <section id="requisitos" class="section">
+                <h2 class="section-title">⚙️ Requisitos Técnicos Obrigatórios</h2>
+                
+                <div class="grid grid-2">
+                    <div class="tech-item">
+                        <h4>🛠️ Tecnologia Base</h4>
+                        <p><strong>React Native com Expo</strong></p>
+                        <small>Conforme estudado na Aula 4</small>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <h4>📱 Plataforma</h4>
+                        <p><strong>Multiplataforma</strong></p>
+                        <small>iOS e Android compatível</small>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <h4>🎨 Interface</h4>
+                        <p><strong>Design Responsivo</strong></p>
+                        <small>Diferentes tamanhos de tela</small>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <h4>🧩 Componentes</h4>
+                        <p><strong>React Components</strong></p>
+                        <small>Reutilizáveis e funcionais</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Funcionalidades -->
+            <section id="funcionalidades" class="section">
+                <h2 class="section-title">✅ Funcionalidades Exigidas</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">🏠 1. Tela Principal (Home)</h3>
+                        <ul>
+                            <li>Apresentação do aplicativo</li>
+                            <li>Navegação para outras seções</li>
+                            <li>Design atrativo e profissional</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">📝 2. Formulário Interativo</h3>
+                        <ul>
+                            <li>Mínimo 3 campos de entrada</li>
+                            <li>Validação de dados</li>
+                            <li>Feedback ao usuário</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">📊 3. Manipulação de Estado</h3>
+                        <ul>
+                            <li>Uso de useState para gerenciar dados</li>
+                            <li>Estados dinâmicos e interativos</li>
+                            <li>Atualização em tempo real</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">🗂️ 4. Lista Dinâmica</h3>
+                        <ul>
+                            <li>Exibição de dados em lista</li>
+                            <li>Adicionar/remover itens</li>
+                            <li>Componente FlatList ou ScrollView</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">🎨 5. Estilização Avançada</h3>
+                        <ul>
+                            <li>StyleSheet organizado</li>
+                            <li>Cores e tipografia consistentes</li>
+                            <li>Animações básicas (opcional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">📱 6. Adaptação Mobile</h3>
+                        <ul>
+                            <li>Layout responsivo</li>
+                            <li>Componentes nativos mobile</li>
+                            <li>Experiência de usuário otimizada</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sugestões de Aplicativos -->
+            <section id="sugestoes" class="section">
+                <h2 class="section-title">💡 Sugestões de Aplicativos</h2>
+                
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h4>📝 To-Do List</h4>
+                        <p>Gerenciador de tarefas com adição, remoção e marcação como concluído</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>💰 Controle Financeiro</h4>
+                        <p>Registro de receitas e despesas com categorias e totais</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>📚 Catálogo de Livros</h4>
+                        <p>Lista de livros com informações, avaliações e status de leitura</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>🏋️ Fitness Tracker</h4>
+                        <p>Registro de exercícios, metas e progresso</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>🍕 Cardápio Digital</h4>
+                        <p>Lista de pratos com preços, descrições e carrinho</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>📱 App Personalizado</h4>
+                        <p>Solução própria para um problema específico</p>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>💡 Dica:</strong> Escolha um tema que desperte seu interesse e permita demonstrar criatividade!
+                </div>
+            </section>
+
+            <!-- Cronograma -->
+            <section id="cronograma" class="section">
+                <h2 class="section-title">📅 Cronograma de Desenvolvimento</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>🚀 Fase 1 - Planejamento (1 semana)</h4>
+                        <ul>
+                            <li>Escolha do tema do aplicativo</li>
+                            <li>Definição das funcionalidades</li>
+                            <li>Criação do protótipo/wireframe</li>
+                            <li>Configuração do ambiente Expo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4>💻 Fase 2 - Desenvolvimento (2 semanas)</h4>
+                        <ul>
+                            <li>Implementação das telas principais</li>
+                            <li>Desenvolvimento dos componentes</li>
+                            <li>Implementação da lógica de negócio</li>
+                            <li>Estilização e layout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4>🧪 Fase 3 - Testes e Refinamento (3 dias)</h4>
+                        <ul>
+                            <li>Testes em diferentes dispositivos</li>
+                            <li>Correção de bugs</li>
+                            <li>Ajustes de interface</li>
+                            <li>Documentação final</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Entregáveis -->
+            <section id="entregaveis" class="section">
+                <h2 class="section-title">📦 Entregáveis</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">💻 1. Código Fonte</h3>
+                        <ul>
+                            <li>Projeto Expo completo</li>
+                            <li>Código comentado e organizado</li>
+                            <li>Arquivo README.md explicativo</li>
+                            <li>Repositório Git (GitHub recomendado)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">🎥 2. Demonstração</h3>
+                        <ul>
+                            <li>Vídeo de 3-5 minutos demonstrando o app</li>
+                            <li>Apresentação das principais funcionalidades</li>
+                            <li>Explicação das tecnologias utilizadas</li>
+                            <li>Upload no YouTube ou similar</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">📄 3. Documentação</h3>
+                        <ul>
+                            <li>Relatório técnico (2-3 páginas)</li>
+                            <li>Descrição das funcionalidades</li>
+                            <li>Desafios encontrados e soluções</li>
+                            <li>Screenshots das principais telas</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Critérios de Avaliação -->
+            <section id="avaliacao" class="section">
+                <h2 class="section-title">📊 Critérios de Avaliação</h2>
+                
+                <table class="grading-table">
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Peso</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>🧩 Funcionalidades</strong></td>
+                            <td>30%</td>
+                            <td>Implementação correta dos requisitos, funcionalidades adicionais, complexidade das soluções</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🎨 Interface</strong></td>
+                            <td>25%</td>
+                            <td>Design visual atrativo, usabilidade e experiência, responsividade</td>
+                        </tr>
+                        <tr>
+                            <td><strong>💻 Código</strong></td>
+                            <td>25%</td>
+                            <td>Organização e estrutura, boas práticas React Native, comentários e documentação</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🎯 Apresentação</strong></td>
+                            <td>20%</td>
+                            <td>Clareza na demonstração, documentação técnica, criatividade e inovação</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Recursos e Suporte -->
+            <section id="recursos" class="section">
+                <h2 class="section-title">🔧 Recursos e Suporte</h2>
+                
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h3 class="card-title">📚 Documentação</h3>
+                        <ul>
+                            <li><a href="https://docs.expo.dev/" target="_blank" class="btn">Expo Documentation</a></li>
+                            <li><a href="https://reactnative.dev/" target="_blank" class="btn">React Native Docs</a></li>
+                            <li><a href="https://reactjs.org/" target="_blank" class="btn">React Docs</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">🛠️ Ferramentas</h3>
+                        <ul>
+                            <li>Expo CLI</li>
+                            <li>Expo Go App</li>
+                            <li>VS Code</li>
+                            <li>Git/GitHub</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">💬 Suporte</h3>
+                        <ul>
+                            <li>Horários de dúvidas: Terças e Quintas</li>
+                            <li>E-mail: professor@email.com</li>
+                            <li>Discord da turma</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">🎨 Design</h3>
+                        <ul>
+                            <li><a href="https://www.figma.com/" target="_blank" class="btn">Figma</a></li>
+                            <li><a href="https://material.io/" target="_blank" class="btn">Material Design</a></li>
+                            <li><a href="https://developer.apple.com/design/" target="_blank" class="btn">Apple HIG</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exemplo de Estrutura -->
+            <section class="section">
+                <h2 class="section-title">🏗️ Estrutura Sugerida do Projeto</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="card-title">📁 Estrutura de Pastas</h3>
+                        <div class="code-block">
+<pre>
+meu-app/
+├── App.js
+├── package.json
+├── app.json
+├── README.md
+├── components/
+│   ├── Header.js
+│   ├── Button.js
+│   └── ListItem.js
+├── screens/
+│   ├── HomeScreen.js
+│   ├── FormScreen.js
+│   └── ListScreen.js
+├── styles/
+│   └── globalStyles.js
+└── assets/
+    ├── images/
+    └── icons/
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">⚛️ Exemplo de Componente</h3>
+                        <div class="code-block">
+<pre>
+import React, { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet 
+} from 'react-native';
+
+export default function FormScreen() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  
+  const handleSubmit = () => {
+    // Validação e lógica
+    console.log('Dados:', { nome, email });
+  };
+  
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Formulário&lt;/Text&gt;
+      
+      &lt;TextInput
+        style={styles.input}
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+      /&gt;
+      
+      &lt;TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        value={email}
+        onChangeText={setEmail}
+      /&gt;
+      
+      &lt;TouchableOpacity 
+        style={styles.button} 
+        onPress={handleSubmit}
+      &gt;
+        &lt;Text style={styles.buttonText}&gt;Enviar&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center'
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 30
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 8,
+    fontSize: 16
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold'
+  }
+});
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dicas Importantes -->
+            <section class="section">
+                <h2 class="section-title">💡 Dicas para o Sucesso</h2>
+                
+                <div class="grid">
+                    <div class="success-box">
+                        <h3>✅ Faça</h3>
+                        <ul>
+                            <li>🎯 <strong>Planeje antes de codificar</strong> - Defina as telas e funcionalidades</li>
+                            <li>📱 <strong>Teste frequentemente</strong> - Use o Expo Go para testar no dispositivo</li>
+                            <li>🔄 <strong>Commits regulares</strong> - Salve o progresso no Git</li>
+                            <li>📖 <strong>Consulte a documentação</strong> - Quando tiver dúvidas</li>
+                            <li>🎨 <strong>Foque na experiência do usuário</strong> - Interface intuitiva</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3>❌ Evite</h3>
+                        <ul>
+                            <li>🚫 <strong>Procrastinação</strong> - Comece cedo, o tempo passa rápido</li>
+                            <li>📋 <strong>Funcionalidades excessivas</strong> - Prefira qualidade à quantidade</li>
+                            <li>📱 <strong>Ignorar limitações móveis</strong> - Considere bateria, conectividade</li>
+                            <li>🎨 <strong>Interface confusa</strong> - Mantenha simplicidade</li>
+                            <li>📝 <strong>Código sem comentários</strong> - Documente suas soluções</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data de Entrega -->
+            <section class="section">
+                <h2 class="section-title">📅 Data de Entrega e Apresentação</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">🗓️ Cronograma Final</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>📝 Entrega do Projeto</h4>
+                            <p><strong>Data:</strong> [A definir pelo professor]</p>
+                            <p><strong>Horário:</strong> Até 23:59</p>
+                            <p><strong>Formato:</strong> Link do repositório GitHub + vídeo + documentação</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>🎤 Apresentações</h4>
+                            <p><strong>Data:</strong> Aula seguinte à entrega</p>
+                            <p><strong>Tempo:</strong> 5-8 minutos por grupo/pessoa</p>
+                            <p><strong>Formato:</strong> Demonstração ao vivo + Q&A</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Atenção</h3>
+                    <ul>
+                        <li>🚫 <strong>Não será aceito</strong> projetos entregues após o prazo</li>
+                        <li>📱 <strong>Obrigatório</strong> o app funcionar no dispositivo/emulador</li>
+                        <li>🎥 <strong>Vídeo obrigatório</strong> - projetos sem vídeo terão desconto na nota</li>
+                        <li>👥 <strong>Grupos:</strong> Todos os membros devem participar da apresentação</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="section">
+                <h2 class="section-title">❓ Perguntas Frequentes</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>🤔 Posso usar bibliotecas externas?</h4>
+                        <p><em>Sim, mas justifique no relatório técnico e garanta que não substitua os conceitos estudados.</em></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>📱 Precisa funcionar offline?</h4>
+                        <p><em>Não é obrigatório para este projeto, mas será valorizado se implementado.</em></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>🔄 Posso mudar o tema depois?</h4>
+                        <p><em>Sim, até 1 semana após o início do desenvolvimento.</em></p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>📺 Quantas telas no mínimo?</h4>
+                        <p><em>Mínimo 3 telas funcionais com navegação entre elas.</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Próximos Passos -->
+            <section class="section">
+                <h2 class="section-title">🚀 Próximos Passos</h2>
+                
+                <div class="card">
+                    <h3 class="card-title">🎯 Começe Agora</h3>
+                    <ol>
+                        <li>📋 <strong>Defina seu grupo</strong> (se aplicável)</li>
+                        <li>💡 <strong>Escolha o tema</strong> do aplicativo</li>
+                        <li>🎨 <strong>Crie um wireframe</strong> básico das telas</li>
+                        <li>⚙️ <strong>Configure o ambiente</strong> Expo</li>
+                        <li>🏗️ <strong>Inicie o desenvolvimento</strong> da primeira tela</li>
+                    </ol>
+                </div>
+
+                <div class="highlight">
+                    <h3>💬 Canais de Comunicação</h3>
+                    <p>Discord da turma | E-mail do professor | Horários de atendimento</p>
+                </div>
+            </section>
+
+            <!-- Motivação Final -->
+            <section class="section">
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h2>🎯 Vamos Criar Algo Incrível!</h2>
+                    
+                    <div style="margin: 2rem 0;">
+                        <h3>💪 Lembre-se:</h3>
+                        <p style="font-size: 1.2em; font-style: italic;">
+                            "O melhor momento para plantar uma árvore foi há 20 anos.<br>
+                            O segundo melhor momento é <strong>agora</strong>."
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <p><strong>🚀 Este projeto é sua oportunidade de:</strong></p>
+                        <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                            <li>✅ Aplicar todos os conhecimentos adquiridos</li>
+                            <li>🎨 Demonstrar sua criatividade</li>
+                            <li>📱 Criar algo útil e funcional</li>
+                            <li>💼 Ter um projeto para seu portfólio</li>
+                            <li>🏆 Se destacar no mercado de trabalho</li>
+                        </ul>
+                    </div>
+
+                    <h2 style="margin-top: 2rem;">Boa sorte e mãos à obra! 🔥</h2>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 - Centro Universitário Maurício de Nassau</p>
+            <p>Desenvolvimento para Dispositivos Móveis - Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-menu a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight current section in navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

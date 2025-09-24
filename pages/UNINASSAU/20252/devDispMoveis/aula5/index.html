@@ -1,178 +1,449 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
-  <title>Aula 5 - Interface Gráfica e Layouts</title>
+  <title>Aula 3.1: Listas e Navegação entre Telas com React Native</title>
+
+  <meta name="description" content="Fundamentos teóricos de listas, navegação entre telas e gerenciamento de estado em React Native">
   <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
   <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
-  <style>.reveal .slides section{text-align:left;font-size:0.8em}.reveal h1,.reveal h2,.reveal h3,.reveal h4{text-align:center;margin-bottom:1rem}.social-links{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem}.code-highlight{background:rgba(98,114,164,0.1);border-left:4px solid #ff79c6;border-radius:8px;padding:1rem;margin:1rem 0}</style>
+
 </head>
+
 <body>
+ 
   <div class="reveal">
     <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
       <section>
         <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 5: Interface Gráfica e Layouts 🎨</h3>
+        <h3>Aula 5: Listas e Navegação em React Native</h3>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
       </section>
-      <section>
-        <h2>🎯 Objetivos</h2>
-        <div class="code-highlight">
-          <ul>
-            <li>🏗️ <strong>Dominar</strong> Views e ViewGroups</li>
-            <li>📐 <strong>Utilizar</strong> diferentes tipos de layouts</li>
-            <li>🎨 <strong>Aplicar</strong> Material Design principles</li>
-            <li>📱 <strong>Criar</strong> interfaces responsivas</li>
-            <li>✨ <strong>Implementar</strong> componentes interativos</li>
-          </ul>
-        </div>
-      </section>
-      <section>
-        <h2>🏗️ Views e ViewGroups</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
-          <div>
-            <h3>📱 Basic Views</h3>
-            <ul>
-              <li><strong>TextView:</strong> Exibir texto</li>
-              <li><strong>Button:</strong> Ações do usuário</li>
-              <li><strong>ImageView:</strong> Exibir imagens</li>
-              <li><strong>EditText:</strong> Entrada de texto</li>
-              <li><strong>CheckBox:</strong> Múltipla seleção</li>
-              <li><strong>RadioButton:</strong> Seleção única</li>
-            </ul>
-          </div>
-          <div>
-            <h3>📐 Layout Types</h3>
-            <ul>
-              <li><strong>LinearLayout:</strong> Horizontal/Vertical</li>
-              <li><strong>RelativeLayout:</strong> Posições relativas</li>
-              <li><strong>ConstraintLayout:</strong> Flexível e eficiente</li>
-              <li><strong>FrameLayout:</strong> Sobreposição</li>
-              <li><strong>GridLayout:</strong> Grade de elementos</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2>🎨 Material Design</h2>
-        <div class="code-highlight">
-          <h3>📱 Princípios do Material Design</h3>
-          <ul>
-            <li><strong>Material is the metaphor:</strong> Inspirado no mundo físico</li>
-            <li><strong>Bold, graphic, intentional:</strong> Design gráfico como fundação</li>
-            <li><strong>Motion provides meaning:</strong> Movimento significativo</li>
-          </ul>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
-          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
-            <h4>🎯 Components</h4>
-            <ul>
-              <li>FloatingActionButton</li>
-              <li>CardView</li>
-              <li>RecyclerView</li>
-              <li>Navigation Drawer</li>
-            </ul>
-          </div>
-          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
-            <h4>🎨 Colors & Typography</h4>
-            <ul>
-              <li>Primary/Secondary colors</li>
-              <li>Material color palette</li>
-              <li>Roboto font family</li>
-              <li>Text styles hierarchy</li>
-            </ul>
-          </div>
-          <div style="background:rgba(98,114,164,0.2);padding:1rem;border-radius:8px;">
-            <h4>✨ Motion & Interaction</h4>
-            <ul>
-              <li>Ripple effects</li>
-              <li>Shared element transitions</li>
-              <li>Elevation & shadows</li>
-              <li>Responsive animations</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2>🧪 Atividade Prática</h2>
-        <div class="code-highlight">
-          <h3>🎯 Criar Interface de Login Material Design</h3>
-          <p>Implementar tela de login com componentes Material Design</p>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
-          <div>
-            <h4>React Native</h4>
-            <pre><code>import {View,Text,TextInput,Button} from 'react-native';
 
-export default function LoginScreen(){
-  return(
-    &lt;View style={{flex:1,justifyContent:'center',padding:20}}&gt;
-      &lt;Text style={{fontSize:24,textAlign:'center',marginBottom:30}}&gt;Login&lt;/Text&gt;
-      &lt;TextInput placeholder="Email" style={{borderWidth:1,padding:10,marginBottom:15,borderRadius:5}}/&gt;
-      &lt;TextInput placeholder="Password" secureTextEntry style={{borderWidth:1,padding:10,marginBottom:20,borderRadius:5}}/&gt;
-      &lt;Button title="Login" onPress={()=&gt;{/*logic*/}}/&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-          </div>
-          <div>
-            <h4>Flutter</h4>
-            <pre><code>class LoginScreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      body:Padding(
-        padding:EdgeInsets.all(20),
-        child:Column(
-          mainAxisAlignment:MainAxisAlignment.center,
-          children:[
-            Text('Login',style:TextStyle(fontSize:24)),
-            SizedBox(height:30),
-            TextField(decoration:InputDecoration(labelText:'Email')),
-            TextField(decoration:InputDecoration(labelText:'Password'),obscureText:true),
-            SizedBox(height:20),
-            ElevatedButton(onPressed:(){},child:Text('Login'))
-          ]
-        )
-      )
-    );
-  }
-}</code></pre>
-          </div>
-        </div>
-      </section>
+      <!-- Slide 2 - Objetivos da Aula -->
+      
+
+      <!-- Slide 3 - O que são Listas? -->
       <section>
-        <h2>🔮 Próxima Aula</h2>
-        <div class="code-highlight">
-          <h4>🗄️ Aula 6: Banco de Dados Mobile</h4>
-          <ul>
-            <li>SQLite local database</li>
-            <li>AsyncStorage para dados simples</li>
-            <li>Firebase Firestore</li>
-            <li>Sincronização de dados</li>
-            <li>CRUD operations</li>
-          </ul>
-        </div>
-        <div style="text-align:center;margin-top:2rem;">
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        
+        <section>
+            <h2>📋 O que são Listas?</h2>
+          <h3>🤔 Analogia do Catálogo Telefônico</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>📞 Catálogo Telefônico</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📖 Muitas páginas de contatos</li>
+                <li>🔍 Você não lê todas as páginas</li>
+                <li>👀 Só vê o que está na sua tela</li>
+                <li>⏭️ Folheia conforme precisa</li>
+                <li>🚀 Eficiente em memória</li>
+              </ul>
+            </div>
+            <div>
+              <h4>📱 Lista no App</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📋 Muitos itens de dados</li>
+                <li>🔍 Não renderiza todos os itens</li>
+                <li>👀 Só mostra os visíveis na tela</li>
+                <li>⏭️ Carrega conforme o scroll</li>
+                <li>🚀 Eficiente em performance</li>
+              </ul>
+            </div>
           </div>
-        </div>
+          <p style="margin-top: 30px; font-size: 0.9em;"><strong>💡 Ideia Central:</strong> Assim como você não precisa ver todas as páginas de um catálogo ao mesmo tempo, uma lista no app não precisa renderizar todos os itens simultâneamente!</p>
+        </section>
+
+        <section>
+          <h3>🧠 Por que Listas são Importantes?</h3>
+          <ul>
+            <li>📊 <strong>Organização de Dados:</strong> Estruturam informações de forma clara</li>
+            <li>⚡ <strong>Performance:</strong> Renderização eficiente de grandes volumes</li>
+            <li>👆 <strong>Interação:</strong> Navegação intuitiva através de scroll</li>
+            <li>📱 <strong>Limitação de Tela:</strong> Aproveitam melhor o espaço limitado</li>
+            <li>🔄 <strong>Dinamismo:</strong> Podem ser atualizadas em tempo real</li>
+          </ul>
+          <div style="background: #444; padding: 20px; border-radius: 10px; margin-top: 20px; font-size: 0.9em;">
+            <p><strong>🎯 Exemplos Comuns:</strong></p>
+            <p>Feed do Instagram • Lista de contatos • Produtos de e-commerce • Mensagens do WhatsApp • Notificações</p>
+          </div>
+        </section>
       </section>
-    </div>
+
+      <!-- Slide 4 - Componentes de Lista -->
+      <section>
+        
+        <section>
+            <h2>🔧 Componentes de Lista no React Native</h2>
+          <h3>📋 FlatList vs ScrollView</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div style="background: #ff6b6b; padding: 20px; border-radius: 10px;">
+              <h4>📜 ScrollView</h4>
+              <p style="font-size: 0.8em;"><strong>Analogia:</strong> Como imprimir uma lista inteira</p>
+              <ul style="font-size: 0.7em;">
+                <li>🖨️ Renderiza TODOS os itens</li>
+                <li>📄 Como ter todas as páginas impressas</li>
+                <li>💾 Usa muita memória</li>
+                <li>🐌 Fica lento com muitos itens</li>
+                <li>✅ Bom para poucos itens (&lt;100)</li>
+              </ul>
+            </div>
+            <div style="background: #4ecdc4; padding: 20px; border-radius: 10px;">
+              <h4>📋 FlatList</h4>
+              <p style="font-size: 0.8em;"><strong>Analogia:</strong> Como ler um livro digital</p>
+              <ul style="font-size: 0.7em;">
+                <li>👀 Renderiza só o que está visível</li>
+                <li>📖 Como ver uma página de cada vez</li>
+                <li>💨 Usa pouca memória</li>
+                <li>🚀 Mantém performance estável</li>
+                <li>✅ Ideal para muitos itens (1000+)</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top: 30px; background: #444; padding: 15px; border-radius: 8px;">
+            <p><strong>🎯 Regra de Ouro:</strong> Use ScrollView para listas pequenas e fixas. Use FlatList para listas dinâmicas e grandes!</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>📚 SectionList - Lista com Seções</h3>
+          <div style="background: #9b59b6; padding: 20px; border-radius: 10px;">
+            <h4>📖 Analogia: Dicionário Organizado</h4>
+            <p style="font-size: 0.9em;">Imagine um dicionário onde você tem:</p>
+            <ul style="font-size: 0.8em;">
+              <li>🅰️ <strong>Seções:</strong> Letras do alfabeto (A, B, C...)</li>
+              <li>📝 <strong>Itens:</strong> Palavras dentro de cada letra</li>
+              <li>🔍 <strong>Navegação:</strong> Fácil de encontrar palavras</li>
+              <li>📑 <strong>Organização:</strong> Estrutura clara e lógica</li>
+            </ul>
+          </div>
+          <div style="margin-top: 20px;">
+            <h4>📱 Exemplos de SectionList:</h4>
+            <ul style="font-size: 0.8em;">
+              <li>📞 <strong>Lista de Contatos:</strong> Agrupados por letra inicial</li>
+              <li>🛒 <strong>Carrinho de Compras:</strong> Produtos por categoria</li>
+              <li>📅 <strong>Agenda:</strong> Eventos agrupados por data</li>
+              <li>🎵 <strong>Playlist:</strong> Músicas por artista/álbum</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Virtualização -->
+      <section>
+        
+        <section>
+            <h2>🎭 Virtualização: A Mágica Por Trás das Listas</h2>
+          <h3>🎪 Analogia do Teatro</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🎭 Teatro Tradicional</h4>
+              <ul style="font-size: 0.8em;">
+                <li>👥 Todos os atores no palco</li>
+                <li>💰 Caro manter todos pagos</li>
+                <li>🏟️ Palco lotado e confuso</li>
+                <li>📉 Performance ruim</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🎪 Teatro Inteligente (Virtualizado)</h4>
+              <ul style="font-size: 0.8em;">
+                <li>👀 Só atores na cena atual</li>
+                <li>💸 Economiza recursos</li>
+                <li>🎯 Foco na performance</li>
+                <li>🔄 Atores entram/saem conforme necessário</li>
+              </ul>
+            </div>
+          </div>
+          </section>
+          <section>
+          <div style="margin-top: 30px; background: #444; padding: 20px; border-radius: 10px;">
+            <p><strong>🎯 Na Prática:</strong></p>
+            <p>A FlatList mantém apenas ~10 itens renderizados (os visíveis + alguns extras), mesmo que sua lista tenha 10.000 itens!</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>⚙️ Como Funciona a Virtualização</h3>
+          <div style="text-align: left;">
+            <h4>🔄 Processo de Virtualização:</h4>
+            <ol style="font-size: 0.8em;">
+              <li>📏 <strong>Medição:</strong> O componente calcula o tamanho da tela</li>
+              <li>🧮 <strong>Cálculo:</strong> Determina quantos itens cabem na tela</li>
+              <li>🎨 <strong>Renderização:</strong> Cria apenas os itens visíveis + buffer</li>
+              <li>👆 <strong>Scroll:</strong> Usuário desliza a tela</li>
+              <li>🗑️ <strong>Reciclagem:</strong> Remove itens que saíram de vista</li>
+              <li>🆕 <strong>Criação:</strong> Adiciona novos itens que entraram em vista</li>
+              <li>🔁 <strong>Repetição:</strong> Processo continua infinitamente</li>
+            </ol>
+          </div>
+          <div style="background: #27ae60; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <p><strong>💡 Resultado:</strong> Lista de 10.000 itens usa a mesma memória que uma de 10 itens!</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - Navegação entre Telas -->
+      <section>
+        
+        <section>
+            <h2>🧭 Navegação entre Telas</h2>
+          <h3>🏠 Analogia da Casa</h3>
+          <div style="background: #34495e; padding: 20px; border-radius: 10px;">
+            <p style="font-size: 0.9em;">Imagine seu app como uma <strong>casa com vários cômodos</strong>:</p>
+            <ul style="font-size: 0.8em;">
+              <li>🚪 <strong>Telas = Cômodos:</strong> Cada tela é um ambiente diferente</li>
+              <li>🚶 <strong>Navegação = Caminhar:</strong> Mover-se entre os cômodos</li>
+              <li>📍 <strong>Estado = Localização:</strong> Saber onde você está</li>
+              <li>🔙 <strong>Voltar = Memória:</strong> Lembrar de onde veio</li>
+              <li>🗝️ <strong>Props = Objetos:</strong> Levar coisas entre cômodos</li>
+            </ul>
+          </div>
+          </section>
+          <section>
+          <div style="margin-top: 20px; background: #2c3e50; padding: 15px; border-radius: 8px;">
+            <p><strong>🎯 Exemplo Prático:</strong></p>
+            <p>Sala (Lista de Produtos) → Quarto (Detalhes do Produto) → Banheiro (Carrinho de Compras)</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>📚 Tipos de Navegação</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.8em;">
+            <div style="background: #e74c3c; padding: 15px; border-radius: 8px;">
+              <h4>📚 Stack Navigation</h4>
+              <p><strong>Analogia:</strong> Pilha de livros</p>
+              <ul style="font-size: 0.9em;">
+                <li>📖 Coloca livro em cima</li>
+                <li>🔙 Remove do topo para voltar</li>
+                <li>📍 Sempre sabe qual é o atual</li>
+              </ul>
+            </div>
+            <div style="background: #3498db; padding: 15px; border-radius: 8px;">
+              <h4>📑 Tab Navigation</h4>
+              <p><strong>Analogia:</strong> Fichário</p>
+              <ul style="font-size: 0.9em;">
+                <li>📋 Várias abas visíveis</li>
+                <li>👆 Clica para alternar</li>
+                <li>⚡ Acesso rápido</li>
+              </ul>
+            </div>
+            <div style="background: #9b59b6; padding: 15px; border-radius: 8px;">
+              <h4>🍔 Drawer Navigation</h4>
+              <p><strong>Analogia:</strong> Menu lateral</p>
+              <ul style="font-size: 0.9em;">
+                <li>📜 Menu escondido lateralmente</li>
+                <li>👈 Desliza para abrir</li>
+                <li>📋 Lista de opções</li>
+              </ul>
+            </div>
+            <div style="background: #f39c12; padding: 15px; border-radius: 8px;">
+              <h4>📱 Modal</h4>
+              <p><strong>Analogia:</strong> Janela popup</p>
+              <ul style="font-size: 0.9em;">
+                <li>🪟 Aparece sobre a tela atual</li>
+                <li>⚠️ Requer ação do usuário</li>
+                <li>❌ Pode ser fechada</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - React Navigation -->
+      <section>
+        
+        <section>
+            <h2>⚛️ React Navigation - O GPS do Seu App</h2>
+          <h3>🗺️ Analogia do GPS</h3>
+          <div style="background: #2c3e50; padding: 20px; border-radius: 10px;">
+            <h4>🚗 GPS no Carro = React Navigation no App</h4>
+            <ul style="font-size: 0.8em;">
+              <li>📍 <strong>Localização Atual:</strong> Sabe em qual tela você está</li>
+              <li>🗺️ <strong>Mapa de Rotas:</strong> Define como as telas se conectam</li>
+              <li>🧭 <strong>Navegação:</strong> Mostra como ir de A para B</li>
+              <li>🔙 <strong>Voltar:</strong> Lembra o caminho de volta</li>
+              <li>📱 <strong>Recalcular:</strong> Adapta-se a mudanças no percurso</li>
+              <li>🏠 <strong>Tela Inicial:</strong> Seu ponto de partida (Home)</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <div style="margin-top: 20px; background: #27ae60; padding: 15px; border-radius: 8px;">
+            <p><strong>💡 Diferencial:</strong> Assim como o GPS te guia sem você precisar decorar todas as ruas, o React Navigation gerencia a navegação sem você se preocupar com os detalhes técnicos!</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🎯 Conceitos Fundamentais</h3>
+          <div style="text-align: left;">
+            <h4>🏗️ Estrutura Básica:</h4>
+            <ul style="font-size: 0.8em;">
+              <li>🌐 <strong>NavigationContainer:</strong> O "mapa" principal do app</li>
+              <li>📚 <strong>Navigator:</strong> Define o tipo de navegação (Stack, Tab, etc.)</li>
+              <li>📄 <strong>Screen:</strong> Uma tela individual do app</li>
+              <li>🔗 <strong>Route:</strong> O "endereço" de cada tela</li>
+              <li>🧳 <strong>Params:</strong> "Bagagem" que você leva entre telas</li>
+            </ul>
+          </div>
+          <div style="margin-top: 20px; background: #444; padding: 15px; border-radius: 8px;">
+            <h4>🎮 Métodos de Navegação:</h4>
+            <ul style="font-size: 0.8em;">
+              <li>🚀 <strong>navigate():</strong> "Vá para essa tela"</li>
+              <li>📚 <strong>push():</strong> "Adicione essa tela na pilha"</li>
+              <li>🔙 <strong>goBack():</strong> "Volte para a tela anterior"</li>
+              <li>🏠 <strong>reset():</strong> "Vá para o início e esqueça o histórico"</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 8 - Gerenciamento de Estado -->
+      <section>
+        
+        <section>
+            <h2>🧠 Gerenciamento de Estado</h2> 
+          <h3>🧠 Analogia da Memória Humana</h3>
+          <div style="background: #8e44ad; padding: 20px; border-radius: 10px;">
+            <h4>🧠 Estado = Memória do App</h4>
+            <p style="font-size: 0.9em;">Assim como você precisa lembrar de coisas enquanto se move pela casa:</p>
+            <ul style="font-size: 0.8em;">
+              <li>📝 <strong>Memória de Curto Prazo:</strong> Estado local (useState)</li>
+              <li>🗄️ <strong>Memória de Longo Prazo:</strong> Estado global (Context/Redux)</li>
+              <li>📱 <strong>Anotações:</strong> Armazenamento persistente (AsyncStorage)</li>
+              <li>🔄 <strong>Lembrar-se:</strong> Sincronizar estado entre telas</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <div style="margin-top: 20px; background: #34495e; padding: 15px; border-radius: 8px;">
+            <p><strong>🎯 Exemplo:</strong> Você adiciona um item no carrinho (Tela A), vai para o produto (Tela B), volta para o carrinho (Tela A) e o item ainda está lá!</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🏪 Tipos de Estado</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div>
+              <h4>🏠 Estado Local</h4>
+              <div style="background: #27ae60; padding: 15px; border-radius: 8px; font-size: 0.8em;">
+                <p><strong>Analogia:</strong> Gaveta do seu quarto</p>
+                <ul>
+                  <li>📱 Só essa tela usa</li>
+                  <li>🔒 Privado da tela</li>
+                  <li>⚡ Rápido de acessar</li>
+                  <li>🗑️ Some quando tela é fechada</li>
+                </ul>
+                <p><strong>Exemplos:</strong> Estado do formulário, modal aberto/fechado, scroll position</p>
+              </div>
+            </div>
+            <div>
+              <h4>🌐 Estado Global</h4>
+              <div style="background: #e74c3c; padding: 15px; border-radius: 8px; font-size: 0.8em;">
+                <p><strong>Analogia:</strong> Geladeira da cozinha</p>
+                <ul>
+                  <li>🏠 Toda a casa acessa</li>
+                  <li>👥 Compartilhado entre telas</li>
+                  <li>📊 Dados importantes do app</li>
+                  <li>💾 Persiste durante toda sessão</li>
+                </ul>
+                <p><strong>Exemplos:</strong> Dados do usuário, carrinho de compras, configurações, tema</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 9 - Props vs Navigation Params -->
+      <section>
+        
+        <section>
+            <h2>🎁 Passando Dados Entre Telas</h2>
+          <h3>📦 Analogia do Correio</h3>
+          <div style="background: #2c3e50; padding: 20px; border-radius: 10px;">
+            <h4>📮 Navigation Params = Envelope Postal</h4>
+            <p style="font-size: 0.9em;">Imagine que você precisa enviar algo para alguém:</p>
+            <ul style="font-size: 0.8em;">
+              <li>📦 <strong>Pacote:</strong> Os dados que você quer enviar</li>
+              <li>🏷️ <strong>Endereço:</strong> A tela de destino</li>
+              <li>📮 <strong>Correios:</strong> O React Navigation</li>
+              <li>📫 <strong>Caixa de Correio:</strong> Os params da tela</li>
+              <li>📨 <strong>Entrega:</strong> A tela recebe os dados</li>
+            </ul>
+          </div>
+          <div style="margin-top: 20px; background: #27ae60; padding: 15px; border-radius: 8px; font-size: 0.8em;">
+            <p><strong>💡 Vantagem:</strong> Assim como o correio, você pode enviar dados para telas que nem sabem quem está enviando!</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>🔄 Fluxo de Dados</h3>
+          <div style="font-size: 0.8em;">
+            <h4>📤 Enviando Dados:</h4>
+            <div style="background: #3498db; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <p><strong>Tela A → Tela B</strong></p>
+              <p>navigation.navigate('TelaB', { usuario: 'João', idade: 25 })</p>
+            </div>
+            
+            <h4>📥 Recebendo Dados:</h4>
+            <div style="background: #9b59b6; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <p><strong>Na Tela B</strong></p>
+              <p>const { usuario, idade } = route.params;</p>
+            </div>
+
+            <h4>🔄 Cenários Comuns:</h4>
+            <ul>
+              <li>🛒 <strong>Lista → Detalhes:</strong> ID do produto selecionado</li>
+              <li>👤 <strong>Login → Home:</strong> Dados do usuário autenticado</li>
+              <li>✏️ <strong>Formulário → Confirmação:</strong> Dados preenchidos</li>
+              <li>📱 <strong>Lista → Editar:</strong> Item a ser editado</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 10 - Performance e Otimização -->
+    
+   </div>
   </div>
+
+
   <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
   <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
-  <script>Reveal.initialize({controls:true,progress:true,center:true,hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
 </body>
+
 </html>
