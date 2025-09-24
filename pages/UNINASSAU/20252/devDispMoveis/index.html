@@ -191,6 +191,98 @@
             transform: scale(1.05);
         }
 
+        .alert-box {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            border: 2px solid #ff2f3f;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .alert-box h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert-box .alert-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .alert-item h4 {
+            color: #ffc107;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .alert-item .date {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .alert-item .description {
+            color: #f8f9fa;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .countdown {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -230,6 +322,45 @@
             </div>
         </header>
 
+        <!-- Quadro de Avisos Importantes -->
+        <div class="alert-box">
+            <h3>🚨 AVISOS IMPORTANTES</h3>
+            <div class="alert-content">
+                <div class="alert-item">
+                    <h4>📝 Prova 1ª Avaliação</h4>
+                    <div class="date">01/10/2025</div>
+                    <div class="description">
+                        Prova sobre conteúdos das aulas 1 a 5<br>
+                        <small>Dispositivos móveis, ambientes de desenvolvimento, React e React Native</small>
+                    </div>
+                    <div class="countdown">
+                        ⏰ Faltam <span id="countdown-prova"></span> dias
+                    </div>
+                </div>
+                
+                <div class="alert-item">
+                    <h4>🚀 Entrega do Projeto</h4>
+                    <div class="date">08/10/2025</div>
+                    <div class="description">
+                        Projeto final de aplicativo móvel<br>
+                        <small>Código fonte + vídeo demonstrativo + documentação</small>
+                    </div>
+                    <div class="countdown">
+                        ⏰ Faltam <span id="countdown-projeto"></span> dias
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3);">
+                <a href="/pages/UNINASSAU/20252/devDispMoveis/projeto_pagina.html" 
+                   style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; backdrop-filter: blur(10px);"
+                   onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='scale(1.05)'"
+                   onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='scale(1)'">
+                    📋 Ver Requisitos Completos do Projeto
+                </a>
+            </div>
+        </div>
+
         <main>
             <div class="course-grid">
                 <a href="/pages/UNINASSAU/20252/devDispMoveis/aula1/" class="course-card">
@@ -260,33 +391,14 @@
                     <p><strong>Foco:</strong> Como criar apps mobile com React Native, primeiros passos, comparação com desenvolvimento web, exemplos simples.</p>
                 </a>
 
-                <a href="#" class="course-card">
+                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula5/" class="course-card">
                     <span class="icon">🎨</span>
-                    <h3>Aula 5: Interface Gráfica e Layouts</h3>
-                    <p><strong>Conteúdo:</strong> Views, layouts e componentes</p>
+                    <h3>Aula 5: FlatList e Navegação</h3>
+                    <p><strong>Conteúdo:</strong> FlatList, ScrollView, navegação entre telas</p>
                     <p><strong>Foco:</strong> Design de interfaces mobile</p>
                 </a>
 
-                <a href="#" class="course-card">
-                    <span class="icon">🗄️</span>
-                    <h3>Aula 6: Banco de Dados Mobile</h3>
-                    <p><strong>Conteúdo:</strong> SQLite, AsyncStorage, Firebase</p>
-                    <p><strong>Foco:</strong> Persistência de dados</p>
-                </a>
-
-                <a href="#" class="course-card">
-                    <span class="icon">🔄</span>
-                    <h3>Aula 7: Aplicações Híbridas</h3>
-                    <p><strong>Conteúdo:</strong> React Native, Expo, Cordova</p>
-                    <p><strong>Foco:</strong> Desenvolvimento multiplataforma</p>
-                </a>
-
-                <a href="#" class="course-card">
-                    <span class="icon">🚀</span>
-                    <h3>Aula 8: Projeto Final</h3>
-                    <p><strong>Conteúdo:</strong> Desenvolvimento de app completo</p>
-                    <p><strong>Foco:</strong> Aplicação prática dos conceitos</p>
-                </a>
+                
             </div>
 
           
@@ -302,5 +414,51 @@
             </div>
         </main>
     </div>
+
+    <script>
+        // Função para calcular dias restantes
+        function calcularDiasRestantes(dataFinal) {
+            const hoje = new Date();
+            const dataFim = new Date(dataFinal);
+            const diferenca = dataFim - hoje;
+            const dias = Math.ceil(diferenca / (1000 * 60 * 60 * 24));
+            return dias > 0 ? dias : 0;
+        }
+
+        // Atualizar contadores
+        function atualizarContadores() {
+            const diasProva = calcularDiasRestantes('2025-10-01');
+            const diasProjeto = calcularDiasRestantes('2025-10-08');
+
+            const elementoProva = document.getElementById('countdown-prova');
+            const elementoProjeto = document.getElementById('countdown-projeto');
+
+            if (elementoProva) {
+                if (diasProva > 0) {
+                    elementoProva.textContent = diasProva;
+                } else {
+                    elementoProva.textContent = 'HOJE!';
+                    elementoProva.style.color = '#ffc107';
+                    elementoProva.style.fontWeight = 'bold';
+                }
+            }
+
+            if (elementoProjeto) {
+                if (diasProjeto > 0) {
+                    elementoProjeto.textContent = diasProjeto;
+                } else {
+                    elementoProjeto.textContent = 'HOJE!';
+                    elementoProjeto.style.color = '#ffc107';
+                    elementoProjeto.style.fontWeight = 'bold';
+                }
+            }
+        }
+
+        // Executar quando a página carregar
+        document.addEventListener('DOMContentLoaded', atualizarContadores);
+
+        // Atualizar a cada hora
+        setInterval(atualizarContadores, 3600000);
+    </script>
 </body>
 </html>
