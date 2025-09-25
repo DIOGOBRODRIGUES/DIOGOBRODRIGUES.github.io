@@ -17,6 +17,47 @@
     <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
     <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
     <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+    <style>
+        .analogy-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 2px solid #8be9fd;
+        }
+        
+        .concept-highlight {
+            background: rgba(80, 250, 123, 0.2);
+            border-left: 4px solid #50fa7b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .simple-code {
+            background: #282a36;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            border-left: 4px solid #ff79c6;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,141 +68,99 @@
             <!-- Slide 1: Título -->
             <section>
                 <p>🏛️ Centro Universitário Maurício de Nassau</p>
-                <h3>Aula 4: Estado e Eventos em React</h3>
+                <h2>Aula 4: Estado e Eventos em React</h2>
+                <h3>🔄 "Dando vida aos seus componentes"</h3>
                 <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-                <div style="margin-top: 30px;">
-                    <p>🔄 <em>"Dando vida aos seus componentes"</em></p>
-                </div>
-                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
-                        class="fab fa-linkedin"></i> </a>
-                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
-            </section>
-
-            <!-- Slide 2: Recapitulação -->
-            <section>
-                <h2>🔄 Recapitulando: Nossa Jornada</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <h4>✅ O que Já Sabemos</h4>
-                        <ul>
-                            <li>🏗️ Conceitos de frameworks</li>
-                            <li>⚛️ Configuração do React</li>
-                            <li>🧩 Sintaxe JSX</li>
-                            <li>📦 Componentes básicos</li>
-                            <li>🎨 Estilização com CSS-in-JS</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>🎯 Hoje Vamos Aprender</h4>
-                        <ul>
-                            <li>🔄 Estado (State) dos componentes</li>
-                            <li>🖱️ Eventos em React</li>
-                            <li>🔗 Interação usuário-componente</li>
-                            <li>🎮 Componentes interativos</li>
-                            <li>📝 Formulários controlados</li>
-                        </ul>
-                    </div>
-                </div>
-              
-            </section>
-
-            <!-- Slide 3: Analogia do Estado -->
-            <section>
-                <h3>💡 Analogia: Estado como Memória</h3>
-                <div style="display: flex; justify-content: space-around; align-items: center;">
-                    <div style="text-align: center;">
-                        <h4>🧠 Mente Humana</h4>
-                        <p>Lembra de informações:</p>
-                        <div style="background: #2d2d2d; padding: 15px; border-radius: 5px; font-size: 0.8em;">
-                            <p>• Nome: João</p>
-                            <p>• Humor: Feliz</p>
-                            <p>• Fome: Com fome</p>
-                        </div>
-                        <p><em>Memória muda com experiências!</em></p>
-                    </div>
-                    <div style="text-align: center;">
-                        <h4>💻 Componente React</h4>
-                        <p>Lembra de dados (estado):</p>
-                        <div style="background: #2d2d2d; padding: 15px; border-radius: 5px; font-size: 0.8em;">
-                            <p>• contador: 5</p>
-                            <p>• usuario: "Maria"</p>
-                            <p>• visivel: true</p>
-                        </div>
-                        <p><em>Estado muda com interações!</em></p>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- Slide 4: O que é Estado -->
-            <section>
-                <section>
-                <h3>🔄 O que é Estado (State)?</h3>
-                <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left;">
-                    <h4>🎯 Definição:</h4>
-                    <p>Estado é dados que um componente "lembra" e que podem mudar ao longo do tempo</p>
-                    
-                    <h4>📝 Exemplos de Estado:</h4>
-                    <ul>
-                        <li>🔢 Contador de cliques</li>
-                        <li>📝 Texto digitado em um input</li>
-                        <li>👁️ Mostrar/ocultar um elemento</li>
-                        <li>🎨 Tema claro/escuro</li>
-                        <li>📋 Lista de tarefas</li>
-                        <li>👤 Dados do usuário logado</li>
-                    </ul>
-                    </div>
-                    </section>
-
-            <section>
-                    <h4>⚡ Características:</h4>
-                    <ul>
-                        <li>✅ Dados privados do componente</li>
-                        <li>✅ Quando muda, o componente re-renderiza</li>
-                        <li>✅ Inicializado uma vez quando componente nasce</li>
-                    </ul>
                 
-                </section>    
+                <div style="margin-top: 2rem;">
+                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
             </section>
 
-            <!-- Slide 5: Componente Sem Estado vs Com Estado -->
+           
+
+            <!-- Slide 3: Analogia Principal - Casa Inteligente -->
+            
+
+            <!-- Slide 4: O que é Estado? -->
             <section>
-                <h3>⚖️ Componente Sem Estado vs Com Estado</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <h4>😴 Sem Estado (Estático)</h4>
-                        <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
-                            <pre><code>function Titulo() {
-  return (
-    &lt;h1&gt;
-      Bem-vindo ao Site!
-    &lt;/h1&gt;
-  );
-}
+                <h2>🔄 Conceito: O que é Estado?</h2>
 
-// Sempre mostra a mesma coisa
-// Não muda nunca
-// Como uma foto</code></pre>
-                        </div>
+                <div class="concept-highlight" style="font-size: 0.8em;">
+                    <h3>📚 Definição</h3>
+                    <p><strong>Estado</strong> é a "memória" de um componente - dados que ele guarda e que podem mudar durante sua vida útil.</p>
+                </div>
+
+                <div class="comparison-grid"style="font-size: 0.7em;">
+                    <div class="comparison-item">
+                        <h4>🤖 No Mundo Real</h4>
+                        <ul>
+                            <li>🧠 Sua memória (nome, idade, humor)</li>
+                            <li>📱 Bateria do celular (0% a 100%)</li>
+                            <li>🚦 Semáforo (vermelho, amarelo, verde)</li>
+                            <li>💧 Copo d'água (vazio, meio, cheio)</li>
+                        </ul>
                     </div>
-                    <div>
-                        <h4>🔄 Com Estado (Dinâmico)</h4>
-                        <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
-                            <pre><code>function Contador() {
-  const [numero, setNumero] = useState(0);
-  
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Cliques: {numero}&lt;/p&gt;
-      &lt;button onClick={() => setNumero(numero + 1)}&gt;
-        Clique aqui!
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
+                    
+                    <div class="comparison-item">
+                        <h4>💻 No React</h4>
+                        <ul>
+                            <li>🔢 Contador de likes</li>
+                            <li>📝 Texto digitado</li>
+                            <li>👁️ Modal aberto/fechado</li>
+                            <li>🎨 Tema claro/escuro</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-// Muda quando usuário interage
-// Como um filme</code></pre>
+            <!-- Slide 5: Componentes Estáticos vs Dinâmicos -->
+            <section>
+                <h2>⚖️ Estático vs Dinâmico</h2>
+
+                <div class="analogy-box" style="font-size: 0.8em;">
+                    <h3>🖼️ Analogia: Foto vs Filme</h3>
+                    
+                    <div class="comparison-grid">
+                        <div>
+                            <h4>📸 Componente Estático = Foto</h4>
+                            <ul>
+                                <li>🎯 Sempre igual</li>
+                                <li>📊 Dados fixos</li>
+                                <li>🚫 Não reage a interações</li>
+                                <li>🏷️ Exemplo: Logo, título</li>
+                            </ul>
+                            
+                            <div class="simple-code">
+                                function Logo() {<br>
+                                &nbsp;&nbsp;return &lt;h1&gt;Minha Empresa&lt;/h1&gt;;<br>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>🎬 Componente Dinâmico = Filme</h4>
+                            <ul>
+                                <li>🔄 Muda com o tempo</li>
+                                <li>⚡ Reage a eventos</li>
+                                <li>🎮 Interativo</li>
+                                <li>🏷️ Exemplo: Contador, formulário</li>
+                            </ul>
+                            
+                            <div class="simple-code">
+                                function Contador() {<br>
+                                &nbsp;&nbsp;const [numero, setNumero] = useState(0);<br>
+                                &nbsp;&nbsp;return &lt;button&gt;{numero}&lt;/button&gt;;<br>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,325 +168,400 @@
 
             <!-- Slide 6: Hook useState -->
             <section>
-                <h3>🪝 Hook useState - Sua Nova Ferramenta</h3>
-                <div style="background: #1e1e1e; padding: 20px; border-radius: 10px;">
-                    <h4>📋 Sintaxe:</h4>
-                    <div style="background: #2d2d2d; padding: 15px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.8em;">
-                        <pre><code>import React, { useState } from 'react';
+                <h2>🪝 Hook useState - Sua Ferramenta Mágica</h2>
+                
+                <div class="concept-highlight">
+                    <h3>🎭 Analogia: Controle Remoto</h3>
+                    <p>O <code>useState</code> é como um controle remoto para seus dados!</p>
+                </div>
 
-function MeuComponente() {
-  const [estado, setEstado] = useState(valorInicial);
-  
-  // estado = valor atual
-  // setEstado = função para mudar o valor
-  // valorInicial = valor quando componente nasce
-}</code></pre>
+                <div class="comparison-grid" style="font-size: 0.8em;" >
+                    <div>
+                        <h4>📺 Controle Remoto</h4>
+                        <ul>
+                            <li>📟 <strong>Display:</strong> Mostra canal atual</li>
+                            <li>🔼 <strong>Botão ↑:</strong> Muda para próximo canal</li>
+                            <li>🔽 <strong>Botão ↓:</strong> Volta canal anterior</li>
+                        </ul>
                     </div>
                     
-                    <h4>🔍 Decompondo:</h4>
-                    <ul style="font-size: 0.9em;">
-                        <li><code>useState</code> = Hook que cria estado</li>
-                        <li><code>[estado, setEstado]</code> = Destructuring Array</li>
-                        <li><code>estado</code> = Variável com valor atual</li>
-                        <li><code>setEstado</code> = Função para atualizar</li>
-                        <li><code>valorInicial</code> = Valor inicial do estado</li>
-                    </ul>
+                    <div>
+                        <h4>⚛️ useState Hook</h4>
+                        <ul>
+                            <li>📟 <strong>Estado:</strong> Guarda valor atual</li>
+                            <li>🔼 <strong>Setter:</strong> Função para alterar</li>
+                            <li>🎯 <strong>Inicial:</strong> Valor quando "liga"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="simple-code">
+                    <strong>Sintaxe:</strong><br>
+                    const [valor, setValor] = useState(valorInicial);
                 </div>
             </section>
 
-            <!-- Slide 7: Primeiro Exemplo Prático -->
+            <!-- Slide 7: Anatomia do useState -->
             <section>
-                <h3>💫 Primeiro Exemplo: Contador Simples</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
-                    <pre><code>import React, { useState } from 'react';
-
-function Contador() {
-  // Criando estado que começa com 0
-  const [contador, setContador] = useState(0);
-
-  // Função para aumentar
-  const aumentar = () => {
-    setContador(contador + 1);
-  };
-
-  // Função para diminuir
-  const diminuir = () => {
-    setContador(contador - 1);
-  };
-
-  return (
-    &lt;div style={{ textAlign: 'center', margin: '20px' }}&gt;
-      &lt;h2&gt;Contador: {contador}&lt;/h2&gt;
-      &lt;button onClick={diminuir}&gt; - &lt;/button&gt;
-      &lt;button onClick={aumentar}&gt; + &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default Contador;</code></pre>
+                <h2>🔬 Anatomia do useState</h2>
+                
+                <div style="font-size: 1.5em; text-align: center; margin: 2rem 0;">
+                    <code>const [contador, setContador] = useState(0);</code>
                 </div>
-                <div style="background: #4caf50; color: white; padding: 10px; border-radius: 10px; margin: 10px 0;">
-                    <p><b>🎯 Resultado: Botões funcionais que atualizam o número na tela!</b></p>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div class="comparison-item">
+                        <h4>📊 contador</h4>
+                        <p><strong>Variável</strong> que guarda o valor atual</p>
+                        <p>🎯 Só leitura!</p>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>🔧 setContador</h4>
+                        <p><strong>Função</strong> para alterar o valor</p>
+                        <p>⚡ Causa re-render!</p>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>🌱 useState(0)</h4>
+                        <p><strong>Hook</strong> que cria o estado</p>
+                        <p>🎬 Valor inicial: 0</p>
+                    </div>
+                </div>
+
+                <div class="concept-highlight">
+                    <p><strong>⚠️ Regra de Ouro:</strong> Nunca altere o estado diretamente! Sempre use a função setter.</p>
                 </div>
             </section>
 
-            <!-- Slide 8: Diferentes Tipos de Estado -->
+            <!-- Slide 8: Ciclo de Vida do Estado -->
             <section>
-                <h3>🎭 Diferentes Tipos de Estado</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.65em;">
-                    <pre><code>function ExemplosEstado() {
-  // 🔢 Número
-  const [idade, setIdade] = useState(25);
-  
-  // 📝 Texto
-  const [nome, setNome] = useState('João');
-  
-  // ✅ Booleano (true/false)
-  const [visivel, setVisivel] = useState(true);
-  
-  // 📋 Array
-  const [tarefas, setTarefas] = useState(['Estudar', 'Programar']);
-  
-  // 🏗️ Objeto
-  const [usuario, setUsuario] = useState({
-    nome: 'Maria',
-    email: 'maria@email.com',
-    idade: 30
-  });
+                <h2>🔄 Ciclo de Vida do Estado</h2>
+                
+                <div class="analogy-box">
+                   
+                    
+                    <div style="display: flex; justify-content: space-around; align-items: center;
+                        font-size: 0.8em;">
 
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Idade: {idade}&lt;/p&gt;
-      &lt;p&gt;Nome: {nome}&lt;/p&gt;
-      &lt;p&gt;Visível: {visivel ? 'Sim' : 'Não'}&lt;/p&gt;
-      &lt;p&gt;Tarefas: {tarefas.length} itens&lt;/p&gt;
-      &lt;p&gt;Usuário: {usuario.nome}&lt;/p&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
+                        <div style="text-align: center;">
+                            <h4>🌰 1. Nascimento</h4>
+                            <p>useState(valorInicial)</p>
+                            <p><em>Planta a semente</em></p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <h4>🌿 2. Crescimento</h4>
+                            <p>setEstado(novoValor)</p>
+                            <p><em>Árvore cresce</em></p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <h4>🍃 3. Re-render</h4>
+                            <p>Componente atualiza</p>
+                            <p><em>Folhas mudam</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-highlight">
+                    <h4>📝 Processo:</h4>
+                    <ol>
+                        <li>🎬 <strong>Inicialização:</strong> Estado nasce com valor inicial</li>
+                        <li>🖱️ <strong>Evento:</strong> Usuário interage (clique, digitação)</li>
+                        <li>🔧 <strong>Atualização:</strong> Função setter é chamada</li>
+                        <li>🎨 <strong>Re-render:</strong> React atualiza a tela</li>
+                        <li>🔄 <strong>Ciclo:</strong> Processo se repete</li>
+                    </ol>
                 </div>
             </section>
 
             <!-- Slide 9: Eventos em React -->
             <section>
-                <h3>🖱️ Eventos em React</h3>
-                <div style="background: #1e1e1e; padding: 20px; border-radius: 10px;">
-                    <h4>🎯 O que são Eventos?</h4>
-                    <p>Ações que o usuário faz na interface que nosso código pode "escutar"</p>
+                <h2>🖱️ Eventos: Escutando o Usuário</h2>
+                
+                <div class="analogy-box">
                     
-                    <h4>📝 Eventos Mais Comuns:</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.8em;">
+                    <p>Eventos são como um garçom que está sempre atento aos pedidos dos clientes!</p>
+                    
+                    <div class="comparison-grid">
                         <div>
+                            <h4>🍽️ Restaurante</h4>
                             <ul>
-                                <li><code>onClick</code> - Clique do mouse</li>
-                                <li><code>onChange</code> - Mudança em input</li>
-                                <li><code>onSubmit</code> - Envio de formulário</li>
-                                <li><code>onFocus</code> - Foco no elemento</li>
+                                <li>👂 Garçom escuta pedidos</li>
+                                <li>📝 Anota o que cliente quer</li>
+                                <li>🏃 Vai até a cozinha</li>
+                                <li>🍕 Traz a comida</li>
                             </ul>
                         </div>
+                        
                         <div>
+                            <h4>💻 React</h4>
                             <ul>
-                                <li><code>onBlur</code> - Perda de foco</li>
-                                <li><code>onMouseOver</code> - Mouse em cima</li>
-                                <li><code>onKeyDown</code> - Tecla pressionada</li>
-                                <li><code>onDoubleClick</code> - Duplo clique</li>
+                                <li>👂 Event listener escuta</li>
+                                <li>📝 Recebe evento (clique, digitação)</li>
+                                <li>🏃 Executa função handler</li>
+                                <li>🎨 Atualiza interface</li>
                             </ul>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Tipos de Eventos -->
+            <section>
+                <h2>🎭 Principais Tipos de Eventos</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.8em;">
+                    <div class="comparison-item">
+                        <h4>🖱️ Mouse</h4>
+                        <ul>
+                            <li><code>onClick</code> - Clique</li>
+                            <li><code>onMouseOver</code> - Mouse em cima</li>
+                            <li><code>onMouseOut</code> - Mouse saiu</li>
+                        </ul>
+                    </div>
                     
-                    <h4>⚡ Diferença do HTML:</h4>
-                    <ul style="font-size: 0.8em;">
-                        <li>HTML: <code>onclick="minhaFuncao()"</code></li>
-                        <li>React: <code>onClick={minhaFuncao}</code></li>
-                    </ul>
+                    <div class="comparison-item">
+                        <h4>⌨️ Teclado</h4>
+                        <ul>
+                            <li><code>onChange</code> - Texto mudou</li>
+                            <li><code>onKeyPress</code> - Tecla pressionada</li>
+                            <li><code>onFocus</code> - Campo selecionado</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>📝 Formulário</h4>
+                        <ul>
+                            <li><code>onSubmit</code> - Envio do form</li>
+                            <li><code>onInput</code> - Digitação</li>
+                            <li><code>onBlur</code> - Perdeu foco</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>📱 Touch (Mobile)</h4>
+                        <ul>
+                            <li><code>onTouchStart</code> - Toque iniciou</li>
+                            <li><code>onTouchMove</code> - Deslizou</li>
+                            <li><code>onTouchEnd</code> - Soltou</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <!-- Slide 10: Exemplo de Eventos -->
+            <!-- Slide 11: Exemplo Conceitual -->
             <section>
-                <h3>🎮 Exemplo: Botão Interativo</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
-                    <pre><code>function BotaoInterativo() {
-  const [clicado, setClicado] = useState(false);
-  const [contador, setContador] = useState(0);
-
-  const handleClick = () => {
-    setClicado(true);
-    setContador(contador + 1);
-    console.log('Botão foi clicado!');
-  };
-
-  const handleMouseOver = () => {
-    console.log('Mouse passou por cima!');
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;button 
-        onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        style={{
-          backgroundColor: clicado ? 'green' : 'blue',
-          color: 'white',
-          padding: '10px 20px',
-          border: 'none',
-          borderRadius: '5px'
-        }}
-      &gt;
-        Clicado {contador} vezes
-      &lt;/button&gt;
-      
-      {clicado && &lt;p&gt;Obrigado por clicar! 🎉&lt;/p&gt;}
-    &lt;/div&gt;
-  );
-}</code></pre>
+                <h2>💡 Exemplo: Contador de Likes</h2>
+                
+                <div class="concept-highlight">
+                    
+                    <p>Quando você curte uma foto no Instagram, o que acontece?</p>
                 </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                    <div>
+                        <h4>🎯 Fluxo Instagram</h4>
+                        <ol>
+                            <li>❤️ Você clica no coração</li>
+                            <li>📊 Contador aumenta +1</li>
+                            <li>🎨 Tela atualiza</li>
+                            <li>💾 Salva no servidor</li>
+                        </ol>
+                    </div>
+                    
+                    <div>
+                        <h4>⚛️ Fluxo React</h4>
+                        <pre><code data-trim data-noescape>
+                        function PostLike() {
+                            const [likes, setLikes] = useState(0);
+
+                            function curtir() {
+                                setLikes(likes + 1);
+                            }
+
+                            return (
+                                &lt;button onClick={curtir}&gt;
+                                    ❤️ {likes} likes
+                                &lt;/button&gt;
+                            );
+                        }
+                        </code></pre>
+                        </div>
+                    </div>
+                
             </section>
 
-            <!-- Slide 11: Input Controlado -->
+            <!-- Slide 12: Estados Múltiplos -->
             <section>
-                <h3>📝 Input Controlado - Formulários em React</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.7em;">
-                    <pre><code>function FormularioSimples() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-
-  const handleNomeChange = (event) => {
-    setNome(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Impede reload da página
-    alert(`Nome: ${nome}, Email: ${email}`);
-  };
-
-  return (
-    &lt;form onSubmit={handleSubmit}&gt;
-      &lt;div&gt;
-        &lt;label&gt;Nome:&lt;/label&gt;
-        &lt;input 
-          type="text" 
-          value={nome}
-          onChange={handleNomeChange}
-          placeholder="Digite seu nome"
-        /&gt;
-      &lt;/div&gt;
-      
-      &lt;div&gt;
-        &lt;label&gt;Email:&lt;/label&gt;
-        &lt;input 
-          type="email" 
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Digite seu email"
-        /&gt;
-      &lt;/div&gt;
-      
-      &lt;button type="submit"&gt;Enviar&lt;/button&gt;
-      
-      &lt;div&gt;
-        &lt;h3&gt;Preview:&lt;/h3&gt;
-        &lt;p&gt;Nome: {nome}&lt;/p&gt;
-        &lt;p&gt;Email: {email}&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/form&gt;
-  );
-}</code></pre>
+                <h2>🎪 Gerenciando Múltiplos Estados</h2>
+                
+                <div class="analogy-box">
+                    
+                    <p>Como um DJ controla volume, graves, agudos... você pode ter vários estados!</p>
                 </div>
+
+                <div class="simple-code">
+                    function FormularioUsuario() {<br>
+                    &nbsp;&nbsp;const [nome, setNome] = useState('');<br>
+                    &nbsp;&nbsp;const [email, setEmail] = useState('');<br>
+                    &nbsp;&nbsp;const [idade, setIdade] = useState(18);<br>
+                    &nbsp;&nbsp;const [ativo, setAtivo] = useState(false);<br><br>
+                    
+                    &nbsp;&nbsp;// Cada estado é independente!<br>
+                    }
+                </div>
+
+                
             </section>
 
-            <!-- Slide 12: Toggle de Visibilidade -->
+            <!-- Slide 13: Boas Práticas -->
             <section>
-                <h3>👁️ Exemplo: Toggle de Visibilidade</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.75em;">
-                    <pre><code>function ToggleVisibilidade() {
-  const [mostrar, setMostrar] = useState(false);
-
-  const alternarVisibilidade = () => {
-    setMostrar(!mostrar); // Inverte o valor (true vira false, false vira true)
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;button onClick={alternarVisibilidade}&gt;
-        {mostrar ? 'Ocultar' : 'Mostrar'} Conteúdo
-      &lt;/button&gt;
-      
-      {mostrar && (
-        &lt;div style={{
-          backgroundColor: '#f0f0f0',
-          padding: '20px',
-          margin: '10px 0',
-          borderRadius: '5px',
-          color: 'black'
-        }}&gt;
-          &lt;h3&gt;Conteúdo Secreto! 🎭&lt;/h3&gt;
-          &lt;p&gt;Este conteúdo só aparece quando você clica no botão!&lt;/p&gt;
-          &lt;p&gt;Estado atual: {mostrar ? 'Visível' : 'Oculto'}&lt;/p&gt;
-        &lt;/div&gt;
-      )}
-    &lt;/div&gt;
-  );
-}</code></pre>
+                <h2>✅ Boas Práticas com Estado</h2>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-item" style="border-left: 4px solid #50fa7b;">
+                        <h4>✅ Faça</h4>
+                        <ul>
+                            <li>🎯 Use nomes descritivos</li>
+                            <li>🧪 Inicie com valor lógico</li>
+                            <li>🔧 Sempre use a função setter</li>
+                            <li>📦 Mantenha estados simples</li>
+                            <li>🎪 Um useState por dados</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-item" style="border-left: 4px solid #ff5555;">
+                        <h4>❌ Evite</h4>
+                        <ul>
+                            <li>🚫 Alterar estado diretamente</li>
+                            <li>🌀 Estados muito complexos</li>                        
+                            <li>💾 Dados que não mudam</li>
+                            <li>⚡ Setters em render</li>
+                        </ul>
+                    </div>
                 </div>
-                <div style="background: #2196f3; color: white; padding: 10px; border-radius: 10px; margin: 10px 0;">
-                    <p><b>💡 Operador && = "Se for verdadeiro, então renderize"</b></p>
+
+                <div class="concept-highlight">
+                    <h4>🧠 Lembre-se:</h4>
+                    <p><em>"Se não muda, não é estado. Se muda, provavelmente é!"</em></p>
                 </div>
             </section>
 
-            <!-- Slide 13: Lista de Tarefas Básica -->
+            <!-- Slide 14: Exercício Mental -->
             <section>
-                <h3>📋 Exemplo: Lista de Tarefas</h3>
-                <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; font-family: monospace; text-align: left; font-size: 0.65em;">
-                    <pre><code>function ListaTarefas() {
-  const [tarefas, setTarefas] = useState(['Estudar React', 'Fazer exercícios']);
-  const [novaTarefa, setNovaTarefa] = useState('');
-
-  const adicionarTarefa = () => {
-    if (novaTarefa.trim() !== '') {
-      setTarefas([...tarefas, novaTarefa]); // Spread operator
-      setNovaTarefa(''); // Limpa o input
-    }
-  };
-
-  const removerTarefa = (index) => {
-    const novaLista = tarefas.filter((_, i) => i !== index);
-    setTarefas(novaLista);
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;h2&gt;Minhas Tarefas ({tarefas.length})&lt;/h2&gt;
-      
-      &lt;div&gt;
-        &lt;input 
-          type="text"
-          value={novaTarefa}
-          onChange={(e) => setNovaTarefa(e.target.value)}
-          placeholder="Digite uma nova tarefa"
-        /&gt;
-        &lt;button onClick={adicionarTarefa}&gt;Adicionar&lt;/button&gt;
-      &lt;/div&gt;
-      
-      &lt;ul&gt;
-        {tarefas.map((tarefa, index) => (
-          &lt;li key={index}&gt;
-            {tarefa}
-            &lt;button onClick={() => removerTarefa(index)}&gt;
-              ❌
-            &lt;/button&gt;
-          &lt;/li&gt;
-        ))}
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
+                <h2>🧩 Exercício Mental</h2>
+                
+                <div class="analogy-box">
+                    <h3>🤔 Pense: Quais precisam de estado?</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+                    font-size: 0.8em;">
+                        <div>
+                            <h4>🎯 Cenários:</h4>
+                            <ul>
+                                <li>📝 Campo de busca</li>
+                                <li>🏷️ Nome da empresa (logo)</li>
+                                <li>🔘 Botão de menu (aberto/fechado)</li>
+                                <li>📅 Data de hoje</li>
+                                <li>🌙 Modo escuro/claro</li>
+                                <li>📊 Gráfico de vendas</li>
+                                <li>🔢 Contador de visitas</li>
+                                <li>📞 Número de telefone fixo</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4>💭 Respostas:</h4>
+                            <ul>
+                                <li>📝 ✅ SIM - texto muda</li>
+                                <li>🏷️ ❌ NÃO - sempre igual</li>
+                                <li>🔘 ✅ SIM - aberto/fechado</li>
+                                <li>📅 ❌ NÃO - calculado</li>
+                                <li>🌙 ✅ SIM - usuário alterna</li>
+                                <li>📊 ✅ SIM - dados mudam</li>
+                                <li>🔢 ✅ SIM - incrementa</li>
+                                <li>📞 ❌ NÃO - fixo</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Slide 15: Próximos Passos -->
+            <section>
+                <h2>🚀 Próximos Passos</h2>
+                
+                <div class="concept-highlight">
+                    <h3>🎯 Para Praticar:</h3>
+                    <ol>
+                        <li>🔢 Crie um contador simples</li>
+                        <li>💡 Faça um botão liga/desliga</li>
+                        <li>📝 Desenvolva um campo de texto</li>
+                        <li>🎨 Implemente mudança de tema</li>
+                        <li>📋 Monte uma lista de tarefas</li>
+                    </ol>
+                </div>
+
+                <div class="analogy-box">
+                    <h3>🧠 Próxima Aula:</h3>
+                    <p><strong>Formulários e Validação</strong></p>
+                    <p>Aprenderemos a criar formulários complexos e validar dados!</p>
+                </div>
+            </section>
+
+            <!-- Slide 16: Resumo -->
+            <section>
+                <h2>📚 Resumo da Aula</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div class="comparison-item">
+                        <h4>🧠 Conceitos Aprendidos</h4>
+                        <ul>
+                            <li>🔄 Estado = memória do componente</li>
+                            <li>🪝 useState = hook para criar estado</li>
+                            <li>🖱️ Eventos = interação do usuário</li>
+                            <li>⚡ Re-render = atualização automática</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>🛠️ Ferramentas Dominadas</h4>
+                        <ul>
+                            <li>📊 <code>const [estado, setEstado] = useState()</code></li>
+                            <li>🖱️ <code>onClick, onChange</code></li>
+                            <li>🎯 Funções de evento</li>
+                            <li>🔄 Atualização de estado</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <h3>🎉 Parabéns!</h3>
+                    <p>Você agora sabe criar componentes que reagem e interagem!</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            backgroundTransition: 'fade',
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+
+</body>
+</html>
 
             <!-- Slide 14: Boas Práticas -->
             <section>

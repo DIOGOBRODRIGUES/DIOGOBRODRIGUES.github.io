@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Props e Comunicação Entre Componentes</title>
+
+    <meta name="description" content="Aula 5: Props e Comunicação Entre Componentes | React.js">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+    <style>
+        .analogy-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 2px solid #8be9fd;
+        }
+        
+        .concept-highlight {
+            background: rgba(139, 233, 253, 0.1);
+            border-left: 4px solid #8be9fd;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .code-demo {
+            background: #282a36;
+            border: 2px solid #6272a4;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide de Abertura -->
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 5: Props - Comunicação Entre Componentes</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <!-- O que são Props? -->
+            <section>
+                <h2>🎁 O que são Props?</h2>
+                <div class="analogy-box">
+                    <h3>🏠 Analogia: Casa com Quartos</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="text-align: center;">
+                            <h4>🏠 Componente Pai</h4>
+                            <p>É como a <b>casa principal</b></p>
+                            <p>Tem as informações e decide<br/>o que compartilhar</p>
+                        </div>
+                        <div style="font-size: 3em; color: #8be9fd;">➡️</div>
+                        <div style="text-align: center;">
+                            <h4>� Componente Filho</h4>
+                            <p>É como um <b>quarto da casa</b></p>
+                            <p>Recebe móveis e decoração<br/>mas não pode alterá-los</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Props em Ação -->
+            <section>
+                <h2>🛠️ Props na Prática</h2>
+                <section>
+                    <h3>📱 Demonstração: Cartão de Contato</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+// 🏠 Componente Pai (App.js)
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Meus Contatos&lt;/h1&gt;
+      &lt;ContactCard 
+        name="Maria Silva"
+        phone="(11) 99999-9999"
+        email="maria@email.com"
+        avatar="👩‍💼"
+      /&gt;
+      &lt;ContactCard 
+        name="João Santos"
+        phone="(11) 88888-8888"
+        email="joao@email.com"
+        avatar="👨‍💻"
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🚪 Componente Filho Recebendo Props</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+// 🚪 Componente Filho (ContactCard.js)
+function ContactCard(props) {
+  return (
+    &lt;div className="contact-card"&gt;
+      &lt;div className="avatar"&gt;{props.avatar}&lt;/div&gt;
+      &lt;h3&gt;{props.name}&lt;/h3&gt;
+      &lt;p&gt;📞 {props.phone}&lt;/p&gt;
+      &lt;p&gt;📧 {props.email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ✨ Versão mais elegante (Destructuring)
+function ContactCard({ name, phone, email, avatar }) {
+  return (
+    &lt;div className="contact-card"&gt;
+      &lt;div className="avatar"&gt;{avatar}&lt;/div&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;📞 {phone}&lt;/p&gt;
+      &lt;p&gt;📧 {email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Tipos de Props -->
+            <section>
+                <h2>� Tipos de Props</h2>
+                <div class="concept-highlight">
+                    <h3>� Props podem ser qualquer coisa:</h3>
+                    <ul>
+                        <li><b>🔤 Texto:</b> nome, descrição</li>
+                        <li><b>🔢 Números:</b> idade, preço, quantidade</li>
+                        <li><b>✅ Boolean:</b> ativo/inativo, visível/oculto</li>
+                        <li><b>📋 Arrays:</b> lista de itens</li>
+                        <li><b>🎛️ Funções:</b> ações para botões</li>
+                    </ul>
+                </div>
+                
+                <div class="code-demo">
+                    <pre><code data-trim data-noescape class="javascript">
+function ProductCard({ 
+  name,          // 🔤 String
+  price,         // 🔢 Number  
+  inStock,       // ✅ Boolean
+  tags,          // 📋 Array
+  onBuy          // 🎛️ Function
+}) {
+  return (
+    &lt;div className="product"&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;R$ {price}&lt;/p&gt;
+      
+      {inStock ? (
+        &lt;span className="available"&gt;✅ Disponível&lt;/span&gt;
+      ) : (
+        &lt;span className="unavailable"&gt;❌ Esgotado&lt;/span&gt;
+      )}
+      
+      &lt;div&gt;
+        {tags.map(tag =&gt; (
+          &lt;span key={tag} className="tag"&gt;{tag}&lt;/span&gt;
+        ))}
+      &lt;/div&gt;
+      
+      &lt;button onClick={onBuy}&gt;Comprar&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Comunicação Pai → Filho -->
+            <section>
+                <h2>📡 Comunicação: Pai → Filho</h2>
+                <section>
+                    <div class="analogy-box">
+                        <h3>📺 Analogia: Controle Remoto</h3>
+                        <div style="display: flex; justify-content: space-around; align-items: center; margin: 2rem 0;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 4em;">📺</div>
+                                <p><b>TV (Pai)</b></p>
+                                <p>Tem o conteúdo<br/>e configurações</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 3em; color: #8be9fd;">📡</div>
+                                <p><b>Sinal</b></p>
+                                <p>Props enviadas</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 4em;">🖥️</div>
+                                <p><b>Tela (Filho)</b></p>
+                                <p>Mostra o que<br/>recebeu</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>💻 Demonstração: Lista de Tarefas</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+// 📺 Componente Pai
+function TodoApp() {
+  const tasks = [
+    { id: 1, text: "Estudar React", done: false },
+    { id: 2, text: "Fazer exercícios", done: true },
+    { id: 3, text: "Revisar Props", done: false }
+  ];
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;📝 Minhas Tarefas&lt;/h1&gt;
+      {tasks.map(task =&gt; (
+        &lt;TaskItem 
+          key={task.id}
+          text={task.text}
+          done={task.done}
+        /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+
+// 🖥️ Componente Filho
+function TaskItem({ text, done }) {
+  return (
+    &lt;div className={`task ${done ? 'completed' : ''}`}&gt;
+      &lt;span&gt;{done ? '✅' : '⏳'}&lt;/span&gt;
+      &lt;span&gt;{text}&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Comunicação com Funções -->
+            <section>
+                <h2>🔄 Comunicação: Filho → Pai</h2>
+                <section>
+                    <div class="analogy-box">
+                        <h3>🔔 Analogia: Campainha da Casa</h3>
+                        <div style="display: flex; justify-content: space-around; align-items: center; margin: 2rem 0;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 4em;">🚪</div>
+                                <p><b>Visitante (Filho)</b></p>
+                                <p>Quer comunicar algo</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 3em; color: #f1fa8c;">🔔</div>
+                                <p><b>Campainha</b></p>
+                                <p>Função passada via props</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 4em;">🏠</div>
+                                <p><b>Dono da Casa (Pai)</b></p>
+                                <p>Escuta e reage</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🎯 Demonstração: Botão Interativo</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+// 🏠 Componente Pai
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  // 🔔 Função que o filho pode "tocar"
+  const handleIncrement = () =&gt; {
+    setCount(count + 1);
+    alert(`Contou ${count + 1} vezes!`);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Contador: {count}&lt;/h2&gt;
+      &lt;CounterButton 
+        onPress={handleIncrement}
+        label="Clique aqui!"
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// 🚪 Componente Filho
+function CounterButton({ onPress, label }) {
+  return (
+    &lt;button 
+      onClick={onPress}  // 🔔 "Toca a campainha"
+      className="big-button"
+    &gt;
+      {label}
+    &lt;/button&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Exemplo Prático Completo -->
+            <section>
+                <h2>🎮 Exemplo Completo: Mini Loja</h2>
+                <section>
+                    <h3>🛍️ Vamos criar uma loja simples!</h3>
+                    <div class="concept-highlight">
+                        <p><b>O que vamos fazer:</b></p>
+                        <ul>
+                            <li>💰 Mostrar produtos com preços</li>
+                            <li>🛒 Adicionar itens ao carrinho</li>
+                            <li>🧮 Calcular total automático</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🏪 Componente da Loja (Pai)</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+function Shop() {
+  const [cart, setCart] = useState([]);
+  
+  const products = [
+    { id: 1, name: "🍕 Pizza", price: 25.90 },
+    { id: 2, name: "🍔 Burger", price: 18.50 },
+    { id: 3, name: "🥤 Refrigerante", price: 5.00 }
+  ];
+
+  const addToCart = (product) =&gt; {
+    setCart([...cart, product]);
+  };
+
+  const total = cart.reduce((sum, item) =&gt; sum + item.price, 0);
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;🛍️ Mini Loja&lt;/h1&gt;
+      
+      &lt;div className="products"&gt;
+        {products.map(product =&gt; (
+          &lt;ProductCard
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            onBuy={() =&gt; addToCart(product)}
+          /&gt;
+        ))}
+      &lt;/div&gt;
+      
+      &lt;div className="cart"&gt;
+        &lt;h3&gt;🛒 Carrinho ({cart.length} itens)&lt;/h3&gt;
+        &lt;p&gt;💰 Total: R$ {total.toFixed(2)}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>🛍️ Componente do Produto (Filho)</h3>
+                    <div class="code-demo">
+                        <pre><code data-trim data-noescape class="javascript">
+function ProductCard({ name, price, onBuy }) {
+  return (
+    &lt;div className="product-card"&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p className="price"&gt;R$ {price.toFixed(2)}&lt;/p&gt;
+      &lt;button 
+        onClick={onBuy}
+        className="buy-button"
+      &gt;
+        🛒 Adicionar
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="concept-highlight">
+                        <p><b>🎯 Fluxo de dados:</b></p>
+                        <p>Pai envia → <code>name</code>, <code>price</code>, <code>onBuy</code></p>
+                        <p>Filho usa → Mostra dados e chama função quando clicado</p>
+                        <p>Pai reage → Atualiza estado do carrinho</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Regras Importantes -->
+            <section>
+                <h2>⚖️ Regras Importantes das Props</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="concept-highlight">
+                        <h3>✅ Pode Fazer</h3>
+                        <ul>
+                            <li>� Passar qualquer tipo de dado</li>
+                            <li>🔄 Passar funções como props</li>
+                            <li>📋 Usar arrays e objetos</li>
+                            <li>🎯 Usar destructuring</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255, 85, 85, 0.1); border-left: 4px solid #ff5555; padding: 1rem;">
+                        <h3>❌ Não Pode Fazer</h3>
+                        <ul>
+                            <li>🚫 Modificar props no componente filho</li>
+                            <li>🚫 Props são <b>somente leitura</b></li>
+                            <li>🚫 Filho não pode alterar dados do pai diretamente</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-demo" style="margin-top: 2rem;">
+                    <pre><code data-trim data-noescape class="javascript">
+// ❌ ERRADO - Não modifique props!
+function BadComponent({ user }) {
+  user.name = "Novo nome"; // 🚫 Não faça isso!
+  return &lt;h1&gt;{user.name}&lt;/h1&gt;;
+}
+
+// ✅ CORRETO - Props são apenas para leitura
+function GoodComponent({ user }) {
+  return &lt;h1&gt;{user.name}&lt;/h1&gt;; // ✅ Apenas use!
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- Resumo -->
+            <section>
+                <h2>📚 Resumo da Aula</h2>
+                <div class="analogy-box">
+                    <h3>🎯 O que aprendemos hoje:</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                        <div>
+                            <h4>💡 Conceitos</h4>
+                            <ul>
+                                <li>🎁 Props = dados passados entre componentes</li>
+                                <li>📡 Comunicação Pai → Filho</li>
+                                <li>🔔 Comunicação Filho → Pai (via funções)</li>
+                                <li>🔒 Props são somente leitura</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🛠️ Na Prática</h4>
+                            <ul>
+                                <li>📱 Cartão de contato</li>
+                                <li>📝 Lista de tarefas</li>
+                                <li>🛍️ Mini loja completa</li>
+                                <li>🎮 Interação com botões</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Próxima Aula -->
+            <section>
+                <h2>🚀 Próxima Aula</h2>
+                <div class="concept-highlight">
+                    <h3>📅 Aula 6: Renderização de Listas e Keys</h3>
+                    <p>🎯 Vamos aprender:</p>
+                    <ul>
+                        <li>📋 Como renderizar listas dinâmicas</li>
+                        <li>🔑 Por que precisamos de keys</li>
+                        <li>🎛️ Filtros e buscas em tempo real</li>
+                        <li>🔄 Adicionar e remover itens</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Perguntas -->
+            <section>
+                <h2>�‍♂️ Perguntas?</h2>
+                <div style="text-align: center; margin: 30px 0;">
+                    <h3>💬 Dúvidas sobre Props?</h3>
+                    <p style="font-size: 1.2em;">Agora é a hora de esclarecer tudo!</p>
+                    <div style="margin: 20px 0;">
+                        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                            <i class="fab fa-linkedin" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                            <i class="fab fa-github" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: true,
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+    </script>
+</body>
+
+</html>
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🎭 Props Especiais: children</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Componente Container
+function Card({ title, children }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      &lt;div className="card-content"&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Uso do children
+function App() {
+  return (
+    &lt;Card title="Meu Perfil"&gt;
+      &lt;p&gt;Nome: João Silva&lt;/p&gt;
+      &lt;p&gt;Email: joao@email.com&lt;/p&gt;
+      &lt;button&gt;Editar&lt;/button&gt;
+    &lt;/Card&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>📋 Renderizando Listas</h2>
+                <section>
+                    <h3>🎯 Lista de Produtos</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Dados
+const products = [
+  { id: 1, name: 'iPhone 15', price: 4999, category: 'Smartphone' },
+  { id: 2, name: 'MacBook Pro', price: 12999, category: 'Laptop' },
+  { id: 3, name: 'AirPods', price: 1299, category: 'Acessório' }
+];
+
+// Componente Lista
+function ProductList({ products }) {
+  return (
+    &lt;div className="product-list"&gt;
+      {products.map(product =&gt; (
+        &lt;ProductCard 
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          category={product.category}
+        /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🔑 Importância da Key</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4>❌ Sem Key</h4>
+                            <pre><code data-trim class="javascript">
+{items.map(item =&gt; 
+  &lt;Item name={item.name} /&gt;
+)}
+                            </code></pre>
+                            <p>⚠️ React não consegue otimizar</p>
+                        </div>
+                        <div>
+                            <h4>✅ Com Key</h4>
+                            <pre><code data-trim class="javascript">
+{items.map(item =&gt; 
+  &lt;Item 
+    key={item.id}
+    name={item.name} 
+  /&gt;
+)}
+                            </code></pre>
+                            <p>⚡ Performance otimizada</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔄 Props vs State</h2>
+                <section>
+                    <h3>🥊 Battle: Props vs State</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #444;">
+                                <th style="border: 1px solid #666; padding: 10px;">Característica</th>
+                                <th style="border: 1px solid #666; padding: 10px; color: #61dafb;">Props</th>
+                                <th style="border: 1px solid #666; padding: 10px; color: #f39c12;">State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">🔄 Mutabilidade</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Read-only</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Mutável</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">📍 Origem</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Componente pai</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Próprio componente</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">🎯 Propósito</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Configuração</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Dados dinâmicos</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">⚡ Re-render</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Quando pai muda</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Quando setState</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3>🎯 Quando Usar Cada Um?</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div style="background: rgba(97, 218, 251, 0.1); padding: 20px; border-radius: 10px;">
+                            <h4>📤 Use Props quando:</h4>
+                            <ul>
+                                <li>🔧 Configurar componente</li>
+                                <li>📊 Passar dados do pai</li>
+                                <li>🎨 Personalizar aparência</li>
+                                <li>⚡ Dados não mudam no componente</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(243, 156, 18, 0.1); padding: 20px; border-radius: 10px;">
+                            <h4>🔄 Use State quando:</h4>
+                            <ul>
+                                <li>📝 Dados mudam com interação</li>
+                                <li>🎮 Controlar UI dinamicamente</li>
+                                <li>📊 Armazenar dados temporários</li>
+                                <li>🔄 Atualizar após eventos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🚀 Comunicação Avançada</h2>
+                <section>
+                    <h3>📞 Filho Falando com Pai</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Componente Pai
+function App() {
+  const [message, setMessage] = useState('');
+
+  const handleChildMessage = (childMessage) =&gt; {
+    setMessage(childMessage);
+    alert(`Filho disse: ${childMessage}`);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Mensagem do filho: {message}&lt;/h2&gt;
+      &lt;ChildComponent onSendMessage={handleChildMessage} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Componente Filho
+function ChildComponent({ onSendMessage }) {
+  const handleClick = () =&gt; {
+    onSendMessage('Oi pai! 👋');
+  };
+
+  return &lt;button onClick={handleClick}&gt;Falar com o Pai&lt;/button&gt;;
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>👥 Comunicação Entre Irmãos</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function App() {
+  const [sharedData, setSharedData] = useState('');
+
+  return (
+    &lt;div&gt;
+      &lt;SenderComponent onDataChange={setSharedData} /&gt;
+      &lt;ReceiverComponent data={sharedData} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function SenderComponent({ onDataChange }) {
+  return (
+    &lt;input 
+      onChange={(e) =&gt; onDataChange(e.target.value)}
+      placeholder="Digite algo..."
+    /&gt;
+  );
+}
+
+function ReceiverComponent({ data }) {
+  return &lt;p&gt;Irmão disse: {data}&lt;/p&gt;;
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎯 Projeto Prático: Todo List</h2>
+                <section>
+                    <h3>📋 Estrutura da Todo List</h3>
+                    <div style="background: #282828; padding: 20px; border-radius: 10px;">
+                        <pre><code data-trim data-noescape class="javascript">
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = (text) =&gt; {
+    const newTodo = {
+      id: Date.now(),
+      text: text,
+      completed: false
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (id) =&gt; {
+    setTodos(todos.map(todo =&gt; 
+      todo.id === id 
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    ));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;TodoForm onAdd={addTodo} /&gt;
+      &lt;TodoList todos={todos} onToggle={toggleTodo} /&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>📝 Componente TodoForm</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function TodoForm({ onAdd }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      onAdd(inputValue);
+      setInputValue('');
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input
+        type="text"
+        value={inputValue}
+        onChange={(e) =&gt; setInputValue(e.target.value)}
+        placeholder="Adicionar nova tarefa..."
+      /&gt;
+      &lt;button type="submit"&gt;➕ Adicionar&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>📋 Componente TodoList</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function TodoList({ todos, onToggle }) {
+  return (
+    &lt;ul className="todo-list"&gt;
+      {todos.map(todo =&gt; (
+        &lt;TodoItem 
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+        /&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function TodoItem({ todo, onToggle }) {
+  return (
+    &lt;li className={todo.completed ? 'completed' : ''}&gt;
+      &lt;input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={() =&gt; onToggle(todo.id)}
+      /&gt;
+      &lt;span&gt;{todo.text}&lt;/span&gt;
+    &lt;/li&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔍 PropTypes e Validação</h2>
+                <section>
+                    <h3>🛡️ Validando Props</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import PropTypes from 'prop-types';
+
+function UserCard({ name, age, email, isAdmin }) {
+  return (
+    &lt;div className="user-card"&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;Idade: {age}&lt;/p&gt;
+      &lt;p&gt;Email: {email}&lt;/p&gt;
+      {isAdmin && &lt;span&gt;🔑 Admin&lt;/span&gt;}
+    &lt;/div&gt;
+  );
+}
+
+UserCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired,
+  email: PropTypes.string,
+  isAdmin: PropTypes.bool
+};
+
+UserCard.defaultProps = {
+  isAdmin: false,
+  email: 'Não informado'
+};
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>📋 Tipos Disponíveis no PropTypes</h3>
+                    <div style="background: #282828; padding: 20px; border-radius: 10px;">
+                        <pre><code data-trim class="javascript">
+PropTypes.string        // String
+PropTypes.number        // Number
+PropTypes.bool          // Boolean
+PropTypes.array         // Array
+PropTypes.object        // Object
+PropTypes.func          // Function
+PropTypes.node          // React node
+PropTypes.element       // React element
+
+// Combinações
+PropTypes.oneOf(['red', 'green', 'blue'])
+PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+PropTypes.arrayOf(PropTypes.string)
+PropTypes.shape({
+  name: PropTypes.string,
+  age: PropTypes.number
+})
+                        </code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎪 Atividade Prática</h2>
+                <section>
+                    <h3>🎯 Desafio: Sistema de Avaliação</h3>
+                    <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; border: 2px solid #4CAF50;">
+                        <h4>📋 Objetivo:</h4>
+                        <p>Criar um sistema onde usuários podem avaliar produtos</p>
+                        
+                        <h4>📦 Componentes necessários:</h4>
+                        <ul>
+                            <li><b>App:</b> Gerencia lista de produtos</li>
+                            <li><b>ProductList:</b> Lista todos os produtos</li>
+                            <li><b>ProductCard:</b> Exibe produto individual</li>
+                            <li><b>StarRating:</b> Sistema de estrelas clicáveis</li>
+                            <li><b>ReviewForm:</b> Formulário de comentário</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>📊 Dados de Exemplo</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+const products = [
+  {
+    id: 1,
+    name: 'iPhone 15 Pro',
+    price: 6999.99,
+    image: 'iphone.jpg',
+    rating: 0,
+    reviews: []
+  },
+  {
+    id: 2,
+    name: 'Samsung Galaxy S24',
+    price: 4999.99,
+    image: 'samsung.jpg',
+    rating: 0,
+    reviews: []
+  }
+];
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>⭐ Componente StarRating</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function StarRating({ rating, onRatingChange }) {
+  return (
+    &lt;div className="star-rating"&gt;
+      {[1, 2, 3, 4, 5].map(star =&gt; (
+        &lt;span
+          key={star}
+          className={star &lt;= rating ? 'star filled' : 'star'}
+          onClick={() =&gt; onRatingChange(star)}
+        &gt;
+          ⭐
+        &lt;/span&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>💡 Dicas e Boas Práticas</h2>
+                <section>
+                    <h3>🎯 10 Regras de Ouro das Props</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>✅ Faça:</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>📝 Use nomes descritivos</li>
+                                <li>🧹 Mantenha props simples</li>
+                                <li>🔍 Valide com PropTypes</li>
+                                <li>🎯 Use destructuring</li>
+                                <li>📦 Agrupe props relacionadas</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>❌ Evite:</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔄 Mudar props diretamente</li>
+                                <li>📊 Props com muitos níveis</li>
+                                <li>🎭 Props só para passar adiante</li>
+                                <li>🔧 Lógica complexa nas props</li>
+                                <li>📋 Muitas props (>5-7)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>🚀 Pattern: Compound Components</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Padrão avançado - componentes que trabalham juntos
+function Card({ children }) {
+  return &lt;div className="card"&gt;{children}&lt;/div&gt;;
+}
+
+Card.Header = function CardHeader({ children }) {
+  return &lt;div className="card-header"&gt;{children}&lt;/div&gt;;
+};
+
+Card.Body = function CardBody({ children }) {
+  return &lt;div className="card-body"&gt;{children}&lt;/div&gt;;
+};
+
+// Uso
+&lt;Card&gt;
+  &lt;Card.Header&gt;Título&lt;/Card.Header&gt;
+  &lt;Card.Body&gt;Conteúdo&lt;/Card.Body&gt;
+&lt;/Card&gt;
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🏠 Para Casa: "Props Master"</h2>
+                <section>
+                    <h3>🎯 Missão: Dashboard de Vendas</h3>
+                    <div style="background: #2196f3; padding: 20px; border-radius: 10px;">
+                        <h4>📊 Criar um dashboard com:</h4>
+                        <ol>
+                            <li><b>SalesCard:</b> Mostra vendas do mês (valor, meta, percentual)</li>
+                            <li><b>ProductCard:</b> Card de produto mais vendido</li>
+                            <li><b>ChartCard:</b> Gráfico simples (pode ser fake)</li>
+                            <li><b>NotificationCard:</b> Últimas notificações</li>
+                        </ol>
+                        
+                        <h4>🎯 Requisitos:</h4>
+                        <ul>
+                            <li>✅ Usar PropTypes em todos os componentes</li>
+                            <li>🎨 Props para personalizar cores/estilos</li>
+                            <li>📱 Props para dados dinâmicos</li>
+                            <li>🔄 Props para funções de callback</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>🏆 Bonus Challenge</h3>
+                    <p>Implemente um sistema de <b>filtros dinâmicos</b>:</p>
+                    <ul>
+                        <li>🔍 FilterBar com múltiplos filtros</li>
+                        <li>📊 ProductGrid que recebe produtos filtrados</li>
+                        <li>🏷️ TagFilter para filtrar por categoria</li>
+                        <li>💰 PriceFilter para faixa de preço</li>
+                    </ul>
+                    <p style="background: #ff9800; color: black; padding: 10px; border-radius: 5px; margin-top: 20px;">
+                        💡 <b>Dica:</b> O estado dos filtros fica no componente pai!
+                    </p>
+                </section>
+            </section>
+
+           
+                
+            </section>
+
+            <section>
+                <h2>Perguntas</h2>
+                <div style="text-align: center; margin: 30px 0;">
+                    <h3>💬 Dúvidas sobre Props e Comunicação?</h3>
+                    <p style="font-size: 1.2em;">Agora é a hora de esclarecer tudo!</p>
+                    <div style="margin: 20px 0;">
+                        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                            <i class="fab fa-linkedin" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                            <i class="fab fa-github" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>

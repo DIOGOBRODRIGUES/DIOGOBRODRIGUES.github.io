@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Roteamento com React Router</title>
+
+    <meta name="description" content="Aula 7: Roteamento com React Router | Navegação em SPAs">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 6: Roteamento com React Router</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>🛣️ O que é Roteamento?</h2>
+                <section>
+                    <h3>💡 Analogia: GPS da Aplicação</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div>
+                            <h4>🗺️ Site Tradicional</h4>
+                            <p>Cada página = <b>destino diferente</b></p>
+                            <p>Muda de cidade completamente</p>
+                            <p>Recarrega tudo do zero</p>
+                        </div>
+                        <div style="font-size: 3em;">vs</div>
+                        <div>
+                            <h4>🎯 SPA com Router</h4>
+                            <p>Mesma cidade, <b>bairros diferentes</b></p>
+                            <p>Navegação instantânea</p>
+                            <p>Mantém contexto e estado</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>📱 Single Page Application (SPA)</h3>
+                    <div style="background: #282828; padding: 20px; border-radius: 10px;">
+                        <h4>✨ Vantagens das SPAs:</h4>
+                        <ul>
+                            <li>⚡ <b>Navegação rápida:</b> Sem recarregar página</li>
+                            <li>🔄 <b>Estado preservado:</b> Dados não se perdem</li>
+                            <li>📱 <b>UX fluida:</b> Como apps nativos</li>
+                            <li>🌐 <b>Menos tráfego:</b> Só carrega o necessário</li>
+                        </ul>
+                        
+                        <h4>🎯 Exemplos de SPAs:</h4>
+                        <p>Gmail, Facebook, Twitter, Netflix, YouTube...</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>📦 React Router Setup</h2>
+                <section>
+                    <h3>🛠️ Instalação</h3>
+                    <pre><code data-trim data-noescape class="bash">
+# NPM
+npm install react-router-dom
+
+# Yarn
+yarn add react-router-dom
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🏗️ Estrutura Básica</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;div className="app"&gt;
+        &lt;Routes&gt;
+          &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+          &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+          &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+        &lt;/Routes&gt;
+      &lt;/div&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+
+export default App;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🧩 Componentes Essenciais</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #444;">
+                                <th style="border: 1px solid #666; padding: 10px;">Componente</th>
+                                <th style="border: 1px solid #666; padding: 10px;">Função</th>
+                                <th style="border: 1px solid #666; padding: 10px;">Exemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">BrowserRouter</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Container principal</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Envolve toda a app</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">Routes</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Container das rotas</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Agrupa Route</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">Route</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Define uma rota</td>
+                                <td style="border: 1px solid #666; padding: 10px;">path + component</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #666; padding: 10px;">Link</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Navegação</td>
+                                <td style="border: 1px solid #666; padding: 10px;">Como &lt;a&gt; melhorado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔗 Navegação com Link</h2>
+                <section>
+                    <h3>🧭 Component Link</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { Link } from 'react-router-dom';
+
+function Navigation() {
+  return (
+    &lt;nav className="navbar"&gt;
+      &lt;Link to="/" className="nav-link"&gt;🏠 Home&lt;/Link&gt;
+      &lt;Link to="/about" className="nav-link"&gt;👤 Sobre&lt;/Link&gt;
+      &lt;Link to="/products" className="nav-link"&gt;🛍️ Produtos&lt;/Link&gt;
+      &lt;Link to="/contact" className="nav-link"&gt;📞 Contato&lt;/Link&gt;
+    &lt;/nav&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🎯 NavLink - Link Inteligente</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { NavLink } from 'react-router-dom';
+
+function Navigation() {
+  return (
+    &lt;nav&gt;
+      &lt;NavLink 
+        to="/" 
+        className={({ isActive }) =&gt; 
+          isActive ? 'nav-link active' : 'nav-link'
+        }
+      &gt;
+        Home
+      &lt;/NavLink&gt;
+      
+      &lt;NavLink 
+        to="/about"
+        style={({ isActive }) =&gt; ({
+          color: isActive ? '#61dafb' : '#333',
+          fontWeight: isActive ? 'bold' : 'normal'
+        })}
+      &gt;
+        Sobre
+      &lt;/NavLink&gt;
+    &lt;/nav&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🚀 Navegação Programática</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useNavigate } from 'react-router-dom';
+
+function LoginForm() {
+  const navigate = useNavigate();
+
+  const handleLogin = async (credentials) =&gt; {
+    try {
+      await authAPI.login(credentials);
+      // Redirecionar após login
+      navigate('/dashboard');
+      
+      // Ou substituir a página atual (não volta com botão voltar)
+      navigate('/dashboard', { replace: true });
+      
+      // Voltar uma página
+      navigate(-1);
+      
+      // Avançar uma página
+      navigate(1);
+      
+    } catch (error) {
+      console.error('Login falhou:', error);
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleLogin}&gt;
+      {/* campos do formulário */}
+      &lt;button type="submit"&gt;Entrar&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>📄 Parâmetros de Rota</h2>
+                <section>
+                    <h3>🎯 Rotas Dinâmicas</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// App.js - Definindo rotas com parâmetros
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/users" element={&lt;UserList /&gt;} /&gt;
+        &lt;Route path="/users/:id" element={&lt;UserProfile /&gt;} /&gt;
+        &lt;Route path="/products/:category" element={&lt;ProductList /&gt;} /&gt;
+        &lt;Route path="/products/:category/:id" element={&lt;ProductDetail /&gt;} /&gt;
+        &lt;Route path="/blog/:year/:month/:slug" element={&lt;BlogPost /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>📋 useParams Hook</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useParams } from 'react-router-dom';
+
+function UserProfile() {
+  const { id } = useParams();
+  const [user, setUser] = useState(null);
+
+  useEffect(() =&gt; {
+    // Buscar usuário pelo ID
+    fetchUser(id).then(setUser);
+  }, [id]);
+
+  if (!user) return &lt;div&gt;Carregando...&lt;/div&gt;;
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Perfil do Usuário&lt;/h1&gt;
+      &lt;h2&gt;{user.name}&lt;/h2&gt;
+      &lt;p&gt;ID: {id}&lt;/p&gt;
+      &lt;p&gt;Email: {user.email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+function ProductDetail() {
+  const { category, id } = useParams();
+  
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Produto {id}&lt;/h1&gt;
+      &lt;p&gt;Categoria: {category}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🔍 Query Parameters</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useSearchParams } from 'react-router-dom';
+
+function ProductList() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Ler parâmetros: /products?category=tech&sort=price&page=2
+  const category = searchParams.get('category'); // 'tech'
+  const sort = searchParams.get('sort'); // 'price'
+  const page = parseInt(searchParams.get('page')) || 1; // 2
+  
+  const handleFilterChange = (newCategory) =&gt; {
+    setSearchParams({
+      category: newCategory,
+      sort,
+      page: 1 // Reset para primeira página
+    });
+  };
+  
+  const handleSortChange = (newSort) =&gt; {
+    setSearchParams(prev =&gt; ({
+      ...Object.fromEntries(prev),
+      sort: newSort
+    }));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Produtos {category && `- ${category}`}&lt;/h1&gt;
+      
+      &lt;select onChange={(e) =&gt; handleFilterChange(e.target.value)}&gt;
+        &lt;option value=""&gt;Todas as categorias&lt;/option&gt;
+        &lt;option value="tech"&gt;Tecnologia&lt;/option&gt;
+        &lt;option value="fashion"&gt;Moda&lt;/option&gt;
+      &lt;/select&gt;
+      
+      &lt;select onChange={(e) =&gt; handleSortChange(e.target.value)}&gt;
+        &lt;option value="name"&gt;Nome&lt;/option&gt;
+        &lt;option value="price"&gt;Preço&lt;/option&gt;
+      &lt;/select&gt;
+      
+      &lt;p&gt;Página: {page}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🧩 Rotas Aninhadas</h2>
+                <section>
+                    <h3>🏗️ Estrutura Aninhada</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { Outlet } from 'react-router-dom';
+
+// Layout principal
+function DashboardLayout() {
+  return (
+    &lt;div className="dashboard"&gt;
+      &lt;aside className="sidebar"&gt;
+        &lt;nav&gt;
+          &lt;Link to="/dashboard"&gt;📊 Overview&lt;/Link&gt;
+          &lt;Link to="/dashboard/users"&gt;👥 Usuários&lt;/Link&gt;
+          &lt;Link to="/dashboard/products"&gt;📦 Produtos&lt;/Link&gt;
+          &lt;Link to="/dashboard/settings"&gt;⚙️ Configurações&lt;/Link&gt;
+        &lt;/nav&gt;
+      &lt;/aside&gt;
+      
+      &lt;main className="content"&gt;
+        {/* Aqui renderiza a rota filha */}
+        &lt;Outlet /&gt;
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+
+// App.js
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/dashboard" element={&lt;DashboardLayout /&gt;}&gt;
+          &lt;Route index element={&lt;Overview /&gt;} /&gt;
+          &lt;Route path="users" element={&lt;Users /&gt;} /&gt;
+          &lt;Route path="users/:id" element={&lt;UserDetail /&gt;} /&gt;
+          &lt;Route path="products" element={&lt;Products /&gt;} /&gt;
+          &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+        &lt;/Route&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>📍 Index Routes</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Rota index = rota padrão quando acessa o pai
+&lt;Route path="/dashboard" element={&lt;DashboardLayout /&gt;&gt;
+  &lt;Route index element={&lt;Overview /&gt;} /&gt;  {/* /dashboard */}
+  &lt;Route path="users" element={&lt;Users /&gt;} /&gt;  {/* /dashboard/users */}
+&lt;/Route&gt;
+
+// URLs resultantes:
+// /dashboard → Mostra DashboardLayout + Overview
+// /dashboard/users → Mostra DashboardLayout + Users
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🛡️ Rotas Protegidas</h2>
+                <section>
+                    <h3>🔐 PrivateRoute Component</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
+function PrivateRoute({ children }) {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return &lt;div&gt;Carregando...&lt;/div&gt;;
+  }
+
+  if (!user) {
+    // Salvar a localização que tentou acessar
+    return &lt;Navigate to="/login" state={{ from: location }} replace /&gt;;
+  }
+
+  return children;
+}
+
+// Uso nas rotas
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+        &lt;Route path="/register" element={&lt;Register /&gt;} /&gt;
+        
+        &lt;Route path="/dashboard" element={
+          &lt;PrivateRoute&gt;
+            &lt;Dashboard /&gt;
+          &lt;/PrivateRoute&gt;
+        } /&gt;
+        
+        &lt;Route path="/profile" element={
+          &lt;PrivateRoute&gt;
+            &lt;Profile /&gt;
+          &lt;/PrivateRoute&gt;
+        } /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>👑 Role-Based Routes</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function RoleRoute({ children, allowedRoles }) {
+  const { user } = useAuth();
+  const location = useLocation();
+
+  if (!user) {
+    return &lt;Navigate to="/login" state={{ from: location }} /&gt;;
+  }
+
+  if (!allowedRoles.includes(user.role)) {
+    return &lt;Navigate to="/unauthorized" /&gt;;
+  }
+
+  return children;
+}
+
+// Uso
+&lt;Route path="/admin" element={
+  &lt;RoleRoute allowedRoles={['admin', 'super-admin']}&gt;
+    &lt;AdminPanel /&gt;
+  &lt;/RoleRoute&gt;
+} /&gt;
+
+&lt;Route path="/moderator" element={
+  &lt;RoleRoute allowedRoles={['admin', 'moderator']}&gt;
+    &lt;ModeratorPanel /&gt;
+  &lt;/RoleRoute&gt;
+} /&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🔄 Redirecionamento após Login</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useLocation, useNavigate } from 'react-router-dom';
+
+function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // De onde o usuário veio antes do login
+  const from = location.state?.from?.pathname || '/dashboard';
+
+  const handleLogin = async (credentials) =&gt; {
+    try {
+      await authAPI.login(credentials);
+      // Voltar para onde tentou acessar originalmente
+      navigate(from, { replace: true });
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleLogin}&gt;
+      &lt;h2&gt;Login&lt;/h2&gt;
+      &lt;p&gt;Para acessar {from}, faça login primeiro.&lt;/p&gt;
+      {/* campos do form */}
+    &lt;/form&gt;
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>❌ Páginas de Erro</h2>
+                <section>
+                    <h3>🕳️ Rota 404</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Página 404
+function NotFound() {
+  const navigate = useNavigate();
+
+  return (
+    &lt;div className="not-found"&gt;
+      &lt;h1&gt;404 - Página não encontrada&lt;/h1&gt;
+      &lt;p&gt;A página que você procura não existe.&lt;/p&gt;
+      
+      &lt;div className="actions"&gt;
+        &lt;button onClick={() =&gt; navigate('/')}&gt;
+          🏠 Ir para Home
+        &lt;/button&gt;
+        &lt;button onClick={() =&gt; navigate(-1)}&gt;
+          ← Voltar
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// App.js - Rota catch-all no final
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+        &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+        
+        {/* Rota catch-all - deve ser a última */}
+        &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🚨 Error Boundary para Rotas</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useRouteError } from 'react-router-dom';
+
+function ErrorPage() {
+  const error = useRouteError();
+
+  return (
+    &lt;div className="error-page"&gt;
+      &lt;h1&gt;Oops! Algo deu errado&lt;/h1&gt;
+      &lt;p&gt;Desculpe, ocorreu um erro inesperado.&lt;/p&gt;
+      &lt;p&gt;
+        &lt;i&gt;{error.statusText || error.message}&lt;/i&gt;
+      &lt;/p&gt;
+      
+      &lt;button onClick={() =&gt; window.location.reload()}&gt;
+        🔄 Recarregar Página
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Usar errorElement nas rotas
+&lt;Route 
+  path="/dashboard" 
+  element={&lt;Dashboard /&gt;}
+  errorElement={&lt;ErrorPage /&gt;}
+/&gt;
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>⚡ Lazy Loading</h2>
+                <section>
+                    <h3>📦 Code Splitting com Lazy</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { lazy, Suspense } from 'react';
+
+// Lazy loading dos componentes
+const Home = lazy(() =&gt; import('./pages/Home'));
+const About = lazy(() =&gt; import('./pages/About'));
+const Dashboard = lazy(() =&gt; import('./pages/Dashboard'));
+const UserProfile = lazy(() =&gt; import('./pages/UserProfile'));
+
+// Loading component
+function PageLoader() {
+  return (
+    &lt;div className="page-loader"&gt;
+      &lt;div className="spinner"&gt;&lt;/div&gt;
+      &lt;p&gt;Carregando página...&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Suspense fallback={&lt;PageLoader /&gt;}&gt;
+        &lt;Routes&gt;
+          &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+          &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+          &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+          &lt;Route path="/user/:id" element={&lt;UserProfile /&gt;} /&gt;
+        &lt;/Routes&gt;
+      &lt;/Suspense&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>🎯 Lazy Loading Específico</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// Lazy loading para rotas específicas
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        {/* Páginas principais - carregam imediatamente */}
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+        
+        {/* Dashboard - lazy loading */}
+        &lt;Route path="/dashboard/*" element={
+          &lt;Suspense fallback={&lt;DashboardLoader /&gt;}&gt;
+            &lt;DashboardRoutes /&gt;
+          &lt;/Suspense&gt;
+        } /&gt;
+        
+        {/* Admin - lazy loading */}
+        &lt;Route path="/admin/*" element={
+          &lt;Suspense fallback={&lt;AdminLoader /&gt;}&gt;
+            &lt;AdminRoutes /&gt;
+          &lt;/Suspense&gt;
+        } /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+
+// DashboardRoutes.js
+const DashboardRoutes = lazy(() =&gt; import('./DashboardRoutes'));
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎯 Projeto Prático: Blog Multi-páginas</h2>
+                <section>
+                    <h3>📝 Estrutura do Blog</h3>
+                    <div style="background: #282828; padding: 20px; border-radius: 10px;">
+                        <pre><code data-trim class="javascript">
+src/
+├── components/
+│   ├── Layout/
+│   │   ├── Header.js
+│   │   ├── Footer.js
+│   │   └── Sidebar.js
+│   └── Blog/
+│       ├── PostCard.js
+│       ├── PostDetail.js
+│       └── CategoryFilter.js
+├── pages/
+│   ├── Home.js
+│   ├── Blog.js
+│   ├── Post.js
+│   ├── Category.js
+│   ├── Author.js
+│   ├── About.js
+│   └── Contact.js
+└── App.js
+                        </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>🛣️ Estrutura de Rotas</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        {/* Rotas públicas */}
+        &lt;Route path="/" element={&lt;Layout /&gt;}&gt;
+          &lt;Route index element={&lt;Home /&gt;} /&gt;
+          &lt;Route path="about" element={&lt;About /&gt;} /&gt;
+          &lt;Route path="contact" element={&lt;Contact /&gt;} /&gt;
+          
+          {/* Blog routes */}
+          &lt;Route path="blog" element={&lt;Blog /&gt;} /&gt;
+          &lt;Route path="blog/category/:category" element={&lt;Category /&gt;} /&gt;
+          &lt;Route path="blog/author/:author" element={&lt;Author /&gt;} /&gt;
+          &lt;Route path="blog/:slug" element={&lt;Post /&gt;} /&gt;
+          
+          {/* Search */}
+          &lt;Route path="search" element={&lt;SearchResults /&gt;} /&gt;
+        &lt;/Route&gt;
+        
+        {/* Admin routes */}
+        &lt;Route path="/admin" element={
+          &lt;PrivateRoute&gt;
+            &lt;AdminLayout /&gt;
+          &lt;/PrivateRoute&gt;
+        }&gt;
+          &lt;Route index element={&lt;AdminDashboard /&gt;} /&gt;
+          &lt;Route path="posts" element={&lt;ManagePosts /&gt;} /&gt;
+          &lt;Route path="posts/new" element={&lt;CreatePost /&gt;} /&gt;
+          &lt;Route path="posts/:id/edit" element={&lt;EditPost /&gt;} /&gt;
+        &lt;/Route&gt;
+        
+        &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                        </code></pre>
+                </section>
+                <section>
+                    <h3>📖 Página de Post</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { useParams, useNavigate } from 'react-router-dom';
+
+function Post() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    const fetchPost = async () =&gt; {
+      try {
+        const postData = await blogAPI.getPostBySlug(slug);
+        if (!postData) {
+          navigate('/404', { replace: true });
+          return;
+        }
+        setPost(postData);
+      } catch (error) {
+        console.error('Erro ao carregar post:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [slug, navigate]);
+
+  if (loading) return &lt;PostSkeleton /&gt;;
+  if (!post) return null;
+
+  return (
+    &lt;article className="post"&gt;
+      &lt;header&gt;
+        &lt;h1&gt;{post.title}&lt;/h1&gt;
+        &lt;div className="post-meta"&gt;
+          &lt;Link to={`/blog/author/${post.author.slug}`}&gt;
+            {post.author.name}
+          &lt;/Link&gt;
+          &lt;span&gt;{formatDate(post.publishedAt)}&lt;/span&gt;
+          &lt;Link to={`/blog/category/${post.category.slug}`}&gt;
+            {post.category.name}
+          &lt;/Link&gt;
+        &lt;/div&gt;
+      &lt;/header&gt;
+      
+      &lt;div className="post-content"&gt;
+        {post.content}
+      &lt;/div&gt;
+      
+      &lt;footer&gt;
+        &lt;div className="post-tags"&gt;
+          {post.tags.map(tag =&gt; (
+            &lt;Link key={tag} to={`/blog?tag=${tag}`}&gt;
+              #{tag}
+            &lt;/Link&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/footer&gt;
+    &lt;/article&gt;
+  );
+}
+                        </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎪 Atividade Prática</h2>
+                <section>
+                    <h3>🎯 Desafio: E-commerce com Rotas</h3>
+                    <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; border: 2px solid #4CAF50;">
+                        <h4>🛍️ Criar um e-commerce com:</h4>
+                        <ol>
+                            <li><b>Home:</b> Produtos em destaque</li>
+                            <li><b>Catálogo:</b> /products?category=tech&sort=price</li>
+                            <li><b>Produto:</b> /products/:id</li>
+                            <li><b>Carrinho:</b> /cart</li>
+                            <li><b>Checkout:</b> /checkout (protegida)</li>
+                            <li><b>Perfil:</b> /profile (protegida)</li>
+                            <li><b>Admin:</b> /admin/* (só admin)</li>
+                        </ol>
+                        
+                        <h4>✨ Features extras:</h4>
+                        <ul>
+                            <li>🔍 Busca de produtos</li>
+                            <li>📱 Breadcrumbs</li>
+                            <li>⚡ Lazy loading</li>
+                            <li>🛡️ Rotas protegidas</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>🧩 Breadcrumbs Component</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+import { Link, useLocation } from 'react-router-dom';
+
+function Breadcrumbs() {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter(x =&gt; x);
+
+  return (
+    &lt;nav className="breadcrumbs"&gt;
+      &lt;Link to="/"&gt;Home&lt;/Link&gt;
+      {pathnames.map((value, index) =&gt; {
+        const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+        const isLast = index === pathnames.length - 1;
+
+        return isLast ? (
+          &lt;span key={to}&gt; / {formatBreadcrumb(value)}&lt;/span&gt;
+        ) : (
+          &lt;span key={to}&gt;
+            {' / '}
+            &lt;Link to={to}&gt;{formatBreadcrumb(value)}&lt;/Link&gt;
+          &lt;/span&gt;
+        );
+      })}
+    &lt;/nav&gt;
+  );
+}
+
+function formatBreadcrumb(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>💡 Dicas e Boas Práticas</h2>
+                <section>
+                    <h3>🎯 10 Regras de Ouro do Router</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>✅ Faça:</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔗 Use Link em vez de &lt;a&gt;</li>
+                                <li>📱 Lazy loading para páginas grandes</li>
+                                <li>🛡️ Proteja rotas sensíveis</li>
+                                <li>📄 Handle 404 sempre</li>
+                                <li>🧭 Breadcrumbs para UX</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>❌ Evite:</h4>
+                            <ul style="font-size: 0.9em;">
+                                <li>🔄 window.location para SPAs</li>
+                                <li>🎭 Muitos níveis aninhados</li>
+                                <li>📦 Importar tudo junto</li>
+                                <li>🔍 URLs não-amigáveis</li>
+                                <li>⚡ Re-renders desnecessários</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>🚀 Performance Tips</h3>
+                    <pre><code data-trim data-noescape class="javascript">
+// ✅ Preload routes críticas
+const Dashboard = lazy(() =&gt; 
+  import(/* webpackChunkName: "dashboard" */ './Dashboard')
+);
+
+// ✅ Memoizar navigation components
+const Navigation = React.memo(() =&gt; {
+  return (
+    &lt;nav&gt;
+      &lt;NavLink to="/"&gt;Home&lt;/NavLink&gt;
+      &lt;NavLink to="/about"&gt;About&lt;/NavLink&gt;
+    &lt;/nav&gt;
+  );
+});
+
+// ✅ Usar key para forçar remount quando necessário
+&lt;Route 
+  path="/user/:id" 
+  element={&lt;UserProfile key={params.id} /&gt;} 
+/&gt;
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🏠 Para Casa: "Router Master"</h2>
+                <section>
+                    <h3>🎯 Projeto: Dashboard Administrativo</h3>
+                    <div style="background: #2196f3; padding: 20px; border-radius: 10px;">
+                        <h4>🏗️ Implementar:</h4>
+                        <ol>
+                            <li><b>Landing Page:</b> Página de apresentação</li>
+                            <li><b>Auth System:</b> Login/Register com redirecionamento</li>
+                            <li><b>Dashboard:</b> Painel administrativo completo</li>
+                            <li><b>CRUD Pages:</b> Gerenciar usuários, produtos, pedidos</li>
+                            <li><b>Profile System:</b> Editar perfil, configurações</li>
+                        </ol>
+                        
+                        <h4>🎯 Features avançadas:</h4>
+                        <ul>
+                            <li>🔍 Sistema de busca com query params</li>
+                            <li>📊 Filtros e paginação na URL</li>
+                            <li>🛡️ Diferentes níveis de acesso (admin, user, guest)</li>
+                            <li>⚡ Lazy loading por seção</li>
+                            <li>📱 Mobile-friendly navigation</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>🏆 Bonus Challenges</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: rgba(76, 175, 80, 0.1); padding: 15px; border-radius: 10px;">
+                            <h4>⚡ Performance</h4>
+                            <ul>
+                                <li>Route-based code splitting</li>
+                                <li>Preload critical routes</li>
+                                <li>Service Worker caching</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255, 152, 0, 0.1); padding: 15px; border-radius: 10px;">
+                            <h4>🔄 UX Avançado</h4>
+                            <ul>
+                                <li>Page transitions</li>
+                                <li>Progress indicators</li>
+                                <li>Error boundaries</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎓 Resumo da Aula</h2>
+                <section>
+                    <div style="background: linear-gradient(45deg, #61dafb, #21232a); padding: 20px; border-radius: 15px;">
+                        <h3>✨ O que navegamos hoje?</h3>
+                        <ul style="font-size: 1.1em;">
+                            <li>🛣️ React Router para SPAs</li>
+                            <li>🔗 Navegação com Link e NavLink</li>
+                            <li>📄 Parâmetros dinâmicos e query strings</li>
+                            <li>🧩 Rotas aninhadas com Outlet</li>
+                            <li>🛡️ Sistema de rotas protegidas</li>
+                            <li>⚡ Lazy loading e code splitting</li>
+                            <li>📝 Blog multi-páginas como projeto</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>🚀 Próxima Parada: APIs e Dados Externos</h3>
+                    <p>Na <b>Aula 8</b> vamos conectar com o mundo:</p>
+                    <ul>
+                        <li>🌐 Fetch API e Axios</li>
+                        <li>⏳ Loading states e error handling</li>
+                        <li>🔄 Custom hooks para dados</li>
+                        <li>📊 CRUD completo com API</li>
+                        <li>🎯 Projeto: App de consulta de dados</li>
+                    </ul>
+                    <div style="background: #4caf50; color: white; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                        <p><b>🎯 Prepare-se para conectar sua SPA com APIs reais!</b></p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>🙋‍♂️ Perguntas?</h2>
+                <div style="text-align: center; margin: 30px 0;">
+                    <h3>💬 Dúvidas sobre Roteamento?</h3>
+                    <p style="font-size: 1.2em;">Router, navegação, rotas protegidas... vamos esclarecer tudo!</p>
+                    <div style="margin: 20px 0;">
+                        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                            <i class="fab fa-linkedin" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                            <i class="fab fa-github" style="font-size: 2em; margin: 0 10px; color: #61dafb;"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>
