@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Consumo de APIs e Integração com Backend</title>
+
+    <meta name="description" content="Aula 7: Consumo de APIs e Integração com Backend | React + Python">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <p>🏛️ Centro Universitário Maurício de Nassau</p>
+                <h3>Aula 7: Consumo de APIs e Integração com Backend</h3>
+                <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"><i
+                        class="fab fa-linkedin"></i> </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i> </a>
+            </section>
+
+            <section>
+                <h2>🌐 O que são APIs?</h2>
+                <section>
+                    <h3>💡 Analogia: Restaurante</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div>
+                            <h4>👨‍🍳 Backend (Cozinha)</h4>
+                            <p>Prepara os dados</p>
+                            <p>Processa as solicitações</p>
+                            <p>Gerencia o banco de dados</p>
+                        </div>
+                        <div style="font-size: 3em;">🍽️</div>
+                        <div>
+                            <h4>👩‍💻 Frontend (Cliente)</h4>
+                            <p>Faz pedidos (requests)</p>
+                            <p>Recebe respostas</p>
+                            <p>Apresenta para o usuário</p>
+                        </div>
+                    </div>
+                    <p class="fragment"><b>API = Garçom</b> que leva pedidos e traz respostas</p>
+                </section>
+            </section>
+
+            <section>
+                <h2>📡 HTTP Methods</h2>
+                <section>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h3>📖 GET</h3>
+                            <p>Buscar dados</p>
+                            <pre><code class="javascript">
+fetch('/api/users')
+  .then(res => res.json())
+                            </code></pre>
+                        </div>
+                        <div>
+                            <h3>📝 POST</h3>
+                            <p>Criar novos dados</p>
+                            <pre><code class="javascript">
+fetch('/api/users', {
+  method: 'POST',
+  body: JSON.stringify(data)
+})
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h3>✏️ PUT</h3>
+                            <p>Atualizar dados</p>
+                            <pre><code class="javascript">
+fetch('/api/users/1', {
+  method: 'PUT',
+  body: JSON.stringify(data)
+})
+                            </code></pre>
+                        </div>
+                        <div>
+                            <h3>🗑️ DELETE</h3>
+                            <p>Remover dados</p>
+                            <pre><code class="javascript">
+fetch('/api/users/1', {
+  method: 'DELETE'
+})
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <h2>⚛️ useEffect para APIs</h2>
+                <section>
+                    <h3>🎯 Hook Essencial</h3>
+                    <pre><code class="javascript">
+import { useState, useEffect } from 'react';
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Esta função roda quando o componente monta
+    fetchUsers();
+  }, []); // [] = roda apenas uma vez
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Erro:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      {loading ? <p>Carregando...</p> : 
+        <ul>
+          {users.map(user => <li key={user.id}>{user.name}</li>)}
+        </ul>
+      }
+    </div>
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🌐 Fetch API Nativa</h2>
+                <section>
+                    <h3>📖 GET Request</h3>
+                    <pre><code class="javascript">
+const fetchData = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/api/movies');
+    
+    if (!response.ok) {
+      throw new Error(`Erro: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Erro na requisição:', error);
+  }
+};
+                    </code></pre>
+                </section>
+                
+                <section>
+                    <h3>📝 POST Request</h3>
+                    <pre><code class="javascript">
+const createMovie = async (movieData) => {
+  try {
+    const response = await fetch('http://localhost:8000/api/movies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(movieData)
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao criar filme');
+    }
+
+    const newMovie = await response.json();
+    return newMovie;
+  } catch (error) {
+    console.error('Erro:', error);
+    throw error;
+  }
+};
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>📦 Axios - Biblioteca Popular</h2>
+                <section>
+                    <h3>⚙️ Instalação</h3>
+                    <pre><code class="bash">
+npm install axios
+                    </code></pre>
+                    
+                    <h3>📖 Import e Uso Básico</h3>
+                    <pre><code class="javascript">
+import axios from 'axios';
+
+// GET
+const fetchMovies = async () => {
+  try {
+    const response = await axios.get('/api/movies');
+    return response.data;
+  } catch (error) {
+    console.error('Erro:', error.response.data);
+  }
+};
+
+// POST
+const createMovie = async (data) => {
+  try {
+    const response = await axios.post('/api/movies', data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro:', error.response.data);
+  }
+};
+                    </code></pre>
+                </section>
+                
+                <section>
+                    <h3>🔧 Configuração Global</h3>
+                    <pre><code class="javascript">
+// api.js
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:8000',
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
+
+// Interceptor para adicionar token automaticamente
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🚨 Estados de Requisição</h2>
+                <section>
+                    <h3>📊 Loading, Success, Error</h3>
+                    <pre><code class="javascript">
+import { useState, useEffect } from 'react';
+
+function MovieList() {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchMovies = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/api/movies');
+      if (!response.ok) {
+        throw new Error('Falha ao carregar filmes');
+      }
+      const data = await response.json();
+      setMovies(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  if (loading) return <div className="loading">Carregando filmes...</div>;
+  if (error) return <div className="error">Erro: {error}</div>;
+
+  return (
+    <div>
+      {movies.map(movie => (
+        <div key={movie.id}>{movie.title}</div>
+      ))}
+    </div>
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🐍 Integração React + Python</h2>
+                <section>
+                    <h3>🔧 Backend Python (FastAPI)</h3>
+                    <pre><code class="python">
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# CORS para permitir requisições do React
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # React dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/api/movies")
+def get_movies():
+    return [
+        {"id": 1, "title": "Matrix", "year": 1999},
+        {"id": 2, "title": "Inception", "year": 2010}
+    ]
+
+@app.post("/api/movies")
+def create_movie(movie: dict):
+    return {"id": 3, "message": "Filme criado com sucesso"}
+                    </code></pre>
+                </section>
+                
+                <section>
+                    <h3>⚛️ Frontend React</h3>
+                    <pre><code class="javascript">
+// MovieService.js
+const API_BASE_URL = 'http://localhost:8000';
+
+export const movieService = {
+  async getMovies() {
+    const response = await fetch(`${API_BASE_URL}/api/movies`);
+    return response.json();
+  },
+
+  async createMovie(movieData) {
+    const response = await fetch(`${API_BASE_URL}/api/movies`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movieData)
+    });
+    return response.json();
+  },
+
+  async updateMovie(id, movieData) {
+    const response = await fetch(`${API_BASE_URL}/api/movies/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movieData)
+    });
+    return response.json();
+  },
+
+  async deleteMovie(id) {
+    const response = await fetch(`${API_BASE_URL}/api/movies/${id}`, {
+      method: 'DELETE'
+    });
+    return response.json();
+  }
+};
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔒 CORS - Cross-Origin Resource Sharing</h2>
+                <section>
+                    <h3>⚠️ Problema Comum</h3>
+                    <div style="background: #ff4444; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <p><b>Erro:</b> "Access to fetch at 'http://localhost:8000' from origin 'http://localhost:3000' has been blocked by CORS policy"</p>
+                    </div>
+                </section>
+                
+                <section>
+                    <h3>✅ Solução no Backend Python</h3>
+                    <pre><code class="python">
+# FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # URL do React
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
+
+# Flask
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🛠️ Custom Hook para API</h2>
+                <section>
+                    <h3>🎯 Hook Reutilizável</h3>
+                    <pre><code class="javascript">
+// hooks/useApi.js
+import { useState, useEffect } from 'react';
+
+function useApi(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const refetch = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Erro: ${response.status}`);
+      }
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [url]);
+
+  return { data, loading, error, refetch };
+}
+
+export default useApi;
+                    </code></pre>
+                </section>
+                
+                <section>
+                    <h3>📱 Usando o Hook</h3>
+                    <pre><code class="javascript">
+import useApi from './hooks/useApi';
+
+function MovieList() {
+  const { data: movies, loading, error, refetch } = useApi('/api/movies');
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro: {error}</div>;
+
+  return (
+    <div>
+      <button onClick={refetch}>Recarregar</button>
+      {movies?.map(movie => (
+        <div key={movie.id}>
+          <h3>{movie.title}</h3>
+          <p>{movie.year}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>💡 Exemplo Prático Completo</h2>
+                <section>
+                    <h3>🎬 Sistema de Filmes - Componente Principal</h3>
+                    <pre><code class="javascript">
+import React, { useState, useEffect } from 'react';
+import './MovieApp.css';
+
+function MovieApp() {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [newMovie, setNewMovie] = useState({ title: '', year: '' });
+
+  // Buscar filmes ao montar o componente
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('http://localhost:8000/api/movies');
+      if (!response.ok) throw new Error('Erro ao carregar filmes');
+      
+      const data = await response.json();
+      setMovies(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addMovie = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('http://localhost:8000/api/movies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newMovie)
+      });
+      
+      if (!response.ok) throw new Error('Erro ao adicionar filme');
+      
+      const movieAdded = await response.json();
+      setMovies([...movies, movieAdded]);
+      setNewMovie({ title: '', year: '' });
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const deleteMovie = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/movies/${id}`, {
+        method: 'DELETE'
+      });
+      
+      if (!response.ok) throw new Error('Erro ao deletar filme');
+      
+      setMovies(movies.filter(movie => movie.id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <div className="movie-app">
+      <h1>🎬 Gerenciador de Filmes</h1>
+      
+      {/* Formulário para adicionar filme */}
+      <form onSubmit={addMovie} className="add-movie-form">
+        <input
+          type="text"
+          placeholder="Título do filme"
+          value={newMovie.title}
+          onChange={(e) => setNewMovie({...newMovie, title: e.target.value})}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Ano"
+          value={newMovie.year}
+          onChange={(e) => setNewMovie({...newMovie, year: e.target.value})}
+          required
+        />
+        <button type="submit">Adicionar Filme</button>
+      </form>
+
+      {/* Estados de loading e error */}
+      {loading && <div className="loading">Carregando filmes...</div>}
+      {error && <div className="error">Erro: {error}</div>}
+
+      {/* Lista de filmes */}
+      <div className="movies-grid">
+        {movies.map(movie => (
+          <div key={movie.id} className="movie-card">
+            <h3>{movie.title}</h3>
+            <p>Ano: {movie.year}</p>
+            <button 
+              onClick={() => deleteMovie(movie.id)}
+              className="delete-btn"
+            >
+              🗑️ Remover
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default MovieApp;
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>🎨 CSS para o Exemplo</h2>
+                <section>
+                    <pre><code class="css">
+/* MovieApp.css */
+.movie-app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.add-movie-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.add-movie-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-movie-form button {
+  padding: 0.75rem 1.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.add-movie-form button:hover {
+  background: #0056b3;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.loading {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.error {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.movie-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #eee;
+}
+
+.movie-card h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.movie-card p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2>📝 Exercício Prático</h2>
+                <section>
+                    <h3>🎯 Desafio: Lista de Usuários</h3>
+                    <p>Criar um componente que:</p>
+                    <ol>
+                        <li>📥 <b>Busque</b> lista de usuários da API</li>
+                        <li>➕ <b>Adicione</b> novo usuário</li>
+                        <li>✏️ <b>Edite</b> usuário existente</li>
+                        <li>🗑️ <b>Remove</b> usuário</li>
+                        <li>🚨 <b>Trate</b> estados de loading e error</li>
+                    </ol>
+                    
+                    <p><b>API Mock:</b> https://jsonplaceholder.typicode.com/users</p>
+                </section>
+                
+                <section>
+                    <h3>📋 Checklist</h3>
+                    <ul>
+                        <li>☐ useEffect para buscar dados iniciais</li>
+                        <li>☐ useState para gerenciar estado</li>
+                        <li>☐ Tratamento de loading e error</li>
+                        <li>☐ Formulário para adicionar usuário</li>
+                        <li>☐ Botões para editar e deletar</li>
+                        <li>☐ Feedback visual para operações</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <h2>🔧 Ferramentas Úteis</h2>
+                <section>
+                    <h3>🛠️ Para Desenvolvimento</h3>
+                    <ul>
+                        <li><b>🌐 Postman/Insomnia</b> - Testar APIs</li>
+                        <li><b>🔍 React DevTools</b> - Debug de estados</li>
+                        <li><b>🚀 JSON Server</b> - Mock API rápida</li>
+                        <li><b>📊 Network Tab</b> - Verificar requisições</li>
+                    </ul>
+                    
+                    <h3>📦 Bibliotecas Recomendadas</h3>
+                    <ul>
+                        <li><b>axios</b> - Cliente HTTP</li>
+                        <li><b>react-query</b> - Cache e sincronização</li>
+                        <li><b>swr</b> - Data fetching</li>
+                    </ul>
+                </section>
+            </section>
+
+           
+
+        </div>
+    </div>
+
+    <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+    <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+
+</body>
+
+</html>
