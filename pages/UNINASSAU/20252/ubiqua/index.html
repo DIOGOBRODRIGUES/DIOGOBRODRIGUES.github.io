@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Thunkable - Desenvolvimento de Jogos Mobile</title>
+
+  <meta name="description" content="Introdução ao Thunkable e desenvolvimento do jogo Asteroids">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .game-preview {
+      background: #282a36;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    
+    .step-box {
+      background: rgba(98, 114, 164, 0.2);
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #ff79c6;
+      border-radius: 5px;
+    }
+    
+    .component-list {
+      text-align: left;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 1 - Título -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h2>🚀 Quebrando a Barreira do Código: Como Criar seu Próprio "Asteroids" em Minutos. </h2>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2- O que é Thunkable -->
+      <section>
+        <h2>🎯 O que é Thunkable?</h2>
+        <div class="game-preview">
+          <p><strong>Plataforma de desenvolvimento mobile no-code</strong></p>
+          <ul>
+            <li>✅ Crie apps iOS e Android simultaneamente</li>
+            <li>✅ Interface visual drag-and-drop</li>
+            <li>✅ Programação por blocos (similar ao Scratch)</li>
+            <li>✅ Componentes prontos e customizáveis</li>
+            <li>✅ Teste em tempo real no smartphone</li>
+          </ul>
+        </div>
+        <p><small>🌐 <a href="https://thunkable.com" target="_blank">thunkable.com</a></small></p>
+      </section>
+
+      <!-- Slide 3 - Por que Thunkable? -->
+      <section>
+        <h2>💡 Por que usar Thunkable?</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="step-box">
+            <h3>👍 Vantagens</h3>
+            <ul style="font-size: 0.8em;">
+              <li>Desenvolvimento rápido</li>
+              <li>Sem necessidade de código complexo</li>
+              <li>Cross-platform nativo</li>
+              <li>Comunidade ativa</li>
+              <li>Gratuito para começar</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <h3>🎓 Ideal para</h3>
+            <ul style="font-size: 0.8em;">
+              <li>Prototipagem rápida</li>
+              <li>MVPs</li>
+              <li>Educação</li>
+              <li>Projetos pessoais</li>
+              <li>Apps simples a médios</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4 - Configuração Inicial -->
+      <section>
+        <h2>⚙️ Configuração Inicial</h2>
+        <div class="step-box">
+          <h3>Passo 1: Criar Conta</h3>
+          <ol style="text-align: left;">
+            <li>Acesse <a href="https://thunkable.com" target="_blank">thunkable.com</a></li>
+            <li>Clique em "Sign Up"</li>
+            <li>Use e-mail ou conta Google</li>
+            <li>Confirme o e-mail</li>
+          </ol>
+        </div>
+        <div class="step-box">
+          <h3>Passo 2: App Thunkable Live</h3>
+          <ol style="text-align: left;">
+            <li>📱 Baixe "Thunkable" na Play Store/App Store</li>
+            <li>Faça login com a mesma conta</li>
+            <li>Use para testar em tempo real</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Slide 5 - Interface do Thunkable -->
+      <section>
+        <h2>🖥️ Interface do Thunkable</h2>
+        <div style="font-size: 0.85em;">
+          <div class="step-box">
+            <strong>1. Viewer (Visualizador)</strong> - Preview do app
+          </div>
+          <div class="step-box">
+            <strong>2. Components (Componentes)</strong> - Elementos de UI
+          </div>
+          <div class="step-box">
+            <strong>3. Properties (Propriedades)</strong> - Configurações visuais
+          </div>
+          <div class="step-box">
+            <strong>4. Blocks (Blocos)</strong> - Lógica de programação
+          </div>
+        </div>
+        <p><small>💡 Dica: Alterne entre Design e Blocks com facilidade</small></p>
+      </section>
+
+      <!-- Slide 6 - Game Design: Conceito -->
+      <section>
+        <h2>🎮 Game Design: Asteroids</h2>
+        <div class="game-preview">
+          <h3>Conceito do Jogo</h3>
+          <p>🚀 Uma nave espacial deve desviar de asteroides que caem</p>
+          <ul style="text-align: left; display: inline-block;">
+            <li>Nave controlada por toque/acelerômetro</li>
+            <li>Asteroides caem de cima para baixo</li>
+            <li>Colisão = Game Over</li>
+            <li>Pontuação por tempo sobrevivido</li>
+            <li>Dificuldade progressiva</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Mecânicas do Jogo -->
+      <section>
+        <h2>⚙️ Mecânicas Principais</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.85em;">
+          <div class="step-box">
+            <strong>🎯 Movimentação</strong>
+            <ul>
+              <li>Toque na tela</li>
+              <li>Arrastar nave</li>
+              <li>Limites da tela</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>☄️ Asteroides</strong>
+            <ul>
+              <li>Spawn aleatório</li>
+              <li>Velocidade variável</li>
+              <li>Reciclagem ao sair</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>💥 Colisão</strong>
+            <ul>
+              <li>Detecção de overlap</li>
+              <li>Som/vibração</li>
+              <li>Game Over</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>📊 Sistema</strong><br>
+            <ul>
+              <li>Score/Timer</li>
+              <li>High Score</li>
+              <li>Restart</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Slide 8 - Melhorias Visuais -->
+      <section>
+        <h2>✨ Melhorias Visuais</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.85em;">
+          <div class="step-box">
+            <strong>🎨 Efeitos</strong>
+            <ul>
+              <li>Partículas na colisão</li>
+              <li>Animação da nave</li>
+              <li>Trail de movimento</li>
+            </ul>
+          </div>
+          <div class="step-box"> 
+            <strong>🔊 Sons</strong><br>
+            <ul>
+              <li>Background music</li>
+              <li>Som de explosão</li>
+              <li>Som de pontos</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>🌟 Extras</strong>
+            <ul>
+              <li>Power-ups</li>
+              <li>Diferentes tipos de asteroides</li>
+              <li>Parallax background</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>📱 UX</strong><br>
+            <ul>
+              <li>Feedback tátil</li>
+              <li>Tela de pausa</li>
+              <li>Tutorial inicial</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9 - Testar no Dispositivo -->
+      <section>
+        <h2>📱 Testar no Dispositivo</h2>
+        <div class="step-box">
+          <h4>Teste em Tempo Real:</h4>
+          <ol style="text-align: left;">
+            <li>Abra o app <strong>Thunkable</strong> no celular</li>
+            <li>Faça login com a mesma conta</li>
+            <li>Clique em <strong>"Test"</strong> no Thunkable web</li>
+            <li>Escaneie o QR Code que aparece</li>
+            <li>O jogo abrirá no seu dispositivo!</li>
+          </ol>
+        </div>
+        <div class="step-box">
+          <p><strong>🐛 Dicas de Debug:</strong></p>
+          <ul style="text-align: left;">
+            <li>Use blocos "Alert" para verificar valores</li>
+            <li>Teste incrementalmente</li>
+            <li>Verifique limites de tela</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 10 - Performance -->
+      <section>
+        <h2>⚡ Otimização de Performance</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.8em;">
+          <div class="step-box">
+            <strong>✅ Boas Práticas</strong>
+            <ul>
+              <li>Timer interval ≥ 30ms</li>
+              <li>Imagens otimizadas (PNG/WebP)</li>
+              <li>Evite muitos componentes</li>
+              <li>Reutilize asteroides</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>❌ Evite</strong>
+            <ul>
+              <li>Timers muito rápidos</li>
+              <li>Imagens muito grandes</li>
+              <li>Loops infinitos</li>
+              <li>Muitas animações simultâneas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step-box" style="margin-top: 15px;">
+          <h4>🔧 Pool de Objetos:</h4>
+          <pre><code class="language-plaintext">
+// Ao invés de criar/destruir, recicle
+IF asteroid.Y > Screen1.Height THEN
+  SET asteroid.Y to -50  // Reposiciona
+  SET asteroid.X to random(0, Screen1.Width)
+END IF
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 11 - Publicar o App -->
+      <section>
+        <h2>🚀 Publicar o App</h2>
+        <div class="step-box">
+          <h4>Opções de Publicação:</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <strong>📱 Android (APK)</strong>
+              <ol style="font-size: 0.75em; text-align: left;">
+                <li>Clique em "Publish"</li>
+                <li>Escolha "Android"</li>
+                <li>Preencha detalhes</li>
+                <li>Download do APK</li>
+                <li>Instale no dispositivo</li>
+              </ol>
+            </div>
+            <div>
+              <strong>🍎 iOS (TestFlight)</strong>
+              <ol style="font-size: 0.75em; text-align: left;">
+                <li>Requer conta Apple Developer</li>
+                <li>Clique em "Publish"</li>
+                <li>Escolha "iOS"</li>
+                <li>Siga processo de review</li>
+                <li>Distribua via TestFlight</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <p><small>💡 Android é mais fácil para começar!</small></p>
+      </section>
+
+      <!-- Slide 12 - Desafios Extras -->
+      <section>
+        <h2>🎯 Desafios Extras</h2>
+        <div class="component-list" style="font-size: 0.85em;">
+          <div class="step-box">
+            <strong>🌟 Nível Fácil</strong>
+            <ul>
+              <li>Adicione efeito de vibração na colisão</li>
+              <li>Crie uma tela de menu inicial</li>
+              <li>Adicione botão de pausa</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>🔥 Nível Médio</strong>
+            <ul>
+              <li>Power-ups (escudo, slow-motion)</li>
+              <li>Diferentes tamanhos de asteroides</li>
+              <li>Sistema de vidas (3 colisões)</li>
+            </ul>
+          </div>
+          <div class="step-box">
+            <strong>💀 Nível Difícil</strong>
+            <ul>
+              <li>Controle por giroscópio</li>
+              <li>Multiplayer local</li>
+              <li>Leaderboard online</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13 - Recursos e Comunidade -->
+      <section>
+        <h2>📚 Recursos e Comunidade</h2>
+        <div class="step-box">
+          <h4>🔗 Links Úteis:</h4>
+          <ul style="text-align: left;">
+            <li>📖 <a href="https://docs.thunkable.com" target="_blank">Documentação Oficial</a></li>
+            <li>💬 <a href="https://community.thunkable.com" target="_blank">Fórum da Comunidade</a></li>
+            <li>🎥 <a href="https://www.youtube.com/@Thunkable" target="_blank">Canal no YouTube</a></li>
+            <li>🚀 <a href="https://itch.io/search?type=games&classification=assets&q=spaceship" target="_blank">Itch.io (assets de naves)</a></li>
+            <li>🎨 <a href="https://opengameart.org" target="_blank">OpenGameArt (assets gratuitos)</a></li>
+          </ul>
+        </div>
+        <div class="step-box">
+          <h4>🎓 Próximos Passos:</h4>
+          <ul style="text-align: left;">
+            <li>Explore outros templates</li>
+            <li>Crie seu próprio jogo original</li>
+            <li>Publique na Play Store</li>
+           
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 14 - Atividade Prática -->
+      <section>
+        <h2>💻 Atividade Prática</h2>
+        <div class="step-box">
+          <h3>🎮 Desafio da Aula</h3>
+          <p><strong>Implemente pelo menos 3 melhorias:</strong></p>
+          <ol style="text-align: left;">
+            <li>Sistema de vidas (3 colisões antes do Game Over)</li>
+            <li>Power-up de escudo temporário</li>
+            <li>Diferentes cores/tamanhos de asteroides com pontuações variadas</li>
+          </ol>
+        </div>
+      </section>
+
+      
+      <!-- Slide 15 - Contato -->
+      <section>
+        <h2>📧 Contato</h2>
+        <div class="step-box">
+          <p><strong>Prof. Dr. Diogo Francisco Borba Rodrigues</strong></p>
+          <p>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </p>
+          <p>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </p>
+        </div>
+        <div class="game-preview" style="margin-top: 30px;">
+          <p>📚 <strong>Materiais da aula:</strong> Disponíveis no repositório</p>
+          <p>🎮 <strong>Compartilhe seu jogo:</strong> Use #AsteroidsThunkable</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
