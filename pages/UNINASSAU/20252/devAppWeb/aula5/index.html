@@ -39,21 +39,7 @@
         </a>
       </section>
 
-      <!-- Slide 2 - Objetivos -->
-      <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <ul>
-          <li class="fragment">Compreender o que é jQuery</li>
-          <li class="fragment">Dominar seletores jQuery</li>
-          <li class="fragment">Manipular DOM com jQuery</li>
-          <li class="fragment">Trabalhar com eventos</li>
-          <li class="fragment">Criar efeitos e animações</li>
-          <li class="fragment">Implementar AJAX básico</li>
-          <li class="fragment">Desenvolver páginas dinâmicas</li>
-        </ul>
-      </section>
-
-      <!-- Slide 3 - O que é jQuery -->
+      <!-- Slide 2.1 - O que é jQuery -->
       <section>
         <section>
           <h2>💙 O que é jQuery?</h2>
@@ -73,29 +59,30 @@
           </div>
         </section>
 
+        <!-- Slide 2.2 - JavaScript vs jQuery -->
         <section>
           <h3>📊 JavaScript vs jQuery</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
             <div>
               <h4>JavaScript Puro</h4>
               <pre><code class="language-javascript">
-document.getElementById('botao')
-  .addEventListener('click', function() {
-    var elementos = document
-      .querySelectorAll('.item');
-    
-    for (var i = 0; i < elementos.length; i++) {
-      elementos[i].style.display = 'none';
-    }
-  });
+      document.getElementById('botao')
+        .addEventListener('click', function() {
+          var elementos = document
+            .querySelectorAll('.item');
+          
+          for (var i = 0; i < elementos.length; i++) {
+            elementos[i].style.display = 'none';
+          }
+        });
               </code></pre>
             </div>
             <div class="fragment">
               <h4>jQuery</h4>
               <pre><code class="language-javascript">
-$('#botao').click(function() {
-  $('.item').hide();
-});
+      $('#botao').click(function() {
+        $('.item').hide();
+      });
               </code></pre>
               <p><strong>Menos código, mais funcionalidade!</strong></p>
             </div>
@@ -967,17 +954,7 @@ $('.contador').contadorAnimado({
       </section>
 
       <!-- Slide 11 - Próxima Aula -->
-      <section>
-        <h2>🔮 Próxima Aula</h2>
-        <h3>Aulas 6-7 - Projetos Práticos</h3>
-        <ul>
-          <li class="fragment">Aula 6: Página completa com HTML, CSS e JS</li>
-          <li class="fragment">Aula 7: Melhoria de layout com Bootstrap</li>
-          <li class="fragment">Integração de todas as tecnologias</li>
-          <li class="fragment">Projetos reais e funcionais</li>
-          <li class="fragment">Deploy e otimização</li>
-        </ul>
-      </section>
+    
 
       <!-- Slide 12 - Exercícios -->
       <section>
