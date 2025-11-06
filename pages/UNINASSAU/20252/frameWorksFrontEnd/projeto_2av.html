@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto StreamFlix - Requisitos de Entrega | 2ª Avaliação</title>
+    <meta name="description" content="Requisitos completos para o projeto StreamFlix - Aplicação de Streaming com React">
+    
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #e50914, #221f1f);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .header .icon {
+            font-size: 3.5rem;
+            color: #ffc107;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffc107;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #ffca2c;
+            transform: translateX(-5px);
+        }
+
+        /* Deadline Alert */
+        .deadline-alert {
+            background: #dc3545;
+            color: white;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .deadline-alert h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .deadline-date {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffc107;
+            margin: 0.5rem 0;
+        }
+
+        .countdown {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #e50914;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 3px solid #e50914;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #e50914;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h4 {
+            color: #e50914;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+        }
+
+        .checklist-item.required {
+            border-left-color: #e50914;
+        }
+
+        .checklist-item.bonus {
+            border-left-color: #ffc107;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 0.25rem;
+            cursor: pointer;
+        }
+
+        .checklist-label {
+            flex: 1;
+        }
+
+        .checklist-label strong {
+            color: #333;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .checklist-label small {
+            color: #6c757d;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-required {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge-bonus {
+            background: #ffc107;
+            color: #333;
+        }
+
+        /* Grade Table */
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .grade-table th {
+            background: #e50914;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .grade-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .grade-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .grade-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .points {
+            font-weight: 700;
+            color: #e50914;
+            font-size: 1.1rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #e50914;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1rem 0 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: #e50914;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #e50914;
+        }
+
+        .timeline-item h4 {
+            color: #e50914;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            background: #ffc107;
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Resources */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            border-color: #e50914;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .resource-card h4 {
+            color: #e50914;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-card p {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Tips Box */
+        .tips-box {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .tips-box h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-box li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .tips-box li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .warning-box ul {
+            color: #856404;
+            margin-left: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #21232a;
+            color: #adb5bd;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+            }
+
+            .header .icon {
+                font-size: 2.5rem;
+            }
+
+            .deadline-date {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .cards-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grade-table {
+                font-size: 0.9rem;
+            }
+
+            .grade-table th,
+            .grade-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+
+    <script>
+        function calculateDaysRemaining(targetDate) {
+            const today = new Date();
+            const target = new Date(targetDate);
+            const diffTime = target - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) {
+                return "Prazo encerrado";
+            } else if (diffDays === 0) {
+                return "Último dia!";
+            } else if (diffDays === 1) {
+                return "Falta 1 dia";
+            } else {
+                return `Faltam ${diffDays} dias`;
+            }
+        }
+
+        function updateCountdown() {
+            const projectDate = '2025-11-27';
+            const countdownElement = document.getElementById('countdown-days');
+            if (countdownElement) {
+                countdownElement.textContent = calculateDaysRemaining(projectDate);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+            setInterval(updateCountdown, 3600000);
+
+            // Salvar progresso do checklist
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const savedState = localStorage.getItem(checkbox.id);
+                if (savedState === 'true') {
+                    checkbox.checked = true;
+                }
+
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(this.id, this.checked);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>
+                <i class="fas fa-tv icon"></i>
+                Projeto StreamFlix
+            </h1>
+            <p>2ª Avaliação - Frameworks Front-End com React</p>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Voltar para a página principal
+            </a>
+        </div>
+    </header>
+
+    <!-- Deadline Alert -->
+    <div class="container">
+        <div class="deadline-alert">
+            <h3>
+                <i class="fas fa-calendar-exclamation"></i>
+                Data de Entrega
+            </h3>
+            <div class="deadline-date">27 de Novembro de 2025</div>
+            <div class="countdown">
+                ⏰ <span id="countdown-days">Carregando...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sobre o Projeto -->
+    <main class="container">
+        <section class="section">
+            <h2><i class="fas fa-info-circle"></i> Sobre o Projeto</h2>
+            <p>
+                O <strong>StreamFlix</strong> é o projeto final da disciplina de Frameworks Front-End, onde você aplicará todos os conceitos aprendidos sobre React para desenvolver uma aplicação web completa e funcional, inspirada em plataformas de streaming como Netflix.
+            </p>
+            <p>
+                Este projeto representa <strong>2 pontos extras</strong> e deve demonstrar sua capacidade de criar interfaces modernas, gerenciar estado, consumir APIs e implementar funcionalidades complexas usando React.
+            </p>
+
+            <h3><i class="fas fa-bullseye"></i> Objetivos de Aprendizagem</h3>
+            <ul style="padding-left: 2rem; line-height: 2;">
+                <li>Aplicar conceitos de componentes React funcionais</li>
+                <li>Gerenciar estado da aplicação usando Hooks</li>
+                <li>Implementar roteamento com React Router</li>
+                <li>Consumir APIs REST (integração com backend Django)</li>
+                <li>Criar interfaces responsivas e acessíveis</li>
+                <li>Aplicar boas práticas de desenvolvimento front-end</li>
+            </ul>
+        </section>
+
+        <!-- Requisitos Funcionais -->
+        <section class="section">
+            <h2><i class="fas fa-tasks"></i> Requisitos Funcionais</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h4><i class="fas fa-home"></i> Página Inicial</h4>
+                    <ul>
+                        <li>Banner principal com destaque</li>
+                        <li>Carrosséis de filmes por categoria</li>
+                        <li>Navegação suave entre seções</li>
+                        <li>Design responsivo</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-search"></i> Sistema de Busca</h4>
+                    <ul>
+                        <li>Campo de busca funcional</li>
+                        <li>Busca em tempo real (debounce)</li>
+                        <li>Resultados filtrados por título</li>
+                        <li>Feedback visual</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-film"></i> Catálogo de Filmes</h4>
+                    <ul>
+                        <li>Grid de cards de filmes</li>
+                        <li>Paginação ou scroll infinito</li>
+                        <li>Filtros por gênero/ano</li>
+                        <li>Loading states</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-info-circle"></i> Detalhes do Filme</h4>
+                    <ul>
+                        <li>Página individual por filme</li>
+                        <li>Informações completas</li>
+                        <li>Player de vídeo (simulado)</li>
+                        <li>Botões de ação</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-user"></i> Sistema de Autenticação</h4>
+                    <ul>
+                        <li>Tela de login/cadastro</li>
+                        <li>Integração com backend</li>
+                        <li>Gerenciamento de sessão</li>
+                        
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-heart"></i> Lista de Favoritos</h4>
+                    <ul>
+                        <li>Adicionar/remover favoritos</li>
+                        <li>Persistência de dados</li>
+                        <li>Página de "Minha Lista"</li>
+                        <li>Sincronização com backend</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist de Implementação -->
+        <section class="section">
+            <h2><i class="fas fa-check-square"></i> Checklist de Implementação</h2>
+            <p>Marque os itens conforme for completando (seu progresso é salvo automaticamente):</p>
+
+            <div class="checklist">
+                <h3>Estrutura e Setup <span class="badge badge-required">Obrigatório</span></h3>
+                
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-1">
+                    <div class="checklist-label">
+                        <strong>Projeto criado com Create React App ou Vite</strong>
+                        <small>Estrutura de pastas organizada (components, pages, services, styles)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-2">
+                    <div class="checklist-label">
+                        <strong>React Router configurado</strong>
+                        <small>Rotas principais: Home, Catálogo, Detalhes, Login, Perfil</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-3">
+                    <div class="checklist-label">
+                        <strong>Arquivo .env com variáveis de ambiente</strong>
+                        <small>URL da API e outras configurações sensíveis</small>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Componentes React <span class="badge badge-required">Obrigatório</span></h3>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-4">
+                    <div class="checklist-label">
+                        <strong>Header/Navbar responsivo</strong>
+                        <small>Logo, navegação, busca e perfil do usuário</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-5">
+                    <div class="checklist-label">
+                        <strong>Card de Filme (MovieCard)</strong>
+                        <small>Poster, título, ano, hover effects</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-6">
+                    <div class="checklist-label">
+                        <strong>Carrossel de Filmes</strong>
+                        <small>Scroll horizontal com categorias</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-7">
+                    <div class="checklist-label">
+                        <strong>Banner Principal</strong>
+                        <small>Filme em destaque com informações e botões</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-8">
+                    <div class="checklist-label">
+                        <strong>Loading Spinner/Skeleton</strong>
+                        <small>Estados de carregamento visuais</small>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Integração com Backend <span class="badge badge-required">Obrigatório</span></h3>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-9">
+                    <div class="checklist-label">
+                        <strong>Serviço de API configurado</strong>
+                        <small>Arquivo centralizado para chamadas HTTP (api.js)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-10">
+                    <div class="checklist-label">
+                        <strong>GET - Listar filmes do Django</strong>
+                        <small>useEffect + fetch/axios para buscar dados</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-11">
+                    <div class="checklist-label">
+                        <strong>GET - Detalhes de um filme específico</strong>
+                        <small>Buscar informações completas por ID</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-12">
+                    <div class="checklist-label">
+                        <strong>POST - Login de usuário</strong>
+                        <small>Autenticação com backend Django</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-13">
+                    <div class="checklist-label">
+                        <strong>POST/DELETE - Gerenciar favoritos</strong>
+                        <small>Adicionar e remover da lista de favoritos</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item required">
+                    <input type="checkbox" id="check-14">
+                    <div class="checklist-label">
+                        <strong>Tratamento de erros da API</strong>
+                        <small>Mensagens amigáveis e fallback UI</small>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Funcionalidades Extras <span class="badge badge-bonus">Bônus</span></h3>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-15">
+                    <div class="checklist-label">
+                        <strong>Sistema de busca com debounce</strong>
+                        <small>Busca otimizada em tempo real (+0.5)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-16">
+                    <div class="checklist-label">
+                        <strong>Filtros de gênero e ano</strong>
+                        <small>Múltiplos filtros combinados (+0.5)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-17">
+                    <div class="checklist-label">
+                        <strong>Context API para estado global</strong>
+                        <small>Gerenciamento de autenticação e favoritos (+0.5)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-18">
+                    <div class="checklist-label">
+                        <strong>Player de vídeo funcional</strong>
+                        <small>HTML5 video com controles customizados (+1.0)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-19">
+                    <div class="checklist-label">
+                        <strong>Animações e transições</strong>
+                        <small>Framer Motion ou CSS animations (+0.5)</small>
+                    </div>
+                </div>
+
+                <div class="checklist-item bonus">
+                    <input type="checkbox" id="check-20">
+                    <div class="checklist-label">
+                        <strong>Dark/Light mode</strong>
+                        <small>Toggle de temas com persistência (+0.5)</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Critérios de Avaliação -->
+        <section class="section">
+            <h2><i class="fas fa-star"></i> Critérios de Avaliação</h2>
+            
+            <table class="grade-table">
+                <thead>
+                    <tr>
+                        <th>Critério</th>
+                        <th>Descrição</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Funcionalidades Obrigatórias</strong></td>
+                        <td>Implementação completa de todos os requisitos básicos listados</td>
+                        <td class="points">4.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Integração com Backend</strong></td>
+                        <td>Consumo correto das APIs Django (GET, POST, PUT, DELETE)</td>
+                        <td class="points">2.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Qualidade do Código</strong></td>
+                        <td>Organização, componentização, boas práticas React</td>
+                        <td class="points">1.5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface e UX</strong></td>
+                        <td>Design responsivo, usabilidade, feedback visual</td>
+                        <td class="points">1.5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documentação</strong></td>
+                        <td>README.md com instruções de instalação e execução</td>
+                        <td class="points">0.5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apresentação</strong></td>
+                        <td>Demonstração ao vivo do projeto funcionando (Obrigatório)</td>
+                        <td class="points">0.5</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+
+     
+        </section>
+
+       
+        <!-- Forma de Entrega -->
+        <section class="section">
+            <h2><i class="fas fa-upload"></i> Forma de Entrega</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h4><i class="fab fa-github"></i> 1. Repositório GitHub</h4>
+                    <ul>
+                        <li>Código-fonte completo</li>
+                        <li>README.md detalhado</li>
+                        <li>Commits organizados</li>
+                        <li>Repositório público ou compartilhado</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-rocket"></i> 2. Deploy (Opcional mas Recomendado)</h4>
+                    <ul>
+                        <li>Vercel, Netlify ou similar</li>
+                        <li>URL funcional para testes</li>
+                        <li>Vale pontos extras!</li>
+                    </ul>
+                </div>
+
+
+                <div class="card">
+                    <h4><i class="fas fa-presentation"></i> 3. Apresentação em Aula</h4>
+                    <ul>
+                        <li>Demo ao vivo</li>
+                        <li>Q&A com o professor</li>
+                        <li>Máximo 10 minutos</li>
+                        <li>Data: 27/11/2025</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tips-box" style="margin-top: 2rem;">
+                <h3><i class="fas fa-lightbulb"></i> Modelo de README.md</h3>
+                <pre style="background: rgba(0,0,0,0.1); padding: 1.5rem; border-radius: 8px; overflow-x: auto; color: white;">
+# StreamFlix - Plataforma de Streaming
+
+## 📝 Descrição
+[Breve descrição do projeto]
+
+## 🚀 Tecnologias Utilizadas
+- React 18
+- React Router
+- Axios
+- CSS Modules / Styled Components
+- [Outras bibliotecas]
+
+## 📋 Funcionalidades
+- ✅ Listagem de filmes
+- ✅ Detalhes do filme
+- ✅ Sistema de busca
+- ✅ Autenticação
+- ✅ Lista de favoritos
+
+## 🔧 Instalação e Execução
+
+```bash
+# Clonar repositório
+git clone [url-do-repositorio]
+
+# Instalar dependências
+npm install
+
+# Configurar variáveis de ambiente
+cp .env.example .env
+# Editar .env com suas configurações
+
+# Executar em desenvolvimento
+npm start
+```
+
+## 🌐 Deploy
+[URL do projeto em produção]
+
+## 👨‍💻 Autor
+[Seu nome] - [Seu GitHub]
+
+## 📄 Licença
+Este projeto foi desenvolvido como parte da disciplina de Frameworks Front-End.
+                </pre>
+            </div>
+        </section>
+
+        <!-- Recursos Úteis -->
+        <section class="section">
+            <h2><i class="fas fa-book"></i> Recursos Úteis</h2>
+            
+            <div class="resources-grid">
+                <a href="https://react.dev" target="_blank" class="resource-card">
+                    <h4><i class="fab fa-react"></i> Documentação React</h4>
+                    <p>Guia oficial completo do React</p>
+                </a>
+
+                <a href="https://reactrouter.com" target="_blank" class="resource-card">
+                    <h4><i class="fas fa-route"></i> React Router</h4>
+                    <p>Documentação sobre roteamento</p>
+                </a>
+
+                <a href="https://axios-http.com" target="_blank" class="resource-card">
+                    <h4><i class="fas fa-plug"></i> Axios</h4>
+                    <p>Cliente HTTP para consumir APIs</p>
+                </a>
+
+                <a href="https://www.themoviedb.org/settings/api" target="_blank" class="resource-card">
+                    <h4><i class="fas fa-database"></i> TMDB API</h4>
+                    <p>API pública de filmes (opcional)</p>
+                </a>
+
+                <a href="https://vercel.com" target="_blank" class="resource-card">
+                    <h4><i class="fas fa-cloud-upload-alt"></i> Vercel</h4>
+                    <p>Deploy gratuito de aplicações React</p>
+                </a>
+
+                <a href="https://www.framer.com/motion/" target="_blank" class="resource-card">
+                    <h4><i class="fas fa-magic"></i> Framer Motion</h4>
+                    <p>Biblioteca para animações em React</p>
+                </a>
+            </div>
+        </section>
+        <!-- FAQ -->
+        <section class="section">
+            <h2><i class="fas fa-question-circle"></i> Perguntas Frequentes</h2>
+            
+            <div style="margin-top: 1.5rem;">
+                <details style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <summary style="font-weight: 600; color: #e50914;">Posso usar bibliotecas de UI como Material-UI ou Chakra?</summary>
+                    <p style="margin-top: 0.5rem; padding-left: 1rem;">Sim, mas com moderação. O objetivo é demonstrar suas habilidades em React e CSS. Use bibliotecas para complementar, não para fazer todo o trabalho.</p>
+                </details>
+
+                <details style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <summary style="font-weight: 600; color: #e50914;">E se o backend Django não estiver pronto?</summary>
+                    <p style="margin-top: 0.5rem; padding-left: 1rem;">Você pode usar dados mockados (JSON local) ou APIs públicas como TMDB temporariamente. Documente isso no README.</p>
+                </details>
+
+                
+                <details style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <summary style="font-weight: 600; color: #e50914;">Preciso fazer testes unitários?</summary>
+                    <p style="margin-top: 0.5rem; padding-left: 1rem;">Não é obrigatório, mas vale pontos extras se implementar testes com Jest/React Testing Library.</p>
+                </details>
+
+                <details style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <summary style="font-weight: 600; color: #e50914;">E se eu não conseguir fazer o deploy?</summary>
+                    <p style="margin-top: 0.5rem; padding-left: 1rem;">O deploy é opcional, mas recomendado. Se não conseguir, garanta que o projeto rode localmente sem erros.</p>
+                </details>
+
+                <details style="margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <summary style="font-weight: 600; color: #e50914;">Posso usar TypeScript?</summary>
+                    <p style="margin-top: 0.5rem; padding-left: 1rem;">Sim! TypeScript é bem-vindo e pode valer pontos extras pela qualidade do código.</p>
+                </details>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <p>Centro Universitário Maurício de Nassau - Frameworks Front-End</p>
+        </div>
+    </footer>
+</body>
+</html>

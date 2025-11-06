@@ -602,18 +602,18 @@
         }
 
         function updateCountdowns() {
-            // Data da prova: 02/10/2025
-            const examDate = '2025-10-02';
+            // Data de entrega do projeto e prova da 2ª AV: 04/12/2025
+            const avaliacaoDate = '2025-11-27';
             const examCountdown = document.getElementById('dias-prova');
             if (examCountdown) {
-                examCountdown.textContent = calculateDaysRemaining(examDate);
+                examCountdown.textContent = calculateDaysRemaining(avaliacaoDate);
             }
 
-            // Data da entrega do projeto: 09/10/2025
-            const projectDate = '2025-10-09';
+            // Data da prova da 2ª AV: 04/12/2025
+            const projetoDate = '2025-12-04'
             const projectCountdown = document.getElementById('dias-projeto');
             if (projectCountdown) {
-                projectCountdown.textContent = calculateDaysRemaining(projectDate);
+                projectCountdown.textContent = calculateDaysRemaining(projetoDate);
             }
         }
 
@@ -657,12 +657,12 @@
                 <div class="alert-content">
                     <div class="alert-item">
                         <h4>
-                            <i class="fas fa-clipboard-check"></i>
-                            Prova 1ª Avaliação
+                            <i class="fas fa-tv"></i>
+                            Projeto StreamFlix - 2ª AV
                         </h4>
-                        <div class="alert-date">02/10/2025</div>
+                        <div class="alert-date">27/11/2025</div>
                         <div class="alert-description">
-                            Prova sobre React fundamentals, JSX e componentes
+                            Entrega do projeto StreamFlix com integração React + Django
                         </div>
                         <div class="countdown" id="countdown-prova">
                             ⏰ Faltam <span id="dias-prova"></span> dias
@@ -671,12 +671,12 @@
                     
                     <div class="alert-item">
                         <h4>
-                            <i class="fas fa-rocket"></i>
-                            Entrega do Projeto
+                            <i class="fas fa-clipboard-check"></i>
+                            Prova 2ª Avaliação
                         </h4>
-                        <div class="alert-date">09/10/2025</div>
+                        <div class="alert-date">04/12/2025</div>
                         <div class="alert-description">
-                            Aplicação React completa com componentes e funcionalidades
+                            Prova sobre consumo de APIs, integração backend e React avançado
                         </div>
                         <div class="countdown" id="countdown-projeto">
                             ⏰ Faltam <span id="dias-projeto"></span> dias
@@ -760,41 +760,6 @@
                     <p>useEffect para chamadas de API, Fetch API, Axios e integração com backend Python (FastAPI/Flask).</p>
                     <span class="lesson-status status-available">Disponível</span>
                 </a>
-
-                <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/aula8/" class="lesson-card">
-                    <div class="lesson-number">8</div>
-                    <h3>Gerenciamento de Estado Global</h3>
-                    <p>Context API, useContext, useReducer e padrões para gerenciar estado em aplicações React.</p>
-                    <span class="lesson-status status-available">Disponível</span>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/aula9/" class="lesson-card">
-                    <div class="lesson-number">9</div>
-                    <h3>Formulários e Validação</h3>
-                    <p>Formulários controlados, React Hook Form, validações customizadas e integração com APIs.</p>
-                    <span class="lesson-status status-available">Disponível</span>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/aula10/" class="lesson-card">
-                    <div class="lesson-number">10</div>
-                    <h3>Autenticação e Autorização</h3>
-                    <p>JWT, login/logout com React, rotas protegidas e gerenciamento de sessão.</p>
-                    <span class="lesson-status status-available">Disponível</span>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/aula11/" class="lesson-card">
-                    <div class="lesson-number">11</div>
-                    <h3>Deploy e Build de Produção</h3>
-                    <p>Variáveis de ambiente, deploy no Vercel/Netlify, otimizações e segurança em produção.</p>
-                    <span class="lesson-status status-available">Disponível</span>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/aula12/" class="lesson-card">
-                    <div class="lesson-number">12</div>
-                    <h3>Projeto Integrado Final</h3>
-                    <p>Integração completa React + Python, CRUD funcional, error handling e apresentação final.</p>
-                    <span class="lesson-status status-available">Disponível</span>
-                </a>
             </div>
         </div>
     </section>
@@ -816,9 +781,9 @@
 
                         
                         <div class="project-cta">
-                        <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/projeto.html" class="project-button">
+                        <a href="/pages/UNINASSAU/20252/frameWorksFrontEnd/projeto_2av.html" class="project-button">
                             <i class="fas fa-file-alt"></i>
-                            Ver Requisitos Completos
+                            Ver Requisitos Completos do Projeto da 2ª AV
                         </a>
                         <p>Acesse a página dedicada com todos os detalhes, critérios de avaliação, recursos úteis e dicas para o desenvolvimento.</p>
                     </div>
