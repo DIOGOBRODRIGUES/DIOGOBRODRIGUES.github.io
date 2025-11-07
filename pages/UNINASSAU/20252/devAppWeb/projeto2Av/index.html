@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Projeto 2AV: Catálogo de Produtos com jQuery e AJAX | Desenvolvimento de Aplicações Web</title>
+
+  <meta name="description" content="Projeto Final - Catálogo Interativo com jQuery, AJAX e JSON - Centro Universitário Maurício de Nassau">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #11998e;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      color: #11998e;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      color: #38ef7d;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0;
+    }
+
+    .hero {
+      text-align: center;
+      color: white;
+      padding: 4rem 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero .university {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .deadline-box {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 1.5rem;
+      border-radius: 15px;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .deadline-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .deadline-date {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffd700;
+    }
+
+    /* Content Sections */
+    .content-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: #11998e;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h3 {
+      color: #38ef7d;
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-item {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .feature-item i {
+      font-size: 2.5rem;
+      color: #11998e;
+      margin-bottom: 1rem;
+    }
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .requirement-card {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .requirement-card h4 {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .requirement-card ul {
+      list-style: none;
+    }
+
+    .requirement-card li {
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .requirement-card li:before {
+      content: "✓";
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre;
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    .warning-box h3 {
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    .info-box h3 {
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(17, 153, 142, 0.4);
+    }
+
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .grade-table th {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .grade-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .grade-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .deadline-date {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          Maurício de Nassau
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <p class="university">🏛️ Centro Universitário Maurício de Nassau</p>
+      <h1>Projeto 2AV: Catálogo de Produtos</h1>
+      <p>Aplicação Web Dinâmica com jQuery, AJAX e JSON</p>
+      <p><strong>Prof. Dr. Diogo Francisco Borba Rodrigues</strong></p>
+      
+      <div class="deadline-box">
+        <h3><i class="fas fa-calendar-alt"></i> Datas de Apresentação</h3>
+        <div class="deadline-date">Turma A: 28/11/2025</div>
+        <div class="deadline-date">Turma B: 01/12/2025</div>
+        <p style="margin-top: 0.5rem;">Apresentação em aula + Código no GitHub</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="content-grid">
+        
+        <!-- Sobre o Projeto -->
+        <div class="card">
+          <h2><i class="fas fa-shopping-cart"></i> Sobre o Projeto</h2>
+          <p>Desenvolver um <strong>Catálogo de Produtos Interativo</strong> que carrega dados de um arquivo JSON local usando jQuery e AJAX, permitindo visualização, busca e filtragem de produtos de forma dinâmica e responsiva.</p>
+          
+          <div class="warning-box">
+            <h3><i class="fas fa-exclamation-triangle"></i> Importante</h3>
+            <ul>
+              <li><strong>SEM Backend Java:</strong> Não usaremos Eclipse ou servidor Java</li>
+              <li><strong>JSON Local:</strong> Dados serão carregados de arquivo .json</li>
+              <li><strong>Live Server:</strong> Use a extensão do VS Code para testar</li>
+              <li><strong>jQuery obrigatório:</strong> Utilize jQuery para manipulação do DOM e AJAX</li>
+            </ul>
+          </div>
+
+          <h3>🎯 Funcionalidades Principais</h3>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <i class="fas fa-download"></i>
+              <h4>Carregar Dados</h4>
+              <p>Via AJAX de arquivo JSON</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-th-large"></i>
+              <h4>Exibir Produtos</h4>
+              <p>Cards visuais responsivos</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-search"></i>
+              <h4>Buscar</h4>
+              <p>Filtrar por nome/categoria</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-filter"></i>
+              <h4>Filtrar</h4>
+              <p>Por categoria/preço</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-sort"></i>
+              <h4>Ordenar</h4>
+              <p>Por nome/preço/categoria</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-info-circle"></i>
+              <h4>Detalhes</h4>
+              <p>Modal com informações</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo Programático -->
+        <div class="card">
+          <h2><i class="fas fa-book"></i> Conteúdo Abordado (Aulas 1-6)</h2>
+          
+          <div class="requirements-grid">
+            <div class="requirement-card">
+              <h4><i class="fab fa-html5"></i> HTML5 Semântico</h4>
+              <ul>
+                <li>Estrutura semântica (header, main, footer)</li>
+                <li>Formulários e inputs</li>
+                <li>Meta tags e SEO</li>
+                <li>Acessibilidade (ARIA)</li>
+              </ul>
+            </div>
+            
+            <div class="requirement-card">
+              <h4><i class="fab fa-css3-alt"></i> CSS3 Avançado</h4>
+              <ul>
+                <li>Flexbox e Grid Layout</li>
+                <li>Responsividade (Media Queries)</li>
+                <li>Animations e Transitions</li>
+                <li>Design moderno e clean</li>
+              </ul>
+            </div>
+            
+            <div class="requirement-card">
+              <h4><i class="fab fa-js-square"></i> JavaScript ES6+</h4>
+              <ul>
+                <li>Manipulação do DOM</li>
+                <li>Eventos e Event Listeners</li>
+                <li>Arrow Functions e let/const</li>
+                <li>Template Literals</li>
+              </ul>
+            </div>
+
+            <div class="requirement-card">
+              <h4><i class="fas fa-dollar-sign"></i> jQuery</h4>
+              <ul>
+                <li>Seletores jQuery ($)</li>
+                <li>Manipulação DOM com jQuery</li>
+                <li>Eventos (.click, .hover, etc)</li>
+                <li>Animações (.fadeIn, .slideDown)</li>
+              </ul>
+            </div>
+
+            <div class="requirement-card">
+              <h4><i class="fas fa-sync-alt"></i> AJAX</h4>
+              <ul>
+                <li>Requisições assíncronas ($.ajax)</li>
+                <li>Callbacks (success, error)</li>
+                <li>Tratamento de respostas</li>
+                <li>Loading states</li>
+              </ul>
+            </div>
+
+            <div class="requirement-card">
+              <h4><i class="fas fa-file-code"></i> JSON</h4>
+              <ul>
+                <li>Estrutura de dados JSON</li>
+                <li>Parse e manipulação</li>
+                <li>Arrays e objetos</li>
+                <li>Iteração de dados</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estrutura do Projeto -->
+        <div class="card">
+          <h2><i class="fas fa-folder-open"></i> Estrutura do Projeto</h2>
+          <div class="code-block">catalogo-produtos/
+├── index.html
+├── css/
+│   ├── style.css
+│   └── responsive.css
+├── js/
+│   ├── main.js
+│   └── produtos.js
+├── data/
+│   └── produtos.json
+├── assets/
+│   └── images/
+│       └── placeholder.png
+└── README.md</div>
+          
+          <h3>📋 Arquivo JSON Obrigatório (produtos.json)</h3>
+          <div class="code-block">{
+  "mensagem": "Catálogo carregado com sucesso!",
+  "total": 10,
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Notebook Gamer",
+      "categoria": "Eletrônicos",
+      "preco": 4500.00,
+      "descricao": "Intel i7, 16GB RAM, RTX 3060",
+      "imagem": "assets/images/notebook.jpg",
+      "estoque": 15
+    },
+    {
+      "id": 2,
+      "nome": "Mouse Gamer RGB",
+      "categoria": "Periféricos",
+      "preco": 150.00,
+      "descricao": "12000 DPI, 7 botões programáveis",
+      "imagem": "assets/images/mouse.jpg",
+      "estoque": 50
+    }
+    // ... mínimo 10 produtos
+  ]
+}</div>
+
+          <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Requisitos do JSON</h3>
+            <ul>
+              <li><strong>Mínimo 10 produtos</strong> diferentes</li>
+              <li><strong>3 categorias</strong> no mínimo (Eletrônicos, Periféricos, Acessórios, etc)</li>
+              <li>Cada produto deve ter: id, nome, categoria, preço, descrição, imagem e estoque</li>
+              <li>Use imagens reais (pode ser placeholder ou URLs externas)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Funcionalidades Obrigatórias -->
+        <div class="card">
+          <h2><i class="fas fa-check-double"></i> Funcionalidades Obrigatórias</h2>
+          
+          <h3>1. <i class="fas fa-download"></i> Carregamento de Dados via AJAX</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Botão "Carregar Produtos" que dispara requisição AJAX</li>
+            <li>Usar <code>$.ajax()</code> do jQuery para buscar <code>produtos.json</code></li>
+            <li>Exibir mensagem de "Carregando..." durante a requisição</li>
+            <li>Tratar sucesso e erro da requisição</li>
+          </ul>
+
+          <h3>2. <i class="fas fa-th-large"></i> Exibição dos Produtos</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Grid/lista de cards responsivos</li>
+            <li>Cada card deve mostrar: imagem, nome, preço, categoria</li>
+            <li>Botão "Ver Detalhes" em cada produto</li>
+            <li>Design atrativo e profissional</li>
+          </ul>
+
+          <h3>3. <i class="fas fa-search"></i> Sistema de Busca</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Campo de input para buscar produtos por nome</li>
+            <li>Busca em tempo real (a cada tecla digitada)</li>
+            <li>Filtrar produtos que contenham o texto digitado</li>
+            <li>Mensagem "Nenhum produto encontrado" quando necessário</li>
+          </ul>
+
+          <h3>4. <i class="fas fa-filter"></i> Filtros por Categoria</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Botões ou select para filtrar por categoria</li>
+            <li>Opção "Todas as categorias"</li>
+            <li>Atualizar produtos exibidos dinamicamente</li>
+          </ul>
+
+          <h3>5. <i class="fas fa-sort"></i> Ordenação</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Ordenar por: Nome (A-Z), Preço (menor/maior)</li>
+            <li>Select ou botões para escolher ordenação</li>
+            <li>Aplicar ordenação dinamicamente</li>
+          </ul>
+
+          <h3>6. <i class="fas fa-window-maximize"></i> Modal de Detalhes</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Ao clicar em "Ver Detalhes", abrir modal</li>
+            <li>Mostrar todas as informações do produto</li>
+            <li>Botão para fechar modal</li>
+            <li>Fechar ao clicar fora do modal</li>
+          </ul>
+
+          <h3>7. <i class="fas fa-mobile-alt"></i> Responsividade</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Layout adaptável para mobile, tablet e desktop</li>
+            <li>Menu hambúrguer no mobile (opcional)</li>
+            <li>Cards se reorganizam em telas menores</li>
+          </ul>
+        </div>
+
+        <!-- Requisitos Técnicos Detalhados -->
+        <div class="card">
+          <h2><i class="fas fa-code"></i> Requisitos Técnicos Detalhados</h2>
+          
+          <h3><i class="fab fa-html5"></i> HTML (2.0 pontos)</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Estrutura semântica clara (header, nav, main, section, footer)</li>
+            <li>Importação do jQuery via CDN</li>
+            <li>Container para exibir produtos (pode começar vazio)</li>
+            <li>Campo de busca e filtros</li>
+            <li>Modal para detalhes (pode ser criado via JavaScript)</li>
+            <li>Meta tags para responsividade</li>
+          </ul>
+
+          <h3><i class="fab fa-css3-alt"></i> CSS (2.0 pontos)</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Design profissional e moderno</li>
+            <li>Uso de Grid ou Flexbox para layout dos cards</li>
+            <li>Estilização do modal</li>
+            <li>Efeitos de hover nos cards e botões</li>
+            <li>Animações/transições suaves</li>
+            <li>Media queries para responsividade</li>
+            <li>Paleta de cores harmoniosa</li>
+          </ul>
+
+          <h3><i class="fab fa-js-square"></i> JavaScript + jQuery (4.0 pontos)</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li><strong>$(document).ready()</strong> - Código executado após DOM pronto</li>
+            <li><strong>$.ajax()</strong> - Requisição para carregar produtos.json</li>
+            <li><strong>success callback</strong> - Processar dados recebidos</li>
+            <li><strong>error callback</strong> - Tratar erros da requisição</li>
+            <li><strong>.forEach() ou $.each()</strong> - Iterar pelos produtos</li>
+            <li><strong>.append()</strong> - Adicionar produtos no DOM</li>
+            <li><strong>.click()</strong> - Eventos de clique (detalhes, filtros)</li>
+            <li><strong>.filter()</strong> - Filtrar produtos por busca/categoria</li>
+            <li><strong>.sort()</strong> - Ordenar produtos</li>
+            <li><strong>.fadeIn(), .slideDown()</strong> - Animações jQuery</li>
+          </ul>
+
+          <h3><i class="fas fa-file-code"></i> JSON (1.0 ponto)</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Arquivo produtos.json válido</li>
+            <li>Estrutura correta (objeto raiz com array de produtos)</li>
+            <li>Mínimo 10 produtos com todos os campos</li>
+            <li>Dados coerentes e realistas</li>
+          </ul>
+
+          <h3><i class="fas fa-star"></i> Extras e Boas Práticas (1.0 ponto)</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li>Código bem organizado e comentado</li>
+            <li>README.md com instruções</li>
+            <li>Loading spinner/skeleton durante carregamento</li>
+            <li>Validação e tratamento de erros</li>
+            <li>Contador de produtos exibidos</li>
+            <li>Botão "Limpar filtros"</li>
+            <li>Funcionalidades extras criativas</li>
+          </ul>
+        </div>
+
+        
+
+        <!-- Critérios de Avaliação -->
+        <div class="card">
+          <h2><i class="fas fa-clipboard-check"></i> Critérios de Avaliação</h2>
+          
+          <table class="grade-table">
+            <thead>
+              <tr>
+                <th>Critério</th>
+                <th>Descrição</th>
+                <th>Pontos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>HTML Estruturado</strong></td>
+                <td>Estrutura semântica, organização, meta tags</td>
+                <td>2.0</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Responsivo</strong></td>
+                <td>Design profissional, responsividade, animações</td>
+                <td>2.0</td>
+              </tr>
+              <tr>
+                <td><strong>jQuery + AJAX</strong></td>
+                <td>Requisição AJAX, manipulação DOM, eventos, filtros</td>
+                <td>4.0</td>
+              </tr>
+              <tr>
+                <td><strong>Arquivo JSON</strong></td>
+                <td>Estrutura válida, mínimo 10 produtos, dados coerentes</td>
+                <td>1.0</td>
+              </tr>
+              <tr>
+                <td><strong>Extras e Boas Práticas</strong></td>
+                <td>Código organizado, README, funcionalidades extras</td>
+                <td>1.0</td>
+              </tr>
+              <tr style="background: #e6f7ff;">
+                <td colspan="2"><strong>TOTAL</strong></td>
+                <td><strong>10.0</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning-box" style="margin-top: 2rem;">
+            <h3><i class="fas fa-exclamation-triangle"></i> Penalizações</h3>
+            <ul>
+              <li><strong>-1.0:</strong> Não usar jQuery para AJAX</li>
+              <li><strong>-1.0:</strong> JSON com menos de 10 produtos</li>
+              <li><strong>-0.5:</strong> Não funcionar no Live Server</li>
+              <li><strong>-0.5:</strong> Código não comentado</li>
+              <li><strong>-0.5:</strong> Sem tratamento de erro no AJAX</li>
+              <li><strong>Nota ZERO:</strong> Plágio comprovado</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- Entrega -->
+        <div class="card">
+          <h2><i class="fas fa-upload"></i> Forma de Entrega</h2>
+          
+          <h3>📦 O que entregar:</h3>
+          <ol style="margin-left: 2rem; margin-top: 1rem;">
+            <li><strong>Repositório GitHub:</strong>
+              <ul style="margin-left: 2rem;">
+                <li>Criar repositório público no GitHub</li>
+                <li>Nome sugerido: <code>catalogo-produtos-projeto2av</code></li>
+                <li>Fazer commits organizados durante desenvolvimento</li>
+                <li>Incluir README.md explicativo</li>
+              </ul>
+            </li>
+            <li style="margin-top: 1rem;"><strong>README.md deve conter:</strong>
+              <ul style="margin-left: 2rem;">
+                <li>Título e descrição do projeto</li>
+                <li>Tecnologias utilizadas</li>
+                <li>Como executar (instruções do Live Server)</li>
+                <li>Funcionalidades implementadas</li>
+                <li>Seu nome e matrícula</li>
+              </ul>
+            </li>
+            <li style="margin-top: 1rem;"><strong>Link para enviar:</strong>
+              <ul style="margin-left: 2rem;">
+                <li>URL do repositório GitHub</li>
+                <li>Pode usar GitHub Pages </li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3 style="margin-top: 2rem;">🎤 Apresentação</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li><strong>Turma A:</strong> 28/11/2025</li>
+            <li><strong>Turma B:</strong> 01/12/2025</li>
+            <li>Duração: <strong>5-10 minutos</strong></li>
+            <li>Demonstrar o projeto funcionando</li>
+            <li>Explicar as funcionalidades implementadas</li>
+            <li>Mostrar código-fonte (principais funções)</li>
+            <li>Responder perguntas do professor</li>
+          </ul>
+
+        </div>
+
+        <!-- Dicas e Recursos -->
+        <div class="card">
+          <h2><i class="fas fa-lightbulb"></i> Dicas e Recursos</h2>
+          
+          <h3>💡 Dicas de Desenvolvimento</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li><strong>Comece simples:</strong> Primeiro faça o AJAX funcionar, depois adicione funcionalidades</li>
+            <li><strong>Use console.log:</strong> Para debugar e ver os dados retornados</li>
+            <li><strong>Teste frequentemente:</strong> Não deixe para testar tudo no final</li>
+            <li><strong>Organize o código:</strong> Separe em funções reutilizáveis</li>
+            <li><strong>Comente o código:</strong> Explique a lógica das funções principais</li>
+            <li><strong>Mobile first:</strong> Desenvolva primeiro para mobile, depois adapte para desktop</li>
+          </ul>
+
+          <h3>📚 Recursos Úteis</h3>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <i class="fab fa-js-square"></i>
+              <h4>jQuery API</h4>
+              <p><a href="https://api.jquery.com/" target="_blank">api.jquery.com</a></p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-book"></i>
+              <h4>W3Schools</h4>
+              <p><a href="https://www.w3schools.com/jquery/" target="_blank">w3schools.com/jquery</a></p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-image"></i>
+              <h4>Imagens Grátis</h4>
+              <p><a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-palette"></i>
+              <h4>Cores</h4>
+              <p><a href="https://coolors.co/" target="_blank">Coolors.co</a></p>
+            </div>
+          </div>
+
+          <h3>🛠️ Ferramentas Recomendadas</h3>
+          <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+            <li><strong>VS Code:</strong> Editor de código</li>
+            <li><strong>Live Server:</strong> Extensão para servidor local</li>
+            <li><strong>Chrome DevTools:</strong> F12 para debugar</li>
+            <li><strong>JSONLint:</strong> Validar estrutura JSON</li>
+            <li><strong>Git + GitHub:</strong> Controle de versão</li>
+          </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+          <h2><i class="fas fa-question-circle"></i> Perguntas Frequentes</h2>
+          
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #11998e;">❓ Posso usar Bootstrap ou outro framework CSS?</h4>
+            <p style="margin-top: 0.5rem;">Sim! Mas você ainda precisa demonstrar conhecimento em CSS puro (customize os componentes).</p>
+          </div>
+
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #11998e;">❓ Preciso criar um backend real?</h4>
+            <p style="margin-top: 0.5rem;">NÃO! Use apenas o arquivo JSON local. Sem Java, sem Eclipse, sem servidor backend.</p>
+          </div>
+
+
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #11998e;">❓ Quantos produtos preciso ter no JSON?</h4>
+            <p style="margin-top: 0.5rem;">Mínimo 10 produtos, com pelo menos 3 categorias diferentes.</p>
+          </div>
+
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #11998e;">❓ E se eu não conseguir fazer funcionar no Live Server?</h4>
+            <p style="margin-top: 0.5rem;">Procure o professor durante a aula ou monitoria. É essencial que funcione!</p>
+          </div>
+
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #11998e;">❓ Posso usar Vanilla JavaScript ao invés de jQuery?</h4>
+            <p style="margin-top: 0.5rem;">NÃO para este projeto. O uso de jQuery é OBRIGATÓRIO, pois é o conteúdo da disciplina.</p>
+          </div>
+
+          <div style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+            <h4 style="color: #11998e;">❓ Onde encontro imagens para os produtos?</h4>
+            <p style="margin-top: 0.5rem;">Use Unsplash, Pexels ou Pixabay (sites de imagens grátis). Ou crie uma imagem placeholder.</p>
+          </div>
+        </div>
+
+        <!-- Checklist Final -->
+        <div class="card">
+          <h2><i class="fas fa-tasks"></i> Checklist de Entrega</h2>
+          
+          <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 2rem; border-radius: 10px;">
+            <h3 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-check-circle"></i> Antes de Entregar, Verifique:</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+              <div>
+                <h4 style="color: #ffd700; margin-bottom: 0.5rem;">📁 Arquivos</h4>
+                <ul style="list-style: none;">
+                  <li>☐ index.html</li>
+                  <li>☐ style.css</li>
+                  <li>☐ main.js</li>
+                  <li>☐ produtos.json (10+ produtos)</li>
+                  <li>☐ README.md</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: #ffd700; margin-bottom: 0.5rem;">✨ Funcionalidades</h4>
+                <ul style="list-style: none;">
+                  <li>☐ AJAX carrega JSON</li>
+                  <li>☐ Produtos exibidos</li>
+                  <li>☐ Busca funciona</li>
+                  <li>☐ Filtros funcionam</li>
+                  <li>☐ Ordenação funciona</li>
+                  <li>☐ Modal de detalhes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: #ffd700; margin-bottom: 0.5rem;">💻 Código</h4>
+                <ul style="list-style: none;">
+                  <li>☐ jQuery importado</li>
+                  <li>☐ Código comentado</li>
+                  <li>☐ Sem erros no console</li>
+                  <li>☐ Tratamento de erro AJAX</li>
+                  <li>☐ Responsivo</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: #ffd700; margin-bottom: 0.5rem;">🚀 Testes</h4>
+                <ul style="list-style: none;">
+                  <li>☐ Funciona no Live Server</li>
+                  <li>☐ Testado no mobile</li>
+                  <li>☐ JSON válido</li>
+                  <li>☐ GitHub atualizado</li>
+                  <li>☐ README completo</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <p><strong>Prof. Dr. Diogo Francisco Borba Rodrigues</strong></p>
+          <p>Desenvolvimento de Aplicações Web - 2025.2</p>
+          <p style="margin-top: 0.5rem; color: #11998e;"><strong>Apresentação - Turma A: 28/11/2025 | Turma B: 01/12/2025</strong></p>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
