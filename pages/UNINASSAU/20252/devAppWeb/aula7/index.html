@@ -31,7 +31,6 @@
         <p>🏛️ Centro Universitário Maurício de Nassau</p>
         <h2>Aula 7</h2>
         <h3>🚀 Prática: Sistema CRUD Completo</h3>
-        <h4>Guia para o Projeto da 2ª Avaliação</h4>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
         <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
           <i class="fab fa-linkedin"></i>
@@ -41,22 +40,9 @@
         </a>
       </section>
 
-      <!-- Slide 2 - Objetivos da Aula -->
+      <!-- Slide 2 - Atividades da Aula 7 -->
       <section>
-        <h2>🎯 Objetivos da Aula</h2>
-        <ul>
-          <li>Desenvolver um sistema CRUD completo na prática</li>
-          <li>Aplicar jQuery e AJAX em operações assíncronas</li>
-          <li>Implementar validação de formulários</li>
-          <li>Criar interface responsiva com Bootstrap</li>
-          <li>Gerenciar dados com localStorage</li>
-          <li>Compreender todos os requisitos do projeto 2ª AV</li>
-        </ul>
-      </section>
-
-      <!-- Slide 3 - Requisitos do Projeto 2ª AV -->
-      <section>
-        <h2>📋 Requisitos do Projeto 2ª AV</h2>
+        <h2>📋 Atividades da Aula 7</h2>
         <div style="font-size: 0.85em; text-align: left;">
           <p><strong>1. CRUD Completo:</strong> Create, Read, Update, Delete</p>
           <p><strong>2. jQuery:</strong> Manipulação de DOM e eventos</p>
@@ -68,7 +54,7 @@
         </div>
       </section>
 
-      <!-- Slide 4 - Exemplo Prático: Sistema de Gerenciamento de Produtos -->
+      <!-- Slide 3 - Exemplo Prático: Sistema de Gerenciamento de Produtos -->
       <section>
         <h2>🛍️ Exemplo Prático</h2>
         <h3>Sistema de Gerenciamento de Produtos</h3>
@@ -99,13 +85,13 @@ projeto-crud/
 └── data/
     └── products.json # Dados (opcional)
         </code></pre>
-        <p><small>💡 Organize seu código de forma modular!</small></p>
+       
       </section>
 
       <!-- Slide 6 - HTML: Estrutura Base -->
       <section>
         <h2>📄 HTML: Estrutura Base</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|4-5|8-9|11-13">
+        <pre><code class="language-html" data-trim data-line-numbers>
 &lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
 &lt;head&gt;
@@ -126,7 +112,7 @@ projeto-crud/
       <!-- Slide 7 - HTML: Container Principal -->
       <section>
         <h2>📄 HTML: Container Principal</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|3-6|9-10|13-14">
+        <pre><code class="language-html" data-trim data-line-numbers>
 &lt;body&gt;
   &lt;div class="container mt-5"&gt;
     &lt;!-- Cabeçalho --&gt;
@@ -151,7 +137,7 @@ projeto-crud/
       <!-- Slide 8 - HTML: Tabela de Produtos -->
       <section>
         <h2>📄 HTML: Tabela de Produtos</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|2-3|6-14|17">
+        <pre><code class="language-html" data-trim data-line-numbers>
     &lt;!-- Tabela de Produtos --&gt;
     &lt;div class="table-responsive"&gt;
       &lt;table class="table table-hover table-striped"&gt;
@@ -177,7 +163,7 @@ projeto-crud/
       <!-- Slide 9 - HTML: Modal do Formulário -->
       <section>
         <h2>📄 HTML: Modal do Formulário</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|2|5|8-10">
+        <pre><code class="language-html" data-trim data-line-numbers>
   &lt;!-- Modal para Adicionar/Editar Produto --&gt;
   &lt;div class="modal fade" id="productModal" tabindex="-1"&gt;
     &lt;div class="modal-dialog"&gt;
@@ -201,7 +187,7 @@ projeto-crud/
       <!-- Slide 10 - HTML: Campos do Formulário -->
       <section>
         <h2>📄 HTML: Campos do Formulário</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|2|6-8|11|15|19-20">
+        <pre><code class="language-html" data-trim data-line-numbers>
 &lt;form id="productForm"&gt;
   &lt;input type="hidden" id="productId"&gt;
   
@@ -230,7 +216,7 @@ projeto-crud/
       <!-- Slide 11 - HTML: Campos Numéricos e Botões -->
       <section>
         <h2>📄 HTML: Campos Numéricos</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|3-4|9-10|15-19">
+        <pre><code class="language-html" data-trim data-line-numbers>
   &lt;!-- Preço --&gt;
   &lt;div class="mb-3"&gt;
     &lt;label for="productPrice" class="form-label"&gt;Preço (R$)&lt;/label&gt;
@@ -257,7 +243,7 @@ projeto-crud/
       <!-- Slide 12 - HTML: Scripts -->
       <section>
         <h2>📄 HTML: Inclusão de Scripts</h2>
-        <pre><code class="language-html" data-trim data-line-numbers="|2-3|6|9-10">
+        <pre><code class="language-html" data-trim data-line-numbers>
   &lt;!-- jQuery --&gt;
   &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
   
@@ -276,7 +262,7 @@ projeto-crud/
       <!-- Slide 13 - CSS: Estilos Personalizados -->
       <section>
         <h2>🎨 CSS: Estilos Personalizados</h2>
-        <pre><code class="language-css" data-trim data-line-numbers="|1-5|7-12|14-17">
+        <pre><code class="language-css" data-trim data-line-numbers>
 /* style.css */
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -301,7 +287,7 @@ header h1 {
       <!-- Slide 14 - CSS: Tabela e Animações -->
       <section>
         <h2>🎨 CSS: Tabela e Animações</h2>
-        <pre><code class="language-css" data-trim data-line-numbers="|1-4|6-9|11-15">
+        <pre><code class="language-css" data-trim data-line-numbers>
 .table-responsive {
   border-radius: 10px;
   overflow: hidden;
@@ -331,7 +317,7 @@ header h1 {
       <!-- Slide 15 - JavaScript: Simulação de API -->
       <section>
         <h2>💻 JavaScript: Simulação de API (api.js)</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-6|9-17|20-27">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 // api.js - Simulação de uma API RESTful
 const API = {
   // Simula delay de rede (200-500ms)
@@ -341,6 +327,7 @@ const API = {
 
   // GET: Buscar todos os produtos
   async getProducts() {
+    // Essa linha pausa a execução da função assíncrona atual até que o método this.delay() resolva sua Promise.
     await this.delay();
     const products = localStorage.getItem('products');
     return products ? JSON.parse(products) : [];
@@ -368,7 +355,7 @@ const API = {
       <!-- Slide 16 - JavaScript: API - Create e Update -->
       <section>
         <h2>💻 JavaScript: API - Create e Update</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-8|11-20">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
   // POST: Criar novo produto (continuação)
     const newProduct = { ...product, id: newId };
     products.push(newProduct);
@@ -396,7 +383,7 @@ const API = {
       <!-- Slide 17 - JavaScript: API - Delete -->
       <section>
         <h2>💻 JavaScript: API - Delete</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-13">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
   // DELETE: Remover produto
   async deleteProduct(id) {
     await this.delay();
@@ -419,7 +406,7 @@ const API = {
       <!-- Slide 18 - JavaScript: App - Inicialização -->
       <section>
         <h2>💻 JavaScript: App Principal (app.js)</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2|5-7|10-12">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 // app.js
 let editingProductId = null;
 
@@ -446,7 +433,7 @@ function setupEventListeners() {
       <!-- Slide 19 - JavaScript: Carregar Produtos -->
       <section>
         <h2>💻 JavaScript: Carregar Produtos</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-4|6-10|12-15|17-20">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 // Carrega e exibe todos os produtos
 async function loadProducts() {
   try {
@@ -483,7 +470,7 @@ function showLoading() {
       <!-- Slide 20 - JavaScript: Renderizar Produtos -->
       <section>
         <h2>💻 JavaScript: Renderizar Produtos</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-6|8-23|25-27">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 function renderProducts(products) {
   const tbody = $('#productTableBody');
   
@@ -517,7 +504,7 @@ function renderProducts(products) {
       <!-- Slide 21 - JavaScript: Criar Linha da Tabela -->
       <section>
         <h2>💻 JavaScript: Criar Linha da Tabela</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-15|17-25">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 function createProductRow(product) {
   return $(`
     &lt;tr data-product-id="${product.id}"&gt;
@@ -547,7 +534,7 @@ function createProductRow(product) {
       <!-- Slide 22 - JavaScript: Submit do Formulário -->
       <section>
         <h2>💻 JavaScript: Submit do Formulário</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-4|6-13|15-24">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 async function handleFormSubmit(e) {
   e.preventDefault();
   
@@ -582,7 +569,7 @@ async function handleFormSubmit(e) {
       <!-- Slide 23 - JavaScript: Submit (Continuação) -->
       <section>
         <h2>💻 JavaScript: Submit (Continuação)</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-6|8-10">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
     // Recarrega lista de produtos
     await loadProducts();
     
@@ -599,7 +586,7 @@ async function handleFormSubmit(e) {
       <!-- Slide 24 - JavaScript: Editar Produto -->
       <section>
         <h2>💻 JavaScript: Editar Produto</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-5|7-14|16-20">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 async function editProduct(id) {
   try {
     // Busca produto da API
@@ -632,7 +619,7 @@ async function editProduct(id) {
       <!-- Slide 25 - JavaScript: Deletar Produto -->
       <section>
         <h2>💻 JavaScript: Deletar Produto</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-6|8-17|19-21">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 async function deleteProduct(id) {
   // Confirmação do usuário
   if (!confirm('Deseja realmente excluir este produto?')) {
@@ -659,7 +646,7 @@ async function deleteProduct(id) {
       <!-- Slide 26 - JavaScript: Busca em Tempo Real -->
       <section>
         <h2>💻 JavaScript: Busca em Tempo Real</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-4|6-16|18-20">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 async function handleSearch() {
   const searchTerm = $(this).val().toLowerCase();
   
@@ -706,7 +693,7 @@ function resetForm() {
       <!-- Slide 28 - JavaScript: Notificações -->
       <section>
         <h2>💻 JavaScript: Sistema de Notificações</h2>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|1-8|10-17">
+        <pre><code class="language-javascript" data-trim data-line-numbers>
 function showSuccess(message) {
   // Você pode usar Bootstrap Toast ou biblioteca como SweetAlert2
   alert('✅ ' + message);
@@ -761,33 +748,6 @@ function hideLoading() {
           </ul>
         </div>
       </section>
-
-      <!-- Slide 31 - Integração com API Real -->
-      <section>
-        <h2>🌐 Integração com API Real</h2>
-        <p>Para usar uma API real, substitua as funções da API:</p>
-        <pre><code class="language-javascript" data-trim data-line-numbers="|2-6|9-17">
-// Exemplo com Fetch API
-const API_URL = 'https://sua-api.com/products';
-
-async getProducts() {
-  const response = await fetch(API_URL);
-  return await response.json();
-}
-
-async createProduct(product) {
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(product)
-  });
-  return await response.json();
-}
-        </code></pre>
-      </section>
-
       <!-- Slide 32 - APIs Públicas para Teste -->
       <section>
         <h2>🔌 APIs Públicas para Teste</h2>
@@ -806,71 +766,7 @@ async createProduct(product) {
         </div>
       </section>
 
-      <!-- Slide 33 - Checklist do Projeto -->
-      <section>
-        <h2>✅ Checklist do Projeto 2ª AV</h2>
-        <div style="text-align: left; font-size: 0.85em;">
-          <input type="checkbox"> CRUD completo funcionando (Create, Read, Update, Delete)<br>
-          <input type="checkbox"> jQuery para manipulação do DOM<br>
-          <input type="checkbox"> AJAX/Fetch para requisições assíncronas<br>
-          <input type="checkbox"> Bootstrap para interface responsiva<br>
-          <input type="checkbox"> Validação de formulários com feedback<br>
-          <input type="checkbox"> Persistência de dados (localStorage ou API)<br>
-          <input type="checkbox"> Tratamento de erros e loading states<br>
-          <input type="checkbox"> Código organizado e comentado<br>
-          <input type="checkbox"> Interface intuitiva e moderna<br>
-          <input type="checkbox"> Projeto funcionando sem erros no console<br>
-        </div>
-      </section>
 
-      <!-- Slide 34 - Dicas Importantes -->
-      <section>
-        <h2>💡 Dicas Importantes</h2>
-        <div style="text-align: left;">
-          <p><strong>1. Organize seu código:</strong> Separe HTML, CSS e JS</p>
-          <p><strong>2. Comente seu código:</strong> Facilita manutenção</p>
-          <p><strong>3. Teste em diferentes navegadores:</strong> Chrome, Firefox, Safari</p>
-          <p><strong>4. Valide seu HTML:</strong> Use validator.w3.org</p>
-          <p><strong>5. Use DevTools:</strong> Console para debug</p>
-          <p><strong>6. Commit frequente:</strong> Use Git para versionar</p>
-          <p><strong>7. README.md:</strong> Documente como usar seu projeto</p>
-        </div>
-      </section>
-
-      <!-- Slide 35 - Erros Comuns a Evitar -->
-      <section>
-        <h2>⚠️ Erros Comuns a Evitar</h2>
-        <div style="text-align: left; font-size: 0.9em;">
-          <p>❌ <strong>Não validar dados:</strong> Sempre valide inputs</p>
-          <p>❌ <strong>Não tratar erros:</strong> Use try/catch</p>
-          <p>❌ <strong>Código duplicado:</strong> Crie funções reutilizáveis</p>
-          <p>❌ <strong>Variáveis globais demais:</strong> Use escopo local</p>
-          <p>❌ <strong>Não testar edge cases:</strong> Teste valores extremos</p>
-          <p>❌ <strong>Ignorar responsividade:</strong> Teste em mobile</p>
-          <p>❌ <strong>IDs duplicados:</strong> Cada ID deve ser único</p>
-        </div>
-      </section>
-
-      <!-- Slide 36 - Estrutura de Arquivos Completa -->
-      <section>
-        <h2>📂 Estrutura de Arquivos Completa</h2>
-        <pre><code class="language-plaintext" data-trim>
-meu-projeto-crud/
-├── index.html
-├── README.md
-├── css/
-│   └── style.css
-├── js/
-│   ├── app.js          # Lógica principal
-│   ├── api.js          # Simulação de API
-│   └── utils.js        # Funções utilitárias
-├── assets/
-│   ├── images/
-│   └── icons/
-└── docs/
-    └── screenshots/    # Capturas de tela
-        </code></pre>
-      </section>
 
       <!-- Slide 37 - Deploy do Projeto -->
       <section>
@@ -893,75 +789,6 @@ meu-projeto-crud/
         </div>
       </section>
 
-      <!-- Slide 38 - Exemplo de README.md -->
-      <section>
-        <h2>📝 Exemplo de README.md</h2>
-        <pre><code class="language-markdown" data-trim>
-# Sistema de Gerenciamento de Produtos
-
-Sistema CRUD completo desenvolvido para a 2ª Avaliação.
-
-## 🚀 Tecnologias
-
-- HTML5
-- CSS3 + Bootstrap 5
-- JavaScript + jQuery
-- LocalStorage para persistência
-
-## 📋 Funcionalidades
-
-- ✅ Cadastrar produtos
-- ✅ Listar produtos
-- ✅ Editar produtos
-- ✅ Excluir produtos
-- ✅ Buscar produtos
-
-## 🔧 Como usar
-
-1. Clone o repositório
-2. Abra `index.html` no navegador
-3. Comece a gerenciar seus produtos!
-        </code></pre>
-      </section>
-
-      <!-- Slide 39 - Próximos Passos -->
-      <section>
-        <h2>🎯 Próximos Passos</h2>
-        <div style="text-align: left;">
-          <p><strong>Para aprimorar seu projeto:</strong></p>
-          <ul>
-            <li>🔐 Adicione autenticação de usuários</li>
-            <li>📊 Crie dashboard com gráficos</li>
-            <li>🖼️ Adicione upload de imagens</li>
-            <li>📄 Implemente exportação para PDF/Excel</li>
-            <li>🔔 Adicione notificações push</li>
-            <li>🌙 Crie tema dark/light</li>
-            <li>🌍 Adicione internacionalização (i18n)</li>
-            <li>♿ Melhore acessibilidade (WCAG)</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Slide 40 - Atividade Prática -->
-      <section>
-        <h2>👨‍💻 Atividade Prática</h2>
-        <div style="text-align: left;">
-          <p><strong>Agora é sua vez!</strong></p>
-          
-          <p><strong>Desafio:</strong></p>
-          <ol>
-            <li>Adapte o código apresentado para seu próprio domínio</li>
-            <li>Escolha um tema (Livros, Tarefas, Contatos, etc.)</li>
-            <li>Adicione pelo menos 1 funcionalidade extra</li>
-            <li>Personalize o design e as cores</li>
-            <li>Teste todas as funcionalidades</li>
-            <li>Faça deploy do projeto</li>
-          </ol>
-          
-          <p><strong>Tempo:</strong> Desenvolva durante a aula</p>
-        </div>
-      </section>
-
       <!-- Slide 41 - Recursos de Estudo -->
       <section>
         <h2>📚 Recursos de Estudo</h2>
@@ -981,41 +808,7 @@ Sistema CRUD completo desenvolvido para a 2ª Avaliação.
         </div>
       </section>
 
-      <!-- Slide 42 - Perguntas e Respostas -->
-      <section>
-        <h2>❓ Perguntas Frequentes</h2>
-        <div style="text-align: left; font-size: 0.85em;">
-          <p><strong>Q: Posso usar outra biblioteca no lugar do jQuery?</strong></p>
-          <p>A: Sim! Pode usar Vanilla JS, mas jQuery é requisito do projeto.</p>
-          
-          <p><strong>Q: Preciso criar um backend?</strong></p>
-          <p>A: Não necessariamente. LocalStorage é suficiente.</p>
-          
-          <p><strong>Q: Quantas funcionalidades devo ter?</strong></p>
-          <p>A: Mínimo CRUD completo (4 operações).</p>
-          
-          <p><strong>Q: Pode ser um aplicativo de uma página?</strong></p>
-          <p>A: Sim, SPA (Single Page Application) é perfeito!</p>
-        </div>
-      </section>
-
-      <!-- Slide 43 - Conclusão -->
-      <section>
-        <h2>🎓 Conclusão</h2>
-        <div style="text-align: left;">
-          <p><strong>Hoje aprendemos:</strong></p>
-          <ul>
-            <li>✅ Estrutura completa de um CRUD</li>
-            <li>✅ Integração jQuery + Bootstrap</li>
-            <li>✅ Simulação de API com AJAX</li>
-            <li>✅ Validação e UX</li>
-            <li>✅ Persistência com localStorage</li>
-            <li>✅ Boas práticas de desenvolvimento</li>
-          </ul>
-          <br>
-          <p><strong>Você está pronto para o projeto! 🚀</strong></p>
-        </div>
-      </section>
+     
 
       <!-- Slide 44 - Slide Final -->
       <section>
