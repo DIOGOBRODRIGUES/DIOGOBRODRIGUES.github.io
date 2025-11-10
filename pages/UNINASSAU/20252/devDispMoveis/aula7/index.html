@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 7 - Tab Navigator e Navegação Híbrida</title>
+
+  <meta name="description" content="Combinando diferentes tipos de navegação no React Native">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7 - Tab Navigator</h3>
+        <p><strong>Navegação Híbrida com Tabs, Stack e Drawer</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivo da Aula -->
+      <section>
+        <h3>🎯 Objetivo da Aula</h3>
+        <p><strong>Vamos criar um app completo: FoodHub 🍕</strong></p>
+        <ul>
+          <li class="fragment">App de delivery de comida</li>
+          <li class="fragment">Combinando <strong>Tab</strong>, <strong>Stack</strong> e <strong>Drawer</strong> Navigator</li>
+          <li class="fragment">Interface moderna e funcional</li>
+          <li class="fragment">Navegação entre múltiplas telas</li>
+        </ul>
+     
+      </section>
+
+      <!-- Slide 3 - O que é Tab Navigator -->
+      <section>
+        <h3>📱 Tab Navigator</h3>
+        <ul>
+          <li class="fragment">Navegação por <strong>abas</strong> (tabs)</li>
+          <li class="fragment">Geralmente na parte <strong>inferior</strong> da tela</li>
+          <li class="fragment">Acesso rápido às principais seções</li>
+          <li class="fragment">Padrão em apps como Instagram, Twitter, WhatsApp</li>
+          <li class="fragment">Ideal para <strong>navegação principal</strong></li>
+        </ul>
+        <div class="fragment">
+          <p>🎨 <strong>Tipos:</strong></p>
+          <ul>
+            <li><strong>Bottom Tabs</strong>: Abas na parte inferior (iOS/Android)</li>
+            <li><strong>Material Top Tabs</strong>: Abas no topo (Android)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 4 - Preview do App -->
+      <section>
+        <h3>🍔 FoodHub - Preview</h3>
+        <p><strong>Estrutura do nosso app:</strong></p>
+        <table style="font-size: 0.7em;">
+          <thead>
+            <tr>
+              <th>Tab</th>
+              <th>Telas</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🏠 Home</td>
+              <td>Lista de Restaurantes → Detalhes</td>
+              <td>Stack</td>
+            </tr>
+            <tr>
+              <td>🔍 Buscar</td>
+              <td>Busca de Pratos</td>
+              <td>Simples</td>
+            </tr>
+            <tr>
+              <td>🛒 Pedidos</td>
+              <td>Meus Pedidos → Detalhes</td>
+              <td>Stack</td>
+            </tr>
+            <tr>
+              <td>👤 Perfil</td>
+              <td>Dados do Usuário</td>
+              <td>Simples</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="fragment">➕ <strong>Drawer</strong> com: Configurações, Favoritos, Ajuda, Sair</p>
+      </section>
+
+      <!-- Slide 5 - Arquitetura da Navegação -->
+      <section>
+        <h3>🏗️ Arquitetura da Navegação</h3>
+        <pre style="font-size: 0.5em;"><code>
+App
+└── Drawer Navigator (Menu Lateral)
+    ├── Tab Navigator (Navegação Principal)
+    │   ├── Home Stack
+    │   │   ├── HomeScreen (Lista de Restaurantes)
+    │   │   └── RestaurantDetailsScreen (Detalhes)
+    │   ├── Search Screen (Busca)
+    │   ├── Orders Stack
+    │   │   ├── OrdersScreen (Lista de Pedidos)
+    │   │   └── OrderDetailsScreen (Detalhes)
+    │   └── Profile Screen (Perfil)
+    ├── Settings Screen
+    ├── Favorites Screen
+    └── Help Screen
+        </code></pre>
+      </section>
+
+      <!-- Slide 6 - Passo 1: Setup do Projeto -->
+      <section>
+        <h3>📦 Passo 1: Setup do Projeto</h3>
+        <p><strong>Crie um novo projeto Expo:</strong></p>
+        <pre><code class="bash" data-trim>
+npx create-expo-app FoodHub
+cd FoodHub
+        </code></pre>
+        <div class="fragment">
+          <p><strong>Instale as dependências de navegação:</strong></p>
+          <pre><code class="bash" data-trim>
+npm install @react-navigation/native
+npm install @react-navigation/bottom-tabs
+npm install @react-navigation/stack
+npm install @react-navigation/drawer
+
+npx expo install react-native-screens react-native-safe-area-context
+npx expo install react-native-gesture-handler react-native-reanimated
+          </code></pre>
+        </div>
+        <div class="fragment">
+          <p><strong>Ícones:</strong></p>
+          <pre><code class="bash" data-trim>
+npm install @expo/vector-icons
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 7 - Passo 2: Estrutura de Pastas -->
+      <section>
+        <h3>📁 Passo 2: Estrutura de Pastas</h3>
+        <p>Crie a seguinte estrutura:</p>
+        <pre style="font-size: 0.55em;"><code>
+FoodHub/
+├── App.js
+├── screens/
+│   ├── HomeScreen.js
+│   ├── RestaurantDetailsScreen.js
+│   ├── SearchScreen.js
+│   ├── OrdersScreen.js
+│   ├── OrderDetailsScreen.js
+│   ├── ProfileScreen.js
+│   ├── SettingsScreen.js
+│   ├── FavoritesScreen.js
+│   └── HelpScreen.js
+└── navigation/
+    ├── TabNavigator.js
+    ├── HomeStack.js
+    ├── OrdersStack.js
+    └── DrawerNavigator.js
+        </code></pre>
+        <p class="fragment">💡 <strong>Dica:</strong> Use o terminal ou VS Code para criar as pastas</p>
+      </section>
+
+      <!-- Slide 8 - Passo 3: HomeScreen -->
+      <section>
+        <h3>🏠 Passo 3: HomeScreen.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const restaurants = [
+  { id: '1', name: 'Pizza Mania', rating: 4.5, category: '🍕 Pizza' },
+  { id: '2', name: 'Burger House', rating: 4.8, category: '🍔 Hamburger' },
+  { id: '3', name: 'Sushi Master', rating: 4.7, category: '🍱 Japonês' },
+  { id: '4', name: 'Pasta Italia', rating: 4.6, category: '🍝 Italiano' },
+];
+
+export default function HomeScreen({ navigation }) {
+  const renderRestaurant = ({ item }) => (
+    &lt;TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate('RestaurantDetails', { restaurant: item })}
+    &gt;
+      &lt;View style={styles.cardContent}&gt;
+        &lt;Text style={styles.restaurantName}&gt;{item.name}&lt;/Text&gt;
+        &lt;Text style={styles.category}&gt;{item.category}&lt;/Text&gt;
+        &lt;View style={styles.ratingContainer}&gt;
+          &lt;Ionicons name="star" size={16} color="#FFD700" /&gt;
+          &lt;Text style={styles.rating}&gt;{item.rating}&lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;Ionicons name="chevron-forward" size={24} color="#666" /&gt;
+    &lt;/TouchableOpacity&gt;
+  );
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Restaurantes Próximos&lt;/Text&gt;
+      &lt;FlatList
+        data={restaurants}
+        renderItem={renderRestaurant}
+        keyExtractor={item => item.id}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 9 - HomeScreen Styles -->
+      <section>
+        <h3>🎨 HomeScreen - Styles</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#333',
+  },
+  card: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginBottom: 12,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  restaurantName: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 4,
+  },
+  category: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 8,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rating: {
+    marginLeft: 4,
+    fontSize: 14,
+    color: '#333',
+  },
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 10 - Passo 4: RestaurantDetailsScreen -->
+      <section>
+        <h3>🍽️ Passo 4: RestaurantDetailsScreen.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+export default function RestaurantDetailsScreen({ route }) {
+  const { restaurant } = route.params;
+
+  const menuItems = [
+    { id: '1', name: 'Item Especial', price: 'R$ 25,90' },
+    { id: '2', name: 'Item Premium', price: 'R$ 32,90' },
+    { id: '3', name: 'Item Combo', price: 'R$ 45,90' },
+  ];
+
+  return (
+    &lt;ScrollView style={styles.container}&gt;
+      &lt;View style={styles.header}&gt;
+        &lt;Text style={styles.restaurantName}&gt;{restaurant.name}&lt;/Text&gt;
+        &lt;Text style={styles.category}&gt;{restaurant.category}&lt;/Text&gt;
+        &lt;View style={styles.ratingContainer}&gt;
+          &lt;Ionicons name="star" size={20} color="#FFD700" /&gt;
+          &lt;Text style={styles.rating}&gt;{restaurant.rating}&lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+
+      &lt;Text style={styles.sectionTitle}&gt;Menu&lt;/Text&gt;
+      {menuItems.map(item => (
+        &lt;View key={item.id} style={styles.menuItem}&gt;
+          &lt;View&gt;
+            &lt;Text style={styles.itemName}&gt;{item.name}&lt;/Text&gt;
+            &lt;Text style={styles.itemPrice}&gt;{item.price}&lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;TouchableOpacity style={styles.addButton}&gt;
+            &lt;Ionicons name="add-circle" size={32} color="#FF6347" /&gt;
+          &lt;/TouchableOpacity&gt;
+        &lt;/View&gt;
+      ))}
+    &lt;/ScrollView&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 11 - RestaurantDetailsScreen Styles -->
+      <section>
+        <h3>🎨 RestaurantDetailsScreen - Styles</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    backgroundColor: 'white',
+    padding: 20,
+    marginBottom: 16,
+  },
+  restaurantName: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+  },
+  category: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 8,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rating: {
+    marginLeft: 8,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 16,
+    marginBottom: 12,
+    color: '#333',
+  },
+  menuItem: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginHorizontal: 16,
+    marginBottom: 12,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  itemPrice: {
+    fontSize: 14,
+    color: '#FF6347',
+    fontWeight: '600',
+    marginTop: 4,
+  },
+  addButton: {
+    padding: 4,
+  },
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 12 - Passo 5: SearchScreen -->
+      <section>
+        <h3>🔍 Passo 5: SearchScreen.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const allDishes = [
+  { id: '1', name: 'Pizza Margherita', restaurant: 'Pizza Mania' },
+  { id: '2', name: 'Burger Clássico', restaurant: 'Burger House' },
+  { id: '3', name: 'Sushi Combo', restaurant: 'Sushi Master' },
+  { id: '4', name: 'Lasanha', restaurant: 'Pasta Italia' },
+];
+
+export default function SearchScreen() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [results, setResults] = useState([]);
+
+  const handleSearch = (text) => {
+    setSearchQuery(text);
+    if (text.length > 0) {
+      const filtered = allDishes.filter(dish =>
+        dish.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setResults(filtered);
+    } else {
+      setResults([]);
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;View style={styles.searchContainer}&gt;
+        &lt;Ionicons name="search" size={20} color="#666" style={styles.searchIcon} /&gt;
+        &lt;TextInput
+          style={styles.searchInput}
+          placeholder="Buscar pratos..."
+          value={searchQuery}
+          onChangeText={handleSearch}
+        /&gt;
+      &lt;/View&gt;
+
+      {results.length > 0 ? (
+        &lt;FlatList
+          data={results}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            &lt;View style={styles.resultItem}&gt;
+              &lt;Text style={styles.dishName}&gt;{item.name}&lt;/Text&gt;
+              &lt;Text style={styles.restaurantName}&gt;{item.restaurant}&lt;/Text&gt;
+            &lt;/View&gt;
+          )}
+        /&gt;
+      ) : (
+        &lt;View style={styles.emptyContainer}&gt;
+          &lt;Ionicons name="restaurant-outline" size={64} color="#ccc" /&gt;
+          &lt;Text style={styles.emptyText}&gt;
+            {searchQuery ? 'Nenhum prato encontrado' : 'Digite para buscar'}
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 13 - SearchScreen Styles -->
+      <section>
+        <h3>🎨 SearchScreen - Styles</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    margin: 16,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    elevation: 2,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchInput: {
+    flex: 1,
+    paddingVertical: 12,
+    fontSize: 16,
+  },
+  resultItem: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginHorizontal: 16,
+    marginBottom: 8,
+    borderRadius: 12,
+  },
+  dishName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  restaurantName: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 4,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#999',
+    marginTop: 16,
+  },
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 14 - Passo 6: OrdersScreen -->
+      <section>
+        <h3>🛒 Passo 6: OrdersScreen.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const orders = [
+  { id: '1', restaurant: 'Pizza Mania', items: 2, total: 'R$ 45,90', status: 'Entregue' },
+  { id: '2', restaurant: 'Burger House', items: 1, total: 'R$ 25,90', status: 'Em preparo' },
+  { id: '3', restaurant: 'Sushi Master', items: 3, total: 'R$ 89,90', status: 'A caminho' },
+];
+
+export default function OrdersScreen({ navigation }) {
+  const getStatusColor = (status) => {
+    switch(status) {
+      case 'Entregue': return '#4CAF50';
+      case 'Em preparo': return '#FF9800';
+      case 'A caminho': return '#2196F3';
+      default: return '#666';
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Meus Pedidos&lt;/Text&gt;
+      &lt;FlatList
+        data={orders}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          &lt;TouchableOpacity
+            style={styles.orderCard}
+            onPress={() => navigation.navigate('OrderDetails', { order: item })}
+          &gt;
+            &lt;View style={styles.orderHeader}&gt;
+              &lt;Text style={styles.restaurantName}&gt;{item.restaurant}&lt;/Text&gt;
+              &lt;Text style={[styles.status, { color: getStatusColor(item.status) }]}&gt;
+                {item.status}
+              &lt;/Text&gt;
+            &lt;/View&gt;
+            &lt;Text style={styles.orderInfo}&gt;{item.items} itens&lt;/Text&gt;
+            &lt;Text style={styles.total}&gt;{item.total}&lt;/Text&gt;
+          &lt;/TouchableOpacity&gt;
+        )}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 15 - OrdersScreen Styles -->
+      <section>
+        <h3>🎨 OrdersScreen - Styles</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#333',
+  },
+  orderCard: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginBottom: 12,
+    borderRadius: 12,
+    elevation: 2,
+  },
+  orderHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  restaurantName: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  status: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  orderInfo: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 4,
+  },
+  total: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FF6347',
+    marginTop: 8,
+  },
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 16 - Passo 7: Outras Telas Simples -->
+      <section>
+        <h3>📄 Passo 7: Telas Simples</h3>
+        <p><strong>OrderDetailsScreen.js, ProfileScreen.js, etc.</strong></p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+// OrderDetailsScreen.js
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function OrderDetailsScreen({ route }) {
+  const { order } = route.params;
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Detalhes do Pedido&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Restaurante: {order.restaurant}&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Total: {order.total}&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Status: {order.status}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 12,
+    color: '#666',
+  },
+});
+        </code></pre>
+        <p class="fragment">💡 <strong>Crie:</strong> ProfileScreen, SettingsScreen, FavoritesScreen, HelpScreen com estrutura similar</p>
+      </section>
+
+      <!-- Slide 17 - Passo 8: HomeStack -->
+      <section>
+        <h3>📚 Passo 8: HomeStack.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from '../screens/HomeScreen';
+import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen';
+
+const Stack = createStackNavigator();
+
+export default function HomeStack() {
+  return (
+    &lt;Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#FF6347',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    &gt;
+      &lt;Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'FoodHub 🍔' }}
+      /&gt;
+      &lt;Stack.Screen
+        name="RestaurantDetails"
+        component={RestaurantDetailsScreen}
+        options={{ title: 'Detalhes do Restaurante' }}
+      /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 18 - Passo 9: OrdersStack -->
+      <section>
+        <h3>📚 Passo 9: OrdersStack.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import OrdersScreen from '../screens/OrdersScreen';
+import OrderDetailsScreen from '../screens/OrderDetailsScreen';
+
+const Stack = createStackNavigator();
+
+export default function OrdersStack() {
+  return (
+    &lt;Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#FF6347',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    &gt;
+      &lt;Stack.Screen
+        name="Orders"
+        component={OrdersScreen}
+        options={{ title: 'Meus Pedidos' }}
+      /&gt;
+      &lt;Stack.Screen
+        name="OrderDetails"
+        component={OrderDetailsScreen}
+        options={{ title: 'Detalhes do Pedido' }}
+      /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 19 - Passo 10: TabNavigator -->
+      <section>
+        <h3>📑 Passo 10: TabNavigator.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers="1-30">
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import HomeStack from './HomeStack';
+import SearchScreen from '../screens/SearchScreen';
+import OrdersStack from './OrdersStack';
+import ProfileScreen from '../screens/ProfileScreen';
+
+const Tab = createBottomTabNavigator();
+
+export default function TabNavigator() {
+  return (
+    &lt;Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          
+          if (route.name === 'HomeTab') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'SearchTab') {
+            iconName = focused ? 'search' : 'search-outline';
+          } else if (route.name === 'OrdersTab') {
+            iconName = focused ? 'receipt' : 'receipt-outline';
+          } else if (route.name === 'ProfileTab') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+          
+          return &lt;Ionicons name={iconName} size={size} color={color} /&gt;;
+        },
+        </code></pre>
+      </section>
+
+      <!-- Slide 20 - TabNavigator Continuação -->
+      <section>
+        <h3>📑 TabNavigator.js - Continuação</h3>
+        <pre><code class="javascript" data-trim data-line-numbers="31-59">
+        tabBarActiveTintColor: '#FF6347',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          paddingBottom: 5,
+          paddingTop: 5,
+          height: 60,
+        },
+        headerShown: false,
+      })}
+    &gt;
+      &lt;Tab.Screen
+        name="HomeTab"
+        component={HomeStack}
+        options={{ title: 'Início' }}
+      /&gt;
+      &lt;Tab.Screen
+        name="SearchTab"
+        component={SearchScreen}
+        options={{ 
+          title: 'Buscar',
+          headerShown: true,
+          headerStyle: { backgroundColor: '#FF6347' },
+          headerTintColor: '#fff',
+        }}
+      /&gt;
+      &lt;Tab.Screen
+        name="OrdersTab"
+        component={OrdersStack}
+        options={{ title: 'Pedidos' }}
+      /&gt;
+      &lt;Tab.Screen
+        name="ProfileTab"
+        component={ProfileScreen}
+        options={{ 
+          title: 'Perfil',
+          headerShown: true,
+          headerStyle: { backgroundColor: '#FF6347' },
+          headerTintColor: '#fff',
+        }}
+      /&gt;
+    &lt;/Tab.Navigator&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 21 - Passo 11: DrawerNavigator -->
+      <section>
+        <h3>🗂️ Passo 11: DrawerNavigator.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
+import TabNavigator from './TabNavigator';
+import SettingsScreen from '../screens/SettingsScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
+import HelpScreen from '../screens/HelpScreen';
+
+const Drawer = createDrawerNavigator();
+
+export default function DrawerNavigator() {
+  return (
+    &lt;Drawer.Navigator
+      screenOptions={{
+        drawerActiveTintColor: '#FF6347',
+        drawerInactiveTintColor: 'gray',
+        headerStyle: {
+          backgroundColor: '#FF6347',
+        },
+        headerTintColor: '#fff',
+        headerShown: false,
+      }}
+    &gt;
+      &lt;Drawer.Screen
+        name="MainTabs"
+        component={TabNavigator}
+        options={{
+          title: 'FoodHub',
+          drawerIcon: ({ color, size }) => (
+            &lt;Ionicons name="home-outline" size={size} color={color} /&gt;
+          ),
+        }}
+      /&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 22 - DrawerNavigator Continuação -->
+      <section>
+        <h3>🗂️ DrawerNavigator - Continuação</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+      &lt;Drawer.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          title: 'Favoritos',
+          headerShown: true,
+          drawerIcon: ({ color, size }) => (
+            &lt;Ionicons name="heart-outline" size={size} color={color} /&gt;
+          ),
+        }}
+      /&gt;
+      &lt;Drawer.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Configurações',
+          headerShown: true,
+          drawerIcon: ({ color, size }) => (
+            &lt;Ionicons name="settings-outline" size={size} color={color} /&gt;
+          ),
+        }}
+      /&gt;
+      &lt;Drawer.Screen
+        name="Help"
+        component={HelpScreen}
+        options={{
+          title: 'Ajuda',
+          headerShown: true,
+          drawerIcon: ({ color, size }) => (
+            &lt;Ionicons name="help-circle-outline" size={size} color={color} /&gt;
+          ),
+        }}
+      /&gt;
+    &lt;/Drawer.Navigator&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 23 - Passo 12: App.js -->
+      <section>
+        <h3>🎯 Passo 12: App.js</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import DrawerNavigator from './navigation/DrawerNavigator';
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;DrawerNavigator /&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+        </code></pre>
+        <div class="fragment">
+          <p>✅ <strong>Pronto!</strong> Agora teste o app:</p>
+          <pre><code class="bash" data-trim>
+npx expo start
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 24 - Customizando Tab Bar -->
+      <section>
+        <h3>🎨 Customizando Tab Bar</h3>
+        <p>Adicione badges ou estilos personalizados:</p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+&lt;Tab.Screen
+  name="OrdersTab"
+  component={OrdersStack}
+  options={{
+    title: 'Pedidos',
+    tabBarBadge: 3, // Número de notificações
+    tabBarBadgeStyle: {
+      backgroundColor: '#FF6347',
+    },
+  }}
+/&gt;
+        </code></pre>
+        <div class="fragment">
+          <p>Ou customize completamente:</p>
+          <pre><code class="javascript" data-trim>
+tabBarStyle: {
+  backgroundColor: '#1a1a1a',
+  borderTopWidth: 0,
+  elevation: 8,
+  height: 70,
+},
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- Slide 25 - Navegação Programática -->
+      <section>
+        <h3>🔀 Navegação Programática</h3>
+        <p>Navegue entre diferentes navigators:</p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+// De qualquer tela, abrir o Drawer
+navigation.openDrawer();
+
+// Navegar para uma tab específica
+navigation.navigate('MainTabs', {
+  screen: 'SearchTab'
+});
+
+// Navegar para tela dentro de um Stack em uma Tab
+navigation.navigate('MainTabs', {
+  screen: 'HomeTab',
+  params: {
+    screen: 'RestaurantDetails',
+    params: { restaurant: someRestaurant }
+  }
+});
+
+// Voltar para a tela inicial
+navigation.navigate('MainTabs', {
+  screen: 'HomeTab',
+  params: { screen: 'Home' }
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 26 - Reset Navigation Stack -->
+      <section>
+        <h3>🔄 Reset Navigation Stack</h3>
+        <p>Útil para logout ou fluxos específicos:</p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import { CommonActions } from '@react-navigation/native';
+
+// Resetar para uma tela específica
+navigation.dispatch(
+  CommonActions.reset({
+    index: 0,
+    routes: [{ name: 'Home' }],
+  })
+);
+
+// Em um botão de logout
+const handleLogout = () => {
+  // Limpar dados do usuário
+  // ...
+  
+  // Resetar navegação
+  navigation.dispatch(
+    CommonActions.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    })
+  );
+};
+        </code></pre>
+      </section>
+
+      <!-- Slide 27 - Melhorias Sugeridas -->
+      <section>
+        <h3>🚀 Melhorias Sugeridas</h3>
+        <ol>
+          <li class="fragment"><strong>Adicionar imagens:</strong> Use Image component para fotos dos restaurantes</li>
+          <li class="fragment"><strong>Estado global:</strong> Implemente Context API ou Redux para carrinho</li>
+          <li class="fragment"><strong>Persistência:</strong> AsyncStorage para favoritos</li>
+          <li class="fragment"><strong>Animações:</strong> Adicione animações com react-native-reanimated</li>
+          <li class="fragment"><strong>Formulários:</strong> Tela de checkout com validação</li>
+          <li class="fragment"><strong>API real:</strong> Integre com backend real</li>
+          <li class="fragment"><strong>Notificações:</strong> Push notifications para status do pedido</li>
+          <li class="fragment"><strong>Geolocalização:</strong> Mostre restaurantes próximos de verdade</li>
+        </ol>
+      </section>
+
+      <!-- Slide 28 - Dicas de Performance -->
+      <section>
+        <h3>⚡ Dicas de Performance</h3>
+        <ul>
+          <li class="fragment">Use <code>React.memo()</code> em componentes pesados</li>
+          <li class="fragment">Implemente <code>useFocusEffect</code> para atualizar dados ao focar tela</li>
+          <li class="fragment">Lazy load de telas com <code>React.lazy()</code></li>
+          <li class="fragment">Otimize FlatList com <code>getItemLayout</code></li>
+          <li class="fragment">Use <code>removeClippedSubviews</code> em listas longas</li>
+        </ul>
+        <pre class="fragment"><code class="javascript" data-trim>
+import { useFocusEffect } from '@react-navigation/native';
+
+useFocusEffect(
+  React.useCallback(() => {
+    // Atualizar dados quando a tela ganhar foco
+    fetchOrders();
+  }, [])
+);
+        </code></pre>
+      </section>
+
+      <!-- Slide 29 - Debugging -->
+      <section>
+        <h3>🐛 Debugging Navigation</h3>
+        <p>Ferramentas úteis para debug:</p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+// Ver estado atual da navegação
+import { useNavigationState } from '@react-navigation/native';
+
+const routes = useNavigationState(state => state.routes);
+console.log('Current routes:', routes);
+
+// Listener para mudanças de navegação
+navigation.addListener('state', (e) => {
+  console.log('Navigation state changed:', e.data.state);
+});
+
+// Ver nome da tela atual
+import { useRoute } from '@react-navigation/native';
+
+const route = useRoute();
+console.log('Current screen:', route.name);
+        </code></pre>
+        <div class="fragment">
+          <p>💡 Use React Native Debugger ou Flipper para debugging visual</p>
+        </div>
+      </section>
+
+      <!-- Slide 30 - Tratamento de Deep Links -->
+      <section>
+        <h3>🔗 Deep Links (Bônus)</h3>
+        <p>Configure deep linking para abrir telas específicas:</p>
+        <pre><code class="javascript" data-trim data-line-numbers>
+const linking = {
+  prefixes: ['foodhub://', 'https://foodhub.com'],
+  config: {
+    screens: {
+      MainTabs: {
+        screens: {
+          HomeTab: {
+            screens: {
+              Home: 'home',
+              RestaurantDetails: 'restaurant/:id',
+            },
+          },
+          OrdersTab: {
+            screens: {
+              Orders: 'orders',
+              OrderDetails: 'order/:id',
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+// No App.js
+&lt;NavigationContainer linking={linking}&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 31 - Checklist da Aula -->
+      <section>
+        <h3>✅ Checklist da Aula</h3>
+        <table style="font-size: 0.65em;">
+          <thead>
+            <tr>
+              <th>✓</th>
+              <th>Tarefa</th>
+              <th>Tempo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>☐</td><td>Setup do projeto e instalação</td><td>15 min</td></tr>
+            <tr><td>☐</td><td>Criar estrutura de pastas</td><td>10 min</td></tr>
+            <tr><td>☐</td><td>Criar HomeScreen e RestaurantDetails</td><td>25 min</td></tr>
+            <tr><td>☐</td><td>Criar SearchScreen</td><td>20 min</td></tr>
+            <tr><td>☐</td><td>Criar OrdersScreen e OrderDetails</td><td>25 min</td></tr>
+            <tr><td>☐</td><td>Criar telas simples (Profile, Settings, etc)</td><td>20 min</td></tr>
+            <tr><td>☐</td><td>Configurar HomeStack e OrdersStack</td><td>15 min</td></tr>
+            <tr><td>☐</td><td>Configurar TabNavigator</td><td>20 min</td></tr>
+            <tr><td>☐</td><td>Configurar DrawerNavigator</td><td>15 min</td></tr>
+            <tr><td>☐</td><td>Integrar tudo no App.js</td><td>10 min</td></tr>
+            <tr><td>☐</td><td>Testes e ajustes finais</td><td>25 min</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Total: ~3 horas</strong></p>
+      </section>
+
+      <!-- Slide 32 - Exercício Extra -->
+      <section>
+        <h3>💪 Exercício Extra</h3>
+        <p><strong>Para fazer em casa:</strong></p>
+        <ol>
+          <li class="fragment">Adicione uma tela de <strong>Carrinho</strong> (Cart) no Tab Navigator</li>
+          <li class="fragment">Implemente função de <strong>adicionar ao carrinho</strong></li>
+          <li class="fragment">Use <strong>Context API</strong> para gerenciar estado do carrinho</li>
+          <li class="fragment">Adicione <strong>badge no ícone do carrinho</strong> mostrando quantidade</li>
+          <li class="fragment">Crie tela de <strong>Checkout</strong> no Stack do carrinho</li>
+          <li class="fragment">Adicione <strong>animação</strong> ao adicionar item no carrinho</li>
+        </ol>
+      </section>
+
+      <!-- Slide 33 - Recursos Adicionais -->
+      <section>
+        <h3>📚 Recursos Adicionais</h3>
+        <ul>
+          <li>📖 <a href="https://reactnavigation.org/docs/tab-based-navigation/" target="_blank">React Navigation - Tab Navigator</a></li>
+          <li>🎨 <a href="https://reactnavigation.org/docs/themes/" target="_blank">Theming em React Navigation</a></li>
+          <li>🔗 <a href="https://reactnavigation.org/docs/deep-linking/" target="_blank">Deep Linking Guide</a></li>
+          <li>💾 <a href="https://reactnavigation.org/docs/state-persistence/" target="_blank">State Persistence</a></li>
+          <li>🎓 <a href="https://reactnavigation.org/docs/navigation-lifecycle/" target="_blank">Navigation Lifecycle</a></li>
+          <li>🌐 <a href="https://ionic.io/ionicons" target="_blank">Ionicons - Galeria Completa</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 34 - Diferenças entre Navigators -->
+      <section>
+        <h3>📊 Quando Usar Cada Navigator</h3>
+        <table style="font-size: 0.65em;">
+          <thead>
+            <tr>
+              <th>Navigator</th>
+              <th>Uso Ideal</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tab</strong></td>
+              <td>Navegação principal entre seções</td>
+              <td>Home, Busca, Perfil</td>
+            </tr>
+            <tr>
+              <td><strong>Stack</strong></td>
+              <td>Fluxo linear, detalhes</td>
+              <td>Lista → Detalhes → Editar</td>
+            </tr>
+            <tr>
+              <td><strong>Drawer</strong></td>
+              <td>Menu lateral, ações secundárias</td>
+              <td>Config, Ajuda, Sobre</td>
+            </tr>
+            <tr>
+              <td><strong>Modal</strong></td>
+              <td>Interrupções, confirmações</td>
+              <td>Login, Alertas</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="fragment">💡 <strong>Dica:</strong> Combine-os para criar experiências complexas!</p>
+      </section>
+
+      <!-- Slide 35 - Boas Práticas -->
+      <section>
+        <h3>✨ Boas Práticas</h3>
+        <ul>
+          <li class="fragment">📁 <strong>Organize:</strong> Separe navigators, screens e components</li>
+          <li class="fragment">🎨 <strong>Consistência:</strong> Use tema único em todos navigators</li>
+          <li class="fragment">🔄 <strong>Estado:</strong> Use Context/Redux para estado global</li>
+          <li class="fragment">⚡ <strong>Performance:</strong> Lazy load de telas pesadas</li>
+          <li class="fragment">📱 <strong>UX:</strong> Mantenha navegação intuitiva (máx 3-4 níveis)</li>
+          <li class="fragment">🧪 <strong>Teste:</strong> Teste fluxos de navegação complexos</li>
+          <li class="fragment">📝 <strong>Documente:</strong> Comente rotas complexas</li>
+          <li class="fragment">♿ <strong>Acessibilidade:</strong> Use labels descritivos</li>
+        </ul>
+      </section>
+
+      <!-- Slide 36 - Problemas Comuns -->
+      <section>
+        <h3>🔧 Problemas Comuns e Soluções</h3>
+        <div class="fragment">
+          <p><strong>❌ "Cannot read property 'navigate' of undefined"</strong></p>
+          <p>✅ Certifique-se de que o componente está dentro de um Navigator</p>
+        </div>
+        <div class="fragment">
+          <p><strong>❌ Tabs não aparecem</strong></p>
+          <p>✅ Verifique se instalou @react-navigation/bottom-tabs</p>
+        </div>
+        <div class="fragment">
+          <p><strong>❌ Ícones não renderizam</strong></p>
+          <p>✅ Importe Ionicons corretamente e use nomes válidos</p>
+        </div>
+        <div class="fragment">
+          <p><strong>❌ Header aparece duplicado</strong></p>
+          <p>✅ Use headerShown: false no navigator pai ou filho</p>
+        </div>
+        <div class="fragment">
+          <p><strong>❌ Params não passam entre telas</strong></p>
+          <p>✅ Use route.params e navigation.navigate(screen, { params })</p>
+        </div>
+      </section>
+
+      <!-- Slide 37 - Resumo -->
+      <section>
+        <h3>📝 Resumo</h3>
+        <ul>
+          <li class="fragment"><strong>Tab Navigator</strong> para navegação principal (abas inferiores)</li>
+          <li class="fragment"><strong>Stack Navigator</strong> para fluxos lineares (pilha de telas)</li>
+          <li class="fragment"><strong>Drawer Navigator</strong> para menu lateral (ações secundárias)</li>
+          <li class="fragment">Podemos <strong>combinar</strong> múltiplos navigators</li>
+          <li class="fragment">Use <strong>screenOptions</strong> para configuração global</li>
+          <li class="fragment">Use <strong>options</strong> para configuração por tela</li>
+          <li class="fragment"><strong>navigation.navigate()</strong> para navegar programaticamente</li>
+          <li class="fragment">Organize código em <strong>pastas separadas</strong></li>
+        </ul>
+      </section>
+
+      <!-- Slide 38 - Próxima Aula -->
+      <section>
+        <h3>🔜 Próxima Aula</h3>
+        <ul>
+          <li class="fragment">Context API e State Management</li>
+          <li class="fragment">Persistência de Dados (AsyncStorage)</li>
+          <li class="fragment">Integração com APIs REST</li>
+          <li class="fragment">Autenticação e Rotas Protegidas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 39 - Projeto Final -->
+      <section>
+        <h3>🎓 Desafio: Expanda o FoodHub!</h3>
+        <p><strong>Adicione as seguintes funcionalidades:</strong></p>
+        <ol>
+          <li class="fragment">💳 Tela de pagamento com formulário</li>
+          <li class="fragment">⭐ Sistema de avaliação de restaurantes</li>
+          <li class="fragment">🎁 Tela de cupons de desconto</li>
+          <li class="fragment">📍 Mapa com localização dos restaurantes</li>
+          <li class="fragment">🔔 Sistema de notificações</li>
+          <li class="fragment">🌙 Modo escuro (dark mode)</li>
+          <li class="fragment">🌍 Internacionalização (i18n)</li>
+        </ol>
+        <p class="fragment">🏆 <strong>Apresente seu projeto na próxima aula!</strong></p>
+      </section>
+
+      <!-- Slide 40 - Dúvidas -->
+      <section>
+        <h2>❓ Dúvidas?</h2>
+        <p>Vamos colocar a mão na massa! 💻</p>
+        <br>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
