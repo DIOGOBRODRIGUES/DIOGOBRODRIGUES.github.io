@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos do Projeto - 2AV | Código de Alta Performance Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title i {
+            color: #667eea;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlight-box p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box strong {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+        }
+
+        .requirements-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .requirements-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .requirements-list li strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .optional-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .optional-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(118, 75, 162, 0.1);
+            border-left: 4px solid #764ba2;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .optional-list li strong {
+            color: #764ba2;
+            font-size: 1.1rem;
+        }
+
+        .criteria-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .criteria-table th,
+        .criteria-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .criteria-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .criteria-table tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .criteria-table td:last-child {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .suggestion-box {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .suggestion-box h4 {
+            color: #28a745;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .suggestion-box ul {
+            margin-left: 1.5rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: #856404;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: #0c5460;
+        }
+
+        .info-box h4 {
+            color: #0c5460;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline {
+            margin: 1.5rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: #667eea;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .timeline-content h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .api-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .api-card strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .api-card a {
+            color: #764ba2;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .api-card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-card {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .criteria-table {
+                font-size: 0.9rem;
+            }
+
+            .criteria-table th,
+            .criteria-table td {
+                padding: 0.7rem;
+            }
+
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar para a Página Principal
+        </a>
+
+        <div class="header">
+            <h1>📋 Requisitos do Projeto - 2ª Avaliação</h1>
+            <p class="subtitle">Código de Alta Performance Mobile - 2025.2</p>
+            <p class="subtitle" style="font-size: 1.2rem;">Conteúdo abordado: Aulas 1 a 6</p>
+        </div>
+
+        <!-- Informações Gerais -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Informações Gerais do Projeto
+            </h2>
+
+            <div class="highlight-box">
+                <h3><i class="fas fa-calendar-check"></i> Cronograma Importante</h3>
+                <p>
+                    <strong>Data de Apresentação:</strong> 02 de Dezembro de 2025<br>
+                    <strong>Tempo de Desenvolvimento:</strong> 3 semanas<br>
+                    <strong>Tempo de Apresentação:</strong> 5-7 minutos por grupo<br>
+                    <strong>Modalidade:</strong> Individual ou Dupla (máximo 2 alunos)
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Objetivo do Projeto</h4>
+                <p>
+                    Desenvolver um <strong>aplicativo mobile funcional</strong> utilizando React Native e Expo, 
+                    aplicando os conceitos abordados nas <strong>Aulas 1 a 6</strong>: navegação entre telas, 
+                    FlatList, comunicação via API REST, armazenamento local (SQLite ou AsyncStorage) e uso de sensores 
+                    (geolocalização, acelerômetro, câmera ou biometria).
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Requisitos Obrigatórios -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle"></i>
+                Requisitos Obrigatórios (Mínimos para Aprovação)
+            </h2>
+
+            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6; font-size: 1.1rem;">
+                Seu aplicativo <strong>DEVE</strong> implementar <strong>TODOS</strong> os seguintes requisitos para ser considerado completo:
+            </p>
+
+            <ul class="requirements-list">
+                <li>
+                    <strong>1. Navegação entre Telas (React Navigation)</strong>
+                    Implementar pelo menos <strong>3 telas diferentes</strong> com navegação fluida usando React Navigation Stack Navigator.
+                    As telas devem ter propósitos claros e distintos (ex: lista, detalhes, configurações).
+                </li>
+
+                <li>
+                    <strong>2. FlatList ou SectionList Otimizada</strong>
+                    Exibir uma lista de dados com pelo menos <strong>5 itens</strong> usando FlatList ou SectionList.
+                    Deve incluir renderização de item personalizada e boa performance (sem lag ao rolar).
+                </li>
+
+                <li>
+                    <strong>3. Consumo de API REST Externa</strong>
+                    Buscar dados de uma API pública usando <strong>fetch ou axios</strong>.
+                    Implementar estados de: carregamento (loading), sucesso (dados exibidos) e erro (mensagem amigável).
+                </li>
+
+                <li>
+                    <strong>4. Armazenamento Local de Dados</strong>
+                    Persistir dados localmente usando <strong>AsyncStorage</strong> (dados simples) ou <strong>SQLite</strong> (dados estruturados).
+                    Exemplos: favoritos, histórico de busca, preferências do usuário, lista de itens salvos.
+                </li>
+
+                <li>
+                    <strong>5. Uso de pelo menos 1 Sensor do Dispositivo</strong>
+                    Implementar funcionalidade usando pelo menos um dos sensores:
+                    <strong>Geolocalização</strong> (Expo Location), <strong>Acelerômetro</strong>, <strong>Câmera</strong> (Expo Camera/ImagePicker) ou <strong>Biometria</strong> (LocalAuthentication).
+                </li>
+
+             
+            </ul>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-ban"></i> Penalização por Requisitos Faltantes</h4>
+                <p>
+                    Aplicativos que não atenderem a <strong>TODOS</strong> os 6 requisitos obrigatórios terão 
+                    <strong>desconto proporcional na nota</strong>. Cada requisito não implementado resulta em perda de pontos.
+                </p>
+            </div>
+        </div>
+
+        
+
+        <!-- Sugestões de Aplicativos -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-mobile-alt"></i>
+                Sugestões de Aplicativos para Desenvolver
+            </h2>
+
+            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6;">
+                Você pode desenvolver <strong>qualquer tipo de aplicativo</strong> que atenda aos requisitos obrigatórios. 
+                Aqui estão algumas ideias testadas e aprovadas:
+            </p>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-film"></i> App de Filmes/Séries</h4>
+                <ul>
+                    <li>API: TMDB (The Movie Database) - gratuita</li>
+                    <li>Telas: lista de filmes populares, detalhes do filme, favoritos</li>
+                    <li>FlatList: grid de pôsteres de filmes</li>
+                    <li>Armazenamento: filmes favoritados pelo usuário</li>
+                    <li>Sensor: geolocalização para cinemas próximos</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-cloud-sun"></i> App de Previsão do Tempo</h4>
+                <ul>
+                    <li>API: OpenWeatherMap ou WeatherAPI - gratuitas</li>
+                    <li>Telas: clima atual, previsão semanal, cidades salvas</li>
+                    <li>FlatList: lista de cidades ou previsão por dias</li>
+                    <li>Armazenamento: cidades favoritas e histórico</li>
+                    <li>Sensor: geolocalização para clima da localização atual</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-utensils"></i> App de Receitas Culinárias</h4>
+                <ul>
+                    <li>API: TheMealDB ou Spoonacular - gratuitas</li>
+                    <li>Telas: categorias, lista de receitas, detalhes da receita</li>
+                    <li>FlatList: grid de imagens de pratos</li>
+                    <li>Armazenamento: receitas favoritas</li>
+                    <li>Sensor: câmera para foto dos pratos preparados</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-newspaper"></i> App de Notícias</h4>
+                <ul>
+                    <li>API: NewsAPI - gratuita (key necessária)</li>
+                    <li>Telas: feed de notícias, categorias, detalhes da notícia</li>
+                    <li>FlatList: lista de artigos de notícias</li>
+                    <li>Armazenamento: notícias salvas para ler depois</li>
+                    <li>Sensor: notificações para breaking news</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-shopping-cart"></i> App de E-commerce (Catálogo)</h4>
+                <ul>
+                    <li>API: Fake Store API ou DummyJSON - gratuitas</li>
+                    <li>Telas: catálogo, categorias, produto individual, carrinho</li>
+                    <li>FlatList: grid de produtos</li>
+                    <li>Armazenamento: carrinho de compras e wishlist</li>
+                    <li>Sensor: câmera para buscar produtos similares</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-dumbbell"></i> App de Exercícios/Fitness</h4>
+                <ul>
+                    <li>API: ExerciseDB ou Wger - gratuitas</li>
+                    <li>Telas: lista de exercícios, detalhes, treinos salvos</li>
+                    <li>FlatList: lista de exercícios por categoria</li>
+                    <li>Armazenamento: histórico de treinos</li>
+                    <li>Sensor: acelerômetro para contador de repetições</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-box">
+                <h4><i class="fas fa-map-marked-alt"></i> App de Pontos Turísticos</h4>
+                <ul>
+                    <li>API: Foursquare Places ou Google Places</li>
+                    <li>Telas: lugares próximos, detalhes, favoritos</li>
+                    <li>FlatList: lista de pontos turísticos</li>
+                    <li>Armazenamento: lugares visitados/favoritos</li>
+                    <li>Sensor: geolocalização + mapas interativos</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- APIs Públicas -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                APIs Públicas Recomendadas (Gratuitas)
+            </h2>
+
+            <div class="api-grid">
+                <div class="api-card">
+                    <strong>TMDB - The Movie Database</strong>
+                    <p>Filmes, séries, elenco, trailers</p>
+                    <a href="https://www.themoviedb.org/settings/api" target="_blank">themoviedb.org/settings/api</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>OpenWeatherMap</strong>
+                    <p>Clima atual e previsão do tempo</p>
+                    <a href="https://openweathermap.org/api" target="_blank">openweathermap.org/api</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>TheMealDB</strong>
+                    <p>Receitas culinárias detalhadas</p>
+                    <a href="https://www.themealdb.com/api.php" target="_blank">themealdb.com/api.php</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>NewsAPI</strong>
+                    <p>Notícias de múltiplas fontes</p>
+                    <a href="https://newsapi.org/" target="_blank">newsapi.org</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>Fake Store API</strong>
+                    <p>Produtos de e-commerce fictícios</p>
+                    <a href="https://fakestoreapi.com/" target="_blank">fakestoreapi.com</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>JSONPlaceholder</strong>
+                    <p>Dados fake para testes (posts, users)</p>
+                    <a href="https://jsonplaceholder.typicode.com/" target="_blank">jsonplaceholder.typicode.com</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>ExerciseDB (RapidAPI)</strong>
+                    <p>Banco de dados de exercícios</p>
+                    <a href="https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb" target="_blank">RapidAPI - ExerciseDB</a>
+                </div>
+
+                <div class="api-card">
+                    <strong>Public APIs List</strong>
+                    <p>Lista com 1000+ APIs públicas</p>
+                    <a href="https://github.com/public-apis/public-apis" target="_blank">github.com/public-apis</a>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-key"></i> Sobre API Keys</h4>
+                <p>
+                    Algumas APIs exigem <strong>chave de API (API Key)</strong> gratuita. Para obtê-la, 
+                    basta criar uma conta no site da API. <strong>NUNCA</strong> compartilhe sua API key publicamente 
+                    ou no GitHub. Use variáveis de ambiente sempre que possível.
+                </p>
+            </div>
+        </div>
+
+        <!-- Critérios de Avaliação -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-clipboard-check"></i>
+                Critérios de Avaliação Detalhados
+            </h2>
+
+            <table class="criteria-table">
+                <thead>
+                    <tr>
+                        <th>Critério</th>
+                        <th>Descrição</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Navegação</strong></td>
+                        <td>React Navigation configurado corretamente com 3+ telas e transições suaves</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FlatList</strong></td>
+                        <td>Lista otimizada com dados dinâmicos, renderização eficiente e design atraente</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consumo de API</strong></td>
+                        <td>Integração funcional com API, estados de loading/erro, dados exibidos corretamente</td>
+                        <td>2.0 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Armazenamento Local</strong></td>
+                        <td>Dados persistidos corretamente com AsyncStorage ou SQLite, recuperação funcional</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uso de Sensores</strong></td>
+                        <td>Pelo menos 1 sensor implementado de forma funcional e integrada ao app</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface/UX</strong></td>
+                        <td>Design profissional, cores harmônicas, componentes bem posicionados, responsividade</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apresentação</strong></td>
+                        <td>Clareza na explicação, domínio técnico, demonstração completa, respostas às perguntas</td>
+                        <td>1.5 pts</td>
+                    </tr>
+                </tbody>
+            </table>
+
+           
+        </div>
+
+
+        <!-- Entrega e Apresentação -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-upload"></i>
+                Formato de Entrega e Apresentação
+            </h2>
+
+            <div class="highlight-box">
+                <h3><i class="fas fa-code-branch"></i> Como Entregar o Projeto</h3>
+                <p>
+                    <strong>1. Repositório GitHub (Recomendado):</strong> Enviar link do repositório público<br>
+                    <strong>2. README.md:</strong> Obrigatório com documentação completa<br>
+                    <strong>3. Prazo:</strong> Até 02/12/2025 
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-file-alt"></i> Conteúdo Obrigatório do README.md</h4>
+                <p>
+                    ✓ Nome do projeto e descrição clara<br>
+                    ✓ Funcionalidades implementadas (liste cada requisito)<br>
+                    ✓ Tecnologias e bibliotecas utilizadas<br>
+                    ✓ API(s) utilizadas (incluir link e se precisa de key)<br>
+                    ✓ Sensores implementados<br>
+                    ✓ Instruções de instalação: <code>npm install</code><br>
+                    ✓ Instruções de execução: <code>npx expo start</code><br>
+                    ✓ Screenshots ou GIFs do app funcionando<br>
+                    ✓ Nome completo dos integrantes e matrícula
+                </p>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-presentation"></i> Durante a Apresentação (5-7 min)</h4>
+                <p>
+                    ✓ Tenha o app <strong>já rodando</strong> antes de começar (Expo Go ou emulador)<br>
+                    ✓ Demonstre <strong>TODAS as funcionalidades</strong> implementadas, uma por uma<br>
+                    ✓ Explique as principais tecnologias e como elas foram usadas<br>
+                    ✓ Mostre trechos importantes do código (navegação, API, armazenamento, sensor)<br>
+                    ✓ Esteja preparado para <strong>responder perguntas técnicas</strong><br>
+                    ✓ <strong>Respeite o tempo:</strong> apresentações serão cronometradas
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-question-circle"></i> Possíveis Perguntas na Apresentação</h4>
+                <p>
+                    • Por que você escolheu essa API?<br>
+                    • Como você implementou a navegação entre telas?<br>
+                    • Onde os dados ficam salvos localmente?<br>
+                    • Como você tratou erros de rede?<br>
+                    • Qual sensor foi usado e como?<br>
+                    • Quais foram os maiores desafios?
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 4rem; padding: 2rem; text-align: center; background: rgba(255,255,255,0.1); border-radius: 15px; color: white;">
+            <p style="font-size: 1.3rem; margin-bottom: 1rem;">
+                <i class="fas fa-rocket"></i> <strong>Boa sorte no desenvolvimento do seu projeto!</strong>
+            </p>
+         
+            <div style="margin-top: 2rem;">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i> Voltar para a Página Principal
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
