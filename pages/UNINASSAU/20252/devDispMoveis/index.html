@@ -327,11 +327,11 @@
             <h3>🚨 AVISOS IMPORTANTES</h3>
             <div class="alert-content">
                 <div class="alert-item">
-                    <h4>📝 Prova 1ª Avaliação</h4>
-                    <div class="date">01/10/2025</div>
+                    <h4>📝 Prova de Avaliação</h4>
+                    <div class="date">03/12/2025</div>
                     <div class="description">
-                        Prova sobre conteúdos das aulas 1 a 5<br>
-                        <small>Dispositivos móveis, ambientes de desenvolvimento, React e React Native</small>
+                        Prova sobre todo o conteúdo da disciplina<br>
+                        <small>Dispositivos móveis, React, React Native, navegação e sensores</small>
                     </div>
                     <div class="countdown">
                         ⏰ Faltam <span id="countdown-prova"></span> dias
@@ -339,24 +339,25 @@
                 </div>
                 
                 <div class="alert-item">
-                    <h4>🚀 Entrega do Projeto</h4>
-                    <div class="date">08/10/2025</div>
+                    <h4>🏆 Projeto Extra - OPORTUNIDADE!</h4>
+                    <div class="date">+2.0 Pontos na Nota Final</div>
                     <div class="description">
-                        Projeto final de aplicativo móvel<br>
-                        <small>Código fonte + vídeo demonstrativo + documentação</small>
+                        Desenvolva um app completo e ganhe pontos extras!<br>
+                        <small>4+ telas • Navegação • FlatList • 1 sensor • API • Design profissional</small>
                     </div>
-                    <div class="countdown">
-                        ⏰ Faltam <span id="countdown-projeto"></span> dias
+                    <div class="countdown" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72;">
+                        ⭐ Veja os requisitos completos abaixo!
                     </div>
                 </div>
             </div>
             
-            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3);">
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/projeto_pagina.html" 
-                   style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; backdrop-filter: blur(10px);"
-                   onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='scale(1.05)'"
-                   onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='scale(1)'">
-                    📋 Ver Requisitos Completos do Projeto
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3); display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            
+                <a href="requisitos-projeto-extra.html" 
+                   style="display: inline-block; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,215,0,0.4);"
+                   onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(255,215,0,0.6)'"
+                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 5px 15px rgba(255,215,0,0.4)'">
+                    ⭐ Projeto Extra (+2.0 Pontos) ⭐
                 </a>
             </div>
         </div>
@@ -427,11 +428,9 @@
 
         // Atualizar contadores
         function atualizarContadores() {
-            const diasProva = calcularDiasRestantes('2025-10-01');
-            const diasProjeto = calcularDiasRestantes('2025-10-08');
+            const diasProva = calcularDiasRestantes('2025-12-03');
 
             const elementoProva = document.getElementById('countdown-prova');
-            const elementoProjeto = document.getElementById('countdown-projeto');
 
             if (elementoProva) {
                 if (diasProva > 0) {
@@ -440,16 +439,6 @@
                     elementoProva.textContent = 'HOJE!';
                     elementoProva.style.color = '#ffc107';
                     elementoProva.style.fontWeight = 'bold';
-                }
-            }
-
-            if (elementoProjeto) {
-                if (diasProjeto > 0) {
-                    elementoProjeto.textContent = diasProjeto;
-                } else {
-                    elementoProjeto.textContent = 'HOJE!';
-                    elementoProjeto.style.color = '#ffc107';
-                    elementoProjeto.style.fontWeight = 'bold';
                 }
             }
         }
