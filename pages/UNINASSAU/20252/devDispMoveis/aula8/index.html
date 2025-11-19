@@ -107,6 +107,7 @@ expo install expo-location</code></pre>
         <h3>📍 Geolocalização: Código Básico</h3>
         <pre><code class="language-javascript">import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function LocationScreen() {
   const [location, setLocation] = useState(null);
@@ -128,17 +129,36 @@ export default function LocationScreen() {
   }, []);
 
   return (
-    &lt;&gt;
+    &lt;View style={styles.container}&gt;
+      {errorMsg && &lt;Text style={styles.error}&gt;{errorMsg}&lt;/Text&gt;}
       {location && (
-        &lt;Text&gt;
+        &lt;Text style={styles.text}&gt;
           Latitude: {location.coords.latitude}
           {"\n"}
           Longitude: {location.coords.longitude}
         &lt;/Text&gt;
       )}
-    &lt;/&gt;
+    &lt;/View&gt;
   );
-}</code></pre>
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  error: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+  },
+});</code></pre>
       </section>
 
       <!-- Slide 7 - Geolocalização: Exemplo Prático -->
@@ -179,7 +199,25 @@ export default function LocationApp() {
       {address && &lt;Text style={styles.text}&gt;{address}&lt;/Text&gt;}
     &lt;/View&gt;
   );
-}</code></pre>
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  error: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+  },
+});
+</code></pre>
       </section>
 
       <!-- Slide 8 - Câmera: Instalação -->
@@ -198,53 +236,135 @@ expo install expo-camera</code></pre>
       <section>
         <h3>📷 Câmera: Usando Image Picker</h3>
         <pre><code class="language-javascript">import * as ImagePicker from 'expo-image-picker';
-import { View, Image, Button } from 'react-native';
+import { View, Image, Button, StyleSheet, Text, Alert } from 'react-native';
 import { useState } from 'react';
 
 export default function PhotoApp() {
   const [photo, setPhoto] = useState(null);
 
   const pickImage = async () => {
-    // Solicitar permissão
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') return;
+    try {
+      // Solicitar permissão
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de acesso à galeria!');
+        return;
+      }
 
-    // Selecionar imagem
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+      // Selecionar imagem
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    if (!result.cancelled) {
-      setPhoto(result.uri);
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível acessar a galeria');
     }
   };
 
   const takePhoto = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== 'granted') return;
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de acesso à câmera!');
+        return;
+      }
 
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    if (!result.cancelled) {
-      setPhoto(result.uri);
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível acessar a câmera');
     }
   };
 
   return (
-    &lt;View&gt;
-      &lt;Button title="📸 Tirar Foto" onPress={takePhoto} /&gt;
-      &lt;Button title="🖼️ Galeria" onPress={pickImage} /&gt;
-      {photo && &lt;Image source={{ uri: photo }} style={{ width: 200, height: 200 }} /&gt;}
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Gerenciador de Fotos&lt;/Text&gt;
+      
+      &lt;View style={styles.buttonContainer}&gt;
+        &lt;View style={styles.button}&gt;
+          &lt;Button title="📸 Tirar Foto" onPress={takePhoto} color="#6200ee" /&gt;
+        &lt;/View&gt;
+        &lt;View style={styles.button}&gt;
+          &lt;Button title="🖼️ Galeria" onPress={pickImage} color="#03dac6" /&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+
+      {photo ? (
+        &lt;View style={styles.imageContainer}&gt;
+          &lt;Image source={{ uri: photo }} style={styles.image} /&gt;
+          &lt;Button title="🗑️ Remover" onPress={() => setPhoto(null)} color="#cf6679" /&gt;
+        &lt;/View&gt;
+      ) : (
+        &lt;View style={styles.placeholder}&gt;
+          &lt;Text style={styles.placeholderText}&gt;Nenhuma foto selecionada&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
     &lt;/View&gt;
   );
-}</code></pre>
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 20,
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: '#6200ee',
+  },
+  placeholder: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  placeholderText: {
+    color: '#999',
+    fontSize: 16,
+  },
+});</code></pre>
       </section>
 
       <!-- Slide 10 - Acelerômetro: Instalação -->
@@ -266,7 +386,7 @@ expo install expo-sensors</code></pre>
         <h3>📊 Acelerômetro: Detectar Shake</h3>
         <pre><code class="language-javascript">import { Accelerometer } from 'expo-sensors';
 import { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function AccelerometerApp() {
   const [shake, setShake] = useState(false);
@@ -292,14 +412,99 @@ export default function AccelerometerApp() {
   }, []);
 
   return (
-    &lt;View&gt;
-      &lt;Text&gt;X: {data.x.toFixed(2)}&lt;/Text&gt;
-      &lt;Text&gt;Y: {data.y.toFixed(2)}&lt;/Text&gt;
-      &lt;Text&gt;Z: {data.z.toFixed(2)}&lt;/Text&gt;
-      {shake && &lt;Text style={{ fontSize: 24 }}&gt;🎉 SHAKE!&lt;/Text&gt;}
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;📊 Acelerômetro&lt;/Text&gt;
+      
+      &lt;View style={styles.dataContainer}&gt;
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;X:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.x.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+        
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;Y:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.y.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+        
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;Z:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.z.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+
+      {shake && (
+        &lt;View style={styles.shakeContainer}&gt;
+          &lt;Text style={styles.shakeText}&gt;🎉 SHAKE!&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
     &lt;/View&gt;
   );
-}</code></pre>
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  dataContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 25,
+    width: '100%',
+    maxWidth: 300,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  dataRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#6200ee',
+  },
+  value: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    fontFamily: 'monospace',
+  },
+  shakeContainer: {
+    marginTop: 30,
+    backgroundColor: '#6200ee',
+    borderRadius: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    shadowColor: '#6200ee',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  shakeText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+});</code></pre>
       </section>
 
       <!-- Slide 12 - Biometria: Instalação -->
