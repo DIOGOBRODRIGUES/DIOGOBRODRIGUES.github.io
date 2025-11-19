@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>titulo da aula </title>
+
+  <meta name="description" content="conteudo da aula ">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6 - Drawer Navigator</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos da Aula -->
+      <section>
+        <h3>🎯 Objetivos da Aula</h3>
+        <ul>
+          <li>Compreender o conceito de Drawer Navigator</li>
+          <li>Instalar e configurar dependências necessárias</li>
+          <li>Criar um menu lateral (drawer) funcional</li>
+          <li>Personalizar a aparência do drawer</li>
+          <li>Adicionar ícones aos itens do menu</li>
+          <li>Implementar navegação entre telas</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é Drawer Navigator? -->
+      <section>
+        <h3>📱 O que é Drawer Navigator?</h3>
+        <p style="text-align: left;">O <strong>Drawer Navigator</strong> é um padrão de navegação que exibe um menu lateral deslizante.</p>
+        <ul>
+          <li>Menu acessível deslizando da borda esquerda da tela</li>
+          <li>Comum em aplicativos Android e iOS</li>
+          <li>Ideal para navegação entre seções principais do app</li>
+          <li>Pode conter ícones, badges e personalização</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Instalação das Dependências -->
+      <section>
+        <h3>📦 Passo 1: Instalação das Dependências</h3>
+        <p>Instale os pacotes necessários:</p>
+        <pre><code class="bash" data-trim>
+# Navegação base
+npm install @react-navigation/native
+
+# Dependências do React Navigation
+npx expo install react-native-screens react-native-safe-area-context
+
+# Drawer Navigator
+npm install @react-navigation/drawer
+
+# Dependência para gestos
+npx expo install react-native-gesture-handler react-native-reanimated
+
+# Ícones
+npx expo install @expo/vector-icons
+        </code></pre>
+      </section>
+
+      <!-- Slide 5 - Importações Necessárias -->
+      <section>
+        <h3>📥 Passo 2: Importações</h3>
+        <pre><code class="javascript" data-trim>
+import { StyleSheet, Text, View, Button } from 'react-native';
+
+// Importação da navegação
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+
+// Importação de ícones
+import { Ionicons } from '@expo/vector-icons'
+        </code></pre>
+        <ul style="font-size: 0.8em;">
+          <li><code>NavigationContainer</code>: Container principal da navegação</li>
+          <li><code>createDrawerNavigator</code>: Cria o drawer navigator</li>
+          <li><code>Ionicons</code>: Biblioteca de ícones</li>
+        </ul>
+      </section>
+
+      <!-- Slide 6 - Criação da Primeira Tela -->
+      <section>
+        <h3>🏠 Passo 3: Tela Inicial</h3>
+        <pre><code class="javascript" data-trim>
+function TelaInicial({navigation}) {
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Página Inicial&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        Deslize da esquerda para abrir o menu!
+      &lt;/Text&gt;
+      &lt;View style={styles.buttonContainer}&gt;
+        &lt;Button
+          title="Abrir Menu"
+          onPress={() =&gt; navigation.openDrawer()} 
+        /&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+        </code></pre>
+        <p style="font-size: 0.8em;"><strong>Destaque:</strong> <code>navigation.openDrawer()</code> abre o menu programaticamente</p>
+      </section>
+
+      <!-- Slide 7 - Outras Telas -->
+      <section>
+        <h3>👤 Passo 4: Telas Adicionais</h3>
+        <pre><code class="javascript" data-trim>
+function TelaPerfil() {
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Meu Perfil&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        Aqui ficariam as informações do usuário
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function TelaConfiguracoes() {
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Configurações&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Ajustes do aplicativo&lt;/Text&gt;
+    &lt;/View&gt;
+  )
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 8 - Criando o Drawer -->
+      <section>
+        <h3>🔧 Passo 5: Criando o Drawer Navigator</h3>
+        <pre><code class="javascript" data-trim>
+// Criação do Drawer
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator
+        initialRouteName="Inicio"
+        screenOptions={{
+          drawerActiveTintColor: '#007AFF',
+          drawerInactiveTintColor: 'gray',
+          drawerStyle: {
+            backgroundColor: '#f8f8f8'
+          }
+        }}&gt;
+        {/* Screens aqui */}
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 9 - Configuração do Drawer -->
+      <section>
+        <h3>⚙️ Configurações do Drawer Navigator</h3>
+        <table style="font-size: 0.7em;">
+          <tr>
+            <th>Propriedade</th>
+            <th>Descrição</th>
+          </tr>
+          <tr>
+            <td><code>initialRouteName</code></td>
+            <td>Tela inicial ao carregar o app</td>
+          </tr>
+          <tr>
+            <td><code>drawerActiveTintColor</code></td>
+            <td>Cor do item ativo no menu</td>
+          </tr>
+          <tr>
+            <td><code>drawerInactiveTintColor</code></td>
+            <td>Cor dos itens inativos</td>
+          </tr>
+          <tr>
+            <td><code>drawerStyle</code></td>
+            <td>Estilização do container do drawer</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- Slide 10 - Adicionando Screens com Ícones -->
+      <section>
+        <h3>📱 Passo 6: Adicionando Screens</h3>
+        <pre><code class="javascript" data-trim>
+&lt;Drawer.Screen
+  name="Inicio"
+  component={TelaInicial}
+  options={{
+    title: 'Página Inicial',
+    drawerIcon: ({color, size}) =&gt; (
+      &lt;Ionicons name="home-outline" size={size} color={color}/&gt;
+    )
+  }}
+/&gt;
+
+&lt;Drawer.Screen
+  name="Perfil"
+  component={TelaPerfil}
+  options={{
+    title: 'Meu Perfil',
+    drawerIcon: ({color, size}) =&gt; (
+      &lt;Ionicons name="person-outline" size={size} color={color}/&gt;
+    )
+  }}
+/&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 11 - Propriedades do Drawer.Screen -->
+      <section>
+        <h3>🔍 Propriedades do Drawer.Screen</h3>
+        <ul>
+          <li><strong>name:</strong> Identificador único da tela (usado na navegação)</li>
+          <li><strong>component:</strong> Componente que será renderizado</li>
+          <li><strong>options.title:</strong> Texto exibido no drawer</li>
+          <li><strong>options.drawerIcon:</strong> Função que retorna o ícone</li>
+        </ul>
+        <p style="font-size: 0.8em; margin-top: 20px;">
+          💡 A função <code>drawerIcon</code> recebe <code>color</code> e <code>size</code> automaticamente
+        </p>
+      </section>
+
+      <!-- Slide 12 - Ícones Disponíveis -->
+      <section>
+        <h3>🎨 Alguns Ícones do Ionicons</h3>
+        <table style="font-size: 0.7em;">
+          <tr>
+            <th>Nome do Ícone</th>
+            <th>Uso</th>
+          </tr>
+          <tr>
+            <td><code>home-outline</code></td>
+            <td>Página inicial</td>
+          </tr>
+          <tr>
+            <td><code>person-outline</code></td>
+            <td>Perfil do usuário</td>
+          </tr>
+          <tr>
+            <td><code>settings-outline</code></td>
+            <td>Configurações</td>
+          </tr>
+          <tr>
+            <td><code>notifications-outline</code></td>
+            <td>Notificações</td>
+          </tr>
+          <tr>
+            <td><code>heart-outline</code></td>
+            <td>Favoritos</td>
+          </tr>
+        </table>
+        <p style="font-size: 0.7em; margin-top: 15px;">
+          🔗 Mais ícones: <a href="https://ionic.io/ionicons" target="_blank">ionic.io/ionicons</a>
+        </p>
+      </section>
+
+      <!-- Slide 13 - Estilos -->
+      <section>
+        <h3>🎨 Passo 7: Estilização</h3>
+        <pre><code class="javascript" data-trim>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    marginTop: 20,
+  }
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 14 - Métodos de Navegação -->
+      <section>
+        <h3>🔀 Métodos de Navegação do Drawer</h3>
+        <pre><code class="javascript" data-trim>
+// Abrir o drawer
+navigation.openDrawer()
+
+// Fechar o drawer
+navigation.closeDrawer()
+
+// Alternar (toggle) o drawer
+navigation.toggleDrawer()
+
+// Navegar para uma tela específica
+navigation.navigate('Perfil')
+        </code></pre>
+        <p style="font-size: 0.8em; margin-top: 20px;">
+          💡 Todos os métodos são acessíveis via prop <code>navigation</code>
+        </p>
+      </section>
+
+      <!-- Slide 15 - Código Completo (Parte 1) -->
+      <section>
+        <h3>📄 Código Completo - Parte 1</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { Ionicons } from '@expo/vector-icons'
+
+function TelaInicial({navigation}){
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Página Inicial&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Deslize da esquerda
+      para abrir o menu!&lt;/Text&gt;
+      &lt;View style={styles.buttonContainer}&gt;
+        &lt;Button
+          title="Abrir Menu"
+          onPress={() =&gt; navigation.openDrawer()}
+        /&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+        </code></pre>
+      </section>
+
+      <!-- Slide 16 - Código Completo (Parte 2) -->
+      <section>
+        <h3>📄 Código Completo - Parte 2</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+function TelaPerfil(){
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Meu Perfil&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        Aqui ficariam as informações do usuário
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function TelaConfiguracoes(){
+  return(
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Configurações&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Ajustes do aplicativo&lt;/Text&gt;
+    &lt;/View&gt;
+  )
+}
+
+const Drawer = createDrawerNavigator();
+        </code></pre>
+      </section>
+
+      <!-- Slide 17 - Código Completo (Parte 3) -->
+      <section>
+        <h3>📄 Código Completo - Parte 3</h3>
+        <pre><code class="javascript" data-trim data-line-numbers="1-15|16-22|23-29">
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator
+        initialRouteName="Inicio"
+        screenOptions={{
+          drawerActiveTintColor: '#007AFF',
+          drawerInactiveTintColor: 'gray',
+          drawerStyle: {
+            backgroundColor: '#f8f8f8'
+          }
+        }}&gt;
+        
+        &lt;Drawer.Screen
+          name="Inicio"
+          component={TelaInicial}
+          options={{
+            title: 'Página Inicial',
+            drawerIcon: ({color, size}) =&gt; (
+              &lt;Ionicons name="home-outline" size={size} color={color}/&gt;
+            )
+          }}
+        /&gt;
+        
+        &lt;Drawer.Screen
+          name="Perfil"
+          component={TelaPerfil}
+          options={{
+            title: 'Meu Perfil',
+            drawerIcon: ({color, size}) =&gt; (
+              &lt;Ionicons name="person-outline" size={size} color={color}/&gt;
+            )
+          }}
+        /&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 18 - Código Completo (Parte 4) -->
+      <section>
+        <h3>📄 Código Completo - Parte 4</h3>
+        <pre><code class="javascript" data-trim data-line-numbers>
+        &lt;Drawer.Screen
+          name="Configuracoes"
+          component={TelaConfiguracoes}
+          options={{
+            title: 'Configurações',
+            drawerIcon: ({color, size}) =&gt; (
+              &lt;Ionicons name="settings-outline" size={size} color={color}/&gt;
+            )
+          }}
+        /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+});
+        </code></pre>
+      </section>
+
+      <!-- Slide 19 - Como Testar -->
+      <section>
+        <h3>🧪 Como Testar o Aplicativo</h3>
+        <ol>
+          <li>Execute o projeto: <code>npx expo start</code></li>
+          <li>Escaneie o QR Code com o Expo Go</li>
+          <li>Deslize da esquerda para abrir o drawer</li>
+          <li>Clique nos itens do menu para navegar</li>
+          <li>Use o botão "Abrir Menu" na tela inicial</li>
+          <li>Observe as cores dos itens ativos/inativos</li>
+        </ol>
+      </section>
+
+      <!-- Slide 20 - Personalizações Avançadas -->
+      <section>
+        <h3>🎨 Personalizações Avançadas</h3>
+        <pre><code class="javascript" data-trim>
+&lt;Drawer.Navigator
+  screenOptions={{
+    drawerActiveTintColor: '#007AFF',
+    drawerInactiveTintColor: 'gray',
+    drawerActiveBackgroundColor: '#e3f2fd',
+    drawerItemStyle: {
+      marginVertical: 5,
+      borderRadius: 10,
+    },
+    drawerLabelStyle: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    headerStyle: {
+      backgroundColor: '#007AFF',
+    },
+    headerTintColor: '#fff',
+  }}&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 21 - Customização do Header -->
+      <section>
+        <h3>📋 Customizando o Header</h3>
+        <pre><code class="javascript" data-trim>
+&lt;Drawer.Screen
+  name="Inicio"
+  component={TelaInicial}
+  options={{
+    title: 'Página Inicial',
+    headerTitle: 'Bem-vindo!',
+    headerStyle: {
+      backgroundColor: '#007AFF',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    drawerIcon: ({color, size}) =&gt; (
+      &lt;Ionicons name="home-outline" size={size} color={color}/&gt;
+    )
+  }}
+/&gt;
+        </code></pre>
+      </section>
+
+      <!-- Slide 22 - Desafios Práticos -->
+      <section>
+        <h3>💪 Desafios Práticos</h3>
+        <ol>
+          <li>Adicione uma nova tela "Favoritos" com ícone de coração</li>
+          <li>Implemente uma tela "Sobre" com informações do app</li>
+          <li>Customize as cores do drawer para um tema escuro</li>
+          <li>Adicione badges (contadores) nos itens do menu</li>
+          <li>Crie um botão para fechar o drawer em cada tela</li>
+          <li>Adicione animações personalizadas</li>
+        </ol>
+      </section>
+
+      <!-- Slide 23 - Boas Práticas -->
+      <section>
+        <h3>✅ Boas Práticas</h3>
+        <ul>
+          <li>Limite o número de itens no drawer (5-7 itens)</li>
+          <li>Use ícones consistentes e reconhecíveis</li>
+          <li>Organize itens por ordem de importância</li>
+          <li>Mantenha labels curtos e descritivos</li>
+          <li>Teste em diferentes tamanhos de tela</li>
+          <li>Considere acessibilidade (cores e contraste)</li>
+          <li>Separe componentes em arquivos diferentes em projetos maiores</li>
+        </ul>
+      </section>
+
+      <!-- Slide 24 - Erros Comuns -->
+      <section>
+        <h3>⚠️ Erros Comuns</h3>
+        <table style="font-size: 0.65em;">
+          <tr>
+            <th>Erro</th>
+            <th>Solução</th>
+          </tr>
+          <tr>
+            <td>Drawer não abre com gesto</td>
+            <td>Instale react-native-gesture-handler</td>
+          </tr>
+          <tr>
+            <td>Ícones não aparecem</td>
+            <td>Verifique instalação do @expo/vector-icons</td>
+          </tr>
+          <tr>
+            <td>NavigationContainer não encontrado</td>
+            <td>Instale @react-navigation/native</td>
+          </tr>
+          <tr>
+            <td>Cores não aplicadas</td>
+            <td>Use drawerActiveTintColor (com 'T' maiúsculo)</td>
+          </tr>
+          <tr>
+            <td>Animações travadas</td>
+            <td>Instale react-native-reanimated</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- Slide 25 - Recursos Adicionais -->
+      <section>
+        <h3>📚 Recursos Adicionais</h3>
+        <ul>
+          <li>
+            <a href="https://reactnavigation.org/docs/drawer-navigator/" target="_blank">
+              Documentação oficial do Drawer Navigator
+            </a>
+          </li>
+          <li>
+            <a href="https://ionic.io/ionicons" target="_blank">
+              Biblioteca de ícones Ionicons
+            </a>
+          </li>
+          <li>
+            <a href="https://reactnavigation.org/docs/drawer-actions/" target="_blank">
+              Drawer Actions (métodos de navegação)
+            </a>
+          </li>
+          <li>
+            <a href="https://reactnavigation.org/docs/drawer-based-navigation/" target="_blank">
+              Guia de navegação baseada em drawer
+            </a>
+          </li>
+        </ul>
+      </section>
+
+    
+
+    
+
+      <!-- Slide 28 - Dúvidas -->
+      <section>
+        <h3>❓ Dúvidas?</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <br>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <p style="margin-top: 40px; font-size: 1.5em;">Obrigado! 🎉</p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
