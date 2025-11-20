@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 6 - jQuery e AJAX</title>
+
+  <meta name="description" content="Aprender jQuery e AJAX de forma prática e conceitual">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 6 - jQuery e AJAX</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <!-- Slide 2 - Objetivos -->
+      <section>
+        <h3>🎯 Objetivos da Aula</h3>
+        <ul>
+          <li class="fragment">Entender o que é jQuery e seus benefícios</li>
+          <li class="fragment">Aprender AJAX e comunicação assíncrona</li>
+          <li class="fragment">Dominar o método $.ajax()</li>
+          <li class="fragment">Processar respostas JSON</li>
+          <li class="fragment">Manipular o DOM dinamicamente</li>
+          <li class="fragment">Tratar erros adequadamente</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3 - O que é jQuery? -->
+      <section>
+        <h3>📚 O que é jQuery?</h3>
+        <p><strong>jQuery é uma biblioteca JavaScript que:</strong></p>
+        <ul>
+          <li class="fragment">Simplifica manipulação do DOM</li>
+          <li class="fragment">Facilita requisições AJAX</li>
+          <li class="fragment">Oferece animações e efeitos</li>
+          <li class="fragment">Funciona em todos os navegadores (compatibilidade)</li>
+          <li class="fragment">Reduz linhas de código</li>
+        </ul>
+        <div class="fragment" style="margin-top: 30px; background: #1e1e1e; padding: 15px; border-radius: 5px;
+        font-size: 0.7em;">
+          <p><strong>Comparação:</strong></p>
+          <p>JavaScript puro: <code>document.getElementById('id').innerHTML = 'texto';</code></p>
+          <p>jQuery: <code>$('#id').html('texto');</code></p>
+        </div>
+      </section>
+
+      <!-- Slide 4 - Instalando jQuery -->
+      <section>
+        <h3>💾 Instalando jQuery</h3>
+        <p><strong>Via CDN (Cloud):</strong></p>
+        <pre><code class="language-html">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre>
+        <p><strong>Via npm (Node Package Manager):</strong></p>
+        <pre><code class="language-bash">npm install jquery</code></pre>
+        <p><strong>Download direto:</strong></p>
+        <p><a href="https://jquery.com/download/" target="_blank">jquery.com/download</a></p>
+      </section>
+
+    
+      <!-- Slide 7 - O que é AJAX? -->
+      <section>
+        <h3>📡 O que é AJAX?</h3>
+        <p><strong>AJAX = Asynchronous JavaScript And XML</strong></p>
+        <ul>
+          <li class="fragment"><strong>Assincronia:</strong> Não bloqueia a página enquanto comunica</li>
+          <li class="fragment"><strong>JavaScript:</strong> Linguagem utilizada no navegador</li>
+          <li class="fragment"><strong>XML/JSON:</strong> Formato de troca de dados</li>
+        </ul>
+        <div class="fragment" style="margin-top: 30px; background: #1e1e1e; padding: 15px; border-radius: 5px;">
+          <p><strong>Em prática:</strong></p>
+          <p>Você clica um botão → JavaScript envia requisição ao servidor → Servidor responde → Página atualiza SEM recarregar</p>
+        </div>
+      </section>
+
+      <!-- Slide 8 - Como Funciona AJAX -->
+      <section>
+        <h3>🔄 Fluxo do AJAX</h3>
+        <pre style="width: 100%; font-size: 0.65em;">
+┌─────────────┐                           ┌─────────────┐
+│  Navegador  │                           │  Servidor   │
+│  (Cliente)  │                           │             │
+└─────────────┘                           └─────────────┘
+      │                                           │
+      ├──── 1. AJAX Request (JSON/XML) ────────→ │
+      │                                           │
+      │          2. Processa servidor             │
+      │                                           │
+      │ ←── 3. AJAX Response (JSON/XML) ────────┤
+      │                                           │
+      └─ 4. JavaScript processa resposta
+         5. DOM é atualizado
+         6. Usuário vê mudanças SEM recarregar!
+        </pre>
+      </section>
+
+     
+      <!-- Slide 17 - Live Server -->
+      <section>
+        <h3>🚀 Por que usar Live Server?</h3>
+        <p><strong>Abrir HTML diretamente gera erro!</strong></p>
+        <pre>
+⚠️ Erro: XMLHttpRequest cannot load file://...
+        Cross origin requests are only supported for HTTP.
+        </pre>
+        <p><strong>Solução: Use Live Server</strong></p>
+        <ul>
+          <li class="fragment">Extensão do VS Code</li>
+          <li class="fragment">Simula um servidor local (http://localhost)</li>
+          <li class="fragment">Permite AJAX funcionar corretamente</li>
+          <li class="fragment">Auto-reloada página quando você salva</li>
+        </ul>
+      </section>
+
+      <!-- Slide 18 - Instalando Live Server -->
+      <section>
+        <h3>📥 Instalando Live Server</h3>
+        <p><strong>1. Abra VS Code</strong></p>
+        <p><strong>2. Extensions (Ctrl+Shift+X)</strong></p>
+        <p><strong>3. Busque: "Live Server"</strong></p>
+        <p><strong>4. Clique em "Install" (Ritwick Dey)</strong></p>
+        <p style="margin-top: 30px;"><strong>Como usar:</strong></p>
+        <ul>
+          <li>Clique com direita no arquivo HTML</li>
+          <li>Selecione "Open with Live Server"</li>
+          <li>Pronto! Sua página abrirá em http://localhost:5500</li>
+        </ul>
+      </section>
+
+      <!-- Slide 19 - Diagrama Completo -->
+      <section>
+        <h3>📊 Diagrama Completo do Fluxo</h3>
+        <pre style="font-size: 0.55em; width: 100%; margin: 0;">
+┌────────────────────────────────────────────────────────┐
+│ 1. Usuário clica no botão                              │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 2. Event listener detecta clique                       │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 3. Função jQuery .click() é executada                 │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 4. Limpa conteúdo anterior (empty, html)              │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 5. $.ajax() envia requisição para dados.json           │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 6. jQuery recebe resposta e converte JSON→Objeto      │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 7. success: processa dados com forEach                │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 8. jQuery atualiza DOM (.html, .append)               │
+└────────────────────────────────────────────────────────┘
+                          ↓
+┌────────────────────────────────────────────────────────┐
+│ 9. Usuário vê dados na página SEM recarregar!         │
+└────────────────────────────────────────────────────────┘
+        </pre>
+      </section>
+
+      <!-- Slide 20 - Conceitos Importantes -->
+      <section>
+        <h3>💡 Conceitos Teóricos Importantes</h3>
+        <ul>
+          <li class="fragment"><strong>Síncrono vs Assíncrono:</strong> AJAX é assíncrono (não bloqueia)</li>
+          <li class="fragment"><strong>Callbacks:</strong> success e error são funções que são chamadas depois</li>
+          <li class="fragment"><strong>JSON:</strong> Formato de troca de dados (leve e eficiente)</li>
+          <li class="fragment"><strong>DOM:</strong> Document Object Model (árvore de elementos HTML)</li>
+          <li class="fragment"><strong>Event Listener:</strong> Ouve evento (clique, digitação, etc)</li>
+          <li class="fragment"><strong>Requisição HTTP:</strong> GET (buscar), POST (enviar), PUT (atualizar), DELETE</li>
+        </ul>
+      </section>
+
+    
+      <!-- Slide 23 - Atividade Prática -->
+      <section>
+        <h3>💻 Atividade Prática</h3>
+        <p><strong>Crie um arquivo HTML com:</strong></p>
+        <ol>
+          <li class="fragment">Botão "Buscar Dados"</li>
+          <li class="fragment">jQuery via CDN</li>
+          <li class="fragment">$.ajax() para buscar dados.json</li>
+          <li class="fragment">Exibir resultado em uma div</li>
+          <li class="fragment">Listar dados em uma tabela ou lista</li>
+        </ol>
+        <p class="fragment" style="margin-top: 30px;"><strong>Desafio extra:</strong></p>
+        <ul>
+          <li>Adicione um campo de busca para filtrar alunos</li>
+          <li>Adicione botão para ordenar alfabeticamente</li>
+        </ul>
+      </section>
+
+      <!-- Slide 24 - Boas Práticas -->
+      <section>
+        <h3>✅ Boas Práticas com AJAX</h3>
+        <ul>
+          <li class="fragment">✓ Sempre valide dados do servidor</li>
+          <li class="fragment">✓ Sempre trate erros adequadamente</li>
+          <li class="fragment">✓ Use feedback visual (loading, mensagens)</li>
+          <li class="fragment">✓ Evite requisições desnecessárias</li>
+          <li class="fragment">✓ Use cache quando apropriado</li>
+          <li class="fragment">✓ Prefira fetch() ou axios ao invés de $.ajax() em projetos novos</li>
+          <li class="fragment">✓ Documente suas APIs</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Exemplo completo</h3>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+      &lt;html lang="pt-br"&gt;
+      &lt;head&gt;
+          &lt;meta charset="UTF-8"&gt;
+          &lt;title&gt;Exemplo jQuery e AJAX (sem Java)&lt;/title&gt;
+          
+          &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"&gt;&lt;/script&gt;
+          
+          &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #resultado { margin-top: 15px; padding: 10px; border: 1px solid #ccc; 
+               background-color: #f9f9f9; min-height: 50px; }
+        #listaAlunos { list-style-type: none; padding-left: 0; }
+        #listaAlunos li { background-color: #eee; margin-bottom: 5px; padding: 8px; }
+          &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+          &lt;h2&gt;Demonstração AJAX com jQuery (sem Backend)&lt;/h2&gt;
+          &lt;p&gt;Clique no botão para buscar dados de um arquivo &lt;code&gt;dados.json&lt;/code&gt; local.&lt;/p&gt;
+
+          &lt;button id="btnBuscar"&gt;Buscar Dados via AJAX&lt;/button&gt;
+          &lt;div id="resultado"&gt;&lt;/div&gt;
+          &lt;ul id="listaAlunos"&gt;&lt;/ul&gt;
+
+          &lt;script&gt;
+        $(document).ready(function() {
+            $("#btnBuscar").click(function() {
+          $("#resultado").html("Buscando dados...");
+          $("#listaAlunos").empty();
+
+          $.ajax({
+              url: 'dados.json',
+              type: 'GET',
+              dataType: 'json',
+              success: function(resposta) {
+            $("#resultado").html("&lt;strong&gt;Mensagem:&lt;/strong&gt; " + resposta.mensagem);
+            resposta.alunos.forEach(function(aluno) {
+                $("#listaAlunos").append("&lt;li&gt;ID: " + aluno.id + " - Nome: " + aluno.nome + "&lt;/li&gt;");
+            });
+              },
+              error: function(xhr, status, error) {
+            $("#resultado").html("&lt;strong&gt;Erro:&lt;/strong&gt; " + error);
+              }
+          });
+            });
+        });
+          &lt;/script&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;</code></pre>
+      </section>
+      <!-- Slide 26 - Referências -->
+      <section>
+        <h3>📚 Referências</h3>
+        <ul>
+          <li><a href="https://jquery.com/" target="_blank">jQuery Official</a></li>
+          <li><a href="https://api.jquery.com/" target="_blank">jQuery API Documentation</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">Fetch API</a></li>
+          <li><a href="https://axios-http.com/" target="_blank">Axios</a></li>
+          <li><a href="https://www.json.org/" target="_blank">JSON Specification</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 27 - Perguntas -->
+      <section>
+        <h3>❓ Perguntas?</h3>
+        <p><strong>Dúvidas sobre jQuery e AJAX?</strong></p>
+        <p>Entre em contato:</p>
+        <p>
+          <i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">LinkedIn</a><br>
+          <i class="fab fa-github"></i> <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">GitHub</a>
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true ,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
