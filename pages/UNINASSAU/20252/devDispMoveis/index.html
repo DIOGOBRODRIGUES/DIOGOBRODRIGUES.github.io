@@ -272,6 +272,62 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
+        .grades-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: 2px solid #5568d3;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grades-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .grades-box h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .grades-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffc107, #ffeb3b);
+            color: #1e3c72;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .grades-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.6);
+        }
+
+        .grades-link i {
+            margin-right: 0.5rem;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.02); }
@@ -287,11 +343,11 @@
             .header h1 {
                 font-size: 2rem;
             }
-            
+
             .header h2 {
                 font-size: 1.4rem;
             }
-            
+
             .course-grid {
                 grid-template-columns: 1fr;
             }
@@ -299,176 +355,187 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>📱 Desenvolvimento para Dispositivos Móveis</h1>
-            <h2>🏛️ Centro Universitário Maurício de Nassau</h2>
-            
-            <div class="professor-info">
-                <h3>Prof. Dr. Diogo Francisco Borba Rodrigues</h3>
-                
-                
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                     <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                </div>
-            </div>
-        </header>
+<div class="container">
+    <header class="header">
+        <h1>📱 Desenvolvimento para Dispositivos Móveis</h1>
+        <h2>🏛️ Centro Universitário Maurício de Nassau</h2>
 
-        <!-- Quadro de Avisos Importantes -->
-        <div class="alert-box">
-            <h3>🚨 AVISOS IMPORTANTES</h3>
-            <div class="alert-content">
-                <div class="alert-item">
-                    <h4>📝 Prova de Avaliação</h4>
-                    <div class="date">03/12/2025</div>
-                    <div class="description">
-                        Prova sobre todo o conteúdo da disciplina<br>
-                        <small>Dispositivos móveis, React, React Native, navegação e sensores</small>
-                    </div>
-                    <div class="countdown">
-                        ⏰ Faltam <span id="countdown-prova"></span> dias
-                    </div>
-                </div>
-                
-                <div class="alert-item">
-                    <h4>🏆 Projeto Extra - OPORTUNIDADE!</h4>
-                    <div class="date">+2.0 Pontos na Nota Final</div>
-                    <div class="description">
-                        Desenvolva um app completo e ganhe pontos extras!<br>
-                        <small>4+ telas • Navegação • FlatList • 1 sensor • API • Design profissional</small>
-                    </div>
-                    <div class="countdown" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72;">
-                        ⭐ Veja os requisitos completos abaixo!
-                    </div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3); display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-            
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/requisitos-projeto-extra.html" target="_blank"
-                   style="display: inline-block; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,215,0,0.4);"
-                   onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(255,215,0,0.6)'"
-                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 5px 15px rgba(255,215,0,0.4)'">
-                    ⭐ Projeto Extra (+2.0 Pontos) ⭐
+        <div class="professor-info">
+            <h3>Prof. Dr. Diogo Francisco Borba Rodrigues</h3>
+
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+                    <i class="fab fa-instagram"></i>
                 </a>
             </div>
         </div>
+    </header>
 
-        <main>
-            <div class="course-grid">
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula1/" class="course-card">
-                    <span class="icon">📱</span>
-                    <h3>Aula 1: Introdução aos Dispositivos Móveis</h3>
-                    <p><strong>Conteúdo:</strong> Tipos de dispositivos móveis</p>
-                    <p><strong>Foco:</strong> Características e sistemas operacionais</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula2/" class="course-card">
-                    <span class="icon">🛠️</span>
-                    <h3>Aula 2: Ambientes de Desenvolvimento</h3>
-                    <p><strong>Conteúdo:</strong> Ferramentas de desenvolvimento</p>
-                    <p><strong>Foco:</strong> Setup e configuração</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula3/" class="course-card">
-                    <span class="icon">⚛️</span>
-                    <h3>Aula 3: Introdução ao React</h3>
-                    <p><strong>Conteúdo:</strong> O que é React, JSX, componentes, props, estado, ciclo de vida, eventos, renderização condicional, listas e chaves.</p>
-                    <p><strong>Foco:</strong> Fundamentos do React para quem nunca usou, diferenças para Angular, exemplos práticos e sintaxe básica.</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula4/" class="course-card">
-                    <span class="icon">📱⚛️</span>
-                    <h3>Aula 4: Introdução ao React Native</h3>
-                    <p><strong>Conteúdo:</strong> O que é React Native, diferenças para React Web, estrutura de um app, componentes básicos (View, Text, Button, Image), navegação, estilos, Expo.</p>
-                    <p><strong>Foco:</strong> Como criar apps mobile com React Native, primeiros passos, comparação com desenvolvimento web, exemplos simples.</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula5/" class="course-card">
-                    <span class="icon">🎨</span>
-                    <h3>Aula 5: FlatList e Navegação</h3>
-                    <p><strong>Conteúdo:</strong> FlatList, ScrollView, navegação entre telas</p>
-                    <p><strong>Foco:</strong> Design de interfaces mobile</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula6/" class="course-card">
-                    <span class="icon">🧭</span>
-                    <h3>Aula 6: Tipos de Navegação</h3>
-                    <p><strong>Conteúdo:</strong> Stack Navigator, Tab Navigator, Drawer Navigator</p>
-                    <p><strong>Foco:</strong> Navegação avançada em aplicativos mobile</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula7/" class="course-card">
-                    <span class="icon">🔗</span>
-                    <h3>Aula 7: Tab Navigator e Navegação Híbrida</h3>
-                    <p><strong>Conteúdo:</strong> Bottom Tabs, Material Top Tabs, navegação combinada</p>
-                    <p><strong>Foco:</strong> Navegação por abas e estruturas de navegação avançadas</p>
-                </a>
-
-                <a href="/pages/UNINASSAU/20252/devDispMoveis/aula8/" class="course-card">
-                    <span class="icon">📡</span>
-                    <h3>Aula 8: Sensores do Dispositivo Mobile</h3>
-                    <p><strong>Conteúdo:</strong> Geolocalização, câmera, acelerômetro, biometria</p>
-                    <p><strong>Foco:</strong> Integração com sensores para projeto extra</p>
-                </a>
-
-                
-            </div>
-
-          
-
-            <div class="practical-note">
-                <h3>🧪 Atividades Práticas</h3>
-                <p>Por limitações de hardware, utilizaremos o <strong>Expo Snack</strong> para as atividades práticas.</p>
-                <p>Plataforma online que permite desenvolvimento React Native diretamente no navegador!</p>
-                
-                <a href="https://snack.expo.dev" target="_blank" class="expo-link">
-                    <i class="fas fa-external-link-alt"></i> Acessar Expo Snack
-                </a>
-            </div>
-        </main>
+    <!-- Box de Consulta de Notas -->
+    <div class="grades-box">
+        <h3>📊 Consulta de Notas Disponível</h3>
+        <p style="color: #e3f2fd; margin-bottom: 1.5rem; position: relative; z-index: 1;">
+            Acesse suas notas de forma segura e privada através da sua matrícula
+        </p>
+        <a href="/pages/UNINASSAU/20252/devDispMoveis/consulta-notas.html" class="grades-link">
+            <i class="fas fa-graduation-cap"></i> Consultar Minhas Notas
+        </a>
     </div>
 
-    <script>
-        // Função para calcular dias restantes
-        function calcularDiasRestantes(dataFinal) {
-            const hoje = new Date();
-            const dataFim = new Date(dataFinal);
-            const diferenca = dataFim - hoje;
-            const dias = Math.ceil(diferenca / (1000 * 60 * 60 * 24));
-            return dias > 0 ? dias : 0;
-        }
+    <!-- Quadro de Avisos Importantes -->
+    <div class="alert-box">
+        <h3>🚨 AVISOS IMPORTANTES</h3>
+        <div class="alert-content">
+            <div class="alert-item">
+                <h4>📝 Prova de Avaliação</h4>
+                <div class="date">03/12/2025</div>
+                <div class="description">
+                    Prova sobre todo o conteúdo da disciplina<br>
+                    <small>Dispositivos móveis, React, React Native, navegação e sensores</small>
+                </div>
+                <div class="countdown">
+                    ⏰ Faltam <span id="countdown-prova"></span> dias
+                </div>
+            </div>
 
-        // Atualizar contadores
-        function atualizarContadores() {
-            const diasProva = calcularDiasRestantes('2025-12-03');
+            <div class="alert-item">
+                <h4>🏆 Projeto Extra - OPORTUNIDADE!</h4>
+                <div class="date">+2.0 Pontos na Nota Final</div>
+                <div class="description">
+                    Desenvolva um app completo e ganhe pontos extras!<br>
+                    <small>4+ telas • Navegação • FlatList • 1 sensor • API • Design profissional</small>
+                </div>
+                <div class="countdown" style="background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72;">
+                    ⭐ Veja os requisitos completos abaixo!
+                </div>
+            </div>
+        </div>
 
-            const elementoProva = document.getElementById('countdown-prova');
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3); display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
 
-            if (elementoProva) {
-                if (diasProva > 0) {
-                    elementoProva.textContent = diasProva;
-                } else {
-                    elementoProva.textContent = 'HOJE!';
-                    elementoProva.style.color = '#ffc107';
-                    elementoProva.style.fontWeight = 'bold';
-                }
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/requisitos-projeto-extra.html" target="_blank"
+               style="display: inline-block; background: linear-gradient(45deg, #ffd700, #ffed4e); color: #1e3c72; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,215,0,0.4);"
+               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(255,215,0,0.6)'"
+               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 5px 15px rgba(255,215,0,0.4)'">
+                ⭐ Projeto Extra (+2.0 Pontos) ⭐
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <div class="course-grid">
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula1/" class="course-card">
+                <span class="icon">📱</span>
+                <h3>Aula 1: Introdução aos Dispositivos Móveis</h3>
+                <p><strong>Conteúdo:</strong> Tipos de dispositivos móveis</p>
+                <p><strong>Foco:</strong> Características e sistemas operacionais</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula2/" class="course-card">
+                <span class="icon">🛠️</span>
+                <h3>Aula 2: Ambientes de Desenvolvimento</h3>
+                <p><strong>Conteúdo:</strong> Ferramentas de desenvolvimento</p>
+                <p><strong>Foco:</strong> Setup e configuração</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula3/" class="course-card">
+                <span class="icon">⚛️</span>
+                <h3>Aula 3: Introdução ao React</h3>
+                <p><strong>Conteúdo:</strong> O que é React, JSX, componentes, props, estado, ciclo de vida, eventos, renderização condicional, listas e chaves.</p>
+                <p><strong>Foco:</strong> Fundamentos do React para quem nunca usou, diferenças para Angular, exemplos práticos e sintaxe básica.</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula4/" class="course-card">
+                <span class="icon">📱⚛️</span>
+                <h3>Aula 4: Introdução ao React Native</h3>
+                <p><strong>Conteúdo:</strong> O que é React Native, diferenças para React Web, estrutura de um app, componentes básicos (View, Text, Button, Image), navegação, estilos, Expo.</p>
+                <p><strong>Foco:</strong> Como criar apps mobile com React Native, primeiros passos, comparação com desenvolvimento web, exemplos simples.</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula5/" class="course-card">
+                <span class="icon">🎨</span>
+                <h3>Aula 5: FlatList e Navegação</h3>
+                <p><strong>Conteúdo:</strong> FlatList, ScrollView, navegação entre telas</p>
+                <p><strong>Foco:</strong> Design de interfaces mobile</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula6/" class="course-card">
+                <span class="icon">🧭</span>
+                <h3>Aula 6: Tipos de Navegação</h3>
+                <p><strong>Conteúdo:</strong> Stack Navigator, Tab Navigator, Drawer Navigator</p>
+                <p><strong>Foco:</strong> Navegação avançada em aplicativos mobile</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula7/" class="course-card">
+                <span class="icon">🔗</span>
+                <h3>Aula 7: Tab Navigator e Navegação Híbrida</h3>
+                <p><strong>Conteúdo:</strong> Bottom Tabs, Material Top Tabs, navegação combinada</p>
+                <p><strong>Foco:</strong> Navegação por abas e estruturas de navegação avançadas</p>
+            </a>
+
+            <a href="/pages/UNINASSAU/20252/devDispMoveis/aula8/" class="course-card">
+                <span class="icon">📡</span>
+                <h3>Aula 8: Sensores do Dispositivo Mobile</h3>
+                <p><strong>Conteúdo:</strong> Geolocalização, câmera, acelerômetro, biometria</p>
+                <p><strong>Foco:</strong> Integração com sensores para projeto extra</p>
+            </a>
+
+
+        </div>
+
+
+
+        <div class="practical-note">
+            <h3>🧪 Atividades Práticas</h3>
+            <p>Por limitações de hardware, utilizaremos o <strong>Expo Snack</strong> para as atividades práticas.</p>
+            <p>Plataforma online que permite desenvolvimento React Native diretamente no navegador!</p>
+
+            <a href="https://snack.expo.dev" target="_blank" class="expo-link">
+                <i class="fas fa-external-link-alt"></i> Acessar Expo Snack
+            </a>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Função para calcular dias restantes
+    function calcularDiasRestantes(dataFinal) {
+        const hoje = new Date();
+        const dataFim = new Date(dataFinal);
+        const diferenca = dataFim - hoje;
+        const dias = Math.ceil(diferenca / (1000 * 60 * 60 * 24));
+        return dias > 0 ? dias : 0;
+    }
+
+    // Atualizar contadores
+    function atualizarContadores() {
+        const diasProva = calcularDiasRestantes('2025-12-03');
+
+        const elementoProva = document.getElementById('countdown-prova');
+
+        if (elementoProva) {
+            if (diasProva > 0) {
+                elementoProva.textContent = diasProva;
+            } else {
+                elementoProva.textContent = 'HOJE!';
+                elementoProva.style.color = '#ffc107';
+                elementoProva.style.fontWeight = 'bold';
             }
         }
+    }
 
-        // Executar quando a página carregar
-        document.addEventListener('DOMContentLoaded', atualizarContadores);
+    // Executar quando a página carregar
+    document.addEventListener('DOMContentLoaded', atualizarContadores);
 
-        // Atualizar a cada hora
-        setInterval(atualizarContadores, 3600000);
-    </script>
+    // Atualizar a cada hora
+    setInterval(atualizarContadores, 3600000);
+</script>
 </body>
 </html>

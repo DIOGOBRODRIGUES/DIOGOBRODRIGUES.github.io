@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Notas - Dev. Dispositivos Móveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #e3f2fd;
+            font-size: 1.1rem;
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .search-box label {
+            display: block;
+            color: #ffc107;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #ffeb3b;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        .search-box button {
+            padding: 1rem 2rem;
+            background: #ffc107;
+            color: #1e3c72;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
+        }
+
+        .result-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.error {
+            border: 2px solid #ff4757;
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        .result-box.success {
+            border: 2px solid #4caf50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .result-header {
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-header h2 {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .matricula-display {
+            color: #e3f2fd;
+            font-size: 1.2rem;
+        }
+
+        .grade-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grade-label {
+            color: #e3f2fd;
+            font-size: 1.1rem;
+        }
+
+        .grade-value {
+            color: #ffc107;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .final-status {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .final-status.reprovado {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+        }
+
+        .final-status.final {
+            background: linear-gradient(135deg, #ffa502, #ff6348);
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff4757;
+            font-size: 1.2rem;
+            padding: 1rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📊 Consulta de Notas</h1>
+        <p>Desenvolvimento para Dispositivos Móveis</p>
+    </div>
+
+    <div class="search-box">
+        <label for="matricula">
+            <i class="fas fa-id-card"></i> Digite sua Matrícula:
+        </label>
+        <div class="input-group">
+            <input
+                    type="text"
+                    id="matricula"
+                    placeholder="Ex: 1751877"
+                    maxlength="8"
+            >
+            <button onclick="consultarNota()">
+                <i class="fas fa-search"></i> Consultar
+            </button>
+        </div>
+    </div>
+
+    <div id="resultBox" class="result-box">
+        <!-- Resultado será inserido aqui -->
+    </div>
+</div>
+
+<script>
+    const notasAlunos = {
+        "1751877": {av1: 9, av2: 5.5, projeto: 1.7, notaAv2: 7.2, media: 8.1, status: "APROVADO"},
+        "1747462": {av1: "--", av2: 7, projeto: 2, notaAv2: 9, media: "FALTOU PROVA", status: "APROVADO"},
+        "1124089": {av1: 9, av2: 6.5, projeto: 1.7, notaAv2: 8.2, media: 8.6, status: "APROVADO"},
+        "1750424": {av1: 10, av2: 6.5, projeto: 1.7, notaAv2: 8.2, media: 9.1, status: "APROVADO"},
+        "1747584": {av1: 9, av2: 4.5, projeto: 2, notaAv2: 6.5, media: 7.75, status: "APROVADO"},
+        "11017889": {av1: 8, av2: 5, projeto: 2, notaAv2: 7, media: 7.5, status: "APROVADO"},
+        "1747529": {av1: 10, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 9.25, status: "APROVADO"},
+        "1751499": {av1: 8, av2: 4, projeto: 1.7, notaAv2: 6, media: 7, status: "APROVADO"},
+        "1751974": {av1: 10, av2: 5.5, projeto: 2, notaAv2: 7.5, media: 8.75, status: "APROVADO"},
+        "1750371": {av1: 10, av2: 6, projeto: 1.7, notaAv2: 7.7, media: 8.85, status: "APROVADO"},
+        "1615557": {av1: "--", av2: "", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1542149": {av1: 6, av2: 8, projeto: 0, notaAv2: 8, media: 7, status: "APROVADO"},
+        "1752013": {av1: 6, av2: 3, projeto: 2, notaAv2: 5, media: 5.5, status: "ALUNO NA FINAL"},
+        "1755006": {av1: 4, av2: 3, projeto: 2, notaAv2: 5, media: 4.5, status: "ALUNO NA FINAL"},
+        "1567091": {av1: 10, av2: 5.5, projeto: 2, notaAv2: 7.5, media: 8.75, status: "APROVADO"},
+        "1747917": {av1: 9, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 8.75, status: "APROVADO"},
+        "1750407": {av1: 6, av2: 5, projeto: 2, notaAv2: 7, media: 6.5, status: "ALUNO NA FINAL"},
+        "1747566": {av1: 7, av2: 7, projeto: 2, notaAv2: 9, media: 8, status: "APROVADO"},
+        "1482889": {av1: 9, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 8.75, status: "APROVADO"},
+        "1747616": {av1: 5, av2: 6, projeto: 2, notaAv2: 8, media: 6.5, status: "ALUNO NA FINAL"},
+        "1750385": {av1: 10, av2: 8, projeto: 2, notaAv2: 10, media: 10, status: "APROVADO"},
+        "1750447": {av1: "--", av2: "", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1612042": {av1: 6, av2: 3.5, projeto: 2, notaAv2: 5.5, media: 5.75, status: "ALUNO NA FINAL"},
+        "1750350": {av1: "--", av2: "", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1539550": {av1: "--", av2: "", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1747654": {av1: 7, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 7.75, status: "APROVADO"},
+        "1170935": {av1: 8, av2: "---", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1747494": {av1: 8, av2: 5, projeto: 2, notaAv2: 7, media: 7.5, status: "APROVADO"},
+        "1747760": {av1: 7, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 7.75, status: "APROVADO"},
+        "1748239": {av1: 7, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 7.75, status: "APROVADO"},
+        "1750308": {av1: 8, av2: 5.5, projeto: 2, notaAv2: 7.5, media: 7.75, status: "APROVADO"},
+        "1747910": {av1: 4, av2: "---", projeto: 0, notaAv2: 0, media: "FALTOU PROVA", status: "APROVADO"},
+        "1750440": {av1: 7, av2: 4, projeto: 1.7, notaAv2: 5.7, media: 6.35, status: "ALUNO NA FINAL"},
+        "1747752": {av1: 7, av2: 6, projeto: 2, notaAv2: 8, media: 7.5, status: "APROVADO"},
+        "1747603": {av1: 6, av2: 6.5, projeto: 2, notaAv2: 8.5, media: 7.25, status: "APROVADO"},
+        "1618729": {av1: 8, av2: 6, projeto: 0, notaAv2: 6, media: 7, status: "APROVADO"},
+        "1751563": {av1: 10, av2: 7.5, projeto: 2, notaAv2: 9.5, media: 9.75, status: "APROVADO"}
+    };
+
+    function consultarNota() {
+        const matricula = document.getElementById('matricula').value.trim();
+        const resultBox = document.getElementById('resultBox');
+
+        if (!matricula) {
+            mostrarErro('Por favor, digite uma matrícula válida.');
+            return;
+        }
+
+        const dadosAluno = notasAlunos[matricula];
+
+        if (!dadosAluno) {
+            mostrarErro('Matrícula não encontrada. Verifique o número digitado.');
+            return;
+        }
+
+        mostrarResultado(matricula, dadosAluno);
+    }
+
+    function mostrarErro(mensagem) {
+        const resultBox = document.getElementById('resultBox');
+        resultBox.className = 'result-box error show';
+        resultBox.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i><br>
+                    ${mensagem}
+                </div>
+            `;
+    }
+
+    function mostrarResultado(matricula, dados) {
+        const resultBox = document.getElementById('resultBox');
+        let statusClass = '';
+
+        if (dados.status === 'APROVADO') {
+            statusClass = '';
+        } else if (dados.status === 'ALUNO NA FINAL') {
+            statusClass = 'final';
+        } else {
+            statusClass = 'reprovado';
+        }
+
+        resultBox.className = 'result-box success show';
+        resultBox.innerHTML = `
+                <div class="result-header">
+                    <h2><i class="fas fa-user-graduate"></i> Suas Notas</h2>
+                    <p class="matricula-display">Matrícula: ${matricula}</p>
+                </div>
+
+                <div class="grade-item">
+                    <span class="grade-label">AV. 01</span>
+                    <span class="grade-value">${dados.av1}</span>
+                </div>
+
+                <div class="grade-item">
+                    <span class="grade-label">AV. 02</span>
+                    <span class="grade-value">${dados.av2}</span>
+                </div>
+
+                <div class="grade-item">
+                    <span class="grade-label">Projeto 2ª AV</span>
+                    <span class="grade-value">${dados.projeto}</span>
+                </div>
+
+                <div class="grade-item">
+                    <span class="grade-label">Nota AV2 (Final)</span>
+                    <span class="grade-value">${dados.notaAv2}</span>
+                </div>
+
+                <div class="grade-item">
+                    <span class="grade-label"><strong>Média Final</strong></span>
+                    <span class="grade-value">${dados.media}</span>
+                </div>
+
+                <div class="final-status ${statusClass}">
+                    ${dados.status === 'APROVADO' ? '✅' : dados.status === 'ALUNO NA FINAL' ? '⚠️' : '❌'}
+                    ${dados.status}
+                </div>
+            `;
+    }
+
+    // Permitir consulta ao pressionar Enter
+    document.getElementById('matricula').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            consultarNota();
+        }
+    });
+</script>
+</body>
+</html>
