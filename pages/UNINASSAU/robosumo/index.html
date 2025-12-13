@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campeonato Robô Sumô UNINASSAU 2025</title>
+
+  <meta name="description" content="Gerenciamento de Chaveamento - Campeonato Robô Sumô UNINASSAU">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #ff6b00;
+      --secondary-color: #00d4ff;
+      --dark-bg: #0a0e27;
+      --card-bg: #1a1f3a;
+      --success-color: #00ff88;
+      --danger-color: #ff0055;
+      --warning-color: #ffd900;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      margin: -20px -15px 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid var(--secondary-color);
+      margin-bottom: 30px;
+    }
+
+    .nav-tabs .nav-link {
+      color: #ffffff;
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 15px 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: var(--secondary-color);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--dark-bg);
+      background: var(--secondary-color);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .bracket-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--secondary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .bracket-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .bracket-round {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .round-title {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      color: var(--warning-color);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .match-card {
+      background: var(--card-bg);
+      border: 2px solid var(--secondary-color);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .match-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .match-card:hover::before {
+      left: 100%;
+    }
+
+    .match-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+      border-color: var(--primary-color);
+    }
+
+    .match-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: var(--warning-color);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 15px;
+      margin: 8px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border-left: 4px solid transparent;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .team:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .team.winner {
+      background: rgba(0, 255, 136, 0.2);
+      border-left-color: var(--success-color);
+      font-weight: 600;
+    }
+
+    .team.loser {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+
+    .team-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .team-icon {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+
+    .winner-badge {
+      background: var(--success-color);
+      color: var(--dark-bg);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .bye-badge {
+      background: var(--warning-color);
+      color: var(--dark-bg);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .podium {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 20px;
+      margin: 50px 0;
+      flex-wrap: wrap;
+    }
+
+    .podium-place {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 15px;
+      min-width: 200px;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .podium-place:hover {
+      transform: scale(1.05);
+    }
+
+    .podium-place.first {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: var(--dark-bg);
+      order: 2;
+      min-height: 250px;
+      box-shadow: 0 10px 40px rgba(255, 215, 0, 0.5);
+    }
+
+    .podium-place.second {
+      background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+      color: var(--dark-bg);
+      order: 1;
+      min-height: 200px;
+      box-shadow: 0 10px 40px rgba(192, 192, 192, 0.5);
+    }
+
+    .podium-place.third {
+      background: linear-gradient(135deg, #cd7f32, #e8a87c);
+      color: var(--dark-bg);
+      order: 3;
+      min-height: 150px;
+      box-shadow: 0 10px 40px rgba(205, 127, 50, 0.5);
+    }
+
+    .podium-position {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .podium-team {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .podium-course {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .legend {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid var(--primary-color);
+      margin: 30px 0;
+    }
+
+    .legend-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .legend-color {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      margin-right: 15px;
+    }
+
+    .vs-separator {
+      text-align: center;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 5px 0;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .course-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .badge-ads {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .badge-si {
+      background: var(--secondary-color);
+      color: var(--dark-bg);
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .bracket-container {
+        flex-direction: column;
+      }
+
+      .podium {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .podium-place {
+        order: initial !important;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    .info-alert {
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid var(--secondary-color);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .info-alert i {
+      color: var(--secondary-color);
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+
+    .timer-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--card-bg);
+      border: 3px solid var(--secondary-color);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 40px rgba(0, 212, 255, 0.6);
+      z-index: 1000;
+      min-width: 280px;
+      transition: all 0.3s;
+    }
+
+    .timer-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 50px rgba(0, 212, 255, 0.8);
+    }
+
+    .timer-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      color: var(--secondary-color);
+      text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+      margin-bottom: 15px;
+      letter-spacing: 3px;
+    }
+
+    .timer-display.warning {
+      color: var(--warning-color);
+      animation: pulse 1s infinite;
+    }
+
+    .timer-display.danger {
+      color: var(--danger-color);
+      animation: pulse 0.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .timer-btn {
+      background: var(--secondary-color);
+      color: var(--dark-bg);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      flex: 1;
+      min-width: 80px;
+    }
+
+    .timer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.5);
+    }
+
+    .timer-btn.start {
+      background: var(--success-color);
+    }
+
+    .timer-btn.stop {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .timer-btn.reset {
+      background: var(--warning-color);
+    }
+
+    .timer-btn.whistle {
+      background: var(--primary-color);
+      color: white;
+      width: 100%;
+    }
+
+    .timer-btn.whistle:active {
+      transform: scale(0.95);
+    }
+
+    .timer-settings {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .timer-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid var(--secondary-color);
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+
+    .timer-label {
+      color: var(--secondary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .timer-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--warning-color);
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .timer-container {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="container">
+      <h1><i class="fas fa-robot me-3"></i>ROBÔ SUMÔ UNINASSAU</h1>
+      <p class="subtitle">Campeonato 2025 - Sistema de Chaveamento</p>
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs" id="tournamentTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="ads-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button" role="tab">
+          <i class="fas fa-code me-2"></i>ADS
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="si-tab" data-bs-toggle="tab" data-bs-target="#si" type="button" role="tab">
+          <i class="fas fa-network-wired me-2"></i>Sistemas de Informação
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final" type="button" role="tab">
+          <i class="fas fa-trophy me-2"></i>Super Final
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="tournamentTabContent">
+      
+      <!-- ADS Tab -->
+      <div class="tab-pane fade show active" id="ads" role="tabpanel">
+        
+        <div class="text-center mb-4">
+          <span class="course-badge badge-ads">ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</span>
+        </div>
+
+        <div class="info-alert">
+          <i class="fas fa-info-circle"></i>
+          <strong>8 equipes</strong> - O torneio começa nas Quartas de Final
+        </div>
+
+        <!-- Quartas de Final ADS -->
+        <div class="bracket-section">
+          <h2 class="section-title">Quartas de Final</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">JOGO 1</div>
+                <div class="team" data-team="nexon" data-match="ads-q1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">NEXON</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="palafito" data-match="ads-q1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">PALAFITO</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 2</div>
+                <div class="team" data-team="santa-claus" data-match="ads-q2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">SANTA CLAUS</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="tuba" data-match="ads-q2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">TUBA</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">JOGO 3</div>
+                <div class="team" data-team="mangroover" data-match="ads-q3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">MANGROOVER</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="rob" data-match="ads-q3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">ROB</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 4</div>
+                <div class="team" data-team="bill" data-match="ads-q4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">BILL</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="madmax-ads" data-match="ads-q4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">MADMAX</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semifinais ADS -->
+        <div class="bracket-section">
+          <h2 class="section-title">Semifinais</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 1</div>
+                <div class="team" data-match="ads-s1" data-from="ads-q1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="ads-s1" data-from="ads-q2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 2</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 2</div>
+                <div class="team" data-match="ads-s2" data-from="ads-q3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 3</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="ads-s2" data-from="ads-q4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 4</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finais ADS -->
+        <div class="bracket-section">
+          <h2 class="section-title">Disputa de 3º Lugar e Final</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">3º LUGAR</div>
+                <div class="team" data-match="ads-3rd" data-from="ads-s1-loser">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Perdedor Semifinal 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="ads-3rd" data-from="ads-s2-loser">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Perdedor Semifinal 2</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card" style="border-color: var(--warning-color); box-shadow: 0 5px 20px rgba(255, 217, 0, 0.5);">
+                <div class="match-number" style="color: var(--warning-color);">🏆 FINAL DO CURSO</div>
+                <div class="team" data-match="ads-final" data-from="ads-s1-winner">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Semifinal 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="ads-final" data-from="ads-s2-winner">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Semifinal 2</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pódio ADS -->
+        <div class="bracket-section">
+          <h2 class="section-title">Pódio ADS</h2>
+          <div class="podium">
+            <div class="podium-place second">
+              <div class="podium-position">2º</div>
+              <div class="podium-team" id="ads-second">-</div>
+              <div class="podium-course">Vice-Campeão ADS</div>
+            </div>
+            <div class="podium-place first">
+              <div class="podium-position">🏆</div>
+              <div class="podium-team" id="ads-first">-</div>
+              <div class="podium-course">Campeão ADS</div>
+            </div>
+            <div class="podium-place third">
+              <div class="podium-position">3º</div>
+              <div class="podium-team" id="ads-third">-</div>
+              <div class="podium-course">Terceiro Lugar ADS</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SI Tab -->
+      <div class="tab-pane fade" id="si" role="tabpanel">
+        
+        <div class="text-center mb-4">
+          <span class="course-badge badge-si">SISTEMAS DE INFORMAÇÃO</span>
+        </div>
+
+        <div class="info-alert">
+          <i class="fas fa-info-circle"></i>
+          <strong>15 equipes</strong> - 7 combates nas oitavas + 1 equipe recebe "chapéu" (bye)
+        </div>
+
+        <!-- Oitavas SI -->
+        <div class="bracket-section">
+          <h2 class="section-title">Oitavas de Final</h2>
+          
+          <div class="text-center mb-4">
+            <div class="match-card" style="max-width: 400px; margin: 0 auto; border-color: var(--warning-color);">
+              <div class="match-number">🎩 CHAPÉU - AVANÇA DIRETO</div>
+              <div class="team winner">
+                <span><i class="fas fa-star team-icon"></i><span class="team-name">MORPHEUS</span></span>
+                <span class="bye-badge">BYE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">JOGO 1</div>
+                <div class="team" data-team="frankenstein" data-match="si-o1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">FRANKENSTEIN</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="heinz" data-match="si-o1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">HEINZ</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 2</div>
+                <div class="team" data-team="capitao-gancho" data-match="si-o2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">CAPITÃO GANCHO</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="gambiru" data-match="si-o2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">GAMBIRU</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 3</div>
+                <div class="team" data-team="madmax-si" data-match="si-o3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">MADMAX (SI)</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="maquina-mal" data-match="si-o3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">MÁQUINA DO MAL</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 4</div>
+                <div class="team" data-team="hunterx" data-match="si-o4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">HUNTERX</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="atom" data-match="si-o4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">ATOM</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">JOGO 5</div>
+                <div class="team" data-team="hollow-knight" data-match="si-o5">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">HOLLOW KNIGHT</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="samurais" data-match="si-o5">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">SAMURAIS</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 6</div>
+                <div class="team" data-team="jingle" data-match="si-o6">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">JINGLE</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="ze-caminhao" data-match="si-o6">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">ZÉ CAMINHÃO</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">JOGO 7</div>
+                <div class="team" data-team="mike-tyson" data-match="si-o7">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">MIKE TYSON</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-team="banguela" data-match="si-o7">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">BANGUELA</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quartas SI -->
+        <div class="bracket-section">
+          <h2 class="section-title">Quartas de Final</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">QUARTAS 1</div>
+                <div class="team" data-match="si-q1" data-from="si-o1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-q1" data-from="si-o2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 2</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">QUARTAS 2</div>
+                <div class="team" data-match="si-q2" data-from="si-o3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 3</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-q2" data-from="si-o4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 4</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">QUARTAS 3</div>
+                <div class="team" data-match="si-q3" data-from="si-o5">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 5</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-q3" data-from="si-o6">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 6</span></span>
+                </div>
+              </div>
+
+              <div class="match-card">
+                <div class="match-number">QUARTAS 4</div>
+                <div class="team" data-match="si-q4" data-from="si-o7">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Jogo 7</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team winner">
+                  <span><i class="fas fa-star team-icon"></i><span class="team-name">MORPHEUS</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semifinais SI -->
+        <div class="bracket-section">
+          <h2 class="section-title">Semifinais</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 1</div>
+                <div class="team" data-match="si-s1" data-from="si-q1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Quartas 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-s1" data-from="si-q2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Quartas 2</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 2</div>
+                <div class="team" data-match="si-s2" data-from="si-q3">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Quartas 3</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-s2" data-from="si-q4">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Quartas 4</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finais SI -->
+        <div class="bracket-section">
+          <h2 class="section-title">Disputa de 3º Lugar e Final</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">3º LUGAR</div>
+                <div class="team" data-match="si-3rd" data-from="si-s1-loser">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Perdedor Semifinal 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-3rd" data-from="si-s2-loser">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Perdedor Semifinal 2</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card" style="border-color: var(--warning-color); box-shadow: 0 5px 20px rgba(255, 217, 0, 0.5);">
+                <div class="match-number" style="color: var(--warning-color);">🏆 FINAL DO CURSO</div>
+                <div class="team" data-match="si-final" data-from="si-s1-winner">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Semifinal 1</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="si-final" data-from="si-s2-winner">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Semifinal 2</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pódio SI -->
+        <div class="bracket-section">
+          <h2 class="section-title">Pódio SI</h2>
+          <div class="podium">
+            <div class="podium-place second">
+              <div class="podium-position">2º</div>
+              <div class="podium-team" id="si-second">-</div>
+              <div class="podium-course">Vice-Campeão SI</div>
+            </div>
+            <div class="podium-place first">
+              <div class="podium-position">🏆</div>
+              <div class="podium-team" id="si-first">-</div>
+              <div class="podium-course">Campeão SI</div>
+            </div>
+            <div class="podium-place third">
+              <div class="podium-position">3º</div>
+              <div class="podium-team" id="si-third">-</div>
+              <div class="podium-course">Terceiro Lugar SI</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Super Final Tab -->
+      <div class="tab-pane fade" id="final" role="tabpanel">
+        
+        <div class="text-center mb-4">
+          <span class="course-badge" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 10px 30px; font-size: 1.2rem;">
+            🏆 SUPER FINAL - GRANDE CAMPEÃO
+          </span>
+        </div>
+
+        <div class="info-alert">
+          <i class="fas fa-trophy"></i>
+          Os <strong>3 melhores de ADS</strong> e os <strong>3 melhores de SI</strong> se enfrentam para decidir o Grande Campeão do evento
+        </div>
+
+        <!-- Repescagem -->
+        <div class="bracket-section">
+          <h2 class="section-title">Repescagem - 2º e 3º Lugares</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">REPESCAGEM 1</div>
+                <div class="team" data-match="final-r1">
+                  <span><i class="fas fa-medal team-icon" style="color: #c0c0c0;"></i><span class="team-name">2º Lugar ADS</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="final-r1">
+                  <span><i class="fas fa-medal team-icon" style="color: #cd7f32;"></i><span class="team-name">3º Lugar SI</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">REPESCAGEM 2</div>
+                <div class="team" data-match="final-r2">
+                  <span><i class="fas fa-medal team-icon" style="color: #c0c0c0;"></i><span class="team-name">2º Lugar SI</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="final-r2">
+                  <span><i class="fas fa-medal team-icon" style="color: #cd7f32;"></i><span class="team-name">3º Lugar ADS</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semifinais Super Final -->
+        <div class="bracket-section">
+          <h2 class="section-title">Semifinais da Super Final</h2>
+          <div class="bracket-container">
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 1</div>
+                <div class="team" data-match="final-s1">
+                  <span><i class="fas fa-crown team-icon" style="color: #ffd700;"></i><span class="team-name">Campeão ADS</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="final-s1" data-from="final-r1">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Repescagem 1</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bracket-round">
+              <div class="match-card">
+                <div class="match-number">SEMIFINAL 2</div>
+                <div class="team" data-match="final-s2">
+                  <span><i class="fas fa-crown team-icon" style="color: #ffd700;"></i><span class="team-name">Campeão SI</span></span>
+                </div>
+                <div class="vs-separator">VS</div>
+                <div class="team" data-match="final-s2" data-from="final-r2">
+                  <span><i class="fas fa-robot team-icon"></i><span class="team-name">Vencedor Repescagem 2</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grande Final -->
+        <div class="bracket-section">
+          <h2 class="section-title">🏆 GRANDE FINAL 🏆</h2>
+          <div class="bracket-container justify-content-center">
+            <div class="bracket-round" style="max-width: 500px;">
+              <div class="match-card" style="border: 3px solid var(--warning-color); box-shadow: 0 10px 50px rgba(255, 217, 0, 0.8); background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(0, 212, 255, 0.2));">
+                <div class="match-number" style="color: var(--warning-color); font-size: 1.5rem;">⚔️ GRANDE FINAL ⚔️</div>
+                <div class="team" data-match="final-grand" data-from="final-s1">
+                  <span><i class="fas fa-trophy team-icon" style="color: var(--warning-color);"></i><span class="team-name">Vencedor Semifinal 1</span></span>
+                </div>
+                <div class="vs-separator" style="font-size: 1.5rem; color: var(--warning-color);">⚡ VS ⚡</div>
+                <div class="team" data-match="final-grand" data-from="final-s2">
+                  <span><i class="fas fa-trophy team-icon" style="color: var(--warning-color);"></i><span class="team-name">Vencedor Semifinal 2</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grande Campeão -->
+        <div class="bracket-section">
+          <h2 class="section-title" style="font-size: 2.5rem;">👑 GRANDE CAMPEÃO 👑</h2>
+          <div class="text-center">
+            <div class="podium-place first" style="display: inline-block; min-width: 400px; min-height: 300px;">
+              <div class="podium-position" style="font-size: 5rem;">🏆</div>
+              <div class="podium-team" style="font-size: 2rem;" id="grand-champion">-</div>
+              <div class="podium-course" style="font-size: 1.2rem;">Grande Campeão UNINASSAU 2025</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <h4 class="legend-title"><i class="fas fa-info-circle me-2"></i>Legenda e Instruções</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(0, 255, 136, 0.2); border: 2px solid var(--success-color);"></div>
+            <span>Time Vencedor (clique no time para marcar como vencedor)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2);"></div>
+            <span>Time em aguardo / Não definido</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--warning-color);"></div>
+            <span>Equipe com "Chapéu" (Bye) - Avança automaticamente</span>
+          </div>
+          <div class="legend-item">
+            <i class="fas fa-mouse-pointer me-3" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+            <span>Clique em qualquer time para marcá-lo como vencedor da partida</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Cronômetro Flutuante -->
+  <div class="timer-container">
+    <div class="timer-title">⏱️ CRONÔMETRO - SI</div>
+    <div class="timer-display" id="timerDisplay">03:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn start" id="startBtn" onclick="startTimer()">
+        <i class="fas fa-play"></i> Iniciar
+      </button>
+      <button class="timer-btn stop" id="pauseBtn" onclick="pauseTimer()">
+        <i class="fas fa-pause"></i> Pausar
+      </button>
+      <button class="timer-btn reset" onclick="resetTimer()">
+        <i class="fas fa-redo"></i> Resetar
+      </button>
+    </div>
+    <button class="timer-btn whistle" onclick="playWhistle()">
+      <i class="fas fa-bullhorn"></i> APITO
+    </button>
+    <div class="timer-settings">
+      <label class="timer-label">Tempo da Luta (minutos)</label>
+      <input type="number" class="timer-input" id="timerInput" value="3" min="1" max="10" onchange="updateTimerDuration()">
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Sistema de gerenciamento de resultados
+    const results = {
+      ads: {},
+      si: {},
+      final: {}
+    };
+
+    // Adicionar evento de clique em todos os times
+    document.querySelectorAll('.team').forEach(team => {
+      team.addEventListener('click', function() {
+        // Não processar se for um placeholder ou já tiver o badge bye
+        if (this.querySelector('.bye-badge') || 
+            this.querySelector('.team-name').textContent.includes('Vencedor') ||
+            this.querySelector('.team-name').textContent.includes('Perdedor')) {
+          return;
+        }
+
+        const matchId = this.getAttribute('data-match');
+        if (!matchId) return;
+
+        // Remover winner/loser de todos os times da mesma partida
+        const matchTeams = document.querySelectorAll(`[data-match="${matchId}"]`);
+        matchTeams.forEach(t => {
+          t.classList.remove('winner', 'loser');
+          const badge = t.querySelector('.winner-badge');
+          if (badge) badge.remove();
+        });
+
+        // Marcar este como vencedor
+        this.classList.add('winner');
+        const winnerBadge = document.createElement('span');
+        winnerBadge.className = 'winner-badge';
+        winnerBadge.textContent = 'VENCEDOR';
+        this.appendChild(winnerBadge);
+
+        // Marcar o outro como perdedor
+        matchTeams.forEach(t => {
+          if (t !== this) {
+            t.classList.add('loser');
+          }
+        });
+
+        // Salvar resultado
+        const teamName = this.querySelector('.team-name').textContent;
+        results[getCurrentCourse()][matchId] = teamName;
+
+        // Atualizar próximas fases
+        updateNextRounds(matchId, teamName);
+        updatePodium();
+      });
+    });
+
+    function getCurrentCourse() {
+      if (document.getElementById('ads').classList.contains('show')) return 'ads';
+      if (document.getElementById('si').classList.contains('show')) return 'si';
+      return 'final';
+    }
+
+    function updateNextRounds(matchId, winner) {
+      // Atualizar times nas próximas fases baseado no matchId
+      const nextRoundTeams = document.querySelectorAll(`[data-from="${matchId}"]`);
+      nextRoundTeams.forEach(team => {
+        team.querySelector('.team-name').textContent = winner;
+        team.classList.remove('winner', 'loser');
+        const badge = team.querySelector('.winner-badge');
+        if (badge) badge.remove();
+      });
+
+      // Atualizar perdedores
+      const loserTeams = document.querySelectorAll(`[data-from="${matchId}-loser"]`);
+      const matchTeams = document.querySelectorAll(`[data-match="${matchId}"]`);
+      matchTeams.forEach(t => {
+        if (t.classList.contains('loser')) {
+          const loserName = t.querySelector('.team-name').textContent;
+          loserTeams.forEach(lt => {
+            lt.querySelector('.team-name').textContent = loserName;
+          });
+        }
+      });
+
+      // Atualizar vencedores
+      const winnerTeams = document.querySelectorAll(`[data-from="${matchId}-winner"]`);
+      winnerTeams.forEach(wt => {
+        wt.querySelector('.team-name').textContent = winner;
+      });
+    }
+
+    function updatePodium() {
+      const course = getCurrentCourse();
+      
+      if (course === 'ads' || course === 'si') {
+        // Atualizar pódio do curso
+        const finalMatch = course + '-final';
+        const thirdPlaceMatch = course + '-3rd';
+        
+        if (results[course][finalMatch]) {
+          document.getElementById(`${course}-first`).textContent = results[course][finalMatch];
+          
+          // Vice é o perdedor da final
+          const finalTeams = document.querySelectorAll(`[data-match="${finalMatch}"]`);
+          finalTeams.forEach(t => {
+            if (t.classList.contains('loser')) {
+              document.getElementById(`${course}-second`).textContent = 
+                t.querySelector('.team-name').textContent;
+            }
+          });
+        }
+        
+        if (results[course][thirdPlaceMatch]) {
+          document.getElementById(`${course}-third`).textContent = results[course][thirdPlaceMatch];
+        }
+      } else if (course === 'final') {
+        // Atualizar grande campeão
+        if (results.final['final-grand']) {
+          document.getElementById('grand-champion').textContent = results.final['final-grand'];
+        }
+      }
+    }
+
+    // Salvar no localStorage
+    function saveResults() {
+      localStorage.setItem('robosumo-results', JSON.stringify(results));
+    }
+
+    // Carregar do localStorage
+    function loadResults() {
+      const saved = localStorage.getItem('robosumo-results');
+      if (saved) {
+        Object.assign(results, JSON.parse(saved));
+        // Reconstruir a interface com os resultados salvos
+        // (implementação adicional necessária)
+      }
+    }
+
+    // Resetar tudo
+    function resetAll() {
+      if (confirm('Deseja realmente resetar todos os resultados?')) {
+        location.reload();
+      }
+    }
+
+    // Adicionar botão de reset
+    const legend = document.querySelector('.legend');
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'btn btn-danger mt-3';
+    resetBtn.innerHTML = '<i class="fas fa-redo me-2"></i>Resetar Todos os Resultados';
+    resetBtn.onclick = resetAll;
+    legend.appendChild(resetBtn);
+
+    // Carregar resultados ao iniciar
+    loadResults();
+
+    // Auto-salvar periodicamente
+    setInterval(saveResults, 5000);
+
+    // ===== CRONÔMETRO =====
+    let timerInterval = null;
+    let timeRemaining = 180; // 3 minutos em segundos
+    let timerDuration = 180;
+    let isRunning = false;
+
+    // Criar contexto de áudio para o apito
+    let audioContext = null;
+    let whistleBuffer = null;
+
+    function initAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playWhistle() {
+      initAudio();
+      
+      // Criar um apito com oscilador
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      // Configurar som de apito
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(2000, audioContext.currentTime); // Frequência alta
+      oscillator.frequency.exponentialRampToValueAtTime(2800, audioContext.currentTime + 0.1);
+      oscillator.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 0.2);
+      
+      // Envelope de volume
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+      
+      // Tocar
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+
+      // Efeito visual no botão
+      const whistleBtn = event.target.closest('.whistle');
+      whistleBtn.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        whistleBtn.style.transform = 'scale(1)';
+      }, 100);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      
+      const timerDisplay = document.getElementById('timerDisplay');
+      timerDisplay.textContent = display;
+
+      // Mudar cor baseado no tempo
+      timerDisplay.classList.remove('warning', 'danger');
+      if (timeRemaining <= 10) {
+        timerDisplay.classList.add('danger');
+      } else if (timeRemaining <= 30) {
+        timerDisplay.classList.add('warning');
+      }
+
+      // Quando chegar a zero
+      if (timeRemaining === 0) {
+        pauseTimer();
+        playWhistle();
+        setTimeout(() => playWhistle(), 600); // Apito duplo
+        alert('⏰ TEMPO ESGOTADO!');
+      }
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      
+      initAudio(); // Inicializar áudio no primeiro clique do usuário
+      isRunning = true;
+      
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          updateTimerDisplay();
+        }
+      }, 1000);
+
+      document.getElementById('startBtn').disabled = true;
+      document.getElementById('pauseBtn').disabled = false;
+    }
+
+    function pauseTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      document.getElementById('startBtn').disabled = false;
+      document.getElementById('pauseBtn').disabled = true;
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timeRemaining = timerDuration;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDuration() {
+      const minutes = parseInt(document.getElementById('timerInput').value);
+      if (minutes > 0 && minutes <= 10) {
+        timerDuration = minutes * 60;
+        resetTimer();
+      }
+    }
+
+    // Inicializar display
+    updateTimerDisplay();
+
+    // Atalhos de teclado
+    document.addEventListener('keydown', (e) => {
+      // Espaço: Iniciar/Pausar
+      if (e.code === 'Space' && !e.target.matches('input')) {
+        e.preventDefault();
+        if (isRunning) {
+          pauseTimer();
+        } else {
+          startTimer();
+        }
+      }
+      // R: Reset
+      if (e.code === 'KeyR' && !e.target.matches('input')) {
+        e.preventDefault();
+        resetTimer();
+      }
+      // W: Whistle (apito)
+      if (e.code === 'KeyW' && !e.target.matches('input')) {
+        e.preventDefault();
+        playWhistle();
+      }
+    });
+  </script>
+
+</body>
+
+</html>
