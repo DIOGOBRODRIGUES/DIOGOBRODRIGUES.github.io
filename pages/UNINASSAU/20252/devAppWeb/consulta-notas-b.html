@@ -281,13 +281,13 @@
   <script>
     // Dados dos alunos da Turma 2NB - extraídos da planilha
     const alunos = {
-      '1849871': { av1: 6.5, projeto2av: 2, nota2av: 8.5, media: 7.7, situacao: 'APROVADO' },
+      '1849871': { av1: 6.5, projeto2av: 2, nota2av: 8.5, media: 7.5, situacao: 'APROVADO' },
       '1848774': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
       '1707957': { av1: 8.4, projeto2av: 2, nota2av: 8.5, media: 8.45, situacao: 'APROVADO' },
       '1814150': { av1: 6, projeto2av: 2, nota2av: 10, media: 8, situacao: 'APROVADO' },
       '1799713': { av1: 3.6, projeto2av: 0, nota2av: 7.5, media: 6.5, situacao: 'FINAL' },
       '1797886': { av1: 8.6, projeto2av: 0, nota2av: 8.5, media: 8.55, situacao: 'APROVADO' },
-      '1801523': { av1: 8.1, projeto2av: 2, nota2av: 5, media: 7.55, situacao: 'APROVADO' },
+      '1801523': { av1: 8.1, projeto2av: 2, nota2av: 5, media: 6.55, situacao: 'FINAL' },
       '1784429': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
       '1836452': { av1: 5.2, projeto2av: 0, nota2av: 7, media: 6.1, situacao: 'FINAL' },
       '1841899': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
@@ -298,7 +298,7 @@
       '1356039': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
       '1815700': { av1: 8.1, projeto2av: 2, nota2av: 10, media: 9.05, situacao: 'APROVADO' },
       '1544897': { av1: 3.6, projeto2av: 0, nota2av: 5, media: 4.3, situacao: 'FINAL' },
-      '1824057': { av1: 10, projeto2av: 2, nota2av: 10, media: 8.5, situacao: 'APROVADO' },
+      '1824057': { av1: 10, projeto2av: 2, nota2av: 10, media: 10, situacao: 'APROVADO' },
       '1792520': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
       '1792952': { av1: 3.2, projeto2av: 0, nota2av: 2.5, media: 2.85, situacao: 'FINAL' },
       '1783047': { av1: 7.3, projeto2av: 2, nota2av: 8, media: 7.65, situacao: 'APROVADO' },
@@ -317,7 +317,7 @@
       '1841439': { av1: 1.6, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
       '1803535': { av1: 9.2, projeto2av: 2, nota2av: 10, media: 9.1, situacao: 'APROVADO' },
       '1852874': { av1: 9.4, projeto2av: 2, nota2av: 8, media: 8.7, situacao: 'APROVADO' },
-      '1802044': { av1: 0, projeto2av: 2, nota2av: 10, media: 7, situacao: 'APROVADO' },
+      '1802044': { av1: 0, projeto2av: 2, nota2av: 10, media: 5, situacao: 'FINAL' },
       '1847048': { av1: 7.7, projeto2av: 0, nota2av: 8.5, media: 8.1, situacao: 'APROVADO' },
       '1728540': { av1: 4.8, projeto2av: 2, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
       '1291941': { av1: 8.8, projeto2av: 2, nota2av: 8, media: 8.4, situacao: 'APROVADO' },
@@ -331,11 +331,13 @@
       '1841018': { av1: 7.6, projeto2av: 2, nota2av: 10, media: 8.8, situacao: 'APROVADO' },
       '1787855': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
       '1819657': { av1: 10, projeto2av: 2, nota2av: 7.5, media: 8.75, situacao: 'APROVADO' },
-      '1823123': { av1: 8.5, projeto2av: 2, nota2av: 7.5, media: 7, situacao: 'APROVADO' },
+      '1823123': { av1: 8.5, projeto2av: 2, nota2av: 7.5, media: 8, situacao: 'APROVADO' },
       '1832708': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
       '1853688': { av1: 2.1, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
       '1796695': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
-      '1851309': { av1: 4.2, projeto2av: 2, nota2av: 6.5, media: 5.35, situacao: 'FINAL' }
+      '1851309': { av1: 4.2, projeto2av: 2, nota2av: 6.5, media: 5.35, situacao: 'FINAL' 
+      
+      }
     };
 
     const form = document.getElementById('searchForm');
