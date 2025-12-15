@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Notas - 2NB ADS - UNINASSAU</title>
+
+  <meta name="description" content="Sistema de Consulta de Notas - Turma 2NB - ADS">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --uninassau-primary: #1e3a8a;
+      --uninassau-secondary: #3b82f6;
+      --uninassau-accent: #06b6d4;
+      --uninassau-dark: #0f172a;
+      --uninassau-light: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-container {
+      max-width: 500px;
+      margin: 50px auto;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--uninassau-primary), var(--uninassau-secondary));
+      color: white;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 25px;
+    }
+
+    .btn-search {
+      background: linear-gradient(135deg, var(--uninassau-primary), var(--uninassau-secondary));
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: transform 0.2s;
+    }
+
+    .btn-search:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    .result-card {
+      display: none;
+      margin-top: 30px;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .grade-badge {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .status-aprovado {
+      background: #10b981;
+      color: white;
+    }
+
+    .status-reprovado {
+      background: #ef4444;
+      color: white;
+    }
+
+    .status-final {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .status-segunda-chamada {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .alert-custom {
+      border-radius: 10px;
+      border-left: 5px solid #ef4444;
+    }
+
+    .info-row {
+      padding: 15px;
+      margin: 10px 0;
+      background: var(--uninassau-light);
+      border-radius: 10px;
+      border-left: 4px solid var(--uninassau-secondary);
+    }
+
+    .grade-table {
+      margin-top: 20px;
+    }
+
+    .grade-table th {
+      background: var(--uninassau-primary);
+      color: white;
+    }
+
+    .grade-value {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .header-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header-logo i {
+      font-size: 4rem;
+      color: white;
+    }
+
+    .back-link {
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover {
+      color: white;
+      transform: translateX(-5px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Voltar para página da disciplina
+    </a>
+
+    <div class="header-logo">
+      <i class="fas fa-graduation-cap"></i>
+      <h1 class="text-white mt-3">Sistema de Consulta de Notas</h1>
+      <p class="text-white-50">Turma 2NB - Análise e Desenvolvimento de Sistemas</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-container">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3 class="mb-0">
+            <i class="fas fa-search me-2"></i>
+            Consultar Notas
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <form id="searchForm">
+            <div class="mb-4">
+              <label for="matricula" class="form-label fw-bold">
+                <i class="fas fa-id-card me-2"></i>Número de Matrícula
+              </label>
+              <input 
+                type="text" 
+                class="form-control form-control-lg" 
+                id="matricula" 
+                placeholder="Digite sua matrícula (ex: 1849871)"
+                required
+                maxlength="10">
+              <small class="text-muted">Digite apenas números</small>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-search btn-lg">
+                <i class="fas fa-search me-2"></i>Consultar
+              </button>
+            </div>
+          </form>
+
+          <div id="error-message" class="alert alert-danger alert-custom mt-3" style="display: none;">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span id="error-text"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div id="resultCard" class="result-card">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">
+            <i class="fas fa-user-graduate me-2"></i>
+            Resultado da Consulta
+          </h4>
+        </div>
+        <div class="card-body p-4">
+          <div class="info-row">
+            <h5><i class="fas fa-id-badge me-2 text-primary"></i>Matrícula: <span id="displayMatricula"></span></h5>
+          </div>
+
+          <div class="table-responsive grade-table">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-center">NOTA AV1</th>
+                  <th class="text-center">Projeto 2AV</th>
+                  <th class="text-center">NOTA AV2</th>
+                  <th class="text-center">MÉDIA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center grade-value" id="av1">-</td>
+                  <td class="text-center grade-value" id="projeto2av">-</td>
+                  <td class="text-center grade-value" id="nota2av">-</td>
+                  <td class="text-center grade-value" id="media">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="text-center mt-4">
+            <h4>Status:</h4>
+            <span id="statusBadge" class="badge grade-badge">-</span>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <h6><i class="fas fa-info-circle me-2"></i>Informações Importantes:</h6>
+            <ul class="mb-0">
+              <li>Média mínima para aprovação: <strong>7,0</strong></li>
+              <li>Média entre 5,0 e 6,9: <strong>Prova Final</strong></li>
+              <li>Média abaixo de 5,0: <strong>Reprovado</strong></li>
+              <li>A nota da 2ª AV pode ser composta pela nota da prova + nota do projeto</li>
+            </ul>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button class="btn btn-secondary" onclick="location.reload()">
+              <i class="fas fa-redo me-2"></i>Nova Consulta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Dados dos alunos da Turma 2NB - extraídos da planilha
+    const alunos = {
+      '1849871': { av1: 6.5, projeto2av: 2, nota2av: 8.5, media: 7.7, situacao: 'APROVADO' },
+      '1848774': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
+      '1707957': { av1: 8.4, projeto2av: 2, nota2av: 8.5, media: 8.45, situacao: 'APROVADO' },
+      '1814150': { av1: 6, projeto2av: 2, nota2av: 10, media: 8, situacao: 'APROVADO' },
+      '1799713': { av1: 3.6, projeto2av: 0, nota2av: 7.5, media: 6.5, situacao: 'FINAL' },
+      '1797886': { av1: 8.6, projeto2av: 0, nota2av: 8.5, media: 8.55, situacao: 'APROVADO' },
+      '1801523': { av1: 8.1, projeto2av: 2, nota2av: 5, media: 7.55, situacao: 'APROVADO' },
+      '1784429': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
+      '1836452': { av1: 5.2, projeto2av: 0, nota2av: 7, media: 6.1, situacao: 'FINAL' },
+      '1841899': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
+      '1839539': { av1: 7.6, projeto2av: 0, nota2av: 7.5, media: 7.55, situacao: 'APROVADO' },
+      '1812967': { av1: 9.2, projeto2av: 2, nota2av: 6.5, media: 8.85, situacao: 'APROVADO' },
+      '1852553': { av1: 9.7, projeto2av: 2, nota2av: 6.5, media: 9.1, situacao: 'APROVADO' },
+      '1793486': { av1: 2.8, projeto2av: 0, nota2av: 4, media: 3.4, situacao: 'FINAL' },
+      '1356039': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
+      '1815700': { av1: 8.1, projeto2av: 2, nota2av: 10, media: 9.05, situacao: 'APROVADO' },
+      '1544897': { av1: 3.6, projeto2av: 0, nota2av: 5, media: 4.3, situacao: 'FINAL' },
+      '1824057': { av1: 10, projeto2av: 2, nota2av: 10, media: 8.5, situacao: 'APROVADO' },
+      '1792520': { av1: 8.5, projeto2av: 2, nota2av: 10, media: 9.25, situacao: 'APROVADO' },
+      '1792952': { av1: 3.2, projeto2av: 0, nota2av: 2.5, media: 2.85, situacao: 'FINAL' },
+      '1783047': { av1: 7.3, projeto2av: 2, nota2av: 8, media: 7.65, situacao: 'APROVADO' },
+      '1825269': { av1: 8.4, projeto2av: 0, nota2av: 9, media: 7.7, situacao: 'APROVADO' },
+      '1799828': { av1: 7.4, projeto2av: 0, nota2av: 8.5, media: 7.95, situacao: 'APROVADO' },
+      '1813728': { av1: 10, projeto2av: 2, nota2av: 9, media: 9.5, situacao: 'APROVADO' },
+      '1776813': { av1: 7.7, projeto2av: 2, nota2av: 6.3, media: 7, situacao: 'APROVADO' },
+      '1847511': { av1: 10, projeto2av: 2, nota2av: 9.5, media: 9.75, situacao: 'APROVADO' },
+      '1809882': { av1: 6.6, projeto2av: 2, nota2av: 7.5, media: 7.05, situacao: 'APROVADO' },
+      '1844909': { av1: 1.6, projeto2av: 0, nota2av: 4, media: 2.8, situacao: 'FINAL' },
+      '1838684': { av1: 9.9, projeto2av: 2, nota2av: 6, media: 7.95, situacao: 'APROVADO' },
+      '1807905': { av1: 8.1, projeto2av: 2, nota2av: 10, media: 8.05, situacao: 'APROVADO' },
+      '1810064': { av1: 8.9, projeto2av: 0, nota2av: 8, media: 8.45, situacao: 'APROVADO' },
+      '1797043': { av1: 0, projeto2av: 2, nota2av: 6.5, media: 0, situacao: 'FINAL' },
+      '1731489': { av1: 10, projeto2av: 2, nota2av: 8.5, media: 9.25, situacao: 'APROVADO' },
+      '1841439': { av1: 1.6, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
+      '1803535': { av1: 9.2, projeto2av: 2, nota2av: 10, media: 9.1, situacao: 'APROVADO' },
+      '1852874': { av1: 9.4, projeto2av: 2, nota2av: 8, media: 8.7, situacao: 'APROVADO' },
+      '1802044': { av1: 0, projeto2av: 2, nota2av: 10, media: 7, situacao: 'APROVADO' },
+      '1847048': { av1: 7.7, projeto2av: 0, nota2av: 8.5, media: 8.1, situacao: 'APROVADO' },
+      '1728540': { av1: 4.8, projeto2av: 2, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
+      '1291941': { av1: 8.8, projeto2av: 2, nota2av: 8, media: 8.4, situacao: 'APROVADO' },
+      '1839494': { av1: 8.2, projeto2av: 2, nota2av: 9, media: 8.6, situacao: 'APROVADO' },
+      '1815689': { av1: 6.7, projeto2av: 0, nota2av: 6, media: 6.35, situacao: 'FINAL' },
+      '1801738': { av1: 6.6, projeto2av: 2, nota2av: 10, media: 8.3, situacao: 'APROVADO' },
+      '1853628': { av1: 5.2, projeto2av: 0, nota2av: 7.5, media: 6.35, situacao: 'FINAL' },
+      '1806043': { av1: 5.6, projeto2av: 2, nota2av: 10, media: 7.8, situacao: 'APROVADO' },
+      '1848320': { av1: 5.3, projeto2av: 0, nota2av: 8, media: 6.65, situacao: 'FINAL' },
+      '1849459': { av1: 5.7, projeto2av: 0, nota2av: 8.5, media: 7.1, situacao: 'APROVADO' },
+      '1841018': { av1: 7.6, projeto2av: 2, nota2av: 10, media: 8.8, situacao: 'APROVADO' },
+      '1787855': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
+      '1819657': { av1: 10, projeto2av: 2, nota2av: 7.5, media: 8.75, situacao: 'APROVADO' },
+      '1823123': { av1: 8.5, projeto2av: 2, nota2av: 7.5, media: 7, situacao: 'APROVADO' },
+      '1832708': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
+      '1853688': { av1: 2.1, projeto2av: 0, nota2av: 0, media: 0, situacao: 'SEGUNDA CHAMADA' },
+      '1796695': { av1: 0, projeto2av: 0, nota2av: 0, media: 0, situacao: 'REPROVADO POR FALTA' },
+      '1851309': { av1: 4.2, projeto2av: 2, nota2av: 6.5, media: 5.35, situacao: 'FINAL' }
+    };
+
+    const form = document.getElementById('searchForm');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const resultCard = document.getElementById('resultCard');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const matricula = document.getElementById('matricula').value.trim();
+      
+      // Validação
+      if (!matricula) {
+        showError('Por favor, digite sua matrícula.');
+        return;
+      }
+
+      if (!/^\d+$/.test(matricula)) {
+        showError('A matrícula deve conter apenas números.');
+        return;
+      }
+
+      // Buscar aluno
+      const aluno = alunos[matricula];
+
+      if (!aluno) {
+        showError('Matrícula não encontrada. Verifique se digitou corretamente.');
+        return;
+      }
+
+      // Esconder erro e mostrar resultado
+      errorMessage.style.display = 'none';
+      displayResult(matricula, aluno);
+    });
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorMessage.style.display = 'block';
+      resultCard.style.display = 'none';
+    }
+
+    function displayResult(matricula, aluno) {
+      document.getElementById('displayMatricula').textContent = matricula;
+      document.getElementById('av1').textContent = aluno.av1 || '-';
+      document.getElementById('projeto2av').textContent = aluno.projeto2av || '-';
+      document.getElementById('nota2av').textContent = aluno.nota2av || '-';
+      document.getElementById('media').textContent = aluno.media || '-';
+
+      // Status
+      const statusBadge = document.getElementById('statusBadge');
+      statusBadge.textContent = aluno.situacao;
+      
+      // Remover classes anteriores
+      statusBadge.className = 'badge grade-badge';
+      
+      // Adicionar classe apropriada
+      if (aluno.situacao.includes('APROVADO') && !aluno.situacao.includes('REPROVADO')) {
+        statusBadge.classList.add('status-aprovado');
+      } else if (aluno.situacao.includes('REPROVADO')) {
+        statusBadge.classList.add('status-reprovado');
+      } else if (aluno.situacao.includes('FINAL')) {
+        statusBadge.classList.add('status-final');
+      } else if (aluno.situacao.includes('SEGUNDA')) {
+        statusBadge.classList.add('status-segunda-chamada');
+      }
+
+      resultCard.style.display = 'block';
+      resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Permitir apenas números no campo matrícula
+    document.getElementById('matricula').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '');
+    });
+  </script>
+
+</body>
+
+</html>
