@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Avançado - Aula Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e7e34;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .module {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #1e7e34;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e7e34;
+        }
+
+        h3 {
+            color: #155724;
+            margin: 20px 0 10px;
+        }
+
+        .topic {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #1e7e34;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .formula {
+            background: #e7f4e4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .example {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .tips {
+            background: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #0c5460;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #1e7e34;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .exercise {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #1e7e34;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #155724;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📊 Excel Avançado</h1>
+        <p class="subtitle">Domine as Funções e Recursos Profissionais</p>
+    </header>
+
+    <div class="module">
+        <h2>Módulo 1: Funções Lógicas Avançadas</h2>
+
+        <div class="topic">
+            <h3>1.1 Função SE Aninhada</h3>
+            <p>Permite criar condições múltiplas para diferentes resultados.</p>
+            <div class="formula">
+                =SE(condição1; resultado1; SE(condição2; resultado2; resultado3))
+            </div><div class="example">
+            <strong>Exemplo:</strong> Classificação de notas<br>
+            =SE(A1>=9; "Excelente"; SE(A1>=7; "Bom"; SE(A1>=5; "Regular"; "Insuficiente")))
+        </div>
+        </div>
+
+        <div class="topic">
+            <h3>1.2 Função SE com E/OU</h3>
+            <div class="formula">
+                =SE(E(condição1; condição2); "Verdadeiro"; "Falso")
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong> Verificar duas condições<br>
+                =SE(E(A1>1000; B1="Aprovado"); "Pagar Bônus"; "Sem Bônus")
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>1.3 Função SEERRO</h3>
+            <p>Trata erros em fórmulas de forma elegante.</p>
+            <div class="formula">
+                =SEERRO(fórmula; valor_se_erro)
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong><br>
+                =SEERRO(A1/B1; "Divisão inválida")
+            </div>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 2: Funções de Pesquisa e Referência</h2>
+
+        <div class="topic">
+            <h3>2.1 PROCV (VLOOKUP)</h3>
+            <p>Busca valores em uma tabela verticalmente.</p>
+            <div class="formula">
+                =PROCV(valor_procurado; matriz_tabela; núm_índice_coluna; [procurar_intervalo])
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong> Buscar preço de produto<br>
+                =PROCV(A2; Tabela!A:C; 3; FALSO)
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>2.2 ÍNDICE + CORRESP</h3>
+            <p>Combinação mais poderosa e flexível que PROCV.</p>
+            <div class="formula">
+                =ÍNDICE(matriz; CORRESP(valor_procurado; matriz_procura; 0))
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong> Busca bidirecional<br>
+                =ÍNDICE(B2:D10; CORRESP(A15; A2:A10; 0); CORRESP(B1; B1:D1; 0))
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>2.3 DESLOC (OFFSET)</h3>
+            <p>Retorna referência deslocada de uma célula.</p>
+            <div class="formula">
+                =DESLOC(referência; linhas; colunas; [altura]; [largura])
+            </div>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 3: Funções Estatísticas e Matemáticas</h2>
+
+        <div class="topic">
+            <h3>3.1 SOMASES (SUMIFS)</h3>
+            <p>Soma com múltiplos critérios.</p>
+            <div class="formula">
+                =SOMASES(intervalo_soma; intervalo_critérios1; critério1; [intervalo_critérios2]; [critério2])
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong><br>
+                =SOMASES(D2:D100; A2:A100; "Norte"; B2:B100; ">1000")
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>3.2 CONT.SES (COUNTIFS)</h3>
+            <div class="formula">
+                =CONT.SES(intervalo_critérios1; critério1; [intervalo_critérios2]; [critério2])
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>3.3 MÉDIASES (AVERAGEIFS)</h3>
+            <div class="formula">
+                =MÉDIASES(intervalo_média; intervalo_critérios1; critério1)
+            </div>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 4: Funções de Texto</h2>
+
+        <div class="topic">
+            <h3>4.1 CONCATENAR / CONCAT</h3>
+            <div class="formula">
+                =CONCATENAR(texto1; texto2; ...) ou =CONCAT(texto1; texto2; ...)
+            </div>
+            <div class="example">
+                <strong>Exemplo:</strong><br>
+                =CONCATENAR(A2; " "; B2) → "João Silva"
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>4.2 ESQUERDA, DIREITA, EXT.TEXTO</h3>
+            <ul>
+                <li><strong>ESQUERDA:</strong> =ESQUERDA(texto; núm_caract)</li>
+                <li><strong>DIREITA:</strong> =DIREITA(texto; núm_caract)</li>
+                <li><strong>EXT.TEXTO:</strong> =EXT.TEXTO(texto; início; núm_caract)</li>
+            </ul>
+        </div>
+
+        <div class="topic">
+            <h3>4.3 MAIÚSCULA, MINÚSCULA, PRI.MAIÚSCULA</h3>
+            <ul>
+                <li><strong>MAIÚSCULA:</strong> Converte para maiúsculas</li>
+                <li><strong>MINÚSCULA:</strong> Converte para minúsculas</li>
+                <li><strong>PRI.MAIÚSCULA:</strong> Primeira letra maiúscula</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 5: Tabelas Dinâmicas</h2>
+
+        <div class="topic">
+            <h3>5.1 Criando Tabelas Dinâmicas</h3>
+            <ol>
+                <li>Selecione seus dados</li>
+                <li>Inserir → Tabela Dinâmica</li>
+                <li>Arraste campos para áreas: Linhas, Colunas, Valores, Filtros</li>
+            </ol>
+        </div>
+
+        <div class="topic">
+            <h3>5.2 Campos Calculados</h3>
+            <p>Criar novos campos com fórmulas dentro da tabela dinâmica.</p>
+            <ul>
+                <li>Analisar → Campos, Itens e Conjuntos → Campo Calculado</li>
+                <li>Digite a fórmula usando campos existentes</li>
+            </ul>
+        </div>
+
+        <div class="tips">
+            <strong>💡 Dicas:</strong>
+            <ul>
+                <li>Use segmentação de dados para filtros visuais</li>
+                <li>Atualize dados com F5 ou botão "Atualizar"</li>
+                <li>Formatação condicional para destacar valores</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 6: Formatação Condicional Avançada</h2>
+
+        <div class="topic">
+            <h3>6.1 Regras Personalizadas</h3>
+            <p>Criar regras com fórmulas customizadas.</p>
+            <div class="example">
+                <strong>Exemplo:</strong> Destacar linha inteira se valor > 1000<br>
+                Fórmula: =$D2>1000 (aplicada ao intervalo A2:E100)
+            </div>
+        </div>
+
+        <div class="topic">
+            <h3>6.2 Escalas de Cor e Barras de Dados</h3>
+            <ul>
+                <li><strong>Escalas de cor:</strong> Gradiente de cores baseado em valores</li>
+                <li><strong>Barras de dados:</strong> Representação visual dentro da célula</li>
+                <li><strong>Conjunto de ícones:</strong> Símbolos indicando faixas de valores</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Módulo 7: Validação de Dados e Proteção</h2>
+
+        <div class="topic">
+            <h3>7.1 Validação de Dados</h3>
+            <ul>
+                <li>Dados → Validação de Dados</li>
+                <li>Definir critérios: lista, número, data, etc.</li>
+                <li>Mensagens de entrada e alerta de erro</li>
+            </ul>
+        </div>
+
+        <div class="topic">
+            <h3>7.2 Proteção de Planilha</h3>
+            <ul>
+                <li>Revisão → Proteger Planilha</li>
+                <li>Definir senha (opcional)</li>
+                <li>Selecionar ações permitidas</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Exercícios Práticos</h2>
+
+        <div class="exercise">
+            <h3>Exercício 1: Dashboard de Vendas</h3>
+            <p>Crie um painel com:</p>
+            <ul>
+                <li>Vendas totais por região (SOMASES)</li>
+                <li>Top 5 produtos (Tabela Dinâmica)</li>
+                <li>Gráfico de tendência mensal</li>
+                <li>Formatação condicional para metas</li>
+            </ul>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercício 2: Análise de Estoque</h3>
+            <p>Desenvolva uma planilha que:</p>
+            <ul>
+                <li>Alerta quando estoque < mínimo (SE + Formatação)</li>
+                <li>Calcula valor total (SOMARPRODUTO)</li>
+                <li>Prevê próxima compra (DESLOC)</li>
+            </ul>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercício 3: Relatório Financeiro</h3>
+            <ul>
+                <li>Use PROCV para buscar categorias</li>
+                <li>SOMASES para totalizar por categoria e período</li>
+                <li>Gráfico de pizza para distribuição</li>
+                <li>Tabela dinâmica para análise temporal</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h2>Atalhos Essenciais</h2>
+
+        <table>
+            <tr>
+                <th>Atalho (Windows)</th>
+                <th>Atalho (Mac)</th>
+                <th>Função</th>
+            </tr>
+            <tr>
+                <td>Ctrl + T</td>
+                <td>Cmd + T</td>
+                <td>Criar tabela</td>
+            </tr>
+            <tr>
+                <td>Ctrl + Shift + L</td>
+                <td>Cmd + Shift + F</td>
+                <td>Aplicar filtro</td>
+            </tr>
+            <tr>
+                <td>Alt + =</td>
+                <td>Cmd + Shift + T</td>
+                <td>AutoSoma</td>
+            </tr>
+            <tr>
+                <td>F4</td>
+                <td>Cmd + T</td>
+                <td>Alternar referências ($)</td>
+            </tr><tr>
+            <td>Ctrl + PgUp/PgDn</td>
+            <td>Cmd + Option + →/←</td>
+            <td>Navegar entre planilhas</td>
+        </tr>
+        </table>
+    </div>
+
+    <div class="module">
+        <div class="tips">
+            <h3>🎯 Dicas Finais para Ser um Expert</h3>
+            <ul>
+                <li>Pratique diariamente com dados reais</li>
+                <li>Combine funções para soluções complexas</li>
+                <li>Use nomes de intervalo para fórmulas mais legíveis</li>
+                <li>Documente suas planilhas com comentários</li>
+                <li>Mantenha dados organizados e estruturados</li>
+                <li>Aprenda Power Query para manipulação avançada de dados</li>
+                <li>Explore macros (VBA) para automação</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button onclick="window.print()">🖨️ Imprimir Aula</button>
+        <button onclick="alert('Continue praticando! A prática leva à perfeição.')">✅ Concluir Aula</button>
+    </div>
+</div>
+</body>
+</html>
