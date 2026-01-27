@@ -1,471 +1,737 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Dashboard de Vendas - Projeto Prático Excel</title>
+
+    <meta name="description" content="Aula prática: Construa um Dashboard Profissional de Vendas em 2 horas">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Avançado - Aula Completa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../../reveal.js-master/dist/reset.css">
+    <link rel="stylesheet" href="../../../../reveal.js-master/dist/reveal.css">
+    <link rel="stylesheet" href="../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+    <link rel="stylesheet" href="../../../../reveal.js-master/plugin/highlight/monokai.css">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .formula-box {
+            background: #1e7e34;
             padding: 20px;
-        }
-
-        header {
-            background: #fff;
-            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #1e7e34;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1.2em;
-        }
-
-        .module {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            color: #1e7e34;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #1e7e34;
-        }
-
-        h3 {
-            color: #155724;
-            margin: 20px 0 10px;
-        }
-
-        .topic {
-            background: #f8f9fa;
-            padding: 20px;
-            border-left: 4px solid #1e7e34;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-
-        .formula {
-            background: #e7f4e4;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 10px 0;
+            margin: 20px 0;
             font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        .example-box {
+            background: #ffc107;
+            color: #000;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .tip-box {
+            background: #17a2b8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .step-box {
+            background: #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
             font-weight: bold;
-            color: #155724;
         }
-
-        .example {
-            background: #fff3cd;
+        .warning-box {
+            background: #dc3545;
             padding: 15px;
-            border-left: 4px solid #ffc107;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        .tips {
-            background: #d1ecf1;
-            padding: 15px;
-            border-left: 4px solid #0c5460;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        ul, ol {
-            margin-left: 30px;
-            margin-top: 10px;
-        }
-
-        li {
-            margin: 8px 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+            border-radius: 8px;
             margin: 15px 0;
         }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: #1e7e34;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .exercise {
-            background: #f0f0f0;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        button {
-            background: #1e7e34;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background: #155724;
+        .timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <header>
-        <h1>📊 Excel Avançado</h1>
-        <p class="subtitle">Domine as Funções e Recursos Profissionais</p>
-    </header>
+<div class="reveal">
+    <div class="slides">
 
-    <div class="module">
-        <h2>Módulo 1: Funções Lógicas Avançadas</h2>
+        <!-- Slide 1 - Título IMPACTANTE -->
+        <section>
+            <p>🏛️ Centro Universitário Maurício de Nassau</p>
+            <p style="color: #ffc107;">🚀 PROJETO PRÁTICO</p>
+            <p>Dashboard de Vendas Profissional</p>
+            <h3>Do Zero ao WOW</h3>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </section>
 
-        <div class="topic">
-            <h3>1.1 Função SE Aninhada</h3>
-            <p>Permite criar condições múltiplas para diferentes resultados.</p>
-            <div class="formula">
-                =SE(condição1; resultado1; SE(condição2; resultado2; resultado3))
-            </div><div class="example">
-            <strong>Exemplo:</strong> Classificação de notas<br>
-            =SE(A1>=9; "Excelente"; SE(A1>=7; "Bom"; SE(A1>=5; "Regular"; "Insuficiente")))
-        </div>
-        </div>
-
-        <div class="topic">
-            <h3>1.2 Função SE com E/OU</h3>
-            <div class="formula">
-                =SE(E(condição1; condição2); "Verdadeiro"; "Falso")
+        <!-- Slide 2 - O QUE VAMOS CRIAR -->
+        <section>
+            <h2>🎯 O Que Vamos Criar Hoje?</h2>
+            <div class="example-box">
+                <h3>Dashboard Executivo de Vendas 2025</h3>
+                <ul style="font-size: 0.7em;">
+                    <li>📊 Análise de 500+ vendas reais</li>
+                    <li>💰 Faturamento por região e produto</li>
+                    <li>📈 Gráficos dinâmicos interativos</li>
+                    <li>🎨 Formatação profissional com semáforos</li>
+                    <li>🔍 Filtros inteligentes</li>
+                    <li>⚡ Indicadores de performance (KPIs)</li>
+                </ul>
             </div>
-            <div class="example">
-                <strong>Exemplo:</strong> Verificar duas condições<br>
-                =SE(E(A1>1000; B1="Aprovado"); "Pagar Bônus"; "Sem Bônus")
+            <div class="tip-box">
+                💡 Você vai SAIR DAQUI com um portfólio profissional!
             </div>
-        </div>
+        </section>
 
-        <div class="topic">
-            <h3>1.3 Função SEERRO</h3>
-            <p>Trata erros em fórmulas de forma elegante.</p>
-            <div class="formula">
-                =SEERRO(fórmula; valor_se_erro)
+
+        <!-- ETAPA 1: PREPARAÇÃO DOS DADOS -->
+        <section>
+            <section>
+                <h2>ETAPA 1</h2>
+                <h3>📥 Preparação dos Dados</h3>
+
+            </section>
+
+            <section>
+                <h4>Passo 1.1: Criar a Estrutura Base</h4>
+                <div class="step-box">
+                    🔨 AGORA: Crie uma nova planilha "VendasMaster"
+                </div>
+                <div class="example-box" style="font-size:0.7em;">
+                    Colunas que vamos criar:<br>
+                    A - ID_Venda<br>
+                    B - Data<br>
+                    C - Vendedor<br>
+                    D - Região<br>
+                    E - Produto<br>
+                    F - Categoria<br>
+                    G - Quantidade<br>
+                    H - Preço_Unitário<br>
+                    I - Faturamento (FÓRMULA)<br>
+                    J - Meta (FÓRMULA)<br>
+                    K - Status (FÓRMULA)
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 1.2: Dados de Exemplo</h3>
+                <div class="tip-box">
+                    💡 Copie e cole estes dados de exemplo (5 linhas)
+                </div>
+                <pre style="font-size: 0.5em; background: #2d2d2d; padding: 15px;">
+ID    Data        Vendedor    Região    Produto      Categoria    Qtd  Preço
+001   15/01/2025  Ana Silva   Norte     Notebook     Eletrônicos  5    3500
+002   16/01/2025  João Lima   Sul       Mouse        Acessórios   20   45
+003   17/01/2025  Maria Costa Nordeste  Teclado      Acessórios   15   120
+004   18/01/2025  Pedro Souza Centro    Monitor      Eletrônicos  8    890
+005   19/01/2025  Ana Silva   Norte     Webcam       Acessórios   12   250
+                </pre>
+                <div class="warning-box">
+                    ⚠️ Digite PELO MENOS 20 linhas variando vendedores, regiões e produtos!
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 1.3: Criar Tabela Auxiliar de Metas</h3>
+                <div class="step-box">
+                    🔨 Crie uma nova aba: "Metas"
+                </div>
+                <table style="font-size: 0.8em;">
+                    <tr>
+                        <th>Região</th>
+                        <th>Meta_Mensal</th>
+                    </tr>
+                    <tr>
+                        <td>Norte</td>
+                        <td>50000</td>
+                    </tr>
+                    <tr>
+                        <td>Sul</td>
+                        <td>45000</td>
+                    </tr>
+                    <tr>
+                        <td>Nordeste</td>
+                        <td>40000</td>
+                    </tr>
+                    <tr>
+                        <td>Centro</td>
+                        <td>35000</td>
+                    </tr>
+                </table>
+            </section>
+        </section>
+
+        <!-- ETAPA 2: FÓRMULAS E CÁLCULOS -->
+        <section>
+            <section>
+                <h2>ETAPA 2 </h2>
+                <h3>🧮 Fórmulas Inteligentes</h3>
+
+            </section>
+
+            <section>
+                <h3>Passo 2.1: Calcular Faturamento</h3>
+                <div class="step-box">
+                    📍 Coluna I - Faturamento
+                </div>
+                <div class="formula-box">
+                    =G2*H2
+                </div>
+                <div class="example-box">
+                    <strong>Explicação:</strong><br>
+                    Quantidade × Preço Unitário = Faturamento
+                </div>
+                <div class="tip-box">
+                    💡 Arraste a fórmula até o final dos dados (Ctrl+Shift+Seta Baixo)
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 2.2: Buscar Meta da Região (PROCV)</h3>
+                <div class="step-box">
+                    📍 Coluna J - Meta
+                </div>
+                <div class="formula-box">
+                    =PROCV(D2;Metas!A:B;2;FALSO)
+                </div>
+                <div class="example-box">
+                    <strong>O que faz:</strong><br>
+                    ✓ Busca a Região (coluna D)<br>
+                    ✓ Na tabela Metas<br>
+                    ✓ Retorna a Meta (coluna 2)<br>
+                    ✓ Correspondência exata
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 2.3: Status da Venda (SE + E)</h3>
+                <div class="step-box">
+                    📍 Coluna K - Status
+                </div>
+                <div class="formula-box">
+                    =SE(I2>=5000;"🟢 ALTO";SE(I2>=1000;"🟡 MÉDIO";"🔴 BAIXO"))
+                </div>
+                <div class="example-box">
+                    <strong>Lógica:</strong><br>
+                    Faturamento ≥ 5000 → 🟢 ALTO<br>
+                    Faturamento ≥ 1000 → 🟡 MÉDIO<br>
+                    Faturamento < 1000 → 🔴 BAIXO
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 2.4: Criar Área de KPIs</h3>
+                <div class="step-box">
+                    📍 Crie uma área no topo da planilha (linhas 1-5)
+                </div>
+                <table style="font-size: 0.7em;">
+                    <tr>
+                        <th>KPI</th>
+                        <th>Fórmula</th>
+                        <th>Célula</th>
+                    </tr>
+                    <tr>
+                        <td>Total Vendas</td>
+                        <td>=CONT.VALORES(A:A)-1</td>
+                        <td>B2</td>
+                    </tr>
+                    <tr>
+                        <td>Faturamento Total</td>
+                        <td>=SOMA(I:I)</td>
+                        <td>B3</td>
+                    </tr>
+                    <tr>
+                        <td>Ticket Médio</td>
+                        <td>=MÉDIA(I:I)</td>
+                        <td>B4</td>
+                    </tr>
+                    <tr>
+                        <td>Melhor Vendedor</td>
+                        <td>=ÍNDICE(C:C;CORRESP(MÁXIMO(I:I);I:I;0))</td>
+                        <td>B5</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h3>Passo 2.5: Faturamento por Região (SOMASES)</h3>
+                <div class="step-box">
+                    📍 Crie área "Análise por Região" (células N2:O6)
+                </div>
+                <div class="formula-box">
+                    =SOMASES(I:I;D:D;"Norte")
+                </div>
+                <div class="example-box">
+                    <strong>Repita para cada região:</strong><br>
+                    • Norte → =SOMASES(I:I;D:D;"Norte")<br>
+                    • Sul → =SOMASES(I:I;D:D;"Sul")<br>
+                    • Nordeste → =SOMASES(I:I;D:D;"Nordeste")<br>
+                    • Centro → =SOMASES(I:I;D:D;"Centro")
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 2.6: Top 5 Produtos (Avançado)</h3>
+                <div class="step-box">
+                    📍 Área "Top 5 Produtos" (células Q2:R7)
+                </div>
+                <div class="formula-box">
+                    =SOMASES(I:I;E:E;"Notebook")
+                </div>
+                <div class="tip-box">
+                    💡 Liste seus 5 principais produtos e some o faturamento de cada um
+                </div>
+            </section>
+        </section>
+
+        <!-- ETAPA 3: TABELAS DINÂMICAS -->
+        <section>
+            <section>
+                <h2>ETAPA 3 </h2>
+                <h3>📊 Tabelas Dinâmicas Poderosas</h3>
+
+            </section>
+
+            <section>
+                <h3>Passo 3.1: Primeira Tabela Dinâmica</h3>
+                <div class="step-box">
+                    1. Selecione TODOS os dados (Ctrl+Shift+End)<br>
+                    2. Inserir → Tabela Dinâmica<br>
+                    3. Nova Planilha: "TD_Vendedores"
+                </div>
+                <div class="example-box">
+                    <strong>Configuração:</strong><br>
+                    📍 LINHAS: Vendedor<br>
+                    📍 VALORES: Soma de Faturamento<br>
+                    📍 VALORES: Contagem de ID_Venda
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 3.2: Segunda Tabela - Região × Categoria</h3>
+                <div class="step-box">
+                    Nova TD na planilha "TD_RegiaoCategoria"
+                </div>
+                <div class="example-box">
+                    <strong>Configuração MATRIZ:</strong><br>
+                    📍 LINHAS: Região<br>
+                    📍 COLUNAS: Categoria<br>
+                    📍 VALORES: Soma de Faturamento
+                </div>
+                <div class="tip-box">
+                    💡 Clique com botão direito nos valores → Formatar → Moeda
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 3.3: Terceira Tabela - Evolução Temporal</h3>
+                <div class="step-box">
+                    Nova TD na planilha "TD_Mensal"
+                </div>
+                <div class="example-box">
+                    <strong>Configuração:</strong><br>
+                    📍 LINHAS: Data (agrupar por Mês)<br>
+                    📍 VALORES: Soma de Faturamento<br>
+                    📍 VALORES: Contagem de Vendas
+                </div>
+                <div class="warning-box">
+                    ⚠️ Clique direito na data → Agrupar → Meses
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 3.4: Adicionar Segmentação de Dados</h3>
+                <div class="step-box">
+                    🎯 Torne suas tabelas INTERATIVAS!
+                </div>
+                <ol style="font-size: 0.9em;">
+                    <li>Clique na Tabela Dinâmica</li>
+                    <li>Analisar → Inserir Segmentação de Dados</li>
+                    <li>Selecione: Região, Vendedor, Categoria</li>
+                    <li>Conecte a TODAS as tabelas dinâmicas</li>
+                </ol>
+                <div class="tip-box">
+                    💡 Agora você pode filtrar TUDO com um clique!
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 3.5: Campo Calculado - Comissão</h3>
+                <div class="step-box">
+                    Criar campo: Comissão 5%
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Clique na Tabela Dinâmica</li>
+                    <li>Analisar → Campos, Itens e Conjuntos</li>
+                    <li>Campo Calculado</li>
+                    <li>Nome: "Comissão"</li>
+                </ol>
+                <div class="formula-box">
+                    = Faturamento * 0.05
+                </div>
+            </section>
+        </section>
+
+        <!-- ETAPA 4: VISUALIZAÇÃO -->
+        <section>
+            <section>
+                <h2>ETAPA 4 </h2>
+                <h3>🎨 Gráficos e Formatação</h3>
+
+            </section>
+
+            <section>
+                <h3>Passo 4.1: Gráfico de Colunas - Vendedores</h3>
+                <div class="step-box">
+                    📊 Desempenho por Vendedor
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Vá para TD_Vendedores</li>
+                    <li>Inserir → Gráfico Dinâmico</li>
+                    <li>Tipo: Coluna Agrupada</li>
+                    <li>Título: "Top Vendedores 2025"</li>
+                </ol>
+                <div class="tip-box">
+                    💡 Design → Estilo 11 (moderno e profissional)
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 4.2: Gráfico de Pizza - Categorias</h3>
+                <div class="step-box">
+                    🥧 Distribuição por Categoria
+                </div>
+                <div class="example-box">
+                    <strong>Dados:</strong><br>
+                    Categoria × Faturamento
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Inserir → Gráfico de Pizza</li>
+                    <li>Adicionar Rótulos de Dados (percentual)</li>
+                    <li>Cores personalizadas</li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>Passo 4.3: Gráfico de Linhas - Tendência</h3>
+                <div class="step-box">
+                    📈 Evolução Mensal
+                </div>
+                <div class="example-box">
+                    Use a TD_Mensal<br>
+                    Mês × Faturamento
+                </div>
+                <div class="formula-box">
+                    Adicione Linha de Tendência:<br>
+                    Clique na linha → Adicionar Linha de Tendência → Linear
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 4.4: Formatação Condicional - KPIs</h3>
+                <div class="step-box">
+                    🎨 Deixe os números VIVOS!
+                </div>
+                <div class="example-box">
+                    <strong>Total de Vendas (B2):</strong><br>
+                    Formatação → Ícones → 3 Setas
+                </div>
+                <div class="example-box">
+                    <strong>Faturamento Total (B3):</strong><br>
+                    Formatação → Barras de Dados → Gradiente Verde
+                </div>
+            </section>
+
+
+        </section>
+
+        <!-- ETAPA 5: DASHBOARD FINAL -->
+        <section>
+            <section>
+                <h2>ETAPA 5 </h2>
+                <h3>🚀 Montar o Dashboard</h3>
+
+            </section>
+
+            <section>
+                <h3>Passo 5.1: Criar Planilha Dashboard</h3>
+                <div class="step-box">
+                    Nova aba: "📊 DASHBOARD"
+                </div>
+                <div class="example-box">
+                    <strong>Layout do Dashboard:</strong><br>
+                    🔝 Topo: KPIs em destaque<br>
+                    ⬅️ Esquerda: Gráficos principais<br>
+                    ➡️ Direita: Tabelas resumo<br>
+                    ⬇️ Baixo: Segmentadores
+                </div>
+            </section>
+
+            <section>
+                <h3>Passo 5.2: Copiar KPIs</h3>
+                <div class="step-box">
+                    Área de KPIs (células B2:F5)
+                </div>
+                <ol style="font-size: 0.8em;">
+                    <li>Copie os 4 KPIs da planilha VendasMaster</li>
+                    <li>Cole como Vínculo no Dashboard</li>
+                    <li>Formate com bordas grossas</li>
+                    <li>Fundo: Gradiente azul</li>
+                    <li>Fonte: Tamanho 18, Branca, Negrito</li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>Passo 5.3: Adicionar Gráficos</h3>
+                <div class="step-box">
+                    Posicionar os 3 gráficos criados
+                </div>
+                <table style="font-size: 0.75em;">
+                    <tr>
+                        <th>Gráfico</th>
+                        <th>Posição</th>
+                    </tr>
+                    <tr>
+                        <td>Colunas (Vendedores)</td>
+                        <td>Células B8:G20</td>
+                    </tr>
+                    <tr>
+                        <td>Pizza (Categorias)</td>
+                        <td>Células H8:L20</td>
+                    </tr>
+                    <tr>
+                        <td>Linhas (Tendência)</td>
+                        <td>Células B22:L35</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h3>Passo 5.4: Adicionar Segmentadores</h3>
+                <div class="step-box">
+                    Controles interativos
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Copie os 3 segmentadores criados</li>
+                    <li>Posicione lado a lado na parte inferior</li>
+                    <li>Estilo: Claro 2</li>
+                    <li>Tamanho: 3 colunas cada</li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>Passo 5.5: Finalização Visual</h3>
+                <div class="step-box">
+                    🎨 Últimos retoques profissionais
+                </div>
+                <ul style="font-size: 0.8em;">
+                    <li>✅ Remover linhas de grade (Exibir → desmarcar)</li>
+                    <li>✅ Adicionar logo da empresa (Inserir → Imagem)</li>
+                    <li>✅ Título grande no topo: "DASHBOARD DE VENDAS 2025"</li>
+                    <li>✅ Bordas e sombreamento nas seções</li>
+                    <li>✅ Cores coordenadas (paleta azul/verde)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Passo 5.6: Adicionar Interatividade Final</h3>
+                <div class="step-box">
+                    ⚡ Super Dica Final!
+                </div>
+                <div class="example-box">
+                    Adicione um botão de "Atualizar Tudo"
+                </div>
+                <ol style="font-size: 0.8em;">
+                    <li>Desenvolvedor → Inserir → Botão</li>
+                    <li>Atribuir Macro: Atualizar_Todas_TD</li>
+                    <li>No VBA (Alt+F11):</li>
+                </ol>
+                <pre style="font-size: 0.5em; background: #2d2d2d; padding: 10px;">
+Sub Atualizar_Todas_TD()
+    ActiveWorkbook.RefreshAll
+    MsgBox "Dashboard Atualizado!", vbInformation
+End Sub
+                </pre>
+            </section>
+        </section>
+
+        <!-- VALIDAÇÃO E PROTEÇÃO -->
+        <section>
+            <section>
+                <h2>BÔNUS: Validação e Proteção</h2>
+                <h3>🔒 Deixe Profissional!</h3>
+            </section>
+
+            <section>
+                <h3>Validação: Lista de Produtos</h3>
+                <div class="step-box">
+                    Evitar erros de digitação
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Crie lista de produtos (em aba oculta)</li>
+                    <li>Selecione coluna Produto (E:E)</li>
+                    <li>Dados → Validação de Dados</li>
+                    <li>Critério: Lista</li>
+                    <li>Origem: =Produtos!A:A</li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>Proteção do Dashboard</h3>
+                <div class="step-box">
+                    Proteger fórmulas e formatação
+                </div>
+                <ol style="font-size: 0.85em;">
+                    <li>Selecione apenas células de dados</li>
+                    <li>Formatar → Proteção → Desmarcar "Bloqueadas"</li>
+                    <li>Revisão → Proteger Planilha</li>
+                    <li>Permitir: Selecionar células desbloqueadas</li>
+                </ol>
+            </section>
+        </section>
+
+        <!-- RESULTADO FINAL -->
+        <section>
+            <h2>🎉 PARABÉNS!</h2>
+            <div class="example-box">
+                <h3>Você criou um Dashboard Profissional com:</h3>
+                <ul>
+                    <li>✅ 500+ vendas processadas</li>
+                    <li>✅ 10+ fórmulas avançadas</li>
+                    <li>✅ 3 tabelas dinâmicas</li>
+                    <li>✅ 3 gráficos interativos</li>
+                    <li>✅ Formatação condicional inteligente</li>
+                    <li>✅ Segmentadores de dados</li>
+                    <li>✅ KPIs executivos</li>
+                </ul>
             </div>
-            <div class="example">
-                <strong>Exemplo:</strong><br>
-                =SEERRO(A1/B1; "Divisão inválida")
+
+        </section>
+
+        <!-- DESAFIOS EXTRAS -->
+        <section>
+            <h2>🚀 Desafios Extras</h2>
+            <div class="warning-box">
+                <h3>Para os que terminarem antes:</h3>
+                <ol>
+                    <li>🎯 Adicione um gráfico de funil de vendas</li>
+                    <li>📊 Crie análise de sazonalidade (dia da semana)</li>
+                    <li>💰 Adicione análise de ticket médio por vendedor</li>
+                    <li>🏆 Crie ranking automatizado (1º, 2º, 3º lugar)</li>
+                    <li>📈 Adicione projeção de metas (próximo mês)</li>
+                </ol>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="module">
-        <h2>Módulo 2: Funções de Pesquisa e Referência</h2>
+        <!-- ATALHOS IMPORTANTES -->
+        <section>
+            <h2>⌨️ Atalhos que Usamos Hoje</h2>
+            <table style="font-size: 0.7em;">
+                <tr>
+                    <th>Atalho</th>
+                    <th>Função</th>
+                </tr>
+                <tr>
+                    <td>Ctrl + T</td>
+                    <td>Criar tabela</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + Shift + L</td>
+                    <td>Filtro rápido</td>
+                </tr>
+                <tr>
+                    <td>Alt + =</td>
+                    <td>AutoSoma</td>
+                </tr>
+                <tr>
+                    <td>F4</td>
+                    <td>Fixar referência ($)</td>
+                </tr>
+                <tr>
+                    <td>Ctrl + Shift + Seta</td>
+                    <td>Selecionar até o fim</td>
+                </tr>
+                <tr>
+                    <td>F5</td>
+                    <td>Atualizar tabela dinâmica</td>
+                </tr>
+            </table>
+        </section>
 
-        <div class="topic">
-            <h3>2.1 PROCV (VLOOKUP)</h3>
-            <p>Busca valores em uma tabela verticalmente.</p>
-            <div class="formula">
-                =PROCV(valor_procurado; matriz_tabela; núm_índice_coluna; [procurar_intervalo])
+        <!-- PARA CASA -->
+        <section>
+            <h2>📚 Para Casa</h2>
+            <div class="tip-box">
+                <h3>Pratique com seus próprios dados!</h3>
+                <ul>
+                    <li>📊 Dados de estágio/trabalho</li>
+                    <li>💰 Controle financeiro pessoal</li>
+                    <li>🎮 Estatísticas de jogos</li>
+                    <li>📈 Análise de redes sociais</li>
+                    <li>🏋️ Progressão de treinos</li>
+                </ul>
             </div>
-            <div class="example">
-                <strong>Exemplo:</strong> Buscar preço de produto<br>
-                =PROCV(A2; Tabela!A:C; 3; FALSO)
+            <div class="example-box">
+                <strong>Compartilhe nas redes sociais!</strong><br>
+                #ExcelAvançado #Dashboard #DataAnalytics
             </div>
-        </div>
+        </section>
 
-        <div class="topic">
-            <h3>2.2 ÍNDICE + CORRESP</h3>
-            <p>Combinação mais poderosa e flexível que PROCV.</p>
-            <div class="formula">
-                =ÍNDICE(matriz; CORRESP(valor_procurado; matriz_procura; 0))
-            </div>
-            <div class="example">
-                <strong>Exemplo:</strong> Busca bidirecional<br>
-                =ÍNDICE(B2:D10; CORRESP(A15; A2:A10; 0); CORRESP(B1; B1:D1; 0))
-            </div>
-        </div>
 
-        <div class="topic">
-            <h3>2.3 DESLOC (OFFSET)</h3>
-            <p>Retorna referência deslocada de uma célula.</p>
-            <div class="formula">
-                =DESLOC(referência; linhas; colunas; [altura]; [largura])
-            </div>
-        </div>
-    </div>
+        <!-- SLIDE FINAL -->
+        <section>
+            <p>🎓 MISSÃO CUMPRIDA!</p>
+            <h2>Você é um Expert em Dashboards Excel!</h2>
+            <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
 
-    <div class="module">
-        <h2>Módulo 3: Funções Estatísticas e Matemáticas</h2>
+            <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a><br>
+            <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </section>
 
-        <div class="topic">
-            <h3>3.1 SOMASES (SUMIFS)</h3>
-            <p>Soma com múltiplos critérios.</p>
-            <div class="formula">
-                =SOMASES(intervalo_soma; intervalo_critérios1; critério1; [intervalo_critérios2]; [critério2])
-            </div>
-            <div class="example">
-                <strong>Exemplo:</strong><br>
-                =SOMASES(D2:D100; A2:A100; "Norte"; B2:B100; ">1000")
-            </div>
-        </div>
-
-        <div class="topic">
-            <h3>3.2 CONT.SES (COUNTIFS)</h3>
-            <div class="formula">
-                =CONT.SES(intervalo_critérios1; critério1; [intervalo_critérios2]; [critério2])
-            </div>
-        </div>
-
-        <div class="topic">
-            <h3>3.3 MÉDIASES (AVERAGEIFS)</h3>
-            <div class="formula">
-                =MÉDIASES(intervalo_média; intervalo_critérios1; critério1)
-            </div>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Módulo 4: Funções de Texto</h2>
-
-        <div class="topic">
-            <h3>4.1 CONCATENAR / CONCAT</h3>
-            <div class="formula">
-                =CONCATENAR(texto1; texto2; ...) ou =CONCAT(texto1; texto2; ...)
-            </div>
-            <div class="example">
-                <strong>Exemplo:</strong><br>
-                =CONCATENAR(A2; " "; B2) → "João Silva"
-            </div>
-        </div>
-
-        <div class="topic">
-            <h3>4.2 ESQUERDA, DIREITA, EXT.TEXTO</h3>
-            <ul>
-                <li><strong>ESQUERDA:</strong> =ESQUERDA(texto; núm_caract)</li>
-                <li><strong>DIREITA:</strong> =DIREITA(texto; núm_caract)</li>
-                <li><strong>EXT.TEXTO:</strong> =EXT.TEXTO(texto; início; núm_caract)</li>
-            </ul>
-        </div>
-
-        <div class="topic">
-            <h3>4.3 MAIÚSCULA, MINÚSCULA, PRI.MAIÚSCULA</h3>
-            <ul>
-                <li><strong>MAIÚSCULA:</strong> Converte para maiúsculas</li>
-                <li><strong>MINÚSCULA:</strong> Converte para minúsculas</li>
-                <li><strong>PRI.MAIÚSCULA:</strong> Primeira letra maiúscula</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Módulo 5: Tabelas Dinâmicas</h2>
-
-        <div class="topic">
-            <h3>5.1 Criando Tabelas Dinâmicas</h3>
-            <ol>
-                <li>Selecione seus dados</li>
-                <li>Inserir → Tabela Dinâmica</li>
-                <li>Arraste campos para áreas: Linhas, Colunas, Valores, Filtros</li>
-            </ol>
-        </div>
-
-        <div class="topic">
-            <h3>5.2 Campos Calculados</h3>
-            <p>Criar novos campos com fórmulas dentro da tabela dinâmica.</p>
-            <ul>
-                <li>Analisar → Campos, Itens e Conjuntos → Campo Calculado</li>
-                <li>Digite a fórmula usando campos existentes</li>
-            </ul>
-        </div>
-
-        <div class="tips">
-            <strong>💡 Dicas:</strong>
-            <ul>
-                <li>Use segmentação de dados para filtros visuais</li>
-                <li>Atualize dados com F5 ou botão "Atualizar"</li>
-                <li>Formatação condicional para destacar valores</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Módulo 6: Formatação Condicional Avançada</h2>
-
-        <div class="topic">
-            <h3>6.1 Regras Personalizadas</h3>
-            <p>Criar regras com fórmulas customizadas.</p>
-            <div class="example">
-                <strong>Exemplo:</strong> Destacar linha inteira se valor > 1000<br>
-                Fórmula: =$D2>1000 (aplicada ao intervalo A2:E100)
-            </div>
-        </div>
-
-        <div class="topic">
-            <h3>6.2 Escalas de Cor e Barras de Dados</h3>
-            <ul>
-                <li><strong>Escalas de cor:</strong> Gradiente de cores baseado em valores</li>
-                <li><strong>Barras de dados:</strong> Representação visual dentro da célula</li>
-                <li><strong>Conjunto de ícones:</strong> Símbolos indicando faixas de valores</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Módulo 7: Validação de Dados e Proteção</h2>
-
-        <div class="topic">
-            <h3>7.1 Validação de Dados</h3>
-            <ul>
-                <li>Dados → Validação de Dados</li>
-                <li>Definir critérios: lista, número, data, etc.</li>
-                <li>Mensagens de entrada e alerta de erro</li>
-            </ul>
-        </div>
-
-        <div class="topic">
-            <h3>7.2 Proteção de Planilha</h3>
-            <ul>
-                <li>Revisão → Proteger Planilha</li>
-                <li>Definir senha (opcional)</li>
-                <li>Selecionar ações permitidas</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Exercícios Práticos</h2>
-
-        <div class="exercise">
-            <h3>Exercício 1: Dashboard de Vendas</h3>
-            <p>Crie um painel com:</p>
-            <ul>
-                <li>Vendas totais por região (SOMASES)</li>
-                <li>Top 5 produtos (Tabela Dinâmica)</li>
-                <li>Gráfico de tendência mensal</li>
-                <li>Formatação condicional para metas</li>
-            </ul>
-        </div>
-
-        <div class="exercise">
-            <h3>Exercício 2: Análise de Estoque</h3>
-            <p>Desenvolva uma planilha que:</p>
-            <ul>
-                <li>Alerta quando estoque < mínimo (SE + Formatação)</li>
-                <li>Calcula valor total (SOMARPRODUTO)</li>
-                <li>Prevê próxima compra (DESLOC)</li>
-            </ul>
-        </div>
-
-        <div class="exercise">
-            <h3>Exercício 3: Relatório Financeiro</h3>
-            <ul>
-                <li>Use PROCV para buscar categorias</li>
-                <li>SOMASES para totalizar por categoria e período</li>
-                <li>Gráfico de pizza para distribuição</li>
-                <li>Tabela dinâmica para análise temporal</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="module">
-        <h2>Atalhos Essenciais</h2>
-
-        <table>
-            <tr>
-                <th>Atalho (Windows)</th>
-                <th>Atalho (Mac)</th>
-                <th>Função</th>
-            </tr>
-            <tr>
-                <td>Ctrl + T</td>
-                <td>Cmd + T</td>
-                <td>Criar tabela</td>
-            </tr>
-            <tr>
-                <td>Ctrl + Shift + L</td>
-                <td>Cmd + Shift + F</td>
-                <td>Aplicar filtro</td>
-            </tr>
-            <tr>
-                <td>Alt + =</td>
-                <td>Cmd + Shift + T</td>
-                <td>AutoSoma</td>
-            </tr>
-            <tr>
-                <td>F4</td>
-                <td>Cmd + T</td>
-                <td>Alternar referências ($)</td>
-            </tr><tr>
-            <td>Ctrl + PgUp/PgDn</td>
-            <td>Cmd + Option + →/←</td>
-            <td>Navegar entre planilhas</td>
-        </tr>
-        </table>
-    </div>
-
-    <div class="module">
-        <div class="tips">
-            <h3>🎯 Dicas Finais para Ser um Expert</h3>
-            <ul>
-                <li>Pratique diariamente com dados reais</li>
-                <li>Combine funções para soluções complexas</li>
-                <li>Use nomes de intervalo para fórmulas mais legíveis</li>
-                <li>Documente suas planilhas com comentários</li>
-                <li>Mantenha dados organizados e estruturados</li>
-                <li>Aprenda Power Query para manipulação avançada de dados</li>
-                <li>Explore macros (VBA) para automação</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="nav-buttons">
-        <button onclick="window.print()">🖨️ Imprimir Aula</button>
-        <button onclick="alert('Continue praticando! A prática leva à perfeição.')">✅ Concluir Aula</button>
     </div>
 </div>
+
+<script src="../../../../reveal.js-master/dist/reveal.js"></script>
+<script src="../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+<script src="../../../../reveal.js-master/plugin/notes/notes.js"></script>
+<script src="../../../../reveal.js-master/plugin/search/search.js"></script>
+<script src="../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+<script src="../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        slideNumber: true,
+        plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+</script>
 </body>
+
 </html>
