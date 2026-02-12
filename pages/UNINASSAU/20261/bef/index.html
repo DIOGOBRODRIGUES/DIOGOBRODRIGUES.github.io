@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frameworks Back-End - 2026.1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    h1 {
+      color: #667eea;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      color: #555;
+      font-size: 1.1em;
+    }
+
+    .semester {
+      color: #764ba2;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+
+    .professor {
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .classes-section {
+      margin-top: 30px;
+    }
+
+    .classes-section h2 {
+      color: #333;
+      font-size: 1.8em;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .classes-list {
+      display: grid;
+      gap: 15px;
+    }
+
+    .class-item {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      padding: 0;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    .class-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .class-item a {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 25px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .class-number {
+      background: rgba(255, 255, 255, 0.2);
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .class-content {
+      flex: 1;
+    }
+
+    .class-title {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .class-description {
+      font-size: 0.95em;
+      opacity: 0.9;
+    }
+
+    .class-icon {
+      font-size: 1.8em;
+      opacity: 0.8;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 2px solid #eee;
+    }
+
+    .social-links {
+      margin: 20px 0;
+    }
+
+    .social-links a {
+      color: #667eea;
+      font-size: 1.8em;
+      margin: 0 15px;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #764ba2;
+      transform: scale(1.2);
+    }
+
+    .footer-text {
+      color: #999;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      .class-item a {
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .class-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+      }
+
+      .class-title {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-server"></i> Frameworks Back-End</h1>
+      <p class="info">Centro Universitário Maurício de Nassau</p>
+      <p class="semester">2026.1</p>
+      <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+    </header>
+
+    <section class="classes-section">
+      <h2><i class="fas fa-book-open"></i> Aulas</h2>
+      
+      <div class="classes-list">
+        <div class="class-item">
+          <a href="aula1/index.html">
+            <div class="class-number">01</div>
+            <div class="class-content">
+              <div class="class-title">Aula 1</div>
+              <div class="class-description">Introdução aos Frameworks Back-End</div>
+            </div>
+            <i class="fas fa-arrow-right class-icon"></i>
+          </a>
+        </div>
+
+        <!-- Adicione mais aulas conforme necessário -->
+      </div>
+    </section>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" title="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <p class="footer-text">© 2026 - UNINASSAU</p>
+    </footer>
+  </div>
+</body>
+</html>
