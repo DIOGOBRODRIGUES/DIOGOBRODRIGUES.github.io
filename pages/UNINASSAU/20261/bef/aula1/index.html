@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
 
   <!-- Syntax Highlighting -->
-  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight_todos/styles/github.css">
 
 </head>
 
@@ -311,8 +311,19 @@ fs.readFile('arquivo.txt', (err, data) => {
 });
 console.log('Continua executando...');
         </code></pre>
+        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
+          <strong><i class="fab fa-node-js"></i> 📖 Saiba mais:</strong> Leitura de arquivos com Node.js no link: <a href="https://nodejs.org/en/learn/manipulating-files/reading-files-with-nodejs" target="_blank">nodejs.org - Reading Files with Node.js</a>
+        </p>
       </section>
-
+      <!-- Slide - Callbacks -->
+      <section>
+        <h3>📞 Callbacks</h3>
+        <p>Função passada como argumento para ser executada depois de um evento.</p>
+  
+        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
+          <strong><i class="fab fa-youtube"></i> 📖 Saiba mais:</strong> Assista a explicação sobre Callbacks no link: <a href="https://www.youtube.com/watch?v=z03tYranyWs" target="_blank">youtube.com - Callbacks em JavaScript</a>
+        </p>
+      </section>
       <!-- Slide 17 - Express.js -->
       <section>
         <h3>⚡ Express.js</h3>
@@ -321,7 +332,12 @@ console.log('Continua executando...');
         <p><strong>Recursos:</strong></p>
         <ul>
           <li>Roteamento robusto</li>
-          <li>Middlewares</li>
+            <li>Middlewares
+            
+            <a href="https://www.youtube.com/watch?v=DMpfNXiPkSQ" target="_blank">
+              <i class="fab fa-youtube"></i> Saiba mais
+            </a>
+            </li> 
           <li>Template engines</li>
           <li>Gestão de requisições HTTP</li>
           <li>Integração com bancos de dados</li>
@@ -346,6 +362,45 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+        </code></pre>
+      </section>
+
+      <!-- Slide 18.5 - Servidor Node.js sem Express -->
+      <section>
+        <h3>🧰 Servidor Node.js Sem Express</h3>
+        <pre><code class="javascript" data-trim>
+    // 1. Importar o módulo nativo do Node.js (não precisa de npm install)
+    const http = require('http');
+
+    // 2. Definir a porta
+    const PORT = 3000;
+
+    // 3. Criar o servidor
+    // O callback (req, res) funciona de forma parecida, mas os objetos são mais simples
+    const server = http.createServer((req, res) => {
+
+      // No Express, o app.get('/') filtra a rota e o método automaticamente.
+      // No Node puro, precisamos checar manualmente:
+      if (req.url === '/' && req.method === 'GET') {
+
+        // No Node puro, precisamos definir o status e o cabeçalho manualmente
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+
+        // O res.end() finaliza a conexão e envia o dado (equivalente ao res.send)
+        res.end('Olá, Mundo!');
+
+      } else {
+        // Caso o usuário tente acessar outra rota (Ex: /sobre)
+        res.statusCode = 404;
+        res.end('Página não encontrada');
+      }
+    });
+
+    // 4. Iniciar o servidor
+    server.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
         </code></pre>
       </section>
 
@@ -504,6 +559,9 @@ app.listen(PORT, () => {
           <li>Interface uniforme</li>
           <li>Sistema em camadas</li>
         </ul>
+        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
+          <strong><i class="fab fa-youtube"></i> 📖 Saiba mais:</strong> Entenda melhor sobre API RESTful no link: <a href="https://www.youtube.com/watch?v=ghTrp1x_1As" target="_blank">youtube.com - API RESTful</a>
+        </p>
       </section>
 
       <!-- Slide 26 - Exemplo API REST -->
@@ -595,45 +653,7 @@ npm --version
         </ul>
       </section>
 
-      <!-- Slide 30 - Boas Práticas -->
-      <section>
-        <h3>✅ Boas Práticas de Desenvolvimento</h3>
-        <ul style="font-size: 0.85em;">
-          <li>Use versionamento semântico (SemVer)</li>
-          <li>Mantenha dependências atualizadas</li>
-          <li>Nunca commite node_modules/</li>
-          <li>Use .gitignore apropriadamente</li>
-          <li>Documente seu código</li>
-          <li>Trate erros adequadamente</li>
-          <li>Use variáveis de ambiente para configurações</li>
-          <li>Valide inputs do usuário</li>
-        </ul>
-      </section>
 
-      <!-- Slide 31 - Tratamento de Erros -->
-      <section>
-        <h3>⚠️ Tratamento de Erros</h3>
-        <pre><code class="javascript" data-trim>
-// Middleware de erro no Express
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    erro: 'Algo deu errado!',
-    mensagem: err.message
-  });
-});
-
-// Try-Catch em rotas assíncronas
-app.get('/dados', async (req, res, next) => {
-  try {
-    const dados = await buscarDados();
-    res.json(dados);
-  } catch (erro) {
-    next(erro); // Passa para o middleware de erro
-  }
-});
-        </code></pre>
-      </section>
 
       <!-- Slide 32 - Códigos de Status HTTP -->
       <section>
@@ -729,7 +749,7 @@ app.get('/dados', async (req, res, next) => {
           <li>Implemente um servidor básico com 3 rotas diferentes</li>
           <li>Teste com o navegador e Postman</li>
         </ol>
-        <p style="font-size: 0.75em;"><strong>Tempo:</strong> 30 minutos</p>
+     
       </section>
 
       <!-- Slide 36 - Atividade Prática 2 -->
@@ -744,7 +764,7 @@ app.get('/dados', async (req, res, next) => {
           <li>Adicione middleware de log para todas requisições</li>
           <li>Use códigos de status HTTP apropriados</li>
         </ul>
-        <p style="font-size: 0.75em;"><strong>Tempo:</strong> 40 minutos</p>
+      
       </section>
 
       <!-- Slide 37 - Exemplo Código Atividade -->
@@ -773,25 +793,31 @@ app.listen(3000, () => {
 
       <!-- Slide 38 - Próxima Aula -->
       <section>
-        <h3>🔜 Próxima Aula</h3>
-        <ul>
-          <li>Aprofundamento em Express.js</li>
-          <li>Conexão com Banco de Dados</li>
-          <li>ORM/ODM (Sequelize/Mongoose)</li>
-          <li>Validação de dados</li>
-          <li>Autenticação JWT</li>
-        </ul>
+  <h3>🎥 Vídeos Recomendados</h3>
+  <ul style="font-size: 0.8em;">
+    <li>
+      <strong>Portas TCP e UDP</strong>
+      <a href="https://www.youtube.com/watch?v=FaTlrHq8RKM" target="_blank">
+        <i class="fab fa-youtube"></i> Assista
+      </a>
+      <li>
+        <strong>Sockets e Comunicação Cliente-Servidor</strong>
+        <a href="https://www.youtube.com/watch?v=lc6U93P4Sxw&t=1014s" target="_blank">
+          <i class="fab fa-youtube"></i> Assista
+        </a>
+      </li>
+    </li>
+  </ul>
       </section>
 
       <!-- Slide 39 - Material Complementar -->
       <section>
         <h3>📚 Material Complementar</h3>
         <ul style="font-size: 0.8em;">
-          <li><a href="https://nodejs.org/docs" target="_blank">Documentação Node.js</a></li>
+          <li><a href="https://nodejs.org" target="_blank">Documentação Node.js</a></li>
           <li><a href="https://expressjs.com" target="_blank">Documentação Express</a></li>
           <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP" target="_blank">MDN - HTTP</a></li>
-          <li>Livro: "Node.js - Aplicações web real-time com Node.js"</li>
-          <li>Tutorial: Node.js YouTube - Curso em Vídeo</li>
+        
         </ul>
       </section>
 
