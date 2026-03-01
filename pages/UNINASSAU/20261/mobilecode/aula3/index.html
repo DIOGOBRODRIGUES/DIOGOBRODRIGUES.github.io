@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Aula 3: Introdução React - Fundamentos Essenciais</title>
+  
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight_todos/styles/github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 3: Introdução de React - Fundamentos e Conceitos Essenciais</h3>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.instagram.com/profdiogorodrigues/" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </section>
+
+  
+
+      <!-- Slide 3 - O que é React? -->
+      <section>
+        <!-- <h2>⚛️ O que é React? Conceitos Fundamentais</h2> -->
+        <section>
+          <h3>📚 Definição Completa</h3>
+          <ul>
+            <li>🏗️ <strong>Biblioteca JavaScript:</strong> Criada pelo Facebook em 2013</li>
+            <li>🎯 <strong>Foco principal:</strong> Construção de interfaces de usuário (UI)</li>
+            <li>🧩 <strong>Baseado em componentes:</strong> Pequenas peças reutilizáveis</li>
+            <li>⚡ <strong>Declarativo:</strong> Você descreve "o que" quer, não "como" fazer</li>
+            <li>🔄 <strong>Unidirecional:</strong> Fluxo de dados sempre em uma direção</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🆚 React vs. Desenvolvimento Web Tradicional</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>HTML + CSS + JS Tradicional</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📄 Arquivos separados</li>
+                <li>🔄 Manipulação direta do DOM</li>
+                <li>⚠️ Código duplicado</li>
+                <li>🐛 Difícil manutenção</li>
+                
+              </ul>
+            </div>
+            <div>
+              <h4>React Moderno</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🧩 Componentes unificados</li>
+                <li>🔄 Virtual DOM otimizado</li>
+                <li>♻️ Componentes reutilizáveis</li>
+                <li>🔧 Fácil manutenção</li>
+                
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Por que React? -->
+      <section>
+       
+        <section>
+          <h3>💪 Vantagens Técnicas do React</h3>
+          <ul>
+            <li>🔄 <strong>Virtual DOM:</strong> Cria uma representação em memória da interface real, comparando mudanças e atualizando apenas o necessário</li>
+            <li>🧩 <strong>Componentes Reutilizáveis:</strong> Escreva uma vez, use em qualquer lugar da aplicação</li>
+            <li>⚡ <strong>Performance Otimizada:</strong> Algoritmo de reconciliação inteligente</li>
+            <li>🌍 <strong>Ecossistema Rico:</strong> +100.000 bibliotecas no NPM</li>
+            <li>👥 <strong>Comunidade Ativa:</strong> +10 milhões de desenvolvedores</li>
+          </ul>
+        </section>
+        <section>
+          <h3>📱 Conexão com React Native</h3>
+          <ul>
+            <li>🔄 <strong>Mesma filosofia:</strong> "Learn once, write anywhere" - Facebook</li>
+            <li>⚛️ <strong>Conceitos idênticos:</strong> JSX, Hooks, estado, props</li>
+            <li>🚀 <strong>Transferência de conhecimento:</strong> 90% dos conceitos se aplicam</li>
+            <li>💼 <strong>Mercado de trabalho:</strong> Mesma base para web e mobile</li>
+            <li>⏰ <strong>Desenvolvimento ágil:</strong> Equipe pode trabalhar em ambas plataformas</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 5 - Comparação Prática: Contador -->
+      <section>
+        <!-- <h2>🔍 Exemplo Prático: Contador Web Tradicional vs React</h2> -->
+        <section>
+          <h3>🔍 Exemplo Prático: Contador Web Tradicional vs React -📄 Abordagem Tradicional (HTML + JS)</h3>
+<pre data-id="code-animation"><code class="html" data-trim data-line-numbers>
+&lt;!-- HTML --&gt;
+&lt;div id="contador"&gt;
+  &lt;h2 id="valor"&gt;0&lt;/h2&gt;
+  &lt;button id="btn-incrementar"&gt;Incrementar&lt;/button&gt;
+  &lt;button id="btn-decrementar"&gt;Decrementar&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// JavaScript tradicional
+let contador = 0;
+const valorElement = document.getElementById('valor');
+const btnIncrement = document.getElementById('btn-incrementar');
+const btnDecrement = document.getElementById('btn-decrementar');
+
+btnIncrement.addEventListener('click', () => {
+  contador++;
+  // Manipulação manual do DOM
+  valorElement.textContent = contador; 
+});
+
+btnDecrement.addEventListener('click', () => {
+  contador--;
+  // Repetição de código
+  valorElement.textContent = contador; 
+});
+&lt;/script&gt;
+          </code></pre>
+        </section>
+        <section>
+          <h3>⚛️ Abordagem React (Moderna)</h3>
+<pre><code class="hljs javascript"  data-line-numbers><script>
+import React, { useState } from 'react';
+
+export function App(props) {
+  const [contador, setContador] = useState(0);
+
+  return (
+    <div>
+      <h2>{contador}</h2>
+      <button onClick={() => setContador(contador + 1)}>
+        Incrementar
+      </button>
+      <button onClick={() => setContador(contador - 1)}>
+        Decrementar
+      </button>
+    </div>
+  );
+}
+          </script></code></pre>
+</section>
+    <section>
+          <div class="code-highlight">
+            <p><strong>🎯 Vantagens do React:</strong></p>
+            <ul>
+              <li>✅ Código mais limpo e legível</li>
+              <li>✅ Não precisa manipular DOM manualmente</li>
+              <li>✅ Estado centralizado e automático</li>
+              <li>✅ Componente reutilizável</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 6 - JSX Essencial -->
+      <section>
+       
+        <section>
+          <h3>🎯 O que é JSX?</h3>
+          <ul>
+            <li>🔤 <strong>JSX = JavaScript + XML:</strong> Sintaxe que parece HTML dentro do JavaScript</li>
+            <li>🔄 <strong>Transpilação:</strong> Babel converte JSX para JavaScript puro</li>
+            <li>📖 <strong>Legibilidade:</strong> Mais fácil de ler e escrever que JavaScript puro</li>
+            <li>⚡ <strong>Produtividade:</strong> Desenvolvimento mais rápido e intuitivo</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>🔄 Babel - Transpilando JSX</h3>
+          <p>Converte JSX em JavaScript puro automaticamente</p>
+          <div style="margin-top: 2rem;">
+            <a href="https://www.youtube.com/watch?v=RZQMAuHE_hw" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+              <img src="https://img.youtube.com/vi/RZQMAuHE_hw/maxresdefault.jpg" alt="Babel Tutorial" style="width: 100%; display: block;">
+              <div style="background: #f5f5f5; padding: 16px; text-align: center;">
+          <strong>Ver vídeo sobre Babel</strong>
+              </div>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h3>⚡ JSX vs JavaScript Puro - Comparação Detalhada</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+              <h4>✅ JSX (Fácil de ler)</h4>
+              <pre><code data-trim class="javascript">
+const element = (
+  &lt;div className="card"&gt;
+    &lt;h1&gt;Título&lt;/h1&gt;
+    &lt;p&gt;Descrição aqui&lt;/p&gt;
+    &lt;button onClick={handleClick}&gt;
+      Clique aqui
+    &lt;/button&gt;
+  &lt;/div&gt;
+);
+              </code></pre>
+            </div>
+            <div>
+              <h4>😵 JavaScript Puro (Complexo)</h4>
+              <pre><code data-trim class="javascript">
+const element = React.createElement(
+  'div',
+  {className: 'card'},
+  React.createElement('h1', null, 'Título'),
+  React.createElement('p', null, 'Descrição aqui'),
+  React.createElement(
+    'button',
+    {onClick: handleClick},
+    'Clique aqui'
+  )
+);
+              </code></pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>🔍 JSX - Regras Importantes</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>✅ Correto</h4>
+              <pre><code data-trim class="javascript">
+// 1. className (não class)
+&lt;div className="container"&gt;
+
+// 2. Fechamento obrigatório
+&lt;img src="foto.jpg" /&gt;
+&lt;input type="text" /&gt;
+
+// 3. camelCase para atributos
+&lt;div onClick={handle} tabIndex={1}&gt;
+
+// 4. Expressões em {}
+&lt;p&gt;{user.name}&lt;/p&gt;
+&lt;h1&gt;{2 + 2}&lt;/h1&gt;
+              </code></pre>
+            </div>
+            <div>
+              <h4>❌ Incorreto</h4>
+              <pre><code data-trim class="javascript">
+// 1. class (palavra reservada JS)
+&lt;div class="container"&gt;
+
+// 2. Tags não fechadas
+&lt;img src="foto.jpg"&gt;
+&lt;input type="text"&gt;
+
+// 3. kebab-case (HTML tradicional)
+&lt;div onclick={handle} tab-index={1}&gt;
+
+// 4. Strings sem {}
+&lt;p&gt;user.name&lt;/p&gt;
+&lt;h1&gt;2 + 2&lt;/h1&gt;
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 7 - Componentes Funcionais -->
+      <section>
+        <!-- <h2>🧩 Componentes Funcionais - Conceito Fundamental</h2> -->
+        <section>
+          <h3>📚 O que são Componentes?</h3>
+          <ul>
+            <li>🏗️ <strong>Definição:</strong> Funções JavaScript que retornam JSX</li>
+            <li>🧩 <strong>Modularização:</strong> Dividem a UI em peças independentes</li>
+            <li>♻️ <strong>Reutilização:</strong> Podem ser usados várias vezes</li>
+            <li>🔧 <strong>Manutenibilidade:</strong> Código organizado e fácil de debugar</li>
+            <li>👥 <strong>Colaboração:</strong> Equipe pode trabalhar em componentes diferentes</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🏗️ Anatomia de um Componente</h3>
+          <pre><code data-trim class="javascript">
+// 1. IMPORTAÇÕES: Ferramentas que o componente vai usar.
+import { useState } from 'react';
+
+// 2. FUNÇÃO E PROPS: Nome sempre com Letra Maiúscula. Recebe dados (props) do Pai.
+export default function Produto({ nome }) {
+  
+  // 3. ESTADO (State): A "memória" do componente. Se mudar, a tela atualiza.
+  const [quantidade, setQuantidade] = useState(0);
+
+  // 4. RETORNO (JSX): O visual da sua interface (o código Declarativo).
+  return (
+    <div>
+      <h2>{nome}</h2>
+      <button onClick={() => setQuantidade(quantidade + 1)}>
+        Adicionar (Atual: {quantidade})
+      </button>
+    </div>
+  );
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>💻 Usando o Componente na Prática</h3>
+          <pre><code data-trim class="javascript">
+<script>
+// 1. IMPORTAÇÃO: Trazemos o componente Filho que acabamos de criar
+import Produto from './Produto';
+
+// 2. COMPONENTE PAI
+export default function App() {
+  
+  return (
+    <div className="minha-loja">
+      <h1>Lojinha do React</h1>
+      
+      {/* 3. UTILIZAÇÃO: Chamamos o componente como se fosse uma tag HTML */}
+      {/* Passamos os dados (props) de cima para baixo (Fluxo Unidirecional) */}
+      <Produto nome="Camisa React" preco={89.90} />
+      <Produto nome="Caneca JavaScript" preco={35.00} />
+      <Produto nome="Adesivo Dev" preco={5.00} />
+      
+    </div>
+  );
+}
+</script>
+          </code></pre>
+        </section>
+        <section>
+          <h3>📊 Props - Propriedades</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🔍 Como funcionam</h4>
+              <ul style="font-size: 0.8em;">
+                <li>📤 <strong>Pai → Filho:</strong> Dados fluem apenas para baixo</li>
+                <li>🔒 <strong>Imutáveis:</strong> Componente filho não pode alterar</li>
+                <li>📦 <strong>Objeto props:</strong> Recebidas como parâmetro</li>
+                <li>⚡ <strong>Re-render:</strong> Mudança nas props causa nova renderização</li>
+              </ul>
+            </div>
+            <div>
+              <h4>🎯 Benefícios</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🔄 <strong>Reutilização:</strong> Mesmo componente, dados diferentes</li>
+                <li>🧪 <strong>Testabilidade:</strong> Entrada previsível = saída previsível</li>
+                <li>🔧 <strong>Manutenção:</strong> Mudanças localizadas</li>
+                <li>⚡ <strong>Performance:</strong> React otimiza com base nas props</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 8 - useState Hook -->
+      <section>
+        
+        <section>
+          <h3>🔥 useState - Estado no React</h3>
+          <ul>
+            <li>💾 <strong>Definição:</strong> Dados que podem mudar ao longo do tempo</li>
+            <li>� <strong>Reatividade:</strong> Mudanças no estado atualizam a interface automaticamente</li>
+            <li>🏠 <strong>Local:</strong> Cada componente pode ter seu próprio estado</li>
+            <li>⚡ <strong>Performance:</strong> React otimiza re-renders baseado no estado</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🎯 Comparação: Web Tradicional vs React useState</h3>
+         
+              <h4>❌ Abordagem Tradicional</h4>
+              <pre><code data-trim class="javascript">
+// HTML
+&lt;p id="contador"&gt;0&lt;/p&gt;
+&lt;button id="btn"&gt;+1&lt;/button&gt;
+
+// JavaScript
+let count = 0; // Variável global
+document.getElementById('btn')
+  .addEventListener('click', () => {
+    count++; // Muda variável
+    document.getElementById('contador')
+      .textContent = count; // Atualiza DOM manualmente
+  });
+
+// ❌ Problemas:
+// - Manipulação manual do DOM
+// - Estado global (difícil controle)
+// - Código repetitivo
+// - Difícil de testar
+              </code></pre>
+</section>
+        <section>
+              <h4>✅ useState (React)</h4>
+              <pre><code data-trim class="javascript">
+function Counter() {
+  // Estado local do componente
+  const [count, setCount] = useState(0);
+  //     ↑       ↑              ↑
+  //   valor   setter      valor inicial
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        +1
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ✅ Vantagens:
+// - React atualiza automaticamente
+// - Estado encapsulado
+// - Código limpo
+// - Fácil de testar
+              </code></pre>
+           
+          </section>
+        </section>
+        <section>
+          <h3>📊 useState - Exemplo Completo</h3>
+          <pre><code data-trim class="javascript">
+import { useState } from 'react';
+
+function FormularioCompleto() {
+  // Múltiplos estados no mesmo componente
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [erro, setErro] = useState('');
+
+  // Função assíncrona para enviar dados
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Previne reload da página
+    setIsLoading(true); // Mostra carregamento
+    setErro(''); // Limpa erros anteriores
+
+    try {
+      // Simulação de envio para API
+      const response = await fetch('/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, idade })
+      });
+
+      if (!response.ok) throw new Error('Erro no servidor');
+      
+      // Sucesso - limpa o formulário
+      setNome('');
+      setEmail('');
+      setIdade(0);
+      alert('Usuário cadastrado com sucesso!');
+      
+    } catch (error) {
+      setErro(error.message); // Mostra erro para usuário
+    } finally {
+      setIsLoading(false); // Remove carregamento
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;h2&gt;Cadastro de Usuário&lt;/h2&gt;
+      
+      {erro && &lt;div className="erro"&gt;{erro}&lt;/div&gt;}
+      
+      &lt;input
+        type="text"
+        placeholder="Nome"
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
+        required
+      /&gt;
+      
+      &lt;input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      /&gt;
+      
+      &lt;input
+        type="number"
+        placeholder="Idade"
+        value={idade}
+        onChange={(e) => setIdade(Number(e.target.value))}
+        required
+      /&gt;
+      
+      &lt;button type="submit" disabled={isLoading}&gt;
+        {isLoading ? 'Enviando...' : 'Cadastrar'}
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+          </code></pre>
+        </section>
+        
+      </section>
+
+      <!-- Slide 9 - Virtual DOM Explicado -->
+      <section>
+        <!-- <h2>🔄 Virtual DOM - O Segredo da Performance do React</h2> -->
+        <section>
+          <h3>🔄 Virtual DOM - O Segredo da Performance do React🤔 O que é o DOM Real?</h3>
+          <ul>
+            <li>🌐 <strong>DOM (Document Object Model):</strong> Representação em árvore do HTML</li>
+            <li>🐌 <strong>Lento:</strong> Manipulação direta é custosa computacionalmente</li>
+            <li>🔄 <strong>Re-flows e Re-paints:</strong> Mudanças causam recálculos caros</li>
+            <li>⚠️ <strong>Problemático:</strong> Muitas mudanças = interface travando</li>
+          </ul>
+          </section>
+          <section>
+          <div class="code-highlight">
+            <h4>💻 Exemplo: Performance ruim com DOM tradicional</h4>
+            <pre><code data-trim class="javascript">
+// ❌ DOM tradicional - MUITO LENTO para muitos elementos
+for (let i = 0; i < 1000; i++) {
+  const div = document.createElement('div');
+  div.textContent = `Item ${i}`;
+  document.body.appendChild(div); // 1000 manipulações do DOM!
+}
+// Resultado: Interface trava, usuário insatisfeito 😞
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>⚡ Virtual DOM - A Solução Inteligente</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>🔍 Como funciona</h4>
+              <ul style="font-size: 0.8em;">
+                <li>💾 <strong>Cópia em memória:</strong> Representação virtual do DOM real</li>
+                <li>⚡ <strong>Operações rápidas:</strong> JavaScript puro, sem acesso ao browser</li>
+                <li>🔄 <strong>Diff Algorithm:</strong> Compara versões antigas vs novas</li>
+                <li>🎯 <strong>Reconciliation:</strong> Atualiza apenas o que mudou</li>
+              </ul>
+            </div>
+            <div>
+              <h4>📊 Processo Step-by-Step</h4>
+              <ol style="font-size: 0.8em;">
+                <li><strong>Estado muda</strong> → Trigger re-render</li>
+                <li><strong>Nova árvore virtual</strong> → Criada em memória</li>
+                <li><strong>Diff</strong> → Compara antiga vs nova</li>
+                <li><strong>Patch</strong> → Aplica apenas diferenças</li>
+                <li><strong>DOM atualizado</strong> → Mínimo de mudanças</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+       
+        <section>
+          <h3>📈 Comparação de Performance: DOM vs Virtual DOM</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>❌ Manipulação Direta do DOM</h4>
+              <ul style="font-size: 0.8em;">
+                <li>🐌 <strong>1000 mudanças:</strong> 1000 operações custosas</li>
+                <li>🔄 <strong>Re-flows:</strong> Recálculo de layout a cada mudança</li>
+                <li>🎨 <strong>Re-paints:</strong> Redesenho visual constante</li>
+                <li>⏱️ <strong>Tempo:</strong> ~100ms+ para atualizar lista</li>
+                <li>😞 <strong>UX:</strong> Interface trava e usuário frustra</li>
+              </ul>
+            </div>
+            <div>
+              <h4>✅ React Virtual DOM</h4>
+              <ul style="font-size: 0.8em;">
+                <li>⚡ <strong>1000 mudanças:</strong> ~10-50 operações reais no DOM</li>
+                <li>🎯 <strong>Batch updates:</strong> Agrupa mudanças em lote</li>
+                <li>🧠 <strong>Smart diffing:</strong> Algoritmo otimizado</li>
+                <li>⏱️ <strong>Tempo:</strong> ~5-10ms para mesma lista</li>
+                <li>😍 <strong>UX:</strong> Interface fluida e responsiva</li>
+              </ul>
+            </div>
+          </div>
+          <div class="code-highlight">
+            <p><strong>🚀 Resultado:</strong> React é 10-20x mais rápido para atualizações complexas!</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 10 - useEffect Hook -->
+      <section>
+      
+        <section>
+          <h3>🔄 useEffect - Efeitos Colaterais -📚 </h3>
+          <ul>
+            <li>🎯 <strong>Definição:</strong> Operações que afetam algo fora do componente</li>
+            <li>🌐 <strong>Exemplos:</strong> APIs, DOM, timers, subscriptions, localStorage</li>
+            <li>⏰ <strong>Quando executar:</strong> Após renderização, quando dependências mudam</li>
+            <li>🔄 <strong>Lifecycle:</strong> Substitui componentDidMount, componentDidUpdate, componentWillUnmount</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🎯 useEffect - Três Padrões Fundamentais</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; font-size: 0.7em;">
+            <div>
+              <h4>1️⃣ Executa Sempre</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('Toda renderização');
+  // Executa a cada render
+  // ⚠️ Cuidado: pode causar loops!
+});
+              </code></pre>
+            </div>
+            <div>
+              <h4>2️⃣ Executa Uma Vez</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('Apenas no mount');
+  // Só executa quando componente monta
+  // ✅ Ideal para: APIs, subscriptions
+}, []); // Array vazio = sem dependências
+              </code></pre>
+               <h4>3️⃣ Executa Quando Muda</h4>
+              <pre><code data-trim class="javascript">
+useEffect(() => {
+  console.log('userId mudou:', userId);
+  // Executa quando userId muda
+  // ✅ Ideal para: buscar dados específicos
+}, [userId]); // Dependência específica
+              </code></pre>
+            </div>
+           
+          </div>
+        </section>
+      
+</section>
+     
+
+      
+
+
+      <!-- Slide 11 - Preparação para React Native -->
+      <section>
+        <h3>📱 Preparando para React Native</h3>
+        <section>
+          <h3>🔄 Conceitos que se Transferem</h3>
+          <ul>
+            <li>⚛️ <strong>Hooks:</strong> useState, useEffect, useContext funcionam igual</li>
+            <li>🧩 <strong>Componentes:</strong> Mesma estrutura, elementos diferentes</li>
+            <li>📊 <strong>Estado e Props:</strong> Lógica idêntica</li>
+            <li>⚡ <strong>Performance:</strong> React.memo, useMemo, useCallback</li>
+            <li>🎯 <strong>Context API:</strong> Gerenciamento de estado global</li>
+          </ul>
+        </section>
+        <section>
+          <h3>🔄 Principais Diferenças</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h4>React Web</h4>
+              <ul>
+                <li><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code></li>
+                <li><code>&lt;button&gt;</code>, <code>&lt;input&gt;</code></li>
+                <li><code>onClick</code>, <code>onChange</code></li>
+                <li>CSS classes</li>
+              </ul>
+            </div>
+            <div>
+              <h4>React Native</h4>
+              <ul>
+                <li><code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code></li>
+                <li><code>&lt;TouchableOpacity&gt;</code>, <code>&lt;TextInput&gt;</code></li>
+                <li><code>onPress</code>, <code>onChangeText</code></li>
+                <li>StyleSheet objects</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Resumo e Próximos Passos -->
+      
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
