@@ -59,6 +59,62 @@
       margin-top: 10px;
     }
 
+    .project-highlight {
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+      border-radius: 15px;
+      padding: 0;
+      box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    .project-highlight:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(255, 107, 107, 0.5);
+    }
+
+    .project-highlight a {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding: 30px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .project-icon {
+      background: rgba(255, 255, 255, 0.2);
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5em;
+      flex-shrink: 0;
+    }
+
+    .project-content {
+      flex: 1;
+    }
+
+    .project-title {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .project-description {
+      font-size: 1.1em;
+      opacity: 0.95;
+    }
+
+    .project-arrow {
+      font-size: 2.2em;
+      opacity: 0.9;
+    }
+
     .classes-section {
       margin-top: 30px;
     }
@@ -183,6 +239,29 @@
       .class-title {
         font-size: 1.1em;
       }
+
+      .project-highlight a {
+        padding: 25px 20px;
+        gap: 20px;
+      }
+
+      .project-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+      }
+
+      .project-title {
+        font-size: 1.4em;
+      }
+
+      .project-description {
+        font-size: 0.95em;
+      }
+
+      .project-arrow {
+        font-size: 1.8em;
+      }
     }
   </style>
 </head>
@@ -194,6 +273,20 @@
       <p class="semester">2026.1</p>
       <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
     </header>
+
+    <!-- Seção de Projeto em Destaque -->
+    <div class="project-highlight">
+      <a href="projetos/requisitos-projeto-1av.html">
+        <div class="project-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="project-content">
+          <div class="project-title">📋 Projeto da 1ª Avaliação</div>
+          <div class="project-description">Requisitos e orientações para o projeto prático da disciplina</div>
+        </div>
+        <i class="fas fa-arrow-right project-arrow"></i>
+      </a>
+    </div>
 
     <section class="classes-section">
       <h2><i class="fas fa-book-open"></i> Aulas</h2>

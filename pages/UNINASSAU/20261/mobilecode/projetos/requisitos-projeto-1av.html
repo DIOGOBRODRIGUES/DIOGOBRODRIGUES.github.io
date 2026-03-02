@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto - 2 Pontos | Desenvolvimento para Dispositivos Móveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #ffc107;
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .extra-points {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #1e3c72;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title i {
+            color: #ffc107;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffc107;
+        }
+
+        .highlight-box p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box strong {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+        }
+
+        .requirements-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .requirements-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(30, 60, 114, 0.1);
+            border-left: 4px solid #2a5298;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .requirements-list li strong {
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .bonus-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .bonus-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .bonus-list li strong {
+            color: #ffc107;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: #856404;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: #0c5460;
+        }
+
+        .info-box h4 {
+            color: #0c5460;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: #155724;
+        }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .criteria-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .criteria-table th,
+        .criteria-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .criteria-table th {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            font-weight: bold;
+        }
+
+        .criteria-table tr:hover {
+            background: rgba(30, 60, 114, 0.1);
+        }
+
+        .criteria-table td:last-child {
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.1));
+            border: 2px solid #2a5298;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(30, 60, 114, 0.2);
+        }
+
+        .feature-card h4 {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-card ul li {
+            padding: 0.4rem 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card ul li::before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-card {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar para a Página Principal
+        </a>
+
+        <div class="header">
+            <h1>🏆 Projeto - Mobile code</h1>
+            <p class="subtitle">Desenvolvimento para Dispositivos Móveis - 2026.1</p>
+            <div class="extra-points">
+                ⭐ +2.0 PONTOS⭐
+            </div>
+        </div>
+
+        <!-- Informações Gerais -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Informações Gerais do Projeto Extra
+            </h2>
+
+            <div class="highlight-box">
+                <h3><i class="fas fa-trophy"></i> Oportunidade de Pontuação Extra</h3>
+                <p>
+                    Este projeto permite que você ganhe até 2.0 pontos na 1 AV</strong> 
+                    que serão somados à sua nota final da disciplina. É uma excelente oportunidade para:<br><br>
+                    • Melhorar sua nota da 1ºAV<br>
+                    • Aplicar na prática todo o conteúdo estudado<br>
+                    • Desenvolver um portfólio profissional<br>
+                    • Demonstrar domínio avançado de React Native
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Requisitos Obrigatórios -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-clipboard-list"></i>
+                Requisitos Obrigatórios do Projeto
+            </h2>
+
+            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6; font-size: 1.1rem;">
+                Para receber os <strong>2.0 pontos </strong>, seu projeto <strong>DEVE</strong> atender a <strong>TODOS</strong> os seguintes requisitos:
+            </p>
+
+            <ul class="requirements-list">
+                <li>
+                    <strong>1. Aplicativo Completo e Funcional</strong>
+                    Desenvolver um aplicativo mobile real e funcional usando React Native + Expo.
+                    O app deve ter um propósito claro e resolver algum problema ou atender alguma necessidade.
+                </li>
+
+                <li>
+                    <strong>2. Múltiplas Telas (Mínimo 4 telas)</strong>
+                    O aplicativo deve ter pelo menos <strong>4 telas diferentes</strong> e funcionais:
+                    - Tela inicial/home
+                    - Tela de listagem de dados
+                    - Tela de detalhes
+                    - Tela de configurações ou perfil
+                </li>
+
+                <li>
+                    <strong>3. Navegação entre Telas (React Navigation)</strong>
+                    Implementar navegação profissional usando <strong>React Navigation</strong> com:
+                    - Stack Navigator (navegação em pilha)
+                    - Tab Navigator (navegação por abas) - OPCIONAL mas recomendado, ou qualquer outro tipo de navegação. 
+                    - Passagem de parâmetros entre telas
+                    - Cabeçalhos personalizados
+                </li>
+
+                <li>
+                    <strong>4. Lista de Dados com FlatList</strong>
+                    Exibir dados em lista usando <strong>FlatList</strong> com:
+                    - Pelo menos 10 itens de dados
+                    - Renderização otimizada
+                    - Estilização profissional de cada item
+                    - Scroll infinito funcionando corretamente
+                </li>
+
+              
+            </ul>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Importante</h4>
+                <p>
+                    Projetos que não atenderem a <strong>TODOS</strong> os requisitos obrigatórios (1 a 4) 
+                    receberão <strong>pontuação proporcional</strong> reduzida ou poderão não ser aceitos.
+                </p>
+            </div>
+        </div>
+
+        <!-- Funcionalidades Detalhadas -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Funcionalidades que seu App Deve Ter
+            </h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4><i class="fas fa-home"></i> Tela Inicial</h4>
+                    <ul>
+                        <li>Apresentação do app</li>
+                        <li>Navegação para outras telas</li>
+                        <li>Menu ou botões de acesso</li>
+                        <li>Informações principais</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fas fa-list"></i> Listagem de Dados</h4>
+                    <ul>
+                        <li>FlatList com 10+ itens</li>
+                        <li>Card design para cada item</li>
+                        <li>Imagens e textos</li>
+                        <li>Ao tocar, navega para detalhes</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fas fa-info-circle"></i> Tela de Detalhes</h4>
+                    <ul>
+                        <li>Recebe dados via navegação</li>
+                        <li>Exibe informações completas</li>
+                        <li>Botão para voltar</li>
+                        <li>Ações relacionadas ao item</li>
+                    </ul>
+                </div>
+
+
+                <div class="feature-card">
+                    <h4><i class="fas fa-route"></i> Navegação Completa</h4>
+                    <ul>
+                        <li>Stack Navigator configurado</li>
+                        <li>Passagem de parâmetros</li>
+                        <li>Headers personalizados</li>
+                        <li>Navegação fluida e intuitiva</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Sugestões de Projetos -->
+        <div class="section-card">
+            <h2 class="section-title">
+            <i class="fas fa-lightbulb"></i>
+            Sugestões de Ideias de Projetos
+            </h2>
+
+            <p style="margin-bottom: 1.5rem; color: #666; line-height: 1.6;">
+            Aqui estão algumas ideias de aplicativos que atendem todos os requisitos:
+            </p>
+
+            <div class="success-box">
+            <h4><i class="fas fa-utensils"></i> App de Restaurante/Delivery</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Tela inicial com categorias de comida<br>
+                • FlatList de pratos disponíveis<br>
+                • Tela de detalhes do prato com foto e descrição<br>
+                • Carrinho de compras<br>
+                • Perfil do usuário<br>
+                • Histórico de pedidos
+            </p>
+            </div>
+
+            <div class="success-box">
+            <h4><i class="fas fa-running"></i> App de Exercícios/Fitness</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Tela inicial com categorias de treino<br>
+                • Lista de exercícios com FlatList<br>
+                • Detalhes do exercício com instruções<br>
+                • Rastreamento de atividade física<br>
+                • Histórico de treinos<br>
+                • Perfil com metas e progresso
+            </p>
+            </div>
+
+            <div class="success-box">
+            <h4><i class="fas fa-shopping-bag"></i> App de E-commerce</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Home com produtos em destaque<br>
+                • Lista de produtos com FlatList<br>
+                • Tela de produto individual<br>
+                • Carrinho de compras<br>
+                • Perfil do usuário<br>
+                • Favoritos e lista de desejos
+            </p>
+            </div>
+
+            <div class="success-box">
+            <h4><i class="fas fa-map-marked-alt"></i> App de Turismo/Guia de Viagem</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Lista de pontos turísticos com FlatList<br>
+                • Detalhes de cada local com fotos<br>
+                • Galeria de imagens dos lugares<br>
+                • Informações sobre horários e preços<br>
+                • Favoritos salvos localmente<br>
+                • Roteiros sugeridos
+            </p>
+            </div>
+
+            <div class="success-box">
+            <h4><i class="fas fa-graduation-cap"></i> App Educacional/Cursos</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Lista de cursos disponíveis<br>
+                • Detalhes de cada aula/módulo<br>
+                • Perfil do aluno com progresso<br>
+                • Quiz com feedback visual<br>
+                • Certificados digitais<br>
+                • Histórico de cursos concluídos
+            </p>
+            </div>
+
+            <div class="success-box">
+            <h4><i class="fas fa-paw"></i> App de Adoção de Pets</h4>
+            <p>
+                <strong>Funcionalidades:</strong><br>
+                • Lista de animais para adoção<br>
+                • Perfil detalhado de cada pet<br>
+                • Galeria de fotos dos pets<br>
+                • Formulário de adoção<br>
+                • Favoritos salvos localmente<br>
+                • Informações sobre cuidados com pets
+            </p>
+            </div>
+        </div>
+
+        <!-- Critérios de Avaliação -->
+        <div class="section-card">
+            <h2 class="section-title">
+            <i class="fas fa-star"></i>
+            Critérios de Avaliação (Total: 2.0 pontos)
+            </h2>
+
+            <table class="criteria-table">
+            <thead>
+                <tr>
+                <th>Critério</th>
+                <th>Descrição</th>
+                <th>Pontos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td><strong>Funcionalidade</strong></td>
+                <td>App completamente funcional, sem crashes, todas as features implementadas</td>
+                <td>0.5</td>
+                </tr>
+                <tr>
+                <td><strong>Navegação</strong></td>
+                <td>React Navigation bem implementado, 4+ telas, passagem de parâmetros</td>
+                <td>0.4</td>
+                </tr>
+                <tr>
+                <td><strong>FlatList</strong></td>
+                <td>Lista otimizada com 10+ itens, design atraente, performance boa</td>
+                <td>0.3</td>
+                </tr>
+                <tr>
+                <td><strong>Código/Componentes</strong></td>
+                <td>Código limpo, componentes reutilizáveis, uso correto de hooks</td>
+                <td>0.3</td>
+                </tr>
+                <tr>
+                <td><strong>Interface/Design</strong></td>
+                <td>UI profissional, cores harmônicas, ícones, responsivo</td>
+                <td>0.3</td>
+                </tr>
+                <tr>
+                <td><strong>Documentação</strong></td>
+                <td>README.md completo, instruções claras, screenshots/vídeo</td>
+                <td>0.2</td>
+                </tr>
+            </tbody>
+            </table>
+
+        </div>
+
+
+        <!-- Entrega -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-upload"></i>
+                Formato de Entrega do Projeto
+            </h2>
+
+            <div class="highlight-box">
+                <h3><i class="fas fa-box"></i> O que você deve entregar:</h3>
+                <p>
+                    <strong>1. Código Fonte Completo:</strong><br>
+                    • Link do repositório GitHub (público)<br>
+                    <br>
+                    
+                    <strong>2. README.md Completo:</strong><br>
+                    • Nome do projeto e descrição<br>
+                    • Funcionalidades implementadas<br>
+                    • Tecnologias utilizadas<br>
+                    
+                    • Como instalar: <code>npm install</code><br>
+                    • Como executar: <code>npx expo start</code><br>
+                    • Screenshots do app funcionando<br>
+                    • Nome completo e matrícula<br><br>
+                    
+                    <strong>3. Apresentação em sala de aula :</strong><br>
+                    • Demonstre TODAS as funcionalidades<br>
+                   
+                    
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-code"></i> Estrutura Básica do Projeto</h4>
+                <p>
+                    <code>
+                    meu-projeto/<br>
+                    ├── App.js (arquivo principal)<br>
+                    ├── package.json<br>
+                    ├── README.md<br>
+                    ├── screens/ (pasta com as telas)<br>
+                    │   ├── HomeScreen.js<br>
+                    │   ├── ListScreen.js<br>
+                    │   ├── DetailScreen.js<br>
+                    │   └── ProfileScreen.js<br>
+                    ├── components/ (componentes reutilizáveis)<br>
+                    │   ├── Card.js<br>
+                    │   └── Button.js<br>
+                    └── assets/ (imagens, ícones)
+                    </code>
+                </p>
+            </div>
+        </div>
+
+        <!-- Recursos e Ajuda -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-question-circle"></i>
+                Recursos e Documentação Útil
+            </h2>
+
+            <div class="success-box">
+                <h4><i class="fas fa-book"></i> Documentação Oficial</h4>
+                <p>
+                    • <strong>React Native:</strong> <a href="https://reactnative.dev/" target="_blank">reactnative.dev</a><br>
+                    • <strong>Expo:</strong> <a href="https://docs.expo.dev/" target="_blank">docs.expo.dev</a><br>
+                    • <strong>React Navigation:</strong> <a href="https://reactnavigation.org/" target="_blank">reactnavigation.org</a><br>
+                </p>
+            </div>
+
+           
+
+
+    
+
+        <!-- Footer -->
+        <div style="margin-top: 4rem; padding: 2rem; text-align: center; background: linear-gradient(45deg, #1e3c72, #2a5298); border-radius: 15px; color: white;">
+            
+            <div style="margin-top: 2rem;">
+                <a href="../index.html" class="back-button" style="background: rgba(255,255,255,0.2);">
+                    <i class="fas fa-home"></i> Voltar para a Página Principal
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
