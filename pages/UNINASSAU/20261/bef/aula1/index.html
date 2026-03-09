@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Aula 1 - Introdução a Back-End Frameworks</title>
+  <title>Aula 1 - Introdução a APIs RESTful e Back-end Frameworks</title>
 
-  <meta name="description" content="Introdução aos conceitos de desenvolvimento back-end e frameworks">
+  <meta name="description" content="Introdução aos conceitos fundamentais de APIs RESTful e Frameworks Back-end">
   <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,828 +15,660 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
   <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
-
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/black.css" id="theme">
+  
   <!-- Syntax Highlighting -->
-  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight_todos/styles/github.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
 
+  <style>
+    .reveal h1, .reveal h2, .reveal h3 {
+      text-transform: none;
+    }
+    .reveal section img {
+      border: none;
+      box-shadow: none;
+    }
+    .highlight-green {
+      color: #42b983;
+    }
+    .highlight-blue {
+      color: #4fc3f7;
+    }
+    .highlight-red {
+      color: #ff5252;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .grid-item {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+  </style>
 </head>
 
 <body>
  
   <div class="reveal">
     <div class="slides">
+      
       <!-- Slide 1 - Título da Aula -->
-      <section>
-        <p>🏛️ Centro Universitário Maurício de Nassau</p>
-        <h3>Aula 1 - Introdução a Back-End Frameworks</h3>
+      <section data-background-gradient="linear-gradient(to bottom, #1e3a8a, #000000)">
+        <h2>🎓 Centro Universitário Maurício de Nassau</h2>
+        <h3>Back-end Frameworks</h3>
+        <h4 class="highlight-green">Aula 1 - Introdução a APIs RESTful</h4>
         <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      </section>
-
-      <!-- Slide 2 - Agenda da Aula -->
-      <section>
-        <h3>📋 Agenda da Aula</h3>
-        <ul>
-          <li>Apresentação da Disciplina</li>
-          <li>O que é Desenvolvimento Back-End?</li>
-          <li>Arquitetura Cliente-Servidor</li>
-          <li>Introdução a Frameworks</li>
-          <li>Principais Frameworks Back-End</li>
-          <li>Node.js e Express.js</li>
-          <li>Ambiente de Desenvolvimento</li>
-          <li>Atividade Prática</li>
-        </ul>
-      </section>
-
-      <!-- Slide 3 - Apresentação da Disciplina -->
-      <section>
-        <h3>📚 Back-End Frameworks</h3>
-        <p><strong>Objetivo da Disciplina:</strong></p>
-        <p>Capacitar os alunos a desenvolver aplicações web robustas e escaláveis utilizando frameworks modernos de back-end.</p>
-        <br>
-        <p><strong>Carga Horária:</strong> 80 horas</p>
-        <p><strong>Período:</strong> 2026.1</p>
-      </section>
-
-      <!-- Slide 4 - Competências -->
-      <section>
-        <h3>🎯 Competências a Desenvolver</h3>
-        <ul>
-          <li>Compreender arquiteturas de aplicações web</li>
-          <li>Desenvolver APIs RESTful</li>
-          <li>Implementar autenticação e autorização</li>
-          <li>Trabalhar com bancos de dados</li>
-          <li>Aplicar boas práticas de desenvolvimento</li>
-          <li>Realizar testes e deploy de aplicações</li>
-        </ul>
-      </section>
-
-
-      <!-- Slide 6 - Front-End vs Back-End -->
-      <section>
-        <h3>💻 Front-End vs Back-End</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div>
-            <h4>Front-End</h4>
-            <ul style="font-size: 0.8em;">
-              <li>Interface do usuário</li>
-              <li>Executa no navegador</li>
-              <li>HTML, CSS, JavaScript</li>
-              <li>React, Vue, Angular</li>
-              <li>Design e experiência</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Back-End</h4>
-            <ul style="font-size: 0.8em;">
-              <li>Lógica de negócio</li>
-              <li>Executa no servidor</li>
-              <li>Node.js, Python, Java</li>
-              <li>Express, Django, Spring</li>
-              <li>Dados e segurança</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Slide 7 - O que é Back-End? -->
-      <section>
-        <h3>🖥️ O que é Desenvolvimento Back-End?</h3>
-        <p>É a parte "invisível" de uma aplicação web que lida com:</p>
-        <ul>
-          <li><strong>Lógica de Negócio:</strong> Regras e processamentos</li>
-          <li><strong>Banco de Dados:</strong> Armazenamento e recuperação</li>
-          <li><strong>APIs:</strong> Comunicação entre sistemas</li>
-          <li><strong>Autenticação:</strong> Segurança e controle de acesso</li>
-          <li><strong>Servidor:</strong> Hospedagem e processamento</li>
-        </ul>
-      </section>
-
-      <!-- Slide 8 - Arquitetura Cliente-Servidor -->
-      <section>
-        <h3>🌐 Arquitetura Cliente-Servidor</h3>
-        <pre><code class="plaintext" data-trim>
-          ┌─────────────┐         ┌─────────────┐
-          │   Cliente   │ ◄─────► │  Servidor   │
-          │ (Front-End) │ Request │ (Back-End)  │
-          │  Navegador  │ Response│   Node.js   │
-          └─────────────┘         └─────────────┘
-                                        │
-                                        ▼
-                                  ┌──────────┐
-                                  │ Database │
-                                  │  MySQL   │
-                                  └──────────┘
-        </code></pre>
-      </section>
-
-      <!-- Slide 9 - Fluxo de Requisição -->
-      <section>
-        <h3>🔄 Fluxo de uma Requisição HTTP</h3>
-        <ol style="font-size: 0.85em;">
-          <li><strong>Cliente:</strong> Usuário acessa www.exemplo.com/produtos</li>
-          <li><strong>Request:</strong> Navegador envia GET /produtos</li>
-          <li><strong>Servidor:</strong> Recebe e processa a requisição</li>
-          <li><strong>Banco de Dados:</strong> Consulta produtos</li>
-          <li><strong>Lógica:</strong> Formata os dados</li>
-          <li><strong>Response:</strong> Retorna JSON com produtos</li>
-          <li><strong>Cliente:</strong> Renderiza na interface</li>
-        </ol>
-      </section>
-
-      <!-- Slide 10 - Métodos HTTP -->
-      <section>
-        <h3>📡 Métodos HTTP Principais</h3>
-        <table style="font-size: 0.75em;">
-          <thead>
-            <tr>
-              <th>Método</th>
-              <th>Ação</th>
-              <th>Exemplo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>GET</td>
-              <td>Buscar dados</td>
-              <td>GET /usuarios</td>
-            </tr>
-            <tr>
-              <td>POST</td>
-              <td>Criar novo recurso</td>
-              <td>POST /usuarios</td>
-            </tr>
-            <tr>
-              <td>PUT</td>
-              <td>Atualizar completo</td>
-              <td>PUT /usuarios/1</td>
-            </tr>
-            <tr>
-              <td>PATCH</td>
-              <td>Atualizar parcial</td>
-              <td>PATCH /usuarios/1</td>
-            </tr>
-            <tr>
-              <td>DELETE</td>
-              <td>Remover recurso</td>
-              <td>DELETE /usuarios/1</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Slide 11 - O que é um Framework? -->
-      <section>
-        <h3>🧰 O que é um Framework?</h3>
-        <blockquote>
-          "Um framework é uma estrutura de software reutilizável que fornece funcionalidades genéricas que podem ser customizadas para criar aplicações específicas."
-        </blockquote>
-        <br>
-        <p><strong>Vantagens:</strong></p>
-        <ul>
-          <li>Acelera o desenvolvimento</li>
-          <li>Padronização de código</li>
-          <li>Segurança integrada</li>
-          <li>Comunidade e suporte</li>
-        </ul>
-      </section>
-
-      <!-- Slide 12 - Framework vs Biblioteca -->
-      <section>
-        <h3>📚 Framework vs Biblioteca</h3>
-        <div style="text-align: left;">
-          <p><strong>Biblioteca:</strong></p>
-          <p style="font-size: 0.85em;">⮕ Você chama a biblioteca quando precisa</p>
-          <p style="font-size: 0.85em;">⮕ Exemplo: lodash, axios</p>
-          <br>
-          <p><strong>Framework:</strong></p>
-          <p style="font-size: 0.85em;">⮕ O framework chama seu código (Inversão de Controle)</p>
-          <p style="font-size: 0.85em;">⮕ Exemplo: Express, Django, Spring</p>
-          <br>
-          <p style="font-size: 0.8em; font-style: italic;">"Você usa uma biblioteca, mas um framework usa você."</p>
-        </div>
-      </section>
-
-      <!-- Slide 13 - Principais Frameworks Back-End -->
-      <section>
-        <h3>⭐ Principais Frameworks Back-End</h3>
-        <table style="font-size: 0.7em;">
-          <thead>
-            <tr>
-              <th>Framework</th>
-              <th>Linguagem</th>
-              <th>Características</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Express.js</td>
-              <td>Node.js</td>
-              <td>Minimalista, flexível</td>
-            </tr>
-            <tr>
-              <td>Django</td>
-              <td>Python</td>
-              <td>Completo, batteries included</td>
-            </tr>
-            <tr>
-              <td>Spring Boot</td>
-              <td>Java</td>
-              <td>Empresarial, robusto</td>
-            </tr>
-            <tr>
-              <td>Laravel</td>
-              <td>PHP</td>
-              <td>Elegante, MVC</td>
-            </tr>
-            <tr>
-              <td>Ruby on Rails</td>
-              <td>Ruby</td>
-              <td>Convention over configuration</td>
-            </tr>
-            <tr>
-              <td>ASP.NET Core</td>
-              <td>C#</td>
-              <td>Microsoft, multiplataforma</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Slide 14 - Por que Node.js? -->
-      <section>
-        <h3>🟢 Por que Node.js?</h3>
-        <ul>
-          <li><strong>JavaScript Full-Stack:</strong> Mesma linguagem front e back</li>
-          <li><strong>Assíncrono:</strong> Alta performance em I/O</li>
-          <li><strong>NPM:</strong> Maior ecossistema de pacotes</li>
-          <li><strong>Comunidade:</strong> Muito ativa e em crescimento</li>
-          <li><strong>Empresas:</strong> Netflix, LinkedIn, Uber, PayPal</li>
-          <li><strong>Modernidade:</strong> Tecnologia atual e relevante</li>
-        </ul>
-      </section>
-
-      <!-- Slide 15 - O que é Node.js -->
-      <section>
-        <h3>🟢 O que é Node.js?</h3>
-        <p>Node.js é um ambiente de execução JavaScript do lado do servidor, construído sobre o motor V8 do Chrome.</p>
-        <br>
-        <p><strong>Características:</strong></p>
-        <ul>
-          <li>Runtime JavaScript fora do navegador</li>
-          <li>Event-driven e non-blocking I/O</li>
-          <li>Single-threaded com event loop</li>
-          <li>Ideal para aplicações em tempo real</li>
-        </ul>
-      </section>
-
-      <!-- Slide 16 - Node.js Event Loop -->
-      <section>
-        <h3>🔁 Node.js Event Loop</h3>
-        <pre><code class="javascript" data-trim>
-// Código Síncrono (Bloqueante)
-const data = fs.readFileSync('arquivo.txt');
-console.log(data); // Espera terminar
-
-// Código Assíncrono (Não-Bloqueante)
-fs.readFile('arquivo.txt', (err, data) => {
-  if (err) throw err;
-  console.log(data);
-});
-console.log('Continua executando...');
-        </code></pre>
-        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
-          <strong><i class="fab fa-node-js"></i> 📖 Saiba mais:</strong> Leitura de arquivos com Node.js no link: <a href="https://nodejs.org/en/learn/manipulating-files/reading-files-with-nodejs" target="_blank">nodejs.org - Reading Files with Node.js</a>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
         </p>
       </section>
-      <!-- Slide - Callbacks -->
+
+      <!-- Slide 2 - Objetivos da Aula -->
       <section>
-        <h3>📞 Callbacks</h3>
-        <p>Função passada como argumento para ser executada depois de um evento.</p>
-  
-        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
-          <strong><i class="fab fa-youtube"></i> 📖 Saiba mais:</strong> Assista a explicação sobre Callbacks no link: <a href="https://www.youtube.com/watch?v=z03tYranyWs" target="_blank">youtube.com - Callbacks em JavaScript</a>
-        </p>
-      </section>
-      <!-- Slide 17 - Express.js -->
-      <section>
-        <h3>⚡ Express.js</h3>
-        <p>Framework web minimalista e flexível para Node.js</p>
-        <br>
-        <p><strong>Recursos:</strong></p>
+        <h2>🎯 Objetivos de Aprendizagem</h2>
         <ul>
-          <li>Roteamento robusto</li>
-            <li>Middlewares
+          <li class="fragment fade-in">Compreender o que são <span class="highlight-green">APIs</span> e sua importância</li>
+          <li class="fragment fade-in">Entender a arquitetura <span class="highlight-blue">REST</span></li>
+          <li class="fragment fade-in">Conhecer os princípios fundamentais do <span class="highlight-red">HTTP</span></li>
+          <li class="fragment fade-in">Identificar casos de uso reais de APIs</li>
+          <li class="fragment fade-in">Explorar o projeto prático que vamos construir</li>
+        </ul>
+        <aside class="notes">
+          Nesta aula, vamos estabelecer a base teórica para todo o curso. É fundamental que os alunos entendam o "porquê" antes do "como".
+        </aside>
+      </section>
+
+      <!-- Slide 3 - O que é uma API -->
+      <section>
+        <section data-auto-animate>
+          <h2>🔌 O que é uma API?</h2>
+          <p class="fragment">API = <span class="highlight-green">Application Programming Interface</span></p>
+        </section>
+
+        <section data-auto-animate>
+          <h2>🔌 O que é uma API?</h2>
+          <p>API = <span class="highlight-green">Application Programming Interface</span></p>
+          <blockquote style="margin-top: 40px;">
+            "Uma API é um contrato de comunicação entre sistemas diferentes"
+          </blockquote>
+          <p class="fragment" style="margin-top: 30px;">
+            É como um <strong>garçom</strong> em um restaurante:
+          </p>
+          <ul style="font-size: 0.8em; margin-top: 20px;">
+            <li class="fragment">🍽️ Você (cliente) faz um pedido</li>
+            <li class="fragment">👨‍🍳 A cozinha (servidor) prepara</li>
+            <li class="fragment">🤵 O garçom (API) entrega o resultado</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Slide 4 - Tipos de APIs -->
+      <section data-background-color="#1a202c">
+        <h2>📚 Tipos de APIs</h2>
+        <div class="grid-container">
+          <div class="grid-item fragment fade-right">
+            <h4 class="highlight-green">🌐 REST</h4>
+            <p style="font-size: 0.7em;">Usa HTTP e é stateless (sem estado)</p>
+          </div>
+          <div class="grid-item fragment fade-left">
+            <h4 class="highlight-blue">🔄 GraphQL</h4>
+            <p style="font-size: 0.7em;">Query language flexível para APIs</p>
+          </div>
+          <div class="grid-item fragment fade-right">
+            <h4 class="highlight-red">📡 SOAP</h4>
+            <p style="font-size: 0.7em;">Protocol baseado em XML (legado)</p>
+          </div>
+          <div class="grid-item fragment fade-left">
+            <h4 style="color: #ffa726;">⚡ WebSocket</h4>
+            <p style="font-size: 0.7em;">Comunicação bidirecional em tempo real</p>
+          </div>
+        </div>
+        
+      </section>
+
+      <!-- Slide 5 - O que é REST -->
+      <section>
+        <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+          <h2>🏛️ REST - Representational State Transfer</h2>
+          <p class="fragment">Criado por <strong>Roy Fielding</strong> em 2000</p>
+          <p class="fragment">É um <span class="highlight-green">estilo arquitetural</span>, não um protocolo</p>
+        </section>
+
+        <section>
+          <h2>🎯 Princípios REST</h2>
+          <ol style="font-size: 0.85em;">
+            <li class="fragment"><strong>Cliente-Servidor:</strong> Separação de responsabilidades</li>
+            <li class="fragment"><strong>Stateless:</strong> Cada requisição é independente</li>
+            <li class="fragment"><strong>Cacheable:</strong> Respostas podem ser cacheadas</li>
+            <li class="fragment"><strong>Interface Uniforme:</strong> Padrões consistentes</li>
+            <li class="fragment"><strong>Sistema em Camadas:</strong> Arquitetura modular</li>
+            <li class="fragment"><strong>Código sob Demanda:</strong> (Opcional) Executar código no cliente</li>
+          </ol>
+        </section>
+      </section>
+
+      <!-- Slide 6 - HTTP Methods -->
+      <section>
+        <section data-auto-animate>
+          <h2>🌐 Métodos HTTP (Verbos)</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>🌐 Métodos HTTP (Verbos)</h2>
+          <div style="font-size: 0.45em; text-align: left;">
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(66, 185, 131, 0.2); border-left: 4px solid #42b983;">
+              <strong class="highlight-green">GET</strong> - Buscar/Ler recursos
+              <pre><code class="language-http">GET /users/123</code></pre>
+            </div>
             
-            <a href="https://www.youtube.com/watch?v=DMpfNXiPkSQ" target="_blank">
-              <i class="fab fa-youtube"></i> Saiba mais
-            </a>
-            </li> 
-          <li>Template engines</li>
-          <li>Gestão de requisições HTTP</li>
-          <li>Integração com bancos de dados</li>
-        </ul>
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(79, 195, 247, 0.2); border-left: 4px solid #4fc3f7;">
+              <strong class="highlight-blue">POST</strong> - Criar novos recursos
+              <pre><code class="language-http">POST /users</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(255, 167, 38, 0.2); border-left: 4px solid #ffa726;">
+              <strong style="color: #ffa726;">PUT</strong> - Atualizar recursos completos
+              <pre><code class="language-http">PUT /users/123</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(171, 71, 188, 0.2); border-left: 4px solid #ab47bc;">
+              <strong style="color: #ab47bc;">PATCH</strong> - Atualizar parcialmente
+              <pre><code class="language-http">PATCH /users/123</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(255, 82, 82, 0.2); border-left: 4px solid #ff5252;">
+              <strong class="highlight-red">DELETE</strong> - Remover recursos
+              <pre><code class="language-http">DELETE /users/123</code></pre>
+            </div>
+          </div>
+        </section>
       </section>
 
-      <!-- Slide 18 - Primeiro Servidor Express -->
-      <section>
-        <h3>🚀 Primeiro Servidor com Express</h3>
-        <pre><code class="javascript" data-trim>
-// Importar o Express
-const express = require('express');
-const app = express();
-
-// Definir uma rota
-app.get('/', (req, res) => {
-  res.send('Olá, Mundo!');
-});
-
-// Iniciar o servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-        </code></pre>
+      <!-- Slide 7 - Status Codes -->
+      <section data-background-color="#2d3748">
+        <h2>📊 Códigos de Status HTTP</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; font-size: 0.7em; margin-top: 30px;">
+          <div class="fragment">
+            <h4 style="color: #4299e1;">2xx - Sucesso ✅</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li>200 - OK</li>
+              <li>201 - Created</li>
+              <li>204 - No Content</li>
+            </ul>
+          </div>
+          
+          <div class="fragment">
+            <h4 style="color: #ed8936;">3xx - Redirecionamento 🔄</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li>301 - Moved Permanently</li>
+              <li>302 - Found (Temporary)</li>
+              <li>304 - Not Modified</li>
+            </ul>
+          </div>
+          
+          <div class="fragment">
+            <h4 style="color: #f56565;">4xx - Erro do Cliente ❌</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li>400 - Bad Request</li>
+              <li>401 - Unauthorized</li>
+              <li>403 - Forbidden</li>
+              <li>404 - Not Found</li>
+            </ul>
+          </div>
+          
+          <div class="fragment">
+            <h4 style="color: #fc8181;">5xx - Erro do Servidor 💥</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li>500 - Internal Server Error</li>
+              <li>502 - Bad Gateway</li>
+              <li>503 - Service Unavailable</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <!-- Slide 18.5 - Servidor Node.js sem Express -->
+      <!-- Slide 8 - Estrutura de uma Requisição -->
       <section>
-        <h3>🧰 Servidor Node.js Sem Express</h3>
-        <pre><code class="javascript" data-trim>
-    // 1. Importar o módulo nativo do Node.js (não precisa de npm install)
-    const http = require('http');
+        <h2>📦 Anatomia de uma Requisição HTTP</h2>
+        <pre class="fragment"><code class="language-http" data-trim>
+POST /api/login HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Authorization: Bearer token123
 
-    // 2. Definir a porta
-    const PORT = 3000;
-
-    // 3. Criar o servidor
-    // O callback (req, res) funciona de forma parecida, mas os objetos são mais simples
-    const server = http.createServer((req, res) => {
-
-      // No Express, o app.get('/') filtra a rota e o método automaticamente.
-      // No Node puro, precisamos checar manualmente:
-      if (req.url === '/' && req.method === 'GET') {
-
-        // No Node puro, precisamos definir o status e o cabeçalho manualmente
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-
-        // O res.end() finaliza a conexão e envia o dado (equivalente ao res.send)
-        res.end('Olá, Mundo!');
-
-      } else {
-        // Caso o usuário tente acessar outra rota (Ex: /sobre)
-        res.statusCode = 404;
-        res.end('Página não encontrada');
-      }
-    });
-
-    // 4. Iniciar o servidor
-    server.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
-    });
-        </code></pre>
-      </section>
-
-      <!-- Slide 19 - Rotas no Express -->
-      <section>
-        <h3>🛣️ Rotas no Express</h3>
-        <pre><code class="javascript" data-trim>
-const express = require('express');
-const app = express();
-
-// Rota GET
-app.get('/usuarios', (req, res) => {
-  res.json({ mensagem: 'Lista de usuários' });
-});
-
-// Rota POST
-app.post('/usuarios', (req, res) => {
-  res.json({ mensagem: 'Usuário criado' });
-});
-
-// Rota com parâmetro
-app.get('/usuarios/:id', (req, res) => {
-  const id = req.params.id;
-  res.json({ id: id, nome: 'João' });
-});
-        </code></pre>
-      </section>
-
-      <!-- Slide 20 - Middlewares -->
-      <section>
-        <h3>🔗 Middlewares no Express</h3>
-        <p>Funções que têm acesso aos objetos de requisição (req), resposta (res) e à próxima função middleware (next).</p>
-        <pre><code class="javascript" data-trim>
-// Middleware de logging
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next(); // Passa para o próximo middleware
-});
-
-// Middleware para JSON
-app.use(express.json());
-
-// Middleware de autenticação
-const auth = (req, res, next) => {
-  if (req.headers.authorization) {
-    next();
-  } else {
-    res.status(401).send('Não autorizado');
-  }
-};
-        </code></pre>
-      </section>
-
-      <!-- Slide 21 - Estrutura de Projeto -->
-      <section>
-        <h3>📁 Estrutura de Projeto Express</h3>
-        <pre><code class="plaintext" data-trim>
-meu-projeto/
-├── node_modules/
-├── src/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middlewares/
-│   ├── config/
-│   └── app.js
-├── package.json
-├── package-lock.json
-├── .env
-├── .gitignore
-└── README.md
-        </code></pre>
-      </section>
-
-      <!-- Slide 22 - NPM - Node Package Manager -->
-      <section>
-        <h3>📦 NPM - Node Package Manager</h3>
-        <p>Gerenciador de pacotes do Node.js</p>
-        <pre><code class="bash" data-trim>
-# Inicializar projeto
-npm init -y
-
-# Instalar dependência
-npm install express
-
-# Instalar dependência de desenvolvimento
-npm install --save-dev nodemon
-
-# Instalar globalmente
-npm install -g nodemon
-
-# Desinstalar pacote
-npm uninstall express
-        </code></pre>
-      </section>
-
-      <!-- Slide 23 - package.json -->
-      <section>
-        <h3>📄 package.json</h3>
-        <pre><code class="json" data-trim>
 {
-  "name": "meu-projeto",
-  "version": "1.0.0",
-  "description": "API com Express",
-  "main": "src/app.js",
-  "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "jest"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-  }
+  "email": "user@example.com",
+  "password": "senha123"
 }
         </code></pre>
+        <div style="font-size: 0.7em; margin-top: 30px; text-align: left;">
+          <p class="fragment">➡️ <strong>Método:</strong> POST</p>
+          <p class="fragment">➡️ <strong>Endpoint:</strong> /api/login</p>
+          <p class="fragment">➡️ <strong>Headers:</strong> Metadados da requisição</p>
+          <p class="fragment">➡️ <strong>Body:</strong> Dados enviados (JSON)</p>
+        </div>
       </section>
 
-      <!-- Slide 24 - Variáveis de Ambiente -->
+      <!-- Slide 9 - RESTful URLs -->
       <section>
-        <h3>🔐 Variáveis de Ambiente (.env)</h3>
-        <p>Armazenar configurações sensíveis</p>
-        <pre><code class="bash" data-trim>
-# .env
-PORT=3000
-DATABASE_URL=mongodb://localhost:27017/meubanco
-JWT_SECRET=minha_chave_secreta
-NODE_ENV=development
-        </code></pre>
-        <pre><code class="javascript" data-trim>
-// Usar no código
-require('dotenv').config();
+        <section>
+          <h2>🔗 Convenções de URLs RESTful</h2>
+          <p class="fragment">URLs devem ser <span class="highlight-green">substantivos</span>, não verbos!</p>
+        </section>
 
-const PORT = process.env.PORT || 3000;
-const dbUrl = process.env.DATABASE_URL;
+        <section>
+          <h3>❌ Ruim</h3>
+          <pre><code class="language-http" data-trim>
+GET  /getUsers
+POST /createNewUser
+POST /deleteUser/123
+GET  /getUserOrders/123
+          </code></pre>
+          
+          <h3 class="fragment" style="margin-top: 40px;">✅ Bom (RESTful)</h3>
+          <pre class="fragment"><code class="language-http" data-trim>
+GET    /users
+POST   /users
+DELETE /users/123
+GET    /users/123/orders
+          </code></pre>
+        </section>
 
-app.listen(PORT, () => {
-  console.log(`Servidor na porta ${PORT}`);
-});
-        </code></pre>
+        <section>
+          <h3>🎯 Regras de Ouro</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">Use <span class="highlight-green">substantivos</span>, não verbos</li>
+            <li class="fragment">Use <span class="highlight-blue">plural</span> para coleções: <code>/users</code></li>
+            <li class="fragment">Use <span class="highlight-red">hierarquia</span>: <code>/users/123/orders</code></li>
+            <li class="fragment">Use <strong>kebab-case</strong>: <code>/order-items</code></li>
+            <li class="fragment">Evite verbos nas URLs</li>
+            <li class="fragment">Mantenha URLs simples e intuitivas</li>
+          </ul>
+        </section>
       </section>
 
-      <!-- Slide 25 - APIs RESTful -->
+      <!-- Slide 10 - JSON -->
+      <section data-background-color="#1a202c">
+        <section>
+          <h2>📄 JSON - JavaScript Object Notation</h2>
+          <p class="fragment">Formato padrão para troca de dados em APIs REST</p>
+        </section>
+
+        <section>
+          <h3>Exemplo de JSON</h3>
+          <pre><code class="language-json" data-trim data-line-numbers="1-14|2|3-5|6-13">
+{
+  "id": "123",
+  "name": "João Silva",
+  "email": "joao@example.com",
+  "role": "PRODUCER",
+  "products": [
+    {
+      "id": "456",
+      "name": "Alface Orgânica",
+      "price": 4.50,
+      "unit": "maço"
+    }
+  ],
+  "createdAt": "2024-01-15T10:30:00Z"
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Tipos de Dados JSON</h3>
+          <div style="font-size: 0.8em;">
+            <pre><code class="language-json" data-trim>
+{
+  "string": "texto",
+  "number": 42,
+  "float": 3.14,
+  "boolean": true,
+  "null": null,
+  "array": [1, 2, 3],
+  "object": { "key": "value" }
+}
+            </code></pre>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 11 - Back-end Frameworks -->
       <section>
-        <h3>🌐 API RESTful</h3>
-        <p><strong>REST:</strong> Representational State Transfer</p>
-        <br>
-        <p><strong>Princípios:</strong></p>
-        <ul>
-          <li>Client-Server</li>
-          <li>Stateless (sem estado)</li>
-          <li>Cacheable</li>
-          <li>Interface uniforme</li>
-          <li>Sistema em camadas</li>
+        <section data-background-gradient="linear-gradient(to right, #f093fb 0%, #f5576c 100%)">
+          <h2>🛠️ Back-end Frameworks</h2>
+          <p class="fragment">Por que usar frameworks?</p>
+        </section>
+
+        <section>
+          <h3>Vantagens dos Frameworks</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">⚡ <strong>Produtividade:</strong> Menos código boilerplate</li>
+            <li class="fragment">🔒 <strong>Segurança:</strong> Proteções integradas</li>
+            <li class="fragment">📦 <strong>Estrutura:</strong> Padrões e organização</li>
+            <li class="fragment">🌐 <strong>Comunidade:</strong> Suporte e bibliotecas</li>
+            <li class="fragment">🔧 <strong>Manutenibilidade:</strong> Código mais limpo</li>
+            <li class="fragment">📈 <strong>Escalabilidade:</strong> Preparado para crescer</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Frameworks Populares</h3>
+          <div class="grid-container" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="grid-item fragment">
+              <h4 style="color: #68a063;">Node.js</h4>
+              <p style="font-size: 0.6em;">Express, Fastify, NestJS</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #3776ab;">Python</h4>
+              <p style="font-size: 0.6em;">Django, Flask, FastAPI</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #f05138;">Java</h4>
+              <p style="font-size: 0.6em;">Spring Boot, Quarkus</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #777bb3;">PHP</h4>
+              <p style="font-size: 0.6em;">Laravel, Symfony</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #00add8;">Go</h4>
+              <p style="font-size: 0.6em;">Gin, Echo, Fiber</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #ce3e2e;">Ruby</h4>
+              <p style="font-size: 0.6em;">Ruby on Rails, Sinatra</p>
+            </div>
+          </div>
+          <p class="fragment" style="margin-top: 30px;">
+            <strong>Nosso foco:</strong> <span class="highlight-green">Node.js + Express + TypeScript</span>
+          </p>
+        </section>
+      </section>
+
+      <!-- Slide 12 - Projeto do Curso -->
+      <section>
+        <section data-background-color="#0f172a">
+          <h2>🚀 Projeto: Agro E-commerce API</h2>
+          <p class="fragment">Vamos construir uma API completa para um e-commerce agrícola</p>
+        </section>
+
+        <section>
+          <h3>🎯 Funcionalidades</h3>
+          <div style="font-size: 0.8em; text-align: left;">
+            <div class="fragment" style="margin: 15px 0;">
+              <h4 class="highlight-green">👥 Gestão de Usuários</h4>
+              <ul style="font-size: 0.9em;">
+                <li>Cadastro de consumidores e produtores</li>
+                <li>Autenticação com JWT</li>
+                <li>Controle de permissões (roles)</li>
+              </ul>
+            </div>
+            
+            <div class="fragment" style="margin: 15px 0;">
+              <h4 class="highlight-blue">🌾 Produtos Agrícolas</h4>
+              <ul style="font-size: 0.9em;">
+                <li>CRUD completo de produtos</li>
+                <li>Apenas produtores podem criar/editar seus produtos</li>
+                <li>Listagem pública de produtos</li>
+              </ul>
+            </div>
+            
+            <div class="fragment" style="margin: 15px 0;">
+              <h4 style="color: #ffa726;">🛒 Sistema de Pedidos</h4>
+              <ul style="font-size: 0.9em;">
+                <li>Criação de pedidos (carrinho)</li>
+                <li>Adicionar/remover itens</li>
+                <li>Finalização de pedidos</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>🏗️ Stack Tecnológica</h3>
+          <div class="grid-container">
+            <div class="grid-item fragment">
+              <h4 class="highlight-green">Node.js + TypeScript</h4>
+              <p style="font-size: 0.7em;">Runtime JavaScript</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 class="highlight-blue">Express.js</h4>
+              <p style="font-size: 0.7em;">Framework web minimalista</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #ffa726;">Prisma ORM</h4>
+              <p style="font-size: 0.7em;">ORM moderno para banco de dados</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #ab47bc;">JWT + bcrypt</h4>
+              <p style="font-size: 0.7em;">Autenticação e segurança</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 class="highlight-red">PostgreSQL</h4>
+              <p style="font-size: 0.7em;">Banco de dados relacional</p>
+            </div>
+            <div class="grid-item fragment">
+              <h4 style="color: #4299e1;">Jest + Supertest</h4>
+              <p style="font-size: 0.7em;">Testes automatizados</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>📊 Modelo de Dados (Simplificado)</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-5|7-15|17-25">
+// User
+{
+  id, name, email, password,
+  role: 'CONSUMER' | 'PRODUCER'
+}
+
+// Product
+{
+  id, name, price, description,
+  unit: 'kg' | 'maço' | 'un',
+  stock,
+  producerId,
+  createdAt
+}
+
+// Order
+{
+  id, userId, total,
+  draft: boolean,
+  items: [
+    { productId, quantity, price }
+  ],
+  createdAt
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🔗 Endpoints Principais</h3>
+          <pre style="font-size: 0.6em;"><code class="language-http" data-trim>
+# Autenticação
+POST   /users         # Criar conta
+POST   /login         # Login (retorna JWT)
+GET    /me            # Dados do usuário logado
+
+# Produtos
+GET    /products      # Listar produtos (público)
+POST   /products      # Criar produto (produtores)
+PUT    /products/:id  # Atualizar produto
+DELETE /products/:id  # Deletar produto
+
+# Pedidos
+POST   /order         # Criar pedido vazio
+POST   /order/add     # Adicionar item ao pedido
+GET    /order/:id     # Detalhes do pedido
+PUT    /order/send    # Finalizar pedido
+DELETE /order/remove  # Remover item
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Slide 13 - Demonstração Prática -->
+      <section data-background-color="#1e293b">
+        <h2>💻 Demonstração Prática</h2>
+        <p class="fragment">Vamos explorar uma API real</p>
+        <div class="fragment" style="margin-top: 40px;">
+          <h4>🔗 Repositório do Projeto:</h4>
+          <p style="font-size: 0.8em;">
+            <a href="https://github.com/DIOGOBRODRIGUES/agro-ecommerce" target="_blank">
+              github.com/DIOGOBRODRIGUES/agro-ecommerce
+            </a>
+          </p>
+        </div>
+        <div class="fragment" style="margin-top: 40px; font-size: 0.8em;">
+          <p>📝 <strong>Atividade:</strong> Explorar a estrutura do código:</p>
+          <ul style="text-align: left; margin-left: 50px;">
+            <li>Controllers (recebem requisições)</li>
+            <li>Services (lógica de negócio)</li>
+            <li>Routes (definição de endpoints)</li>
+            <li>Middlewares (autenticação)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 14 - Padrão MVC -->
+      <section>
+        <section>
+          <h2>🏛️ Arquitetura: MVC + Services</h2>
+        </section>
+
+        <section>
+          <h3>Model-View-Controller (Adaptado)</h3>
+          <div style="text-align: left; font-size: 0.75em; margin-top: 30px;">
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(66, 185, 131, 0.2);">
+              <strong class="highlight-green">📥 Controller</strong><br>
+              Recebe requisições HTTP, valida dados e chama o Service
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(79, 195, 247, 0.2);">
+              <strong class="highlight-blue">⚙️ Service (Business Logic)</strong><br>
+              Contém a lógica de negócio, validações e regras da aplicação
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(255, 167, 38, 0.2);">
+              <strong style="color: #ffa726;">💾 Model (Prisma)</strong><br>
+              Representa os dados e faz a comunicação com o banco de dados
+            </div>
+            
+            <div class="fragment" style="margin: 20px 0; padding: 15px; background: rgba(171, 71, 188, 0.2);">
+              <strong style="color: #ab47bc;">🔒 Middleware</strong><br>
+              Intercepta requisições para autenticação, logs, validações, etc.
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- Slide 15 - Boas Práticas -->
+      <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h2>✨ Boas Práticas REST</h2>
+        <ul style="font-size: 0.8em;">
+          <li class="fragment">✅ Use substantivos no plural para recursos</li>
+          <li class="fragment">✅ Retorne códigos de status HTTP apropriados</li>
+          <li class="fragment">✅ Use JSON como formato padrão</li>
+          <li class="fragment">✅ Implemente versionamento: <code>/api/v1/users</code></li>
+          <li class="fragment">✅ Use paginação para grandes listas</li>
+          <li class="fragment">✅ Documente sua API (Swagger/OpenAPI)</li>
+          <li class="fragment">✅ Implemente rate limiting</li>
+          <li class="fragment">✅ Use HTTPS sempre que possível</li>
+          <li class="fragment">✅ Valide todos os inputs</li>
+          <li class="fragment">✅ Nunca exponha senhas ou dados sensíveis</li>
         </ul>
-        <p style="background-color: #e8f4f8; border-left: 4px solid #0288d1; padding: 15px; margin-top: 20px; border-radius: 4px;">
-          <strong><i class="fab fa-youtube"></i> 📖 Saiba mais:</strong> Entenda melhor sobre API RESTful no link: <a href="https://www.youtube.com/watch?v=ghTrp1x_1As" target="_blank">youtube.com - API RESTful</a>
+      </section>
+
+      <!-- Slide 16 - Ferramentas -->
+      <section>
+        <h2>🧰 Ferramentas Essenciais</h2>
+        <div class="grid-container" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="grid-item fragment">
+            <h4 class="highlight-green">🚀 Postman / Insomnia</h4>
+            <p style="font-size: 0.7em;">Testar APIs visualmente</p>
+          </div>
+          <div class="grid-item fragment">
+            <h4 class="highlight-blue">📘 Swagger / OpenAPI</h4>
+            <p style="font-size: 0.7em;">Documentação de APIs</p>
+          </div>
+          <div class="grid-item fragment">
+            <h4 style="color: #ffa726;">🐳 Docker</h4>
+            <p style="font-size: 0.7em;">Containerização</p>
+          </div>
+          <div class="grid-item fragment">
+            <h4 style="color: #ab47bc;">📊 Prisma Studio</h4>
+            <p style="font-size: 0.7em;">Visualizar banco de dados</p>
+          </div>
+        </div>
+        <p class="fragment" style="margin-top: 30px; font-size: 0.8em;">
+          💡 Vamos usar todas essas ferramentas ao longo do curso
         </p>
       </section>
 
-      <!-- Slide 26 - Exemplo API REST -->
-      <section>
-        <h3>📝 Exemplo de API REST - CRUD</h3>
-        <table style="font-size: 0.7em;">
-          <thead>
-            <tr>
-              <th>Recurso</th>
-              <th>Método</th>
-              <th>Endpoint</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Produtos</td>
-              <td>GET</td>
-              <td>/api/produtos</td>
-              <td>Listar todos</td>
-            </tr>
-            <tr>
-              <td>Produto</td>
-              <td>GET</td>
-              <td>/api/produtos/:id</td>
-              <td>Buscar um</td>
-            </tr>
-            <tr>
-              <td>Produto</td>
-              <td>POST</td>
-              <td>/api/produtos</td>
-              <td>Criar novo</td>
-            </tr>
-            <tr>
-              <td>Produto</td>
-              <td>PUT</td>
-              <td>/api/produtos/:id</td>
-              <td>Atualizar</td>
-            </tr>
-            <tr>
-              <td>Produto</td>
-              <td>DELETE</td>
-              <td>/api/produtos/:id</td>
-              <td>Deletar</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+     
 
-      <!-- Slide 27 - Ferramentas de Desenvolvimento -->
-      <section>
-        <h3>🛠️ Ferramentas Essenciais</h3>
-        <ul>
-          <li><strong>VS Code:</strong> Editor de código</li>
-          <li><strong>Node.js:</strong> Ambiente de execução</li>
-          <li><strong>NPM:</strong> Gerenciador de pacotes</li>
-          <li><strong>Postman/Insomnia:</strong> Testar APIs</li>
-          <li><strong>Git:</strong> Controle de versão</li>
-          <li><strong>Nodemon:</strong> Auto-reload em desenvolvimento</li>
-        </ul>
-      </section>
-
-      <!-- Slide 28 - Instalando Node.js -->
-      <section>
-        <h3>⬇️ Instalando Node.js</h3>
-        <ol>
-          <li>Acesse <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
-          <li>Baixe a versão LTS (Long Term Support)</li>
-          <li>Execute o instalador</li>
-          <li>Verifique a instalação:
-            <pre><code class="bash" data-trim>
-node --version
-npm --version
-            </code></pre>
+      <!-- Slide 18 - Atividade Prática -->
+      <section data-background-gradient="linear-gradient(to right, #fa709a 0%, #fee140 100%)">
+        <h2>📝 Atividade Para Casa</h2>
+        <ol style="font-size: 0.85em; text-align: left; margin-left: 50px;">
+          <li class="fragment">
+            <strong>Exploração:</strong><br>
+            Clone o repositório do projeto e explore a estrutura de pastas
+          </li>
+          <li class="fragment">
+            <strong>Pesquisa:</strong><br>
+            Pesquise sobre 3 APIs públicas famosas (Ex: GitHub, Twitter, Weather API)
+          </li>
+          <li class="fragment">
+            <strong>Documentação:</strong><br>
+            Leia sobre HTTP Status Codes e crie uma lista dos 10 mais importantes
+          </li>
+          <li class="fragment">
+            <strong>Prática:</strong><br>
+            Instale Postman ou Insomnia e teste uma API pública
+          </li>
+          <li class="fragment">
+            <strong>Reflexão:</strong><br>
+            Escreva 3 ideias de APIs que você gostaria de criar
           </li>
         </ol>
       </section>
 
-      <!-- Slide 29 - Extensões VS Code -->
-      <section>
-        <h3>🔌 Extensões VS Code Recomendadas</h3>
-        <ul>
-          <li><strong>ESLint:</strong> Linting de JavaScript</li>
-          <li><strong>Prettier:</strong> Formatação de código</li>
-          <li><strong>REST Client:</strong> Testar APIs no VS Code</li>
-          <li><strong>GitLens:</strong> Melhorias do Git</li>
-          <li><strong>Thunder Client:</strong> Cliente HTTP</li>
-          <li><strong>JavaScript (ES6) snippets:</strong> Atalhos</li>
-        </ul>
+      <!-- Slide 19 - Dúvidas -->
+      <section data-background-color="#1a202c">
+        <h2>❓ Dúvidas?</h2>
+        <p style="font-size: 1.5em; margin: 60px 0;">💬</p>
+        <p>Vamos discutir os conceitos apresentados</p>
       </section>
 
-
-
-      <!-- Slide 32 - Códigos de Status HTTP -->
-      <section>
-        <h3>📊 Códigos de Status HTTP</h3>
-        <table style="font-size: 0.65em;">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Significado</th>
-              <th>Uso</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>200</td>
-              <td>OK</td>
-              <td>Sucesso</td>
-            </tr>
-            <tr>
-              <td>201</td>
-              <td>Created</td>
-              <td>Recurso criado</td>
-            </tr>
-            <tr>
-              <td>400</td>
-              <td>Bad Request</td>
-              <td>Erro do cliente</td>
-            </tr>
-            <tr>
-              <td>401</td>
-              <td>Unauthorized</td>
-              <td>Não autenticado</td>
-            </tr>
-            <tr>
-              <td>404</td>
-              <td>Not Found</td>
-              <td>Recurso não encontrado</td>
-            </tr>
-            <tr>
-              <td>500</td>
-              <td>Internal Server Error</td>
-              <td>Erro do servidor</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Slide 33 - JSON -->
-      <section>
-        <h3>📋 JSON - JavaScript Object Notation</h3>
-        <p>Formato padrão para troca de dados em APIs</p>
-        <pre><code class="json" data-trim>
-{
-  "id": 1,
-  "nome": "João Silva",
-  "email": "joao@email.com",
-  "ativo": true,
-  "endereco": {
-    "rua": "Rua Principal",
-    "numero": 123,
-    "cidade": "Recife"
-  },
-  "telefones": ["81-99999-9999", "81-88888-8888"]
-}
-        </code></pre>
-      </section>
-
-      <!-- Slide 34 - Testando APIs -->
-      <section>
-        <h3>🧪 Testando APIs com Postman</h3>
-        <ol style="font-size: 0.85em;">
-          <li>Baixe o Postman em <a href="https://postman.com" target="_blank">postman.com</a></li>
-          <li>Crie uma nova requisição</li>
-          <li>Selecione o método HTTP (GET, POST, etc.)</li>
-          <li>Digite a URL: http://localhost:3000/api/usuarios</li>
-          <li>Adicione headers se necessário</li>
-          <li>Adicione body para POST/PUT (JSON)</li>
-          <li>Clique em Send</li>
-          <li>Visualize a resposta</li>
-        </ol>
-      </section>
-
-      <!-- Slide 35 - Atividade Prática 1 -->
-      <section>
-        <h3>💻 Atividade Prática 1</h3>
-        <p><strong>Objetivo:</strong> Configurar ambiente e criar primeiro servidor</p>
-        <ol style="font-size: 0.8em;">
-          <li>Instale Node.js em seu computador</li>
-          <li>Crie uma pasta "meu-primeiro-servidor"</li>
-          <li>Inicialize um projeto Node: <code>npm init -y</code></li>
-          <li>Instale o Express: <code>npm install express</code></li>
-          <li>Crie um arquivo app.js</li>
-          <li>Implemente um servidor básico com 3 rotas diferentes</li>
-          <li>Teste com o navegador e Postman</li>
-        </ol>
-     
-      </section>
-
-      <!-- Slide 36 - Atividade Prática 2 -->
-      <section>
-        <h3>💻 Atividade Prática 2</h3>
-        <p><strong>Objetivo:</strong> Criar uma API simples de produtos</p>
-        <p style="font-size: 0.8em;">Implemente as seguintes rotas:</p>
-        <ul style="font-size: 0.75em;">
-          <li>GET /api/produtos - retorna array de produtos (hardcoded)</li>
-          <li>GET /api/produtos/:id - retorna um produto específico</li>
-          <li>POST /api/produtos - simula criação (console.log)</li>
-          <li>Adicione middleware de log para todas requisições</li>
-          <li>Use códigos de status HTTP apropriados</li>
-        </ul>
-      
-      </section>
-
-      <!-- Slide 37 - Exemplo Código Atividade -->
-      <section>
-        <h3>📝 Dica para Atividade</h3>
-        <pre><code class="javascript" data-trim>
-const express = require('express');
-const app = express();
-
-app.use(express.json());
-
-// Array de produtos (simulando banco de dados)
-const produtos = [
-  { id: 1, nome: 'Notebook', preco: 3000 },
-  { id: 2, nome: 'Mouse', preco: 50 },
-  { id: 3, nome: 'Teclado', preco: 150 }
-];
-
-// Implemente as rotas aqui...
-
-app.listen(3000, () => {
-  console.log('Servidor rodando!');
-});
-        </code></pre>
-      </section>
-
-      <!-- Slide 38 - Próxima Aula -->
-      <section>
-  <h3>🎥 Vídeos Recomendados</h3>
-  <ul style="font-size: 0.8em;">
-    <li>
-      <strong>Portas TCP e UDP</strong>
-      <a href="https://www.youtube.com/watch?v=FaTlrHq8RKM" target="_blank">
-        <i class="fab fa-youtube"></i> Assista
-      </a>
-      <li>
-        <strong>Sockets e Comunicação Cliente-Servidor</strong>
-        <a href="https://www.youtube.com/watch?v=lc6U93P4Sxw&t=1014s" target="_blank">
-          <i class="fab fa-youtube"></i> Assista
-        </a>
-      </li>
-    </li>
-  </ul>
-      </section>
-
-      <!-- Slide 39 - Material Complementar -->
-      <section>
-        <h3>📚 Material Complementar</h3>
-        <ul style="font-size: 0.8em;">
-          <li><a href="https://nodejs.org" target="_blank">Documentação Node.js</a></li>
-          <li><a href="https://expressjs.com" target="_blank">Documentação Express</a></li>
-          <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP" target="_blank">MDN - HTTP</a></li>
-        
-        </ul>
-      </section>
-
-      <!-- Slide 40 - Dúvidas e Encerramento -->
-      <section>
-        <h3>❓ Dúvidas?</h3>
-        <br>
-        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-        <p>📧 010117368@prof.uninassau.edu.br</p>
-        <br>
-        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
-          <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-        <br>
-        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-        <br><br>
-        <p><strong>Obrigado!</strong> 🎓</p>
+      <!-- Slide 20 - Encerramento -->
+      <section data-background-gradient="linear-gradient(to bottom, #000000, #1e3a8a)">
+        <h2>🎓 Obrigado!</h2>
+        <p style="margin: 40px 0;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <br>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </p>
+        <p class="fragment" style="margin-top: 60px; font-size: 0.9em;">
+          📚 Próxima aula: <span class="highlight-green">Configuração do Ambiente Node.js + TypeScript</span>
+        </p>
       </section>
 
    </div>
@@ -856,6 +688,7 @@ app.listen(3000, () => {
       center: true,
       hash: true,
       slideNumber: true,
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
       plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
     });
   </script>

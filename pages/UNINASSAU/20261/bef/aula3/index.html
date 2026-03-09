@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 3 - Express.js Fundamentos</title>
+
+  <meta name="description" content="Fundamentos do Express.js - Request, Response, Middlewares">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/night.css" id="theme">
+  
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+    .reveal section img { border: none; box-shadow: none; }
+    .highlight-green { color: #42b983; }
+    .highlight-blue { color: #4fc3f7; }
+    .highlight-red { color: #ff5252; }
+    .highlight-yellow { color: #ffd700; }
+    .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
+    .grid-item { padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    .code-explanation { font-size: 0.7em; color: #999; margin-top: 10px; }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Título -->
+      <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h2>🎓 Centro Universitário Maurício de Nassau</h2>
+        <h3>Back-end Frameworks</h3>
+        <h4 class="highlight-green">Aula 3 - Express.js Fundamentos</h4>
+        <p>Request, Response e Middlewares</p>
+        <p style="margin-top: 30px;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </p>
+      </section>
+
+      <!-- Objetivos -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Entender objetos <span class="highlight-green">Request</span> e <span class="highlight-blue">Response</span></li>
+          <li class="fragment">Trabalhar com <span class="highlight-yellow">Parâmetros</span> de rota</li>
+          <li class="fragment">Manipular <strong>Query Strings</strong> e <strong>Body</strong></li>
+          <li class="fragment">Criar e usar <span class="highlight-red">Middlewares</span></li>
+          <li class="fragment">Implementar tratamento de erros</li>
+        </ul>
+      </section>
+
+      <!-- Request Object -->
+      <section>
+        <section data-auto-animate>
+          <h2>📥 Request Object (req)</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>📥 Request Object (req)</h2>
+          <p>Contém todas as informações da requisição HTTP</p>
+          <pre class="fragment"><code class="language-typescript" data-trim data-line-numbers="1-15|1-2|4|5|6|7|8|9|10-15">
+// Estrutura básica de uma rota
+router.get('/exemplo', (req: Request, res: Response) => {
+  
+  req.method        // 'GET'
+  req.url           // '/exemplo?search=test'
+  req.headers       // { 'content-type': 'application/json', ... }
+  req.params        // Parâmetros de rota { id: '123' }
+  req.query         // Query strings { search: 'test' }
+  req.body          // Corpo da requisição (POST/PUT)
+  req.ip            // IP do cliente
+  req.protocol      // 'http' ou 'https'
+  req.hostname      // 'example.com'
+  req.path          // '/exemplo'
+  req.cookies       // Cookies (com middleware)
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Response Object -->
+      <section>
+        <section data-auto-animate>
+          <h2>📤 Response Object (res)</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>📤 Response Object (res)</h2>
+          <p>Métodos para enviar respostas ao cliente</p>
+          <pre class="fragment"><code class="language-typescript" data-trim data-line-numbers="1-20|2-3|5-6|8-9|11-12|14-15|17-18">
+router.get('/response-examples', (req, res) => {
+  // JSON (mais comum em APIs)
+  res.json({ message: 'Hello' });
+  
+  // Texto simples
+  res.send('Hello World');
+  
+  // Status + JSON
+  res.status(201).json({ created: true });
+  
+  // Redirect
+  res.redirect('/nova-rota');
+  
+  // Download de arquivo
+  res.download('/path/to/file.pdf');
+  
+  // Definir header customizado
+  res.set('X-Custom-Header', 'valor').json({ ok: true });
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Métodos Principais do Response</h3>
+          <div style="font-size: 0.75em;">
+            <div class="fragment" style="margin: 15px 0; padding: 15px; background: rgba(66, 185, 131, 0.2);">
+              <strong class="highlight-green">res.json()</strong> - Envia resposta JSON
+              <pre><code class="language-typescript" data-trim>
+res.json({ user: 'João', age: 25 });
+              </code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 15px 0; padding: 15px; background: rgba(79, 195, 247, 0.2);">
+              <strong class="highlight-blue">res.status()</strong> - Define código de status
+              <pre><code class="language-typescript" data-trim>
+res.status(404).json({ error: 'Not found' });
+              </code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 15px 0; padding: 15px; background: rgba(255, 167, 38, 0.2);">
+              <strong style="color: #ffa726;">res.send()</strong> - Envia resposta (vários tipos)
+              <pre><code class="language-typescript" data-trim>
+res.send('Hello'); // ou res.send({ json: true });
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Params -->
+      <section data-background-color="#1a202c">
+        <section>
+          <h2>🔗 Route Parameters (Params)</h2>
+          <p>Parâmetros dinâmicos na URL</p>
+        </section>
+
+        <section>
+          <h3>Sintaxe e Uso</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-10|1-3|5-10">
+// Definir rota com parâmetro
+// :id é o parâmetro
+router.get('/users/:id', (req, res) => {
+  
+  const userId = req.params.id;
+  
+  res.json({
+    message: `Buscando usuário ${userId}`
+  });
+});
+          </code></pre>
+          <div class="fragment code-explanation">
+            <p>✅ Requisição: <code>GET /users/123</code></p>
+            <p>✅ req.params.id = <code>"123"</code></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>Múltiplos Parâmetros</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-2|4-5|7-13">
+// Rota com múltiplos params
+router.get('/products/:category/:id', (req, res) => {
+  
+  const { category, id } = req.params;
+  
+  res.json({
+    message: `Produto ${id} da categoria ${category}`,
+    category,
+    id
+  });
+});
+          </code></pre>
+          <div class="fragment code-explanation">
+            <p>✅ Requisição: <code>GET /products/electronics/456</code></p>
+            <p>✅ category = <code>"electronics"</code>, id = <code>"456"</code></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>⚠️ Importante sobre Params</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">Params sempre são <span class="highlight-yellow">strings</span></li>
+            <li class="fragment">Converter quando necessário: <code>Number(id)</code></li>
+            <li class="fragment">Validar se existe: <code>if (!id) return res.status(400)...</code></li>
+            <li class="fragment">Usar nomes descritivos: <code>:userId</code> melhor que <code>:id</code></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Query String -->
+      <section>
+        <section data-auto-animate>
+          <h2>🔍 Query Strings</h2>
+          <p>Parâmetros opcionais após o <code>?</code></p>
+        </section>
+
+        <section data-auto-animate>
+          <h2>🔍 Query Strings</h2>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|1|3-6|8-19">
+router.get('/products', (req, res) => {
+  
+  // Acessar query params
+  const { search, category, minPrice, maxPrice } = req.query;
+  
+  res.json({
+    filters: {
+      search,
+      category,
+      minPrice,
+      maxPrice
+    },
+    message: 'Filtrando produtos...'
+  });
+});
+          </code></pre>
+          <div class="fragment code-explanation">
+            <p>✅ Requisição: <code>GET /products?search=alface&category=verduras&minPrice=2&maxPrice=10</code></p>
+            <p>✅ req.query = <code>{ search: 'alface', category: 'verduras', minPrice: '2', maxPrice: '10' }</code></p>
+          </div>
+        </section>
+
+        <section>
+          <h3>Query String vs Params</h3>
+          <div class="grid-container">
+            <div class="fragment">
+              <h4 class="highlight-green">Route Params</h4>
+              <ul style="font-size: 0.75em;">
+                <li>Obrigatórios</li>
+                <li>Parte da estrutura da URL</li>
+                <li><code>/users/:id</code></li>
+                <li>Identificam recursos</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4 class="highlight-blue">Query Strings</h4>
+              <ul style="font-size: 0.75em;">
+                <li>Opcionais</li>
+                <li>Após o <code>?</code></li>
+                <li><code>?page=2&limit=10</code></li>
+                <li>Filtros, ordenação, paginação</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Exemplo: Paginação e Filtros</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-25|3-6|9-10|12-18">
+router.get('/products', (req, res) => {
+  
+  // Valores padrão com destructuring
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const search = req.query.search as string || '';
+  
+  // Calcular offset para paginação
+  const skip = (page - 1) * limit;
+  
+  // Simular busca no banco
+  const products = mockDatabase.products
+    .filter(p => p.name.includes(search))
+    .slice(skip, skip + limit);
+  
+  res.json({
+    page,
+    limit,
+    total: products.length,
+    data: products
+  });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Request Body -->
+      <section data-background-color="#2d3748">
+        <section>
+          <h2>📦 Request Body</h2>
+          <p>Dados enviados no corpo da requisição (POST/PUT/PATCH)</p>
+        </section>
+
+        <section>
+          <h3>Middleware express.json()</h3>
+          <p>Necessário para parsear JSON no body</p>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-10|4|7-9">
+// app.ts
+import express from 'express';
+
+app.use(express.json()); // 👈 Middleware global
+
+router.post('/users', (req, res) => {
+  const { name, email, password } = req.body;
+  // Agora podemos acessar req.body!
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Exemplo: Criar Usuário</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-25|2-4|7-9|11-16|18-22">
+router.post('/users', (req, res) => {
+  const { name, email, password } = req.body;
+  
+  // Validação básica
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      error: 'Campos obrigatórios: name, email, password'
+    });
+  }
+  
+  // Criar usuário (simulado)
+  const newUser = {
+    id: Math.random().toString(36).substr(2, 9),
+    name,
+    email,
+    createdAt: new Date()
+  };
+  
+  // Retornar 201 Created
+  return res.status(201).json({
+    message: 'Usuário criado com sucesso',
+    user: newUser
+  });
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>PUT vs PATCH</h3>
+          <div class="grid-container">
+            <div class="fragment">
+              <h4 style="color: #ffa726;">PUT</h4>
+              <p style="font-size: 0.7em;">Substitui o recurso completo</p>
+              <pre><code class="language-typescript" data-trim>
+// Deve enviar TODOS os campos
+router.put('/users/:id', (req, res) => {
+  const { name, email, password, role } = req.body;
+  // Atualiza tudo
+});
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <h4 style="color: #ab47bc;">PATCH</h4>
+              <p style="font-size: 0.7em;">Atualização parcial</p>
+              <pre><code class="language-typescript" data-trim>
+// Envia apenas campos a atualizar
+router.patch('/users/:id', (req, res) => {
+  const updates = req.body;
+  // Atualiza só o que veio
+});
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Middlewares -->
+      <section>
+        <section data-background-gradient="linear-gradient(to right, #f093fb 0%, #f5576c 100%)">
+          <h2>🔧 Middlewares</h2>
+          <p>O coração do Express</p>
+        </section>
+
+        <section>
+          <h3>O que são Middlewares?</h3>
+          <blockquote class="fragment">
+            "Funções que têm acesso aos objetos request, response e à próxima função middleware no ciclo request-response"
+          </blockquote>
+          <div class="fragment" style="margin-top: 40px;">
+            <h4>Podem:</h4>
+            <ul style="font-size: 0.85em;">
+              <li>Executar qualquer código</li>
+              <li>Modificar req e res</li>
+              <li>Finalizar o ciclo request-response</li>
+              <li>Chamar o próximo middleware com <code>next()</code></li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>Anatomia de um Middleware</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1|2-5|7|9-11">
+function meuMiddleware(req: Request, res: Response, next: NextFunction) {
+  // 1. Executar código antes da rota
+  console.log('Middleware executado!');
+  console.log('Método:', req.method);
+  console.log('URL:', req.url);
+  
+  // 2. Modificar request/response (opcional)
+  req.customData = 'algum valor';
+  
+  // 3. Passar para o próximo middleware/rota
+  next();
+  
+  // OU finalizar a requisição
+  // res.json({ error: 'Bloqueado' });
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Tipos de Middlewares</h3>
+          <div style="font-size: 0.75em;">
+            <div class="fragment" style="margin: 10px 0; padding: 12px; background: rgba(66, 185, 131, 0.2);">
+              <strong class="highlight-green">1. Application-level</strong>
+              <pre><code class="language-typescript" data-trim>app.use(express.json()); // Todas as rotas</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 10px 0; padding: 12px; background: rgba(79, 195, 247, 0.2);">
+              <strong class="highlight-blue">2. Router-level</strong>
+              <pre><code class="language-typescript" data-trim>router.use(authMiddleware); // Rotas do router</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 10px 0; padding: 12px; background: rgba(255, 167, 38, 0.2);">
+              <strong style="color: #ffa726;">3. Route-specific</strong>
+              <pre><code class="language-typescript" data-trim>router.get('/protected', auth, (req, res) => {});</code></pre>
+            </div>
+            
+            <div class="fragment" style="margin: 10px 0; padding: 12px; background: rgba(171, 71, 188, 0.2);">
+              <strong style="color: #ab47bc;">4. Error-handling</strong>
+              <pre><code class="language-typescript" data-trim>app.use((err, req, res, next) => { /* ... */ });</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Middleware: Logger</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-7|10-11">
+// middlewares/logger.ts
+export function logger(req: Request, res: Response, next: NextFunction) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.url}`);
+  next();
+}
+
+// app.ts
+import { logger } from './middlewares/logger';
+app.use(logger); // Todas as requisições passam por aqui
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Middleware: Validação</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|1-14|17-19">
+// middlewares/validateUser.ts
+export function validateUser(req: Request, res: Response, next: NextFunction) {
+  const { name, email, password } = req.body;
+  
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      error: 'Campos obrigatórios: name, email, password'
+    });
+  }
+  
+  // Se passou, continua
+  next();
+}
+
+// routes.ts
+router.post('/users', validateUser, (req, res) => {
+  // Se chegou aqui, dados estão válidos!
+  const { name, email, password } = req.body;
+  // ... criar usuário
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Múltiplos Middlewares</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|9-14">
+function middleware1(req, res, next) {
+  console.log('Middleware 1');
+  next();
+}
+
+function middleware2(req, res, next) {
+  console.log('Middleware 2');
+  next();
+}
+
+router.get('/multi', 
+  middleware1,
+  middleware2,
+  (req, res) => {
+    console.log('Handler final');
+    res.json({ ok: true });
+  }
+);
+          </code></pre>
+          <div class="fragment code-explanation">
+            <p>Ordem de execução: middleware1 → middleware2 → handler</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Error Handling -->
+      <section data-background-color="#0f172a">
+        <section>
+          <h2>⚠️ Tratamento de Erros</h2>
+        </section>
+
+        <section>
+          <h3>Middleware de Erro</h3>
+          <p>Tem 4 parâmetros (incluindo <code>err</code>)</p>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|1-2|4-5|7-14|17-18">
+// middlewares/errorHandler.ts
+import type { Request, Response, NextFunction } from 'express';
+
+export function errorHandler(
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.error('Erro:', err.message);
+  console.error('Stack:', err.stack);
+  
+  res.status(500).json({
+    error: 'Erro interno do servidor',
+    message: err.message
+  });
+}
+
+// app.ts (deve ser o ÚLTIMO middleware)
+app.use(errorHandler);
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Try-Catch em Rotas</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|2|4-9|11-15">
+router.get('/users/:id', async (req, res, next) => {
+  try {
+    
+    const user = await db.user.findUnique({
+      where: { id: req.params.id }
+    });
+    
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+    
+    res.json(user);
+    
+  } catch (error) {
+    // Passa o erro para o middleware de erro
+    next(error);
+  }
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Custom Error Class</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-25|1-7|9-14|17-23">
+// errors/AppError.ts
+export class AppError extends Error {
+  statusCode: number;
+  
+  constructor(message: string, statusCode = 400) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
+
+// Uso nas rotas
+if (!user) {
+  throw new AppError('Usuário não encontrado', 404);
+}
+
+// Middleware de erro atualizado
+export function errorHandler(err, req, res, next) {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ error: err.message });
+  }
+  
+  // Erro genérico
+  res.status(500).json({ error: 'Erro interno' });
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Rota 404 (Not Found)</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-8|11-13">
+// app.ts
+// Depois de todas as rotas válidas
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Rota não encontrada',
+    path: req.url
+  });
+});
+
+// Middleware de erro por último
+app.use(errorHandler);
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Estrutura Organizada -->
+      <section>
+        <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+          <h2>📁 Organizando Rotas</h2>
+        </section>
+
+        <section>
+          <h3>Estrutura Recomendada</h3>
+          <pre><code class="language-text" data-trim>
+src/
+├── app.ts                    # Configuração do Express
+├── server.ts                 # Inicialização do servidor
+├── routes/
+│   ├── index.ts             # Agrupa todas as rotas
+│   ├── user.routes.ts       # Rotas de usuários
+│   ├── product.routes.ts    # Rotas de produtos
+│   └── order.routes.ts      # Rotas de pedidos
+├── middlewares/
+│   ├── auth.ts              # Autenticação
+│   ├── errorHandler.ts      # Tratamento de erros
+│   └── validator.ts         # Validações
+└── controllers/
+    ├── UserController.ts
+    ├── ProductController.ts
+    └── OrderController.ts
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>routes/user.routes.ts</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|1|3|5-6|8-9|11-12">
+import { Router } from 'express';
+import { UserController } from '../controllers/UserController';
+
+const userRouter = Router();
+const userController = new UserController();
+
+userRouter.post('/', userController.create);
+userRouter.get('/:id', userController.show);
+userRouter.put('/:id', userController.update);
+userRouter.delete('/:id', userController.delete);
+
+export { userRouter };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>routes/index.ts</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-20|1-4|6|9-11|13">
+import { Router } from 'express';
+import { userRouter } from './user.routes';
+import { productRouter } from './product.routes';
+import { orderRouter } from './order.routes';
+
+const router = Router();
+
+// Agregar rotas
+router.use('/users', userRouter);
+router.use('/products', productRouter);
+router.use('/orders', orderRouter);
+
+export { router };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>app.ts</h3>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-3|5|8-11|14">
+import express from 'express';
+import cors from 'cors';
+import { router } from './routes';
+
+export const app = express();
+
+// Middlewares globais
+app.use(express.json());
+app.use(cors());
+
+// Rotas
+app.use('/api', router);
+
+// 404 e Error handling aqui...
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Prática -->
+      <section data-background-gradient="linear-gradient(to right, #fa709a 0%, #fee140 100%)">
+        <section>
+          <h2>💻 Atividade Prática</h2>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 1: CRUD Básico</h3>
+          <p style="font-size: 0.8em;">Criar rotas para gerenciar produtos (em memória)</p>
+          <pre><code class="language-typescript" data-trim>
+// Array em memória
+let products = [
+  { id: '1', name: 'Alface', price: 4.5, stock: 10 }
+];
+
+// Implementar:
+GET    /products       // Listar todos
+GET    /products/:id   // Buscar por ID
+POST   /products       // Criar novo
+PUT    /products/:id   // Atualizar
+DELETE /products/:id   // Deletar
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 2: Middlewares</h3>
+          <ol style="font-size: 0.8em;">
+            <li>Criar middleware de <strong>logger</strong> que registra todas as requisições</li>
+            <li>Criar middleware de <strong>validação</strong> para POST /products</li>
+            <li>Criar middleware para verificar se produto existe (antes de update/delete)</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 3: Query Strings</h3>
+          <p style="font-size: 0.8em;">Adicionar filtros em GET /products:</p>
+          <pre><code class="language-typescript" data-trim>
+// Exemplos de uso:
+GET /products?search=alface
+GET /products?minPrice=2&maxPrice=10
+GET /products?sort=price&order=asc
+GET /products?page=2&limit=5
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Desafio Extra</h3>
+          <p style="font-size: 0.85em;">Implementar tratamento de erros completo:</p>
+          <ul style="font-size: 0.8em;">
+            <li>Classe <code>AppError</code> customizada</li>
+            <li>Middleware de tratamento de erros</li>
+            <li>Rota 404 para rotas não encontradas</li>
+            <li>Validação de tipos (ex: preço deve ser número)</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Próxima Aula -->
+      <section data-background-color="#0f172a">
+        <h2>🔜 Próxima Aula</h2>
+        <h3 class="highlight-green">Aula 4 - Prisma ORM e Banco de Dados</h3>
+        <ul style="font-size: 0.85em;">
+          <li class="fragment">Introdução ao Prisma ORM</li>
+          <li class="fragment">Schema e Models</li>
+          <li class="fragment">Migrations</li>
+          <li class="fragment">CRUD com banco de dados real</li>
+          <li class="fragment">Relacionamentos entre tabelas</li>
+        </ul>
+      </section>
+
+      <!-- Resumo -->
+      <section>
+        <h2>📝 Resumo da Aula</h2>
+        <ul style="font-size: 0.8em;">
+          <li class="fragment">✅ Request: params, query, body</li>
+          <li class="fragment">✅ Response: json, status, send</li>
+          <li class="fragment">✅ Middlewares: logger, validação, autenticação</li>
+          <li class="fragment">✅ Tratamento de erros com try-catch</li>
+          <li class="fragment">✅ Organização de rotas modular</li>
+        </ul>
+      </section>
+
+      <!-- Encerramento -->
+      <section data-background-gradient="linear-gradient(to bottom, #000000, #1e3a8a)">
+        <h2>🎓 Obrigado!</h2>
+        <p style="margin: 40px 0;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <br>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </p>
+        <p class="fragment" style="margin-top: 60px; font-size: 0.9em;">
+          📚 Próxima aula: <span class="highlight-green">Prisma ORM e Banco de Dados</span>
+        </p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      transition: 'cube',
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>

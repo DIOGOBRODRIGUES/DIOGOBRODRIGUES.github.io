@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 2 - Configurando o Ambiente Node.js + TypeScript</title>
+
+  <meta name="description" content="Setup completo do ambiente de desenvolvimento">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/moon.css" id="theme">
+  
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+  <style>
+    .reveal h1, .reveal h2, .reveal h3 {
+      text-transform: none;
+    }
+    .reveal section img {
+      border: none;
+      box-shadow: none;
+    }
+    .highlight-green {
+      color: #42b983;
+    }
+    .highlight-blue {
+      color: #4fc3f7;
+    }
+    .highlight-red {
+      color: #ff5252;
+    }
+    .highlight-yellow {
+      color: #ffd700;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .step-box {
+      padding: 20px;
+      margin: 15px 0;
+      background: rgba(66, 185, 131, 0.1);
+      border-left: 5px solid #42b983;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 1 - Título -->
+      <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h2>🎓 Centro Universitário Maurício de Nassau</h2>
+        <h3>Back-end Frameworks</h3>
+        <h4 class="highlight-green">Aula 2 - Configurando o Ambiente</h4>
+        <p>Node.js + TypeScript + Express</p>
+        <p style="margin-top: 30px;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </p>
+      </section>
+
+      <!-- Objetivos -->
+      <section>
+        <h2>🎯 Objetivos da Aula</h2>
+        <ul>
+          <li class="fragment">Instalar e configurar <span class="highlight-green">Node.js</span></li>
+          <li class="fragment">Entender o <span class="highlight-blue">npm</span> e gerenciamento de pacotes</li>
+          <li class="fragment">Configurar <span class="highlight-yellow">TypeScript</span> no projeto</li>
+          <li class="fragment">Criar a primeira aplicação <span class="highlight-green">Express</span></li>
+          <li class="fragment">Configurar <strong>scripts</strong> e <strong>hot reload</strong></li>
+        </ul>
+      </section>
+
+      <!-- O que é Node.js -->
+      <section>
+        <section data-auto-animate>
+          <h2>🟢 O que é Node.js?</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>🟢 O que é Node.js?</h2>
+          <blockquote style="margin-top: 40px;">
+            "Runtime JavaScript baseado no motor V8 do Chrome que permite executar JavaScript no servidor"
+          </blockquote>
+          <div class="fragment" style="margin-top: 40px;">
+            <h4>Características:</h4>
+            <ul style="font-size: 0.85em;">
+              <li>⚡ Assíncrono e orientado a eventos</li>
+              <li>🔀 Single-threaded com event loop</li>
+              <li>📦 Ecossistema rico (npm)</li>
+              <li>🚀 Alta performance para I/O</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>Node.js vs Navegador</h3>
+          <div class="grid-container">
+            <div class="fragment">
+              <h4 class="highlight-blue">🌐 Navegador</h4>
+              <ul style="font-size: 0.7em;">
+                <li>Tem DOM e BOM</li>
+                <li>window object</li>
+                <li>Restrições de segurança</li>
+                <li>Client-side only</li>
+              </ul>
+            </div>
+            <div class="fragment">
+              <h4 class="highlight-green">⚙️ Node.js</h4>
+              <ul style="font-size: 0.7em;">
+                <li>Sem DOM/BOM</li>
+                <li>global object</li>
+                <li>Acesso ao filesystem</li>
+                <li>Server-side</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Instalando Node.js -->
+      <section data-background-color="#1a202c">
+        <section>
+          <h2>📥 Instalando Node.js</h2>
+        </section>
+
+        <section>
+          <h3>Passo 1: Download</h3>
+          <div class="step-box">
+            <p>Acesse: <a href="https://nodejs.org" target="_blank">nodejs.org</a></p>
+            <p class="fragment">Baixe a versão <span class="highlight-green">LTS</span> (Long Term Support)</p>
+            <p class="fragment" style="font-size: 0.8em;">
+              💡 Versão LTS recomendada: 20.x ou superior
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h3>Passo 2: Verificar Instalação</h3>
+          <p>Abra o terminal e execute:</p>
+          <pre class="fragment"><code class="language-bash" data-trim>
+# Verificar versão do Node.js
+node --version
+# ou
+node -v
+
+# Verificar versão do npm
+npm --version
+          </code></pre>
+          <div class="fragment" style="margin-top: 30px;">
+            <p>Saída esperada:</p>
+            <pre><code class="language-bash" data-trim>
+v20.11.0
+10.2.4
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Teste Rápido</h3>
+          <p>Execute JavaScript no Node:</p>
+          <pre class="fragment"><code class="language-bash" data-trim>
+# Abrir REPL do Node
+node
+          </code></pre>
+          <pre class="fragment"><code class="language-javascript" data-trim>
+// No REPL, digite:
+console.log("Hello, Node.js!");
+2 + 2
+const soma = (a, b) => a + b;
+soma(5, 3)
+
+// Sair: Ctrl + C (duas vezes) ou .exit
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- NPM -->
+      <section>
+        <section data-auto-animate>
+          <h2>📦 NPM - Node Package Manager</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>📦 NPM - Node Package Manager</h2>
+          <p class="fragment">Gerenciador de pacotes do Node.js</p>
+          <ul style="font-size: 0.85em; margin-top: 30px;">
+            <li class="fragment">🌐 Maior repositório de software do mundo</li>
+            <li class="fragment">📚 Mais de 2 milhões de pacotes</li>
+            <li class="fragment">🔧 Facilita instalação e gerenciamento de dependências</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Comandos Essenciais do NPM</h3>
+          <pre><code class="language-bash" data-trim data-line-numbers="1-2|4-5|7-8|10-11|13-14">
+# Iniciar novo projeto
+npm init
+
+# Iniciar com valores padrão
+npm init -y
+
+# Instalar pacote
+npm install express
+
+# Instalar como dev dependency
+npm install --save-dev typescript
+
+# Instalar globalmente
+npm install -g nodemon
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>package.json</h3>
+          <p>Arquivo de configuração do projeto Node</p>
+          <pre class="fragment"><code class="language-json" data-trim data-line-numbers="1-20|2-3|4-6|7-11|12-15">
+{
+  "name": "agro-ecommerce",
+  "version": "1.0.0",
+  "description": "API para e-commerce agrícola",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prisma": "^5.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "@types/node": "^20.10.6"
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>package-lock.json</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">📌 Trava versões exatas das dependências</li>
+            <li class="fragment">🔒 Garante instalações consistentes</li>
+            <li class="fragment">⚡ Torna instalações mais rápidas</li>
+            <li class="fragment">✅ Deve ser commitado no Git</li>
+          </ul>
+          <p class="fragment" style="margin-top: 30px; font-size: 0.8em;">
+            💡 <strong>Dica:</strong> Nunca delete este arquivo manualmente!
+          </p>
+        </section>
+      </section>
+
+      <!-- TypeScript -->
+      <section data-background-gradient="linear-gradient(to right, #3b82f6, #8b5cf6)">
+        <section>
+          <h2>📘 Por que TypeScript?</h2>
+        </section>
+
+        <section>
+          <h3>JavaScript vs TypeScript</h3>
+          <div class="grid-container">
+            <div class="fragment">
+              <h4 style="color: #f7df1e;">JavaScript</h4>
+              <pre><code class="language-javascript" data-trim>
+function soma(a, b) {
+  return a + b;
+}
+
+soma(5, 3);      // 8
+soma(5, "3");    // "53" 😱
+soma(5);         // NaN 😱
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <h4 class="highlight-blue">TypeScript</h4>
+              <pre><code class="language-typescript" data-trim>
+function soma(a: number, b: number): number {
+  return a + b;
+}
+
+soma(5, 3);      // 8
+soma(5, "3");    // ❌ Erro!
+soma(5);         // ❌ Erro!
+              </code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>✨ Benefícios do TypeScript</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">🛡️ <strong>Type Safety:</strong> Detecta erros em tempo de desenvolvimento</li>
+            <li class="fragment">🧠 <strong>IntelliSense:</strong> Autocompletar melhor no VS Code</li>
+            <li class="fragment">📚 <strong>Self-documenting:</strong> Tipos servem como documentação</li>
+            <li class="fragment">♻️ <strong>Refatoração:</strong> Mudanças mais seguras</li>
+            <li class="fragment">🔍 <strong>Erros em tempo real:</strong> Antes de executar</li>
+            <li class="fragment">🚀 <strong>Escalabilidade:</strong> Melhor para projetos grandes</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Instalando TypeScript</h3>
+          <pre><code class="language-bash" data-trim>
+# Instalar TypeScript como dev dependency
+npm install --save-dev typescript
+
+# Instalar tipos do Node.js
+npm install --save-dev @types/node
+
+# Verificar versão
+npx tsc --version
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>tsconfig.json</h3>
+          <p>Arquivo de configuração do TypeScript</p>
+          <pre class="fragment"><code class="language-json" data-trim data-line-numbers="1-20|2-3|4-6|7-9|10-13">
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Criando o Projeto -->
+      <section data-background-color="#0f172a">
+        <section>
+          <h2>🚀 Criando o Projeto do Zero</h2>
+          <p class="fragment">Vamos criar nossa API passo a passo!</p>
+        </section>
+
+        <section>
+          <h3>Passo 1: Criar Diretório</h3>
+          <pre><code class="language-bash" data-trim>
+# Criar pasta do projeto
+mkdir agro-ecommerce
+cd agro-ecommerce
+
+# Inicializar Git
+git init
+
+# Criar .gitignore
+echo "node_modules/" > .gitignore
+echo "dist/" >> .gitignore
+echo ".env" >> .gitignore
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Passo 2: Inicializar NPM</h3>
+          <pre><code class="language-bash" data-trim>
+# Criar package.json
+npm init -y
+          </code></pre>
+          <p class="fragment">Edite o <code>package.json</code> e adicione:</p>
+          <pre class="fragment"><code class="language-json" data-trim>
+{
+  "name": "agro-ecommerce",
+  "version": "1.0.0",
+  "description": "API para e-commerce agrícola",
+  "type": "module",
+  "main": "dist/server.js"
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Passo 3: Instalar Dependências</h3>
+          <pre><code class="language-bash" data-trim>
+# Dependências de produção
+npm install express cors dotenv
+
+# Dependências de desenvolvimento
+npm install --save-dev typescript @types/node @types/express tsx
+
+# Instalar tipos para CORS
+npm install --save-dev @types/cors
+
+# Verificar instalação
+npm list --depth=0
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Passo 4: Configurar TypeScript</h3>
+          <pre><code class="language-bash" data-trim>
+# Criar tsconfig.json
+npx tsc --init
+          </code></pre>
+          <p class="fragment">Substitua o conteúdo por:</p>
+          <pre class="fragment"><code class="language-json" data-trim>
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Passo 5: Criar Estrutura de Pastas</h3>
+          <pre><code class="language-bash" data-trim>
+mkdir src
+mkdir src/controllers
+mkdir src/services
+mkdir src/middlewares
+
+# Criar arquivo principal
+touch src/server.ts
+touch src/app.ts
+touch src/routes.ts
+          </code></pre>
+          <div class="fragment" style="margin-top: 30px;">
+            <p>Estrutura resultante:</p>
+            <pre><code class="language-text" data-trim>
+agro-ecommerce/
+├── src/
+│   ├── controllers/
+│   ├── services/
+│   ├── middlewares/
+│   ├── app.ts
+│   ├── routes.ts
+│   └── server.ts
+├── package.json
+└── tsconfig.json
+            </code></pre>
+          </div>
+        </section>
+      </section>
+
+      <!-- Express Básico -->
+      <section>
+        <section data-background-gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+          <h2>⚡ Express.js</h2>
+          <p>Framework web minimalista e flexível</p>
+        </section>
+
+        <section>
+          <h3>app.ts</h3>
+          <p>Configuração da aplicação Express</p>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-3|5|7-10|12-13">
+import express from 'express';
+import cors from 'cors';
+import { router } from './routes.js';
+
+export const app = express();
+
+// Middlewares globais
+app.use(express.json());
+app.use(cors());
+
+// Rotas
+app.use(router);
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>routes.ts</h3>
+          <p>Definição das rotas</p>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-15|1-2|4|7-9">
+import { Router } from 'express';
+import type { Request, Response } from 'express';
+
+const router = Router();
+
+// Rota de teste
+router.get('/', (req: Request, res: Response) => {
+  res.json({ message: 'API Agro E-commerce 🚀' });
+});
+
+export { router };
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>server.ts</h3>
+          <p>Inicialização do servidor</p>
+          <pre><code class="language-typescript" data-trim data-line-numbers="1-10|1|3-4|6-8">
+import { app } from './app.js';
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`📍 http://localhost:${PORT}`);
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Configurar Scripts</h3>
+          <p>Edite o <code>package.json</code>:</p>
+          <pre><code class="language-json" data-trim data-line-numbers="|2-6">
+{
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  }
+}
+          </code></pre>
+          <div class="fragment" style="margin-top: 30px; font-size: 0.85em;">
+            <p><strong>dev:</strong> Desenvolvimento com hot reload</p>
+            <p><strong>build:</strong> Compilar TypeScript → JavaScript</p>
+            <p><strong>start:</strong> Executar versão compilada</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Testando -->
+      <section data-background-color="#1a202c">
+        <section>
+          <h2>🧪 Testando a Aplicação</h2>
+        </section>
+
+        <section>
+          <h3>Iniciar em Modo Desenvolvimento</h3>
+          <pre><code class="language-bash" data-trim>
+npm run dev
+          </code></pre>
+          <p class="fragment">Saída esperada:</p>
+          <pre class="fragment"><code class="language-text" data-trim>
+🚀 Servidor rodando na porta 3000
+📍 http://localhost:3000
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Testar no Navegador</h3>
+          <div class="step-box">
+            <p>1. Abra o navegador</p>
+            <p>2. Acesse: <code>http://localhost:3000</code></p>
+            <p>3. Você deve ver:</p>
+            <pre class="fragment"><code class="language-json" data-trim>
+{
+  "message": "API Agro E-commerce 🚀"
+}
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Testar com cURL</h3>
+          <pre><code class="language-bash" data-trim>
+curl http://localhost:3000
+          </code></pre>
+          <div class="fragment" style="margin-top: 40px;">
+            <h4>Ou usar Postman/Insomnia</h4>
+            <ul style="font-size: 0.8em;">
+              <li>Método: GET</li>
+              <li>URL: http://localhost:3000</li>
+              <li>Send</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Hot Reload -->
+      <section>
+        <section data-background-gradient="linear-gradient(to right, #fa709a 0%, #fee140 100%)">
+          <h2>🔥 Hot Reload com tsx</h2>
+        </section>
+
+        <section>
+          <h3>O que é Hot Reload?</h3>
+          <p class="fragment">Reinicia automaticamente o servidor quando você salva um arquivo</p>
+          <div class="fragment" style="margin-top: 40px;">
+            <h4>Ferramentas:</h4>
+            <ul style="font-size: 0.85em;">
+              <li><strong>tsx:</strong> Executa TypeScript diretamente (recomendado)</li>
+              <li><strong>ts-node-dev:</strong> Alternativa popular</li>
+              <li><strong>nodemon + ts-node:</strong> Combinação clássica</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>Testando Hot Reload</h3>
+          <div class="step-box">
+            <p>1. Mantenha o servidor rodando (<code>npm run dev</code>)</p>
+            <p>2. Edite <code>routes.ts</code>:</p>
+            <pre class="fragment"><code class="language-typescript" data-trim>
+router.get('/', (req: Request, res: Response) => {
+  res.json({ 
+    message: 'API Agro E-commerce 🚀',
+    version: '1.0.0'  // Nova propriedade
+  });
+});
+            </code></pre>
+            <p class="fragment">3. Salve o arquivo (Ctrl+S)</p>
+            <p class="fragment">4. Recarregue o navegador → mudanças aplicadas!</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Variáveis de Ambiente -->
+      <section data-background-color="#2d3748">
+        <section>
+          <h2>🔐 Variáveis de Ambiente com dotenv</h2>
+        </section>
+
+        <section>
+          <h3>Por que usar .env?</h3>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">🔒 <strong>Segurança:</strong> Não expor credenciais no código</li>
+            <li class="fragment">🔄 <strong>Flexibilidade:</strong> Diferentes configs para dev/prod</li>
+            <li class="fragment">📝 <strong>Centralização:</strong> Todas configs em um lugar</li>
+            <li class="fragment">🚫 <strong>Gitignore:</strong> Nunca fazer commit de segredos</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Criar arquivo .env</h3>
+          <pre><code class="language-bash" data-trim>
+# Criar .env na raiz do projeto
+touch .env
+          </code></pre>
+          <pre class="fragment"><code class="language-bash" data-trim>
+# Conteúdo do .env
+PORT=3000
+NODE_ENV=development
+DATABASE_URL="postgresql://user:password@localhost:5432/agrodb"
+JWT_SECRET="seu_segredo_super_secreto_aqui"
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Usar variáveis no código</h3>
+          <p>Instalar dotenv:</p>
+          <pre><code class="language-bash" data-trim>
+npm install dotenv
+          </code></pre>
+          <p class="fragment">Atualizar <code>server.ts</code>:</p>
+          <pre class="fragment"><code class="language-typescript" data-trim data-line-numbers="1-10|1|5-6">
+import 'dotenv/config';
+import { app } from './app.js';
+
+const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV || 'development';
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor [${ENV}] na porta ${PORT}`);
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>⚠️ Importante!</h3>
+          <div class="step-box" style="background: rgba(255, 82, 82, 0.1); border-color: #ff5252;">
+            <p>✅ Fazer commit: <code>.env.example</code></p>
+            <p>❌ NUNCA fazer commit: <code>.env</code></p>
+          </div>
+          <pre class="fragment" style="margin-top: 30px;"><code class="language-bash" data-trim>
+# Criar .env.example (sem valores reais)
+PORT=3000
+NODE_ENV=development
+DATABASE_URL="sua_url_do_banco"
+JWT_SECRET="seu_segredo"
+          </code></pre>
+          <pre class="fragment"><code class="language-bash" data-trim>
+# Adicionar ao .gitignore
+echo ".env" >> .gitignore
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Debugging -->
+      <section>
+        <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+          <h2>🐛 Debugging no VS Code</h2>
+        </section>
+
+        <section>
+          <h3>Configurar Debugger</h3>
+          <p>Criar <code>.vscode/launch.json</code>:</p>
+          <pre><code class="language-json" data-trim data-line-numbers="1-20|4-8|9-12">
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug TypeScript",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Usando Breakpoints</h3>
+          <div style="font-size: 0.85em;">
+            <ol>
+              <li class="fragment">Clique na margem esquerda do editor (bola vermelha)</li>
+              <li class="fragment">Pressione <kbd>F5</kbd> para iniciar o debug</li>
+              <li class="fragment">Execute uma requisição que passe pelo breakpoint</li>
+              <li class="fragment">Inspecione variáveis e execute linha por linha</li>
+            </ol>
+          </div>
+          <pre class="fragment" style="margin-top: 30px;"><code class="language-typescript" data-trim>
+router.get('/debug', (req: Request, res: Response) => {
+  const data = { message: 'teste' }; // ⭕ Breakpoint aqui
+  console.log(data);
+  res.json(data);
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- ESLint e Prettier -->
+      <section data-background-color="#1a202c">
+        <section>
+          <h2>✨ Code Quality: ESLint + Prettier</h2>
+        </section>
+
+        <section>
+          <h3>ESLint - Linting</h3>
+          <p>Detecta erros e problemas no código</p>
+          <pre><code class="language-bash" data-trim>
+# Instalar ESLint
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+# Inicializar configuração
+npx eslint --init
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Prettier - Formatação</h3>
+          <p>Formata código automaticamente</p>
+          <pre><code class="language-bash" data-trim>
+# Instalar Prettier
+npm install --save-dev prettier eslint-config-prettier
+
+# Criar .prettierrc
+echo '{"semi": true, "singleQuote": true}' > .prettierrc
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>VS Code Extensions</h3>
+          <ul>
+            <li class="fragment">✅ ESLint</li>
+            <li class="fragment">✅ Prettier - Code formatter</li>
+            <li class="fragment">✅ Auto format on save</li>
+          </ul>
+          <p class="fragment" style="margin-top: 30px; font-size: 0.8em;">
+            Configurar em <code>.vscode/settings.json</code>:
+          </p>
+          <pre class="fragment"><code class="language-json" data-trim>
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Prática -->
+      <section data-background-gradient="linear-gradient(to right, #fa709a 0%, #fee140 100%)">
+        <section>
+          <h2>💻 Atividade Prática</h2>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 1: Criar o Projeto</h3>
+          <ol style="font-size: 0.8em;">
+            <li>Criar pasta <code>agro-ecommerce</code></li>
+            <li>Inicializar npm e git</li>
+            <li>Instalar dependências</li>
+            <li>Configurar TypeScript</li>
+            <li>Criar estrutura de pastas</li>
+            <li>Implementar app.ts, routes.ts, server.ts</li>
+            <li>Testar servidor rodando</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 2: Adicionar Rotas</h3>
+          <p>Adicione estas rotas em <code>routes.ts</code>:</p>
+          <pre><code class="language-typescript" data-trim>
+// GET /status
+router.get('/status', (req, res) => {
+  res.json({ 
+    status: 'online',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// GET /health
+router.get('/health', (req, res) => {
+  res.json({ 
+    healthy: true,
+    uptime: process.uptime()
+  });
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>🎯 Tarefa 3: Variáveis de Ambiente</h3>
+          <ol style="font-size: 0.8em;">
+            <li>Criar arquivo <code>.env</code></li>
+            <li>Adicionar PORT e NODE_ENV</li>
+            <li>Atualizar server.ts para usar process.env</li>
+            <li>Criar .env.example</li>
+            <li>Adicionar .env ao .gitignore</li>
+            <li>Testar mudando a porta</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>🎯 Desafio Extra</h3>
+          <p>Criar uma rota que retorna informações do sistema:</p>
+          <pre><code class="language-typescript" data-trim>
+router.get('/info', (req, res) => {
+  res.json({
+    node: process.version,
+    platform: process.platform,
+    memory: process.memoryUsage(),
+    env: process.env.NODE_ENV
+  });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Próxima Aula -->
+      <section data-background-color="#0f172a">
+        <h2>🔜 Próxima Aula</h2>
+        <h3 class="highlight-green">Aula 3 - Express.js Fundamentos</h3>
+        <ul style="font-size: 0.85em;">
+          <li class="fragment">Request e Response objects</li>
+          <li class="fragment">Parâmetros: query, params, body</li>
+          <li class="fragment">Middlewares personalizados</li>
+          <li class="fragment">Tratamento de erros</li>
+          <li class="fragment">Organização de rotas</li>
+        </ul>
+      </section>
+
+      <!-- Recap -->
+      <section>
+        <h2>📝 Resumo da Aula</h2>
+        <ul style="font-size: 0.8em;">
+          <li class="fragment">✅ Instalamos Node.js e npm</li>
+          <li class="fragment">✅ Configuramos TypeScript</li>
+          <li class="fragment">✅ Criamos projeto com Express</li>
+          <li class="fragment">✅ Implementamos hot reload</li>
+          <li class="fragment">✅ Configuramos variáveis de ambiente</li>
+          <li class="fragment">✅ Criamos primeira API funcional</li>
+        </ul>
+      </section>
+
+      <!-- Encerramento -->
+      <section data-background-gradient="linear-gradient(to bottom, #000000, #1e3a8a)">
+        <h2>🎓 Obrigado!</h2>
+        <p style="margin: 40px 0;">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <p>
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <br>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </p>
+        <p class="fragment" style="margin-top: 60px; font-size: 0.9em;">
+          📚 Próxima aula: <span class="highlight-green">Express.js Fundamentos</span>
+        </p>
+      </section>
+
+   </div>
+  </div>
+
+  
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      transition: 'convex',
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
