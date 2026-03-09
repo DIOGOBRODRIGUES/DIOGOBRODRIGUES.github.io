@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 5: Introdução ao React Native com Expo</title>
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/black.css" id="theme">
+  
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight_todos/styles/monokai.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      text-transform: none;
+      font-weight: bold;
+    }
+    .reveal h1 { color: #42a5f5; }
+    .reveal h2 { color: #66bb6a; }
+    .reveal h3 { color: #ffa726; }
+    
+    .reveal pre {
+      font-size: 0.5em;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      border-radius: 8px;
+    }
+    .reveal code {
+      padding: 3px 8px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+    .reveal ul, .reveal ol {
+      margin: 25px 0;
+    }
+    .reveal li {
+      margin: 12px 0;
+      line-height: 1.5;
+    }
+    .reveal table {
+      font-size: 0.7em;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border-radius: 8px;
+    }
+    .reveal table th {
+      background: rgba(66, 165, 245, 0.3);
+      font-weight: bold;
+    }
+    .reveal table tr:hover {
+      background: rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+    }
+    .highlight-blue { color: #42a5f5 !important; }
+    .highlight-green { color: #66bb6a !important; }
+    .highlight-orange { color: #ffa726 !important; }
+    .highlight-yellow { color: #ffee58 !important; }
+    
+    .social-links a {
+      font-size: 2em;
+      margin: 0 15px;
+      color: #42a5f5;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #66bb6a;
+      transform: scale(1.2);
+    }
+  </style>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1: Título -->
+      <section data-background-gradient="linear-gradient(to bottom, #283593, #1a237e)" data-transition="zoom">
+        <h2 style="font-size: 2.8em; color: #fff;">📱⚛️ Aula 5: React Native com Expo</h2>
+        <p style="font-size: 1.4em; color: #64b5f6;">Criando apps mobile de forma simples e rápida</p>
+        <p style="margin-top: 50px;"><small>Prof. Dr. Diogo Francisco Borba Rodrigues</small></p>
+          <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Slide 2: O que é React Native -->
+      <section data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h3>🤔 O que é React Native?</h3>
+        <ul>
+          <li class="fragment fade-in-then-semi-out">📱 Framework para criar apps móveis nativos</li>
+          <li class="fragment fade-in-then-semi-out">⚛️ Usa JavaScript e React que já conhecemos</li>
+          <li class="fragment fade-in-then-semi-out">🏢 Desenvolvido pelo Facebook (Meta)</li>
+          <li class="fragment fade-in-then-semi-out">🔄 Um código para Android e iOS</li>
+          <li class="fragment fade-in highlight-green">🎯 Apps realmente nativos (não webview)</li>
+        </ul>
+        <p class="fragment" style="margin-top: 30px;"><strong class="highlight-yellow">Diferencial:</strong> Componentes viram elementos nativos!</p>
+      </section>
+
+      <!-- Slide 3: React Native vs React Web -->
+      <section data-auto-animate data-background-color="#1e1e1e">
+        <h3>⚙️ React Native vs React Web</h3>
+        <div style="display: flex; justify-content: space-between; gap: 30px;">
+          <div class="fragment fade-right" style="width: 45%; background: rgba(66,165,245,0.1); padding: 20px; border-radius: 10px; border-left: 5px solid #42a5f5;">
+            <h4 style="color: #42a5f5;">React Web:</h4>
+            <ul style="font-size: 0.9em;">
+              <li>JSX → HTML DOM</li>
+              <li>CSS para estilos</li>
+              <li>Navegador renderiza</li>
+              <li>div, span, p, img</li>
+            </ul>
+          </div>
+          <div class="fragment fade-left" style="width: 45%; background: rgba(102,187,106,0.1); padding: 20px; border-radius: 10px; border-left: 5px solid #66bb6a;">
+            <h4 style="color: #66bb6a;">React Native:</h4>
+            <ul style="font-size: 0.9em;">
+              <li>JSX → Componentes Nativos</li>
+              <li>StyleSheet JS</li>
+              <li>iOS/Android renderiza</li>
+              <li>View, Text, Image</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Por que Expo? -->
+      <section data-auto-animate data-background-gradient="radial-gradient(#283593, #1a237e)">
+        <h3>🚀 Por que usar Expo?</h3>
+        <ul>
+          <li class="fragment fade-up" data-fragment-index="1">⚡ <strong>Setup rápido:</strong> Sem configuração complexa</li>
+          <li class="fragment fade-up" data-fragment-index="2">📱 <strong>Teste imediato:</strong> No celular via QR Code</li>
+          <li class="fragment fade-up" data-fragment-index="3">🌐 <strong>Desenvolvimento online:</strong> Expo Snack</li>
+          <li class="fragment fade-up" data-fragment-index="4">🔄 <strong>Hot reload:</strong> Mudanças em tempo real</li>
+          <li class="fragment fade-up highlight-green" data-fragment-index="5">🎯 <strong>Ideal para aprender:</strong> Foco no código</li>
+        </ul>
+        
+      </section>
+
+      <!-- Slide 5: Expo Snack - Online -->
+      <section data-background-gradient="linear-gradient(45deg, #f093fb 0%, #f5576c 100%)" data-transition="convex">
+        <h3>🌐 Expo Snack - Desenvolva Online!</h3>
+        <p style="font-size: 1.2em;"><strong>✨ O que é:</strong> Editor online para React Native</p>
+        <ul>
+          <li class="fragment fade-in">🌐 <strong>Zero instalação:</strong> Funciona no navegador</li>
+          <li class="fragment fade-in">📱 <strong>Teste real:</strong> QR Code no celular</li>
+          <li class="fragment fade-in">🔄 <strong>Compartilhamento:</strong> Links diretos</li>
+          <li class="fragment fade-in">📚 <strong>Templates:</strong> Exemplos prontos</li>
+        </ul>
+        <p class="fragment" style="margin-top: 30px; font-size: 1.3em;"><strong>🔗 Acesse:</strong> <a href="https://snack.expo.dev" target="_blank" style="color: #ffee58;">snack.expo.dev</a></p>
+        <p class="fragment" style="color: #ffee58;"><strong>📱 App necessário:</strong> "Expo Go" no celular</p>
+      </section>
+
+      <!-- Slide 6: Vamos começar! -->
+      <section data-background-color="#0d47a1" data-transition="zoom">
+        <h3>🎯 Vamos começar no Snack!</h3>
+        <ol style="font-size: 1.1em;">
+          <li class="fragment fade-up" data-fragment-index="1">🌐 Abra <strong class="highlight-yellow">snack.expo.dev</strong></li>
+          <li class="fragment fade-up" data-fragment-index="2">📱 Clique em <strong class="highlight-yellow">"New Snack"</strong></li>
+          <li class="fragment fade-up" data-fragment-index="3">📝 Escolha o template <strong class="highlight-yellow">"Hello World"</strong></li>
+          <li class="fragment fade-up" data-fragment-index="4">📱 Instale <strong class="highlight-yellow">"Expo Go"</strong> no celular</li>
+          <li class="fragment fade-up" data-fragment-index="5">📷 Escaneie o QR Code</li>
+        </ol>
+        <p class="fragment" style="margin-top: 40px; font-size: 1.0em; color: #66bb6a;"><strong>🎉 Pronto!</strong> Seu primeiro app rodando no celular!</p>
+      </section>
+
+      <!-- Slide 7: Componentes Básicos -->
+      <section data-auto-animate data-background-color="#263238">
+        <h3>🧩 Componentes Básicos do React Native</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import {
+  View,          // Como &lt;div&gt;
+  Text,          // Como &lt;p&gt;, &lt;h1&gt;, &lt;span&gt;
+  Image,         // Como &lt;img&gt;
+  TextInput,     // Como &lt;input&gt;
+  TouchableOpacity,  // Como &lt;button&gt;
+  ScrollView,    // Container com scroll
+  FlatList,      // Lista otimizada
+  SafeAreaView,  // Área segura (notch)
+} from 'react-native';
+
+// ❌ NÃO existem: div, span, p, h1, img, input, button
+// ✅ Use os componentes nativos acima!</code></pre>
+      </section>
+
+      <!-- Slide 8: Primeiro Exemplo -->
+      <section data-auto-animate data-background-gradient="linear-gradient(to right, #434343 0%, #000000 100%)">
+        <h3>📱 Primeiro App - Hello World</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;
+        Olá, React Native! 👋
+      &lt;/Text&gt;
+      &lt;Text style={styles.subtitle}&gt;
+        Meu primeiro app mobile
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 9: Sistema de Estilos -->
+      <section data-background-color="#1a237e">
+        <h3>🎨 Sistema de Estilos - StyleSheet</h3>
+        <pre><code class="language-jsx">import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,                    // Flexbox
+    backgroundColor: '#ffffff', // camelCase
+    padding: 20,                // Apenas números
+    marginTop: 50,              // Sem 'px'
+    alignItems: 'center',       // Centralizar
+    justifyContent: 'center',   // Centralizar vertical
+  },
+  text: {
+    fontSize: 18,               // Tamanho da fonte
+    fontWeight: 'bold',         // Peso da fonte
+    color: '#333333',           // Cor
+    textAlign: 'center',        // Alinhamento
+  },
+});
+
+// ❌ NÃO funciona: '20px', 'margin: 0 auto', 'display: block'
+// ✅ Use: 20, marginHorizontal: 0, flex: 1</code></pre>
+      </section>
+
+      <!-- Slide 10: Interatividade - Botões -->
+      <section data-auto-animate data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h3>🖱️ Adicionando Interatividade</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+
+export default function App() {
+  const handlePress = () => {
+    Alert.alert('Sucesso!', 'Botão foi pressionado! 🎉');
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;App Interativo&lt;/Text&gt;
+      
+      &lt;TouchableOpacity style={styles.button} onPress={handlePress}&gt;
+        &lt;Text style={styles.buttonText}&gt;Clique Aqui! 👆&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    borderRadius: 25,
+    elevation: 3,  // Sombra Android
+    shadowColor: '#000',  // Sombra iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 11: Estado - useState -->
+      <section data-auto-animate data-background-color="#0d47a1">
+        <h3>🔄 Estado com useState</h3>
+        <pre><code class="language-jsx">import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [contador, setContador] = useState(0);
+
+  const incrementar = () => {
+    setContador(contador + 1);
+  };
+
+  const decrementar = () => {
+    setContador(contador - 1);
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Contador&lt;/Text&gt;
+      
+      &lt;Text style={styles.numero}&gt;{contador}&lt;/Text&gt;
+      
+      &lt;View style={styles.botoes}&gt;
+        &lt;TouchableOpacity style={styles.botao} onPress={decrementar}&gt;
+          &lt;Text style={styles.textoBotao}&gt;-&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+        
+        &lt;TouchableOpacity style={styles.botao} onPress={incrementar}&gt;
+          &lt;Text style={styles.textoBotao}&gt;+&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 12: Estilos do Contador -->
+      <section data-auto-animate data-background-color="#0d47a1">
+        <h3>🎨 Estilos do Contador</h3>
+        <pre><code class="language-jsx">const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  numero: {
+    fontSize: 72,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    marginBottom: 40,
+  },
+  botoes: {
+    flexDirection: 'row',
+    gap: 20,
+  },
+  botao: {
+    backgroundColor: '#007AFF',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  textoBotao: {
+    color: '#ffffff',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 13: Input de Texto -->
+      <section data-auto-animate data-background-gradient="linear-gradient(to bottom right, #4a148c, #6a1b9a)">
+        <h3>📝 Input de Texto</h3>
+        <pre><code class="language-jsx">import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [nome, setNome] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  const cumprimentar = () => {
+    if (nome.trim()) {
+      setMensagem(`Olá, ${nome}! Bem-vindo(a)! 👋`);
+    } else {
+      setMensagem('Por favor, digite seu nome!');
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Qual seu nome?&lt;/Text&gt;
+      
+      &lt;TextInput
+        style={styles.input}
+        placeholder="Digite seu nome..."
+        value={nome}
+        onChangeText={setNome}
+        placeholderTextColor="#999"
+      /&gt;
+      
+      &lt;TouchableOpacity style={styles.botao} onPress={cumprimentar}&gt;
+        &lt;Text style={styles.textoBotao}&gt;Cumprimentar&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+      
+      {mensagem ? (
+        &lt;Text style={styles.mensagem}&gt;{mensagem}&lt;/Text&gt;
+      ) : null}
+    &lt;/View&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 14: Testando no Celular -->
+      <section data-auto-animate data-background-color="#00695c">
+        <h3>📱 Testando no Celular</h3>
+        <div style="display: flex; justify-content: space-between; gap: 30px;">
+          <div class="fragment fade-right" style="width: 48%; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+            <h4 style="color: #66bb6a;">📱 Android:</h4>
+            <ol style="font-size: 0.9em;">
+              <li>Baixe "Expo Go" na Play Store</li>
+              <li>Abra o app</li>
+              <li>Toque em "Scan QR Code"</li>
+              <li>Escaneie o código do Snack</li>
+            </ol>
+          </div>
+          <div class="fragment fade-left" style="width: 48%; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+            <h4 style="color: #42a5f5;">🍎 iOS:</h4>
+            <ol style="font-size: 0.9em;">
+              <li>Baixe "Expo Go" na App Store</li>
+              <li>Abra o app nativo "Camera"</li>
+              <li>Escaneie o QR Code do Snack</li>
+              <li>Toque na notificação</li>
+            </ol>
+          </div>
+        </div>
+       
+      </section>
+
+      <!-- Slide 15: Desenvolvimento Local vs Online -->
+      <section data-auto-animate data-background-gradient="linear-gradient(to right, #232526, #414345)">
+        <h3>🔄 Desenvolvimento: Online vs Local</h3>
+        <div style="display: flex; justify-content: space-between; gap: 30px;">
+          <div class="fragment fade-right" style="width: 48%; background: rgba(66,165,245,0.15); padding: 20px; border-radius: 10px; border: 2px solid #42a5f5;">
+            <h4 style="color: #42a5f5;">🌐 Expo Snack (Online):</h4>
+            <ul style="font-size: 0.75em;">
+              <li>✅ Começar imediatamente</li>
+              <li>✅ Não precisa instalar nada</li>
+              <li>✅ Compartilhar facilmente</li>
+              <li>❌ Internet obrigatória</li>
+              <li>❌ Limitações de bibliotecas</li>
+            </ul>
+          </div>
+          <div class="fragment fade-left" style="width: 48%; background: rgba(102,187,106,0.15); padding: 20px; border-radius: 10px; border: 2px solid #66bb6a;">
+            <h4 style="color: #66bb6a;">💻 VS Code Local:</h4>
+            <ul style="font-size: 0.75em;">
+              <li>✅ Funciona offline</li>
+              <li>✅ Todas as bibliotecas</li>
+              <li>✅ Ferramentas avançadas</li>
+              <li>✅ Deploy para lojas</li>
+              <li>❌ Precisa configurar ambiente</li>
+            </ul>
+          </div>
+        </div>
+        <p class="fragment" style="margin-top: 30px; font-size: 1em;"><strong class="highlight-yellow">🎯 Começamos no Snack, evoluímos para local!</strong></p>
+      </section>
+
+      <!-- Slide 16: Preparando o Ambiente Local -->
+      <section data-background-color="#1a237e" data-transition="convex">
+        <h3>🛠️ Preparando o Ambiente Local</h3>
+        <h4 style="color: #ffee58;">📦 O que vamos precisar:</h4>
+        <ol style="font-size: 1.05em;">
+          <li class="fragment fade-in">🟢 <strong>Node.js</strong> (versão 18 ou superior)</li>
+          <li class="fragment fade-in">💻 <strong>VS Code</strong> (editor principal)</li>
+          <li class="fragment fade-in">⚡ <strong>Expo CLI</strong> (ferramenta de linha de comando)</li>
+          <li class="fragment fade-in">📱 <strong>Expo Go</strong> (app no celular)</li>
+          <li class="fragment fade-in">🔧 <strong>Extensões VS Code</strong> (para React Native)</li>
+        </ol>
+        <div class="fragment" style="background: rgba(66,165,245,0.2); padding: 10px; border-radius: 10px; margin-top: 5px; border-left: 5px solid #42a5f5;">
+          <p style="font-size: 0.7em;"><strong>🎯 Meta:</strong> Criar apps localmente e testar no celular via QR Code!</p>
+        </div>
+      </section>
+
+      <!-- Slide 17: Instalando Node.js -->
+      <section>
+        <h3>🟢 Passo 1: Instalando Node.js</h3>
+        <ol>
+          <li>🌐 Acesse <strong>nodejs.org</strong></li>
+          <li>⬇️ Baixe a versão <strong>LTS</strong> (recomendada)</li>
+          <li>🔧 Execute o instalador</li>
+          <li>✅ Verifique a instalação no terminal:</li>
+        </ol>
+        <pre><code class="language-bash"># Verificar versão do Node.js
+node --version
+# Deve mostrar algo como: v18.17.0
+
+# Verificar versão do NPM
+npm --version
+# Deve mostrar algo como: 9.6.7</code></pre>
+        <p><strong>💡 Dica:</strong> Se já tem Node.js, verifique se é versão 16+ !</p>
+      </section>
+
+      <!-- Slide 18: Instalando Expo CLI -->
+      <section>
+        <h3>⚡ Passo 2: Instalando Expo CLI</h3>
+        <p><strong>📦 Instalar globalmente via NPM:</strong></p>
+        <pre><code class="language-bash"># Instalar Expo CLI
+npm install -g @expo/cli
+
+# Verificar instalação
+expo --version
+# Deve mostrar algo como: 6.3.8</code></pre>
+        <div style="background: #1a202c; padding: 15px; border-radius: 8px; margin-top: 20px;
+        font-size: 0.7em;">
+          <h4>🚀 O que o Expo CLI faz:</h4>
+          <ul>
+            <li>📱 Cria novos projetos React Native</li>
+            <li>🔄 Executa servidor de desenvolvimento</li>
+            <li>📋 Gera QR codes para teste no celular</li>
+            <li>🎯 Facilita build e deploy</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 19: Configurando VS Code -->
+      <section>
+        <h3>💻 Passo 3: Configurando VS Code</h3>
+        <h4>🔧 Extensões Essenciais:</h4>
+        <ol>
+          <li><strong>ES7+ React/Redux/React-Native snippets</strong></li>
+          <li><strong>React Native Tools</strong> (Microsoft)</li>
+          <li><strong>Expo Tools</strong></li>
+          <li><strong>Auto Rename Tag</strong></li>
+          <li><strong>Bracket Pair Colorizer</strong></li>
+        </ol>
+        <pre><code class="language-bash"># Instalar via linha de comando (opcional)
+code --install-extension dsznajder.es7-react-js-snippets
+code --install-extension ms-vscode.vscode-react-native
+code --install-extension expo.vscode-expo-tools</code></pre>
+        <p><strong>💡 Dica:</strong> Vá em Extensions (Ctrl+Shift+X) e pesquise cada uma!</p>
+      </section>
+
+      <!-- Slide 20: Criando Primeiro Projeto -->
+      <section>
+        <h3>🚀 Passo 4: Criando Primeiro Projeto</h3>
+        <p><strong>📁 Criar projeto via terminal:</strong></p>
+        <pre><code class="language-bash"># Criar novo projeto
+npx create-expo-app MeuPrimeiroApp
+
+# Entrar na pasta
+cd MeuPrimeiroApp
+
+# Abrir no VS Code
+code .</code></pre>
+        <div style="background: #2d3748; padding: 10px; border-radius: 8px; margin-top: 10px;
+        font-size: 0.65em;">
+          <h4>📂 Estrutura criada:</h4>
+          <ul>
+            <li><strong>App.js</strong> - componente principal</li>
+            <li><strong>package.json</strong> - dependências</li>
+            <li><strong>node_modules/</strong> - bibliotecas</li>
+            <li><strong>assets/</strong> - imagens e recursos</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 21: Executando o Projeto -->
+      <section>
+        <h3>▶️ Passo 5: Executando o Projeto</h3>
+        <p><strong>🔄 Iniciar servidor de desenvolvimento:</strong></p>
+        <pre><code class="language-bash"># Dentro da pasta do projeto
+npx expo start
+
+# Ou simplesmente
+expo start</code></pre>
+        <div style="background: #1a202c; padding: 15px; border-radius: 8px; margin-top: 20px;
+        font-size: 0.6em;">
+          <h4>📱 Opções de teste:</h4>
+          <ul>
+            <li><strong>📱 QR Code:</strong> Escaneie com Expo Go</li>
+            <li><strong>🤖 Android:</strong> Pressione 'a' (precisa Android Studio)</li>
+            <li><strong>🍎 iOS:</strong> Pressione 'i' (apenas no Mac)</li>
+            <li><strong>🌐 Web:</strong> Pressione 'w' (roda no navegador)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 22: Estrutura do Projeto no VS Code -->
+      <section>
+        <h3>� Explorando o Projeto no VS Code</h3>
+        <p><strong>📂 Arquivo principal - App.js:</strong></p>
+        <pre><code class="language-jsx">import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text&gt;Open up App.js to start working on your app!&lt;/Text&gt;
+      &lt;StatusBar style="auto" /&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});</code></pre>
+        <p><strong>🎯 Este é o ponto de partida do seu app!</strong></p>
+      </section>
+
+      <!-- Slide 23: Hot Reload em Ação -->
+      <section>
+        <h3>🔥 Hot Reload - Magia do Desenvolvimento</h3>
+        <p><strong>✨ Vamos testar o Hot Reload:</strong></p>
+        <ol>
+          <li>🚀 Execute <code>expo start</code></li>
+          <li>📱 Abra o app no celular via QR Code</li>
+          <li>✏️ Modifique o texto no App.js</li>
+          <li>💾 Salve o arquivo (Ctrl+S)</li>
+          <li>👀 Veja a mudança instantânea no celular!</li>
+        </ol>
+       
+      </section>
+
+      <!-- Slide 24: Debugger no VS Code -->
+      <section>
+        <h3>🐛 Debug no VS Code</h3>
+        <p><strong>🔍 Ferramentas de debug:</strong></p>
+        <ul>
+          <li><strong>Console.log():</strong> Aparece no terminal do VS Code</li>
+          <li><strong>React Developer Tools:</strong> Inspeccionar componentes</li>
+          <li><strong>Network Inspector:</strong> Ver requisições HTTP</li>
+          <li><strong>Element Inspector:</strong> Visualizar estrutura</li>
+        </ul>
+       
+      </section>
+
+      <!-- Slide 25: Atividade Prática -->
+      <section data-background-gradient="linear-gradient(to right, #f857a6, #ff5858)" data-transition="zoom">
+        <h3>🎯 Atividade Prática - Desenvolvimento Local</h3>
+        <p style="font-size: 0.8em;"><strong>Vamos criar juntos um "Contador" no VS Code:</strong></p>
+        <ol style="font-size: 1.05em;">
+          <li class="fragment fade-up">💻 Criar projeto: <code>npx create-expo-app ContadorApp</code></li>
+          <li class="fragment fade-up">📂 Abrir no VS Code: <code>code ContadorApp</code></li>
+          <li class="fragment fade-up">🚀 Executar: <code>expo start</code></li>
+          <li class="fragment fade-up">✏️ Modificar App.js para criar um contador</li>
+          <li class="fragment fade-up">📱 Testar no celular via QR Code</li>
+        </ol>
+      
+      </section>
+      <section data-background-color="#c21500" data-transition="fade">
+        <p style="font-size: 1.3em;"><strong>💡 Desafio Extra:</strong></p>
+        <ul style="font-size: 1.15em;">
+          <li class="fragment highlight-yellow">Adicione um botão que muda a cor do cartão</li>
+          <li class="fragment highlight-yellow">Inclua um contador de visualizações</li>
+        </ul>
+        
+      </section>
+
+      <!-- Slide 16: Exemplo do Cartão -->
+      <section>
+        <h3>💼 Exemplo - Cartão de Visita</h3>
+        <pre><code class="language-jsx">import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+export default function CartaoVisita() {
+  const [cor, setCor] = useState('#007AFF');
+  const [visualizacoes, setVisualizacoes] = useState(0);
+
+  const mudarCor = () => {
+    const cores = ['#007AFF', '#FF3B30', '#34C759', '#FF9500', '#AF52DE'];
+    const novaCor = cores[Math.floor(Math.random() * cores.length)];
+    setCor(novaCor);
+    setVisualizacoes(visualizacoes + 1);
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;View style={[styles.cartao, { borderLeftColor: cor }]}&gt;
+        &lt;Text style={styles.nome}&gt;João Silva&lt;/Text&gt;
+        &lt;Text style={styles.profissao}&gt;Desenvolvedor Mobile&lt;/Text&gt;
+        &lt;Text style={styles.contato}&gt;📧 joao@email.com&lt;/Text&gt;
+        &lt;Text style={styles.contato}&gt;📱 (11) 99999-9999&lt;/Text&gt;
+        
+        &lt;TouchableOpacity style={[styles.botao, { backgroundColor: cor }]} onPress={mudarCor}&gt;
+          &lt;Text style={styles.textoBotao}&gt;Mudar Cor&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+        
+        &lt;Text style={styles.visualizacoes}&gt;Visualizações: {visualizacoes}&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 17: Próximos Passos -->
+      <section data-background-gradient="radial-gradient(circle, #1e3c72, #2a5298)" data-transition="convex">
+        <h3>🚀 Próximos Passos</h3>
+        <ol style="font-size: 1.05em;">
+          <li class="fragment fade-in">🔧 <strong>Pratique:</strong> Crie mais apps no Snack</li>
+          <li class="fragment fade-in">📚 <strong>Explore:</strong> Outros componentes (Image, ScrollView)</li>
+          <li class="fragment fade-in">🎨 <strong>Estilize:</strong> Experimente cores e layouts</li>
+          <li class="fragment fade-in">📱 <strong>Teste:</strong> Sempre no celular via Expo Go</li>
+          <li class="fragment fade-in">🔄 <strong>Compartilhe:</strong> Links do Snack com colegas</li>
+        </ol>
+        <p class="fragment" style="margin-top: 30px; font-size: 1.15em;"><strong class="highlight-yellow">📚 Recursos Úteis:</strong></p>
+        <ul class="fragment" style="font-size: 1em;">
+          <li><a href="https://docs.expo.dev" target="_blank" style="color: #42a5f5;">Documentação Expo</a></li>
+          <li><a href="https://snack.expo.dev" target="_blank" style="color: #42a5f5;">Expo Snack</a></li>
+          <li><a href="https://reactnative.dev/docs/components-and-apis" target="_blank" style="color: #42a5f5;">Componentes RN</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 18: Resumo -->
+
+      <!-- Slide 19: Q&A -->
+    
+    </div>
+  </div>
+              <li>StyleSheet JS</li>
+              <li>iOS/Android renderiza</li>
+            </ul>
+          </div>
+        </div>
+        <p><strong>Bridge:</strong> JavaScript se comunica com código nativo</p>
+      </section>
+
+      <!-- Slide 4: Formas de Criar Apps RN -->
+      <section>
+        <h3>🛠️ Formas de Criar Apps React Native</h3>
+        <div style="font-size: 0.8em;">
+          <table>
+            <tr>
+              <th>Método</th>
+              <th>Prós</th>
+              <th>Contras</th>
+              <th>Uso</th>
+            </tr>
+            <tr>
+              <td><strong>React Native CLI</strong></td>
+              <td>Controle total, acesso nativo</td>
+              <td>Configuração complexa</td>
+              <td>Apps de produção</td>
+            </tr>
+            <tr>
+              <td><strong>Expo CLI</strong></td>
+              <td>Setup rápido, fácil teste</td>
+              <td>Limitações de APIs</td>
+              <td>Protótipos, aprendizado</td>
+            </tr>
+            <tr>
+              <td><strong>Expo Snack</strong></td>
+              <td>Online, sem instalação</td>
+              <td>Apenas básico</td>
+              <td>Testes rápidos</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- Slide 5: Instalação React Native CLI -->
+      <section>
+        <h3>🔧 1. React Native CLI (Método Tradicional)</h3>
+        <p><strong>Pré-requisitos:</strong></p>
+        <ul>
+          <li>Node.js 18+</li>
+          <li>Android Studio (Android SDK)</li>
+          <li>Xcode (apenas macOS para iOS)</li>
+        </ul>
+        <pre><code class="language-bash"># Instalar React Native CLI globalmente
+npm install -g react-native-cli
+
+# Criar novo projeto
+npx react-native init MeuPrimeiroApp
+
+# Navegar para pasta
+cd MeuPrimeiroApp
+
+# Executar no Android
+npx react-native run-android
+
+# Executar no iOS (apenas macOS)
+npx react-native run-ios</code></pre>
+      </section>
+
+      <!-- Slide 6: Estrutura de Pastas RN CLI -->
+      <section>
+        <h3>📁 Estrutura de Pastas - React Native CLI</h3>
+        <pre><code class="language-text">MeuPrimeiroApp/
+├── android/          # Código nativo Android
+├── ios/              # Código nativo iOS
+├── node_modules/     # Dependências
+├── src/              # Nosso código (criamos)
+│   ├── components/   # Componentes reutilizáveis
+│   ├── screens/      # Telas do app
+│   └── styles/       # Estilos globais
+├── App.js            # Componente principal
+├── index.js          # Ponto de entrada
+├── package.json      # Dependências e scripts
+└── metro.config.js   # Configuração do bundler</code></pre>
+      </section>
+
+      <!-- Slide 7: Exemplo App.js Inicial -->
+      <section>
+        <h3>📄 App.js - Primeiro Exemplo</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+function App() {
+  return (
+    &lt;SafeAreaView style={styles.container}&gt;
+      &lt;StatusBar barStyle="dark-content" /&gt;
+      &lt;View style={styles.content}&gt;
+        &lt;Text style={styles.title}&gt;
+          Meu Primeiro App React Native! 🎉
+        &lt;/Text&gt;
+        &lt;Text style={styles.subtitle}&gt;
+          Criado com React Native CLI
+        &lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+  },
+});
+
+export default App;</code></pre>
+      </section>
+
+      <!-- Slide 8: Instalação Expo -->
+      <section>
+        <h3>🚀 2. Expo CLI (Método Simplificado)</h3>
+        <p><strong>Vantagens do Expo:</strong></p>
+        <ul>
+          <li>⚡ Setup em minutos</li>
+          <li>📱 Teste direto no celular</li>
+          <li>🌐 Não precisa de Android Studio/Xcode</li>
+          <li>🔄 Hot reload instantâneo</li>
+        </ul>
+        <pre><code class="language-bash"># Instalar Expo CLI
+npm install -g @expo/cli
+
+# Criar projeto
+npx create-expo-app MeuAppExpo
+
+# Navegar para pasta
+cd MeuAppExpo
+
+# Iniciar servidor de desenvolvimento
+npx expo start</code></pre>
+      </section>
+
+      <!-- Slide 9: Estrutura Expo -->
+      <section>
+        <h3>📁 Estrutura de Pastas - Expo</h3>
+        <pre><code class="language-text">MeuAppExpo/
+├── assets/           # Imagens, ícones, fontes
+│   ├── images/
+│   ├── fonts/
+│   └── splash.png
+├── components/       # Componentes reutilizáveis
+├── screens/          # Telas do aplicativo
+├── constants/        # Constantes (cores, URLs)
+├── hooks/           # Custom hooks
+├── navigation/       # Configuração de navegação
+├── App.js           # Componente raiz
+├── app.json         # Configurações do Expo
+├── babel.config.js  # Configuração Babel
+└── package.json     # Dependências</code></pre>
+      </section>
+
+      <!-- Slide 10: App.js com Expo -->
+      <section>
+        <h3>📱 App.js - Versão Expo</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
+export default function App() {
+  const handlePress = () => {
+    alert('Botão pressionado! 🎉');
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;StatusBar style="auto" /&gt;
+      
+      &lt;Text style={styles.title}&gt;Bem-vindo ao Expo!&lt;/Text&gt;
+      &lt;Text style={styles.description}&gt;
+        Desenvolvimento React Native simplificado
+      &lt;/Text&gt;
+      
+      &lt;TouchableOpacity style={styles.button} onPress={handlePress}&gt;
+        &lt;Text style={styles.buttonText}&gt;Clique Aqui&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    borderRadius: 25,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 11: Expo Snack -->
+      <section>
+        <h3>🌐 3. Expo Snack (Online)</h3>
+        <p><strong>Ideal para:</strong></p>
+        <ul>
+          <li>🎓 Aprendizado e testes</li>
+          <li>🔄 Compartilhar código</li>
+          <li>⚡ Prototipagem rápida</li>
+          <li>📱 Teste sem instalação</li>
+        </ul>
+        <p><strong>Acesse:</strong> <a href="https://snack.expo.dev" target="_blank">snack.expo.dev</a></p>
+        <p><strong>Como usar:</strong></p>
+        <ol>
+          <li>Abra o site do Snack</li>
+          <li>Escolha um template</li>
+          <li>Edite o código online</li>
+          <li>Teste no simulador ou QR Code</li>
+        </ol>
+      </section>
+
+      <!-- Slide 12: Migração para Snack -->
+      <section>
+        <h3>🔄 Migrando para Expo Snack</h3>
+        <p><strong>Passo a passo:</strong></p>
+        <ol>
+          <li>🌐 Acesse <a href="https://snack.expo.dev" target="_blank">snack.expo.dev</a></li>
+          <li>📱 Clique em "New Snack"</li>
+          <li>🗂️ Cole seu código no App.js</li>
+          <li>📦 Instale dependências se necessário</li>
+          <li>▶️ Execute no simulador</li>
+          <li>📱 Teste no celular via QR Code</li>
+        </ol>
+        <p><strong>💡 Dica:</strong> Instale o app "Expo Go" no seu celular!</p>
+      </section>
+
+      <!-- Slide 13: Componentes Básicos -->
+      <section>
+        <h3>🧩 Componentes Nativos Essenciais</h3>
+        <pre><code class="language-jsx">import React from 'react';
+import {
+  View,        // Container (como div)
+  Text,        // Texto (como p, h1, span)
+  Image,       // Imagens
+  ScrollView,  // Container com scroll
+  TextInput,   // Input de texto
+  TouchableOpacity, // Botão tocável
+  FlatList,    // Lista otimizada
+  SafeAreaView, // Área segura (notch)
+} from 'react-native';
+
+// ❌ Não existem em React Native:
+// div, span, p, h1, img, input, button
+
+// ✅ Use os componentes nativos:
+function MeuComponente() {
+  return (
+    &lt;SafeAreaView&gt;
+      &lt;ScrollView&gt;
+        &lt;View&gt;
+          &lt;Text&gt;Meu texto&lt;/Text&gt;
+          &lt;TouchableOpacity&gt;
+            &lt;Text&gt;Meu botão&lt;/Text&gt;
+          &lt;/TouchableOpacity&gt;
+        &lt;/View&gt;
+      &lt;/ScrollView&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 14: Sistema de Estilos -->
+      <section>
+        <h3>🎨 Sistema de Estilos</h3>
+        <pre><code class="language-jsx">import { StyleSheet } from 'react-native';
+
+// ✅ Método recomendado - StyleSheet
+const estilos = StyleSheet.create({
+  container: {
+    flex: 1,                    // Flex igual CSS
+    backgroundColor: '#f0f0f0', // camelCase
+    paddingTop: 20,             // Apenas números
+    marginHorizontal: 10,       // Atalhos específicos
+    alignItems: 'center',       // Flexbox
+    justifyContent: 'space-between',
+  },
+  text: {
+    fontSize: 16,               // Sem px, rem, em
+    fontWeight: 'bold',         // Strings específicas
+    color: '#333333',           // Hex, rgb, rgba
+    textAlign: 'center',
+  },
+});
+
+// ❌ Não funciona: 
+// fontSize: '16px', margin: '10px auto', display: 'block'
+
+// ✅ Principais diferenças do CSS:
+// - Sem unidades (px, %, em)
+// - camelCase em vez de kebab-case
+// - Valores específicos para cada propriedade</code></pre>
+      </section>
+
+      <!-- Slide 15: Exemplo Prático Completo -->
+      <section>
+        <h3>💼 Exemplo Prático: Lista de Tarefas</h3>
+        <pre><code class="language-jsx">import React, { useState } from 'react';
+import {
+  View, Text, TextInput, TouchableOpacity,
+  FlatList, StyleSheet, SafeAreaView,
+} from 'react-native';
+
+export default function TodoApp() {
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    if (task.trim()) {
+      setTasks([...tasks, { id: Date.now(), text: task }]);
+      setTask('');
+    }
+  };
+
+  const removeTask = (id) => {
+    setTasks(tasks.filter(t => t.id !== id));
+  };
+
+  return (
+    &lt;SafeAreaView style={todoStyles.container}&gt;
+      &lt;Text style={todoStyles.title}&gt;📝 Minhas Tarefas&lt;/Text&gt;
+      
+      &lt;View style={todoStyles.inputContainer}&gt;
+        &lt;TextInput
+          style={todoStyles.input}
+          value={task}
+          onChangeText={setTask}
+          placeholder="Digite uma tarefa..."
+        /&gt;
+        &lt;TouchableOpacity 
+          style={todoStyles.addButton} 
+          onPress={addTask}
+        &gt;
+          &lt;Text style={todoStyles.addButtonText}&gt;+&lt;/Text&gt;
+        &lt;/TouchableOpacity&gt;
+      &lt;/View&gt;
+
+      &lt;FlatList
+        data={tasks}
+        renderItem={({ item }) => (
+          &lt;View style={todoStyles.taskItem}&gt;
+            &lt;Text style={todoStyles.taskText}&gt;{item.text}&lt;/Text&gt;
+            &lt;TouchableOpacity onPress={() => removeTask(item.id)}&gt;
+              &lt;Text&gt;❌&lt;/Text&gt;
+            &lt;/TouchableOpacity&gt;
+          &lt;/View&gt;
+        )}
+        keyExtractor={item => item.id.toString()}
+      /&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 16: Estilos do Todo -->
+      <section>
+        <h3>🎨 Estilos do Todo App</h3>
+        <pre><code class="language-jsx">const todoStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#333',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    backgroundColor: '#fff',
+    marginRight: 10,
+  },
+  addButton: {
+    backgroundColor: '#007AFF',
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  taskItem: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  taskText: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 17: Diferenças Principais -->
+      <section>
+        <h3>🔍 React Native vs React Web</h3>
+        <div style="font-size: 0.7em;">
+          <table>
+            <tr>
+              <th>Aspecto</th>
+              <th>React Web</th>
+              <th>React Native</th>
+            </tr>
+            <tr>
+              <td><strong>Elementos</strong></td>
+              <td>div, span, p, img, input</td>
+              <td>View, Text, Image, TextInput</td>
+            </tr>
+            <tr>
+              <td><strong>Estilos</strong></td>
+              <td>CSS, classes, arquivos .css</td>
+              <td>StyleSheet, objetos JS</td>
+            </tr>
+            <tr>
+              <td><strong>Eventos</strong></td>
+              <td>onClick, onChange, onSubmit</td>
+              <td>onPress, onChangeText</td>
+            </tr>
+            <tr>
+              <td><strong>Navegação</strong></td>
+              <td>React Router, links</td>
+              <td>React Navigation, stacks</td>
+            </tr>
+            <tr>
+              <td><strong>Layout</strong></td>
+              <td>Flexbox + Grid + Float</td>
+              <td>Apenas Flexbox</td>
+            </tr>
+            <tr>
+              <td><strong>Saída</strong></td>
+              <td>DOM no navegador</td>
+              <td>Componentes nativos iOS/Android</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- Slide 19: Atividade Prática -->
+      <section data-background-gradient="linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%)" data-transition="zoom">
+        <h3>🎯 Atividade Prática</h3>
+        <p style="font-size: 1.2em;"><strong>Vamos criar juntos:</strong></p>
+        <ol style="font-size: 1.05em;">
+          <li class="fragment fade-up">🌐 Abrir o Expo Snack</li>
+          <li class="fragment fade-up">📱 Criar um app "Meu Perfil"</li>
+          <li class="fragment fade-up">🖼️ Adicionar foto, nome e bio</li>
+          <li class="fragment fade-up">🎨 Estilizar com cores e layout</li>
+          <li class="fragment fade-up">🔄 Testar no simulador e celular</li>
+        </ol>
+        <div class="fragment" style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+          <p style="font-size: 1.2em;"><strong>💡 Desafio Extra:</strong></p>
+          <p style="font-size: 1.1em;">Adicione um contador que aumenta quando clica no botão!</p>
+        </div>
+      </section>
+<!-- oi -->
+
+    </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: 'c/t',
+      showSlideNumber: 'all',
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      transitionSpeed: 'default', // default/fast/slow
+      backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+      
+      // Auto-slide (desabilitado)
+      autoSlide: 0,
+      
+      // Parallax background
+      parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+      parallaxBackgroundHorizontal: null,
+      parallaxBackgroundVertical: null,
+      
+      // View distance
+      viewDistance: 3,
+      
+      // Mobile view distance
+      mobileViewDistance: 2,
+      
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+</html>
