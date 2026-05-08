@@ -29,6 +29,30 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
+    .notice-box {
+      background: #fff3cd;
+      border-left: 6px solid #ffc107;
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      color: #856404;
+    }
+
+    .notice-box a {
+      color: #856404;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .notice-box a:hover {
+      background: rgba(0,0,0,0.02);
+      border-radius: 8px;
+    }
+
     header {
       text-align: center;
       margin-bottom: 40px;
@@ -273,6 +297,13 @@
       <p class="semester">2026.1</p>
       <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
     </header>
+
+    <div class="notice-box">
+      <a href="projetos/requisitos-projeto-1av.html">
+        <span>⚠️ Aviso importante: Para ganhar até <strong>+2.0 pontos</strong> na <strong>2ª AV</strong>, siga os requisitos do projeto.</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
 
     <!-- Seção de Projeto em Destaque -->
     <!-- <div class="project-highlight">
