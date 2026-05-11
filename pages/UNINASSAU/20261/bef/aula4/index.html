@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila Online - UNINASSAU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../modelo/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="https://logo.uninassau.edu.br/img/png/uninassau_share.png" alt="Logo UNINASSAU" class="logo">
+            </div>
+            <div class="course-info">
+                <h1>Back-end Frameworks</h1>
+                <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container apostille-layout">
+        <!-- Sidebar: Índice de Navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Índice</h3>
+                <nav class="table-of-contents">
+                    <ul>
+                        <li><a href="#capitulo-1" class="toc-link">1. Introdução e Funcionalidades</a></li>
+                        <li><a href="#capitulo-2" class="toc-link">2. O Objeto de Resposta</a></li>
+                        <li><a href="#capitulo-3" class="toc-link">3. Criando Instâncias</a></li>
+                        <li><a href="#capitulo-4" class="toc-link">4. Interceptadores</a></li>
+                        <li><a href="#capitulo-5" class="toc-link">5. Tratamento de Erros</a></li>
+                        <li><a href="#capitulo-6" class="toc-link">6. Cancelamento e Timeouts</a></li>
+                        <li><a href="#capitulo-7" class="toc-link">7. Upload e Formulários</a></li>
+                        <li><a href="#capitulo-8" class="toc-link">8. Trabalhando com Promises</a></li>
+                        <li><a href="#capitulo-9" class="toc-link">9. Integração com TypeScript</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Área Principal: Conteúdo da Apostila -->
+        <article class="content-area">
+            
+            <section id="capitulo-1" class="chapter">
+                <h2>1. Introdução e Funcionalidades do Axios</h2>
+                <p>O Axios é um cliente HTTP poderoso que fornece uma API simples e fácil de usar para realizar requisições HTTP. Ele é construído sobre a Promise API nativa do ES6, e cada requisição retorna uma Promise.</p>
+                
+                <p>Uma de suas características principais é ser <strong>isomórfico</strong>, o que significa que o mesmo cliente pode ser usado tanto no navegador (frontend) quanto no Node.js (backend). Isso o torna uma excelente escolha para equipes que trabalham em ambas as frentes, permitindo uma API consistente que reduz a complexidade do código.</p>
+
+            
+            </section>
+
+            <section id="capitulo-2" class="chapter">
+                <h2>2. O Objeto de Resposta (Response Schema)</h2>
+                <p>Toda requisição feita com o Axios, quando bem-sucedida, é resolvida com um objeto de resposta que possui uma estrutura padronizada e consistente. Conhecer esse esquema é essencial para extrair os dados corretos no backend.</p>
+                
+                <ul>
+                    <li><strong>data:</strong> Contém os dados fornecidos pelo servidor (o corpo da resposta).</li>
+                    <li><strong>status:</strong> O código de status HTTP retornado pelo servidor, como 200, 404, etc.</li>
+                    <li><strong>statusText:</strong> A mensagem correspondente ao código de status (ex: "OK", "Not Found").</li>
+                    <li><strong>headers:</strong> Os cabeçalhos HTTP de resposta. Note que todos os nomes de cabeçalhos de resposta são convertidos para letras minúsculas.</li>
+                    <li><strong>config:</strong> As configurações fornecidas ao Axios no momento da requisição (URL, timeout, params).</li>
+                </ul>
+            </section>
+
+            <section id="capitulo-3" class="chapter">
+                <h2>3. Criando Instâncias Personalizadas</h2>
+                <p>Em aplicações complexas que se comunicam com mais de uma API, a melhor prática é criar uma <strong>instância separada por serviço</strong> usando a função <code>axios.create()</code>. Isso evita a repetição da URL base em todas as chamadas.</p>
+
+                <p>Você pode configurar valores padrão que serão aplicados a todas as requisições que utilizarem aquela instância. O Axios aplica uma ordem de precedência na configuração: padrões da biblioteca -> padrões da instância -> configuração passada na requisição específica.</p>
+
+                <div class="code-block">
+                    <pre><code>// Criando uma instância dedicada a um serviço interno
+const internalApi = axios.create({
+  baseURL: "https://api.internal.example.com",
+  timeout: 5000,
+  headers: { "X-Custom-Header": "foobar" }
+});
+
+// A requisição abaixo usará a baseURL e o timeout definidos acima
+const { data: users } = await internalApi.get("/users");</code></pre>
+                </div>
+            </section>
+
+            <section id="capitulo-4" class="chapter">
+                <h2>4. Interceptadores (Interceptors)</h2>
+                <p>Os interceptadores são um mecanismo poderoso, semelhante aos middlewares do Express.js, que permitem interceptar e modificar as requisições antes de serem enviadas, e as respostas antes de chegarem ao bloco `then` ou `catch` do seu código.</p>
+
+                <p>Eles são extremamente úteis para tarefas transversais (cross-cutting), como logging, tratamento global de erros e, principalmente, <strong>autenticação via Tokens JWT (Bearer)</strong>. O local ideal para anexar um token na requisição de forma que seja lido "fresco" a cada chamada é através de um interceptador de requisição:</p>
+
+                <div class="code-block">
+                    <pre><code>api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    // Adiciona o token no cabeçalho Authorization
+    config.headers.set("Authorization", `Bearer ${token}`);
+  }
+  return config;
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="capitulo-5" class="chapter">
+                <h2>5. Tratamento de Erros e Recuperação</h2>
+                <p>Por padrão, o Axios resolve a Promise para qualquer resposta 2xx e a rejeita (causando um erro) para qualquer código fora dessa faixa (ex: 400 ou 500). A classe principal gerada quando ocorre uma falha é o <code>AxiosError</code>.</p>
+
+                <p>Para inspecionar de forma segura se o erro capturado no seu `catch` provém do Axios e possui as propriedades específicas da biblioteca (como <code>error.response</code>), você deve utilizar o verificador <code>axios.isAxiosError()</code>.</p>
+
+                <div class="code-block">
+                    <pre><code>try {
+  await axios.get("/api/recurso");
+} catch (error) {
+  if (axios.isAxiosError(error)) {
+    // error.response e error.config estão garantidos aqui
+    console.error("Erro HTTP:", error.response?.status);
+  } else {
+    // Erro de programação que não tem relação com o Axios
+    throw error;
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="capitulo-6" class="chapter">
+                <h2>6. Cancelamento e Timeouts</h2>
+                <p>Em sistemas reais, uma requisição à rede pode falhar ou travar. Sem um tempo limite determinado na propriedade <code>timeout</code> (passado via config da requisição), uma requisição travada pode ficar pendente indefinidamente.</p>
+
+                <p>Se você precisar cancelar manualmente uma requisição em andamento, o Axios suporta a API padrão <code>AbortController</code>. A antiga classe <code>CancelToken</code> está descontinuada e seu uso não é recomendado. Quando um erro for disparado pelo cancelamento explícito, ele conterá o código de erro interno <code>ERR_CANCELED</code>.</p>
+            </section>
+
+            <section id="capitulo-7" class="chapter">
+                <h2>7. Upload de Arquivos e Submissão de Formulários</h2>
+                <p>Os métodos <code>postForm</code>, <code>putForm</code> e <code>patchForm</code> configuram automaticamente o cabeçalho `Content-Type` para `multipart/form-data`. Eles são a maneira recomendada para fazer upload de arquivos ou submeter formulários HTML.</p>
+                
+                <p>Você pode rastrear o andamento de um envio no navegador usando a função de retorno <code>onUploadProgress</code>.</p>
+
+                <div class="alert-box warning">
+                    <strong>Atenção:</strong> A captura do progresso de upload via FormData não é atualmente suportada em ambientes Node.js.
+                </div>
+            </section>
+
+            <!-- NOVA SEÇÃO -->
+            <section id="capitulo-8" class="chapter">
+                <h2>8. Trabalhando com Promises</h2>
+                <p>O Axios é totalmente construído em cima da API nativa de Promises do ES6, o que significa que cada requisição retorna uma Promise. A abordagem recomendada para a maior parte do código é a utilização do <code>async/await</code>, pois faz o código assíncrono parecer síncrono e muito mais legível.</p>
+                
+                <p>Como o retorno é uma Promise padrão, você pode utilizar o utilitário <code>Promise.all</code> para realizar requisições paralelas e aguardar todas concluírem.</p>
+
+                <div class="code-block">
+                    <pre><code>// Exemplo de Requisições Paralelas
+const [users, posts] = await Promise.all([
+  axios.get("/api/users"),
+  axios.get("/api/posts"),
+]);
+console.log(users.data, posts.data);</code></pre>
+                </div>
+
+                <div class="alert-box info">
+                    <strong>Dica Avançada:</strong> O <code>Promise.all</code> será rejeitado assim que qualquer uma das requisições falhar. Caso você deseje lidar com falhas parciais e resgatar os sucessos isoladamente, a documentação recomenda a utilização do <code>Promise.allSettled</code>.
+                </div>
+            </section>
+
+            <!-- NOVA SEÇÃO -->
+            <section id="capitulo-9" class="chapter">
+                <h2>9. Integração com TypeScript</h2>
+                <p>O Axios já vem com definições de TypeScript nativas de fábrica ("out of the box") através do arquivo <code>index.d.ts</code>. Você pode importar os tipos diretamente da biblioteca, garantindo maior segurança e auto-completar na sua IDE.</p>
+                
+                <p>Alguns dos tipos mais importantes incluem <code>AxiosRequestConfig</code>, <code>AxiosResponse</code> e o <code>AxiosError</code>. Você pode utilizar parâmetros de tipo genérico (Generics) na requisição para informar ao TypeScript qual será a estrutura (shape) dos seus dados de retorno.</p>
+
+                <div class="code-block">
+                    <pre><code>import axios, { AxiosResponse } from "axios";
+
+// Definindo a interface da nossa resposta
+type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
+
+// Utilizando Generics para tipar a resposta
+const getPost = async (id: number): Promise&lt;Post&gt; => {
+  const response = await axios.get&lt;Post&gt;(
+    `https://jsonplaceholder.typicode.com/posts/${id}`
+  );
+  return response.data; // O TS sabe automaticamente que isso é do tipo "Post"
+};</code></pre>
+                </div>
+
+                <div class="alert-box warning">
+                    <strong>Aviso sobre Interceptadores:</strong> Na versão 1.x do Axios, ao tipar <strong>interceptadores de requisição</strong>, você deve obrigatoriamente utilizar o tipo <code>InternalAxiosRequestConfig</code> (e não o <code>AxiosRequestConfig</code> padrão).
+                </div>
+                
+                <p>Além disso, o Axios fornece suporte embutido para restringir o tipo de um erro utilizando <code>axios.isAxiosError&lt;ApiError&gt;(error)</code>, que ajuda a inspecionar atributos do erro de forma tipada, como <code>error.response?.data.message</code>.</p>
+            </section>
+
+            <hr class="divider">
+
+            <section id="recursos" class="resources-section">
+                <h2>Material de Apoio Oficial</h2>
+                <ul class="resource-list">
+                    <li><a href="https://axios-http.com/docs/intro" target="_blank" class="btn-resource">📄 Documentação Oficial do Axios</a></li>
+                    <li><a href="https://github.com/axios/axios" target="_blank" class="btn-resource">💻 Repositório GitHub</a></li>
+                </ul>
+            </section>
+
+        </article>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>Prof. Dr. Diogo Rodrigues</p>
+            <p>Back-End Frameworks  </p>
+        </div>
+    </footer>
+
+</body>
+</html>
