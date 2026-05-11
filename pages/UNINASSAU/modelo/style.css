@@ -1,0 +1,296 @@
+/* ==========================================================================
+   VARIÁVEIS E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+:root {
+    --primary-blue: #0F3663;    /* Azul Institucional UNINASSAU */
+    --accent-gold: #F8B316;     /* Dourado/Amarelo UNINASSAU */
+    --bg-light: #F4F7F9;        /* Fundo levemente acinzentado para leitura */
+    --white: #FFFFFF;
+    --text-main: #2D3748;       /* Texto principal (quase preto) */
+    --text-muted: #4A5568;      /* Texto secundário */
+    --code-bg: #1A202C;         /* Fundo do bloco de código */
+    --code-text: #E2E8F0;       /* Texto do bloco de código */
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* CORREÇÃO PARA RESPONSIVIDADE: */
+    overflow-x: hidden; 
+    overflow-wrap: break-word; 
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   HEADER / NAVBAR
+   ========================================================================== */
+.navbar {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-bottom: 5px solid var(--accent-gold);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    max-height: 50px;
+    background-color: var(--white);
+    padding: 5px 12px;
+    border-radius: 4px;
+}
+
+.course-info {
+    text-align: right;
+}
+
+.course-info h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin: 0;
+}
+
+.course-info .professor {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   LAYOUT DA APOSTILA (GRID)
+   ========================================================================== */
+.apostille-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sidebar fixa e conteúdo flexível */
+    gap: 2rem;
+    padding: 2rem 0;
+    flex: 1;
+}
+
+/* Sidebar / Índice */
+.sidebar {
+    position: relative;
+}
+
+.sidebar-content {
+    position: sticky;
+    top: 100px;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--accent-gold);
+}
+
+.sidebar-content h3 {
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.table-of-contents ul {
+    list-style: none;
+}
+
+.table-of-contents li {
+    margin-bottom: 0.7rem;
+}
+
+.toc-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: block;
+}
+
+.toc-link:hover, .toc-link.active {
+    color: var(--primary-blue);
+    padding-left: 8px;
+    border-left: 3px solid var(--accent-gold);
+}
+
+/* Área de Conteúdo Principal */
+.content-area {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    /* CORREÇÃO PARA RESPONSIVIDADE: impede que o grid estoure a largura */
+    min-width: 0; 
+}
+
+.chapter {
+    margin-bottom: 3.5rem;
+}
+
+.chapter h2 {
+    color: var(--primary-blue);
+    font-size: 1.7rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+.chapter p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    text-align: justify;
+}
+
+/* ==========================================================================
+   ELEMENTOS DE DESTAQUE (CÓDIGO E ALERTAS)
+   ========================================================================== */
+.code-block {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.9rem;
+    border-left: 5px solid var(--accent-gold);
+    /* CORREÇÃO PARA RESPONSIVIDADE: scroll interno */
+    overflow-x: auto;
+    width: 100%;
+    display: block;
+}
+
+.alert-box {
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    background-color: #eef6ff;
+    border-left: 5px solid #3182ce;
+    color: #2c5282;
+}
+
+.alert-box strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--primary-blue);
+}
+
+/* ==========================================================================
+   FOOTER E BOTÕES
+   ========================================================================== */
+.resource-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-resource {
+    text-decoration: none;
+    color: var(--primary-blue);
+    background-color: var(--bg-light);
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #e2e8f0;
+    transition: var(--transition);
+}
+
+.btn-resource:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+footer {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+.footer-content p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
+   ========================================================================== */
+
+/* Tablets e Telas Médias */
+@media (max-width: 992px) {
+    .apostille-layout {
+        grid-template-columns: 1fr; /* Sidebar vai para cima */
+        padding: 1rem 0;
+    }
+
+    .sidebar-content {
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+
+    .content-area {
+        padding: 1.5rem;
+    }
+}
+
+/* Telemóveis (Celulares) */
+@media (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .course-info {
+        text-align: center;
+    }
+
+    .course-info h1 {
+        font-size: 1.1rem;
+    }
+
+    .chapter h2 {
+        font-size: 1.4rem;
+    }
+
+    .content-area {
+        padding: 1rem; /* Menos recuo para ganhar espaço no texto */
+    }
+
+    .code-block {
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+}

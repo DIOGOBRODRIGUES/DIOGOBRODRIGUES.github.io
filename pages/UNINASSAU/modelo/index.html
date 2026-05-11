@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila Online - UNINASSAU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="./assets/logo-uninassau.png" alt="Logo UNINASSAU" class="logo">
+            </div>
+            <div class="course-info">
+                <h1>Frameworks Backend</h1>
+                <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container apostille-layout">
+        <!-- Sidebar: Índice de Navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Índice</h3>
+                <nav class="table-of-contents">
+                    <ul>
+                        <li><a href="#capitulo-1" class="toc-link">1. Introdução ao Node.js</a></li>
+                        <li><a href="#capitulo-2" class="toc-link">2. Entendendo o Express</a></li>
+                        <li><a href="#capitulo-3" class="toc-link">3. Arquitetura de Rotas</a></li>
+                        <li><a href="#recursos" class="toc-link">Material de Apoio</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Área Principal: Conteúdo da Apostila -->
+        <article class="content-area">
+            
+            <section id="capitulo-1" class="chapter">
+                <h2>1. Introdução ao Node.js</h2>
+                <p>O Node.js permite a execução de código JavaScript no lado do servidor. Diferente do JavaScript rodando no navegador, aqui temos acesso direto ao sistema de arquivos, rede e processos do sistema operacional.</p>
+                <p>Para iniciarmos qualquer projeto, o primeiro passo é sempre a inicialização do gerenciador de pacotes:</p>
+                
+                <div class="code-block">
+                    <pre><code>npm init -y</code></pre>
+                </div>
+                
+                <div class="alert-box info">
+                    <strong>Dica de Estudo:</strong> Lembre-se de verificar sempre o arquivo <code>package.json</code> gerado para entender as dependências do seu projeto.
+                </div>
+            </section>
+
+            <section id="capitulo-2" class="chapter">
+                <h2>2. Entendendo o Express</h2>
+                <p>O Express é um framework minimalista que facilita a criação de aplicações web e APIs. Ele abstrai grande parte da complexidade do módulo <code>http</code> nativo.</p>
+                <p>Exemplo da criação de um servidor básico:</p>
+                
+                <div class="code-block">
+                    <pre><code>const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Servidor rodando!');
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor na porta ${PORT}`);
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="capitulo-3" class="chapter">
+                <h2>3. Arquitetura de Rotas</h2>
+                <p>À medida que a aplicação cresce, é fundamental separar as rotas em arquivos distintos utilizando o <code>express.Router()</code>. Isso mantém o código limpo e modularizado, um princípio essencial no desenvolvimento de sistemas corporativos.</p>
+            </section>
+
+            <hr class="divider">
+
+            <section id="recursos" class="resources-section">
+                <h2>Material de Apoio</h2>
+                <ul class="resource-list">
+                    <li><a href="#" class="btn-resource">📄 Baixar Apostila em PDF</a></li>
+                    <li><a href="#" class="btn-resource">💻 Repositório de Exemplos (GitHub)</a></li>
+                </ul>
+            </section>
+
+        </article>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 UNINASSAU. Todos os direitos reservados.</p>
+            <p>Curso de Análise e Desenvolvimento de Sistemas</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
