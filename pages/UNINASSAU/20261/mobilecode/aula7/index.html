@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aula 7 - Sensores do Dispositivo Mobile</title>
+
+  <meta name="description" content="Geolocalização, câmera, acelerômetro e biometria em React Native">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/dracula.css" id="theme">
+
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+ 
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 - Título da Aula -->
+      <section>
+        <p>🏛️ Centro Universitário Maurício de Nassau</p>
+        <h3>Aula 7 - Sensores do Dispositivo Mobile</h3>
+        <p><strong>Geolocalização, Câmera, Acelerômetro e Biometria</strong></p>
+        <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+        <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+     
+
+      <!-- Slide 3 - O que são Sensores? -->
+      <section>
+        <h3>📡 O que são Sensores?</h3>
+        <p><strong>Sensores são componentes do dispositivo que capturam dados do mundo real:</strong></p>
+        <ul>
+          <li class="fragment"><strong>GPS (Geolocalização):</strong> Localização por satélite</li>
+          <li class="fragment"><strong>Câmera:</strong> Captura de imagens e vídeos</li>
+          <li class="fragment"><strong>Acelerômetro:</strong> Detecta movimento e aceleração</li>
+          <li class="fragment"><strong>Giroscópio:</strong> Detecta rotação do dispositivo</li>
+          <li class="fragment"><strong>Magnetômetro:</strong> Funciona como bússola</li>
+          <li class="fragment"><strong>Sensores de Luz e Proximidade:</strong> Ambiente</li>
+          <li class="fragment"><strong>Biometria:</strong> Impressão digital, Face ID</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 - Permissões no React Native -->
+      <section>
+        <h3>🔐 Permissões em React Native</h3>
+        <p><strong>Para acessar sensores, precisamos de permissões:</strong></p>
+        <pre><code class="language-json">{
+  "expo": {
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermissions": "allow"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
+    ]
+  }
+}</code></pre>
+        <p><small>Configurar no app.json do Expo</small></p>
+      </section>
+
+      <!-- Slide 5 - Geolocalização: Instalação -->
+      <section>
+        <h3>📍 Geolocalização: Instalação</h3>
+        <pre><code class="language-bash"># Instalar Expo Location
+expo install expo-location</code></pre>
+        <p><strong>Ou com npm:</strong></p>
+        <pre><code class="language-bash">npm install expo-location</code></pre>
+      </section>
+
+      <!-- Slide 6 - Geolocalização: Uso Básico -->
+      <section>
+        <h3>📍 Geolocalização: Código Básico</h3>
+        <pre><code class="language-javascript">import * as Location from 'expo-location';
+import { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function LocationScreen() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      // Solicitar permissão
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permissão de localização não concedida');
+        return;
+      }
+
+      // Obter localização atual
+      let loc = await Location.getCurrentPositionAsync({});
+      setLocation(loc);
+    })();
+  }, []);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {errorMsg && &lt;Text style={styles.error}&gt;{errorMsg}&lt;/Text&gt;}
+      {location && (
+        &lt;Text style={styles.text}&gt;
+          Latitude: {location.coords.latitude}
+          {"\n"}
+          Longitude: {location.coords.longitude}
+        &lt;/Text&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  error: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 7 - Geolocalização: Exemplo Prático -->
+      <section>
+        <h3>📍 Exemplo Prático: App de Localização</h3>
+        <pre><code class="language-javascript">import * as Location from 'expo-location';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+export default function LocationApp() {
+  const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState('');
+
+  const getLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') return;
+
+      const loc = await Location.getCurrentPositionAsync();
+      setLocation(loc.coords);
+
+      // Reverter coordenadas para endereço
+      const [reverseGeo] = await Location.reverseGeocodeAsync({
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude,
+      });
+
+      setAddress(
+        `${reverseGeo.street}, ${reverseGeo.city} - ${reverseGeo.region}`
+      );
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Button title="📍 Obter Localização" onPress={getLocation} /&gt;
+      {address && &lt;Text style={styles.text}&gt;{address}&lt;/Text&gt;}
+    &lt;/View&gt;
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  error: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+  },
+});
+</code></pre>
+      </section>
+
+      <!-- Slide 8 - Câmera: Instalação -->
+      <section>
+        <h3>📷 Câmera: Instalação</h3>
+        <pre><code class="language-bash"># Instalar Expo Image Picker
+expo install expo-image-picker
+
+# Ou Expo Camera para controle mais avançado
+expo install expo-camera</code></pre>
+        <p><strong>Image Picker:</strong> Selecionar foto da galeria ou câmera</p>
+        <p><strong>Camera:</strong> Controle completo da câmera</p>
+      </section>
+
+      <!-- Slide 9 - Câmera: Image Picker -->
+      <section>
+        <h3>📷 Câmera: Usando Image Picker</h3>
+        <pre><code class="language-javascript">import * as ImagePicker from 'expo-image-picker';
+import { View, Image, Button, StyleSheet, Text, Alert } from 'react-native';
+import { useState } from 'react';
+
+export default function PhotoApp() {
+  const [photo, setPhoto] = useState(null);
+
+  const pickImage = async () => {
+    try {
+      // Solicitar permissão
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de acesso à galeria!');
+        return;
+      }
+
+      // Selecionar imagem
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível acessar a galeria');
+    }
+  };
+
+  const takePhoto = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão negada', 'Precisamos de acesso à câmera!');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível acessar a câmera');
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Gerenciador de Fotos&lt;/Text&gt;
+      
+      &lt;View style={styles.buttonContainer}&gt;
+        &lt;View style={styles.button}&gt;
+          &lt;Button title="📸 Tirar Foto" onPress={takePhoto} color="#6200ee" /&gt;
+        &lt;/View&gt;
+        &lt;View style={styles.button}&gt;
+          &lt;Button title="🖼️ Galeria" onPress={pickImage} color="#03dac6" /&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+
+      {photo ? (
+        &lt;View style={styles.imageContainer}&gt;
+          &lt;Image source={{ uri: photo }} style={styles.image} /&gt;
+          &lt;Button title="🗑️ Remover" onPress={() => setPhoto(null)} color="#cf6679" /&gt;
+        &lt;/View&gt;
+      ) : (
+        &lt;View style={styles.placeholder}&gt;
+          &lt;Text style={styles.placeholderText}&gt;Nenhuma foto selecionada&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 20,
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: '#6200ee',
+  },
+  placeholder: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  placeholderText: {
+    color: '#999',
+    fontSize: 16,
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 10 - Acelerômetro: Instalação -->
+      <section>
+        <h3>📊 Acelerômetro: Instalação</h3>
+        <pre><code class="language-bash"># Expo Sensors (acelerômetro, giroscópio, magnetômetro)
+expo install expo-sensors</code></pre>
+        <p><strong>O que você pode fazer:</strong></p>
+        <ul>
+          <li>Detectar movimento do dispositivo</li>
+          <li>Contar passos</li>
+          <li>Detectar "shake" (agitar o dispositivo)</li>
+          <li>Jogos com movimentação</li>
+        </ul>
+      </section>
+
+      <!-- Slide 11 - Acelerômetro: Código Básico -->
+      <section>
+        <h3>📊 Acelerômetro: Detectar Shake</h3>
+        <pre><code class="language-javascript">import { Accelerometer } from 'expo-sensors';
+import { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function AccelerometerApp() {
+  const [shake, setShake] = useState(false);
+  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+
+  useEffect(() => {
+    // Definir taxa de atualização (padrão: 100ms)
+    Accelerometer.setUpdateInterval(100);
+
+    // Ouvir mudanças
+    const subscription = Accelerometer.addListener(({ x, y, z }) => {
+      setData({ x, y, z });
+
+      // Detectar shake (movimentação rápida)
+      const total = Math.sqrt(x * x + y * y + z * z);
+      if (total > 3) {
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;📊 Acelerômetro&lt;/Text&gt;
+      
+      &lt;View style={styles.dataContainer}&gt;
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;X:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.x.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+        
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;Y:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.y.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+        
+        &lt;View style={styles.dataRow}&gt;
+          &lt;Text style={styles.label}&gt;Z:&lt;/Text&gt;
+          &lt;Text style={styles.value}&gt;{data.z.toFixed(2)}&lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+
+      {shake && (
+        &lt;View style={styles.shakeContainer}&gt;
+          &lt;Text style={styles.shakeText}&gt;🎉 SHAKE!&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  dataContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 25,
+    width: '100%',
+    maxWidth: 300,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  dataRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#6200ee',
+  },
+  value: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    fontFamily: 'monospace',
+  },
+  shakeContainer: {
+    marginTop: 30,
+    backgroundColor: '#6200ee',
+    borderRadius: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    shadowColor: '#6200ee',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  shakeText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+});</code></pre>
+      </section>
+
+      <!-- Slide 12 - Biometria: Instalação -->
+      <section>
+        <h3>🔐 Biometria: Instalação</h3>
+        <pre><code class="language-bash"># Expo Local Authentication (fingerprint, face ID)
+expo install expo-local-authentication</code></pre>
+        <p><strong>Funcionalidades:</strong></p>
+        <ul>
+          <li>Impressão Digital (Touch ID)</li>
+          <li>Face ID (reconhecimento facial)</li>
+          <li>Autenticação por dispositivo</li>
+          <li>Segurança biométrica</li>
+        </ul>
+      </section>
+
+      <!-- Slide 13 - Biometria: Código -->
+      <section>
+        <h3>🔐 Biometria: Código Básico</h3>
+        <pre><code class="language-javascript">import * as LocalAuthentication from 'expo-local-authentication';
+import { useState } from 'react';
+import { View, Button, Text } from 'react-native';
+
+export default function BiometryApp() {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const authenticate = async () => {
+    try {
+      // Verificar disponibilidade
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      if (!compatible) {
+        alert('Dispositivo não suporta biometria');
+        return;
+      }
+
+      // Verificar sensores disponíveis
+      const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
+      console.log('Tipos:', types);
+
+      // Autenticar
+      const result = await LocalAuthentication.authenticateAsync({
+        reason: 'Autentique para acessar o app',
+        fallbackLabel: 'Use código PIN',
+        disableDeviceFallback: false,
+      });
+
+      setAuthenticated(result.success);
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
+
+  return (
+    &lt;View&gt;
+      &lt;Button title="🔐 Autenticar" onPress={authenticate} /&gt;
+      {authenticated && &lt;Text&gt;✅ Autenticado com sucesso!&lt;/Text&gt;}
+    &lt;/View&gt;
+  );
+}</code></pre>
+      </section>
+
+      <!-- Slide 14 - Notificações Locais -->
+      <section>
+        <h3>🔔 Notificações Locais</h3>
+        <pre><code class="language-bash">expo install expo-notifications</code></pre>
+        <pre><code class="language-javascript">import * as Notifications from 'expo-notifications';
+import { Button } from 'react-native';
+
+export default function NotificationApp() {
+  const sendNotification = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Olá! 👋',
+        body: 'Esta é uma notificação local',
+        data: { screen: 'details' },
+      },
+      trigger: { seconds: 2 },
+    });
+  };
+
+  return &lt;Button title="Enviar Notificação" onPress={sendNotification} /&gt;;
+}</code></pre>
+      </section>
+
+      <!-- Slide 15 - Exemplo Completo: App de Localização com Foto -->
+      <section>
+        <h3>🎯 Projeto: App de Check-in</h3>
+        <p><strong>Combinando Geolocalização + Câmera</strong></p>
+        <pre><code class="language-javascript">import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
+import { View, Button, Image, Text, StyleSheet } from 'react-native';
+import { useState } from 'react';
+
+export default function CheckInApp() {
+  const [checkin, setCheckin] = useState(null);
+
+  const makeCheckin = async () => {
+    try {
+      // 1. Obter localização
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') return;
+
+      const location = await Location.getCurrentPositionAsync();
+      const [address] = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      // 2. Tirar foto
+      const { status: camStatus } = 
+        await ImagePicker.requestCameraPermissionsAsync();
+      if (camStatus !== 'granted') return;
+
+      const photo = await ImagePicker.launchCameraAsync();
+      if (!photo.cancelled) {
+        setCheckin({
+          photo: photo.uri,
+          address: `${address.street}, ${address.city}`,
+          coords: {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+          },
+          time: new Date().toLocaleTimeString(),
+        });
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Button title="✅ Fazer Check-in" onPress={makeCheckin} /&gt;
+      {checkin && (
+        &lt;&gt;
+          &lt;Image source={{ uri: checkin.photo }} style={styles.image} /&gt;
+          &lt;Text&gt;{checkin.address}&lt;/Text&gt;
+          &lt;Text&gt;{checkin.time}&lt;/Text&gt;
+        &lt;/&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20 },
+  image: { width: 200, height: 200, marginTop: 10 },
+});</code></pre>
+      </section>
+
+      <!-- Slide 16 - Boas Práticas -->
+      <section>
+        <h3>✅ Boas Práticas</h3>
+        <ul>
+          <li class="fragment">✓ Sempre solicitar permissão antes de usar sensores</li>
+          <li class="fragment">✓ Tratar erros adequadamente</li>
+          <li class="fragment">✓ Fazer limpeza (remover listeners)</li>
+          <li class="fragment">✓ Informar o usuário sobre o que está sendo coletado</li>
+          <li class="fragment">✓ Usar sensores apenas quando necessário (economia de bateria)</li>
+          <li class="fragment">✓ Testar em dispositivo real quando possível</li>
+          <li class="fragment">✓ Documentar quais sensores seu app usa</li>
+        </ul>
+      </section>
+
+      <!-- Slide 17 - Referências -->
+      <section>
+        <h3>📚 Referências</h3>
+        <ul>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/location/" target="_blank">Expo Location</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/camera/" target="_blank">Expo Camera</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/image-picker/" target="_blank">Expo Image Picker</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/sensors/" target="_blank">Expo Sensors</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/local-authentication/" target="_blank">Expo Local Authentication</a></li>
+          <li><a href="https://docs.expo.dev/versions/latest/sdk/notifications/" target="_blank">Expo Notifications</a></li>
+        </ul>
+      </section>
+
+      <!-- Slide 18 - Atividade Prática -->
+      <section>
+        <h3>💻 Atividade Prática</h3>
+        <p><strong>Crie um app que:</strong></p>
+        <ol>
+          <li class="fragment">Obtém a localização atual do usuário</li>
+          <li class="fragment">Tira uma foto com a câmera</li>
+          <li class="fragment">Monitora o acelerômetro</li>
+          <li class="fragment">Salva tudo em um estado React</li>
+          <li class="fragment">Exibe os dados na tela</li>
+        </ol>
+        <p class="fragment"><strong>Desafio extra:</strong> Adicione autenticação biométrica!</p>
+      </section>
+
+      <!-- Slide 19 - Perguntas -->
+      <section>
+        <h3>❓ Perguntas?</h3>
+        <p><strong>Dúvidas sobre sensores em React Native?</strong></p>
+        <p>Entre em contato:</p>
+        <p>
+          <i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank">LinkedIn</a><br>
+          <i class="fab fa-github"></i> <a href="https://github.com/DIOGOBRODRIGUES" target="_blank">GitHub</a>
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
