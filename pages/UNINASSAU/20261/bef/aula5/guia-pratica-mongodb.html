@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial - Pokémons Favoritados com MongoDB Atlas</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121a33;
+      --card: rgba(15, 23, 42, 0.78);
+      --card-border: rgba(148, 163, 184, 0.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #f97316;
+      --success: #22c55e;
+      --code-bg: #0f172a;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 28%),
+        linear-gradient(180deg, #060814 0%, var(--bg) 45%, #080b16 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 72px;
+    }
+
+    .hero {
+      padding: 36px;
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.76));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.28), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 12ch;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.62);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .metric strong {
+      font-size: 1.15rem;
+      color: white;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 28px;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.68);
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section p,
+    .section li {
+      color: var(--muted);
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.46);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .step-number {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: linear-gradient(135deg, var(--accent), #67e8f9);
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.25);
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      color: white;
+    }
+
+    .step p {
+      margin: 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.18);
+      color: #dcfce7;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .box {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.46);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      color: white;
+      font-size: 1.05rem;
+    }
+
+    pre {
+      margin: 12px 0 0;
+      padding: 16px;
+      border-radius: 16px;
+      overflow: auto;
+      background: var(--code-bg);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: #cbd5e1;
+      font-size: 0.92rem;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .endpoint-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .endpoint {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.46);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .endpoint strong {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #bae6fd;
+      font-size: 0.9rem;
+      border: 1px solid rgba(125, 211, 252, 0.16);
+    }
+
+    .footer {
+      margin-top: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .section {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Tutorial prático com MongoDB Atlas</div>
+      <h1>Como implementar favoritos a partir do código base</h1>
+      <p class="lead">
+        Este tutorial foi escrito para um cenário em que o projeto base ainda não tem a funcionalidade de favoritos.
+        A ideia é que façam as alterações por etapas e cheguem a uma API capaz de salvar, listar e remover Pokémons favoritos no MongoDB Atlas.
+      </p>
+
+      <div class="hero-grid">
+        <div class="metric">
+          <span>Objetivo</span>
+          <strong>Construir a feature do zero</strong>
+        </div>
+        <div class="metric">
+          <span>Backend</span>
+          <strong>Express + TypeScript</strong>
+        </div>
+        <div class="metric">
+          <span>Banco</span>
+          <strong>MongoDB Atlas com upsert</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. Proposta</h2>
+      <p>
+        A base do projeto já possui a busca de Pokémon e a rota de batalha. Nesta atividade, os alunos vão adicionar uma segunda camada de dados: favoritos persistidos no banco.
+        Ao final, a aplicação terá uma coleção dedicada no MongoDB Atlas, com rotas REST para criar, consultar e excluir favoritos.
+      </p>
+      <div class="tag-row">
+        <span class="tag">buscar na PokeAPI</span>
+        <span class="tag">persistir no Atlas</span>
+        <span class="tag">listar favoritos</span>
+        <span class="tag">remover favoritos</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. Passo a passo para implementar</h2>
+      <ul class="step-list">
+        <li class="step">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Entender o ponto de partida</h3>
+            <p>
+              O projeto base já tem o servidor Express em <strong>src/server.ts</strong> e o serviço que busca dados na PokeAPI.
+              Antes de mexer, os alunos devem identificar onde as rotas atuais vivem e onde será mais natural encaixar a nova funcionalidade.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Instalar o driver do MongoDB</h3>
+            <p>
+              O primeiro passo prático é abrir o terminal na pasta do projeto e instalar <code>mongodb</code> e <code>dotenv</code>.
+              Isso prepara a aplicação para se conectar ao Atlas sem colocar credenciais diretamente no código.
+            </p>
+            <pre><code>npm install mongodb dotenv</code></pre>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Criar a conta e o cluster no MongoDB Atlas</h3>
+            <p>
+              O aluno deve acessar o MongoDB Atlas, criar uma conta, gerar um cluster gratuito e liberar o acesso do IP da máquina usada na aula.
+              Depois disso, ele precisa copiar a string de conexão e guardar esse valor no arquivo <code>.env</code>.
+            </p>
+            <p>
+              O arquivo <code>.env.example</code> serve só como molde para mostrar quais variáveis o projeto precisa receber.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Criar os arquivos da solução</h3>
+            <p>
+              Em vez de espalhar código de banco no servidor, a prática pede que os alunos criem arquivos separados.
+              O mais importante é <strong>src/services/favoritesService.ts</strong>, mas também vale garantir o <code>.env.example</code> e, se necessário, ajustar <strong>src/server.ts</strong>.
+            </p>
+            <pre><code>src/
+  server.ts
+  services/
+    pokemonService.ts
+    battleService.ts
+    favoritesService.ts</code></pre>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-number">5</div>
+          <div>
+            <h3>Adicionar as rotas REST</h3>
+            <p>
+              Depois que o serviço estiver pronto, os alunos devem ligar isso ao servidor com três rotas novas: <code>GET /favorites</code>, <code>POST /favorites</code> e <code>DELETE /favorites/:name</code>.
+              Assim, a API ganha o fluxo completo de CRUD mínimo para a atividade.
+            </p>
+            <p>
+              Cada rota deve devolver uma resposta clara, com status HTTP coerente, para que o aluno consiga testar o comportamento facilmente.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-number">6</div>
+          <div>
+            <h3>Testar e validar</h3>
+            <p>
+              A etapa final é testar a API usando navegador, Insomnia, Postman ou Thunder Client.
+              O aluno deve verificar se os favoritos realmente aparecem no MongoDB Atlas e se a API responde com os status corretos.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3. Fluxo que os alunos devem implementar</h2>
+      <div class="two-col">
+        <div class="box">
+          <h3>Leitura da PokeAPI</h3>
+          <p>
+            O backend continua usando a PokeAPI para buscar o Pokémon original. Esse dado é a base para criar o favorito que será salvo no banco.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Gravação no MongoDB</h3>
+          <p>
+            Quando o aluno chamar <code>POST /favorites</code>, a aplicação deve gravar ou atualizar o Pokémon na coleção <code>favorite_pokemons</code> usando <code>upsert</code>.
+            Isso evita duplicidade e simplifica o exercício.
+          </p>
+        </div>
+      </div>
+      <div class="callout">
+        O uso de <strong>nome normalizado</strong> evita duplicidade com variações como <code>Pikachu</code>, <code>pikachu</code> ou <code>PIKACHU</code>, o que é excelente para explicar modelagem de dados na aula.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. Rotas que os alunos vão criar</h2>
+      <div class="endpoint-list">
+        <div class="endpoint">
+          <strong>GET /pokemon/:name</strong>
+          <div>Rota já existente. Continua sendo usada para buscar os dados do Pokémon antes de favoritar.</div>
+        </div>
+        <div class="endpoint">
+          <strong>GET /favorites</strong>
+          <div>Lista os Pokémons salvos na coleção do Atlas.</div>
+        </div>
+        <div class="endpoint">
+          <strong>POST /favorites</strong>
+          <div>Recebe o nome ou o objeto do Pokémon e grava o favorito no banco.</div>
+        </div>
+        <div class="endpoint">
+          <strong>DELETE /favorites/:name</strong>
+          <div>Remove o favorito correspondente ao nome informado.</div>
+        </div>
+        <div class="endpoint">
+          <strong>POST /battle</strong>
+          <div>Permanece no projeto como funcionalidade paralela da base original.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5. Estrutura de arquivos que o aluno deve tocar</h2>
+      <div class="two-col">
+        <div class="box">
+          <h3>src/server.ts</h3>
+          <p>
+            Aqui o aluno conecta as rotas novas e faz o servidor conversar com o serviço de favoritos.
+          </p>
+        </div>
+        <div class="box">
+          <h3>src/services/favoritesService.ts</h3>
+          <p>
+            Esse arquivo concentra a lógica do MongoDB Atlas, incluindo conexão, índice único e operações básicas de CRUD.
+          </p>
+        </div>
+        <div class="box">
+          <h3>src/services/pokemonService.ts</h3>
+          <p>
+            Continua sendo a camada de leitura da PokeAPI, usada como origem dos dados para salvar favoritos.
+          </p>
+        </div>
+        <div class="box">
+          <h3>.env.example</h3>
+          <p>
+            Serve como referência para os alunos configurarem o ambiente local antes de rodar a aplicação.
+          </p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="section">
+      <h2>6. Código da solução, arquivo por arquivo</h2>
+      <p>
+        Abaixo está a solução em blocos completos. A ideia é que o aluno crie cada arquivo e compare o que escreveu com o que está aqui, entendendo o papel de cada linha.
+      </p>
+
+      <div class="box">
+        <h3>Arquivo 1 - .env.example</h3>
+        <pre><code>MONGODB_URI=mongodb+srv://seu_usuario:sua_senha@seu-cluster.mongodb.net/?retryWrites=true&w=majority
+MONGODB_DB=pokemon-backend</code></pre>
+      </div>
+
+      <div class="box" style="margin-top: 16px;">
+        <h3>Arquivo 2 - src/services/favoritesService.ts</h3>
+        <pre><code>import { MongoClient, type Collection } from 'mongodb';
+// Importa o cliente do MongoDB e o tipo Collection para tipagem
+// Essas importações permitem conectar ao banco e manipular coleções
+import type { PokemonData } from './pokemonService';
+
+export type FavoritePokemon = PokemonData & {
+  favoriteId: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type FavoritePokemonDocument = PokemonData & {
+  normalizedName: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+const mongoUri = process.env.MONGODB_URI;
+const databaseName = process.env.MONGODB_DB ?? 'pokemon-backend';
+const collectionName = 'favorite_pokemons';
+
+let client: MongoClient | null = null;
+let collectionReady: Promise<Collection<FavoritePokemonDocument>> | null = null;
+
+const getCollection = async (): Promise<Collection<FavoritePokemonDocument>> => {
+  if (!mongoUri) {
+    // Verifica se a variável de ambiente com a URI do MongoDB está definida
+    // Se não estiver, aborta com erro para evitar tentativa de conexão inválida
+    throw new Error('MONGODB_URI não configurada');
+  }
+
+  if (!collectionReady) {
+    // Cria uma nova instância do MongoClient e inicia a conexão uma única vez
+    // A promise collectionReady garante que a inicialização da coleção
+    // (e criação de índice) ocorra apenas na primeira chamada
+    client = new MongoClient(mongoUri);
+    collectionReady = client.connect().then(connection => {
+      // Seleciona o banco e a coleção onde os favoritos serão armazenados
+      const collection = connection.db(databaseName).collection<FavoritePokemonDocument>(collectionName);
+
+      // Cria um índice único em normalizedName para evitar duplicatas por nome
+      return collection.createIndex({ normalizedName: 1 }, { unique: true }).then(() => collection);
+    });
+  }
+
+  return collectionReady;
+};
+
+const serializeFavorite = (document: FavoritePokemonDocument & { _id: unknown }): FavoritePokemon => ({
+  favoriteId: String(document._id),
+  id: document.id,
+  name: document.name,
+  types: document.types,
+  stats: document.stats,
+  createdAt: document.createdAt.toISOString(),
+  updatedAt: document.updatedAt.toISOString()
+});
+
+export const saveFavoritePokemon = async (pokemon: PokemonData): Promise<FavoritePokemon> => {
+  const collection = await getCollection();
+  const now = new Date();
+  const normalizedName = pokemon.name.toLowerCase();
+
+  // Usa updateOne com upsert para inserir ou atualizar o documento do favorito
+  // $set atualiza os campos sempre que já existir, $setOnInsert define createdAt apenas na primeira inserção
+  await collection.updateOne(
+    { normalizedName },
+    {
+      $set: {
+        id: pokemon.id,
+        name: pokemon.name,
+        types: pokemon.types,
+        stats: pokemon.stats,
+        normalizedName,
+        updatedAt: now
+      },
+      $setOnInsert: {
+        createdAt: now
+      }
+    },
+    { upsert: true }
+  );
+
+  const favorite = await collection.findOne({ normalizedName });
+
+  if (!favorite) {
+    throw new Error('Falha ao salvar favorito');
+  }
+
+  return serializeFavorite(favorite as FavoritePokemonDocument & { _id: unknown });
+};
+
+export const listFavoritePokemons = async (): Promise<FavoritePokemon[]> => {
+  const collection = await getCollection();
+  const favorites = await collection.find().sort({ createdAt: -1 }).toArray();
+
+  return favorites.map(favorite => serializeFavorite(favorite as FavoritePokemonDocument & { _id: unknown }));
+};
+
+export const removeFavoritePokemon = async (name: string): Promise<boolean> => {
+  const collection = await getCollection();
+  // Remove o documento pelo nome normalizado e retorna true se algo foi excluído
+  const result = await collection.deleteOne({ normalizedName: name.toLowerCase() });
+
+  return result.deletedCount > 0;
+};</code></pre>
+      </div>
+
+      <div class="box" style="margin-top: 16px;">
+        <h3>Arquivo 3 - src/server.ts</h3>
+        <pre><code>import express from 'express';
+import cors from 'cors';
+import { getPokemonData } from './services/pokemonService';
+import { calculateBattle } from './services/battleService';
+import { listFavoritePokemons, removeFavoritePokemon, saveFavoritePokemon } from './services/favoritesService';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.get('/pokemon/:name', (req, res) =&gt; {
+  const { name } = req.params;
+
+  getPokemonData(name)
+    .then(pokemon =&gt; res.json(pokemon))
+    .catch(error =&gt; {
+      void error;
+      return res.status(404).json({ error: 'Pokémon não encontrado' });
+    });
+});
+
+app.get('/favorites', async (_req, res) =&gt; {
+  try {
+    const favorites = await listFavoritePokemons();
+    return res.json(favorites);
+  } catch {
+    return res.status(500).json({ error: 'Não foi possível listar os favoritos' });
+  }
+});
+
+app.post('/favorites', async (req, res) =&gt; {
+  try {
+    const { pokemon, name } = req.body as { pokemon?: { id: number; name: string; types: string[]; stats: { name: string; value: number }[] }; name?: string };
+
+    const pokemonData = pokemon ?? (name ? await getPokemonData(name) : null);
+
+    if (!pokemonData) {
+      return res.status(400).json({ error: 'Envie o Pokémon completo ou o nome para favoritar' });
+    }
+
+    const favorite = await saveFavoritePokemon(pokemonData);
+    return res.status(201).json(favorite);
+  } catch {
+    return res.status(500).json({ error: 'Não foi possível salvar o favorito' });
+  }
+});
+
+app.delete('/favorites/:name', async (req, res) =&gt; {
+  try {
+    const { name } = req.params;
+    const removed = await removeFavoritePokemon(name);
+
+    if (!removed) {
+      return res.status(404).json({ error: 'Favorito não encontrado' });
+    }
+
+    return res.status(204).send();
+  } catch {
+    return res.status(500).json({ error: 'Não foi possível remover o favorito' });
+  }
+});
+
+app.post('/battle', (req, res) =&gt; {
+  const { attacker, defender } = req.body;
+
+  if (!attacker || !defender) {
+    return res.status(400).json({ error: 'Dados dos lutadores são obrigatórios' });
+  }
+
+  const result = calculateBattle(attacker, defender);
+
+  return res.json({
+    battleLog: `${attacker.name} atacou ${defender.name}!`,
+    ...result
+  });
+});
+
+const PORT = 3333;
+app.listen(PORT, () =&gt; console.log(`🚀 PokeServer rodando em http://localhost:${PORT}`));</code></pre>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <h2>7. Exemplo de corpo de requisição para testar</h2>
+      <div class="two-col">
+        <div class="box">
+          <h3>Favoritar pelo nome</h3>
+          <pre><code>{
+  "name": "pikachu"
+}</code></pre>
+        </div>
+        <div class="box">
+          <h3>Favoritar com o objeto completo</h3>
+          <pre><code>{
+  "pokemon": {
+    "id": 25,
+    "name": "pikachu",
+    "types": ["electric"],
+    "stats": [
+      { "name": "hp", "value": 35 },
+      { "name": "attack", "value": 55 }
+    ]
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+  
+  </main>
+</body>
+</html>

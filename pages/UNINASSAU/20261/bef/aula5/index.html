@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Aula 08 - Bancos de Dados NoSQL</title>
+  <meta name="description" content="Aula sobre histórico, fundamentos, diferenças e uso combinado de SQL e NoSQL.">
+  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight_todos/styles/github.css">
+  <style>
+    :root {
+      --azul:#0f4c81;
+      --azul2:#1f6fb2;
+      --claro:#f7f9fc;
+      --cinza:#5f6b7a;
+      --verde:#1c9c73;
+      --laranja:#d97a00;
+      --vermelho:#c0392b;
+      --fundo:#eef4fb;
+    }
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(31,111,178,.16), transparent 35%),
+        linear-gradient(180deg, #f9fbfe 0%, var(--fundo) 100%);
+    }
+    .reveal { font-size: 30px; }
+    .reveal .slides section { text-align: left; }
+    .reveal .slides section { padding-top: 0.8rem; }
+    .reveal h1, .reveal h2, .reveal h3 { color: var(--azul); text-transform:none; }
+    .reveal h2 { font-size: 1.6em; margin-bottom: 0.3em; }
+    .reveal h3 { font-size: 1.2em; }
+    .reveal p, .reveal li { font-size: 0.95em; }
+    .reveal small { color: var(--cinza); }
+    .capa {
+      text-align:center !important;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0,0,0,.55);
+    }
+    .capa h3 { margin: 0.4em 0; color: #fff; }
+    .capa p { color: rgba(255,255,255,.92); }
+    .capa a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.05em;
+      opacity: .92;
+    }
+    .capa a:hover { opacity: 1; }
+    .cover-panel {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      border-radius: 24px;
+      background: rgba(9, 22, 38, .74);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+    }
+    .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items:start; }
+    .card { background: var(--claro); border-left: 6px solid var(--azul2); padding: 18px 20px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+    .card.soft { background: rgba(255,255,255,.86); backdrop-filter: blur(4px); }
+    .mini { font-size: 0.72em; color: var(--cinza); }
+    .tag { display:inline-block; padding:6px 12px; border-radius:999px; font-size:.6em; font-weight:bold; letter-spacing:.04em; }
+    .sql { background:#e8f1fb; color:var(--azul); }
+    .nosql { background:#eaf8f3; color:var(--verde); }
+    .accent { color: var(--laranja); font-weight: bold; }
+    table { width:100%; border-collapse:collapse; font-size: .75em; }
+    th, td { border:1px solid #d7dee8; padding:10px; }
+    th { background:#eef4fb; color:var(--azul); }
+    .center { text-align:center; }
+    .pros { color: var(--verde); font-weight:bold; }
+    .cons { color: var(--vermelho); font-weight:bold; }
+    ul { line-height: 1.35; }
+    .kpi-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; }
+    .kpi {
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(235,243,251,.94));
+      border: 1px solid #d8e3ef;
+      border-radius: 16px;
+      padding: 16px 14px;
+      box-shadow: 0 8px 28px rgba(15,76,129,.08);
+    }
+    .kpi i { font-size: 1.35em; color: var(--azul2); margin-bottom: 10px; }
+    .kpi strong { display:block; font-size: .9em; margin-bottom: 6px; }
+    .kpi span { font-size: .74em; color: var(--cinza); }
+    .timeline { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .timeline-item {
+      position: relative;
+      padding: 18px 16px 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(240,246,252,.92));
+      border: 1px solid #d8e3ef;
+      box-shadow: 0 8px 28px rgba(15,76,129,.08);
+    }
+    .timeline-item::before {
+      content: attr(data-year);
+      display: inline-block;
+      font-size: .68em;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: #fff;
+      background: linear-gradient(135deg, var(--azul), var(--azul2));
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .timeline-item p { margin: 8px 0 0; }
+    .visual-box {
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 16px 45px rgba(15,76,129,.14);
+      border: 1px solid #d8e3ef;
+      background: #fff;
+    }
+    .visual-box img { display:block; width:100%; height:100%; object-fit: cover; }
+    .visual-caption { padding: 14px 16px 16px; font-size: .72em; color: var(--cinza); background: #fff; }
+    .big-callout {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(15,76,129,.1), rgba(28,156,115,.1));
+      border: 1px solid rgba(31,111,178,.18);
+    }
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat-strip div {
+      padding: 11px 12px 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid #d8e3ef;
+      box-shadow: 0 8px 24px rgba(15,76,129,.07);
+    }
+    .stat-strip strong { display:block; color: var(--azul); margin-bottom: 6px; }
+    .stat-strip span { font-size: .72em; color: var(--cinza); }
+    .comparison-table {
+      background: rgba(255,255,255,.88);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 32px rgba(15,76,129,.1);
+    }
+    .comparison-table table { font-size: .64em; }
+    .comparison-table th,
+    .comparison-table td { padding: 7px 8px; }
+    .comparison-table th { background: linear-gradient(135deg, #eaf2fb, #dfeaf7); }
+    .quote-slide {
+      text-align: center !important;
+      background: linear-gradient(135deg, rgba(15,76,129,.95), rgba(31,111,178,.9));
+      color: #fff;
+      border-radius: 28px;
+      padding: 54px 42px;
+      box-shadow: 0 22px 64px rgba(15,76,129,.28);
+    }
+    .quote-slide h2,
+    .quote-slide p,
+    .quote-slide li,
+    .quote-slide small { color: #fff; }
+    .quote-slide .mini { color: rgba(255,255,255,.82); }
+    .quote-slide .big-callout {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.2);
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class="capa" data-background-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80" data-background-gradient="linear-gradient(135deg, #08111b, #12314d 50%, #1b4b72)" data-background-size="cover" data-background-position="center" data-background-opacity="0.15" data-transition="zoom">
+        <div class="cover-panel">
+          <p>🏛️ Centro Universitário Maurício de Nassau</p>
+          <h3>Aula 05 - Bancos de Dados NoSQL</h3>
+          <p>Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+          
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </section>
+
+      <section data-auto-animate>
+        <h2>Histórico</h2>
+        <div class="timeline">
+          <div class="timeline-item fragment" data-year="1970">
+            <h3>Banco de dados relacional</h3>
+            <p>Modelo consolidado com forte organização em tabelas, linhas, colunas, chaves e integridade.</p>
+          </div>
+          <div class="timeline-item fragment" data-year="1998">
+            <h3>Termo NoSQL</h3>
+            <p>O termo passa a aparecer para indicar soluções não relacionais e propostas alternativas.</p>
+          </div>
+          <div class="timeline-item fragment" data-year="2009">
+            <h3>Fortalecimento do NoSQL</h3>
+            <p>Com Big Data e aplicações web massivas, a adoção cresce em cenários distribuídos.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Por que o NoSQL ganhou força?</h2>
+        <div class="grid-2">
+          <div>
+            <ul>
+              <li class="fragment">A cada ano, a quantidade de dados cresce em ritmo acelerado.</li>
+              <li class="fragment">Muitos sistemas passaram a lidar com alto volume, variedade e velocidade de dados.</li>
+              <li class="fragment">Em vários cenários, o modelo relacional tradicional não era a solução mais adequada em custo e escala.</li>
+            </ul>
+          </div>
+          <div class="visual-box fragment">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80" alt="Sala de servidores moderna">
+            <div class="visual-caption">Ambientes distribuídos e cargas crescentes foram o cenário que impulsionou o NoSQL.</div>
+          </div>
+        </div>
+      </section>
+
+      <section data-auto-animate>
+        <h2>NoSQL substitui SQL?</h2>
+        <div class="grid-2">
+          <div class="card soft">
+            <span class="tag sql">SQL</span>
+            <p>Continua essencial em sistemas com forte consistência, transações complexas, relatórios estruturados e regras rígidas de integridade.</p>
+          </div>
+          <div class="card soft">
+            <span class="tag nosql">NoSQL</span>
+            <p>É indicado quando há grande escala, dados semiestruturados, distribuição e necessidade de flexibilidade de schema.</p>
+          </div>
+        </div>
+        <div class="big-callout fragment" style="margin-top:18px;">
+          <strong>Ideia central:</strong> na prática, não é uma substituição total; muitas arquiteturas usam as duas tecnologias simultaneamente.
+        </div>
+      </section>
+
+      <section>
+        <h2>Uso simultâneo de SQL e NoSQL</h2>
+        <div class="grid-2">
+          <div>
+            <ul>
+              <li class="fragment"><strong>SQL:</strong> cadastro de usuários, pagamentos, pedidos, notas fiscais, controle acadêmico.</li>
+              <li class="fragment"><strong>NoSQL:</strong> logs, sessões, cache, recomendação, dados de sensores, catálogos flexíveis.</li>
+              <li class="fragment">Essa abordagem é comum em arquiteturas modernas e é chamada de <em>persistência poliglota</em>.</li>
+            </ul>
+          </div>
+          <div class="visual-box fragment">
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80" alt="Equipe analisando arquitetura de dados">
+            <div class="visual-caption">Uma aplicação real costuma combinar modelos para atender partes diferentes do negócio.</div>
+          </div>
+        </div>
+      </section>
+
+      <section data-auto-animate>
+        <h2>Cadastro de Itens</h2>
+        <div class="grid-2">
+          <div class="card soft">
+            <span class="tag nosql">Catálogos flexíveis</span>
+            <p>No e-commerce e em marketplaces, itens de categorias diferentes pedem estruturas diferentes.</p>
+            <ul>
+              <li  class="fragment" >SQL tende a gerar muitas colunas vazias ou tabelas extras.</li>
+              <li  class="fragment">NoSQL guarda cada produto como um documento com os campos que ele realmente precisa.</li>
+              <li class="fragment">Isso acelera a leitura pelo front-end e simplifica a evolução do catálogo.</li>
+            </ul>
+          </div>
+          <div class="visual-box">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80" alt="Catálogo de produtos em plataforma de comércio eletrônico">
+            <div class="visual-caption">Produtos com atributos diferentes encaixam melhor em documentos flexíveis do que em esquemas rígidos.</div>
+          <!-- <div class="big-callout" style="margin-top:18px;">
+          Exemplo prático: uma semente de alface pode ter época de plantio e germinação; uma enxada pode ter peso e material. NoSQL adapta o documento ao item.
+        </div> -->
+          </div>
+        </div>
+       
+      </section>
+
+      <section data-auto-animate>
+        <h2>Cadastro de Usuários</h2>
+        <div class="grid-2">
+          <div class="card soft">
+            <span class="tag nosql">Perfil de usuário</span>
+            <p>Na web moderna, perfis mudam com frequência e normalmente precisam de leitura rápida.</p>
+            <ul>
+              <li  class="fragment">Nome, foto, preferências e tema claro/escuro combinam bem com NoSQL.</li>
+              <li  class="fragment">O schema flexível acompanha a evolução do aplicativo sem grandes migrações.</li>
+              <li  class="fragment">O perfil pode ficar no NoSQL enquanto ações financeiras continuam no SQL.</li>
+            </ul>
+          </div>
+          <div class="visual-box">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Painel de usuário e dados de perfil">
+            <div class="visual-caption">Perfis de usuário favorecem leitura rápida e mudanças frequentes na estrutura dos dados.</div>
+          </div>
+        </div>
+        <!-- <div class="big-callout" style="margin-top:18px;">
+          Divisão comum: perfil e preferências em NoSQL; pagamentos, pedidos e notas fiscais em SQL para preservar integridade.
+        </div> -->
+      </section>
+
+      <section data-auto-animate>
+        <h2>A Regra de Ouro</h2>
+        <div class="grid-2">
+          <div class="card soft">
+            <span class="tag nosql">Use NoSQL quando...</span>
+            <ul>
+              <li  class="fragment">você precisa de flexibilidade de schema;</li>
+              <li  class="fragment">há grande volume com leitura em massa;</li>
+              <li  class="fragment">o sistema exige escala rápida e dados que mudam muito.</li>
+            </ul>
+          </div>
+          <div class="card soft">
+            <span class="tag sql">Use SQL quando...</span>
+            <ul>
+              <li  class="fragment">a integridade dos dados é inegociável;</li>
+              <li  class="fragment">há relacionamento forte entre entidades;</li>
+              <li  class="fragment">o processo envolve transações complexas e ACID.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="big-callout" style="margin-top:18px;">
+          A decisão não depende de ser “usuário” ou “item”, mas do que acontece com esses dados: catálogo, navegação e perfil pedem agilidade; cartão, pedido e nota fiscal pedem segurança.
+        </div>
+      </section>
+
+      
+
+      <section data-auto-animate>
+        <h2>Escalabilidade</h2>
+        <div class="grid-2">
+          <div class="card soft">
+            <h3>Relacional = vertical</h3>
+            <ul>
+              <li class="fragment">Aumento de CPU, memória e disco do mesmo servidor.</li>
+              <li class="fragment">Mais simples no início.</li>
+              <li class="fragment">Pode se tornar caro e limitado.</li>
+            </ul>
+          </div>
+          <div class="card soft">
+            <h3>NoSQL = horizontal</h3>
+            <ul>
+              <li class="fragment">Distribuição em vários nós.</li>
+              <li class="fragment">Uso de particionamento e <em>sharding</em>.</li>
+              <li class="fragment">Escala melhor para grandes volumes e alta concorrência.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Vantagens da escalabilidade horizontal</h2>
+        <ul>
+          <li class="fragment">Permite crescer adicionando novos servidores ao cluster.</li>
+          <li class="fragment">Reduz gargalos concentrados em uma única máquina.</li>
+          <li class="fragment">Favorece alta disponibilidade e tolerância a falhas.</li>
+          <li class="fragment">Pode oferecer melhor relação custo-benefício em ambientes de grande escala.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Estruturas de dados</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Banco relacional</h3>
+            <ul>
+              <li class="fragment">Modelagem de dados prévia.</li>
+              <li class="fragment">Tabelas, colunas, tipos, relacionamentos e chaves primárias/estrangeiras.</li>
+              <li class="fragment">Maior padronização e consistência estrutural.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Banco não relacional</h3>
+            <ul>
+              <li class="fragment">Schema-free ou schemaless.</li>
+              <li class="fragment">Mais flexibilidade para documentos, chave-valor, grafos e colunas.</li>
+              <li class="fragment">Adaptação mais rápida a mudanças nos dados.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>SQL x NoSQL</h2>
+        <div class="grid-2" style="align-items:start;">
+          <div class="comparison-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Critério</th>
+                  <th>SQL</th>
+                  <th>NoSQL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Estrutura</td>
+                  <td>Tabelas e esquema definido</td>
+                  <td>Schema flexível</td>
+                </tr>
+                <tr>
+                  <td>Escalabilidade</td>
+                  <td>Vertical</td>
+                  <td>Horizontal</td>
+                </tr>
+                <tr>
+                  <td>Transações</td>
+                  <td>ACID</td>
+                  <td>BASE / consistência eventual</td>
+                </tr>
+                <tr>
+                  <td>Dados ideais</td>
+                  <td>Estruturados e relacionamentos fortes</td>
+                  <td>Semiestruturados ou grande volume distribuído</td>
+                </tr>
+                <tr>
+                  <td>Exemplos</td>
+                  <td>PostgreSQL, MySQL, SQL Server</td>
+                  <td>MongoDB, Cassandra, Redis, Neo4j</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="big-callout" style="font-size:.8em;">
+              <strong>OBS:</strong> SQL organiza e garante integridade; NoSQL flexibiliza e distribui. O melhor modelo depende da carga, do tipo de dado e do risco da operação.
+            </div>
+            <div class="stat-strip" style="margin-top:14px;">
+              <div><strong>SQL</strong><span>consistência, esquema definido e consultas relacionais.</span></div>
+              <div><strong>NoSQL</strong><span>flexibilidade, escala horizontal e dados distribuídos.</span></div>
+              <div><strong>Decisão</strong><span>o formato do problema deve guiar a escolha técnica.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section>
+        <h2>Quando usar cada abordagem?</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Prefira SQL quando...</h3>
+            <ul>
+              <li class="fragment">houver integridade rigorosa;</li>
+              <li class="fragment">existirem transações críticas;</li>
+              <li class="fragment">o modelo de dados for estável e altamente relacional.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Prefira NoSQL quando...</h3>
+            <ul>
+              <li class="fragment">o volume crescer muito;</li>
+              <li class="fragment">os dados variarem com frequência;</li>
+              <li class="fragment">a aplicação exigir distribuição e elasticidade.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Exemplo prático de arquitetura híbrida</h2>
+        <div class="grid-2">
+          <div>
+            <ul>
+              <li class="fragment"><strong>Universidade:</strong> matrículas, notas e financeiro em SQL.</li>
+              <li class="fragment"><strong>Ambiente virtual:</strong> logs de acesso, trilhas de navegação e recomendações em NoSQL.</li>
+              <li class="fragment">Resultado: cada tecnologia é usada no cenário em que entrega mais valor.</li>
+            </ul>
+          </div>
+          <div class="visual-box fragment">
+            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=1200&q=80" alt="Interface com dados e gráficos">
+            <div class="visual-caption">Arquiteturas híbridas permitem responder melhor a diferentes tipos de demanda.</div>
+          </div>
+        </div>
+      </section>
+
+      <section data-auto-animate>
+  <h2>Ranking dos bancos de dados mais utilizados</h2>
+  <div class="big-callout" style="margin-bottom:16px;">
+    <strong>Fonte:</strong> DB-Engines Ranking, atualizado mensalmente. Em maio de 2026, os bancos NoSQL mais bem posicionados entre os destaques desta aula foram MongoDB, Redis, Apache Cassandra e Neo4j.
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi fragment">
+      <i class="fas fa-file-code"></i>
+      <strong>MongoDB</strong>
+      <span>5º lugar no ranking geral<br>Modelo: documento</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-bolt"></i>
+      <strong>Redis</strong>
+      <span>8º lugar no ranking geral<br>Modelo: chave-valor</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-columns"></i>
+      <strong>Cassandra</strong>
+      <span>10º lugar no ranking geral<br>Modelo: coluna larga</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-project-diagram"></i>
+      <strong>Neo4j</strong>
+      <span>20º lugar no ranking geral<br>Modelo: grafo</span>
+    </div>
+  </div>
+  <p class="mini" style="margin-top:14px;">DB-Engines considera popularidade de uso, interesse e presença no mercado, e não apenas desempenho bruto.</p>
+</section>
+
+<section>
+  <h2>Destaques NoSQL no ranking</h2>
+  <div class="grid-2">
+    <div>
+      <div class="stat-strip">
+        <div class="fragment">
+          <strong>MongoDB</strong>
+          <span>Referência em banco orientado a documentos, muito usado em aplicações web e APIs.</span>
+        </div>
+        <div class="fragment">
+          <strong>Redis</strong>
+          <span>Muito adotado para cache, sessões, filas e acesso extremamente rápido em memória.</span>
+        </div>
+        <div class="fragment">
+          <strong>Cassandra</strong>
+          <span>Forte em alta disponibilidade, distribuição e escrita em larga escala.</span>
+        </div>
+      </div>
+      <div class="big-callout fragment" style="margin-top:14px;">
+        <strong>Neo4j:</strong> embora apareça abaixo no ranking geral, é uma referência quando o problema prin cipal está nos <em>relacionamentos entre dados</em>.
+      </div>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Visualização de dados e conexões digitais">
+      <div class="visual-caption">Os bancos NoSQL se destacam por resolver problemas diferentes: documentos, cache, colunas distribuídas e grafos.</div>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Tipos de banco de dados NoSQL</h2>
+  <div class="kpi-grid">
+    <div class="kpi fragment">
+      <i class="fas fa-file-alt"></i>
+      <strong>Documento</strong>
+      <span>Armazena dados em documentos JSON/BSON.<br>Ex.: MongoDB</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-key"></i>
+      <strong>Chave-valor</strong>
+      <span>Consulta rápida por chave única.<br>Ex.: Redis</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-table"></i>
+      <strong>Coluna</strong>
+      <span>Projetado para grande escala e distribuição.<br>Ex.: Cassandra</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-share-alt"></i>
+      <strong>Grafo</strong>
+      <span>Foco em conexões entre entidades.<br>Ex.: Neo4j</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>NoSQL por modelo de uso</h2>
+  <div class="grid-2">
+    <div class="card soft fragment">
+      <h3>Documento</h3>
+      <p>Ideal quando cada registro pode ter estrutura diferente, como produtos, perfis e catálogos flexíveis.</p>
+    </div>
+    <div class="card soft fragment">
+      <h3>Chave-valor</h3>
+      <p>Excelente para cache, sessão de usuário, tokens e dados com leitura extremamente rápida.</p>
+    </div>
+    <div class="card soft fragment">
+      <h3>Coluna</h3>
+      <p>Bom para grandes volumes distribuídos, escrita intensa e escalabilidade horizontal.</p>
+    </div>
+    <div class="card soft fragment">
+      <h3>Grafo</h3>
+      <p>Indicado quando entender relações é tão importante quanto armazenar os dados em si.</p>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Banco de dados NoSQL em grafos</h2>
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>Conceitos centrais</h3>
+      <ul>
+        <li class="fragment"><strong>Nós:</strong> representam entidades, como Cliente, Produto, Filme ou Professor.</li>
+        <li class="fragment"><strong>Vértices / relacionamentos:</strong> representam conexões entre os nós.</li>
+        <li class="fragment">No modelo de grafos, o relacionamento deixa de ser detalhe e vira parte central da consulta.</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80" alt="Rede de conexões representando grafos e relacionamentos">
+      <div class="visual-caption">Em bancos de grafos, entidades e conexões são consultadas como parte do mesmo modelo.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Aplicações de bancos em grafos</h2>
+  <div class="timeline">
+    <div class="timeline-item fragment" data-year="REDES">
+      <h3>Redes sociais</h3>
+      <p>Amizades, seguidores, bloqueios, recomendações e comunidades.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="FRAUDE">
+      <h3>Detecção de fraude</h3>
+      <p>Descoberta de conexões suspeitas entre contas, cartões, IPs e dispositivos.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="RECOM.">
+      <h3>Recomendação</h3>
+      <p>Produtos, filmes, músicas e perfis semelhantes a partir de relações.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Na prática: Neo4j</h2>
+  <div class="grid-2">
+    <div>
+      <div class="big-callout fragment">
+        <strong>Neo4j</strong> é um dos bancos de dados em grafos mais conhecidos e aparece no ranking DB-Engines como o principal destaque desse modelo [page:1].
+      </div>
+      <ul style="margin-top:14px;">
+        <li class="fragment">Permite modelar entidades como nós e conexões como relacionamentos.</li>
+        <li class="fragment">Usa a linguagem <strong>Cypher</strong> para criação e consulta de grafos.</li>
+        <li class="fragment">Ambiente de testes: <strong>sandbox.neo4j.com</strong>.</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="Desenvolvedor trabalhando com visualização de dados">
+      <div class="visual-caption">Neo4j é bastante usado para explorar visualmente relações entre entidades e padrões de conexão.</div>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Cypher: criando um nó</h2>
+  <div class="card soft">
+    <h3>Exemplo</h3>
+    <pre><code class="language-sql" data-trim data-noescape>
+CREATE (:Cliente {
+  name: "Diana",
+  age: 18,
+  hobbie: ["tocar teclado", "ver filmes"]
+})
+    </code></pre>
+  </div>
+  <div class="big-callout fragment" style="margin-top:16px;">
+    Aqui criamos um nó do tipo <strong>Cliente</strong> com propriedades como nome, idade e hobbies.
+  </div>
+</section>
+
+<section>
+  <h2>Cypher: consultando um nó</h2>
+  <div class="grid-2">
+    <div class="card soft fragment">
+      <h3>Consulta por padrão</h3>
+      <pre><code class="language-sql" data-trim data-noescape>
+MATCH (d:Cliente {name: "Diana"})
+RETURN d
+      </code></pre>
+    </div>
+    <div class="card soft fragment">
+      <h3>Observação importante</h3>
+      <p>Em Cypher, normalmente declaramos uma variável para o nó, como <strong>d</strong>, e depois a retornamos na consulta.</p>
+      <p class="mini">Forma mais adequada do que escrever apenas <code>MATCH(Diana) RETURN Diana</code> [web:16].</p>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Criando nós e relacionamentos</h2>
+  <div class="card soft">
+    <h3>Exemplo com relacionamento</h3>
+    <pre><code class="language-sql" data-trim data-noescape>
+CREATE (:Cliente {name: "Bianca", age: 17, hobbie: ["Andar de bicicleta"]})
+-[:BLOQUEOU]->
+(:Cliente {name: "Tatiana", hobbie: ["tocar teclado"]})
+    </code></pre>
+  </div>
+  <div class="stat-strip">
+    <div class="fragment">
+      <strong>Bianca</strong>
+      <span>nó de origem</span>
+    </div>
+    <div class="fragment">
+      <strong>BLOQUEOU</strong>
+      <span>relacionamento</span>
+    </div>
+    <div class="fragment">
+      <strong>Tatiana</strong>
+      <span>nó de destino</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Leitura do relacionamento no grafo</h2>
+  <div class="grid-2">
+    <div>
+      <ul>
+        <li class="fragment">Cada nó representa uma entidade do domínio.</li>
+        <li class="fragment">Cada aresta mostra como uma entidade se conecta a outra.</li>
+        <li class="fragment">Isso facilita perguntas como: “quem bloqueou quem?”, “quem conhece quem?” ou “quais perfis têm interesses em comum?”.</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <div class="visual-caption">Em grafos, as consultas percorrem conexões, o que é muito útil em redes sociais, recomendação e análise de fraude.</div>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Banco de dados baseados em colunas</h2>
+  <div class="grid-2">
+    <div>
+      <div class="big-callout fragment">
+        <strong>Definição:</strong> bancos NoSQL baseados em colunas, também chamados de <em>wide-column stores</em>, organizam os dados em famílias de colunas e são muito usados em cenários distribuídos e escaláveis.
+      </div>
+      <ul style="margin-top:14px;">
+        <li class="fragment">São indicados para grandes volumes de dados.</li>
+        <li class="fragment">Funcionam bem em arquiteturas distribuídas.</li>
+        <li class="fragment">Têm destaque em cenários com acesso massivo e alta escalabilidade.</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Infraestrutura moderna de dados e processamento distribuído">
+      <div class="visual-caption">Wide-column stores são usados quando a aplicação precisa crescer em volume, distribuição e disponibilidade.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Relacional vs NoSQL baseado em colunas</h2>
+  <div class="grid-2" style="align-items:start;">
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Critério</th>
+            <th>Relacional</th>
+            <th>NoSQL baseado em colunas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Estrutura</td>
+            <td>Tabelas com esquema rígido</td>
+            <td>Famílias de colunas com estrutura mais flexível</td>
+          </tr>
+          <tr>
+            <td>Escalabilidade</td>
+            <td>Geralmente vertical</td>
+            <td>Forte escalabilidade horizontal</td>
+          </tr>
+          <tr>
+            <td>Relacionamentos</td>
+            <td>JOINs e integridade forte</td>
+            <td>Foco em distribuição e consulta por chave</td>
+          </tr>
+          <tr>
+            <td>Uso comum</td>
+            <td>Sistemas transacionais tradicionais</td>
+            <td>Grandes volumes distribuídos e alta disponibilidade</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="big-callout fragment" style="font-size:.82em;">
+        <strong>Importante:</strong> no NoSQL baseado em colunas, as <strong>column families</strong> cumprem papel próximo ao que pensamos como “tabelas”, mas com uma organização mais voltada à distribuição e à flexibilidade.
+      </div>
+      <div class="stat-strip" style="margin-top:14px;">
+        <div class="fragment"><strong>SQL</strong><span>modelo rígido, JOINs e forte consistência.</span></div>
+        <div class="fragment"><strong>Wide-column</strong><span>escala horizontal e acesso eficiente por partição.</span></div>
+        <div class="fragment"><strong>Escolha</strong><span>depende do volume, do padrão de acesso e da distribuição.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Ranking dos bancos baseados em colunas</h2>
+  <div class="big-callout" style="margin-bottom:16px;">
+    <strong>Fonte:</strong> DB-Engines Ranking of Wide Column Stores. Entre os wide-column stores, Apache Cassandra lidera, seguido por Azure Cosmos DB e Apache HBase.
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi fragment">
+      <i class="fas fa-crown"></i>
+      <strong>1º Cassandra</strong>
+      <span>Principal referência em wide-column store no ranking.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-cloud"></i>
+      <strong>2º Azure Cosmos DB</strong>
+      <span>Solução multimodelo com suporte também a wide column.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-database"></i>
+      <strong>3º HBase</strong>
+      <span>Banco orientado a colunas muito associado ao ecossistema Hadoop.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-tachometer-alt"></i>
+      <strong>6º ScyllaDB</strong>
+      <span>Destaque moderno entre os bancos wide-column.</span>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Terminologia essencial</h2>
+  <div class="timeline">
+    <div class="timeline-item fragment" data-year="KEYSPACE">
+      <h3>Keyspace</h3>
+      <p>Equivale, didaticamente, ao “banco de dados” principal onde ficam as estruturas internas.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="FAMILY">
+      <h3>Column Family</h3>
+      <p>Termo histórico do Cassandra para o agrupamento lógico de colunas; em CQL moderno, aproxima-se da ideia de tabela.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="ROW KEY">
+      <h3>Row Key</h3>
+      <p>Chave que identifica e ajuda a distribuir os dados; também associada ao conceito de partition key.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Mais termos importantes</h2>
+  <div class="grid-2">
+    <div class="card soft fragment">
+      <h3>Column</h3>
+      <p>Representa o dado armazenado em uma determinada estrutura da linha, como um atributo ou célula.</p>
+    </div>
+    <div class="card soft fragment">
+      <h3>Partition Key</h3>
+      <p>Define como os dados serão distribuídos entre os nós do cluster, sendo central para escalabilidade horizontal.</p>
+    </div>
+  </div>
+  <div class="big-callout fragment" style="margin-top:18px;">
+    Em Cassandra, modelar bem a chave de partição é uma decisão crítica, porque ela influencia diretamente distribuição, consulta e desempenho.
+  </div>
+</section>
+
+<section>
+  <h2>Exemplo de aplicação: registro de transações</h2>
+  <div class="grid-2">
+    <div>
+      <ul>
+        <li class="fragment">Uma empresa pode registrar milhões de transações por dia.</li>
+        <li class="fragment">Cada transação pode ser gravada com chave de partição baseada, por exemplo, no cliente ou na data.</li>
+        <li class="fragment">O modelo favorece armazenamento distribuído e recuperação rápida por chave.</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80" alt="Registro digital de transações financeiras">
+      <div class="visual-caption">Registros massivos, históricos e distribuídos são cenários típicos para wide-column stores.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>CQL: visão inicial</h2>
+  <div class="big-callout">
+    <strong>CQL</strong> significa <em>Cassandra Query Language</em> e foi criada para oferecer uma sintaxe familiar para quem já conhece SQL, mas adaptada ao funcionamento do Cassandra.
+  </div>
+  <div class="stat-strip">
+    <div class="fragment">
+      <strong>DDL</strong>
+      <span>Criação de keyspace e tabelas.</span>
+    </div>
+    <div class="fragment">
+      <strong>DML</strong>
+      <span>Inserção, atualização e leitura de dados .</span>
+    </div>
+    <div class="fragment">
+      <strong>Modelo</strong>
+      <span>Sintaxe parecida com SQL, mas com regras próprias de particionamento.</span>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Comando básico: criação de keyspace</h2>
+  <div class="card soft">
+    <h3>Exemplo em CQL</h3>
+    <pre><code class="language-sql" data-trim data-noescape>
+CREATE KEYSPACE loja
+WITH replication = {
+  'class': 'SimpleStrategy',
+  'replication_factor': 1
+};
+    </code></pre>
+  </div>
+  <div class="big-callout fragment" style="margin-top:16px;">
+    Esse comando cria um <strong>keyspace</strong>, que funciona como o contêiner principal dos dados no Cassandra.
+  </div>
+</section>
+
+<section>
+  <h2>Comandos básicos em sequência</h2>
+  <div class="card soft">
+    <pre><code class="language-sql" data-trim data-noescape>
+USE loja;
+
+CREATE TABLE transacoes (
+  id UUID PRIMARY KEY,
+  cliente TEXT,
+  valor DECIMAL,
+  data_transacao DATE
+);
+    </code></pre>
+  </div>
+  <p class="mini" style="margin-top:12px;">
+    Após criar o keyspace, usamos <code>USE</code> para selecioná-lo e depois criamos uma tabela com chave primária e colunas básicas em CQL.
+  </p>
+</section>
+
+<section>
+  <h2>Ideia final sobre bancos em colunas</h2>
+  <div class="quote-slide">
+    <h2>Wide-column não é “SQL com outro nome”</h2>
+    <div class="big-callout" style="margin-top:20px;">
+      <p><strong>Resumo:</strong> bancos baseados em colunas foram projetados para escala horizontal, distribuição e grande volume de dados, com destaque para Apache Cassandra no ranking atual.</p>
+      <p class="mini">A modelagem correta da chave e da forma de acesso é decisiva para obter desempenho e disponibilidade nesse tipo de banco.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------------- -->
+<section data-auto-animate>
+  <h2>Banco de dados chave-valor</h2>
+  <div class="grid-2">
+    <div>
+      <div class="big-callout fragment">
+        <strong>Definição:</strong> bancos chave-valor armazenam os dados no formato <strong>chave → valor</strong>, priorizando acesso simples e rápido.
+      </div>
+      <ul style="margin-top:14px;">
+        <li class="fragment">A chave identifica unicamente o registro.</li>
+        <li class="fragment">O valor pode ser simples, como texto e número, ou mais complexo.</li>
+        <li class="fragment">É muito usado em cache, sessão, preferências e configuração .</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Infraestrutura digital para armazenamento rápido de dados">
+      <div class="visual-caption">Bancos chave-valor priorizam acesso direto por chave e baixa latência .</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Quando usar chave-valor?</h2>
+  <div class="kpi-grid">
+    <div class="kpi fragment">
+      <i class="fas fa-user-clock"></i>
+      <strong>Sessões</strong>
+      <span>Armazenamento rápido de login, token e estado do usuário [web:45].</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-memory"></i>
+      <strong>Cache</strong>
+      <span>Reduz consultas repetidas e acelera respostas.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-sliders-h"></i>
+      <strong>Configurações</strong>
+      <span>Preferências, parâmetros e valores simples por chave.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-chart-line"></i>
+      <strong>Tempo real</strong>
+      <span>Útil em cenários com leitura rápida e frequente .</span>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Banco de dados baseado em documentos</h2>
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>Definição</h3>
+      <p>Bancos orientados a documentos armazenam dados em estruturas semelhantes a JSON, com campos simples e aninhados .</p>
+    </div>
+    <div class="card soft">
+      <h3>Vantagem principal</h3>
+      <p>Oferecem schema flexível, facilitando adaptação da base à evolução da aplicação .</p>
+    </div>
+  </div>
+  <div class="big-callout fragment" style="margin-top:18px;">
+    Um banco de documentos pode representar pares chave-valor, mas vai além disso, pois permite documentos complexos, consultas ricas e índices avançados.
+  </div>
+</section>
+
+<section>
+  <h2>Introdução ao MongoDB</h2>
+  <div class="grid-2">
+    <div>
+      <ul>
+        <li class="fragment">MongoDB é um banco de dados orientado a documentos.</li>
+        <li class="fragment">Os dados são armazenados em <strong>documents</strong> e organizados em <strong>collections</strong> .</li>
+        <li class="fragment">É muito usado em APIs, aplicações web, catálogos e perfis de usuário.</li>
+        <li class="fragment">É uma das principais referências NoSQL da atualidade .</li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://media.geeksforgeeks.org/wp-content/uploads/20231107111719/MongoDB-Architecture.png" alt="Arquitetura do MongoDB com shards e réplicas">
+      <div class="visual-caption">O MongoDB trabalha com coleções, documentos e recursos de escalabilidade .</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Instalação</h2>
+  <div class="grid-2">
+    <div class="card soft fragment">
+      <h3>Modo local</h3>
+      <p>O <strong>MongoDB Community Edition</strong> pode ser instalado localmente em Windows, macOS e Linux.</p>
+    </div>
+    <div class="card soft fragment">
+      <h3>Ferramentas</h3>
+      <p>Depois da instalação, o aluno pode usar o <strong>MongoDB Shell</strong> para testar comandos e operações básicas.</p>
+    </div>
+  </div>
+  <div class="big-callout fragment" style="margin-top:18px;">
+    Em aulas práticas, a instalação local é útil para laboratório, enquanto a versão online simplifica o primeiro contato com a plataforma.
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>MongoDB online</h2>
+  <div class="grid-2">
+    <div>
+      <div class="big-callout fragment">
+        <strong>MongoDB Atlas</strong> é o serviço online e gerenciado da plataforma, permitindo criar clusters na nuvem sem instalar manualmente o banco.
+      </div>
+      <ul style="margin-top:14px;">
+        <li class="fragment">Permite criar cluster gratuito para estudo.</li>
+        <li class="fragment">Permite gerenciar usuários, rede e conexão.</li>
+        <li class="fragment">Pode ser acessado por drivers, shell e interface web </li>
+      </ul>
+    </div>
+    <div class="visual-box fragment">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Computação em nuvem e bancos online">
+      <div class="visual-caption">MongoDB Atlas facilita implantação, conexão e gerenciamento online .</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Schema Design</h2>
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>O que é?</h3>
+      <p>Schema design é o planejamento da estrutura de documentos, coleções e relacionamentos da aplicação.</p>
+    </div>
+    <div class="card soft">
+      <h3>Ideia central</h3>
+      <p>No MongoDB, o schema deve ser pensado com base no modo como o sistema lê, grava e consulta os dados .</p>
+    </div>
+  </div>
+  <div class="visual-box fragment" style="margin-top:18px;">
+    <img src="https://www.datensen.com/blog/wp-content/uploads/diagram-for-mongodb.jpg" alt="Exemplo visual de modelagem de schema no MongoDB">
+    <div class="visual-caption">A modelagem em MongoDB costuma partir das consultas e do uso real da aplicação.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Boas práticas</h2>
+  <div class="timeline">
+    <div class="timeline-item fragment" data-year="CONSULTA">
+      <h3>Modelar pelas consultas</h3>
+      <p>Estruture os documentos pensando nas consultas mais frequentes.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="EMBED">
+      <h3>Usar embedding com critério</h3>
+      <p>Dados pequenos e fortemente ligados podem ficar no mesmo documento.</p>
+    </div>
+    <div class="timeline-item fragment" data-year="INDEX">
+      <h3>Indexar com cuidado</h3>
+      <p>Índices ajudam consultas, mas também geram custo de manutenção.</p>
+    </div>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>JSON vs BSON</h2>
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>JSON</h3>
+      <ul>
+        <li class="fragment">Formato textual e legível.</li>
+        <li class="fragment">Muito usado em APIs e aplicações web.</li>
+      </ul>
+    </div>
+    <div class="card soft">
+      <h3>BSON</h3>
+      <ul>
+        <li class="fragment">Formato binário usado pelo MongoDB para armazenar documentos.</li>
+        <li class="fragment">Suporta tipos adicionais como <code>Date</code>, <code>ObjectId</code> e dados binários.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="big-callout fragment" style="margin-top:18px;">
+    JSON é mais fácil de ler; BSON é o formato interno otimizado que o MongoDB utiliza.
+  </div>
+</section>
+
+<section>
+  <h2>Operação e manipulação de dados</h2>
+  <div class="kpi-grid">
+    <div class="kpi fragment">
+      <i class="fas fa-plus-circle"></i>
+      <strong>Insert</strong>
+      <span>Inserção de documentos em coleções.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-search"></i>
+      <strong>Find</strong>
+      <span>Consulta de documentos com filtros.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-edit"></i>
+      <strong>Update</strong>
+      <span>Alteração parcial ou total de documentos.</span>
+    </div>
+    <div class="kpi fragment">
+      <i class="fas fa-trash-alt"></i>
+      <strong>Delete</strong>
+      <span>Remoção de documentos da coleção.</span>
+    </div>
+  </div>
+  <p class="mini" style="margin-top:14px;">Essas operações compõem o CRUD básico do MongoDB.</p>
+</section>
+
+<section>
+  <h2>Exemplo básico de manipulação</h2>
+  <div class="card soft">
+    <pre><code class="language-javascript" data-trim data-noescape>
+db.clientes.insertOne({
+  nome: "Ana",
+  idade: 22,
+  curso: "ADS"
+})
+
+db.clientes.find({ curso: "ADS" })
+
+db.clientes.updateOne(
+  { nome: "Ana" },
+  { $set: { idade: 23 } }
+)
+
+db.clientes.deleteOne({ nome: "Ana" })
+    </code></pre>
+  </div>
+</section>
+
+<section data-auto-animate>
+  <h2>Performance e índices</h2>
+  <div class="grid-2">
+    <div>
+      <ul>
+        <li class="fragment">Índices aceleram consultas recorrentes.</li>
+        <li class="fragment">Sem índice, o banco pode precisar varrer muitos documentos.</li>
+        <li class="fragment">Com índice, a busca fica mais eficiente.</li>
+        <li class="fragment">Índices em excesso aumentam custo de armazenamento e escrita.</li>
+      </ul>
+    </div>
+    <div class="card soft fragment">
+      <h3>Exemplo</h3>
+      <pre><code class="language-javascript" data-trim data-noescape>
+db.clientes.createIndex({ nome: 1 })
+      </code></pre>
+      <p class="mini">Esse índice favorece pesquisas pelo campo <code>nome</code> [web:56].</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Agregação</h2>
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>Ideia central</h3>
+      <p>A agregação processa múltiplos documentos e retorna resultados calculados, geralmente por meio de um pipeline.</p>
+    </div>
+    <div class="card soft">
+      <h3>Exemplos de uso</h3>
+      <p>Filtrar, agrupar, ordenar, somar, contar e gerar relatórios analíticos sobre os dados.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Exemplo de agregação</h2>
+  <div class="card soft">
+    <pre><code class="language-javascript" data-trim data-noescape>
+db.vendas.aggregate([
+  { $match: { status: "pago" } },
+  { $group: { _id: "$curso", total: { $sum: "$valor" } } },
+  { $sort: { total: -1 } }
+])
+    </code></pre>
+  </div>
+  <div class="big-callout fragment" style="margin-top:16px;">
+    Nesse pipeline, primeiro filtramos os documentos pagos, depois agrupamos por curso e por fim ordenamos do maior total para o menor [web:53][web:54].
+  </div>
+</section>
+
+<section>
+  <div class="quote-slide">
+    <h2>Fechamento: MongoDB</h2>
+    <div class="big-callout" style="margin-top:20px;">
+      <p><strong>Resumo:</strong> MongoDB combina flexibilidade de schema, documentos em BSON, índices e pipeline de agregação, sendo uma das principais tecnologias NoSQL atuais.</p>
+      <p class="mini">Boa modelagem, uso cuidadoso de índices e entendimento entre JSON e BSON são fundamentais para desempenho e organização.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Guia Prático</h2>
+  <div class="big-callout" style="margin-top:20px;">
+    <p>Para aprofundar seus conhecimentos e praticar com exemplos práticos, consulte o guia completo:</p>
+    <p style="margin-top: 1.5em;">
+      <a href="/pages/UNINASSAU/20261/bef/aula5/guia-pratica-mongodb.html" style="color: var(--azul); font-size: 1.1em; font-weight: bold;">
+        <i class="fas fa-book"></i> Guia Prático MongoDB
+      </a>
+    </p>
+    <p class="mini" style="margin-top: 1em;">Acesse exercícios, exemplos práticos e boas práticas de implementação.</p>
+  </div>
+</section>
+
+
+
+    </div>
+  </div>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      autoAnimate: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+</html>
