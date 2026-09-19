@@ -1,0 +1,4 @@
+Font Awesome Free 6.0.0-beta3 — https://fontawesome.com/license/free
+Icons: CC BY 4.0. Fonts: SIL OFL 1.1. Code: MIT.
+Copyright Fonticons, Inc. Attribution retained in all.min.css.
+Only the brands font is included; the deck uses LinkedIn and GitHub brand icons.

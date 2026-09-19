@@ -1,0 +1,27 @@
+APRESENTAÇÃO REVEAL.JS — AULA 5
+
+Extraia o ZIP e abra index.html no navegador. Mantenha a pasta vendor junto ao HTML.
+Os arquivos do Reveal.js 5.2.1 estão incluídos para apresentação sem internet.
+
+CONTROLES
+Setas ou espaço: navegar.
+Esc: visão geral.
+F: tela cheia.
+B: pausar com tela escura.
+S: notas do apresentador (pode exigir um servidor local e permissão para janela adicional).
+
+EDIÇÃO
+Cada bloco <section> em index.html corresponde a um slide.
+As notas estão nos elementos <aside class="notes">.
+O CSS no início do HTML define cores, fontes e layouts.
+Há exatamente 30 slides. As quatro questões são autorais e os gabaritos aparecem nos slides 24 a 27.
+
+Para usar notas com servidor local, se tiver Python instalado:
+Abra um terminal nesta pasta e execute: python3 -m http.server 8000
+Abra http://localhost:8000 no navegador.
+
+O nome UNINASSAU aparece como texto institucional, sem imitação do logotipo.
+Referências conceituais nas notas. Reveal.js: https://revealjs.com/installation/
+Licença do Reveal.js incluída em vendor/LICENSE.
+
+Verificação: estrutura e dependências conferidas. A inspeção visual automática não pôde ser concluída porque o navegador de teste não iniciou neste ambiente.

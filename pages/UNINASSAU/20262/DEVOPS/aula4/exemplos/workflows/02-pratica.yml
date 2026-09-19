@@ -1,0 +1,15 @@
+name: DevOps Tools CI
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  exemplo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Informações do runner
+        run: uname -a
+      - name: Listar arquivos
+        run: ls -la
+      - name: Mensagem
+        run: echo "Pipeline executada com sucesso"

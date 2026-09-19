@@ -1,0 +1,12 @@
+name: Gate demonstrativo
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  demonstrar:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "Gate liberado. Nenhum deploy realizado."

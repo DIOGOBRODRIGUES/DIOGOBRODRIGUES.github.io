@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Aula 5 · Governança e Estratégia de TI</title>
+    <link rel="stylesheet" href="vendor/reveal.css"
+        onerror="this.href='https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css'">
+    <style>
+        :root {
+            --navy: #0b1f3a;
+            --blue: #174a7e;
+            --red: #c8202f;
+            --paper: #f3f5f7
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--navy);
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        .reveal {
+            font-size: 28px
+        }
+
+        .reveal .slides {
+            text-align: left
+        }
+
+        .reveal .slides section {
+            box-sizing: border-box;
+            padding: 24px 30px
+        }
+
+        .reveal h1 {
+            font-size: 74px;
+            line-height: 1.04;
+            letter-spacing: -3px;
+            margin: 20px 0 30px
+        }
+
+        .reveal h2 {
+            font-size: 44px;
+            line-height: 1.12;
+            margin: 8px 0 25px;
+            letter-spacing: -1px
+        }
+
+        .reveal h3 {
+            font-size: 27px;
+            color: var(--blue);
+            margin: 0 0 16px
+        }
+
+        .reveal p {
+            line-height: 1.38;
+            margin: 16px 0
+        }
+
+        .reveal li {
+            line-height: 1.38;
+            margin: 12px 0
+        }
+
+        .reveal ul,
+        .reveal ol {
+            padding-left: 30px;
+            margin: 12px 0
+        }
+
+        .eyebrow {
+            font-size: 17px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 14px
+        }
+
+        .definition {
+            font-size: 32px;
+            line-height: 1.4;
+            border-left: 6px solid var(--red);
+            padding: 8px 0 8px 24px;
+            margin: 24px 0
+        }
+
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start
+        }
+
+        .thirds {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px
+        }
+
+        .big {
+            font-size: 40px;
+            line-height: 1.25
+        }
+
+        .muted {
+            color: #536478
+        }
+
+        .small {
+            font-size: 21px
+        }
+
+        .accent {
+            color: var(--red)
+        }
+
+        .rule {
+            height: 5px;
+            background: var(--red);
+            width: 100px;
+            margin: 26px 0
+        }
+
+        .reveal table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 24px
+        }
+
+        .reveal th {
+            text-align: left;
+            background: var(--navy);
+            color: white;
+            padding: 16px
+        }
+
+        .reveal td {
+            padding: 15px;
+            border-bottom: 1px solid #ccd5df;
+            line-height: 1.25
+        }
+
+        .reveal tr:nth-child(even) td {
+            background: #e8edf2
+        }
+
+        .steps {
+            display: flex;
+            align-items: stretch;
+            gap: 18px;
+            margin: 35px 0
+        }
+
+        .steps>div {
+            flex: 1;
+            border-top: 5px solid var(--blue);
+            padding: 16px 8px;
+            font-size: 23px
+        }
+
+        .steps b {
+            display: block;
+            font-size: 33px;
+            color: var(--red);
+            margin-bottom: 14px
+        }
+
+        .question p {
+            font-size: 26px;
+            line-height: 1.3
+        }
+
+        .question ol {
+            list-style-type: upper-alpha;
+            font-size: 24px
+        }
+
+        .question ol li {
+            margin: 12px 0;
+            padding-left: 8px
+        }
+
+        .question.long ol {
+            font-size: 23px
+        }
+
+        .answer {
+            font-size: 70px;
+            color: var(--red);
+            font-weight: bold
+        }
+
+        .dark {
+            color: white
+        }
+
+        .dark .eyebrow {
+            color: #ff9aa4
+        }
+
+        .dark .muted {
+            color: #ccd9eb
+        }
+
+        .dark h3 {
+            color: #c6ddff
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 14px;
+            left: 25px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #6e7e92;
+            z-index: 4
+        }
+
+        .reveal .progress {
+            color: var(--red)
+        }
+
+        .reveal .controls {
+            color: var(--blue)
+        }
+
+        .reveal .slide-number {
+            background: var(--navy);
+            font-size: 14px
+        }
+
+        .stamp {
+            font-size: 22px;
+            letter-spacing: 4px;
+            font-weight: bold
+        }
+
+        .source {
+            font-size: 17px;
+            color: #52657a
+        }
+
+        .reveal a {
+            color: var(--blue)
+        }
+
+        @media print {
+            .footer {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="footer">TÓPICOS ESPECIAIS EM SISTEMAS DE INFORMAÇÃO · ENADE 2026</div>
+    <div class="reveal">
+        <div class="slides">
+
+            <section class="dark" data-background-color="#0b1f3a">
+                <div class="stamp">UNINASSAU</div>
+                <div class="rule"></div>
+                <div class="eyebrow">Aula 05 · Módulo 2</div>
+                <h1>Governança e<br>Estratégia de TI</h1>
+                <p class="big">Objetivos, responsabilidades<br>e decisões nos projetos</p>
+                <p class="small muted">Professor Diogo Rodrigues<br>22 e 25 de setembro de 2026</p>
+                <aside class="notes">Apresentar a transição do módulo de dados para governança</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">02 · Situação-problema hipotética</div>
+                <h2>O aplicativo funciona.<br>A reserva continua difícil.</h2>
+                <div class="cols">
+                    <div>
+                        <p>Uma biblioteca lançou um aplicativo com diversas funcionalidades.</p>
+                        <p>Mesmo assim, muitos estudantes não conseguem concluir a reserva de livros.</p>
+                    </div>
+                    <div>
+                        <h3>Para discutir</h3>
+                        <ul>
+                            <li>Qual era o resultado esperado?</li>
+                            <li>Quem deveria definir as prioridades?</li>
+                            <li>Que evidência mostraria benefício?</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="notes">5 minutos. Ouvir respostas sem antecipar as questões. Explorar a diferença entre
+                    entregar software e atender uma necessidade.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">03 · Retomada</div>
+                <h2>Informações para decidir</h2>
+                <div class="steps">
+                    <div><b>1</b>Informação confiável</div>
+                    <div><b>2</b>Decisão e prioridades</div>
+                    <div><b>3</b>Execução coordenada</div>
+                    <div><b>4</b>Acompanhamento</div>
+                </div>
+                <p>O SAD ajuda a comparar alternativas. A governança estabelece quem decide, com quais critérios e como
+                    os resultados serão acompanhados.</p>
+                <aside class="notes">Retomar a aula anterior sobre SAD. Perguntar quem precisa receber a informação e
+                    quem responde por uma decisão.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">04 · Objetivos</div>
+                <h2>Cinco perguntas da aula</h2>
+                <ol>
+                    <li>O que diferencia governança e gestão?</li>
+                    <li>Como a TI contribui para os objetivos?</li>
+                    <li>Quem participa das decisões?</li>
+                    <li>Como priorizar com recursos limitados?</li>
+                    <li>Como demonstrar resultados?</li>
+                </ol>
+                <aside class="notes">Apresentar o percurso. O estudo específico da ISO/IEC 38500 fica para o próximo
+                    encontro.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">05 · Conceito</div>
+                <h2>Governança de TI</h2>
+                <div class="definition">Estabelece direcionamento, responsabilidades e mecanismos de acompanhamento para
+                    que a tecnologia contribua para os objetivos da organização.</div>
+                <p>Considera partes interessadas, benefícios, riscos e recursos.</p>
+                <p class="small muted">Na biblioteca: definir a reserva acessível como prioridade e estabelecer como
+                    verificar o resultado.</p>
+                <aside class="notes">Explicar prestação de contas: apresentar decisões, justificativas e resultados.
+                    Fonte: https://www.isaca.org/resources/cobit</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">06 · Conceito</div>
+                <h2>Gestão de TI</h2>
+                <div class="definition">Planeja e executa atividades para cumprir o direcionamento, organizando pessoas,
+                    processos e recursos tecnológicos.</div>
+                <div class="cols">
+                    <div>
+                        <h3>Planejar o trabalho</h3>
+                        <p>Distribuir tarefas, estimar esforço e organizar entregas.</p>
+                    </div>
+                    <div>
+                        <h3>Sustentar o serviço</h3>
+                        <p>Desenvolver, testar, corrigir falhas e acompanhar a operação.</p>
+                    </div>
+                </div>
+                <aside class="notes">Na biblioteca, a equipe implementa o fluxo de reserva priorizado. Gestão também
+                    acompanha indicadores, mas com foco na execução e na operação.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">07 · Comparação</div>
+                <h2>Governança e gestão</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dimensão</th>
+                            <th>Governança</th>
+                            <th>Gestão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pergunta</td>
+                            <td>Quais resultados e prioridades?</td>
+                            <td>Como executar e sustentar?</td>
+                        </tr>
+                        <tr>
+                            <td>Decisões</td>
+                            <td>Direcionamento e limites</td>
+                            <td>Planejamento e execução</td>
+                        </tr>
+                        <tr>
+                            <td>Responsabilidade</td>
+                            <td>Avaliar e cobrar resultados</td>
+                            <td>Coordenar e apresentar evidências</td>
+                        </tr>
+                        <tr>
+                            <td>Biblioteca</td>
+                            <td>Priorizar reserva acessível</td>
+                            <td>Desenvolver e testar o fluxo</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">As duas funções acompanham informações com finalidades diferentes. Em equipes
+                    pequenas, a mesma pessoa pode assumir papéis distintos. Ferramentas não substituem essas
+                    responsabilidades.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">08 · Atividades de governança</div>
+                <h2>Avaliar, direcionar e monitorar</h2>
+                <div class="thirds">
+                    <div>
+                        <h3>Avaliar</h3>
+                        <p>Necessidades, alternativas, benefícios e riscos.</p>
+                        <p class="small muted">Investigar dificuldades de reserva.</p>
+                    </div>
+                    <div>
+                        <h3>Direcionar</h3>
+                        <p>Prioridades, responsabilidades e limites.</p>
+                        <p class="small muted">Priorizar um fluxo acessível.</p>
+                    </div>
+                    <div>
+                        <h3>Monitorar</h3>
+                        <p>Evidências e resultados frente aos objetivos.</p>
+                        <p class="small muted">Verificar reservas concluídas.</p>
+                    </div>
+                </div>
+                <aside class="notes">Perguntar o que fazer se o resultado não atender ao objetivo: reavaliar e ajustar o
+                    direcionamento. Fonte:
+                    https://www.isaca.org/resources/isaca-journal/issues/2016/volume-6/performance-measurement-metrics-for-it-governance
+                </aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">09 · Estratégia</div>
+                <h2>Alinhamento estratégico</h2>
+                <div class="definition">Coerência entre os objetivos organizacionais e as decisões, prioridades e
+                    investimentos em tecnologia.</div>
+                <div class="steps">
+                    <div><b>Objetivo</b>Ampliar o acesso ao acervo</div>
+                    <div><b>Prioridade</b>Busca e reserva acessíveis</div>
+                    <div><b>Evidência</b>Usuários concluem a reserva</div>
+                </div>
+                <aside class="notes">Tecnologia recente não demonstra alinhamento por si só. Pedir que a turma relacione
+                    uma funcionalidade a uma necessidade concreta.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">10 · Pessoas</div>
+                <h2>Partes interessadas</h2>
+                <div class="definition">Pessoas ou grupos que influenciam o projeto ou são afetados por suas decisões e
+                    resultados.</div>
+                <p>Estudantes, bibliotecários, direção, equipe de TI e pessoas que precisam de recursos de
+                    acessibilidade.</p>
+                <p class="big accent">Quem é afetado mesmo sem participar do desenvolvimento?</p>
+                <aside class="notes">Distinguir usuário, beneficiário, executor e responsável pela decisão. Um estudante
+                    afetado por uma barreira pode não participar da equipe.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">11 · Organização</div>
+                <h2>Responsabilidades e prestação de contas</h2>
+                <div class="cols">
+                    <ul>
+                        <li>Quem executa?</li>
+                        <li>Quem aprova?</li>
+                        <li>Quem será consultado?</li>
+                        <li>Quem deve ser informado?</li>
+                        <li>Quem responde pelo resultado?</li>
+                    </ul>
+                    <div>
+                        <h3>Exemplo</h3>
+                        <p>Um integrante implementa a busca. Outro testa. A equipe apresenta evidências e o responsável
+                            valida os critérios.</p>
+                        <p class="small muted">Delegar a execução mantém a necessidade de acompanhamento.</p>
+                    </div>
+                </div>
+                <aside class="notes">Prestação de contas inclui justificativas, resultados e pendências. Evitar
+                    confundir responsável por executar com responsável por aprovar.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">12 · Critérios de decisão</div>
+                <h2>Valor, riscos e recursos</h2>
+                <div class="thirds">
+                    <div>
+                        <h3>Valor</h3>
+                        <p>Benefício relevante para usuários ou organização.</p>
+                        <p class="small muted">Acesso mais fácil ao acervo.</p>
+                    </div>
+                    <div>
+                        <h3>Risco</h3>
+                        <p>Possibilidade de um evento afetar os objetivos.</p>
+                        <p class="small muted">Usuários não concluem a reserva.</p>
+                    </div>
+                    <div>
+                        <h3>Recursos</h3>
+                        <p>Pessoas, tempo, orçamento, infraestrutura e dados.</p>
+                        <p class="small muted">Equipe e sistemas disponíveis.</p>
+                    </div>
+                </div>
+                <aside class="notes">Discutir como equilibrar benefício e esforço. Risco precisa de acompanhamento e de
+                    um responsável.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">13 · Priorização</div>
+                <h2>O que entregar primeiro?</h2>
+                <div class="cols">
+                    <div>
+                        <h3>Alternativas da biblioteca</h3>
+                        <ul>
+                            <li>Melhorar a reserva</li>
+                            <li>Adicionar efeitos visuais</li>
+                            <li>Criar recomendações avançadas</li>
+                            <li>Corrigir barreiras de acessibilidade</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Critérios</h3>
+                        <ul>
+                            <li>Contribuição para o objetivo</li>
+                            <li>Necessidade dos usuários</li>
+                            <li>Esforço e dependências</li>
+                            <li>Risco de adiar</li>
+                            <li>Evidência de resultado</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="notes">Solicitar uma prioridade e sua justificativa. Não atribuir pontos fictícios. Uma
+                    melhoria visual pode ter valor, mas deve competir pelos mesmos critérios.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">14 · Avaliação</div>
+                <h2>Entrega, resultado e impacto</h2>
+                <div class="thirds">
+                    <div>
+                        <h3>Entrega</h3>
+                        <p>O que a equipe constrói.</p>
+                        <p class="small muted">Funcionalidade de reserva.</p>
+                    </div>
+                    <div>
+                        <h3>Resultado</h3>
+                        <p>Mudança observada no uso.</p>
+                        <p class="small muted">Usuários concluem reservas nos testes.</p>
+                    </div>
+                    <div>
+                        <h3>Impacto</h3>
+                        <p>Efeito mais amplo ao longo do tempo.</p>
+                        <p class="small muted">Ampliação do acesso ao acervo, a verificar.</p>
+                    </div>
+                </div>
+                <p>Uma funcionalidade concluída precisa de avaliação para demonstrar benefícios.</p>
+                <aside class="notes">Impacto depende de tempo e fatores externos. Não apresentar impacto esperado como
+                    resultado comprovado dos projetos.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">15 · Indicadores</div>
+                <h2>Atividade e resultado</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Atividade</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telas criadas</td>
+                            <td>Usuários que concluem o fluxo</td>
+                        </tr>
+                        <tr>
+                            <td>Tarefas concluídas</td>
+                            <td>Tempo para realizar a operação</td>
+                        </tr>
+                        <tr>
+                            <td>Testes executados</td>
+                            <td>Critérios de aceitação atendidos</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">Cada indicador precisa de definição, fonte, periodicidade e responsável.</p>
+                <aside class="notes">Critérios de aceitação são condições observáveis para verificar atendimento ao
+                    requisito. Quantidade de commits não mede isoladamente qualidade ou contribuição. Fonte:
+                    https://www.isaca.org/resources/isaca-journal/issues/2016/volume-6/performance-measurement-metrics-for-it-governance
+                </aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">16 · Projetos CORETO</div>
+                <h2>Evidências possíveis no protótipo</h2>
+                <table class="small">
+                    <thead>
+                        <tr>
+                            <th>Equipe</th>
+                            <th>Problema</th>
+                            <th>Sugestão para discussão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AquaVision</td>
+                            <td>Perdas de água</td>
+                            <td>Alertas sobre anomalias nos dados de teste</td>
+                        </tr>
+                        <tr>
+                            <td>Cricio</td>
+                            <td>Acesso por voz</td>
+                            <td>Fluxo por voz e alternativa textual</td>
+                        </tr>
+                        <tr>
+                            <td>ZelaRecife</td>
+                            <td>Descarte irregular</td>
+                            <td>Cadastro e acompanhamento de ocorrência</td>
+                        </tr>
+                        <tr>
+                            <td>Nassau Tech</td>
+                            <td>Desperdício de alimentos</td>
+                            <td>Oferta, solicitação e confirmação de retirada</td>
+                        </tr>
+                        <tr>
+                            <td>POGO</td>
+                            <td>Monitoramento de descarte</td>
+                            <td>Denúncia, triagem e histórico</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small muted">Propostas acadêmicas em desenvolvimento. Escopos sujeitos à aprovação.</p>
+                <aside class="notes">Não afirmar funcionalidades implementadas, parcerias confirmadas ou impacto
+                    comprovado. Permitir adaptações de escopo.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">17 · Trabalho em equipe</div>
+                <h2>Decisões do projeto</h2>
+                <ol>
+                    <li>Qual problema específico resolveremos?</li>
+                    <li>Quem será beneficiado?</li>
+                    <li>Quais 3 a 5 funcionalidades compõem a primeira versão?</li>
+                    <li>Quem responde pelas decisões e tarefas?</li>
+                    <li>Qual risco pode impedir a entrega?</li>
+                    <li>Qual evidência demonstrará o fluxo funcionando?</li>
+                </ol>
+                <p class="small muted">Registrar no README ou no quadro de gestão.</p>
+                <aside class="notes">Reservar cerca de 8 minutos. Aplicação didática de governança ao projeto acadêmico,
+                    sem equiparar a equipe à governança formal de uma organização.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">18 · Primeira entrega</div>
+                <h2>Repositório e quadro de gestão</h2>
+                <div class="cols small">
+                    <div>
+                        <h3>README</h3>
+                        <ul>
+                            <li>Projeto, integrantes e responsabilidades</li>
+                            <li>Problema e link específico do desafio</li>
+                            <li>Objetivo e público beneficiado</li>
+                            <li>3 a 5 funcionalidades previstas</li>
+                            <li>Tecnologias previstas ou “a definir”</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Quadro de gestão</h3>
+                        <ul>
+                            <li>A fazer, Em andamento e Concluído</li>
+                            <li>Pelo menos 5 tarefas iniciais</li>
+                            <li>Responsável por tarefa</li>
+                            <li>Prazos do próximo ciclo</li>
+                            <li>Critério de conclusão</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="small">Uma submissão por equipe. Conferir acesso do professor aos links.<br>Prazo e pontuação
+                    serão comunicados pelo professor.</p>
+                <aside class="notes">Não exigir código funcional nesta etapa. Tarefas devem ser concretas. Reforçar que
+                    os mesmos links serão usados no acompanhamento.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">19 · Revisão e teste</div>
+                <h2>Vocabulário essencial</h2>
+                <div class="thirds">
+                    <div>
+                        <h3>Decisões</h3>
+                        <p class="small">Governança, gestão, alinhamento e priorização.</p>
+                    </div>
+                    <div>
+                        <h3>Pessoas</h3>
+                        <p class="small">Partes interessadas, responsabilidade e prestação de contas.</p>
+                    </div>
+                    <div>
+                        <h3>Avaliação</h3>
+                        <p class="small">Valor, risco, recursos, indicador e critério de aceitação.</p>
+                    </div>
+                </div>
+                <div class="rule"></div>
+                <p>4 questões autorais · 15 a 20 minutos<br>Resposta individual e justificativa curta.</p>
+                <aside class="notes">Iniciar teste. Solicitar uma alternativa por questão. Não abrir a correção até
+                    concluir todas as respostas.</aside>
+            </section>
+
+            <section class="question long">
+                <div class="eyebrow">20 · Questão autoral 1</div>
+                <h2>Governança e gestão</h2>
+                <p>Uma rede de clínicas definiu como prioridade reduzir as interrupções no atendimento digital. Um
+                    comitê passou a avaliar propostas de investimento, estabelecer níveis aceitáveis de risco e
+                    acompanhar os resultados. A equipe de TI, por sua vez, organizou o cronograma, distribuiu tarefas e
+                    executou as melhorias aprovadas.</p>
+                <p>Considerando a distinção entre governança e gestão de TI, assinale a alternativa correta.</p>
+                <ol>
+                    <li>O comitê realiza gestão operacional, enquanto a equipe de TI exerce governança ao distribuir
+                        tarefas.</li>
+                    <li>A governança ocorre somente depois da implantação, quando o sistema começa a produzir
+                        indicadores.</li>
+                    <li>O comitê exerce funções de governança ao definir direcionamento e acompanhar resultados,
+                        enquanto a equipe de TI realiza atividades de gestão.</li>
+                    <li>As atividades do comitê e da equipe de TI são equivalentes, pois ambas utilizam informações
+                        sobre tecnologia.</li>
+                    <li>A equipe de TI deve assumir isoladamente as prioridades organizacionais porque possui
+                        conhecimento técnico.</li>
+                </ol>
+                <aside class="notes">Questão autoral em estilo ENADE. Pedir justificativa apoiada no papel de cada
+                    grupo.</aside>
+            </section>
+
+            <section class="question">
+                <div class="eyebrow">21 · Questão autoral 2</div>
+                <h2>Alinhamento estratégico</h2>
+                <p>Uma instituição deseja ampliar o acesso de pessoas com deficiência aos seus serviços digitais. Diante
+                    de um orçamento limitado, a equipe precisa escolher quais melhorias serão implementadas na próxima
+                    versão do sistema.</p>
+                <p>Qual decisão demonstra maior alinhamento estratégico?</p>
+                <ol>
+                    <li>Priorizar a identificação e a correção de barreiras nos serviços mais utilizados, validando as
+                        melhorias com os usuários.</li>
+                    <li>Substituir toda a arquitetura por uma tecnologia recente, mesmo sem evidências de benefício para
+                        a acessibilidade.</li>
+                    <li>Priorizar as funcionalidades que geram maior quantidade de tarefas concluídas no quadro de
+                        gestão.</li>
+                    <li>Concentrar o investimento na aparência das telas, adiando a avaliação das dificuldades de
+                        navegação.</li>
+                    <li>Escolher as funcionalidades exclusivamente de acordo com a preferência dos desenvolvedores.</li>
+                </ol>
+                <aside class="notes">Questão autoral em estilo ENADE. Solicitar a identificação do objetivo
+                    organizacional.</aside>
+            </section>
+
+            <section class="question">
+                <div class="eyebrow">22 · Questão autoral 3</div>
+                <h2>Responsabilidades e mudanças</h2>
+                <p>Uma equipe desenvolve um sistema para uma organização social. Durante a execução, diferentes
+                    integrantes recebem solicitações de novas funcionalidades e começam a implementá-las sem registrar
+                    as mudanças. O prazo se aproxima, algumas tarefas se sobrepõem e ninguém consegue explicar quais
+                    entregas têm prioridade.</p>
+                <p>Qual medida é mais adequada para reorganizar o projeto?</p>
+                <ol>
+                    <li>Permitir que cada integrante escolha suas prioridades até o encerramento do prazo.</li>
+                    <li>Transferir todas as decisões para o integrante que produz mais código, dispensando o registro
+                        das justificativas.</li>
+                    <li>Proibir qualquer mudança, mesmo quando ela for necessária para atender ao objetivo do projeto.
+                    </li>
+                    <li>Definir responsáveis pelas decisões, registrar as solicitações, avaliar seus efeitos no escopo e
+                        no prazo e atualizar as prioridades aprovadas.</li>
+                    <li>Substituir a ferramenta de gestão, mantendo os mesmos procedimentos de decisão e distribuição de
+                        tarefas.</li>
+                </ol>
+                <aside class="notes">Questão autoral em estilo ENADE. Pedir que identifiquem o problema de decisão e
+                    organização.</aside>
+            </section>
+
+            <section class="question">
+                <div class="eyebrow">23 · Questão autoral 4</div>
+                <h2>Indicadores e resultados</h2>
+                <p>Uma equipe entregou um aplicativo de agendamento e informou que concluiu todas as tarefas previstas.
+                    Entretanto, durante os testes, vários usuários não conseguiram finalizar um agendamento. A equipe
+                    apresentou a quantidade de telas e de commits como principal evidência de sucesso.</p>
+                <p>Sobre a avaliação desse projeto, analise as afirmações.</p>
+                <p>I. Indicadores de atividade ajudam a acompanhar o trabalho, mas precisam ser complementados por
+                    evidências de atendimento aos objetivos.</p>
+                <p>II. A taxa de conclusão do agendamento e o tempo necessário para realizar a operação podem ajudar a
+                    avaliar o uso da solução.</p>
+                <p>III. A conclusão de todas as tarefas comprova, por si só, que o projeto produziu os benefícios
+                    esperados.</p>
+                <p>É correto apenas o que se afirma em:</p>
+                <ol class="small" style="display:flex;gap:45px;margin-left:10px">
+                    <li>I.</li>
+                    <li>I e II.</li>
+                    <li>II e III.</li>
+                    <li>III.</li>
+                    <li>I, II e III.</li>
+                </ol>
+                <aside class="notes">Questão autoral em estilo ENADE. Classificar cada afirmação antes de procurar a
+                    combinação.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">24 · Correção 1</div>
+                <h2>Governança e gestão</h2>
+                <div class="cols">
+                    <div>
+                        <div class="answer">C</div>
+                        <p>O comitê direciona e acompanha resultados. A equipe planeja e executa melhorias.</p>
+                    </div>
+                    <ul class="small">
+                        <li><b>A:</b> inverte as funções.</li>
+                        <li><b>B:</b> restringe a governança ao período posterior à implantação.</li>
+                        <li><b>D:</b> ignora diferenças de finalidade e responsabilidade.</li>
+                        <li><b>E:</b> concentra decisões organizacionais no conhecimento técnico.</li>
+                    </ul>
+                </div>
+                <aside class="notes">Pedir que um estudante explique a diferença usando outro contexto.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">25 · Correção 2</div>
+                <h2>Alinhamento estratégico</h2>
+                <div class="cols">
+                    <div>
+                        <div class="answer">A</div>
+                        <p>Investigar barreiras e validar com usuários conecta o investimento ao objetivo de
+                            acessibilidade.</p>
+                    </div>
+                    <ul class="small">
+                        <li><b>B:</b> tecnologia sem benefício demonstrado.</li>
+                        <li><b>C:</b> volume de atividade como critério principal.</li>
+                        <li><b>D:</b> adia a análise do problema central.</li>
+                        <li><b>E:</b> desconsidera usuários e organização.</li>
+                    </ul>
+                </div>
+                <aside class="notes">Solicitar uma relação equivalente entre objetivo e prioridade em um projeto CORETO.
+                </aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">26 · Correção 3</div>
+                <h2>Responsabilidades e mudanças</h2>
+                <div class="cols">
+                    <div>
+                        <div class="answer">D</div>
+                        <p>Responsabilidades e registro de mudanças permitem avaliar efeitos e manter prioridades
+                            coerentes.</p>
+                    </div>
+                    <ul class="small">
+                        <li><b>A:</b> mantém a fragmentação.</li>
+                        <li><b>B:</b> confunde produtividade e autoridade.</li>
+                        <li><b>C:</b> impede mudanças necessárias.</li>
+                        <li><b>E:</b> troca a ferramenta e mantém o problema de decisão.</li>
+                    </ul>
+                </div>
+                <aside class="notes">Discutir como registrar mudanças no quadro da equipe e quem decide sobre elas.
+                </aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">27 · Correção 4</div>
+                <h2>Indicadores e resultados</h2>
+                <div class="answer">B · I e II</div>
+                <ul>
+                    <li><b>I — Verdadeira:</b> a atividade precisa ser relacionada ao objetivo.</li>
+                    <li><b>II — Verdadeira:</b> conclusão e tempo mostram aspectos do uso da solução.</li>
+                    <li><b>III — Falsa:</b> cumprir tarefas não comprova sozinho os benefícios.</li>
+                </ul>
+                <aside class="notes">Retomar entrega, resultado e impacto. Perguntar qual evidência é viável no
+                    semestre.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">28 · Aplicação</div>
+                <h2>Uma melhoria no planejamento</h2>
+                <p>Cada equipe escolhe um ponto e registra uma melhoria:</p>
+                <ul>
+                    <li>Funcionalidade sem justificativa clara</li>
+                    <li>Tarefa sem responsável</li>
+                    <li>Risco ainda sem resposta</li>
+                    <li>Critério de conclusão pouco claro</li>
+                    <li>Indicador que mede somente atividade</li>
+                </ul>
+                <aside class="notes">Atividade breve. Não exigir a conclusão de todos os itens. Registrar no README ou
+                    quadro de gestão.</aside>
+            </section>
+
+            <section>
+                <div class="eyebrow">29 · Síntese</div>
+                <h2>Objetivos orientam as decisões</h2>
+                <div class="cols">
+                    <ul class="small">
+                        <li>Governança estabelece direcionamento e acompanha resultados.</li>
+                        <li>Gestão organiza e executa.</li>
+                        <li>Alinhamento conecta TI e objetivos.</li>
+                        <li>Responsabilidades e indicadores permitem acompanhamento.</li>
+                    </ul>
+                    <p class="big">Que evidência demonstrará que a solução atende ao problema escolhido?</p>
+                </div>
+                <aside class="notes">Repositório e quadro registram o desenvolvimento. Ouvir uma evidência concreta de
+                    uma equipe.</aside>
+            </section>
+
+            <section class="dark" data-background-color="#0b1f3a">
+                <div class="eyebrow">30 · Encaminhamento</div>
+                <h2>Primeira entrega do CORETO</h2>
+                <ol>
+                    <li>Consolidar o README.</li>
+                    <li>Organizar tarefas com responsáveis.</li>
+                    <li>Definir a primeira versão.</li>
+                    <li>Conferir o acesso aos links.</li>
+                    <li>Enviar uma resposta por equipe.</li>
+                </ol>
+                <div class="rule"></div>
+                <p class="muted">Próxima aula: Governança de TI e ISO/IEC 38500</p>
+                <aside class="notes">Reforçar: prazo e pontuação serão comunicados pelo professor. Referências
+                    conceituais: https://www.isaca.org/resources/cobit e
+                    https://www.isaca.org/resources/isaca-journal/issues/2016/volume-6/performance-measurement-metrics-for-it-governance
+                    . Exemplos e questões autorais.</aside>
+            </section>
+
+        </div>
+    </div>
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script>
+        async function boot() { if (!window.Reveal) { await load('https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js'); await load('https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js'); } Reveal.initialize({ width: 1280, height: 720, margin: .035, hash: true, slideNumber: 'c/t', transition: 'fade', center: true, controls: true, progress: true, plugins: window.RevealNotes ? [RevealNotes] : [] }); } function load(src) { return new Promise((resolve, reject) => { const s = document.createElement('script'); s.src = src; s.onload = resolve; s.onerror = reject; document.head.appendChild(s) }) } boot().catch(() => { document.body.insertAdjacentHTML('afterbegin', '<p style="padding:20px;background:#fff">Não foi possível carregar o Reveal.js. Conecte-se à internet ou mantenha a pasta vendor junto ao HTML.</p>') });
+    </script>
+</body>
+
+</html>
