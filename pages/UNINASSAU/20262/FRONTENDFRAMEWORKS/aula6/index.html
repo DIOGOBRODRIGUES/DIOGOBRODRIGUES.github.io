@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Prof. Diogo Rodrigues" />
+    <meta name="description" content="Aula 6 de Front-end Frameworks: props, navegação com React Router e persistência com localStorage no projeto Pulso Campus." />
+    <title>Aula 6 — Props, navegação e localStorage</title>
+
+    <link rel="stylesheet" href="vendor/reset.css">
+    <link rel="stylesheet" href="vendor/reveal.css">
+    <link rel="stylesheet" href="vendor/simple.css" id="theme">
+    <link rel="stylesheet" href="vendor/github.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+<!--     
+    <link rel="stylesheet" href="vendor/reveal/dist/reset.css" />
+    <link rel="stylesheet" href="vendor/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="vendor/reveal/dist/plugin/highlight/monokai.css" /> -->
+    <link rel="stylesheet" href="assets/aula.css" />
+  </head>
+  <body>
+    <div class="deck-tools" aria-label="Ferramentas da apresentação">
+      <button class="deck-tools__button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="section-menu" title="Ir para um bloco da aula">Blocos <span aria-hidden="true">▾</span></button>
+      <button class="deck-tools__button deck-tools__help" id="help-toggle" type="button" aria-expanded="false" aria-controls="help-panel" title="Atalhos da apresentação">?</button>
+      <nav class="section-menu" id="section-menu" aria-label="Blocos da aula" hidden>
+        <button type="button" data-target-section="abertura">Abertura</button>
+        <button type="button" data-target-section="props">Props</button>
+        <button type="button" data-target-section="rotas">Navegação</button>
+        <button type="button" data-target-section="storage">localStorage</button>
+        <button type="button" data-target-section="fechamento">Fechamento</button>
+      </nav>
+      <div class="help-panel" id="help-panel" role="dialog" aria-label="Atalhos da apresentação" hidden>
+        <strong>Atalhos</strong>
+        <span>→ / Espaço: avançar</span>
+        <span>←: voltar</span>
+        <span>Esc / O: visão geral</span>
+        <span>S: notas do professor</span>
+        <span>Ctrl + Shift + F: buscar</span>
+        <span>Alt + clique: zoom</span>
+        <span>F: tela cheia</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section id="capa" data-section-start="abertura" class="slide-cover" data-background-color="#081D36" data-transition="fade">
+          <div class="cover-grid" aria-hidden="true"></div>
+          <div class="cover-code" aria-hidden="true">
+            <span>&lt;EventCard</span>
+            <span>  event={event}</span>
+            <span>  onToggleFavorite={toggleFavorite}</span>
+            <span>/&gt;</span>
+          </div>
+          <p class="institution institution--light">UNINASSAU · CIÊNCIA DA COMPUTAÇÃO · 2026.2</p>
+          <div class="cover-content">
+            <p class="section-label section-label--light">FRONT-END FRAMEWORKS · AULA 6</p>
+            <h1>Props, navegação<br>e <em>localStorage</em></h1>
+            <p class="cover-subtitle">Como o Pulso Campus compartilha dados, muda de tela e lembra dos favoritos</p>
+          </div>
+          <div class="cover-footer">
+            <span>Prof. Diogo Rodrigues</span>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do Prof. Diogo Rodrigues">in <small>LinkedIn</small></a>
+              <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer" aria-label="GitHub do Prof. Diogo Rodrigues">⌘ <small>GitHub</small></a>
+            </div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 1 minuto. Apresente a aula como leitura guiada do código do Pulso Campus. Diga que a equipe aplicará os mesmos princípios ao projeto próprio da AV1, sem copiar o tema. Pressuposto usado na capa: curso de Ciência da Computação e semestre 2026.2, conforme o contexto da disciplina. A identificação institucional é textual porque não foi fornecido um arquivo oficial de logotipo.
+          </aside>
+        </section>
+
+        <section id="problema" class="slide-light" data-transition="slide">
+          <p class="section-label">SITUAÇÃO-PROBLEMA</p>
+          <h2>Um clique afeta três lugares</h2>
+          <div class="scenario-layout">
+            <div class="scenario-card" aria-label="Exemplo fictício de card do Pulso Campus">
+              <span class="scenario-card__date">23 SET</span>
+              <span class="scenario-card__icon" aria-hidden="true">🎮</span>
+              <strong>Game Jam Relâmpago</strong>
+              <span>Games · Lab 04</span>
+              <span class="scenario-card__button">☆ Salvar</span>
+            </div>
+            <div class="scenario-results">
+              <p class="fragment fade-up">O botão passa a mostrar <strong>Salvo</strong>.</p>
+              <p class="fragment fade-up">O cabeçalho passa a mostrar <strong>Favoritos 1</strong>.</p>
+              <p class="fragment fade-up">A página <strong>/favoritos</strong> ganha o evento.</p>
+            </div>
+          </div>
+          <p class="prompt-line fragment fade-in">Onde deve ficar o dado que alimenta os três lugares?</p>
+          <aside class="notes">
+            Tempo sugerido: 4 minutos. Mostre o Pulso Campus completo, se possível, sem abrir o código. Peça que a turma preveja quais partes mudam ao clicar em Salvar. Resposta esperada: botão, contador do cabeçalho e lista de favoritos. Pergunte onde o estado deve morar. Resposta: em App, o ancestral comum que passa dados aos filhos. Dificuldade frequente: criar um estado independente em cada card e esperar sincronização automática. Fonte: https://react.dev/learn/sharing-state-between-components
+          </aside>
+        </section>
+
+        <section id="objetivos" class="slide-light">
+          <p class="section-label">RESULTADOS OBSERVÁVEIS</p>
+          <h2>O que precisa funcionar no navegador</h2>
+          <div class="outcome-list">
+            <div class="fragment fade-up"><b>01</b><span>Um favorito altera card, contador e página</span></div>
+            <div class="fragment fade-up"><b>02</b><span>Links abrem rotas úteis com URLs distintas</span></div>
+            <div class="fragment fade-up"><b>03</b><span>O favorito permanece depois do reload</span></div>
+          </div>
+          <p class="small-foot">A evidência é o comportamento da aplicação, não apenas a presença de código.</p>
+          <aside class="notes">
+            Tempo sugerido: 3 minutos. Leia os três resultados como testes de aceitação. Peça a um estudante que explique como provaria cada um sem olhar o código. Reforce que a atividade prática usará o projeto real da equipe. Não atribua nota a este diagnóstico oral.
+          </aside>
+        </section>
+
+        <section id="retomada" class="slide-light">
+          <p class="section-label">ANTES DE AVANÇAR</p>
+          <h2>O que já conhecemos</h2>
+          <div class="prior-grid">
+            <div><strong>Componente</strong><span>função que retorna interface</span></div>
+            <div><strong>useState</strong><span>valor que muda e atualiza a tela</span></div>
+            <div><strong>Evento</strong><span>função chamada por uma interação</span></div>
+            <div><strong>Lista</strong><span>dados transformados em cards</span></div>
+          </div>
+          <p class="prompt-line fragment fade-in">Qual desses conceitos explica sozinho o dado que some ao atualizar a página?</p>
+          <aside class="notes">
+            Tempo sugerido: 4 minutos. Peça definições com exemplos do projeto. Resposta para a pergunta: nenhum. useState mantém informação na execução atual, mas não a persiste após reload. Evite concluir que React tem uma falha: a persistência é uma escolha de arquitetura. Fonte: https://react.dev/reference/react/useState
+          </aside>
+        </section>
+
+        <section id="props-intro" data-section-start="props" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 1</p>
+          <h2>Props</h2>
+          <p>Como um componente recebe informações e ações de outro</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Transição: do comportamento visível do favorito para o fluxo de dados no código. Pergunte: “Quem sabe o número de favoritos?” A resposta é App, que detém favoriteIds.</aside>
+        </section>
+
+        <section id="props-definicao" class="slide-light">
+          <p class="section-label">CONCEITO</p>
+          <h2>Props são entradas do componente</h2>
+          <div class="definition-layout">
+            <p>O componente pai fornece valores ao filho por atributos JSX.</p>
+            <div class="definition-example">
+              <code>&lt;Header favoritesCount={favoriteIds.length} /&gt;</code>
+              <span class="fragment fade-in">O filho lê <code>favoritesCount</code>; quem mantém o estado é <code>App</code>.</span>
+            </div>
+          </div>
+          <p class="key-line">Props podem levar números, objetos, arrays e funções.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Defina props como dados recebidos pelo componente. Explique que, no Pulso Campus, App calcula favoriteIds.length e o passa ao Header. Pergunte se Header deve modificar a prop. Resposta: não; props são tratadas como entradas somente de leitura. Confusão comum: chamar props de “estado do filho”. Fonte: https://react.dev/learn/passing-props-to-a-component
+          </aside>
+        </section>
+
+        <section id="props-fluxo-1" class="slide-light" data-auto-animate>
+          <p class="section-label">FLUXO DE DADOS</p>
+          <h2>De App até o card</h2>
+          <div class="flow flow--three" aria-label="Fluxo de props dos componentes">
+            <div data-id="flow-app"><b>App</b><span>favoriteIds</span></div>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <div data-id="flow-grid"><b>EventGrid</b><span>favoriteIds</span></div>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <div data-id="flow-card"><b>EventCard</b><span>isFavorite</span></div>
+          </div>
+          <p class="flow-caption">A lista de IDs chega ao grid. Cada card recebe apenas a resposta de que precisa.</p>
+          <aside class="notes">
+            Tempo sugerido: 3 minutos. Faça a turma localizar App.jsx, EventGrid.jsx e EventCard.jsx. Explique que o grid transforma favoriteIds.includes(event.id) em um booleano para cada card. Pergunta: “Todos os cards recebem o mesmo valor de isFavorite?” Resposta: não; depende do ID de cada evento. Fonte: https://react.dev/learn/passing-props-to-a-component
+          </aside>
+        </section>
+
+        <section id="props-fluxo-2" class="slide-light" data-auto-animate>
+          <p class="section-label">NO CÓDIGO DO PULSO CAMPUS</p>
+          <h2>O filho recebe e apresenta</h2>
+          <div class="flow flow--three flow--compact" aria-hidden="true">
+            <div data-id="flow-app"><b>App</b><span>favoriteIds</span></div>
+            <span class="flow-arrow">→</span>
+            <div data-id="flow-grid"><b>EventGrid</b><span>favoriteIds</span></div>
+            <span class="flow-arrow">→</span>
+            <div data-id="flow-card"><b>EventCard</b><span>isFavorite</span></div>
+          </div>
+          <pre><code class="language-jsx" data-trim data-line-numbers="1|2-4|5">&lt;EventCard
+  key={event.id}
+  event={event}
+  isFavorite={favoriteIds.includes(event.id)}
+  onToggleFavorite={onToggleFavorite}
+/&gt;</code></pre>
+          <p class="code-source">EventGrid.jsx</p>
+          <aside class="notes">
+            Tempo sugerido: 3 minutos. Abra src/components/EventGrid.jsx. Mostre as quatro informações passadas ao card e por que key usa event.id. Pergunte o resultado de includes quando o ID ainda não está no array. Resposta: false. Confusão comum: acreditar que isFavorite é um estado separado do card. Na implementação, é uma prop derivada do estado em App. Fonte: https://react.dev/learn/rendering-lists
+          </aside>
+        </section>
+
+        <section id="callback" class="slide-light">
+          <p class="section-label">PROP DE FUNÇÃO</p>
+          <h2>O clique volta como chamada de função</h2>
+          <div class="callback-path">
+            <span class="fragment fade-up">Clique em <strong>Salvar</strong></span>
+            <i class="fragment fade-in" aria-hidden="true">→</i>
+            <span class="fragment fade-up"><code>onToggleFavorite(event.id)</code></span>
+            <i class="fragment fade-in" aria-hidden="true">→</i>
+            <span class="fragment fade-up"><code>setFavoriteIds(...)</code> em App</span>
+          </div>
+          <p class="key-line fragment fade-in">A função é passada por prop; o estado continua no pai.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Abra EventCard.jsx e App.jsx. Leia handleFavoriteClick e toggleFavorite. Peça à turma que identifique a diferença entre passar onToggleFavorite={toggleFavorite} e chamar toggleFavorite durante a renderização. Resposta: a prop recebe uma referência à função, que só será chamada no clique. Confusão frequente: onClick={handleFavoriteClick()} executa imediatamente. Fonte: https://react.dev/learn/responding-to-events
+          </aside>
+        </section>
+
+        <section id="props-estado" class="slide-light">
+          <p class="section-label">DIFERENÇA ESSENCIAL</p>
+          <h2>Prop recebida. Estado mantido.</h2>
+          <div class="comparison-table" role="table" aria-label="Comparação entre prop e estado">
+            <div role="row" class="comparison-table__head"><span role="columnheader"></span><span role="columnheader">Prop</span><span role="columnheader">Estado</span></div>
+            <div role="row"><span role="rowheader">Origem</span><span role="cell">componente pai</span><span role="cell">componente que chama useState</span></div>
+            <div role="row"><span role="rowheader">No Pulso Campus</span><span role="cell">isFavorite no card</span><span role="cell">favoriteIds em App</span></div>
+            <div role="row"><span role="rowheader">Mudança</span><span role="cell">pai envia novo valor</span><span role="cell">função setter atualiza</span></div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 4 minutos. Peça que a turma classifique search em EventsPage e favoriteIds em App como estados; isFavorite e favoritesCount como props. Observação: uma prop pode mudar entre renderizações quando o pai passa outro valor; o filho não deve reatribuí-la. Fonte: https://react.dev/learn/thinking-in-react
+          </aside>
+        </section>
+
+        <section id="props-pergunta" class="slide-light">
+          <p class="section-label">PREVISÃO RÁPIDA</p>
+          <h2>Quem muda o contador do cabeçalho?</h2>
+          <pre><code class="language-jsx" data-trim>&lt;Header favoritesCount={favoriteIds.length} /&gt;</code></pre>
+          <p class="question-main">O card, o Header ou o App?</p>
+          <p class="answer fragment fade-up"><strong>App.</strong> O card chama uma função recebida; App atualiza favoriteIds e envia a nova contagem.</p>
+          <aside class="notes">
+            Tempo sugerido: 4 minutos. Espere respostas antes de revelar o gabarito. Se disserem Header, pergunte onde há useState(favoriteIds). Peça a um estudante que explique o caminho inteiro: clique, callback, setter, nova renderização, prop atualizada. A resposta só é suficiente se mencionar o comportamento do navegador.
+          </aside>
+        </section>
+
+        <section id="rotas-intro" data-section-start="rotas" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 2</p>
+          <h2>Navegação</h2>
+          <p>Como a URL escolhe a página exibida</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Transição: o mesmo estado chega a várias telas, mas primeiro precisamos tornar essas telas acessíveis por URL. Não aprofunde rotas aninhadas ou carregamento de dados.</aside>
+        </section>
+
+        <section id="url-componente" class="slide-light">
+          <p class="section-label">MAPA DE ROTAS</p>
+          <h2>A URL identifica uma tela útil</h2>
+          <div class="route-map" aria-label="Mapeamento de URL para componente">
+            <div class="fragment fade-up"><code>/</code><span aria-hidden="true">→</span><strong>HomePage</strong><small>destaques do campus</small></div>
+            <div class="fragment fade-up"><code>/eventos</code><span aria-hidden="true">→</span><strong>EventsPage</strong><small>busca e catálogo</small></div>
+            <div class="fragment fade-up"><code>/favoritos</code><span aria-hidden="true">→</span><strong>FavoritesPage</strong><small>eventos salvos</small></div>
+            <div class="fragment fade-up"><code>/novo-evento</code><span aria-hidden="true">→</span><strong>NewEventPage</strong><small>formulário</small></div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 3 minutos. Peça que estudantes prevejam o componente exibido em cada endereço antes de revelar as linhas. Pergunta: “Uma página vazia só para completar três rotas seria útil?” Resposta: não; cada rota precisa ter finalidade real. Mostre que a versão completa ainda trata o caminho desconhecido com NotFoundPage. Fonte: https://reactrouter.com/start/declarative/routing
+          </aside>
+        </section>
+
+        <section id="browserrouter" class="slide-light">
+          <p class="section-label">PONTO DE ENTRADA</p>
+          <h2>BrowserRouter acompanha o endereço</h2>
+          <pre><code class="language-jsx" data-trim data-line-numbers="1-2|6-8">import { BrowserRouter } from 'react-router-dom'
+import { createRoot } from 'react-dom/client'
+import App from './App'
+
+createRoot(document.getElementById('root')).render(
+  &lt;BrowserRouter&gt;
+    &lt;App /&gt;
+  &lt;/BrowserRouter&gt;,
+)</code></pre>
+          <p class="code-source">main.jsx · trecho simplificado: StrictMode omitido para caber no slide</p>
+          <p class="key-line">Sem esse contexto, os componentes de navegação não têm um roteador.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Abra main.jsx real: lá BrowserRouter envolve App dentro de StrictMode. O trecho do slide omite StrictMode apenas para destacar a parte ensinada. Demonstre o erro provocado pela ausência de BrowserRouter apenas em uma cópia de trabalho, nunca na solução original. Peça previsão da mensagem de erro. Fonte: https://reactrouter.com/api/declarative-routers/BrowserRouter
+          </aside>
+        </section>
+
+        <section id="routes-route" class="slide-light">
+          <p class="section-label">ESCOLHA DA TELA</p>
+          <h2>Routes compara a URL com Route</h2>
+          <pre><code class="language-jsx" data-trim data-line-numbers="1|2|3|4">&lt;Routes&gt;
+  &lt;Route path="/" element={&lt;HomePage /&gt;} /&gt;
+  &lt;Route path="/eventos" element={&lt;EventsPage /&gt;} /&gt;
+  &lt;Route path="/favoritos" element={&lt;FavoritesPage /&gt;} /&gt;
+&lt;/Routes&gt;</code></pre>
+          <p class="code-source">App.jsx · props omitidas para mostrar apenas o roteamento</p>
+          <p class="prompt-line fragment fade-in">Se a URL for /favoritos, qual componente aparecerá?</p>
+          <aside class="notes">
+            Tempo sugerido: 6 minutos. Abra o bloco Routes real em App.jsx e explique path e element. No projeto completo, cada elemento recebe props, omitidas aqui por legibilidade. Resposta: FavoritesPage. Enfatize que Route configura o destino, mas não cria automaticamente um link visível ao usuário. Fonte: https://reactrouter.com/start/declarative/routing
+          </aside>
+        </section>
+
+        <section id="link-navlink" class="slide-light">
+          <p class="section-label">CAMINHO PELA INTERFACE</p>
+          <h2>Link navega. NavLink indica a rota ativa.</h2>
+          <div class="dual-code">
+            <div>
+              <span class="mini-label">AÇÃO</span>
+              <pre><code class="language-jsx" data-trim>&lt;Link to="/eventos"&gt;
+  Explorar agenda
+&lt;/Link&gt;</code></pre>
+            </div>
+            <div>
+              <span class="mini-label">MENU</span>
+              <pre><code class="language-jsx" data-trim>&lt;NavLink to="/favoritos"&gt;
+  Favoritos
+&lt;/NavLink&gt;</code></pre>
+            </div>
+          </div>
+          <p class="key-line">O valor de <code>to</code> precisa corresponder ao <code>path</code> configurado.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Abra Header.jsx e mostre NavLink com classe ativa; em HomePage.jsx, mostre Link. Explique que Link faz a navegação interna sem recarregar o documento inteiro. Pergunte o que ocorre se o Link usar /evento e o Route usar /eventos: a rota não corresponderá e a página 404 aparecerá. Fonte: https://reactrouter.com/api/components/Link e https://reactrouter.com/api/components/NavLink
+          </aside>
+        </section>
+
+        <section id="live-rotas" class="slide-practice" data-background-color="#F7F8FA">
+          <p class="section-label">LIVE CODING</p>
+          <h2>Do menu provisório às rotas</h2>
+          <div class="live-layout">
+            <div>
+              <span class="mini-label">ESTADO INICIAL</span>
+              <p>O esqueleto só mostra HomePage; o menu usa âncoras.</p>
+            </div>
+            <div>
+              <span class="mini-label">OBJETIVO</span>
+              <p>Uma URL direta abre a página correspondente.</p>
+            </div>
+          </div>
+          <p class="question-main">O que deve entrar em main.jsx, App.jsx e Header.jsx?</p>
+          <aside class="notes">
+            Tempo sugerido: 15 minutos. Ordem: 1) abra main.jsx do esqueleto e envolva App com BrowserRouter; 2) em App.jsx importe Routes, Route e as páginas, substitua a HomePage fixa por rotas de /, /eventos, /favoritos, /novo-evento e *; 3) em Header.jsx substitua âncoras internas por Link ou NavLink; 4) em HomePage.jsx substitua âncoras de ação por Link; 5) teste clique no menu, mudança da URL e acesso direto a /favoritos no navegador. Peça previsões antes de cada teste. Se uma página perder estado ao navegar, verifique uso de &lt;a href&gt; ou recarga completa. Fonte: https://reactrouter.com/start/declarative/installation
+          </aside>
+        </section>
+
+        <section id="pratica-rotas" class="slide-practice">
+          <p class="section-label">PRÁTICA NOS PROJETOS</p>
+          <h2>Três rotas com finalidade real</h2>
+          <ol class="practice-list">
+            <li>Escolham páginas que o usuário realmente precisa.</li>
+            <li>Façam a URL e o menu concordarem.</li>
+            <li>Testem clique e URL digitada diretamente.</li>
+          </ol>
+          <p class="exit-criterion">Saída: três telas diferentes, acessíveis pela interface.</p>
+          <aside class="notes">
+            Tempo sugerido: 15 minutos. Equipes em trios: condutor digita, navegador orienta, verificador testa. Troquem papéis após o checkpoint. O professor percorre o laboratório e pede demonstração de clique e acesso direto. Para equipe lenta, use /, /lista e /cadastro com conteúdos simples, mas reais. Não aceite página vazia apenas para cumprir quantidade. Problemas comuns: BrowserRouter ausente, Link com caminho divergente, rota sem entrada no menu. Fonte: https://reactrouter.com/start/declarative/routing
+          </aside>
+        </section>
+
+        <section id="storage-intro" data-section-start="storage" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 3</p>
+          <h2>localStorage</h2>
+          <p>Como recuperar um dado relevante após recarregar</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Transição: as rotas funcionam e o favorito muda, mas a execução termina no reload. Peça que a turma preveja o que acontecerá antes de atualizar.</aside>
+        </section>
+
+        <section id="bug-reload" class="slide-light">
+          <p class="section-label">BUG PARA PREVER</p>
+          <h2>O favorito desapareceu</h2>
+          <div class="reload-sequence">
+            <span class="fragment fade-up">☆ Salvar</span>
+            <span class="fragment fade-up">★ Salvo</span>
+            <span class="fragment fade-up">↻ Reload</span>
+            <span class="fragment fade-up reload-sequence__lost">☆ Salvar</span>
+          </div>
+          <p class="prompt-line">O estado mudou. Por que a nova execução não se lembra dele?</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Faça a demonstração no esqueleto. Antes de recarregar, peça previsão. Resposta: useState([]) inicia novamente com array vazio; o valor anterior existia apenas em memória. Explique que isso é esperado. Pergunte onde guardar um dado pequeno do próprio navegador. Resposta: localStorage. Não diga que o React recarrega a página; é o navegador que recarrega o documento quando o usuário pede reload. Fonte: https://react.dev/reference/react/useState e https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+          </aside>
+        </section>
+
+        <section id="storage-conceito" class="slide-light">
+          <p class="section-label">CONCEITO</p>
+          <h2>localStorage guarda strings</h2>
+          <div class="storage-concept">
+            <div><strong>Estado React</strong><code>['game-jam-relampago']</code><span>array em memória</span></div>
+            <span class="flow-arrow" aria-hidden="true">⇄</span>
+            <div><strong>localStorage</strong><code>'["game-jam-relampago"]'</code><span>texto no navegador</span></div>
+          </div>
+          <p class="key-line">JSON.stringify grava. JSON.parse recupera.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Mostre a diferença entre o array JavaScript e o texto JSON. Peça que a turma diga o tipo de retorno de getItem: string ou null. Explique que setItem converte valores para string e, sem JSON.stringify, um array de IDs vira uma string inadequada para recuperação estruturada. Confusão comum: pensar que localStorage armazena objetos JavaScript diretamente. Fontes: https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem e https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem
+          </aside>
+        </section>
+
+        <section id="storage-leitura" class="slide-light">
+          <p class="section-label">LEITURA INICIAL</p>
+          <h2>O estado começa com o dado salvo</h2>
+          <pre><code class="language-js" data-trim data-line-numbers="1|2-3|4">function readStoredArray(key) {
+  const storedValue = localStorage.getItem(key)
+  if (!storedValue) return []
+  return JSON.parse(storedValue)
+}</code></pre>
+          <p class="code-source">Versão mínima para entender o fluxo; o projeto completo acrescenta validação e try/catch.</p>
+          <pre class="code-short"><code class="language-js" data-trim>useState(() =&gt; readStoredArray(FAVORITES_KEY))</code></pre>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Explique chave, getItem, ausência do dado e JSON.parse. A função passada a useState calcula o valor inicial ao montar o componente. Abra App.jsx para mostrar a função real com try/catch e Array.isArray. Pergunta: “O que ocorre se alguém inserir um JSON inválido na chave?” Resposta: JSON.parse lança erro; a versão completa trata e retorna []. Fonte: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse e https://react.dev/reference/react/useState
+          </aside>
+        </section>
+
+        <section id="storage-gravacao" class="slide-light">
+          <p class="section-label">GRAVAÇÃO APÓS MUDANÇA</p>
+          <h2>O efeito sincroniza o novo valor</h2>
+          <pre><code class="language-js" data-trim data-line-numbers="1|2|3">useEffect(() =&gt; {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoriteIds))
+}, [favoriteIds])</code></pre>
+          <p class="code-source">App.jsx · o efeito reage a mudanças em favoriteIds</p>
+          <p class="key-line">O clique muda o estado. O efeito grava a representação em texto.</p>
+          <aside class="notes">
+            Tempo sugerido: 6 minutos. Mostre o uso mínimo de useEffect para sincronizar com um sistema externo ao React. Pergunte se chamar setItem com favoriteIds sem JSON.stringify recuperaria o mesmo array. Resposta: não. Não aprofunde teoria geral de efeitos. Lembre que a leitura inicial vem antes da primeira gravação, evitando perder o valor salvo. Fonte: https://react.dev/reference/react/useEffect e https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+          </aside>
+        </section>
+
+        <section id="storage-fluxo" class="slide-light" data-auto-animate>
+          <p class="section-label">CICLO COMPLETO</p>
+          <h2>Do navegador para a interface</h2>
+          <div class="storage-flow" aria-label="Leitura do armazenamento na abertura">
+            <div data-id="store">localStorage</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="parse">JSON.parse</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="state">favoriteIds</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="ui">interface</div>
+          </div>
+          <p class="flow-caption">Na abertura, o valor salvo alimenta o estado inicial.</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Use o fluxo para pedir uma descrição verbal sem código. Confusão comum: colocar a leitura em um efeito após iniciar com []; isso pode renderizar vazio primeiro e exigir cuidados para não sobrescrever o dado anterior. Fonte: https://react.dev/reference/react/useState</aside>
+        </section>
+
+        <section id="storage-fluxo-volta" class="slide-light" data-auto-animate>
+          <p class="section-label">CICLO COMPLETO</p>
+          <h2>Da interação para o navegador</h2>
+          <div class="storage-flow" aria-label="Gravação do estado alterado">
+            <div data-id="ui">interface</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="state">favoriteIds</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="parse">JSON.stringify</div>
+            <span aria-hidden="true">→</span>
+            <div data-id="store">localStorage</div>
+          </div>
+          <p class="flow-caption">Após o clique, o novo estado vira texto salvo.</p>
+          <aside class="notes">Tempo sugerido: 3 minutos. Faça auto-animate conectar os mesmos elementos em ordem inversa. Pergunta: “Qual dos dois lados atualiza a tela imediatamente?” Resposta: o estado React; localStorage preserva o valor para outra execução. Fonte: https://react.dev/reference/react/useEffect e https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage</aside>
+        </section>
+
+        <section id="storage-dado" class="slide-light">
+          <p class="section-label">DECISÃO DE PROJETO</p>
+          <h2>Persista algo importante para o usuário</h2>
+          <div class="relevance-compare">
+            <div class="relevance-compare__yes"><b>Serve para a AV1</b><span>favoritos, eventos criados, tarefas concluídas</span></div>
+            <div class="relevance-compare__no"><b>Não basta</b><span>apenas a cor escolhida para o tema</span></div>
+          </div>
+          <p class="small-foot">Não guarde senhas nem segredos de autenticação nesse exemplo.</p>
+          <aside class="notes">Tempo sugerido: 3 minutos. Pergunte qual dado do projeto de cada trio continuaria útil amanhã. Respostas esperadas: favoritos, itens criados, inscrições locais ou status de tarefas. Tema visual isolado não cumpre o requisito definido para a AV1. O aviso sobre segredos evita extrapolar o exemplo de armazenamento local para autenticação. Fonte: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage</aside>
+        </section>
+
+        <section id="live-storage" class="slide-practice" data-background-color="#F7F8FA">
+          <p class="section-label">LIVE CODING</p>
+          <h2>Favoritar, atualizar, recuperar</h2>
+          <div class="live-layout">
+            <div><span class="mini-label">ESTADO INICIAL</span><p>O favorito desaparece após reload.</p></div>
+            <div><span class="mini-label">OBJETIVO</span><p>O mesmo evento continua salvo após reload.</p></div>
+          </div>
+          <p class="question-main">Qual trecho lê? Qual trecho grava?</p>
+          <aside class="notes">
+            Tempo sugerido: 15 minutos. Ordem: 1) em App.jsx defina a chave FAVORITES_KEY; 2) crie readStoredArray com getItem, JSON.parse, validação de array e try/catch; 3) inicialize favoriteIds com useState(() =&gt; readStoredArray(FAVORITES_KEY)); 4) adicione useEffect com setItem e JSON.stringify; 5) salve um card e observe a chave no DevTools, em Application/Local Storage; 6) recarregue e confira; 7) desfavorite e repita; 8) corrompa a chave para testar recuperação. Peça à turma que preveja o resultado antes de cada execução. Não copie os eventos criados ainda se o tempo estiver curto. Fontes: https://react.dev/reference/react/useEffect e https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+          </aside>
+        </section>
+
+        <section id="pratica-storage" class="slide-practice">
+          <p class="section-label">PRÁTICA NOS PROJETOS</p>
+          <h2>Um dado real que sobreviva ao reload</h2>
+          <ol class="practice-list">
+            <li>Escolham um estado relevante do domínio.</li>
+            <li>Leiam o valor inicial e gravem cada mudança.</li>
+            <li>Alterem, atualizem e expliquem o resultado.</li>
+          </ol>
+          <p class="exit-criterion">Saída: dado preservado e justificativa do fluxo.</p>
+          <aside class="notes">
+            Tempo sugerido: 12 minutos. Equipes devem editar os próprios projetos da AV1. Verificador observa o armazenamento pelo DevTools; condutor executa; navegador confere se a chave e o tipo estão corretos. Troquem papéis. Para equipes lentas, use apenas um dado relevante, como IDs favoritos ou tarefas concluídas, com [] padrão. Não substitua por preferência visual. O professor deve pedir uma demonstração após reload e uma explicação de onde o estado é criado, alterado, lido e gravado.
+          </aside>
+        </section>
+
+        <section id="diagnostico" class="slide-light">
+          <p class="section-label">AUDITORIA DE BUGS</p>
+          <h2>Qual erro explica o sintoma?</h2>
+          <div class="bug-list">
+            <div class="fragment fade-up"><b>Menu abre 404</b><span><code>to</code> diferente de <code>path</code></span></div>
+            <div class="fragment fade-up"><b>Favorito some no reload</b><span>estado sem persistência</span></div>
+            <div class="fragment fade-up"><b>JSON.parse falha</b><span>valor salvo inválido</span></div>
+            <div class="fragment fade-up"><b>Lista vira texto estranho</b><span><code>setItem</code> sem <code>JSON.stringify</code></span></div>
+          </div>
+          <aside class="notes">Tempo sugerido: 3 minutos. Revele um sintoma por vez e peça diagnóstico antes da causa. Outros erros a observar no laboratório: BrowserRouter ausente; rota sem link; uso de âncora que provoca carregamento completo e perde estado em memória; persistência apenas do tema. Verifique comportamento, não só sintaxe. Fonte: https://reactrouter.com/start/declarative/routing e https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem</aside>
+        </section>
+
+        <section id="fechamento" data-section-start="fechamento" class="slide-closing" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">CHECKLIST DA AV1</p>
+          <h2>O projeto está pronto para demonstrar?</h2>
+          <div class="closing-checks">
+            <p class="fragment fade-up"><span>□</span> Três rotas úteis</p>
+            <p class="fragment fade-up"><span>□</span> Navegação pela interface</p>
+            <p class="fragment fade-up"><span>□</span> Dado relevante preservado após reload</p>
+          </div>
+          <p class="closing-question">Quem consegue explicar o caminho do clique até o armazenamento?</p>
+          <aside class="notes">Tempo sugerido: 2 minutos. Convide um trio a narrar: clique no card, callback recebido por prop, atualização de favoriteIds em App, re-renderização, efeito com JSON.stringify e setItem; na próxima abertura, getItem, JSON.parse e estado inicial. Conclua: a próxima etapa é aplicar esse fluxo ao projeto real da equipe e preparar sua apresentação. Não aceite a checklist apenas por inspeção do código; peça teste no navegador.</aside>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/zoom.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script src="vendor/search.js"></script>
+    <script src="vendor/markdown.js"></script>
+    <script src="vendor/highlight.js"></script>
+    <script src="assets/aula.js"></script>
+  </body>
+</html>

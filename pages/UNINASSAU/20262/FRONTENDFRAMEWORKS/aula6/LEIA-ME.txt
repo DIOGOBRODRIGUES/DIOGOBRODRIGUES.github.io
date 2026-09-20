@@ -1,0 +1,75 @@
+AULA 6 — PROPS, NAVEGAÇÃO E LOCALSTORAGE
+Prof. Diogo Rodrigues · Front-end Frameworks · UNINASSAU
+
+Esta apresentação usa Reveal.js 6.0.1, incluído localmente em vendor/reveal.
+Foi preparada para acompanhar o código do Pulso Campus. Os exemplos de
+React Router usam react-router-dom 7.18.4, a versão fixada no projeto.
+
+COMO ABRIR
+
+Opção simples: abra index.html no navegador. A apresentação principal e os
+recursos visuais foram preparados para funcionar sem internet.
+
+Opção recomendada para notas do professor e impressão:
+
+  Windows: dê dois cliques em iniciar-no-windows.bat.
+  macOS/Linux: abra um terminal nesta pasta e execute node servidor.mjs.
+
+Depois visite http://127.0.0.1:8080. Mantenha o servidor aberto durante a aula.
+Para encerrá-lo, pressione Ctrl+C. É necessário ter Node.js instalado apenas
+para essa opção de servidor local; os slides em si não usam npm.
+
+ATALHOS
+
+  Setas ou Espaço: avançar/voltar
+  Esc ou O: visão geral
+  S: janela do apresentador com notas
+  F: tela cheia, quando permitida pelo navegador
+  Ctrl + Shift + F: busca textual
+  Alt + clique: zoom (Ctrl + clique em alguns sistemas)
+  B ou .: pausa/tela escura
+
+O botão “Blocos” salta para Abertura, Props, Navegação, localStorage ou
+Fechamento. O botão “?” mostra os atalhos durante a apresentação. A barra de
+progresso e o número do slide permanecem visíveis.
+
+COMO EDITAR
+
+  index.html: texto dos slides, trechos de código e notas em <aside class="notes">.
+  assets/aula.css: cores, tipografia, diagramas e layout.
+  assets/aula.js: configuração Reveal.js, menu e botão de ajuda.
+
+Os exemplos do Pulso Campus foram simplificados visualmente nos slides, mas
+correspondem aos arquivos main.jsx, App.jsx, Header.jsx, EventGrid.jsx e
+EventCard.jsx da versão completa. As omissões são indicadas em cada slide.
+Não é necessário alterar vendor/ para editar o conteúdo.
+
+IMPRIMIR EM PDF
+
+Com o servidor local ativo, abra:
+
+  http://127.0.0.1:8080/?print-pdf
+
+Use “Imprimir” > “Salvar como PDF”, preferencialmente com gráficos de fundo.
+Revise o PDF antes de distribuir: a impressão pode mostrar respostas e
+fragmentos já revelados, inclusive gabaritos previstos para discussão.
+
+OFFLINE E CRÉDITOS
+
+Nenhuma imagem, fonte, CDN ou API externa é exigida. Os dois links da capa
+(LinkedIn e GitHub do professor) exigem internet apenas se forem abertos.
+Reveal.js é distribuído sob licença MIT; veja vendor/reveal/LICENSE.
+As cores são o padrão visual informado pelo professor, não uma alegação de
+paleta oficial da UNINASSAU. Não foi usado nem imitado logotipo institucional.
+
+SUPOSIÇÕES
+
+O campo “[CURSO E PERÍODO]” do pedido foi preenchido como Ciência da
+Computação · 2026.2, conforme as informações anteriores desta disciplina.
+
+FONTES TÉCNICAS
+
+React: https://react.dev/learn/passing-props-to-a-component
+React Router: https://reactrouter.com/start/declarative/routing
+MDN Web Storage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+Reveal.js: https://revealjs.com/
