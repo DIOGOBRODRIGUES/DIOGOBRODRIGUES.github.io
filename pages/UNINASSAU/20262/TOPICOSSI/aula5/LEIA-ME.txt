@@ -1,6 +1,6 @@
 APRESENTAÇÃO REVEAL.JS — AULA 5
 
-Extraia o ZIP e abra index.html no navegador. Mantenha a pasta vendor junto ao HTML.
+Extraia o ZIP e abra index.html no navegador. Mantenha as pastas assets e vendor junto ao HTML.
 Os arquivos do Reveal.js 5.2.1 estão incluídos para apresentação sem internet.
 
 CONTROLES
@@ -9,11 +9,22 @@ Esc: visão geral.
 F: tela cheia.
 B: pausar com tela escura.
 S: notas do apresentador (pode exigir um servidor local e permissão para janela adicional).
+Ctrl+Shift+F: pesquisa. Alt+clique: zoom; clique novamente para sair.
+?: ajuda. Menu inferior: saltar entre blocos da aula.
+
+RECURSOS DA ATUALIZAÇÃO
+Auto-Animate conecta conceitos; fragments revelam etapas e gabaritos progressivamente.
+Questões completas precedem o bloco de correção. Avance uma vez no slide de correção para revelar a resposta.
+Fundos, progresso, numeração, visão geral, notas, busca e zoom utilizam recursos nativos do Reveal.js.
+Markdown e Highlight estão carregados para futuras aulas com texto Markdown e código.
+Preferência do sistema por movimento reduzido é respeitada.
+Imagem, fontes de ícones e plugins locais permitem apresentar sem internet. Links profissionais externos precisam de conexão.
 
 EDIÇÃO
 Cada bloco <section> em index.html corresponde a um slide.
 As notas estão nos elementos <aside class="notes">.
-O CSS no início do HTML define cores, fontes e layouts.
+assets/aula.css personaliza cores, fontes e layouts sobre os estilos-base do HTML.
+assets/aula.js configura os recursos e interações. Ao reordenar ou acrescentar slides, ajuste também os índices nesse arquivo.
 Há exatamente 30 slides. As quatro questões são autorais e os gabaritos aparecem nos slides 24 a 27.
 
 Para usar notas com servidor local, se tiver Python instalado:
@@ -21,7 +32,11 @@ Abra um terminal nesta pasta e execute: python3 -m http.server 8000
 Abra http://localhost:8000 no navegador.
 
 O nome UNINASSAU aparece como texto institucional, sem imitação do logotipo.
+A paleta é uma personalização visual, não um manual oficial de marca.
 Referências conceituais nas notas. Reveal.js: https://revealjs.com/installation/
 Licença do Reveal.js incluída em vendor/LICENSE.
+Licença do Font Awesome em vendor/fontawesome/LICENSE.txt.
 
-Verificação: estrutura e dependências conferidas. A inspeção visual automática não pôde ser concluída porque o navegador de teste não iniciou neste ambiente.
+Verificação: capa, questão objetiva, questão de assertivas e revelação do gabarito inspecionadas no navegador. Menu ajustado para janelas menores. Janela de notas e exportação PDF não foram testadas nesta revisão.
+
+PDF: abra http://localhost:8000/?print-pdf e use Imprimir > Salvar como PDF em paisagem, com gráficos de fundo e sem cabeçalhos/rodapés. Confira a prévia. A impressão inclui respostas e fragmentos: retire as correções antes de distribuir como teste.

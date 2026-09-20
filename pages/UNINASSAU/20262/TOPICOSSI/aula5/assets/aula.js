@@ -1,0 +1,28 @@
+/* Plugins oficiais e configuração comum para as próximas aulas. */
+(async()=>{
+  const slideNodes=[...document.querySelectorAll('.slides > section')];
+  const cover=slideNodes[0];cover.classList.add('cover');
+  cover.dataset.backgroundImage='assets/tecnologia.png';cover.dataset.backgroundSize='cover';cover.dataset.backgroundOpacity='.28';
+  cover.querySelector('.stamp').textContent='Centro Universitário Maurício de Nassau';
+  cover.querySelector('.small').innerHTML='Prof. Dr. Diogo Francisco Borba Rodrigues<br>22 e 25 de setembro de 2026';
+  const socials=document.createElement('div');socials.className='social-links';socials.innerHTML='<a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" rel="noopener noreferrer" aria-label="Perfil no LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i>LinkedIn</a><a href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer" aria-label="Perfil no GitHub"><i class="fab fa-github" aria-hidden="true"></i>GitHub</a>';cover.insertBefore(socials,cover.querySelector('aside'));
+  slideNodes.forEach((s,i)=>{s.dataset.slideIndex=i+1;s.dataset.transition=s.classList.contains('question')?'fade':'slide';s.dataset.backgroundTransition='fade';});
+  // Auto-Animate associa os mesmos elementos nos conceitos vizinhos.
+  [4,5,6].forEach((i)=>{const s=slideNodes[i];s.setAttribute('data-auto-animate','');s.dataset.autoAnimateId='governanca-gestao';const strip=document.createElement('div');strip.className='concept-strip';strip.innerHTML='<span data-id="governanca" class="'+(i!==5?'active':'')+'">Governança</span><span data-id="gestao" class="'+(i!==4?'active':'')+'">Gestão</span>';s.insertBefore(strip,s.querySelector('h2'));s.querySelector('h2').dataset.id='concept-title';const d=s.querySelector('.definition');if(d)d.dataset.id='concept-definition';});
+  // Fragments somente no conteúdo explicativo. As questões ficam inteiras.
+  [2,7,8,11,13].forEach(i=>{slideNodes[i].querySelectorAll('.steps > div,.thirds > div').forEach((e,j)=>{e.classList.add('fragment','fade-up');e.dataset.fragmentIndex=j;});});
+  [3,10,16,27].forEach(i=>{slideNodes[i].querySelectorAll('li').forEach((e,j)=>{e.classList.add('fragment','fade-up');e.dataset.fragmentIndex=j;});});
+  [4,5,9].forEach(i=>{slideNodes[i].querySelectorAll(':scope > p,:scope > .cols').forEach((e,j)=>{e.classList.add('fragment','fade-up');e.dataset.fragmentIndex=j;});});
+  [6,14,15].forEach(i=>{slideNodes[i].querySelectorAll('tbody tr').forEach((e,j)=>{e.classList.add('fragment','fade-in');e.dataset.fragmentIndex=j;});});
+  // Redistribuição sem alterar enunciados ou alternativas.
+  [19,20,21].forEach(i=>{const s=slideNodes[i],layout=document.createElement('div'),stem=document.createElement('div');layout.className='question-layout';[...s.querySelectorAll(':scope > p')].forEach(p=>stem.append(p));layout.append(stem,s.querySelector('ol'));s.insertBefore(layout,s.querySelector('aside'));});
+  slideNodes[22].querySelector('ol').classList.add('compact-choices');
+  [23,24,25,26].forEach(i=>{const s=slideNodes[i];s.classList.add('correction');const c=s.querySelector('.cols');if(c){c.classList.add('fragment','fade-up');}else{[...s.children].filter(e=>e.classList.contains('answer')||e.tagName==='UL').forEach(e=>{e.classList.add('fragment','fade-up');e.dataset.fragmentIndex=0;});}});
+  slideNodes[29].dataset.backgroundGradient='linear-gradient(125deg, #081d36, #174a7e)';
+  const nav=document.createElement('nav');nav.className='chapter-nav';nav.setAttribute('aria-label','Blocos da aula');nav.innerHTML='<a href="#/0" data-start="0">ABERTURA</a><a href="#/4" data-start="4">CONCEITOS</a><a href="#/15" data-start="15">CORETO</a><a href="#/19" data-start="19">QUESTÕES</a><a href="#/23" data-start="23">CORREÇÃO</a><a href="#/27" data-start="27">FECHAMENTO</a>';document.body.append(nav);
+  const help=document.createElement('a');help.href='#';help.className='key-help';help.textContent='? Atalhos';help.setAttribute('aria-label','Mostrar atalhos do Reveal.js');help.addEventListener('click',e=>{e.preventDefault();Reveal.toggleHelp();});document.body.append(help);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  await Reveal.initialize({width:1280,height:720,margin:.05,center:true,hash:true,controls:true,controlsTutorial:true,controlsLayout:'bottom-right',progress:true,slideNumber:'c/t',showSlideNumber:'all',transition:reduced?'none':'slide',transitionSpeed:'fast',backgroundTransition:reduced?'none':'fade',autoAnimate:!reduced,autoAnimateDuration:.55,autoAnimateEasing:'ease-out',autoAnimateUnmatched:true,keyboard:true,touch:true,overview:true,help:true,jumpToSlide:true,pdfSeparateFragments:false,pdfMaxPagesPerSlide:1,showNotes:false,view:'slide',plugins:[RevealZoom,RevealNotes,RevealSearch,RevealMarkdown,RevealHighlight]});
+  function update(){const i=Reveal.getIndices().h;document.body.classList.toggle('dark-ui',Reveal.getCurrentSlide().classList.contains('dark'));const links=[...nav.querySelectorAll('a')];links.forEach((a,j)=>{const active=i>=Number(a.dataset.start)&&(j===links.length-1||i<Number(links[j+1].dataset.start));a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current');});}
+  Reveal.on('slidechanged',update);update();
+})().catch(error=>{console.error(error);const p=document.createElement('div');p.className='load-error';p.innerHTML='<h2>Arquivos da apresentação não encontrados</h2><p>Extraia o ZIP completo e mantenha as pastas assets e vendor ao lado de index.html. Abra a apresentação novamente.</p>';document.body.append(p);});
