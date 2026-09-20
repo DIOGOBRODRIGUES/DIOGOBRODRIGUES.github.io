@@ -1,67 +1,211 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <title>DevOps Tools — GitHub Actions: primeira pipeline CI</title>
-  <meta name="description" content="Aula prática de GitHub Actions: workflows, YAML, CI Node.js, jobs, artifacts, secrets e environments.">
-  <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+  <meta name="description"
+    content="Aula prática de GitHub Actions: workflows, YAML, CI Node.js, jobs, artifacts, secrets e environments.">
+  <meta name="author" content="Prof.Diogo Rodrigues">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
   <!-- Caminhos consistentes. Para usar sua instalação, substitua reveal.js/ em todos os imports. -->
- 
-
-
   <link rel="stylesheet" href="assets/aula.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
-    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
-    <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
-    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
-    <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reset.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/reveal.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="../../../../../reveal.js-master/plugin/highlight/github.css">
 </head>
+
 <body>
-<div class="reveal">
-  <div class="slides">
-<!-- Slide 1 -->
-<section id="slide-01" class="cover">
-  <p class="institution">🏛️ Centro Universitário Maurício de Nassau</p>
-  <!-- Acrescente o número da aula abaixo, se desejar. -->
-  <h3>DevOps Tools<br><strong>GitHub Actions</strong></h3>
-  <p class="cover-subtitle">Construindo nossa primeira pipeline CI</p>
-  <p class="professor">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
-  <div class="social-links">
-    <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do professor"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-    <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer" aria-label="GitHub do professor"><i class="fab fa-github" aria-hidden="true"></i></a>
-  </div>
-  <p class="navigation-hint">Espaço: sequência completa · Esc: panorama · S: notas</p>
-<aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Abertura, 2 min. Na aula anterior desenhamos pipelines. Hoje faremos o GitHub executar uma delas. Ao final, cada dupla deverá explicar o evento, o runner, os comandos e o resultado de uma execução. Esta aula implementa CI. Deploy será apenas discutido e o gate demonstrado sem publicar nada. Peça que abram sua conta GitHub e um repositório de laboratório.</p></aside></section>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <section id="slide-01" class="cover">
+        <p class="institution">🏛️ Centro Universitário Maurício de Nassau</p>
+        <!-- Acrescente o número da aula abaixo, se desejar. -->
+        <h3>DevOps Tools<br><strong>GitHub Actions</strong></h3>
+        <p class="cover-subtitle">Construindo nossa primeira pipeline CI</p>
+        <p class="professor">Prof.Diogo Rodrigues</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+            rel="noopener noreferrer" aria-label="LinkedIn do professor"><i class="fab fa-linkedin"
+              aria-hidden="true"></i></a>
+          <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub do professor"><i class="fab fa-github" aria-hidden="true"></i></a>
+        </div>
+      
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p> Peça que abram sua conta
+            GitHub e um repositório de laboratório.</p>
+        </aside>
+      </section>
 
-<!-- Slide 2 -->
-<section id="slide-02" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>Onde estamos?</h2><div class="content"><div class="flow"><div class="node">DevOps ✓</div><span class="arrow">→</span><div class="node">Git / GitHub ✓</div><span class="arrow">→</span><div class="node">CI/CD ✓</div><span class="arrow">→</span><div class="node">Actions: hoje</div></div><div class="flow"><div class="node">Docker</div><span class="arrow">→</span><div class="node">Registry</div><span class="arrow">→</span><div class="node">Kubernetes</div><span class="arrow">→</span><div class="node">Observabilidade</div></div><div class="cards"><article><h3>Entender</h3><p>Evento, workflow, job, step e runner.</p></article><article><h3>Construir</h3><p>Executar, quebrar, corrigir e preservar o resultado.</p></article></div><nav class="chapter-links" aria-label="Atalhos da aula"><a href="#/slide-07">Workflow</a><a href="#/slide-16">Prática 1</a><a href="#/slide-23">CI Node</a><a href="#/slide-29">Artifacts</a><a href="#/slide-39">Desafio</a></nav></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. GitHub Actions é uma ferramenta para implementar práticas, não um sinônimo de CI/CD. Roteiro de 180 min: slides 1–3 revisão 15 min; 4–7 estrutura 15 min; 8–15 YAML e execução 25 min; 16–22 prática 40 min; 23–28 CI Node 30 min; 29–38 entrega e credenciais 25 min; 39–40 desafio 15 min; 41–46 fechamento 15 min. Ajuste os tempos da demonstração ao andamento da turma.</p></aside></section>
+      <!-- Slide 2 -->
+      <section id="slide-02" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+        <h2>Onde estamos?</h2>
+        <div class="content">
+          <div class="flow">
+            <div class="node">DevOps ✓</div><span class="arrow">→</span>
+            <div class="node">Git / GitHub ✓</div><span class="arrow">→</span>
+            <div class="node">CI/CD ✓</div><span class="arrow">→</span>
+            <div class="node">Actions: hoje</div>
+          </div>
+          <div class="flow">
+            <div class="node">Docker</div><span class="arrow">→</span>
+            <div class="node">Registry</div><span class="arrow">→</span>
+            <div class="node">Kubernetes</div><span class="arrow">→</span>
+            <div class="node">Observabilidade</div>
+          </div>
+          <div class="cards">
+            <article>
+              <h3>Entender</h3>
+              <p>Evento, workflow, job, step e runner.</p>
+            </article>
+            <article>
+              <h3>Construir</h3>
+              <p>Executar, quebrar, corrigir e preservar o resultado.</p>
+            </article>
+          </div>
+          <nav class="chapter-links" aria-label="Atalhos da aula"><a href="#/slide-07">Workflow</a><a
+              href="#/slide-16">Prática 1</a><a href="#/slide-23">CI Node</a><a href="#/slide-29">Artifacts</a><a
+              href="#/slide-39">Desafio</a></nav>
+        </div>
+      </section>
 
-<!-- Slide 3 -->
-<section id="slide-03" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>Anatomia da pipeline</h2><div class="content"><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>CI</h3><p>Integrar mudanças e verificar com testes automatizados.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>Continuous Delivery</h3><p>Manter uma versão pronta para liberar, com decisão humana.</p></article><article class="fragment fade-up" data-fragment-index="2"><h3>Continuous Deployment</h3><p>Liberar automaticamente após as verificações.</p></article></div><div class="flow"><div class="node">Evento</div><span class="arrow">→</span><div class="node">Jobs no runner</div><span class="arrow">→</span><div class="node">Artifact</div><span class="arrow">→</span><div class="node">Gate</div><span class="arrow">→</span><div class="node">Ambiente</div></div><div class="question">Qual parte já desenhamos? Qual parte vamos executar?</div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>11 min, incluindo revisão oral. O evento inicia um workflow. Cada job recebe um runner e contém steps. O artifact é um resultado persistido, o gate é uma condição de passagem e o environment representa um destino/configuração. Corrija a ideia de que runner é uma etapa que acontece depois dos steps: é onde os steps rodam. CI não exige deploy. Resposta esperada: hoje executaremos verificações e build e preservaremos o resultado. Use exemplos da aula anterior, sem rever todas as estratégias de deployment.</p></aside></section>
+      <!-- Slide 3 -->
+      <section id="slide-03" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+        <h2>Anatomia da pipeline</h2>
+        <div class="content">
+          <div class="cards">
+            <article class="fragment fade-up" data-fragment-index="0">
+              <h3>CI</h3>
+              <p>Integrar mudanças e verificar com testes automatizados.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="1">
+              <h3>Continuous Delivery</h3>
+              <p>Manter uma versão pronta para liberar, com decisão humana.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="2">
+              <h3>Continuous Deployment</h3>
+              <p>Liberar automaticamente após as verificações.</p>
+            </article>
+          </div>
+          <div class="flow">
+            <div class="node">Evento</div><span class="arrow">→</span>
+            <div class="node">Jobs no runner</div><span class="arrow">→</span>
+            <div class="node">Artifact</div><span class="arrow">→</span>
+            <div class="node">Gate</div><span class="arrow">→</span>
+            <div class="node">Ambiente</div>
+          </div>
+          
+        </div>
+       
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p> O evento inicia um workflow. Cada job recebe um runner e contém steps. O
+            artifact é um resultado persistido, o gate é uma condição de passagem e o environment representa um
+            destino/configuração. Corrija a ideia de que runner é uma etapa que acontece depois dos steps: é onde os
+            steps rodam. CI não exige deploy. Resposta esperada: hoje executaremos verificações e build e preservaremos
+            o resultado. Use exemplos da aula anterior, sem rever todas as estratégias de deployment.</p>
+        </aside>
+      </section>
 
-<!-- Slide 4 -->
-<section id="slide-04" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>O que é GitHub Actions?</h2><div class="content"><p class="big">Automação integrada<br>ao repositório.</p><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>Verificar</h3><p>Testes, análise e validação de PRs.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>Produzir</h3><p>Builds, relatórios e artifacts.</p></article><article class="fragment fade-up" data-fragment-index="2"><h3>Entregar</h3><p>Publicação e deploy quando configurados.</p></article></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. A plataforma reage a eventos e executa workflows definidos em arquivos. Além de CI/CD, pode cuidar de tarefas agendadas e manutenção do repositório. O exemplo de hoje usa github.com e runners hospedados Linux. Peça um exemplo de tarefa repetitiva que os alunos já fazem no terminal.</p></aside></section>
+      <!-- Slide 4 -->
+      <section id="slide-04" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+        <h2>O que é GitHub Actions?</h2>
+        <div class="content">
+          <p class="big">Automação integrada<br>ao repositório.</p>
+          <div class="cards">
+            <article class="fragment fade-up" data-fragment-index="0">
+              <h3>Verificar</h3>
+              <p>Testes, análise e validação de PRs.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="1">
+              <h3>Produzir</h3>
+              <p>Builds, relatórios e artifacts.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="2">
+              <h3>Entregar</h3>
+              <p>Publicação e deploy quando configurados.</p>
+            </article>
+          </div>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p> A plataforma reage a eventos e executa workflows definidos em arquivos. Além de CI/CD, pode cuidar
+            de tarefas agendadas e manutenção do repositório. O exemplo de hoje usa github.com e runners hospedados
+            Linux. Peça um exemplo de tarefa repetitiva que os alunos já fazem no terminal.</p>
+        </aside>
+      </section>
 
-<!-- Slide 5 -->
-<section id="slide-05" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>Um evento inicia o trabalho</h2><div class="content"><div class="flow"><div class="node">push</div><span class="arrow">→</span><div class="node">Workflow</div><span class="arrow">→</span><div class="node">Jobs</div><span class="arrow">→</span><div class="node">Steps</div><span class="arrow">→</span><div class="node">Resultado</div></div><div class="question">Um push executa qualquer arquivo YAML do repositório?</div><p class="fragment fade-up answer">Somente os workflows em .github/workflows com eventos e filtros compatíveis.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Não. GitHub reconhece os workflows no diretório .github/workflows e avalia os eventos e filtros. A execução também depende das políticas e permissões do repositório. Descreva um push que aciona testes e termina com sucesso. Pergunte onde os comandos rodam e adie a resposta detalhada para o runner.</p></aside></section>
+      <!-- Slide 5 -->
+      <section id="slide-05" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+        <h2>Um evento inicia o trabalho</h2>
+        <div class="content">
+          <div class="flow">
+            <div class="node">push</div><span class="arrow">→</span>
+            <div class="node">Workflow</div><span class="arrow">→</span>
+            <div class="node">Jobs</div><span class="arrow">→</span>
+            <div class="node">Steps</div><span class="arrow">→</span>
+            <div class="node">Resultado</div>
+          </div>
+          <div class="question">Um push executa qualquer arquivo YAML do repositório?</div>
+          <p class="fragment fade-up answer">Somente os workflows em .github/workflows com eventos e filtros
+            compatíveis.</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>. Não. GitHub reconhece os workflows no diretório .github/workflows e avalia os eventos e filtros. A
+            execução também depende das políticas e permissões do repositório. Descreva um push que aciona testes e
+            termina com sucesso. Pergunte onde os comandos rodam e adie a resposta detalhada para o runner.</p>
+        </aside>
+      </section>
 
-<!-- Slide 6 -->
-<section id="slide-06" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>O workflow vive no Git</h2><div class="content"><div class="code-label">Estrutura do repositório</div><pre><code class="language-text">meu-projeto/
+      <!-- Slide 6 -->
+      <section id="slide-06" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+        <h2>O workflow vive no Git</h2>
+        <div class="content">
+          <div class="code-label">Estrutura do repositório</div>
+          <pre><code class="language-text">meu-projeto/
 ├── src/
 ├── tests/
 ├── package.json
 └── .github/
     └── workflows/
-        └── ci.yml</code></pre><p class="lead">A pipeline também tem histórico e revisão.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Arquivos .yml e .yaml são aceitos em .github/workflows. A pasta precisa estar na raiz do repositório. Pipeline as Code permite revisar configuração em PRs e comparar alterações. No pacote, workflows/ guarda versões didáticas para copiar uma por vez. O projeto-node já inclui a versão final. Evite executar todas as versões simultaneamente sem necessidade.</p></aside></section>
+        └── ci.yml</code></pre>
+          <p class="lead">A pipeline também tem histórico e revisão.</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p> Arquivos .yml e .yaml são aceitos em .github/workflows. A pasta precisa estar na raiz do
+            repositório. Pipeline as Code permite revisar configuração em PRs e comparar alterações. No pacote,
+            workflows/ guarda versões didáticas para copiar uma por vez. O projeto-node já inclui a versão final. Evite
+            executar todas as versões simultaneamente sem necessidade.</p>
+        </aside>
+      </section>
 
-<!-- Tópico horizontal: slides 7 a 8; detalhamento vertical -->
-<section>
-<section id="slide-07" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div><h2>Nosso primeiro workflow</h2><div class="content"><div class="code-label">Completo • exemplos/workflows/01-primeiro.yml</div><pre><code class="language-yaml" data-trim data-line-numbers="1|2-3|4-6|7-9">name: Primeira Pipeline
+      <!-- Tópico horizontal: slides 7 a 8; detalhamento vertical -->
+      <section>
+        <section id="slide-07" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Fundamentos</span></div>
+          <h2>Nosso primeiro workflow</h2>
+          <div class="content">
+            <div class="code-label">Completo • exemplos/workflows/01-primeiro.yml</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1|2-3|4-6|7-9">name: Primeira Pipeline
 on:
   push:
 jobs:
@@ -69,29 +213,136 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Exibir mensagem
-        run: echo &quot;Olá DevOps&quot;</code></pre></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>6 min. Leia a indentação com a turma antes de executar. Este workflow não precisa de checkout porque só escreve uma mensagem. Pergunta: o que mudaria se quiséssemos ler um arquivo do repositório? Resposta: disponibilizar o código com checkout. Arquivo completo no pacote.</p><h3>Leitura linha por linha</h3><ol><li><code>name: Primeira Pipeline</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>on:</code> — Declara os eventos que iniciam a execução.</li><li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  exemplo:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - name: Exibir mensagem</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>        run: echo &quot;Olá DevOps&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-08" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>YAML descreve a automação</h2><div class="content"><div class="two"><div><div class="code-label">Trecho • inserir no contexto indicado</div><pre><code class="language-yaml">steps:
+        run: echo &quot;Olá DevOps&quot;</code></pre>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>name: Primeira Pipeline</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>on:</code> — Declara os eventos que iniciam a execução.</li>
+              <li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li>
+              <li><code>jobs:</code> — Agrupa os jobs do workflow.</li>
+              <li><code>  exemplo:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>      - name: Exibir mensagem</code> — Define um nome legível; no topo nomeia o workflow, no
+                step nomeia a etapa.</li>
+              <li><code>        run: echo &quot;Olá DevOps&quot;</code> — Executa o comando no shell; | inicia um bloco
+                multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-08" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+          <h2>YAML descreve a automação</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="code-label">Trecho • inserir no contexto indicado</div>
+                <pre><code class="language-yaml">steps:
   - name: Duas mensagens
     run: |
       echo &quot;Olá&quot;
-      echo &quot;DevOps&quot;</code></pre></div><div><ul><li>Indentação define hierarquia</li><li><code>chave: valor</code></li><li><code>-</code> inicia item de lista</li><li><code>|</code> preserva várias linhas</li></ul><p class="callout">Use espaços. Evite TAB.</p></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Este é um fragmento para o campo steps de um job. Dois espaços por nível são uma convenção, não um número imposto pela linguagem. Não misture tabs e espaços. O bloco run usa uma string multilinha, que será executada pelo shell. YAML descreve dados, não decide sozinho o comportamento da automação.</p><h3>Leitura linha por linha</h3><ol><li><code>steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>  - name: Duas mensagens</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>    run: |</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>      echo &quot;Olá&quot;</code> — Escreve somente a mensagem literal no log.</li><li><code>      echo &quot;DevOps&quot;</code> — Escreve somente a mensagem literal no log.</li></ol></aside></section>
-</section>
+      echo &quot;DevOps&quot;</code></pre>
+              </div>
+              <div>
+                <ul>
+                  <li>Indentação define hierarquia</li>
+                  <li><code>chave: valor</code></li>
+                  <li><code>-</code> inicia item de lista</li>
+                  <li><code>|</code> preserva várias linhas</li>
+                </ul>
+                <p class="callout">Use espaços. Evite TAB.</p>
+              </div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>  - name: Duas mensagens</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>    run: |</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>      echo &quot;Olá&quot;</code> — Escreve somente a mensagem literal no log.</li>
+              <li><code>      echo &quot;DevOps&quot;</code> — Escreve somente a mensagem literal no log.</li>
+            </ol>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 9 a 10; detalhamento vertical -->
-<section>
-<section id="slide-09" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Trigger: quando executar?</h2><div class="content"><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3><code>push</code></h3><p>Código enviado ao repositório.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3><code>pull_request</code></h3><p>Atividade em um PR, como abertura e novos commits.</p></article><article class="fragment fade-up" data-fragment-index="2"><h3><code>workflow_dispatch</code></h3><p>Execução solicitada manualmente.</p></article></div><div class="code-label">Trecho • raiz do workflow</div><pre><code class="language-yaml">on:
+      <!-- Tópico horizontal: slides 9 a 10; detalhamento vertical -->
+      <section>
+        <section id="slide-09" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+          <h2>Trigger: quando executar?</h2>
+          <div class="content">
+            <div class="cards">
+              <article class="fragment fade-up" data-fragment-index="0">
+                <h3><code>push</code></h3>
+                <p>Código enviado ao repositório.</p>
+              </article>
+              <article class="fragment fade-up" data-fragment-index="1">
+                <h3><code>pull_request</code></h3>
+                <p>Atividade em um PR, como abertura e novos commits.</p>
+              </article>
+              <article class="fragment fade-up" data-fragment-index="2">
+                <h3><code>workflow_dispatch</code></h3>
+                <p>Execução solicitada manualmente.</p>
+              </article>
+            </div>
+            <div class="code-label">Trecho • raiz do workflow</div>
+            <pre><code class="language-yaml">on:
   push:
   pull_request:
-  workflow_dispatch:</code></pre></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Na configuração padrão, pull_request reage a opened, synchronize e reopened. Nem todo evento de PR dispara automaticamente. workflow_dispatch exige que o arquivo exista na branch padrão para permitir acionamento manual. Push de uma branch com PR aberto pode produzir duas execuções se ambos os eventos estiverem configurados sem filtros.</p><h3>Leitura linha por linha</h3><ol><li><code>on:</code> — Declara os eventos que iniciam a execução.</li><li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li><li><code>  pull_request:</code> — Reage aos eventos padrão de pull request.</li><li><code>  workflow_dispatch:</code> — Habilita acionamento manual, com o workflow na branch padrão.</li></ol></aside></section>
-<section id="slide-10" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Branches filtram a execução</h2><div class="content"><div class="two"><div><div class="code-label">Trecho • raiz do workflow</div><pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">on:
+  workflow_dispatch:</code></pre>
+          </div>
+          
+        </section>
+        <section id="slide-10" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+          <h2>Branches filtram a execução</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="code-label">Trecho • raiz do workflow</div>
+                <pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]</code></pre></div><div><div class="cards"><article><h3>push</h3><p>Filtra a branch que recebe o push.</p></article><article><h3>pull_request</h3><p>Filtra a branch de destino do PR.</p></article></div></div></div><div class="question">feature/login → main: qual filtro avalia main?</div><p class="fragment fade-up answer">No pull_request, main é a branch de destino.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>3 min. Nos dois casos o valor é main, mas o sentido muda. No push, é a branch atualizada. No PR, é a base/destino, não a branch de origem. Deveríamos publicar em qualquer push? A turma deve justificar o destino e a política. Filtrar branches no trigger não equivale a configurar proteção de branch.</p><h3>Leitura linha por linha</h3><ol><li><code>on:</code> — Declara os eventos que iniciam a execução.</li><li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li><li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li><li><code>  pull_request:</code> — Reage aos eventos padrão de pull request.</li><li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li></ol></aside></section>
-</section>
+    branches: [main]</code></pre>
+              </div>
+              <div>
+                <div class="cards">
+                  <article>
+                    <h3>push</h3>
+                    <p>Filtra a branch que recebe o push.</p>
+                  </article>
+                  <article>
+                    <h3>pull_request</h3>
+                    <p>Filtra a branch de destino do PR.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+            <div class="question">feature/login → main: qual filtro avalia main?</div>
+            <p class="fragment fade-up answer">No pull_request, main é a branch de destino.</p>
+          </div>
+        </section>
+      </section>
 
-<!-- Slide 11 -->
-<section id="slide-11" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Job: uma unidade de trabalho</h2><div class="content"><div class="code-label">Trecho válido • raiz jobs</div><pre><code class="language-yaml">jobs:
+      <!-- Slide 11 -->
+      <section id="slide-11" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+        <h2>Job: uma unidade de trabalho</h2>
+        <div class="content">
+          <div class="code-label">Trecho válido • raiz jobs</div>
+          <pre><code class="language-yaml">jobs:
   test:
     runs-on: ubuntu-latest
     steps:
@@ -99,28 +350,175 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo &quot;Build de exemplo&quot;</code></pre><p class="lead">Jobs independentes podem rodar em paralelo.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Os identificadores test e build são nomes internos. Estes comandos são simulações, não testes ou build reais. A ausência de needs permite concorrência, sujeita à disponibilidade e aos limites de runners. Cada job hospedado recebe seu próprio ambiente. A ordem textual dos jobs não estabelece uma dependência.</p><h3>Leitura linha por linha</h3><ol><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  test:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;Verificação de exemplo&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>  build:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;Build de exemplo&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
+      - run: echo &quot;Build de exemplo&quot;</code></pre>
+          <p class="lead">Jobs independentes podem rodar em paralelo.</p>
+        </div>
+        
+      </section>
 
-<!-- Slide 12 -->
-<section id="slide-12" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Step: comando ou componente?</h2><div class="content"><div class="two"><div><div class="code-label">Trecho • dentro de um job</div><pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">steps:
+      <!-- Slide 12 -->
+      <section id="slide-12" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+        <h2>Step</h2>
+        <div class="content">
+          <div class="two">
+            <div>
+              <div class="code-label">Trecho • dentro de um job</div>
+              <pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">steps:
   - name: Baixar código
     uses: actions/checkout@v4
   - name: Listar arquivos
-    run: ls -la</code></pre></div><div><div class="cards"><article><h3><code>uses</code></h3><p>Executa uma Action reutilizável.</p></article><article><h3><code>run</code></h3><p>Executa comandos no shell do runner.</p></article></div></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>3 min. Steps de um job normalmente executam em sequência e compartilham workspace. Cada run inicia um processo de shell, por isso exportar uma variável em um run não a mantém automaticamente no seguinte. Um step usa run ou uses. checkout disponibiliza os arquivos do repositório, não instala dependências.</p><h3>Leitura linha por linha</h3><ol><li><code>steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>  - name: Baixar código</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>    uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li><li><code>  - name: Listar arquivos</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>    run: ls -la</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
+    run: ls -la</code></pre>
+            </div>
+            <div>
+              <div class="cards">
+                <article>
+                  <h3><code>uses</code></h3>
+                  <p>Executa uma Action reutilizável.</p>
+                </article>
+                <article>
+                  <h3><code>run</code></h3>
+                  <p>Executa comandos no shell do runner.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </section>
 
-<!-- Slide 13 -->
-<section id="slide-13" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Action: um componente reutilizável</h2><div class="content"><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>checkout</h3><p>Disponibiliza o código.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>setup-node</h3><p>Configura Node.js e npm.</p></article><article class="fragment fade-up" data-fragment-index="2"><h3>upload / download</h3><p>Preservam e recuperam artifacts.</p></article></div><div class="code-label">Trecho • em um step</div><pre><code class="language-yaml">uses: actions/checkout@v4</code></pre><p class="small">Action reutilizável ≠ workflow reutilizável.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. actions/checkout é o repositório e @v4 é a referência usada. As versões do pacote são escolhas didáticas, não uma afirmação de que são as mais recentes. Em projetos reais, avalie a procedência e a fixação por SHA completo. Uma Action é usada em um step. Um workflow reutilizável usa workflow_call e é chamado em nível de job. Não aprofundar isso nesta aula.</p><h3>Leitura linha por linha</h3><ol><li><code>uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li></ol></aside></section>
+      <!-- Slide 13 -->
+      <section id="slide-13" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+        <h2>Action: um componente reutilizável</h2>
+        <div class="content">
+          <div class="cards">
+            <article class="fragment fade-up" data-fragment-index="0">
+              <h3>checkout</h3>
+              <p>Disponibiliza o código.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="1">
+              <h3>setup-node</h3>
+              <p>Configura Node.js e npm.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="2">
+              <h3>upload / download</h3>
+              <p>Preservam e recuperam artifacts.</p>
+            </article>
+          </div>
+          <div class="code-label">Trecho • em um step</div>
+          <pre><code class="language-yaml">uses: actions/checkout@v4</code></pre>
+          <p class="small">Action reutilizável ≠ workflow reutilizável.</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>3 min. actions/checkout é o repositório e @v4 é a referência usada. As versões do pacote são escolhas
+            didáticas, não uma afirmação de que são as mais recentes. Em projetos reais, avalie a procedência e a
+            fixação por SHA completo. Uma Action é usada em um step. Um workflow reutilizável usa workflow_call e é
+            chamado em nível de job. Não aprofundar isso nesta aula.</p>
+          <h3>Leitura linha por linha</h3>
+          <ol>
+            <li><code>uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li>
+          </ol>
+        </aside>
+      </section>
 
-<!-- Tópico horizontal: slides 14 a 15; detalhamento vertical -->
-<section>
-<section id="slide-14" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>Runner: quem executa?</h2><div class="content"><div class="flow"><div class="node">GitHub agenda</div><span class="arrow">→</span><div class="node">Runner recebe o job</div><span class="arrow">→</span><div class="node">Shell executa os steps</div></div><div class="cards"><article><h3>Hospedado</h3><p>ubuntu-latest, windows-latest, macos-latest</p></article><article><h3>Self-hosted</h3><p>Infraestrutura administrada pela equipe.</p></article></div><div class="question">O comando roda no notebook de quem fez o push?</div><p class="fragment fade-up answer">Neste laboratório, os comandos rodam no runner hospedado pelo GitHub.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Resposta: não neste laboratório, roda em uma máquina hospedada pelo GitHub. Runner designa o agente e, informalmente, o ambiente que o hospeda. ubuntu-latest é um rótulo móvel, não uma versão fixa do sistema. Configurar Node explicitamente reduz dependência do software pré-instalado. Self-hosted exige manutenção e controles próprios.</p></aside></section>
-<section id="slide-15" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div><h2>O disco do runner é temporário</h2><div class="content"><div class="flow"><div class="node">Ambiente novo</div><span class="arrow">→</span><div class="node">checkout</div><span class="arrow">→</span><div class="node">Ferramentas</div><span class="arrow">→</span><div class="node">Comandos</div><span class="arrow">→</span><div class="node">Encerramento</div></div><div class="split-note"><b>Mesmo job</b><span>Steps compartilham arquivos.</span><b>Outro job</b><span>Não presuma o mesmo disco.</span></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. No laboratório com runners hospedados, trate cada job como ambiente isolado e temporário. Arquivos só continuam disponíveis fora dele se forem enviados a armazenamento apropriado. Cache acelera instalações, artifact representa resultados que desejamos preservar. Pergunte o que aconteceria com dist/ após o término sem upload.</p></aside></section>
-</section>
+      <!-- Tópico horizontal: slides 14 a 15; detalhamento vertical -->
+      <section>
+        <section id="slide-14" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+          <h2>Runner: quem executa?</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">GitHub agenda</div><span class="arrow">→</span>
+              <div class="node">Runner recebe o job</div><span class="arrow">→</span>
+              <div class="node">Shell executa os steps</div>
+            </div>
+            <div class="cards">
+              <article>
+                <h3>Hospedado</h3>
+                <p>ubuntu-latest, windows-latest, macos-latest</p>
+              </article>
+              <article>
+                <h3>Self-hosted</h3>
+                <p>Infraestrutura administrada pela equipe.</p>
+              </article>
+            </div>
+            <div class="question">O comando roda no notebook de quem fez o push?</div>
+            <p class="fragment fade-up answer">Neste laboratório, os comandos rodam no runner hospedado pelo GitHub.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>3 min. Resposta: não neste laboratório, roda em uma máquina hospedada pelo GitHub. Runner designa o
+              agente e, informalmente, o ambiente que o hospeda. ubuntu-latest é um rótulo móvel, não uma versão fixa do
+              sistema. Configurar Node explicitamente reduz dependência do software pré-instalado. Self-hosted exige
+              manutenção e controles próprios.</p>
+          </aside>
+        </section>
+        <section id="slide-15" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Configuração</span></div>
+          <h2>O disco do runner é temporário</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Ambiente novo</div><span class="arrow">→</span>
+              <div class="node">checkout</div><span class="arrow">→</span>
+              <div class="node">Ferramentas</div><span class="arrow">→</span>
+              <div class="node">Comandos</div><span class="arrow">→</span>
+              <div class="node">Encerramento</div>
+            </div>
+            <div class="split-note"><b>Mesmo job</b><span>Steps compartilham arquivos.</span><b>Outro job</b><span>Não
+                presuma o mesmo disco.</span></div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>3 min. No laboratório com runners hospedados, trate cada job como ambiente isolado e temporário. Arquivos
+              só continuam disponíveis fora dele se forem enviados a armazenamento apropriado. Cache acelera
+              instalações, artifact representa resultados que desejamos preservar. Pergunte o que aconteceria com dist/
+              após o término sem upload.</p>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 16 a 22; detalhamento vertical -->
-<section>
-<section id="slide-16" class="light" data-background-color="#edf1f5"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Primeira prática</h2><div class="content"><p class="big">Um commit.<br>Uma execução visível.</p><div class="cards"><article><h3>Preparar</h3><p>Repositório de laboratório com um README.</p></article><article><h3>Criar</h3><p>Copiar 02-pratica.yml para .github/workflows/ci.yml.</p></article><article><h3>Observar</h3><p>Commit, push e aba Actions.</p></article></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>5 min de preparação. Confirme conta GitHub, permissão para gravar no repositório e Actions habilitado. Pode usar a interface web para criar o arquivo: não exige instalação de Git. Cada dupla deve escolher um repositório de laboratório, sem dados sensíveis. O arquivo deve ficar na raiz correta, não dentro de uma pasta extra de materiais.</p></aside></section>
-<section id="slide-17" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Pipeline simples</h2><div class="content"><div class="code-label">Completo • exemplos/workflows/02-pratica.yml</div><pre><code class="language-yaml" data-trim data-line-numbers="1-4|5-9|10-15">name: DevOps Tools CI
+      <!-- Tópico horizontal: slides 16 a 22; detalhamento vertical -->
+      <section>
+        <section id="slide-16" class="light" data-background-color="#edf1f5">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Primeira prática</h2>
+          <div class="content">
+            <p class="big">Um commit.<br>Uma execução visível.</p>
+            <div class="cards">
+              <article>
+                <h3>Preparar</h3>
+                <p>Repositório de laboratório com um README.</p>
+              </article>
+              <article>
+                <h3>Criar</h3>
+                <p>Copiar 02-pratica.yml para .github/workflows/ci.yml.</p>
+              </article>
+              <article>
+                <h3>Observar</h3>
+                <p>Commit, push e aba Actions.</p>
+              </article>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>5 min de preparação. Confirme conta GitHub, permissão para gravar no repositório e Actions habilitado.
+              Pode usar a interface web para criar o arquivo: não exige instalação de Git. Cada dupla deve escolher um
+              repositório de laboratório, sem dados sensíveis. O arquivo deve ficar na raiz correta, não dentro de uma
+              pasta extra de materiais.</p>
+          </aside>
+        </section>
+        <section id="slide-17" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Pipeline simples</h2>
+          <div class="content">
+            <div class="code-label">Completo • exemplos/workflows/02-pratica.yml</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-4|5-9|10-15">name: DevOps Tools CI
 on: [push, workflow_dispatch]
 permissions:
   contents: read
@@ -134,22 +532,217 @@ jobs:
       - name: Listar arquivos
         run: ls -la
       - name: Mensagem
-        run: echo &quot;Pipeline executada com sucesso&quot;</code></pre></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>10 min. Faça a edição e o commit ao vivo. Aguarde os alunos encontrarem a execução. permissions limita o token à leitura do conteúdo, suficiente para checkout. uname e ls funcionam no runner Linux escolhido. No acionamento manual, primeiro mantenha o arquivo na branch padrão. Pergunta: em qual máquina os comandos rodaram? Resposta: runner hospedado.</p><h3>Leitura linha por linha</h3><ol><li><code>name: DevOps Tools CI</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>on: [push, workflow_dispatch]</code> — Declara os eventos que iniciam a execução.</li><li><code>permissions:</code> — Define permissões do GITHUB_TOKEN.</li><li><code>  contents: read</code> — Permite leitura do conteúdo para checkout.</li><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  exemplo:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li><li><code>      - name: Informações do runner</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>        run: uname -a</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>      - name: Listar arquivos</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>        run: ls -la</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>      - name: Mensagem</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>        run: echo &quot;Pipeline executada com sucesso&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-18" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Do push ao resultado</h2><div class="content"><div class="flow"><div class="node">Commit + push</div><span class="arrow">→</span><div class="node">Filtro do evento</div><span class="arrow">→</span><div class="node">Workflow run</div></div><div class="flow"><div class="node">Job no runner</div><span class="arrow">→</span><div class="node">Steps</div><span class="arrow">→</span><div class="node">Logs + status</div></div><div class="question">Qual evidência comprova que esta execução usou seu commit?</div><p class="fragment fade-up answer">O SHA do commit aparece nos detalhes da execução.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Abra a execução na aba Actions e localize mensagem e SHA do commit. Entre no job exemplo e expanda um step. O run tem identidade própria, e os logs pertencem àquela execução. Se nada aparecer, confira caminho, branch e configuração de Actions. Se a execução estiver em fila, não significa erro de YAML.</p></aside></section>
-<section id="slide-19" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Logs contam o que aconteceu</h2><div class="content"><div class="two"><div><div class="log"><span>✓ Checkout</span><span>✓ Informações do runner</span><span>✓ Listar arquivos</span><span>✓ Mensagem</span><hr>Pipeline executada com sucesso</div></div><div><p class="big smallbig">Workflow<br>Job<br>Step<br>Log</p></div></div><p class="small">Exemplo ilustrativo. Abra os logs reais da sua execução.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>5 min. Percorra workflow, job e step. Diferencie logs do comando de mensagens do executor. Localize duração, saída e código de retorno. Pergunte onde procurar se ls mostrar uma pasta vazia. Resposta provável: verificar checkout, branch e diretório de trabalho. Nunca use apenas o último resumo para diagnosticar.</p></aside></section>
-<section id="slide-20" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Vamos quebrar a pipeline</h2><div class="content"><div class="code-label">Adicionar ao final da lista steps</div><pre><code class="language-yaml">- name: Provocar erro
-  run: comando-que-nao-existe</code></pre><div class="flow"><div class="node">Commit</div><span class="arrow">→</span><div class="node">Push</div><span class="arrow">→</span><div class="node">Step falha</div><span class="arrow">→</span><div class="node">Job vermelho</div></div><div class="question">Qual mensagem explica a falha?</div><p class="fragment fade-up answer">O log do step informa command not found.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>6 min. Demonstração obrigatória. Adicione o step ao workflow simples e faça commit. Não corrija imediatamente. Peça que leiam o log e encontrem command not found. O shell normalmente retorna 127 nesse caso. O YAML é válido, o comando é que não existe. Passos posteriores normalmente serão ignorados. Não deixe esta falha ativa ao iniciar a prática Node.</p><h3>Leitura linha por linha</h3><ol><li><code>- name: Provocar erro</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>  run: comando-que-nao-existe</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-21" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Uma falha pode ser bom feedback</h2><div class="content"><p class="big">Detectar cedo<br>reduz o custo da correção.</p><div class="cards"><article><h3>Falha esperada</h3><p>O teste detectou uma regressão.</p></article><article><h3>Falha de infraestrutura</h3><p>Rede, credenciais ou ferramenta indisponível.</p></article></div><div class="question">Vermelho significa sempre um defeito no código?</div><p class="fragment fade-up answer">A causa também pode ser infraestrutura, configuração ou credenciais.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Resposta: não. Separe problemas do produto de problemas da própria automação. Fail fast é organizar validações para detectar problemas relevantes cedo. Não ensinar continue-on-error como solução para um teste legítimo que falha. Um status verde também não garante ausência de defeitos: depende da qualidade das verificações.</p></aside></section>
-<section id="slide-22" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div><h2>Correção e nova evidência</h2><div class="content"><div class="flow"><div class="node">Ler log</div><span class="arrow">→</span><div class="node">Corrigir arquivo</div><span class="arrow">→</span><div class="node">Novo commit</div><span class="arrow">→</span><div class="node">Nova execução</div></div><p class="callout">Remova o step inválido. Confirme o novo SHA e o status verde.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>6 min. Corrija removendo o comando inválido, faça commit e compare as duas execuções. Re-run repete a execução sobre a mesma revisão, não incorpora automaticamente a correção posterior. Pergunte por que só clicar em re-run não resolve um comando inexistente. Use o histórico como evidência de falha e correção.</p></aside></section>
-</section>
+        run: echo &quot;Pipeline executada com sucesso&quot;</code></pre>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>10 min. Faça a edição e o commit ao vivo. Aguarde os alunos encontrarem a execução. permissions limita o
+              token à leitura do conteúdo, suficiente para checkout. uname e ls funcionam no runner Linux escolhido. No
+              acionamento manual, primeiro mantenha o arquivo na branch padrão. Pergunta: em qual máquina os comandos
+              rodaram? Resposta: runner hospedado.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>name: DevOps Tools CI</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia
+                a etapa.</li>
+              <li><code>on: [push, workflow_dispatch]</code> — Declara os eventos que iniciam a execução.</li>
+              <li><code>permissions:</code> — Define permissões do GITHUB_TOKEN.</li>
+              <li><code>  contents: read</code> — Permite leitura do conteúdo para checkout.</li>
+              <li><code>jobs:</code> — Agrupa os jobs do workflow.</li>
+              <li><code>  exemplo:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>      - uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li>
+              <li><code>      - name: Informações do runner</code> — Define um nome legível; no topo nomeia o workflow,
+                no step nomeia a etapa.</li>
+              <li><code>        run: uname -a</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>      - name: Listar arquivos</code> — Define um nome legível; no topo nomeia o workflow, no
+                step nomeia a etapa.</li>
+              <li><code>        run: ls -la</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>      - name: Mensagem</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>        run: echo &quot;Pipeline executada com sucesso&quot;</code> — Executa o comando no
+                shell; | inicia um bloco multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-18" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Do push ao resultado</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Commit + push</div><span class="arrow">→</span>
+              <div class="node">Filtro do evento</div><span class="arrow">→</span>
+              <div class="node">Workflow run</div>
+            </div>
+            <div class="flow">
+              <div class="node">Job no runner</div><span class="arrow">→</span>
+              <div class="node">Steps</div><span class="arrow">→</span>
+              <div class="node">Logs + status</div>
+            </div>
+            <div class="question">Qual evidência comprova que esta execução usou seu commit?</div>
+            <p class="fragment fade-up answer">O SHA do commit aparece nos detalhes da execução.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>4 min. Abra a execução na aba Actions e localize mensagem e SHA do commit. Entre no job exemplo e expanda
+              um step. O run tem identidade própria, e os logs pertencem àquela execução. Se nada aparecer, confira
+              caminho, branch e configuração de Actions. Se a execução estiver em fila, não significa erro de YAML.</p>
+          </aside>
+        </section>
+        <section id="slide-19" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Logs contam o que aconteceu</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="log"><span>✓ Checkout</span><span>✓ Informações do runner</span><span>✓ Listar
+                    arquivos</span><span>✓ Mensagem</span>
+                  <hr>Pipeline executada com sucesso
+                </div>
+              </div>
+              <div>
+                <p class="big smallbig">Workflow<br>Job<br>Step<br>Log</p>
+              </div>
+            </div>
+            <p class="small">Exemplo ilustrativo. Abra os logs reais da sua execução.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>5 min. Percorra workflow, job e step. Diferencie logs do comando de mensagens do executor. Localize
+              duração, saída e código de retorno. Pergunte onde procurar se ls mostrar uma pasta vazia. Resposta
+              provável: verificar checkout, branch e diretório de trabalho. Nunca use apenas o último resumo para
+              diagnosticar.</p>
+          </aside>
+        </section>
+        <section id="slide-20" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Vamos quebrar a pipeline</h2>
+          <div class="content">
+            <div class="code-label">Adicionar ao final da lista steps</div>
+            <pre><code class="language-yaml">- name: Provocar erro
+  run: comando-que-nao-existe</code></pre>
+            <div class="flow">
+              <div class="node">Commit</div><span class="arrow">→</span>
+              <div class="node">Push</div><span class="arrow">→</span>
+              <div class="node">Step falha</div><span class="arrow">→</span>
+              <div class="node">Job vermelho</div>
+            </div>
+            <div class="question">Qual mensagem explica a falha?</div>
+            <p class="fragment fade-up answer">O log do step informa command not found.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>6 min. Demonstração obrigatória. Adicione o step ao workflow simples e faça commit. Não corrija
+              imediatamente. Peça que leiam o log e encontrem command not found. O shell normalmente retorna 127 nesse
+              caso. O YAML é válido, o comando é que não existe. Passos posteriores normalmente serão ignorados. Não
+              deixe esta falha ativa ao iniciar a prática Node.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>- name: Provocar erro</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia
+                a etapa.</li>
+              <li><code>  run: comando-que-nao-existe</code> — Executa o comando no shell; | inicia um bloco multilinha.
+              </li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-21" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Uma falha pode ser bom feedback</h2>
+          <div class="content">
+            <p class="big">Detectar cedo<br>reduz o custo da correção.</p>
+            <div class="cards">
+              <article>
+                <h3>Falha esperada</h3>
+                <p>O teste detectou uma regressão.</p>
+              </article>
+              <article>
+                <h3>Falha de infraestrutura</h3>
+                <p>Rede, credenciais ou ferramenta indisponível.</p>
+              </article>
+            </div>
+            <div class="question">Vermelho significa sempre um defeito no código?</div>
+            <p class="fragment fade-up answer">A causa também pode ser infraestrutura, configuração ou credenciais.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>4 min. Resposta: não. Separe problemas do produto de problemas da própria automação. Fail fast é
+              organizar validações para detectar problemas relevantes cedo. Não ensinar continue-on-error como solução
+              para um teste legítimo que falha. Um status verde também não garante ausência de defeitos: depende da
+              qualidade das verificações.</p>
+          </aside>
+        </section>
+        <section id="slide-22" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 01</span></div>
+          <h2>Correção e nova evidência</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Ler log</div><span class="arrow">→</span>
+              <div class="node">Corrigir arquivo</div><span class="arrow">→</span>
+              <div class="node">Novo commit</div><span class="arrow">→</span>
+              <div class="node">Nova execução</div>
+            </div>
+            <p class="callout">Remova o step inválido. Confirme o novo SHA e o status verde.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>6 min. Corrija removendo o comando inválido, faça commit e compare as duas execuções. Re-run repete a
+              execução sobre a mesma revisão, não incorpora automaticamente a correção posterior. Pergunte por que só
+              clicar em re-run não resolve um comando inexistente. Use o histórico como evidência de falha e correção.
+            </p>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 23 a 28; detalhamento vertical -->
-<section>
-<section id="slide-23" class="light" data-background-color="#edf1f5"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>Agora, CI do nosso código</h2><div class="content"><div class="flow"><div class="node">Instalar</div><span class="arrow">→</span><div class="node">Verificar sintaxe</div><span class="arrow">→</span><div class="node">Testar</div><span class="arrow">→</span><div class="node">Build</div></div><div class="two"><div><p class="lead">Mesmo mecanismo.<br>Comandos com efeito verificável.</p></div><div><div class="code-label">Na raiz do projeto-node</div><pre><code class="language-bash">npm ci
+      <!-- Tópico horizontal: slides 23 a 28; detalhamento vertical -->
+      <section>
+        <section id="slide-23" class="light" data-background-color="#edf1f5">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>Agora, CI do nosso código</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Instalar</div><span class="arrow">→</span>
+              <div class="node">Verificar sintaxe</div><span class="arrow">→</span>
+              <div class="node">Testar</div><span class="arrow">→</span>
+              <div class="node">Build</div>
+            </div>
+            <div class="two">
+              <div>
+                <p class="lead">Mesmo mecanismo.<br>Comandos com efeito verificável.</p>
+              </div>
+              <div>
+                <div class="code-label">Na raiz do projeto-node</div>
+                <pre><code class="language-bash">npm ci
 npm run lint
 npm test
-npm run build</code></pre></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Trocaremos mensagens por verificações do código. O projeto não tem dependências externas para reduzir preparação. npm ci ainda exige package-lock.json coerente. O script lint deste laboratório verifica sintaxe com node --check, não substitui um linter de estilo como ESLint. Build copia os arquivos necessários para dist, não transpila.</p></aside></section>
-<section id="slide-24" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>Exemplo com Node.js</h2><div class="content"><div class="two"><div><div class="code-label">Completo • 03-node-ci.yml</div><pre><code class="language-yaml" data-trim data-line-numbers="1-9|10-13|14-17|18-19">name: Node CI
+npm run build</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>4 min. Trocaremos mensagens por verificações do código. O projeto não tem dependências externas para
+              reduzir preparação. npm ci ainda exige package-lock.json coerente. O script lint deste laboratório
+              verifica sintaxe com node --check, não substitui um linter de estilo como ESLint. Build copia os arquivos
+              necessários para dist, não transpila.</p>
+          </aside>
+        </section>
+        <section id="slide-24" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>Exemplo com Node.js</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="code-label">Completo • 03-node-ci.yml</div>
+                <pre><code class="language-yaml" data-trim data-line-numbers="1-9|10-13|14-17|18-19">name: Node CI
 on:
   pull_request:
     branches: [main]
@@ -167,17 +760,103 @@ jobs:
         with:
           node-version: &#x27;22&#x27;
       - run: npm ci
-      - run: npm test</code></pre></div><div><p class="code-label">Projeto incluído</p><div class="code-label">exemplos/projeto-node/</div><pre><code class="language-text">src/soma.js
+      - run: npm test</code></pre>
+              </div>
+              <div>
+                <p class="code-label">Projeto incluído</p>
+                <div class="code-label">exemplos/projeto-node/</div>
+                <pre><code class="language-text">src/soma.js
 tests/soma.test.js
 scripts/build.js
 package.json
-package-lock.json</code></pre><p class="small">Node 22 • testes nativos<br>Função: soma(2, 3) = 5</p></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>10 min. Copie o conteúdo de projeto-node para a raiz do repositório. Para a evolução guiada, substitua o ci.yml final por 03-node-ci.yml. Execute os quatro comandos localmente se Node 22 estiver disponível. Depois faça push à main ou abra PR destinado à main. Leia os dois testes. Troque temporariamente a + b por a - b para observar uma regressão real, restaure a soma e faça outro commit. npm ci usa o lockfile e falha se ele não concorda com package.json.</p><h3>Leitura linha por linha</h3><ol><li><code>name: Node CI</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>on:</code> — Declara os eventos que iniciam a execução.</li><li><code>  pull_request:</code> — Reage aos eventos padrão de pull request.</li><li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li><li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li><li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li><li><code>  workflow_dispatch:</code> — Habilita acionamento manual, com o workflow na branch padrão.</li><li><code>permissions:</code> — Define permissões do GITHUB_TOKEN.</li><li><code>  contents: read</code> — Permite leitura do conteúdo para checkout.</li><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  test:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li><li><code>      - uses: actions/setup-node@v6</code> — Executa a Action indicada na referência após @.</li><li><code>        with:</code> — Agrupa parâmetros de entrada da Action.</li><li><code>          node-version: &#x27;22&#x27;</code> — Seleciona a linha major 22 do Node para a aplicação.</li><li><code>      - run: npm ci</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>      - run: npm test</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-25" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>O runtime precisa ser explícito</h2><div class="content"><div class="code-label">Trecho • steps após checkout</div><pre><code class="language-yaml" data-trim data-line-numbers="1-4|5-6">- uses: actions/setup-node@v6
+package-lock.json</code></pre>
+                <p class="small">Node 22 • testes nativos<br>Função: soma(2, 3) = 5</p>
+              </div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>10 min. Copie o conteúdo de projeto-node para a raiz do repositório. Para a evolução guiada, substitua o
+              ci.yml final por 03-node-ci.yml. Execute os quatro comandos localmente se Node 22 estiver disponível.
+              Depois faça push à main ou abra PR destinado à main. Leia os dois testes. Troque temporariamente a + b por
+              a - b para observar uma regressão real, restaure a soma e faça outro commit. npm ci usa o lockfile e falha
+              se ele não concorda com package.json.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>name: Node CI</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a
+                etapa.</li>
+              <li><code>on:</code> — Declara os eventos que iniciam a execução.</li>
+              <li><code>  pull_request:</code> — Reage aos eventos padrão de pull request.</li>
+              <li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li>
+              <li><code>  push:</code> — Reage a envios de commits que passam pelos filtros.</li>
+              <li><code>    branches: [main]</code> — Restringe as branches; em PR considera a branch de destino.</li>
+              <li><code>  workflow_dispatch:</code> — Habilita acionamento manual, com o workflow na branch padrão.</li>
+              <li><code>permissions:</code> — Define permissões do GITHUB_TOKEN.</li>
+              <li><code>  contents: read</code> — Permite leitura do conteúdo para checkout.</li>
+              <li><code>jobs:</code> — Agrupa os jobs do workflow.</li>
+              <li><code>  test:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>      - uses: actions/checkout@v4</code> — Executa a Action indicada na referência após @.</li>
+              <li><code>      - uses: actions/setup-node@v6</code> — Executa a Action indicada na referência após @.
+              </li>
+              <li><code>        with:</code> — Agrupa parâmetros de entrada da Action.</li>
+              <li><code>          node-version: &#x27;22&#x27;</code> — Seleciona a linha major 22 do Node para a
+                aplicação.</li>
+              <li><code>      - run: npm ci</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>      - run: npm test</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-25" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>O runtime precisa ser explícito</h2>
+          <div class="content">
+            <div class="code-label">Trecho • steps após checkout</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-4|5-6">- uses: actions/setup-node@v6
   with:
     node-version: &#x27;22&#x27;
 - run: npm ci
-- run: npm test</code></pre><div class="flow"><div class="node">Runner</div><span class="arrow">→</span><div class="node">Node 22 + npm</div><span class="arrow">→</span><div class="node">Dependências</div><span class="arrow">→</span><div class="node">Testes</div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>4 min. O runner pode já conter Node, mas setup-node seleciona a versão solicitada. O runtime interno da Action não é a mesma coisa que a versão Node configurada para o projeto. O valor 22 fixa a linha major, não o patch. Sem dependências externas, npm ci tem pouco a instalar, mas mantém o mesmo contrato do fluxo real. Cache é otimização opcional, não requisito do laboratório.</p><h3>Leitura linha por linha</h3><ol><li><code>- uses: actions/setup-node@v6</code> — Executa a Action indicada na referência após @.</li><li><code>  with:</code> — Agrupa parâmetros de entrada da Action.</li><li><code>    node-version: &#x27;22&#x27;</code> — Seleciona a linha major 22 do Node para a aplicação.</li><li><code>- run: npm ci</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>- run: npm test</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-26" class="light" data-auto-animate data-auto-animate-id="jobs" data-auto-animate-duration="0.8"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>Jobs independentes</h2><div class="content"><div class="two"><div><div class="code-label">Trecho didático • simulação</div><pre><code class="language-yaml">jobs:
+- run: npm test</code></pre>
+            <div class="flow">
+              <div class="node">Runner</div><span class="arrow">→</span>
+              <div class="node">Node 22 + npm</div><span class="arrow">→</span>
+              <div class="node">Dependências</div><span class="arrow">→</span>
+              <div class="node">Testes</div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>4 min. O runner pode já conter Node, mas setup-node seleciona a versão solicitada. O runtime interno da
+              Action não é a mesma coisa que a versão Node configurada para o projeto. O valor 22 fixa a linha major,
+              não o patch. Sem dependências externas, npm ci tem pouco a instalar, mas mantém o mesmo contrato do fluxo
+              real. Cache é otimização opcional, não requisito do laboratório.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>- uses: actions/setup-node@v6</code> — Executa a Action indicada na referência após @.</li>
+              <li><code>  with:</code> — Agrupa parâmetros de entrada da Action.</li>
+              <li><code>    node-version: &#x27;22&#x27;</code> — Seleciona a linha major 22 do Node para a aplicação.
+              </li>
+              <li><code>- run: npm ci</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>- run: npm test</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-26" class="light" data-auto-animate data-auto-animate-id="jobs"
+          data-auto-animate-duration="0.8">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>Jobs independentes</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="code-label">Trecho didático • simulação</div>
+                <pre><code class="language-yaml">jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -185,19 +864,144 @@ package-lock.json</code></pre><p class="small">Node 22 • testes nativos<br>Fun
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo &quot;teste simulado&quot;</code></pre></div><div><div class="fork"><b>Evento</b><div><span data-id="job-lint">lint</span><span data-id="job-test">test</span></div><b>Sem dependência</b></div></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. O trecho é válido sob jobs e explicitamente simulado. Na versão completa, cada job repete checkout, setup-node e npm ci antes do seu comando real. Não compartilham node_modules. Abra 04-ci-completa.yml para mostrar a versão executável. Pergunte se mover test para depois de lint no arquivo cria sequência: não.</p><h3>Leitura linha por linha</h3><ol><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  lint:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;lint simulado&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>  test:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;teste simulado&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-27" class="light" data-auto-animate data-auto-animate-id="jobs" data-auto-animate-duration="0.8"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>needs define a dependência</h2><div class="content"><div class="code-label">Trecho • job simulado sob jobs, com lint e test definidos</div><pre><code class="language-yaml" data-trim data-line-numbers="1-2|3-5">build:
+      - run: echo &quot;teste simulado&quot;</code></pre>
+              </div>
+              <div>
+                <div class="fork"><b>Evento</b>
+                  <div><span data-id="job-lint">lint</span><span data-id="job-test">test</span></div><b>Sem
+                    dependência</b>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>4 min. O trecho é válido sob jobs e explicitamente simulado. Na versão completa, cada job repete
+              checkout, setup-node e npm ci antes do seu comando real. Não compartilham node_modules. Abra
+              04-ci-completa.yml para mostrar a versão executável. Pergunte se mover test para depois de lint no arquivo
+              cria sequência: não.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>jobs:</code> — Agrupa os jobs do workflow.</li>
+              <li><code>  lint:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>      - run: echo &quot;lint simulado&quot;</code> — Executa o comando no shell; | inicia um
+                bloco multilinha.</li>
+              <li><code>  test:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>      - run: echo &quot;teste simulado&quot;</code> — Executa o comando no shell; | inicia um
+                bloco multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-27" class="light" data-auto-animate data-auto-animate-id="jobs"
+          data-auto-animate-duration="0.8">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>needs define a dependência</h2>
+          <div class="content">
+            <div class="code-label">Trecho • job simulado sob jobs, com lint e test definidos</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-2|3-5">build:
   needs: [lint, test]
   runs-on: ubuntu-latest
   steps:
-    - run: echo &quot;Build liberado&quot;</code></pre><div class="fork horizontal"><div><span data-id="job-lint">lint ✓</span><span data-id="job-test">test ✓</span></div><b>→</b><div><span data-id="job-build">build</span></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>4 min. needs é uma lista de IDs de jobs. Por padrão, build só executa se ambos concluírem com sucesso. Uma falha ou um job ignorado pode levar dependentes a serem ignorados. Condições especiais podem mudar esse comportamento, mas não serão usadas aqui. needs não transfere arquivos. A versão completa realiza o build verdadeiro.</p><h3>Leitura linha por linha</h3><ol><li><code>build:</code> — Identificador do job; permite referências por needs.</li><li><code>  needs: [lint, test]</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de iniciar.</li><li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>    - run: echo &quot;Build liberado&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-<section id="slide-28" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div><h2>Paralelismo e tempo total</h2><div class="content"><div class="cards"><article><h3>Sequencial</h3><p>Lint 2 min + testes 4 min + build 1 min = 7 min</p></article><article><h3>Paralelo com dependência</h3><p>Máximo(2, 4) + build 1 min = 5 min</p></article></div><div class="timeline"><span style="width:28%">lint 2</span><span style="width:57%">test 4</span><span style="width:15%">build 1</span></div><div class="question">Qual etapa limita o ganho?</div><p class="fragment fade-up answer">Os testes, com 4 minutos, formam o caminho crítico junto com o build.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Tempos hipotéticos, ignoram fila, checkout e instalação. A etapa test forma o caminho crítico junto com build. Na prática, concorrência depende de capacidade e limites. Não prometa que paralelizar sempre reduz tempo ou consumo. Mostre os jobs da versão completa e observe a espera do build por needs.</p></aside></section>
-</section>
+    - run: echo &quot;Build liberado&quot;</code></pre>
+            <div class="fork horizontal">
+              <div><span data-id="job-lint">lint ✓</span><span data-id="job-test">test ✓</span></div><b>→</b>
+              <div><span data-id="job-build">build</span></div>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>4 min. needs é uma lista de IDs de jobs. Por padrão, build só executa se ambos concluírem com sucesso.
+              Uma falha ou um job ignorado pode levar dependentes a serem ignorados. Condições especiais podem mudar
+              esse comportamento, mas não serão usadas aqui. needs não transfere arquivos. A versão completa realiza o
+              build verdadeiro.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>build:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>  needs: [lint, test]</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de
+                iniciar.</li>
+              <li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>    - run: echo &quot;Build liberado&quot;</code> — Executa o comando no shell; | inicia um
+                bloco multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-28" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Laboratório 02</span></div>
+          <h2>Paralelismo e tempo total</h2>
+          <div class="content">
+            <div class="cards">
+              <article>
+                <h3>Sequencial</h3>
+                <p>Lint 2 min + testes 4 min + build 1 min = 7 min</p>
+              </article>
+              <article>
+                <h3>Paralelo com dependência</h3>
+                <p>Máximo(2, 4) + build 1 min = 5 min</p>
+              </article>
+            </div>
+            <div class="timeline"><span style="width:28%">lint 2</span><span style="width:57%">test 4</span><span
+                style="width:15%">build 1</span></div>
+            <div class="question">Qual etapa limita o ganho?</div>
+            <p class="fragment fade-up answer">Os testes, com 4 minutos, formam o caminho crítico junto com o build.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>4 min. Tempos hipotéticos, ignoram fila, checkout e instalação. A etapa test forma o caminho crítico
+              junto com build. Na prática, concorrência depende de capacidade e limites. Não prometa que paralelizar
+              sempre reduz tempo ou consumo. Mostre os jobs da versão completa e observe a espera do build por needs.
+            </p>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 29 a 31; detalhamento vertical -->
-<section>
-<section id="slide-29" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Artifact: resultado que permanece</h2><div class="content"><div class="flow"><div class="node">Build</div><span class="arrow">→</span><div class="node">dist/</div><span class="arrow">→</span><div class="node">Upload</div><span class="arrow">→</span><div class="node">Armazenamento</div></div><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>Neste projeto</h3><p>soma.js e package.json em dist/.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>Em outros projetos</h3><p>Binário, pacote, relatório ou site gerado.</p></article></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. O artifact fica associado à execução por um período de retenção. Não é permanente e pode consumir armazenamento. Nossa aplicação é mínima: build copia os arquivos que serão executados em outro job. Preserve a identidade do resultado: produzir uma vez e usar o mesmo conteúdo nos destinos seguintes. Não confundir artifact do Actions com release pública.</p></aside></section>
-<section id="slide-30" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Upload do artifact</h2><div class="content"><div class="code-label">Trecho • steps do job build após instalação</div><pre><code class="language-yaml" data-trim data-line-numbers="1-2|3-7|8-9">- name: Gerar build
+      <!-- Tópico horizontal: slides 29 a 31; detalhamento vertical -->
+      <section>
+        <section id="slide-29" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Artifact: resultado que permanece</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Build</div><span class="arrow">→</span>
+              <div class="node">dist/</div><span class="arrow">→</span>
+              <div class="node">Upload</div><span class="arrow">→</span>
+              <div class="node">Armazenamento</div>
+            </div>
+            <div class="cards">
+              <article class="fragment fade-up" data-fragment-index="0">
+                <h3>Neste projeto</h3>
+                <p>soma.js e package.json em dist/.</p>
+              </article>
+              <article class="fragment fade-up" data-fragment-index="1">
+                <h3>Em outros projetos</h3>
+                <p>Binário, pacote, relatório ou site gerado.</p>
+              </article>
+            </div>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>2 min. O artifact fica associado à execução por um período de retenção. Não é permanente e pode consumir
+              armazenamento. Nossa aplicação é mínima: build copia os arquivos que serão executados em outro job.
+              Preserve a identidade do resultado: produzir uma vez e usar o mesmo conteúdo nos destinos seguintes. Não
+              confundir artifact do Actions com release pública.</p>
+          </aside>
+        </section>
+        <section id="slide-30" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Upload do artifact</h2>
+          <div class="content">
+            <div class="code-label">Trecho • steps do job build após instalação</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-2|3-7|8-9">- name: Gerar build
   run: npm run build
 - name: Salvar artifact
   uses: actions/upload-artifact@v4
@@ -205,8 +1009,41 @@ package-lock.json</code></pre><p class="small">Node 22 • testes nativos<br>Fun
     name: aplicacao
     path: dist/
     if-no-files-found: error
-    retention-days: 7</code></pre></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>3 min. Abra 04-ci-completa.yml. Execute e localize Artifacts no resumo do workflow. name dá o identificador, path seleciona conteúdo, if-no-files-found impede sucesso silencioso sem arquivos, retention-days configura sete dias dentro dos limites aplicáveis ao repositório. Nosso script cria dist antes do upload. Não envie .env ou credenciais no artifact.</p><h3>Leitura linha por linha</h3><ol><li><code>- name: Gerar build</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>  run: npm run build</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>- name: Salvar artifact</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>  uses: actions/upload-artifact@v4</code> — Executa a Action indicada na referência após @.</li><li><code>  with:</code> — Agrupa parâmetros de entrada da Action.</li><li><code>    name: aplicacao</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>    path: dist/</code> — Indica o diretório de origem no upload ou destino no download.</li><li><code>    if-no-files-found: error</code> — Faz o upload falhar se o caminho não contiver arquivos.</li><li><code>    retention-days: 7</code> — Solicita retenção do artifact por sete dias.</li></ol></aside></section>
-<section id="slide-31" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Outro job recupera o resultado</h2><div class="content"><div class="code-label">Trecho • sob jobs em 04-ci-completa.yml</div><pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-8|9">inspect:
+    retention-days: 7</code></pre>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>3 min. Abra 04-ci-completa.yml. Execute e localize Artifacts no resumo do workflow. name dá o
+              identificador, path seleciona conteúdo, if-no-files-found impede sucesso silencioso sem arquivos,
+              retention-days configura sete dias dentro dos limites aplicáveis ao repositório. Nosso script cria dist
+              antes do upload. Não envie .env ou credenciais no artifact.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>- name: Gerar build</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a
+                etapa.</li>
+              <li><code>  run: npm run build</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>- name: Salvar artifact</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>  uses: actions/upload-artifact@v4</code> — Executa a Action indicada na referência após @.</li>
+              <li><code>  with:</code> — Agrupa parâmetros de entrada da Action.</li>
+              <li><code>    name: aplicacao</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a
+                etapa.</li>
+              <li><code>    path: dist/</code> — Indica o diretório de origem no upload ou destino no download.</li>
+              <li><code>    if-no-files-found: error</code> — Faz o upload falhar se o caminho não contiver arquivos.
+              </li>
+              <li><code>    retention-days: 7</code> — Solicita retenção do artifact por sete dias.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-31" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Outro job recupera o resultado</h2>
+          <div class="content">
+            <div class="code-label">Trecho • sob jobs em 04-ci-completa.yml</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-8|9">inspect:
   needs: build
   runs-on: ubuntu-latest
   steps:
@@ -214,45 +1051,339 @@ package-lock.json</code></pre><p class="small">Node 22 • testes nativos<br>Fun
       with:
         name: aplicacao
         path: dist/
-    - run: node dist/soma.js</code></pre><p class="small">Inspeção do artifact. Nenhum deploy real.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>3 min. O nome precisa coincidir com o upload. needs garante que build terminou. download-artifact procura na mesma execução por padrão. O script usa apenas recursos básicos de Node disponível na imagem Ubuntu hospedada, e dist inclui package.json com type module. Para controlar precisamente o runtime deste job, também poderíamos acrescentar setup-node. Este job não precisa de checkout, porque executa o artifact baixado. Resultado esperado: 2 + 3 = 5.</p><h3>Leitura linha por linha</h3><ol><li><code>inspect:</code> — Identificador do job; permite referências por needs.</li><li><code>  needs: build</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de iniciar.</li><li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>    - uses: actions/download-artifact@v4</code> — Executa a Action indicada na referência após @.</li><li><code>      with:</code> — Agrupa parâmetros de entrada da Action.</li><li><code>        name: aplicacao</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>        path: dist/</code> — Indica o diretório de origem no upload ou destino no download.</li><li><code>    - run: node dist/soma.js</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-</section>
+    - run: node dist/soma.js</code></pre>
+            <p class="small">Inspeção do artifact. Nenhum deploy real.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>3 min. O nome precisa coincidir com o upload. needs garante que build terminou. download-artifact procura
+              na mesma execução por padrão. O script usa apenas recursos básicos de Node disponível na imagem Ubuntu
+              hospedada, e dist inclui package.json com type module. Para controlar precisamente o runtime deste job,
+              também poderíamos acrescentar setup-node. Este job não precisa de checkout, porque executa o artifact
+              baixado. Resultado esperado: 2 + 3 = 5.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>inspect:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>  needs: build</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de iniciar.
+              </li>
+              <li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>    - uses: actions/download-artifact@v4</code> — Executa a Action indicada na referência após
+                @.</li>
+              <li><code>      with:</code> — Agrupa parâmetros de entrada da Action.</li>
+              <li><code>        name: aplicacao</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>        path: dist/</code> — Indica o diretório de origem no upload ou destino no download.</li>
+              <li><code>    - run: node dist/soma.js</code> — Executa o comando no shell; | inicia um bloco multilinha.
+              </li>
+            </ol>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 32 a 34; detalhamento vertical -->
-<section>
-<section id="slide-32" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Secrets: credenciais fora do YAML</h2><div class="content"><div class="two"><div><div class="bad"><b>Evitar</b><p>Token literal no repositório</p></div></div><div><div class="good"><b>Usar</b><p>Configuração de secrets no GitHub</p></div></div></div><div class="code-label">Expressão do GitHub Actions</div><pre><code class="language-text">${{ secrets.API_TOKEN }}</code></pre><p class="small">Settings → Secrets and variables → Actions</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Use somente um valor fictício para demonstração, por exemplo token-de-aula-sem-acesso. Secrets podem ter escopo de repositório, organização ou environment. A configuração exige permissões adequadas. A expressão resolve o valor durante a execução. Dados secretos não devem ir para logs nem artifacts. PRs de forks normalmente não recebem secrets, com exceções específicas como GITHUB_TOKEN com permissões restritas.</p></aside></section>
-<section id="slide-33" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Um secret no step</h2><div class="content"><div class="code-label">Trecho • steps de um job controlado</div><pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-6">- name: Validar configuração
+      <!-- Tópico horizontal: slides 32 a 34; detalhamento vertical -->
+      <section>
+        <section id="slide-32" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Secrets: credenciais fora do YAML</h2>
+          <div class="content">
+            <div class="two">
+              <div>
+                <div class="bad"><b>Evitar</b>
+                  <p>Token literal no repositório</p>
+                </div>
+              </div>
+              <div>
+                <div class="good"><b>Usar</b>
+                  <p>Configuração de secrets no GitHub</p>
+                </div>
+              </div>
+            </div>
+            <div class="code-label">Expressão do GitHub Actions</div>
+            <pre><code class="language-text">${{ secrets.API_TOKEN }}</code></pre>
+            <p class="small">Settings → Secrets and variables → Actions</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>2 min. Use somente um valor fictício para demonstração, por exemplo token-de-aula-sem-acesso. Secrets
+              podem ter escopo de repositório, organização ou environment. A configuração exige permissões adequadas. A
+              expressão resolve o valor durante a execução. Dados secretos não devem ir para logs nem artifacts. PRs de
+              forks normalmente não recebem secrets, com exceções específicas como GITHUB_TOKEN com permissões
+              restritas.</p>
+          </aside>
+        </section>
+        <section id="slide-33" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Um secret no step</h2>
+          <div class="content">
+            <div class="code-label">Trecho • steps de um job controlado</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-6">- name: Validar configuração
   env:
     API_TOKEN: ${{ secrets.API_TOKEN }}
   run: |
     test -n &quot;$API_TOKEN&quot;
-    echo &quot;Token configurado; valor não exibido&quot;</code></pre><p class="callout">O comando confirma presença sem imprimir o valor.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>2 min. Crie API_TOKEN fictício nas configurações se quiser executar este fragmento. env disponibiliza o valor apenas no step. test -n retorna erro se a variável estiver vazia. Esse teste só verifica presença, não validade de credenciais. Se secret não estiver configurado, a expressão resulta em string vazia. Evite executar demonstrações com secrets em PRs de origem não confiável. Mascaramento de logs é defesa adicional, não autorização para imprimir segredos.</p><h3>Leitura linha por linha</h3><ol><li><code>- name: Validar configuração</code> — Define um nome legível; no topo nomeia o workflow, no step nomeia a etapa.</li><li><code>  env:</code> — Define variáveis de ambiente para este escopo.</li><li><code>    API_TOKEN: ${{ secrets.API_TOKEN }}</code> — Obtém o secret API_TOKEN sem incluí-lo literalmente no arquivo.</li><li><code>  run: |</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>    test -n &quot;$API_TOKEN&quot;</code> — Verifica se a variável contém algum valor, sem imprimi-lo.</li><li><code>    echo &quot;Token configurado; valor não exibido&quot;</code> — Escreve somente a mensagem literal no log.</li></ol></aside></section>
-<section id="slide-34" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Se uma credencial foi commitada?</h2><div class="content"><div class="flow"><div class="node">Exposição</div><span class="arrow">→</span><div class="node">Revogar / rotacionar</div><span class="arrow">→</span><div class="node">Investigar uso</div><span class="arrow">→</span><div class="node">Remover do histórico</div></div><p class="big smallbig">Apagar no próximo commit<br>não remove os anteriores.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Primeiro invalide a credencial no serviço de origem e crie substituta quando necessário. Depois avalie acessos, remova o segredo da versão atual e trate o histórico com a equipe, pois reescrita pode afetar colaboradores. Não demonstre reescrita de um repositório real em aula. Prevenção: secrets, revisão e secret scanning quando disponível.</p></aside></section>
-</section>
+    echo &quot;Token configurado; valor não exibido&quot;</code></pre>
+            <p class="callout">O comando confirma presença sem imprimir o valor.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>2 min. Crie API_TOKEN fictício nas configurações se quiser executar este fragmento. env disponibiliza o
+              valor apenas no step. test -n retorna erro se a variável estiver vazia. Esse teste só verifica presença,
+              não validade de credenciais. Se secret não estiver configurado, a expressão resulta em string vazia. Evite
+              executar demonstrações com secrets em PRs de origem não confiável. Mascaramento de logs é defesa
+              adicional, não autorização para imprimir segredos.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>- name: Validar configuração</code> — Define um nome legível; no topo nomeia o workflow, no step
+                nomeia a etapa.</li>
+              <li><code>  env:</code> — Define variáveis de ambiente para este escopo.</li>
+              <li><code>    API_TOKEN: ${{ secrets.API_TOKEN }}</code> — Obtém o secret API_TOKEN sem incluí-lo
+                literalmente no arquivo.</li>
+              <li><code>  run: |</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+              <li><code>    test -n &quot;$API_TOKEN&quot;</code> — Verifica se a variável contém algum valor, sem
+                imprimi-lo.</li>
+              <li><code>    echo &quot;Token configurado; valor não exibido&quot;</code> — Escreve somente a mensagem
+                literal no log.</li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-34" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Se uma credencial foi commitada?</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">Exposição</div><span class="arrow">→</span>
+              <div class="node">Revogar / rotacionar</div><span class="arrow">→</span>
+              <div class="node">Investigar uso</div><span class="arrow">→</span>
+              <div class="node">Remover do histórico</div>
+            </div>
+            <p class="big smallbig">Apagar no próximo commit<br>não remove os anteriores.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>2 min. Primeiro invalide a credencial no serviço de origem e crie substituta quando necessário. Depois
+              avalie acessos, remova o segredo da versão atual e trate o histórico com a equipe, pois reescrita pode
+              afetar colaboradores. Não demonstre reescrita de um repositório real em aula. Prevenção: secrets, revisão
+              e secret scanning quando disponível.</p>
+          </aside>
+        </section>
+      </section>
 
-<!-- Tópico horizontal: slides 35 a 36; detalhamento vertical -->
-<section>
-<section id="slide-35" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Environments organizam destinos</h2><div class="content"><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>development</h3><p>Desenvolvimento e experimentação.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>staging</h3><p>Validação antes de publicar.</p></article><article class="fragment fade-up" data-fragment-index="2"><h3>production</h3><p>Uso real e regras de proteção.</p></article></div><div class="code-label">Trecho • propriedade de um job</div><pre><code class="language-yaml">environment: production</code></pre><p class="small">Secrets, branches permitidas e proteções dependem da configuração.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min. Environment é uma configuração lógica, não cria servidores nem executa deploy sozinho. Prepare production em Settings, Environments. Apenas escrever environment no YAML não cria uma aprovação. A disponibilidade de secrets e proteções varia por plano e visibilidade do repositório. Required reviewers em planos Free, Pro e Team estão disponíveis para repositórios públicos. Confira a documentação citada no README antes da aula.</p><h3>Leitura linha por linha</h3><ol><li><code>environment: production</code> — Associa o job ao environment e às suas proteções configuradas.</li></ol></aside></section>
-<section id="slide-36" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Gate humano antes de executar</h2><div class="content"><div class="flow"><div class="node">CI ✓</div><span class="arrow">→</span><div class="node">Artifact ✓</div><span class="arrow">→</span><div class="node">Staging</div><span class="arrow">→</span><div class="node">Aprovação</div><span class="arrow">→</span><div class="node">Production</div></div><div class="code-label">Trecho • 05-gate.yml contém o workflow completo</div><pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">demonstrar:
+      <!-- Tópico horizontal: slides 35 a 36; detalhamento vertical -->
+      <section>
+        <section id="slide-35" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Environments organizam destinos</h2>
+          <div class="content">
+            <div class="cards">
+              <article class="fragment fade-up" data-fragment-index="0">
+                <h3>development</h3>
+                <p>Desenvolvimento e experimentação.</p>
+              </article>
+              <article class="fragment fade-up" data-fragment-index="1">
+                <h3>staging</h3>
+                <p>Validação antes de publicar.</p>
+              </article>
+              <article class="fragment fade-up" data-fragment-index="2">
+                <h3>production</h3>
+                <p>Uso real e regras de proteção.</p>
+              </article>
+            </div>
+            <div class="code-label">Trecho • propriedade de um job</div>
+            <pre><code class="language-yaml">environment: production</code></pre>
+            <p class="small">Secrets, branches permitidas e proteções dependem da configuração.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>3 min. Environment é uma configuração lógica, não cria servidores nem executa deploy sozinho. Prepare
+              production em Settings, Environments. Apenas escrever environment no YAML não cria uma aprovação. A
+              disponibilidade de secrets e proteções varia por plano e visibilidade do repositório. Required reviewers
+              em planos Free, Pro e Team estão disponíveis para repositórios públicos. Confira a documentação citada no
+              README antes da aula.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>environment: production</code> — Associa o job ao environment e às suas proteções configuradas.
+              </li>
+            </ol>
+          </aside>
+        </section>
+        <section id="slide-36" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+          <h2>Gate humano antes de executar</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">CI ✓</div><span class="arrow">→</span>
+              <div class="node">Artifact ✓</div><span class="arrow">→</span>
+              <div class="node">Staging</div><span class="arrow">→</span>
+              <div class="node">Aprovação</div><span class="arrow">→</span>
+              <div class="node">Production</div>
+            </div>
+            <div class="code-label">Trecho • 05-gate.yml contém o workflow completo</div>
+            <pre><code class="language-yaml" data-trim data-line-numbers="1-3|4-5">demonstrar:
   runs-on: ubuntu-latest
   environment: production
   steps:
-    - run: echo &quot;Gate liberado&quot;</code></pre><p class="small">Required reviewers precisam ser configurados no environment.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>4 min. No repositório de laboratório, configure production com um required reviewer, se o plano permitir. Use 05-gate.yml, acionado manualmente na main. Enquanto aguardando proteção, o job não inicia no runner e não recebe secrets do ambiente. Após aprovação, ele apenas escreve a mensagem. Se prevent self-review estiver habilitado, outra pessoa precisa aprovar. Se a opção não estiver disponível, explique o fluxo sem fingir que o gate existe. Aprovação para liberar ilustra Continuous Delivery.</p><h3>Leitura linha por linha</h3><ol><li><code>demonstrar:</code> — Identificador do job; permite referências por needs.</li><li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>  environment: production</code> — Associa o job ao environment e às suas proteções configuradas.</li><li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>    - run: echo &quot;Gate liberado&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
-</section>
+    - run: echo &quot;Gate liberado&quot;</code></pre>
+            <p class="small">Required reviewers precisam ser configurados no environment.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+              próximo slide.</p>
+            <p>4 min. No repositório de laboratório, configure production com um required reviewer, se o plano permitir.
+              Use 05-gate.yml, acionado manualmente na main. Enquanto aguardando proteção, o job não inicia no runner e
+              não recebe secrets do ambiente. Após aprovação, ele apenas escreve a mensagem. Se prevent self-review
+              estiver habilitado, outra pessoa precisa aprovar. Se a opção não estiver disponível, explique o fluxo sem
+              fingir que o gate existe. Aprovação para liberar ilustra Continuous Delivery.</p>
+            <h3>Leitura linha por linha</h3>
+            <ol>
+              <li><code>demonstrar:</code> — Identificador do job; permite referências por needs.</li>
+              <li><code>  runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+              <li><code>  environment: production</code> — Associa o job ao environment e às suas proteções
+                configuradas.</li>
+              <li><code>  steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+              <li><code>    - run: echo &quot;Gate liberado&quot;</code> — Executa o comando no shell; | inicia um bloco
+                multilinha.</li>
+            </ol>
+          </aside>
+        </section>
+      </section>
 
-<!-- Slide 37 -->
-<section id="slide-37" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>Nossa pipeline até agora</h2><div class="content"><div class="fork horizontal"><b>Push / PR</b><div><span>lint</span><span>test</span></div><b>→</b><div><span>build</span></div><b>→</b><div><span>artifact</span></div><b>→</b><div><span>inspect</span></div></div><p class="callout">Implementado: CI e preservação do resultado.</p><p class="lead muted">Próxima evolução: staging, aprovação e produção.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Diferencie exatamente o que foi executado do que ainda é arquitetura proposta. 04-ci-completa.yml implementa lint de sintaxe, testes, build, upload e inspeção em outro job. 05-gate.yml é uma demonstração separada da proteção, não está conectado à promoção do artifact. Não alegue que houve deployment.</p></aside></section>
+      <!-- Slide 37 -->
+      <section id="slide-37" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+        <h2>Nossa pipeline até agora</h2>
+        <div class="content">
+          <div class="fork horizontal"><b>Push / PR</b>
+            <div><span>lint</span><span>test</span></div><b>→</b>
+            <div><span>build</span></div><b>→</b>
+            <div><span>artifact</span></div><b>→</b>
+            <div><span>inspect</span></div>
+          </div>
+          <p class="callout">Implementado: CI e preservação do resultado.</p>
+          <p class="lead muted">Próxima evolução: staging, aprovação e produção.</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>2 min. Diferencie exatamente o que foi executado do que ainda é arquitetura proposta. 04-ci-completa.yml
+            implementa lint de sintaxe, testes, build, upload e inspeção em outro job. 05-gate.yml é uma demonstração
+            separada da proteção, não está conectado à promoção do artifact. Não alegue que houve deployment.</p>
+        </aside>
+      </section>
 
-<!-- Slide 38 -->
-<section id="slide-38" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div><h2>O que muda com Docker?</h2><div class="content"><div class="cards"><article class="fragment fade-up" data-fragment-index="0"><h3>Hoje</h3><p>Build gera arquivos em dist/. Actions preserva o artifact.</p></article><article class="fragment fade-up" data-fragment-index="1"><h3>Próximas aulas</h3><p>Docker build gera uma imagem. Um registry armazena a imagem.</p></article></div><div class="flow"><div class="node">Código + Dockerfile</div><span class="arrow">→</span><div class="node">Imagem</div><span class="arrow">→</span><div class="node">Registry</div><span class="arrow">→</span><div class="node">Deploy</div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Imagem é um pacote com filesystem e metadados para iniciar containers. Container é uma instância em execução, não o arquivo de build. Registry é o destino usual para imagens, diferente do armazenamento de artifacts do Actions. A pipeline poderá produzir e publicar imagens e depois referenciar uma versão ou digest no deploy.</p></aside></section>
+      <!-- Slide 38 -->
+      <section id="slide-38" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Resultados e entrega</span></div>
+        <h2>O que muda com Docker?</h2>
+        <div class="content">
+          <div class="cards">
+            <article class="fragment fade-up" data-fragment-index="0">
+              <h3>Hoje</h3>
+              <p>Build gera arquivos em dist/. Actions preserva o artifact.</p>
+            </article>
+            <article class="fragment fade-up" data-fragment-index="1">
+              <h3>Próximas aulas</h3>
+              <p>Docker build gera uma imagem. Um registry armazena a imagem.</p>
+            </article>
+          </div>
+          <div class="flow">
+            <div class="node">Código + Dockerfile</div><span class="arrow">→</span>
+            <div class="node">Imagem</div><span class="arrow">→</span>
+            <div class="node">Registry</div><span class="arrow">→</span>
+            <div class="node">Deploy</div>
+          </div>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>2 min. Imagem é um pacote com filesystem e metadados para iniciar containers. Container é uma instância em
+            execução, não o arquivo de build. Registry é o destino usual para imagens, diferente do armazenamento de
+            artifacts do Actions. A pipeline poderá produzir e publicar imagens e depois referenciar uma versão ou
+            digest no deploy.</p>
+        </aside>
+      </section>
 
-<!-- Tópico horizontal: slides 39 a 40; detalhamento vertical -->
-<section>
-<section id="slide-39" class="light" data-background-color="#edf1f5"><div class="eyebrow">DEVOPS TOOLS <span>/ Desafio</span></div><h2>Desafio da turma</h2><div class="content"><p class="subtitle">15 minutos em duplas</p><div class="two"><div class="fragment fade-up" data-fragment-index="0"><ol><li>Trigger em push</li><li>Checkout e mensagem própria</li><li>Listagem dos arquivos</li><li>Dois jobs com <code>needs</code></li></ol></div><div class="fragment fade-up" data-fragment-index="1"><ol start="5"><li>Falha proposital</li><li>Leitura do log</li><li>Correção em novo commit</li><li>Execução final verde</li></ol></div></div><p class="callout">Entrega: YAML + evidência da falha e da correção.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>12 min para execução, com 3 min restantes reservados à revisão do desafio extra. Circule pelas duplas e peça que expliquem o motivo de cada chave. Critérios: evento correto, dois jobs válidos com dependência, steps executáveis e evidência de diagnóstico/correção. A mensagem pode estar em primeiro job e a listagem no segundo, mas este precisará do próprio checkout. Erro comum: achar que needs compartilha disco.</p></aside></section>
-<section id="slide-40" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Desafio</span></div><h2>Desafio extra</h2><div class="content"><div class="flow"><div class="node">lint ∥ test</div><span class="arrow">→</span><div class="node">build com needs</div><span class="arrow">→</span><div class="node">Upload</div><span class="arrow">→</span><div class="node">Download</div></div><p class="lead">Use o projeto Node e preserve <code>dist/</code>.</p><div class="question">Como provar que outro job recebeu o artifact?</div><p class="fragment fade-up answer">Baixe o artifact no job seguinte e execute node dist/soma.js.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>3 min de orientação e revisão. As duplas adiantadas podem iniciar este desafio enquanto outras concluem o básico. Resposta: baixar no job seguinte e executar node dist/soma.js ou listar e validar os arquivos. Referência de correção: 04-ci-completa.yml. Para ampliar fora da aula, use um linter real ou teste que quebre por regressão. Não acrescente credenciais reais para concluir o desafio.</p></aside></section>
-</section>
+      <!-- Tópico horizontal: slides 39 a 40; detalhamento vertical -->
+      <section>
+        <section id="slide-39" class="light" data-background-color="#edf1f5">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Desafio</span></div>
+          <h2>Desafio da turma</h2>
+          <div class="content">
+            <p class="subtitle">15 minutos em duplas</p>
+            <div class="two">
+              <div class="fragment fade-up" data-fragment-index="0">
+                <ol>
+                  <li>Trigger em push</li>
+                  <li>Checkout e mensagem própria</li>
+                  <li>Listagem dos arquivos</li>
+                  <li>Dois jobs com <code>needs</code></li>
+                </ol>
+              </div>
+              <div class="fragment fade-up" data-fragment-index="1">
+                <ol start="5">
+                  <li>Falha proposital</li>
+                  <li>Leitura do log</li>
+                  <li>Correção em novo commit</li>
+                  <li>Execução final verde</li>
+                </ol>
+              </div>
+            </div>
+            <p class="callout">Entrega: YAML + evidência da falha e da correção.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>12 min para execução, com 3 min restantes reservados à revisão do desafio extra. Circule pelas duplas e
+              peça que expliquem o motivo de cada chave. Critérios: evento correto, dois jobs válidos com dependência,
+              steps executáveis e evidência de diagnóstico/correção. A mensagem pode estar em primeiro job e a listagem
+              no segundo, mas este precisará do próprio checkout. Erro comum: achar que needs compartilha disco.</p>
+          </aside>
+        </section>
+        <section id="slide-40" class="light">
+          <div class="eyebrow">DEVOPS TOOLS <span>/ Desafio</span></div>
+          <h2>Desafio extra</h2>
+          <div class="content">
+            <div class="flow">
+              <div class="node">lint ∥ test</div><span class="arrow">→</span>
+              <div class="node">build com needs</div><span class="arrow">→</span>
+              <div class="node">Upload</div><span class="arrow">→</span>
+              <div class="node">Download</div>
+            </div>
+            <p class="lead">Use o projeto Node e preserve <code>dist/</code>.</p>
+            <div class="question">Como provar que outro job recebeu o artifact?</div>
+            <p class="fragment fade-up answer">Baixe o artifact no job seguinte e execute node dist/soma.js.</p>
+          </div>
+          
+          <aside class="notes">
+            <h2>NOTAS DO PROFESSOR</h2>
+            <p>3 min de orientação e revisão. As duplas adiantadas podem iniciar este desafio enquanto outras concluem o
+              básico. Resposta: baixar no job seguinte e executar node dist/soma.js ou listar e validar os arquivos.
+              Referência de correção: 04-ci-completa.yml. Para ampliar fora da aula, use um linter real ou teste que
+              quebre por regressão. Não acrescente credenciais reais para concluir o desafio.</p>
+          </aside>
+        </section>
+      </section>
 
-<!-- Slide 41 -->
-<section id="slide-41" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div><h2>Você consegue ler esta pipeline?</h2><div class="content"><div class="two"><div><div class="code-label">Completo • exercício de leitura</div><pre><code class="language-yaml" data-trim data-line-numbers="1|2-10|11-15">on: [push]
+      <!-- Slide 41 -->
+      <section id="slide-41" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div>
+        <h2>Você consegue ler esta pipeline?</h2>
+        <div class="content">
+          <div class="two">
+            <div>
+              <div class="code-label">Completo • exercício de leitura</div>
+              <pre><code class="language-yaml" data-trim data-line-numbers="1|2-10|11-15">on: [push]
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -266,50 +1397,239 @@ jobs:
     needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
-      - run: echo &quot;build&quot;</code></pre></div><div><ol><li>Qual evento?</li><li>Quantos jobs e steps?</li><li>Qual runner?</li><li>O que pode rodar em paralelo?</li><li>O build vai executar?</li></ol></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o próximo slide.</p><p>4 min. Respostas: push, três jobs, um step em cada job, ubuntu-latest. lint e test podem executar em paralelo. test falha por exit 1, então build será skipped por padrão. Os comandos lint/build são simulações, não fazem análise real. Peça justificativa da resposta e evite reduzir a atividade à memorização.</p><h3>Leitura linha por linha</h3><ol><li><code>on: [push]</code> — Declara os eventos que iniciam a execução.</li><li><code>jobs:</code> — Agrupa os jobs do workflow.</li><li><code>  lint:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;lint&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>  test:</code> — Identificador do job; permite referências por needs.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: exit 1</code> — Executa o comando no shell; | inicia um bloco multilinha.</li><li><code>  build:</code> — Identificador do job; permite referências por needs.</li><li><code>    needs: [lint, test]</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de iniciar.</li><li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li><li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li><li><code>      - run: echo &quot;build&quot;</code> — Executa o comando no shell; | inicia um bloco multilinha.</li></ol></aside></section>
+      - run: echo &quot;build&quot;</code></pre>
+            </div>
+            <div>
+              <ol>
+                <li>Qual evento?</li>
+                <li>Quantos jobs e steps?</li>
+                <li>Qual runner?</li>
+                <li>O que pode rodar em paralelo?</li>
+                <li>O build vai executar?</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>Recurso Reveal.js: use Espaço para percorrer os grupos de linhas destacadas. O último avanço segue para o
+            próximo slide.</p>
+          <p>4 min. Respostas: push, três jobs, um step em cada job, ubuntu-latest. lint e test podem executar em
+            paralelo. test falha por exit 1, então build será skipped por padrão. Os comandos lint/build são simulações,
+            não fazem análise real. Peça justificativa da resposta e evite reduzir a atividade à memorização.</p>
+          <h3>Leitura linha por linha</h3>
+          <ol>
+            <li><code>on: [push]</code> — Declara os eventos que iniciam a execução.</li>
+            <li><code>jobs:</code> — Agrupa os jobs do workflow.</li>
+            <li><code>  lint:</code> — Identificador do job; permite referências por needs.</li>
+            <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+            <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+            <li><code>      - run: echo &quot;lint&quot;</code> — Executa o comando no shell; | inicia um bloco
+              multilinha.</li>
+            <li><code>  test:</code> — Identificador do job; permite referências por needs.</li>
+            <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+            <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+            <li><code>      - run: exit 1</code> — Executa o comando no shell; | inicia um bloco multilinha.</li>
+            <li><code>  build:</code> — Identificador do job; permite referências por needs.</li>
+            <li><code>    needs: [lint, test]</code> — Exige os jobs indicados e, por padrão, seu sucesso antes de
+              iniciar.</li>
+            <li><code>    runs-on: ubuntu-latest</code> — Seleciona o ambiente do runner para este job.</li>
+            <li><code>    steps:</code> — Inicia a lista ordenada de etapas do job.</li>
+            <li><code>      - run: echo &quot;build&quot;</code> — Executa o comando no shell; | inicia um bloco
+              multilinha.</li>
+          </ol>
+        </aside>
+      </section>
 
-<!-- Slide 42 -->
-<section id="slide-42" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div><h2>Erros comuns e primeira checagem</h2><div class="content"><table><thead><tr><th>Sintoma</th><th>Onde olhar primeiro</th></tr></thead><tbody><tr><td>Nada executou</td><td>Caminho, evento e branch</td></tr><tr><td>Workflow inválido</td><td>Indentação e hierarquia</td></tr><tr><td>Comando não encontrado</td><td>Runtime e sistema do runner</td></tr><tr><td>Arquivo ausente</td><td>Checkout, diretório ou download</td></tr><tr><td>Job ignorado</td><td>needs e condições</td></tr><tr><td>Secret vazio</td><td>Nome, escopo e origem do evento</td></tr></tbody></table></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Relacione com erros observados nas duplas. Não conclua que todo problema é YAML. Leia a primeira falha relevante e confira a revisão executada. Para lentidão, observe duração por step antes de otimizar. Pipeline vermelha é um sinal para investigar.</p></aside></section>
+      <!-- Slide 42 -->
+      <section id="slide-42" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div>
+        <h2>Erros comuns e primeira checagem</h2>
+        <div class="content">
+          <table>
+            <thead>
+              <tr>
+                <th>Sintoma</th>
+                <th>Onde olhar primeiro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nada executou</td>
+                <td>Caminho, evento e branch</td>
+              </tr>
+              <tr>
+                <td>Workflow inválido</td>
+                <td>Indentação e hierarquia</td>
+              </tr>
+              <tr>
+                <td>Comando não encontrado</td>
+                <td>Runtime e sistema do runner</td>
+              </tr>
+              <tr>
+                <td>Arquivo ausente</td>
+                <td>Checkout, diretório ou download</td>
+              </tr>
+              <tr>
+                <td>Job ignorado</td>
+                <td>needs e condições</td>
+              </tr>
+              <tr>
+                <td>Secret vazio</td>
+                <td>Nome, escopo e origem do evento</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>2 min. Relacione com erros observados nas duplas. Não conclua que todo problema é YAML. Leia a primeira
+            falha relevante e confira a revisão executada. Para lentidão, observe duração por step antes de otimizar.
+            Pipeline vermelha é um sinal para investigar.</p>
+        </aside>
+      </section>
 
-<!-- Slide 43 -->
-<section id="slide-43" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div><h2>Conceitos e suas chaves</h2><div class="content"><div class="mapping"><div><span>Trigger</span><code>on</code></div><div><span>Pipeline</span><code>workflow</code></div><div><span>Job</span><code>jobs</code></div><div><span>Step</span><code>steps</code></div><div><span>Runner</span><code>runs-on</code></div><div><span>Dependência</span><code>needs</code></div><div><span>Artifact</span><code>upload / download-artifact</code></div><div><span>Credencial</span><code>secrets</code></div><div><span>Ambiente</span><code>environment</code></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Use o quadro como mapa final. Workflow é o arquivo/automação, não uma chave workflow obrigatória no YAML. environment é singular no job. Artifact é manipulado por Actions específicas. Logs atravessam todo o fluxo e ajudam a observar o resultado. Peça que localizem três conceitos no arquivo produzido pela dupla.</p></aside></section>
+      <!-- Slide 43 -->
+      <section id="slide-43" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div>
+        <h2>Conceitos e suas chaves</h2>
+        <div class="content">
+          <div class="mapping">
+            <div><span>Trigger</span><code>on</code></div>
+            <div><span>Pipeline</span><code>workflow</code></div>
+            <div><span>Job</span><code>jobs</code></div>
+            <div><span>Step</span><code>steps</code></div>
+            <div><span>Runner</span><code>runs-on</code></div>
+            <div><span>Dependência</span><code>needs</code></div>
+            <div><span>Artifact</span><code>upload / download-artifact</code></div>
+            <div><span>Credencial</span><code>secrets</code></div>
+            <div><span>Ambiente</span><code>environment</code></div>
+          </div>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>2 min. Use o quadro como mapa final. Workflow é o arquivo/automação, não uma chave workflow obrigatória no
+            YAML. environment é singular no job. Artifact é manipulado por Actions específicas. Logs atravessam todo o
+            fluxo e ajudam a observar o resultado. Peça que localizem três conceitos no arquivo produzido pela dupla.
+          </p>
+        </aside>
+      </section>
 
-<!-- Slide 44 -->
-<section id="slide-44" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div><h2>Você consegue responder?</h2><div class="content"><div class="two"><div class="fragment fade-up" data-fragment-index="0"><ol><li>O que dispara o workflow?</li><li>O que é um job?</li><li>O que é um step?</li><li>Quem executa os comandos?</li></ol></div><div class="fragment fade-up" data-fragment-index="1"><ol start="5"><li>Para que serve needs?</li><li>Por que salvar artifacts?</li><li>Onde guardar credenciais?</li><li>Vermelho é sempre ruim?</li></ol></div></div></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>4 min. Respostas: evento compatível com on; unidade de trabalho atribuída a runner; ação/comando dentro de job; runner; dependência e condição padrão de sucesso; persistir/transferir resultados; secrets no escopo adequado; não, pode significar detecção correta. Escolha alunos diferentes e peça um exemplo, não apenas uma definição.</p></aside></section>
+      <!-- Slide 44 -->
+      <section id="slide-44" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div>
+        <h2>Você consegue responder?</h2>
+        <div class="content">
+          <div class="two">
+            <div class="fragment fade-up" data-fragment-index="0">
+              <ol>
+                <li>O que dispara o workflow?</li>
+                <li>O que é um job?</li>
+                <li>O que é um step?</li>
+                <li>Quem executa os comandos?</li>
+              </ol>
+            </div>
+            <div class="fragment fade-up" data-fragment-index="1">
+              <ol start="5">
+                <li>Para que serve needs?</li>
+                <li>Por que salvar artifacts?</li>
+                <li>Onde guardar credenciais?</li>
+                <li>Vermelho é sempre ruim?</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>4 min. Respostas: evento compatível com on; unidade de trabalho atribuída a runner; ação/comando dentro de
+            job; runner; dependência e condição padrão de sucesso; persistir/transferir resultados; secrets no escopo
+            adequado; não, pode significar detecção correta. Escolha alunos diferentes e peça um exemplo, não apenas uma
+            definição.</p>
+        </aside>
+      </section>
 
-<!-- Slide 45 -->
-<section id="slide-45" class="light"><div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div><h2>Do código ao feedback</h2><div class="content"><div class="flow"><div class="node">Commit</div><span class="arrow">→</span><div class="node">Push / PR</div><span class="arrow">→</span><div class="node">Workflow</div><span class="arrow">→</span><div class="node">Runner</div></div><div class="flow"><div class="node">Testes</div><span class="arrow">→</span><div class="node">Build</div><span class="arrow">→</span><div class="node">Artifact</div><span class="arrow">→</span><div class="node">Feedback</div></div><p class="big smallbig">Uma alteração deixa<br>uma evidência verificável.</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>2 min. Retome o objetivo inicial e peça que uma dupla mostre a execução e o artifact. Código e configuração estão versionados, e o resultado é rastreável ao commit. O próximo passo será empacotar a aplicação com seu runtime para reduzir diferenças entre ambientes.</p></aside></section>
+      <!-- Slide 45 -->
+      <section id="slide-45" class="light">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Fechamento</span></div>
+        <h2>Do código ao feedback</h2>
+        <div class="content">
+          <div class="flow">
+            <div class="node">Commit</div><span class="arrow">→</span>
+            <div class="node">Push / PR</div><span class="arrow">→</span>
+            <div class="node">Workflow</div><span class="arrow">→</span>
+            <div class="node">Runner</div>
+          </div>
+          <div class="flow">
+            <div class="node">Testes</div><span class="arrow">→</span>
+            <div class="node">Build</div><span class="arrow">→</span>
+            <div class="node">Artifact</div><span class="arrow">→</span>
+            <div class="node">Feedback</div>
+          </div>
+          <p class="big smallbig">Uma alteração deixa<br>uma evidência verificável.</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>2 min. Retome o objetivo inicial e peça que uma dupla mostre a execução e o artifact. Código e configuração
+            estão versionados, e o resultado é rastreável ao commit. O próximo passo será empacotar a aplicação com seu
+            runtime para reduzir diferenças entre ambientes.</p>
+        </aside>
+      </section>
 
-<!-- Slide 46 -->
-<section id="slide-46" class="light" data-background-color="#edf1f5"><div class="eyebrow">DEVOPS TOOLS <span>/ Próxima etapa</span></div><h2>E se quisermos empacotar tudo?</h2><div class="content"><p class="big">Aplicação + runtime<br>+ dependências</p><div class="flow"><div class="node">Dockerfile</div><span class="arrow">→</span><div class="node">Docker build</div><span class="arrow">→</span><div class="node">Imagem</div></div><p class="subtitle">Próxima aula: Docker</p></div><footer>DEVOPS TOOLS · Prof. Dr. Diogo Francisco Borba Rodrigues</footer><aside class="notes"><h2>NOTAS DO PROFESSOR</h2><p>1 min. Encerre distinguindo imagem de container: build produz imagem, executar a imagem cria containers. A automação poderá gerar a imagem e enviá-la a um registry. Tarefa de preparação: trazer o repositório com a CI verde e saber indicar qual arquivo do projeto define os comandos de teste e build.</p></aside></section>
+      <!-- Slide 46 -->
+      <section id="slide-46" class="light" data-background-color="#edf1f5">
+        <div class="eyebrow">DEVOPS TOOLS <span>/ Próxima etapa</span></div>
+        <h2>E se quisermos empacotar tudo?</h2>
+        <div class="content">
+          <p class="big">Aplicação + runtime<br>+ dependências</p>
+          <div class="flow">
+            <div class="node">Dockerfile</div><span class="arrow">→</span>
+            <div class="node">Docker build</div><span class="arrow">→</span>
+            <div class="node">Imagem</div>
+          </div>
+          <p class="subtitle">Próxima aula: Docker</p>
+        </div>
+        
+        <aside class="notes">
+          <h2>NOTAS DO PROFESSOR</h2>
+          <p>1 min. Encerre distinguindo imagem de container: build produz imagem, executar a imagem cria containers. A
+            automação poderá gerar a imagem e enviá-la a um registry. Tarefa de preparação: trazer o repositório com a
+            CI verde e saber indicar qual arquivo do projeto define os comandos de teste e build.</p>
+        </aside>
+      </section>
+    </div>
   </div>
-</div>
 
-<script src="../../../../../reveal.js-master/dist/reveal.js"></script>
-<script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
-<script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
-<script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
-<script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
-<script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
-<script>
-  Reveal.initialize({
-    width: 1280,
-    height: 720,
-    margin: 0.04,
-    controls: true,
-    progress: true,
-    center: true,
-    hash: true,
-    slideNumber: 'c/t',
-    showSlideNumber: 'all',
-    // Setas: tópicos horizontais e detalhes verticais. Espaço percorre tudo.
-    navigationMode: 'default',
-    transition: 'slide',
-    backgroundTransition: 'fade',
-    fragments: true,
-    pdfSeparateFragments: false,
-    plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
-  });
-</script>
+  <script src="../../../../../reveal.js-master/dist/reveal.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/zoom/zoom.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/notes/notes.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/search/search.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/markdown/markdown.js"></script>
+  <script src="../../../../../reveal.js-master/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: 'c/t',
+      showSlideNumber: 'all',
+      // Setas: tópicos horizontais e detalhes verticais. Espaço percorre tudo.
+      navigationMode: 'default',
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      fragments: true,
+      pdfSeparateFragments: false,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
 </body>
+
 </html>
