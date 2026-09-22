@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Página inicial da disciplina Front-end Frameworks da UNINASSAU 2026.2.">
+	<title>Front-end Frameworks | UNINASSAU 2026.2</title>
+	<style>
+		:root {
+			--ink: #17233b;
+			--muted: #63708a;
+			--paper: #f5f7fb;
+			--card: #ffffff;
+			--line: #dce3ef;
+			--blue: #246bce;
+			--blue-dark: #153d79;
+			--coral: #ef765d;
+			--shadow: 0 18px 50px rgba(28, 52, 91, 0.1);
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: Georgia, 'Times New Roman', serif;
+			line-height: 1.5;
+		}
+		a { color: inherit; }
+		.shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 28px 0;
+			color: var(--blue-dark);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: .75rem;
+			font-weight: 700;
+			letter-spacing: .12em;
+			text-transform: uppercase;
+		}
+		.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+		.brand-mark {
+			display: grid;
+			width: 30px;
+			height: 30px;
+			place-items: center;
+			border-radius: 8px;
+			color: #fff;
+			background: var(--blue);
+			font-size: .9rem;
+		}
+
+		.hero {
+			position: relative;
+			overflow: hidden;
+			padding: clamp(54px, 9vw, 110px) clamp(28px, 7vw, 88px);
+			border-radius: 4px;
+			color: #f7fbff;
+			background: var(--blue-dark);
+			box-shadow: var(--shadow);
+		}
+		.hero::before,
+		.hero::after {
+			position: absolute;
+			border: 1px solid rgba(185, 220, 255, .28);
+			border-radius: 50%;
+			content: '';
+		}
+		.hero::before { right: -90px; bottom: -160px; width: 430px; height: 430px; }
+		.hero::after { right: 70px; bottom: -120px; width: 280px; height: 280px; }
+		.eyebrow, .hero h1, .hero-copy { position: relative; z-index: 1; }
+		.eyebrow {
+			margin: 0 0 18px;
+			color: #9ed7ff;
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: .76rem;
+			font-weight: 700;
+			letter-spacing: .16em;
+			text-transform: uppercase;
+		}
+		h1 {
+			max-width: 780px;
+			margin: 0;
+			font-size: clamp(3rem, 8vw, 6.5rem);
+			font-weight: 400;
+			letter-spacing: -.04em;
+			line-height: .9;
+		}
+		.hero-copy {
+			max-width: 590px;
+			margin: 28px 0 0;
+			color: #cddcf0;
+			font-size: clamp(1.05rem, 2vw, 1.3rem);
+		}
+
+		.content { padding: 74px 0 90px; }
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 24px;
+			margin-bottom: 26px;
+		}
+		h2 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -.03em; line-height: 1; }
+		.section-heading p { max-width: 330px; margin: 0; color: var(--muted); font-size: .95rem; }
+		.lessons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+		.lesson {
+			display: flex;
+			min-height: 255px;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 26px;
+			border: 1px solid var(--line);
+			background: var(--card);
+			box-shadow: 0 6px 18px rgba(28, 52, 91, .04);
+			transition: transform 180ms ease, box-shadow 180ms ease;
+		}
+		.lesson:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+		.lesson-number {
+			display: block;
+			margin-bottom: 38px;
+			color: var(--coral);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: .75rem;
+			font-weight: 700;
+			letter-spacing: .14em;
+		}
+		.lesson h3 { margin: 0; font-size: 1.8rem; font-weight: 400; }
+		.lesson p { min-height: 48px; margin: 8px 0 24px; color: var(--muted); font-size: .95rem; }
+		.lesson-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 9px;
+			align-self: flex-start;
+			color: var(--blue);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: .78rem;
+			font-weight: 700;
+			letter-spacing: .08em;
+			text-decoration: none;
+			text-transform: uppercase;
+		}
+		.lesson-link::after { content: '\2192'; font-size: 1.15rem; transition: transform 180ms ease; }
+		.lesson-link:hover::after { transform: translateX(4px); }
+		footer {
+			padding: 22px 0 28px;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: .75rem;
+			letter-spacing: .08em;
+			text-transform: uppercase;
+		}
+		@media (max-width: 760px) {
+			.shell { width: min(100% - 28px, 540px); }
+			.topbar { padding: 20px 0; }
+			.topbar span:last-child { display: none; }
+			.hero { padding: 56px 25px 68px; }
+			.content { padding: 54px 0 64px; }
+			.section-heading { display: block; }
+			.section-heading p { margin-top: 14px; }
+			.lessons { grid-template-columns: 1fr; }
+			.lesson { min-height: 220px; }
+		}
+	</style>
+</head>
+<body>
+	<header class="shell topbar">
+		<a class="brand" href="../../../../index.html" aria-label="Página inicial do site">
+			<span class="brand-mark">D</span>
+			<span>UNINASSAU</span>
+		</a>
+		<span>2026.2 · Ciência da Computação</span>
+	</header>
+
+	<main class="shell">
+		<section class="hero" aria-labelledby="page-title">
+			<p class="eyebrow">Disciplina · 2026.2</p>
+			<h1 id="page-title">Front-end<br>Frameworks</h1>
+			<p class="hero-copy">Da base moderna do JavaScript aos primeiros componentes React, uma trilha prática para construir interfaces com mais clareza e velocidade.</p>
+		</section>
+
+		<section class="content" id="aulas" aria-labelledby="lessons-title">
+			<div class="section-heading">
+				<h2 id="lessons-title">Aulas</h2>
+				<p>Escolha uma aula para abrir o PDF ou a apresentação correspondente.</p>
+			</div>
+
+			<div class="lessons">
+				<article class="lesson">
+					<div><span class="lesson-number">01 / FUNDAMENTOS</span><h3>Aula 1</h3><p>Por que usar um framework no desenvolvimento front-end.</p></div>
+					<a class="lesson-link" href="aula1/01-por-que-usar-um-framework%20%20.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">02 / JAVASCRIPT</span><h3>Aula 2</h3><p>JavaScript moderno: funções e organização de dados.</p></div>
+					<a class="lesson-link" href="aula2/02-js-moderno-i-funcoes-e-dados%20.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">03 / JAVASCRIPT</span><h3>Aula 3</h3><p>Arrays, módulos e os recursos essenciais da linguagem.</p></div>
+					<a class="lesson-link" href="aula3/03-js-moderno-2-arrays-modulos-uninassau%20.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">04 / JAVASCRIPT</span><h3>Aula 4</h3><p>JavaScript moderno III: assincronismo e fluxo de dados.</p></div>
+					<a class="lesson-link" href="aula4/04-aula-js-moderno-III-assincronismo.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">05 / REACT</span><h3>Aula 5</h3><p>React com Vite, JSX e os primeiros componentes.</p></div>
+					<a class="lesson-link" href="aula5/05-React%20com%20Vite%20JSX%20e%20primeiros%20componentes.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">06 / REACT</span><h3>Aula 6</h3><p>Props, composição e CSS para estruturar interfaces.</p></div>
+					<a class="lesson-link" href="aula6/06-props-composicao-css.pdf" target="_blank" rel="noopener">Abrir material</a>
+				</article>
+				<article class="lesson">
+					<div><span class="lesson-number">07 / PRÁTICA</span><h3>Aula 7</h3><p>Apresentação prática para avançar no projeto da disciplina.</p></div>
+					<a class="lesson-link" href="aula7/index.html">Abrir apresentação</a>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer class="shell">Front-end Frameworks · UNINASSAU · 2026.2 · Prof. Diogo Rodrigues</footer>
+</body>
+</html>
