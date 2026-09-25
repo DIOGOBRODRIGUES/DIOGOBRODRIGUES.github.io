@@ -107,14 +107,14 @@
 
         <section>
             <h2>📊 Estatísticas de Sistemas Operacionais Móveis</h2>
-            <p>Evolução da participação de mercado (2015-2025):</p>
+            <p>Evolução da participação de mercado (2015-2026):</p>
             <ul>
             <li>🌎 Mundo:
                 <ul>
                 <li>🤖 Android: Dominância e crescimento contínuo.</li>
                 <li>🍎 iOS: Estabilidade e nicho de mercado.</li>
                 <li>⚙️ Outros: Redução gradual e quase desaparecimento.</li>
-                 <li>📈 <a href="https://gs.statcounter.com/os-market-share/mobile/worldwide/#monthly-201501-202501" target="_blank">gráfico</a></li>
+                 <li>📈 <a href="https://gs.statcounter.com/os-market-share/mobile/worldwide/#monthly-201501-202609" target="_blank">gráfico</a></li>
                 </ul>
             </li>
                
@@ -127,7 +127,7 @@
          <!--Slide 5-->
          <section>
              <h2>📊 Estatísticas de Sistemas Operacionais Móveis</h2>
-             <p>Evolução da participação de mercado (2015-2025):</p>
+             <p>Evolução da participação de mercado (2015-2026):</p>
              <ul>
         
              <li>🇧🇷 Brasil:
@@ -135,7 +135,7 @@
                  <li>🤖 Android: Liderança ainda mais acentuada.</li>
                  <li>🍎 iOS: Crescimento leve, mas ainda minoritário.</li>
                  <li>⚙️ Outros: Irrelevantes.</li>
-                 <li>📈 <a href="https://gs.statcounter.com/os-market-share/mobile/brazil/#monthly-201501-202501" target="_blank">gráfico</a></li>
+                 <li>📈 <a href="https://gs.statcounter.com/os-market-share/mobile/brazil/#monthly-201501-202609" target="_blank">gráfico</a></li>
                  </ul>
              </li>
              </ul>
@@ -233,7 +233,7 @@
           <p>Combina tecnologias web com componentes nativos</p>
           <ul>
             <li><strong>React Native:</strong> Utilizando React e JS para criar interfaces nativas</li>
-            <li><strong>Flutter:</strong> SDK da Google com linguagem Dart e widgets personalizados</li>
+            <li><strong>Flutter:</strong> SDK da Google com linguagem Dart</li>
             <li><strong>Ionic:</strong> Framework web para aplicações híbridas com Angular/React/Vue</li>
             <li><strong>Xamarin:</strong> Plataforma Microsoft usando C# e .NET</li>
           </ul>
@@ -242,6 +242,16 @@
           </div>
         </section>
         
+        <section>
+  <h3>React Native: Nova Arquitetura</h3>
+  <p>O modo Bridgeless </p>
+  <ul>
+    <li><strong>JSI (JavaScript Interface):</strong> Comunicação direta entre JavaScript e código nativo, sem serialização em JSON</li>
+  </ul>
+  <div class="highlight-box">
+    <p>💡 A Nova Arquitetura reduz o custo de comunicação da antiga Bridge, ajudando a evitar gargalos em interações frequentes com o lado nativo.</p>
+  </div>
+</section>
         <section>
           <h3>Ferramentas de Desenvolvimento</h3>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -290,13 +300,10 @@
             <li><strong>🖐️ Touch First:</strong> Interfaces otimizadas para interação por toque</li>
             <li><strong>📱 Responsividade:</strong> Adaptação a diversos tamanhos de tela e orientações</li>
             <li><strong>🔄 Feedback imediato:</strong> Resposta visual para ações do usuário</li>
-            <li><strong>🧠 Padrões mentais:</strong> Seguir convenções da plataforma (Android/iOS)</li>
+            
             <li><strong>👆 Tamanho de toque:</strong> Áreas clicáveis suficientemente grandes (mín. 44x44dp)</li>
             <li><strong>🔍 Legibilidade:</strong> Tipografia adequada para telas pequenas</li>
           </ul>
-          <div class="highlight-box">
-            <p>A experiência do usuário (UX) em dispositivos móveis é fundamentalmente diferente da web tradicional devido ao contexto de uso, tamanho da tela e métodos de interação.</p>
-          </div>
         </section>
         
         <section>
@@ -328,66 +335,6 @@
               <li>🧪 Facilidade de testes</li>
               <li>🧠 Escalabilidade do projeto</li>
             </ul>
-          </section>
-          
-          <section>
-            <h3>🧬 MVC — Model View Controller</h3>
-            <ul>
-              <li><strong>Model:</strong> Dados e lógica de negócio</li>
-              <li><strong>View:</strong> Interface com o usuário</li>
-              <li><strong>Controller:</strong> Faz a mediação entre Model e View</li>
-            </ul>
-            <p><strong>Fluxo:</strong> View → Controller → Model → View</p>
-          </section>
-          
-          <section>
-            <h3>🔮 MVVM — Model View ViewModel</h3>
-            <ul>
-              <li><strong>Model:</strong> Dados e regras de negócio</li>
-              <li><strong>ViewModel:</strong> Observa o Model e expõe dados prontos para a View</li>
-              <li><strong>View:</strong> Interface reativa, ligada ao ViewModel</li>
-            </ul>
-            <p>👉 Muito comum em apps com binding (ex: Flutter, Angular)</p>
-          </section>
-          
-          <section>
-            <h3>🎙️ MVP — Model View Presenter</h3>
-            <ul>
-              <li><strong>Model:</strong> Lógica de dados</li>
-              <li><strong>View:</strong> Passiva, exibe o que o Presenter manda</li>
-              <li><strong>Presenter:</strong> Controla a lógica e envia comandos para a View</li>
-            </ul>
-            <p>👔 Muito usado em apps com separação clara entre UI e lógica</p>
-          </section>
-          
-          <section>
-            <h3>🧼 Clean Architecture</h3>
-            <ul>
-              <li>Separação em <strong>camadas independentes</strong></li>
-              <li>Regra de ouro: <strong>camadas externas não conhecem as internas</strong></li>
-              <li>Entidades → Casos de Uso → Adaptadores → Frameworks</li>
-            </ul>
-            <p>🧠 Ideal para apps grandes e testáveis</p>
-          </section>
-          
-          <section>
-            <h3>🔁 Redux / Flux</h3>
-            <ul>
-              <li><strong>Store:</strong> Armazena estado global</li>
-              <li><strong>Action:</strong> Evento que dispara uma mudança</li>
-              <li><strong>Reducer:</strong> Função pura que atualiza a Store</li>
-            </ul>
-            <p><strong>Fluxo unidirecional:</strong> View → Action → Reducer → Store → View</p>
-            <p>🚀 Usado em React, React Native, Angular etc.</p>
-          </section>
-          
-          <section>
-            <h3>🧩 Feature-based + Atomic Design</h3>
-            <ul>
-              <li><strong>Atomic Design:</strong> Atoms → Molecules → Organisms → Templates → Pages</li>
-              <li><strong>Feature-based:</strong> Organização por funcionalidades e não por tipo</li>
-            </ul>
-            <p>🎯 Excelente para projetos com muitas telas e equipes grandes</p>
           </section>
           
           <section>
@@ -474,7 +421,7 @@
         <section>
           <h3>Segurança em Aplicativos Móveis</h3>
           <ul>
-            <li><strong>🔒 Armazenamento seguro:</strong> Keychain (iOS) / KeyStore (Android)</li>
+            
             <li><strong>🔐 Autenticação:</strong> Biometria, 2FA, OAuth</li>
             <li><strong>📶 Comunicação segura:</strong> HTTPS, certificados pinning</li>
             <li><strong>🛡️ Proteção de código:</strong> Ofuscação, anti-tampering</li>
@@ -494,7 +441,7 @@
                 <li>CI/CD para automação</li>
                 <li>Code reviews</li>
                 <li>Testes automatizados</li>
-                <li>Monitoramento de crashes</li>
+          
               </ul>
             </div>
             <div class="highlight-box">
@@ -503,7 +450,6 @@
                 <li>Design responsivo</li>
                 <li>Acessibilidade</li>
                 <li>Feedback visual claro</li>
-                <li>Consistência de interface</li>
                 <li>Testes com usuários reais</li>
               </ul>
             </div>
@@ -511,22 +457,11 @@
               <h4>Performance</h4>
               <ul>
                 <li>Otimização de imagens</li>
-                <li>Lazy loading</li>
                 <li>Minimizar re-renders</li>
                 <li>Compressão de assets</li>
-                <li>Profiling e benchmarking</li>
               </ul>
             </div>
-            <div class="highlight-box">
-              <h4>Distribuição</h4>
-              <ul>
-                <li>Versionamento semântico</li>
-                <li>Rollouts graduais</li>
-                <li>A/B testing</li>
-                <li>Analytics e métricas</li>
-                <li>Respostas a reviews</li>
-              </ul>
-            </div>
+           
           </div>
         </section>
         
@@ -553,11 +488,11 @@
         <section>
           <h3>Introdução ao React Native</h3>
           <ul>
-            <li>Framework JavaScript para desenvolvimento nativo</li>
-            <li>Mesmo conceito do React, diferente implementação</li>
+            <li>Framework <b>JavaScript</b> para desenvolvimento nativo</li>
+            <li>Mesmo conceito do <b>React</b>, diferente implementação</li>
             <li>Componentes nativos vs. componentes web</li>
             <li>Escreva uma vez, rode em iOS e Android</li>
-            <li>Bridge nativa que traduz JS para código nativo</li>
+            
             <li>Renderiza componentes nativos reais, não WebView</li>
           </ul>
           <div class="highlight-box">
@@ -571,7 +506,7 @@
                 <img src="https://reactnative.dev/docs/assets/diagram_ios-android-views.svg" alt="React Native Bridge" style="width: 70%;">
             </div>
             <div class="highlight-box">
-                <p>Tradução de componentes React em visualizações nativas reais</p>
+                <p>Tradução de componentes React em Views nativas</p>
             </div>
             </section>
          
@@ -582,8 +517,8 @@
             <li>Facilita configuração, desenvolvimento e publicação</li>
             <li>Acesso a APIs nativas sem configuração</li>
             <li>Desenvolvimento com Expo Go (preview no dispositivo)</li>
-            <li>Expo Snack: ambiente online de desenvolvimento</li>
-            <li>Suporte a desenvolvimento gerenciado ou bare workflow</li>
+            <li><b>Expo Snack</b>: ambiente online de desenvolvimento</li>
+            
           </ul>
           <div class="highlight-box">
             <p>💡 Expo SDK: Conjunto de APIs nativas prontas para uso (câmera, localização, notificações, etc)</p>
@@ -598,8 +533,7 @@
               <ul>
                 <li><strong>View</strong>: Container básico (div)</li>
                 <li><strong>ScrollView</strong>: Container com rolagem</li>
-                <li><strong>SafeAreaView</strong>: Respeita áreas seguras</li>
-                <li><strong>KeyboardAvoidingView</strong>: Ajusta ao teclado</li>
+            
               </ul>
             </div>
             <div>
@@ -608,7 +542,7 @@
                 <li><strong>Text</strong>: Para exibir texto</li>
                 <li><strong>Image</strong>: Para imagens</li>
                 <li><strong>TextInput</strong>: Para entrada de texto</li>
-                <li><strong>Button/Pressable</strong>: Para interações de toque</li>
+                <li><strong>Button</strong>: Para interações de toque</li>
               </ul>
             </div>
           </div>
@@ -622,7 +556,7 @@
           <ul>
             <li><strong>FlatList</strong>: Lista performática com renderização sob demanda</li>
             <li><strong>SectionList</strong>: Lista com seções agrupadas</li>
-            <li><strong>VirtualizedList</strong>: Base para listas virtualizadas</li>
+            
           </ul>
   
         </section>
@@ -649,11 +583,6 @@
                 <td>Lista de itens clicáveis</td>
               </tr>
               <tr>
-                <td><code>Pressable</code></td>
-                <td>API moderna e flexível</td>
-                <td>Interações complexas</td>
-              </tr>
-              <tr>
                 <td><code>Button</code></td>
                 <td>Botão simples e padrão</td>
                 <td>Interações básicas</td>
@@ -673,7 +602,7 @@
                 <p>💡 Componentes para fornecer retorno visual ao usuário</p>
             </div>
             <ul>
-                <li><strong>⏳ ActivityIndicator</strong>: Indicador de carregamento</li>
+                
                 <li><strong>🚨 Alert</strong>: API para alertas modais</li>
                 <li><strong>🖼️ Modal</strong>: Conteúdo sobreposto à tela</li>
                 <li><strong>📱 ToastAndroid/ActionSheetIOS</strong>: Feedbacks específicos da plataforma</li>
@@ -690,43 +619,11 @@
             <li><strong>Tab Navigator</strong>: Navegação com abas</li>
             <li><strong>Drawer Navigator</strong>: Menu lateral deslizante</li>
             <li><strong>Bottom Tab Navigator</strong>: Abas inferiores (padrão iOS/Android)</li>
-            <li><strong>Material Top Tabs</strong>: Abas superiores ao estilo Material</li>
+            
           </ul>
     
         </section>
 
-        <section>
-          <h3>Arquitetura em React Native</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div class="highlight-box">
-              <h4>📁 Feature-based</h4>
-              <pre><code class="hljs">src/
-├── features/
-│   ├── auth/
-│   ├── profile/
-│   ├── shopping/
-│   └── payment/
-├── shared/
-│   ├── components/
-│   ├── hooks/
-│   └── services/
-└── app.js</code></pre>
-            </div>
-            <div class="highlight-box">
-              <h4>🧩 Atomic Design</h4>
-              <pre><code class="hljs">src/
-├── atoms/
-├── molecules/
-├── organisms/
-├── templates/
-├── pages/
-├── services/
-└── app.js</code></pre>
-            </div>
-          </div>
-          <p>Outros padrões: Clean Architecture, MVVM, Redux Architecture</p>
-        </section>
-        
    
         <section>
           <h3>Animações em React Native</h3>
@@ -757,9 +654,7 @@
               <ul>
                 <li>AsyncStorage</li>
                 <li>Notifications</li>
-                <li>Sharing</li>
-                <li>AppState</li>
-                <li>Linking</li>
+            
               </ul>
             </div>
             <div>
@@ -775,11 +670,9 @@
             <div>
               <h4>Conectividade</h4>
               <ul>
-                <li>NetInfo</li>
+            
                 <li>WebBrowser</li>
-                <li>BackgroundFetch</li>
-                <li>TaskManager</li>
-                <li>WebSocket</li>
+            
               </ul>
             </div>
           </div>
@@ -928,15 +821,12 @@ const styles = StyleSheet.create({
         
         <section>
           <h3>Estilização no React Native</h3>
-          <div class="highlight-box">
-            <p>Diferenças entre CSS web e StyleSheet</p>
-          </div>
           <ul>
-            <li>Usa JavaScript Objects em vez de CSS</li>
+            
             <li>Propriedades em camelCase</li>
             <li>Valores numéricos sem unidades</li>
             <li>Flexbox é o padrão</li>
-            <li>Não há herança de estilo</li>
+            
             <li>StyleSheet.create para otimização</li>
           </ul>
           <pre><code class="hljs jsx">const styles = StyleSheet.create({
@@ -955,108 +845,7 @@ const styles = StyleSheet.create({
         </section>
       </section>
       
-      <!-- Slides finais e projeto -->
       <section>
-        <h2>🚀 Projeto Integrador</h2>
-        <p>Desenvolvimento de um aplicativo completo usando React Native e Expo</p>
-        <div class="highlight-box">
-          <p>O projeto será desenvolvido ao longo do curso, aplicando os conceitos aprendidos em cada módulo.</p>
-        </div>
-        <ul>
-          <li>Planejamento e protótipo</li>
-          <li>Desenvolvimento de interface</li>
-          <li>Implementação de funcionalidades</li>
-          <li>Integração com APIs</li>
-          <li>Testes e depuração</li>
-          <li>Publicação</li>
-        </ul>
-      </section>
-      <section>
-        <h1>🚀 Desafio E.I.T.A! Recife 3.0</h1>
-        <p>Inovação aberta para transformar a cidade 🌇</p>
-        <p><small>Prof. Dr. Diogo Francisco Borba Rodrigues</small></p>
-      </section>
-      <section>
-        <h3>🌍 Visão Geral</h3>
-        <ul>
-          <li>Programa promovido pela EMPREL</li>
-          <li>Conecta startups, empresas e sociedade civil</li>
-          <li>Objetivo: resolver desafios da cidade com tecnologia</li>
-          <li>Base legal: LC 182/2021 e Lei Municipal 18.974/2022</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>🔄 Etapas do Ciclo</h3>
-        <ol>
-          <li><strong>Fase 1:</strong> Desafios Públicos + Hacker Cidadão 13.0</li>
-          <li><strong>Fase 2:</strong> Prototipagem de solução</li>
-          <li><strong>Fase 3:</strong> Desenvolvimento do MVP + Aceleração</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>📆 Cronograma (exemplo)</h3>
-        <ul>
-          <li>Inscrição inicial: até 20 de maio de 2025</li>
-          <li>Dia D: 27 de maio de 2025</li>
-          <li>Fórum com Especialistas: 30 de maio de 2025</li>
-          <li>Hacker Cidadão 13.0: 5 a 7 de junho de 2025</li>
-          <li>Entrega de protótipos: 28 de junho de 2025</li>
-          <li>Entrega do MVP: setembro a dezembro de 2025</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>📖 Critérios de Participação</h3>
-        <ul>
-          <li>Qualquer pessoa física (maior de 18 anos) ou jurídica</li>
-          <li>Participação individual ou em equipe (3 a 6 pessoas)</li>
-          <li>Inscrição pelo portal C.O.R.E.T.O</li>
-          <li>Apresentação de pitch em vídeo, proposta e viabilidade</li>
-          <li>Documentos obrigatórios conforme edital</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>🔧 Detalhamento dos Desafios</h3>
-        <ul>
-          <li><strong>Saúde:</strong> Soluções para apoio ao autocuidado em hipertensos e diabéticos</li>
-          <li><strong>Infraestrutura:</strong> Tecnologias para monitorar e fiscalizar pontos de descarte irregular</li>
-          <li><strong>Agricultura Urbana:</strong> Redução do desperdício e redistribuição de alimentos</li>
-          <li><strong>Acessibilidade:</strong> Uso de tecnologias emergentes para inclusão de pessoas cegas e com baixa visão</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>🌟 Benefícios para os Participantes</h3>
-        <ul>
-          <li>Prêmio R$ 5.000 para vencedores do Hackathon</li>
-          <li>Até R$ 50.000 para desenvolvimento de MVP</li>
-          <li>Possibilidade de aceleração com até R$ 1,6 milhão</li>
-          <li>Contrato de fornecimento com EMPREL de até R$ 8 milhões</li>
-          <li>Parcerias estratégicas e comercialização do produto</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>📊 Critérios de Avaliação</h3>
-        <ul>
-          <li>Potencial de resolução do problema</li>
-          <li>Inovação, criatividade e originalidade</li>
-          <li>Viabilidade técnica e econômica</li>
-          <li>Escalabilidade e impacto social</li>
-          <li>Disponibilidade e dedicação da equipe</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>🚀 Vamos Inovar?</h3>
-        <p>Acesse o <a href="https://coreto.recife.pe.gov.br/eita/1741725054344x391572454981238800">C.O.R.E.T.O</a></p>
-        <p>Monte sua equipe, escolha um desafio e participe!</p>
-        <p>Dúvidas: <a href="mailto:eita@recife.pe.gov.br">eita@recife.pe.gov.br</a></p>
-      </section>
-      <section
         <h2>📚 Referências e Recursos</h2>
         <ul>
           <li><a href="https://reactnative.dev/docs/getting-started" target="_blank">Documentação oficial React Native</a></li>
