@@ -879,6 +879,156 @@ export default function Details() {
          
         </section>
 
+        <!-- Slides 27 a 32 - Implementação com React Navigation -->
+        <section>
+          <h3>🛠️ Preparando o React Navigation</h3>
+          <p>Instale o núcleo e os navegadores que serão utilizados:</p>
+          <pre><code class="language-bash" data-trim>npm install @react-navigation/native
+npx expo install react-native-screens react-native-safe-area-context
+npm install @react-navigation/native-stack
+npm install @react-navigation/bottom-tabs
+npm install @react-navigation/drawer
+npm install @react-navigation/stack</code></pre>
+          <p><small>Em projetos Expo, use <code>npx expo install</code> para dependências nativas.</small></p>
+        </section>
+
+        <section>
+          <h3>📚 Exemplo 1: Stack Navigation</h3>
+          <p>Ideal para fluxos em que uma tela é empilhada sobre a outra.</p>
+          <pre><code class="language-javascript" data-trim data-line-numbers>import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+function HomeScreen({ navigation }) {
+  return (
+    &lt;Button
+      title="Abrir detalhes"
+      onPress={() =&gt; navigation.navigate('Detalhes', { id: 10 })}
+    /&gt;
+  );
+}
+
+function DetailsScreen({ route }) {
+  return &lt;Text&gt;Produto: {route.params.id}&lt;/Text&gt;;
+}
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name="Início" component={HomeScreen} /&gt;
+        &lt;Stack.Screen name="Detalhes" component={DetailsScreen} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>📑 Exemplo 2: Bottom Tab Navigation</h3>
+          <p>Indicada para as áreas principais e persistentes do aplicativo.</p>
+          <pre><code class="language-javascript" data-trim>import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name="Início" component={HomeScreen} /&gt;
+        &lt;Tab.Screen name="Favoritos" component={FavoritesScreen} /&gt;
+        &lt;Tab.Screen name="Perfil" component={ProfileScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</code></pre>
+          <p><small>Cada aba mantém sua própria rota e pode conter um navegador interno.</small></p>
+        </section>
+
+        <section>
+          <h3>📂 Exemplo 3: Drawer Navigation</h3>
+          <p>Útil para menus laterais com opções globais do aplicativo.</p>
+          <pre><code class="language-javascript" data-trim>import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator&gt;
+        &lt;Drawer.Screen name="Início" component={HomeScreen} /&gt;
+        &lt;Drawer.Screen name="Configurações" component={SettingsScreen} /&gt;
+        &lt;Drawer.Screen name="Sobre" component={AboutScreen} /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</code></pre>
+          <p><small>Abra ou feche o menu com <code>navigation.openDrawer()</code> e <code>navigation.closeDrawer()</code>.</small></p>
+        </section>
+
+        <section>
+          <h3>🪟 Exemplo 4: Modal com Stack</h3>
+          <p>O modal é configurado como uma tela do Stack com apresentação sobreposta.</p>
+          <pre><code class="language-javascript" data-trim>const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name="Início" component={HomeScreen} /&gt;
+        &lt;Stack.Screen
+          name="Confirmar"
+          component={ConfirmationScreen}
+          options={{ presentation: 'modal', title: 'Confirmação' }}
+        /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+
+// Na tela inicial:
+navigation.navigate('Confirmar');</code></pre>
+        </section>
+
+        <section>
+          <h3>🧩 Exemplo 5: Associação de Navegadores</h3>
+          <p>Combine Drawer, Tabs e Stack para organizar fluxos maiores.</p>
+          <pre><code class="language-javascript" data-trim>const Drawer = createDrawerNavigator();
+const Tabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function HomeStack() {
+  return (
+    &lt;Stack.Navigator&gt;
+      &lt;Stack.Screen name="Lista" component={HomeScreen} /&gt;
+      &lt;Stack.Screen name="Detalhes" component={DetailsScreen} /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+}
+
+function MainTabs() {
+  return (
+    &lt;Tabs.Navigator&gt;
+      &lt;Tabs.Screen name="Home" component={HomeStack} /&gt;
+      &lt;Tabs.Screen name="Perfil" component={ProfileScreen} /&gt;
+    &lt;/Tabs.Navigator&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator&gt;
+        &lt;Drawer.Screen name="Aplicativo" component={MainTabs} /&gt;
+        &lt;Drawer.Screen name="Configurações" component={SettingsScreen} /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</code></pre>
+          <p><span class="highlight">Fluxo:</span> Drawer → Tab → Stack → Detalhes</p>
+        </section>
+
     </div>
   </div>
 
