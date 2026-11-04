@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Prof. Diogo Rodrigues" />
+    <meta name="description" content="Aula de Front-end Frameworks sobre autenticação no React, sessão, rotas protegidas e logout." />
+    <title>Autenticação no React — login, sessão e rotas protegidas</title>
+    <link rel="stylesheet" href="vendor/reveal/dist/reset.css" />
+    <link rel="stylesheet" href="vendor/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="vendor/reveal/dist/plugin/highlight/monokai.css" />
+    <link rel="stylesheet" href="assets/aula.css" />
+  </head>
+  <body>
+    <div class="deck-tools" aria-label="Ferramentas da apresentação">
+      <button class="deck-tools__button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="section-menu" title="Ir para um bloco da aula">Blocos <span aria-hidden="true">▾</span></button>
+      <button class="deck-tools__button deck-tools__help" id="help-toggle" type="button" aria-expanded="false" aria-controls="help-panel" title="Atalhos da apresentação">?</button>
+      <nav class="section-menu" id="section-menu" aria-label="Blocos da aula" hidden>
+        <button type="button" data-target-section="abertura">Abertura</button>
+        <button type="button" data-target-section="login">Login</button>
+        <button type="button" data-target-section="sessao">Sessão</button>
+        <button type="button" data-target-section="protecao">Rotas protegidas</button>
+        <button type="button" data-target-section="fechamento">Fechamento</button>
+      </nav>
+      <div class="help-panel" id="help-panel" role="dialog" aria-label="Atalhos da apresentação" hidden>
+        <strong>Atalhos</strong>
+        <span>→ / Espaço: avançar</span>
+        <span>←: voltar</span>
+        <span>Esc / O: visão geral</span>
+        <span>S: notas do professor</span>
+        <span>Ctrl + Shift + F: buscar</span>
+        <span>Alt + clique: zoom</span>
+        <span>F: tela cheia</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section id="capa" data-section-start="abertura" class="slide-cover" data-background-color="#081D36" data-transition="fade">
+          <div class="cover-grid" aria-hidden="true"></div>
+          <div class="cover-code" aria-hidden="true">
+            <span>&lt;RotaProtegida sessao={sessao}&gt;</span>
+            <span>  &lt;Painel /&gt;</span>
+            <span>&lt;/RotaProtegida&gt;</span>
+          </div>
+          <!-- <p class="institution institution--light">UNINASSAU · CIÊNCIA DA COMPUTAÇÃO · 2026.2</p> -->
+          <div class="cover-content">
+            <p class="section-label section-label--light">FRONT-END FRAMEWORKS</p>
+            <h1>Autenticação<br><em>no React</em></h1>
+            <p class="cover-subtitle">Login, sessão, rota protegida e logout em um fluxo que o usuário consegue perceber</p>
+          </div>
+          <div class="cover-footer">
+            <span>Prof. Diogo Rodrigues</span>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do Prof. Diogo Rodrigues">in <small>LinkedIn</small></a>
+              <a href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer" aria-label="GitHub do Prof. Diogo Rodrigues">⌘ <small>GitHub</small></a>
+            </div>
+          </div>
+        
+        </section>
+
+        <section id="porta-fechada" class="slide-light brand-slide" data-transition="slide">
+          <p class="section-label">SITUAÇÃO-PROBLEMA</p>
+          <h2>Alguém digita <code>/painel</code> sem entrar</h2>
+          <div class="access-scene">
+            <div class="browser-card">
+              <div class="browser-bar"><i></i><i></i><i></i><code>meuapp.com/painel</code></div>
+              <div class="browser-body"><span aria-hidden="true">🔒</span><strong>Painel da equipe</strong><small>dados que não deveriam aparecer agora</small></div>
+            </div>
+            <div class="access-question fragment fade-up">
+              <strong>O que o front-end deve fazer?</strong>
+              <span>E o que ele não consegue garantir sozinho?</span>
+            </div>
+          </div>
+       
+        </section>
+
+        <section id="resultados" class="slide-light brand-slide">
+          <p class="section-label">RESULTADOS OBSERVÁVEIS</p>
+          <h2>Ao final, quatro testes devem passar</h2>
+          <div class="outcome-grid">
+            <div class="fragment fade-up"><b>01</b><span>Credencial válida cria uma sessão</span></div>
+            <div class="fragment fade-up"><b>02</b><span>Reload mantém o usuário identificado</span></div>
+            <div class="fragment fade-up"><b>03</b><span>URL protegida exige sessão</span></div>
+            <div class="fragment fade-up"><b>04</b><span>Logout remove a sessão e fecha o acesso</span></div>
+          </div>
+          <div class="block-path fragment fade-in" aria-label="Percurso dos blocos da aula">
+            <span>Entrar</span><i>→</i><span>Permanecer</span><i>→</i><span>Proteger</span>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 3 minutos. Finalidade: declarar critérios de saída e a organização dos blocos. Peça que um aluno explique como provaria cada item apenas pelo navegador. Respostas: login válido, atualizar a página, abrir /painel em aba anônima e clicar em sair. Reforce que presença de código não basta. Transição: antes do código, precisamos separar dois conceitos que costumam ser confundidos.
+          </aside>
+        </section>
+
+        <section id="auth-versus-authz" class="slide-light brand-slide">
+          <p class="section-label">DOIS PROBLEMAS DIFERENTES</p>
+          <h2>Autenticação não é autorização</h2>
+          <div class="concept-split">
+            <div class="concept-split__identity fragment fade-right">
+              <span class="concept-icon" aria-hidden="true">ID</span>
+              <strong>Autenticação</strong>
+              <p>“Quem é você?”</p>
+              <small>login, credencial, sessão</small>
+            </div>
+            <div class="concept-split__permission fragment fade-left">
+              <span class="concept-icon" aria-hidden="true">✓</span>
+              <strong>Autorização</strong>
+              <p>“O que você pode fazer?”</p>
+              <small>papel, permissão, recurso</small>
+            </div>
+          </div>
+          <p class="prompt-line fragment fade-in">Um usuário autenticado pode acessar qualquer tela?</p>
+          <aside class="notes">
+            Tempo sugerido: 4 minutos. Fala sugerida: “Entrar no prédio não dá acesso automático a todas as salas.” Pergunta: um estudante logado deve poder excluir usuários? Resposta: só se tiver permissão. Para esta aula, implemente autenticação e uma autorização binária simples: há sessão ou não. Não aprofunde papéis. Erro frequente: chamar qualquer 403 de falha de login. Transição: acompanhe o percurso completo de uma tentativa de entrada.
+          </aside>
+        </section>
+
+        <section id="fluxo-completo" class="slide-light brand-slide" data-auto-animate>
+          <p class="section-label">MODELO MENTAL</p>
+          <h2>O login é uma sequência, não uma tela</h2>
+          <div class="auth-flow" aria-label="Fluxo completo de autenticação">
+            <div class="fragment fade-up"><b>Formulário</b><span>usuário + senha</span></div>
+            <i class="fragment fade-in">→</i>
+            <div class="fragment fade-up"><b>API</b><span>valida credenciais</span></div>
+            <i class="fragment fade-in">→</i>
+            <div class="fragment fade-up"><b>Sessão</b><span>usuário + token</span></div>
+            <i class="fragment fade-in">→</i>
+            <div class="fragment fade-up"><b>Rota</b><span>permite ou redireciona</span></div>
+          </div>
+          <p class="flow-warning fragment fade-in">A senha participa da requisição. Ela não deve virar dado persistido no navegador.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Percorra o diagrama da esquerda para a direita. Pergunte em qual ponto a senha deixa de ser necessária no front-end. Resposta: depois da resposta, quando a sessão é representada por dados do usuário e uma credencial emitida pelo servidor. Explique que token não é sinônimo de usuário, mas nesta aula ambos compõem o objeto de sessão. Erro frequente: salvar os campos do formulário inteiro no localStorage. Transição: primeiro construiremos a entrada.
+          </aside>
+        </section>
+
+        <section id="login" data-section-start="login" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 1</p>
+          <h2>Entrar</h2>
+          <p>Do envio do formulário à resposta da API</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Fala sugerida: “Vocês já sabem consumir uma API. Agora o corpo da requisição carrega credenciais e a resposta muda a navegação.” Não retome toda a aula de fetch. Transição: leia o contrato do endpoint.</aside>
+        </section>
+
+        <section id="contrato-login" class="slide-light brand-slide">
+          <p class="section-label">CONTRATO HTTP</p>
+          <h2>Login envia dados com <code>POST</code></h2>
+          <div class="request-response">
+            <div class="request-response__request fragment fade-right">
+              <span class="http-method">POST</span>
+              <code>/auth/login</code>
+              <small>Content-Type: application/json</small>
+              <pre><code class="language-json" data-trim>{
+  "username": "emilys",
+  "password": "emilyspass"
+}</code></pre>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div class="request-response__response fragment fade-left">
+              <span class="http-status">200</span>
+              <code>resposta JSON</code>
+              <small>identidade + tokens</small>
+              <pre><code class="language-json" data-trim>{
+  "id": 1,
+  "firstName": "Emily",
+  "accessToken": "eyJ..."
+}</code></pre>
+            </div>
+          </div>
+          <p class="small-foot">Endpoint didático: <code>https://dummyjson.com/auth/login</code></p>
+          <aside class="notes">
+            Tempo sugerido: 6 minutos. Mostre a documentação oficial do DummyJSON se houver internet. Fala sugerida: “GET consulta. Aqui precisamos enviar um corpo, por isso POST.” Pergunte por que o Content-Type é necessário. Resposta: informa que o corpo está em JSON. Esclareça que as credenciais são públicas e fictícias. A resposta real também contém username, email, imagem e refreshToken. O slide foi reduzido ao essencial. Erro frequente: escrever user em vez de username. Fonte: https://dummyjson.com/docs/auth. Transição: uma interface confiável precisa representar mais do que sucesso.
+          </aside>
+        </section>
+
+        <section id="estados-login" class="slide-light brand-slide">
+          <p class="section-label">ESTADO DA INTERFACE</p>
+          <h2>O botão não deve mentir</h2>
+          <div class="status-track">
+            <div class="fragment fade-up"><span>1</span><b>Pronto</b><small>Entrar</small></div>
+            <div class="fragment fade-up"><span>2</span><b>Enviando</b><small>Entrando…</small></div>
+            <div class="fragment fade-up"><span>3A</span><b>Sucesso</b><small>abrir painel</small></div>
+            <div class="fragment fade-up status-track__error"><span>3B</span><b>Falha</b><small>explicar e tentar de novo</small></div>
+          </div>
+          <p class="prompt-line fragment fade-in">Qual estado impede dois envios rápidos do mesmo formulário?</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Resposta esperada: o estado de envio, usado para desabilitar o botão enquanto a Promise está pendente. Peça que a turma compare mensagem genérica de erro com “usuário ou senha inválidos”. Evite revelar se o usuário existe em um sistema real. Erro frequente: limpar o erro só depois de uma nova falha. Sugestão: setErro('') antes da requisição. Transição: isole a comunicação em um serviço.
+          </aside>
+        </section>
+
+        <section id="servico-auth" class="slide-light brand-slide">
+          <p class="section-label">SERVIÇO DE AUTENTICAÇÃO</p>
+          <h2>A função devolve dados ou lança erro</h2>
+          <pre><code class="language-js" data-trim data-line-numbers="1|2-7|9-10|12">export async function autenticar(username, password) {
+  const response = await fetch('https://dummyjson.com/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
+  })
+
+  const data = await response.json()
+  if (!response.ok) throw new Error(data.message ?? 'Falha no login')
+
+  return data
+}</code></pre>
+          <p class="code-source">src/services/authService.js</p>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Leia por blocos destacados. Pergunte se fetch rejeita automaticamente uma resposta HTTP de erro. Resposta: não necessariamente; por isso verificamos response.ok. Explique que response.json também é assíncrono. O serviço não conhece React, estado nem navegação. Erro frequente: retornar response em vez de data. Fonte: https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch e https://dummyjson.com/docs/auth. Transição: a página coordena o serviço com os estados visuais.
+          </aside>
+        </section>
+
+        <section id="submit-login" class="slide-light brand-slide">
+          <p class="section-label">COORDENAÇÃO NO COMPONENTE</p>
+          <h2>O submit controla a experiência</h2>
+          <pre><code class="language-jsx" data-trim data-line-numbers="1-3|5-8|9-12">async function handleSubmit(event) {
+  event.preventDefault()
+  setEnviando(true)
+  setErro('')
+  try {
+    const data = await autenticar(username, password)
+    onLogin(data)
+    navigate('/painel', { replace: true })
+  } catch (error) {
+    setErro(error.message)
+  } finally {
+    setEnviando(false)
+  }
+}</code></pre>
+          <p class="key-line">A página pede autenticação. <code>App</code> mantém a sessão.</p>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Pergunte o que aconteceria sem preventDefault. Resposta: o envio tradicional recarregaria o documento. Destaque a prop onLogin: LoginPage recebe a função, mas o estado de sessão ficará no ancestral que também monta as rotas. Explique replace: o botão voltar não deve levar novamente ao formulário após o login. Erros frequentes: esquecer await, navegar antes de onLogin, deixar o botão desabilitado após erro por ausência de finally. Transição: programaremos apenas o caminho mínimo antes de melhorar a experiência.
+          </aside>
+        </section>
+
+        <section id="live-login" class="slide-practice brand-slide">
+          <p class="section-label">LIVE CODING</p>
+          <h2>Faça o login falhar primeiro</h2>
+          <div class="live-steps">
+            <div class="fragment fade-up"><b>Estado inicial</b><span>formulário controlado sem integração</span></div>
+            <div class="fragment fade-up"><b>Primeiro teste</b><span>credencial errada mostra feedback</span></div>
+            <div class="fragment fade-up"><b>Segundo teste</b><span>credencial válida abre <code>/painel</code></span></div>
+          </div>
+          <p class="live-question fragment fade-in">Em que linha os dados deixam de ser formulário e passam a representar sessão?</p>
+          <aside class="notes">
+            Tempo sugerido: 15 minutos. Demonstração: crie authService.js, conecte handleSubmit e mostre a aba Network. Comece com senha errada de propósito. Peça previsão antes de cada execução. Resposta à pergunta: quando a resposta válida é entregue a onLogin, que atualizará o estado em App. Credencial didática atual da documentação: emilys / emilyspass. Se a internet falhar, substitua autenticar por uma Promise local que resolve ou rejeita conforme a senha. Não digite CSS. Dificuldades frequentes: input sem value/onChange, campos username/password divergentes, JSON.stringify ausente e mensagem de erro não renderizada. Transição: revise os dois tipos de falha antes de liberar a equipe.
+          </aside>
+        </section>
+
+        <section id="prever-falha" class="slide-light brand-slide">
+          <p class="section-label">PREVISÃO DE BUG</p>
+          <h2>Mesma tela, causas diferentes</h2>
+          <div class="failure-compare">
+            <div class="fragment fade-right"><b>API respondeu</b><span>credencial inválida ou regra rejeitada</span><code>response.ok === false</code></div>
+            <div class="fragment fade-left"><b>API não respondeu</b><span>internet, DNS, CORS ou servidor indisponível</span><code>fetch lançou erro</code></div>
+          </div>
+          <p class="prompt-line fragment fade-in">O usuário precisa conhecer a diferença técnica?</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Resposta: não precisa conhecer os detalhes técnicos, mas a interface deve dar uma orientação útil. Para credencial inválida: “Não foi possível entrar com esses dados.” Para indisponibilidade: “Serviço indisponível. Tente novamente.” O catch captura ambos no exemplo simples; uma evolução pode classificar os erros. Erro frequente: dizer que qualquer falha é “senha errada”. Transição: checkpoint curto nas equipes.
+          </aside>
+        </section>
+
+        <section id="pratica-login" class="slide-practice brand-slide">
+          <p class="section-label">PRÁTICA NO PROJETO</p>
+          <h2>Checkpoint 1: entrar com feedback</h2>
+          <ol class="practice-list practice-list--compact">
+            <li>Crie uma rota <code>/login</code> com formulário controlado.</li>
+            <li>Concentre o <code>fetch</code> em <code>services/authService.js</code>.</li>
+            <li>Mostre envio, erro e sucesso sem recarregar a página.</li>
+            <li>Ao entrar, envie os dados válidos para o componente que mantém a sessão.</li>
+          </ol>
+          <div class="roles-line"><span>Condutor</span><span>Navegador</span><span>Auditor da requisição</span></div>
+          <p class="exit-criterion">Saída: a equipe demonstra uma falha controlada e um login válido.</p>
+          <aside class="notes">
+            Tempo sugerido: 12 minutos. Forme os trios no computador compartilhado. O condutor digita, o navegador orienta e o auditor observa Network e os estados da interface. Circule primeiro entre equipes sem formulário controlado ou sem serviço separado. Se a equipe usa back-end próprio, preserve o contrato do professor correspondente. Se ainda não houver endpoint, use DummyJSON. Plano lento: aceite autenticar() simulada localmente, mas mantenha a assinatura da função. Transição: reúna a turma e pergunte o que desaparece quando a página é atualizada.
+          </aside>
+        </section>
+
+        <section id="sessao" data-section-start="sessao" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 2</p>
+          <h2>Permanecer</h2>
+          <p>Representar e restaurar a sessão sem guardar a senha</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Fala sugerida: “Entrar funciona. Agora pressione F5.” O desaparecimento da sessão cria a necessidade da persistência, que a turma já conhece com localStorage. Transição: escolha conscientemente o que salvar.</aside>
+        </section>
+
+        <section id="conteudo-sessao" class="slide-light brand-slide">
+          <p class="section-label">MINIMIZAÇÃO DE DADOS</p>
+          <h2>Sessão não é cópia do formulário</h2>
+          <div class="store-choice">
+            <div class="store-choice__yes fragment fade-right">
+              <b>Guardar neste exercício</b>
+              <span><code>id</code> e nome exibido</span>
+              <span><code>username</code></span>
+              <span><code>accessToken</code></span>
+            </div>
+            <div class="store-choice__no fragment fade-left">
+              <b>Não guardar</b>
+              <span>senha</span>
+              <span>campos desnecessários</span>
+              <span>segredos da aplicação</span>
+            </div>
+          </div>
+          <p class="small-foot">Para sistemas reais, o back-end pode preferir cookies seguros e inacessíveis ao JavaScript.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Fala sugerida: “Guardar menos reduz exposição e simplifica o estado.” Explique que localStorage é legível por JavaScript e, portanto, tokens ali podem ser afetados por XSS. Para o exercício com API pública, o armazenamento local permite praticar a sessão. Em produção, cookies HttpOnly, Secure e SameSite podem ser preferidos conforme a arquitetura. Pergunta: por que nunca guardar senha? Resposta: ela não é necessária depois do login e sua exposição teria impacto grave. Transição: inicialize o estado com o valor persistido.
+          </aside>
+        </section>
+
+        <section id="persistir-sessao" class="slide-light brand-slide">
+          <p class="section-label">ESTADO ↔ ARMAZENAMENTO</p>
+          <h2>Ler uma vez. Gravar quando entrar.</h2>
+          <div class="dual-code dual-code--auth">
+            <div>
+              <span class="mini-label">AO CRIAR O ESTADO</span>
+              <pre><code class="language-jsx" data-trim>const [sessao, setSessao] = useState(() =&gt; {
+  try {
+    const salva = localStorage.getItem('sessao')
+    return salva ? JSON.parse(salva) : null
+  } catch {
+    return null
+  }
+})</code></pre>
+            </div>
+            <div>
+              <span class="mini-label">DEPOIS DO LOGIN</span>
+              <pre><code class="language-jsx" data-trim>function entrar(data) {
+  const sessaoMinima = {
+    id: data.id,
+    nome: data.firstName,
+    username: data.username,
+    accessToken: data.accessToken,
+  }
+  setSessao(sessaoMinima)
+  localStorage.setItem('sessao', JSON.stringify(sessaoMinima))
+}</code></pre>
+            </div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Leia o inicializador funcional: ele consulta o armazenamento apenas na criação inicial do estado. Pergunte por que existe try/catch. Resposta: o valor pode estar corrompido e JSON.parse pode lançar erro. Mostre que localStorage só armazena texto. Ordem de setSessao e setItem não é crítica aqui, mas os dois precisam usar o mesmo objeto mínimo. Erro frequente: localStorage.setItem('sessao', sessaoMinima), que salva “[object Object]”. Fonte: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage. Transição: sair precisa desfazer os dois lados.
+          </aside>
+        </section>
+
+        <section id="logout-reload" class="slide-light brand-slide">
+          <p class="section-label">CICLO COMPLETO</p>
+          <h2>Reload restaura. Logout remove.</h2>
+          <div class="session-cycle" aria-label="Ciclo de sessão">
+            <div class="fragment fade-up"><b>Login</b><span>estado + localStorage</span></div><i>→</i>
+            <div class="fragment fade-up"><b>Reload</b><span>localStorage → estado</span></div><i>→</i>
+            <div class="fragment fade-up session-cycle__logout"><b>Logout</b><span>estado = null + removeItem</span></div>
+          </div>
+          <pre class="code-short"><code class="language-jsx" data-trim>function sair() {
+  setSessao(null)
+  localStorage.removeItem('sessao')
+}</code></pre>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Peça que a turma identifique qual teste pega uma implementação incompleta: login, reload e logout, nessa ordem. Se remover apenas o estado, o reload recupera a sessão antiga. Se remover apenas o localStorage, a tela atual ainda pode considerar o usuário logado. Após sair, navegue para /login ou deixe o guard fazer isso. Erro frequente: usar localStorage.clear(), que apaga dados não relacionados do aplicativo. Transição: conecte e teste ao vivo.
+          </aside>
+        </section>
+
+        <section id="live-sessao" class="slide-practice brand-slide">
+          <p class="section-label">LIVE CODING</p>
+          <h2>O teste é uma sequência de ações</h2>
+          <div class="test-sequence">
+            <span class="fragment fade-up">Entrar</span><i>→</i>
+            <span class="fragment fade-up">Inspecionar</span><i>→</i>
+            <span class="fragment fade-up">Atualizar</span><i>→</i>
+            <span class="fragment fade-up">Sair</span><i>→</i>
+            <span class="fragment fade-up">Atualizar</span>
+          </div>
+          <p class="live-question fragment fade-in">Que resultado provaria que o logout ficou incompleto?</p>
+          <aside class="notes">
+            Tempo sugerido: 10 minutos. Demonstração: implemente o inicializador, entrar e sair. Abra DevTools > Application > Local Storage e mostre o objeto. Atualize a página após login e após logout. Resposta à pergunta: o usuário reaparecer depois do reload, ou a rota protegida continuar acessível. Provoque um JSON inválido manualmente para justificar o try/catch e depois remova-o. Não salve a senha nem o estado inteiro do formulário. Erros frequentes: chaves diferentes na leitura e escrita, JSON.parse aplicado duas vezes e setter dentro do inicializador. Transição: com uma sessão confiável, a rota pode tomar uma decisão.
+          </aside>
+        </section>
+
+        <section id="protecao" data-section-start="protecao" class="slide-divider" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">BLOCO 3</p>
+          <h2>Proteger</h2>
+          <p>Decidir entre renderizar a página ou redirecionar</p>
+          <aside class="notes">Tempo sugerido: 1 minuto. Fala sugerida: “A rota protegida é uma condição de renderização aplicada ao roteamento.” Esclareça que o exemplo usará children e Navigate, sem Outlet ou rotas aninhadas. Transição: leia o componente como uma pergunta booleana.</aside>
+        </section>
+
+        <section id="guard" class="slide-light brand-slide">
+          <p class="section-label">COMPONENTE DE GUARDA</p>
+          <h2>Há sessão?</h2>
+          <div class="guard-layout">
+            <pre><code class="language-jsx" data-trim data-line-numbers="1|3-5">import { Navigate } from 'react-router-dom'
+
+export function RotaProtegida({ sessao, children }) {
+  if (!sessao) return &lt;Navigate to="/login" replace /&gt;
+  return children
+}</code></pre>
+            <div class="guard-decision" aria-label="Decisão da rota protegida">
+              <span>sessão?</span>
+              <div><b>não</b><small>/login</small></div>
+              <div><b>sim</b><small>children</small></div>
+            </div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Fala sugerida: “O componente não valida a senha. Ele lê o resultado atual: existe sessão?” Pergunte o que children representa. Resposta: o elemento envolvido pela rota protegida. Explique replace: evita que a entrada bloqueada permaneça como etapa útil no histórico. Erros frequentes: importar Navigate de pacote errado, escrever navigate em minúscula, devolver string '/login' e esquecer return. Fonte: https://reactrouter.com/api/components/Navigate. Transição: use o guard na configuração que a turma já conhece.
+          </aside>
+        </section>
+
+        <section id="rotas-protegidas" class="slide-light brand-slide">
+          <p class="section-label">NA CONFIGURAÇÃO DE ROTAS</p>
+          <h2>A proteção envolve apenas o que precisa</h2>
+          <pre><code class="language-jsx" data-trim data-line-numbers="1-4|5-13">&lt;Routes&gt;
+  &lt;Route path="/" element={&lt;HomePage /&gt;} /&gt;
+  &lt;Route path="/login" element={&lt;LoginPage onLogin={entrar} /&gt;} /&gt;
+
+  &lt;Route
+    path="/painel"
+    element={
+      &lt;RotaProtegida sessao={sessao}&gt;
+        &lt;PainelPage sessao={sessao} onLogout={sair} /&gt;
+      &lt;/RotaProtegida&gt;
+    }
+  /&gt;
+&lt;/Routes&gt;</code></pre>
+          <p class="key-line">Página pública continua pública. Página privada passa pelo guard.</p>
+          <aside class="notes">
+            Tempo sugerido: 7 minutos. Pergunte se /login deve ficar dentro da rota protegida. Resposta: não, senão o usuário sem sessão seria redirecionado para uma tela também bloqueada. Demonstre digitando /painel em uma aba anônima. Depois faça login e repita. Erros frequentes: proteger a própria rota de login, manter sessao em LoginPage e não em App, e esquecer BrowserRouter no ponto de entrada. Transição: estabeleça o limite de segurança dessa técnica.
+          </aside>
+        </section>
+
+        <section id="limite-seguranca" class="slide-light brand-slide">
+          <p class="section-label">LIMITE DA PROTEÇÃO</p>
+          <h2>O guard protege a experiência, não a API</h2>
+          <div class="security-layers">
+            <div class="fragment fade-right">
+              <span class="layer-number">1</span>
+              <b>Front-end</b>
+              <p>oculta ou redireciona a interface</p>
+            </div>
+            <div class="fragment fade-left">
+              <span class="layer-number">2</span>
+              <b>Back-end</b>
+              <p>valida token e permissão em cada endpoint</p>
+            </div>
+          </div>
+          <p class="danger-line fragment fade-in">Código enviado ao navegador pode ser inspecionado. Dados sensíveis só saem do servidor após validação.</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Fala sugerida: “Rota protegida no React melhora o fluxo, mas não transforma o navegador em cofre.” Pergunte como alguém poderia chamar a API sem usar a tela. Respostas: DevTools, Postman, outro script ou cliente. Portanto, o servidor deve recusar requisições sem credencial válida. Erro frequente: carregar dados privados e apenas esconder com CSS. Transição: o servidor comunica a causa com códigos HTTP.
+          </aside>
+        </section>
+
+        <section id="status-401-403" class="slide-light brand-slide">
+          <p class="section-label">RESPOSTAS DO SERVIDOR</p>
+          <h2><code>401</code> pede identidade. <code>403</code> nega permissão.</h2>
+          <div class="http-compare" role="table" aria-label="Comparação entre status 401 e 403">
+            <div class="http-compare__head" role="row"><span></span><span><code>401</code></span><span><code>403</code></span></div>
+            <div role="row"><b>Credencial</b><span>ausente, inválida ou expirada</span><span>válida, mas insuficiente</span></div>
+            <div role="row"><b>Ação da interface</b><span>encerrar sessão e pedir login</span><span>mostrar acesso negado</span></div>
+            <div role="row"><b>Repetir igual</b><span>não resolve sem nova credencial</span><span>não resolve sem nova permissão</span></div>
+          </div>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Pergunte: “Usuário logado tenta uma ação exclusiva de administrador. Qual código faz sentido?” Resposta: 403. “Token expirou?” Resposta: 401. Esclareça que o endpoint didático de login pode usar outro status para credenciais inválidas; a tabela descreve a semântica dos recursos protegidos. Fontes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401 e https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403. Transição: conecte essas respostas ao estado da sessão.
+          </aside>
+        </section>
+
+        <section id="sessao-expirada" class="slide-light brand-slide">
+          <p class="section-label">FALHA RECUPERÁVEL</p>
+          <h2>O token persistido pode deixar de valer</h2>
+          <div class="expired-flow" aria-label="Fluxo de recuperação de sessão expirada">
+            <div class="fragment fade-up"><b>API responde 401</b><span>credencial não é mais válida</span></div><i>→</i>
+            <div class="fragment fade-up"><b>Limpar sessão</b><span>estado + localStorage</span></div><i>→</i>
+            <div class="fragment fade-up"><b>Voltar ao login</b><span>mensagem clara</span></div>
+          </div>
+          <p class="message-sample fragment fade-in">“Sua sessão terminou. Entre novamente.”</p>
+          <aside class="notes">
+            Tempo sugerido: 5 minutos. Fala sugerida: “Persistir não significa tornar eterno.” Explique que a interface pode recuperar o fluxo removendo a sessão inválida e redirecionando. Não implemente refresh token nesta aula. Pergunte por que não devemos tentar infinitamente a mesma chamada. Resposta: a credencial continuará inválida e pode criar loop. Erro frequente: manter o usuário visualmente logado depois de receber 401. Transição: agora cada equipe integra o fluxo completo ao projeto.
+          </aside>
+        </section>
+
+        <section id="pratica-projeto" class="slide-practice brand-slide">
+          <p class="section-label">PRÁTICA NO PROJETO</p>
+          <h2>Checkpoint 2: sessão e rota protegida</h2>
+          <div class="project-checks">
+            <label><span>□</span><b>Login</b><small>feedback de envio e falha</small></label>
+            <label><span>□</span><b>Persistência</b><small>reload mantém a sessão</small></label>
+            <label><span>□</span><b>Proteção</b><small>/painel redireciona sem sessão</small></label>
+            <label><span>□</span><b>Logout</b><small>remove e bloqueia novamente</small></label>
+          </div>
+          <p class="rotation-line">Troquem os papéis: quem auditou agora conduz o código.</p>
+          <p class="exit-criterion">Demonstração obrigatória: login → reload → logout → acesso direto à rota.</p>
+          <aside class="notes">
+            Tempo sugerido: 15 minutos. As equipes continuam no próprio projeto. Exija a demonstração sequencial escrita no slide. Quem usa API própria deve adaptar nomes de campos e endpoint, mantendo estados e comportamentos. Quem usa DummyJSON pode usar a credencial da documentação. Plano lento: proteja apenas uma rota já existente e deixe tratamento de 401 como pseudocódigo comentado. Alunos que terminarem: simulem sessão inválida alterando o localStorage e tratem JSON corrompido. Avaliação formativa: observe se todos explicam o fluxo e registre equipes que não conseguem localizar onde a sessão vive. Transição: feche com auditoria de bugs, segurança e autoria.
+          </aside>
+        </section>
+
+        <section id="fechamento" data-section-start="fechamento" class="slide-closing" data-background-color="#081D36" data-transition="fade">
+          <p class="section-label section-label--light">CRITÉRIO DE SAÍDA</p>
+          <h2>Uma sessão consistente sobrevive ao reload<br>e termina de verdade no logout</h2>
+          <div class="closing-grid">
+            <div>
+              <strong>Auditoria técnica</strong>
+              <p><span>✓</span> senha não está persistida</p>
+              <p><span>✓</span> falha não quebra a tela</p>
+              <p><span>✓</span> rota direta é verificada</p>
+            </div>
+            <div>
+              <strong>Auditoria de autoria</strong>
+              <p><span>✓</span> cada integrante explica um trecho</p>
+              <p><span>✓</span> uso de IA está registrado no README</p>
+              <p><span>✓</span> equipe justifica decisões e limites</p>
+            </div>
+          </div>
+          <p class="closing-question">Se a rota protegida não protege o servidor, em qual camada a segurança precisa ser garantida?</p>
+          <aside class="notes">
+            Tempo sugerido: 2 minutos. Resposta final esperada: no back-end, que valida credencial e autorização a cada requisição protegida; o front-end também conduz o usuário e evita exposições acidentais de interface. Faça três perguntas rápidas: onde vive a sessão? O que acontece no reload? O que 401 provoca? Respostas: ancestral das rotas, inicialização pelo armazenamento e encerramento da sessão com novo login. Peça que cada trio registre no README qual membro implementou serviço, sessão e rota protegida, com commits ou coautoria. Encerramento: a próxima evolução natural é CRUD integrado usando a mesma sessão nas requisições protegidas.
+          </aside>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="vendor/reveal/dist/reveal.js"></script>
+    <script src="vendor/reveal/dist/plugin/markdown.js"></script>
+    <script src="vendor/reveal/dist/plugin/highlight.js"></script>
+    <script src="vendor/reveal/dist/plugin/notes.js"></script>
+    <script src="vendor/reveal/dist/plugin/search.js"></script>
+    <script src="vendor/reveal/dist/plugin/zoom.js"></script>
+    <script src="assets/aula.js"></script>
+  </body>
+</html>

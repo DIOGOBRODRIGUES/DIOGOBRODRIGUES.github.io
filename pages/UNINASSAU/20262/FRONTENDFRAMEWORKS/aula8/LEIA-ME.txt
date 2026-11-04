@@ -1,0 +1,104 @@
+AUTENTICAÇÃO NO REACT — LOGIN, SESSÃO E ROTAS PROTEGIDAS
+Prof. Diogo Rodrigues · Front-end Frameworks · UNINASSAU
+
+Esta apresentação usa Reveal.js 6.0.1, incluído localmente em vendor/reveal.
+O roteiro foi planejado para um encontro presencial de 150 minutos, alternando
+exposição, duas demonstrações ao vivo e duas práticas nos projetos das equipes.
+
+CONTEÚDO
+
+  - diferença entre autenticação e autorização;
+  - POST de login com fetch e estados de interface;
+  - sessão mínima e persistência com localStorage;
+  - logout completo;
+  - rota protegida com Navigate, sem Outlet;
+  - limite entre proteção de interface e segurança do back-end;
+  - respostas 401 e 403;
+  - recuperação de sessão inválida.
+
+COMO ABRIR
+
+Opção simples: abra index.html no navegador. A apresentação e todos os recursos
+visuais funcionam sem internet. A demonstração com DummyJSON requer internet;
+as notas do slide de live coding apresentam uma alternativa local.
+
+Opção recomendada para notas do professor e impressão:
+
+  Windows: dê dois cliques em iniciar-no-windows.bat.
+  macOS/Linux: abra um terminal nesta pasta e execute node servidor.mjs.
+
+Depois visite http://127.0.0.1:8080. Mantenha o servidor aberto durante a aula.
+Para encerrá-lo, pressione Ctrl+C.
+
+ATALHOS
+
+  Setas ou Espaço: avançar/voltar
+  Esc ou O: visão geral
+  S: janela do apresentador com notas
+  F: tela cheia, quando permitida pelo navegador
+  Ctrl + Shift + F: busca textual
+  Alt + clique: zoom (Ctrl + clique em alguns sistemas)
+  B ou .: pausa/tela escura
+
+O botão “Blocos” salta para Abertura, Login, Sessão, Rotas protegidas ou
+Fechamento. O botão “?” mostra os atalhos durante a apresentação.
+
+NOTAS DO PROFESSOR
+
+Cada slide contém em <aside class="notes">:
+
+  - tempo sugerido, ausente da área visível para os estudantes;
+  - finalidade e fala de abertura;
+  - pergunta à turma e resposta esperada;
+  - orientação de demonstração ou prática;
+  - erro frequente e transição para o slide seguinte.
+
+Os tempos das notas totalizam 150 minutos. Ajuste a prática, e não o conteúdo
+de segurança, caso a turma avance mais lentamente.
+
+DEMONSTRAÇÃO COM DUMMYJSON
+
+Endpoint:
+  https://dummyjson.com/auth/login
+
+Credencial pública usada pela documentação na data de preparação:
+  usuário: emilys
+  senha: emilyspass
+
+Confirme a documentação antes da aula. Não use essa credencial como exemplo de
+senha real. O projeto deve tratar a API como recurso didático.
+
+IDENTIDADE VISUAL
+
+O arquivo oficial do logotipo não foi fornecido. Por isso, os slides usam
+identificação institucional textual em todas as telas, sem desenhar ou imitar
+o logotipo. Para inserir o arquivo oficial, coloque-o em assets/ e substitua a
+identificação textual no HTML/CSS.
+
+As cores preservam o padrão visual da apresentação anterior e não são
+apresentadas como paleta oficial da instituição.
+
+COMO EDITAR
+
+  index.html: conteúdo, código e notas do professor.
+  assets/aula.css: cores, tipografia, diagramas e layouts.
+  assets/aula.js: configuração Reveal.js e menu de blocos.
+
+Não é necessário alterar vendor/.
+
+IMPRIMIR EM PDF
+
+Com o servidor local ativo, abra:
+  http://127.0.0.1:8080/?print-pdf
+
+Use “Imprimir” > “Salvar como PDF”, com gráficos de fundo. Revise antes de
+distribuir, pois fragmentos e respostas podem aparecer revelados no PDF.
+
+FONTES TÉCNICAS
+
+DummyJSON Auth: https://dummyjson.com/docs/auth
+React Router Navigate: https://reactrouter.com/api/components/Navigate
+MDN localStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+MDN 401: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401
+MDN 403: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403
+Reveal.js: https://revealjs.com/
