@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DEVOPS TOOLS — Seminários técnicos</title>
+    <meta name="description" content="Orientações, cronograma e avaliação dos seminários técnicos de DEVOPS TOOLS.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+    <style>
+        :root {
+            --navy: #102b4e;
+            --red: #c82036;
+            --gray: #526173;
+            --light: #edf1f5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--navy);
+            color: var(--navy);
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        .reveal {
+            font-size: 30px
+        }
+
+        .reveal .slides {
+            text-align: left
+        }
+
+        .reveal .slides section {
+            padding: 34px 52px;
+            border-top: 9px solid var(--red);
+            background: #fff;
+            height: 100%;
+            overflow: hidden
+        }
+
+        .reveal h1 {
+            font-size: 90px;
+            line-height: 1.02;
+            margin: 30px 0;
+            font-weight: 800;
+            letter-spacing: -3px
+        }
+
+        .reveal h2 {
+            font-size: 46px;
+            line-height: 1.12;
+            margin: 4px 0 34px;
+            font-weight: 750;
+            letter-spacing: -1px
+        }
+
+        .reveal p {
+            line-height: 1.42;
+            margin: 22px 0
+        }
+
+        .reveal ul {
+            margin: 0 0 0 1.1em;
+            padding: 0
+        }
+
+        .reveal li {
+            padding-left: 8px;
+            margin: 0 0 23px;
+            line-height: 1.35
+        }
+
+        .reveal li::marker {
+            color: var(--red)
+        }
+
+        .reveal .lead {
+            font-size: 35px;
+            line-height: 1.45
+        }
+
+        .reveal .big {
+            font-size: 82px;
+            line-height: 1.15;
+            font-weight: 800;
+            color: var(--red);
+            margin: 38px 0
+        }
+
+        .reveal .big span {
+            font-size: 32px;
+            color: var(--navy);
+            font-weight: 400
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 25px;
+            line-height: 1.3
+        }
+
+        .reveal th {
+            background: var(--navy);
+            color: white;
+            padding: 13px 17px;
+            text-align: left
+        }
+
+        .reveal td {
+            padding: 13px 17px;
+            border-bottom: 1px solid #ced6df;
+            vertical-align: top
+        }
+
+        .reveal tbody tr:nth-child(even) {
+            background: var(--light)
+        }
+
+        .reveal td:last-child {
+            min-width: 130px
+        }
+
+        .reveal .cover {
+            background: var(--navy);
+            color: #fff;
+            border-top-color: var(--red)
+        }
+
+        .reveal .subtitle {
+            font-size: 39px
+        }
+
+        .reveal .meta {
+            color: #cbd4e0;
+            font-size: 24px;
+            margin-top: 65px
+        }
+
+        .reveal .time {
+            display: flex;
+            justify-content: space-between;
+            margin: 65px 0
+        }
+
+        .reveal .time strong {
+            font-size: 105px;
+            color: var(--red)
+        }
+
+        .reveal .time small {
+            display: block;
+            font-size: 29px;
+            font-weight: 400;
+            color: var(--navy)
+        }
+
+        .reveal a {
+            color: #164f91;
+            text-decoration: underline
+        }
+
+        .reveal .controls {
+            color: var(--red)
+        }
+
+        .reveal .progress {
+            color: var(--red)
+        }
+
+        .reveal .slide-number {
+            font: 16px Arial;
+            background: var(--navy);
+            color: #fff
+        }
+
+        .fallback-message {
+            display: none
+        }
+
+        body.fallback .fallback-message {
+            display: block;
+            padding: 20px;
+            background: #fff3cd;
+            color: #362d12
+        }
+
+        body.fallback .reveal {
+            height: auto
+        }
+
+        body.fallback .slides {
+            position: static;
+            width: auto;
+            transform: none
+        }
+
+        body.fallback .slides section {
+            display: block;
+            position: static;
+            height: auto;
+            min-height: 600px;
+            max-width: 1200px;
+            margin: 30px auto
+        }
+
+        .notes {
+            display: none
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--red);
+            outline-offset: 4px
+        }
+
+        @media print {
+            body {
+                background: white
+            }
+
+            .reveal .slides section {
+                border-top: 9px solid var(--red)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fallback-message" role="status">O Reveal.js não carregou. O conteúdo segue disponível em leitura
+        contínua. Verifique a conexão ou use a instalação local descrita no README.</div>
+    <div class="reveal">
+        <div class="slides">
+            <section  aria-label="DEVOPS TOOLS">
+                <h1>DEVOPS<br>TOOLS</h1>
+                <p class="subtitle">Seminários técnicos avaliativos</p>
+                <p class="meta">Professor Diogo Rodrigues</p>
+               
+            </section>
+         
+            <section class="" aria-label="Ponto de partida">
+                <h2>Ponto de partida</h2>
+                <p class="lead">Vocês já estudaram fundamentos DevOps, Git/GitHub, CI/CD, pipelines, GitHub Actions e
+                    introdução a containers.</p>
+                <p>Agora o foco será aplicar esses conhecimentos a implantação, operação e observabilidade.</p>
+                
+            </section>
+            <section class="" aria-label="11 equipes, 74 estudantes">
+                <h2>Sugestão: 11 equipes, 74 estudantes</h2>
+                <p class="big">8 × 7 pessoas <span>+</span> 3 × 6 pessoas</p>
+                <p class="lead">Oito equipes de sete e três equipes de seis integrantes.</p>
+                <p>Cadastro até 03/11/2026. Professor ajusta vagas antes do sorteio.</p>
+                
+            </section>
+            <section class="" aria-label="Cinco encontros">
+                <h2>Cinco encontros</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Encontro</th>
+                            <th>Atividade</th>
+                            <th>Equipes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Preparação, sorteio e oficina</td>
+                            <td>Todas</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Docker avançado e Compose</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Registry, CI/CD e Kubernetes inicial</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Kubernetes operacional e Helm</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Logs, observabilidade e APM</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+            </section>
+            <section class="" aria-label="Temas 01 a 04">
+                <h2>Temas 01 a 04</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tema</th>
+                            <th>Recorte e resultado mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>T01 · Docker avançado</td>
+                            <td>Comparar duas builds da mesma aplicação, executar como usuário sem privilégios e mostrar
+                                um limite configurado.</td>
+                        </tr>
+                        <tr>
+                            <td>T02 · Docker Compose</td>
+                            <td>Subir API e banco, acessar a API e recriar um container preservando dados no volume.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>T03 · Registry</td>
+                            <td>Publicar duas versões em GHCR ou Docker Hub e recuperar uma imagem por digest.</td>
+                        </tr>
+                        <tr>
+                            <td>T04 · Registry integrado ao CI/CD</td>
+                            <td>Executar GitHub Actions que testa e publica imagem identificada pelo commit. Consumir
+                                essa imagem no ambiente de demonstração.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">T01 foca a imagem e sua execução. T02 foca serviços conectados. T03 foca o artefato
+                    no registry. T04 foca a automação de publicação. Consultar TEMAS.md para limites de cada recorte.
+                </aside>
+            </section>
+            <section class="" aria-label="Temas 05 a 08">
+                <h2>Temas 05 a 08</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tema</th>
+                            <th>Recorte e resultado mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>T05 · Kubernetes</td>
+                            <td>Em kind ou minikube, aplicar Deployment e Service e acessar a aplicação.</td>
+                        </tr>
+                        <tr>
+                            <td>T06 · Kubernetes</td>
+                            <td>Remover um Pod e mostrar recuperação. Atualizar a imagem e reverter a versão.</td>
+                        </tr>
+                        <tr>
+                            <td>T07 · Helm</td>
+                            <td>Renderizar e instalar um chart próprio simples, alterando um parâmetro de configuração.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>T08 · Helm</td>
+                            <td>Instalar a aplicação, aplicar uma mudança com values e reverter a release.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Cluster deve estar preparado. Cada equipe entrega seu cenário sem depender da
+                    equipe anterior. Para Helm, declarar versão testada e usar documentação compatível. Kubernetes:
+                    https://kubernetes.io/docs/tutorials/kubernetes-basics/ . Helm: https://helm.sh/docs/topics/charts/
+                    .</aside>
+            </section>
+            <section class="" aria-label="Temas 09 a 11">
+                <h2>Temas 09 a 11</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tema</th>
+                            <th>Recorte e resultado mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>T09 · Logs com Beats, Elasticsearch e Kibana</td>
+                            <td>Gerar logs de uma aplicação, coletar com Filebeat e encontrar os eventos no Kibana.</td>
+                        </tr>
+                        <tr>
+                            <td>T10 · Observabilidade</td>
+                            <td>Simular uma falha, correlacionar logs e métricas coletadas e construir uma visualização
+                                útil.</td>
+                        </tr>
+                        <tr>
+                            <td>T11 · APM</td>
+                            <td>Instrumentar uma API com agente APM ou OpenTelemetry compatível, produzir uma requisição
+                                lenta e investigar seu rastro.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">T09 mostra coleta e busca de logs. T10 investiga uma falha com logs e métricas. T11
+                    instrumenta transações e rastros. Beats sozinho não implementa instrumentação APM. Fontes:
+                    https://www.elastic.co/docs/reference/beats/filebeat e
+                    https://www.elastic.co/docs/solutions/observability/apm .</aside>
+            </section>
+            <section class="" aria-label="Sorteio público">
+                <h2>Sorteio público</h2>
+                <ul>
+                    <li>Dois conjuntos: equipes E01–E11 e temas T01–T11.</li>
+                    <li>Retirada aleatória de um papel de cada conjunto, sem reposição.</li>
+                    <li>Datas fixas por bloco de conteúdo. Ordem aleatória dentro de cada dia.</li>
+                    <li>Ata pública com equipe, tema, data e ordem.</li>
+                </ul>
+                <aside class="notes">Exibir papéis e listas completas, misturar separadamente e convidar estudantes para
+                    retirar. Registrar todos os pares e depois sortear a ordem dentro dos blocos. A progressão
+                    pedagógica limita a aleatoriedade entre dias de modo transparente.</aside>
+            </section>
+            <section class="" aria-label="Troca de tema">
+                <h2>Troca de tema</h2>
+                <ul>
+                    <li>Somente troca bilateral entre equipes, com concordância dos representantes.</li>
+                    <li>Prazo: até 48 horas após o sorteio e antes da primeira entrega envolvida.</li>
+                    <li>O tema leva junto sua vaga no cronograma.</li>
+                    <li>Professor registra e publica a alteração.</li>
+                </ul>
+                <aside class="notes">Vale o primeiro dos dois limites de prazo. Não aceitar repetição de tema nem
+                    sorteio individual adicional. Depois do prazo, apenas mudanças justificadas e registradas.</aside>
+            </section>
+            <section class="" aria-label="Datas e ordem">
+                <h2>Datas e ordem</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Encontro</th>
+                            <th>Data / horário</th>
+                            <th>Temas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>[DATA 03/10 e 05/10]</td>
+                            <td>Preparação</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>[10/10]-Terça-feira</td>
+                            <td>T01</td>
+                        </tr>
+                         <tr>
+                            <td>3</td>
+                            <td>[12/10]-Quinta-feira</td>
+                            <td>T02–T03–T04</td>
+                        </tr>
+                         <tr>
+                            <td>4</td>
+                            <td>[17/10]-Terça-feira</td>
+                            <td>T05</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>[19/10]-Quinta-feira</td>
+                            <td>T06–T07–T08</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>[24/10]-Terça-feira</td>
+                            <td>T09</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>[26/10]-Quinta-feira</td>
+                            <td>T10-T11</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Preencher datas no HTML e nos documentos antes de publicar. Associar as equipes a
+                    essas vagas na ata. A sequência interna de cada dia vem do sorteio.</aside>
+            </section>
+            <section class="" aria-label="40 minutos por equipe">
+                <h2>40 minutos por equipe</h2>
+                <div class="time">
+                    <strong>30<small>apresentação</small></strong><strong>8<small>perguntas</small></strong><strong>2<small>transição</small></strong>
+                </div>
+                <p>Todos os tempos estão em minutos. Avisos aos 25 e 28. Encerramento aos 30.</p>
+                <aside class="notes">Três equipes consomem 120 minutos. Há abertura, intervalo, síntese, reserva e
+                    fechamento dentro de 180 minutos. Não conceder extensão automática com o tempo da próxima equipe.
+                </aside>
+            </section>
+            <section class="" aria-label="Estrutura obrigatória">
+                <h2>Estrutura obrigatória</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parte</th>
+                            <th>Tempo sugerido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Problema e caso de uso</td>
+                            <td>3 min</td>
+                        </tr>
+                        <tr>
+                            <td>Fundamentos e decisões</td>
+                            <td>6 min</td>
+                        </tr>
+                        <tr>
+                            <td>Arquitetura e fluxo</td>
+                            <td>4 min</td>
+                        </tr>
+                        <tr>
+                            <td>Demonstração e interpretação</td>
+                            <td>12 min</td>
+                        </tr>
+                        <tr>
+                            <td>Limitações, conclusão e fontes</td>
+                            <td>5 min</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">O diagrama deve explicar componentes e fluxo. Caso de uso, teoria e demo precisam
+                    se relacionar. O total é 30 minutos, incluindo mudanças de apresentador.</aside>
+            </section>
+            <section class="" aria-label="Todos falam">
+                <h2>Todos falam</h2>
+                <p class="big">3 a 5 <span>min por pessoa</span></p>
+                <ul>
+                    <li>Cada integrante explica uma parte técnica identificada.</li>
+                    <li>Sete integrantes: cerca de 4 min cada. Seis: cerca de 4 min e 40 s.</li>
+                    <li>Narração da demo conta. Só operar o teclado ou dizer o nome não conta.</li>
+                </ul>
+                <aside class="notes">A matriz liga pessoa, contribuição, slides e tempo. O professor observa a fala e
+                    faz pergunta individual. Prever adaptações de acessibilidade sem penalização automática.</aside>
+            </section>
+            <section class="" aria-label="Uma demo viável">
+                <h2>Uma demo viável</h2>
+                <ul>
+                    <li>Uma aplicação pequena e um resultado verificável.</li>
+                    <li>Ambiente pronto, versões registradas e dados fictícios.</li>
+                    <li>Explicação ao vivo das entradas, ações, resultados e limitações.</li>
+                </ul>
+                <aside class="notes">Não exigir nuvem paga ou ambiente de produção. T09–T11 podem compartilhar
+                    infraestrutura, com configurações e evidências próprias. Docker Compose:
+                    https://docs.docker.com/compose/ .</aside>
+            </section>
+           
+            <section class="" aria-label="Entrega até 24 horas antes">
+                <h2>Entrega até 24 horas antes</h2>
+                <ul>
+                    <li>Slides editáveis e PDF, com autores e referências.</li>
+                    <li>Código/configurações e README de reprodução.</li>
+                    
+                </ul>
+                <aside class="notes">Enviar um link com acesso testado pelo canal [LINK DO FORMULÁRIO]. Registrar
+                    commit, tag ou ZIP da entrega. Referências podem ocupar página adicional à síntese. Só exigir
+                    arquivos pertinentes ao recorte. Correções posteriores têm até 48 horas e lista de mudanças.</aside>
+            </section>
+            <section class="" aria-label="README da equipe">
+                <h2>README da equipe</h2>
+                <ul>
+                    <li>Objetivo e arquitetura.</li>
+                    <li>Versões, requisitos e preparação.</li>
+                    <li>Passos de execução e verificação do resultado.</li>
+                    <li>Limpeza, limitações, fontes e créditos.</li>
+                </ul>
+                <aside class="notes">Testar o roteiro antes de entregar. Não publicar tokens nem matrículas. Usar
+                    .env.example. O professor pode verificar reprodução por amostragem e pedir esclarecimentos.</aside>
+            </section>
+            <section class="" aria-label="Como a nota funciona">
+                <h2>Como a nota funciona</h2>
+                <p class="big">7 <span>coletivos +</span> 3 <span>individuais</span></p>
+                <p class="lead">Nota base = C + I</p>
+                <p>Bônus de audiência: até 1,0 ponto. Nota final limitada a 10.</p>
+                <aside class="notes">O bônus não muda o peso relativo dos critérios da nota base. A parcela coletiva
+                    exige contribuição comprovada. Alunos da mesma equipe podem receber notas diferentes. Explicar a
+                    regra especial para ausência ou falta de fala.</aside>
+            </section>
+            <section class="" aria-label="Rubrica coletiva">
+                <h2>Rubrica coletiva</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domínio técnico coletivo</td>
+                            <td>1,5</td>
+                        </tr>
+                        <tr>
+                            <td>Caso de uso e arquitetura</td>
+                            <td>1,0</td>
+                        </tr>
+                        <tr>
+                            <td>Demonstração e aplicação prática</td>
+                            <td>2,0</td>
+                        </tr>
+                        <tr>
+                            <td>Material e reprodutibilidade</td>
+                            <td>1,5</td>
+                        </tr>
+                        <tr>
+                            <td>Organização e distribuição de falas</td>
+                            <td>0,5</td>
+                        </tr>
+                        <tr>
+                            <td>Entrega e prazo</td>
+                            <td>0,5</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Total 7,0. A rubrica detalhada apresenta cinco níveis: 100%, 75%, 50%, 25% e zero,
+                    multiplicados pelo peso. C3 tem maior peso porque a prática é central. Registrar evidências, não
+                    apenas impressões.</aside>
+            </section>
+            <section class="" aria-label="Rubrica individual">
+                <h2>Rubrica individual</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domínio e contribuição individual</td>
+                            <td>1,2</td>
+                        </tr>
+                        <tr>
+                            <td>Clareza e autonomia da fala</td>
+                            <td>0,8</td>
+                        </tr>
+                        <tr>
+                            <td>Participação oral equilibrada</td>
+                            <td>0,5</td>
+                        </tr>
+                        <tr>
+                            <td>Resposta individual</td>
+                            <td>0,5</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Total 3,0. Contribuição pode incluir documentação, desenho, revisão e testes.
+                    Quantidade de commits não define qualidade. Ausência de fala segue regra própria, com possibilidade
+                    de reposição justificada.</aside>
+            </section>
+            <section class="" aria-label="Níveis de desempenho">
+                <h2>Níveis de desempenho</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nível</th>
+                            <th>Fração do peso</th>
+                            <th>Interpretação geral</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pleno</td>
+                            <td>100%</td>
+                            <td>Evidência completa e justificada</td>
+                        </tr>
+                        <tr>
+                            <td>Adequado</td>
+                            <td>75%</td>
+                            <td>Essencial correto, pequenas lacunas</td>
+                        </tr>
+                        <tr>
+                            <td>Parcial</td>
+                            <td>50%</td>
+                            <td>Atendimento incompleto</td>
+                        </tr>
+                        <tr>
+                            <td>Insuficiente</td>
+                            <td>25%</td>
+                            <td>Evidência fraca ou erros relevantes</td>
+                        </tr>
+                        <tr>
+                            <td>Ausente</td>
+                            <td>0%</td>
+                            <td>Sem evidência válida</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Aplicar descritores específicos de RUBRICA.md. Exemplo: critério de 2 pontos no
+                    nível adequado vale 1,5. Para prazo e tempo de fala, há faixas objetivas na rubrica. Arredondar
+                    apenas a nota final.</aside>
+            </section>
+           
+           
+            <section class="" aria-label="Audiência com evidência">
+                <h2>Audiência com evidência</h2>
+                <ul>
+                    <li>Assistir a todos os seminários do encontro.</li>
+                    <li>Confirmar entrada e saída.</li>
+           
+           
+                </ul>
+                <aside class="notes">Frequência oficial é independente. No dia da própria equipe, preencher a ficha
+                    apenas para as outras, mas participar de todos os blocos. Respostas copiadas ou genéricas exigem
+                    esclarecimento. Disponibilizar alternativa em papel.</aside>
+            </section>
+            <section class="" aria-label="Bonificação com limite">
+                <h2>Bonificação com limite</h2>
+                <p class="lead">Cada encontro válido gera <b>0,5 crédito</b> de engajamento, equivalente a <b>0,25
+                        ponto</b>.</p>
+                <p class="big">4 dias <span>= até</span> 1,0 <span>ponto</span></p>
+                <p>Encontro 1 sem bônus. Nota final = mínimo(10, C + I + B).</p>
+                <aside class="notes">P é a soma dos créditos, de 0 a 2. B = P/2. Isso preserva a ideia de meio crédito
+                    por encontro sem adicionar 2 pontos à nota. Presença isolada não basta e falar perguntas em público
+                    não é requisito para bônus.</aside>
+            </section>
+            <section class="" aria-label="Exemplo de nota">
+                <h2>Exemplo de nota</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Coletivo C</td>
+                            <td>5,6</td>
+                        </tr>
+                        <tr>
+                            <td>Individual I</td>
+                            <td>2,1</td>
+                        </tr>
+                        <tr>
+                            <td>Quatro encontros válidos: bônus B</td>
+                            <td>1,0</td>
+                        </tr>
+                        <tr>
+                            <td>Nota final</td>
+                            <td>8,7</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Com dois encontros válidos, o bônus seria 0,5 e a nota 8,2. Se C + I + B superar
+                    10, registrar 10. Nunca somar os créditos diretamente à nota. Sem fala não justificada, aplica-se
+                    teto de 5 e bônus zero enquanto não houver defesa.</aside>
+            </section>
+            <section class="" aria-label="Penalizações acadêmicas">
+                <h2>Penalizações acadêmicas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ocorrência</th>
+                            <th>Consequência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Demo falha</td>
+                            <td>C3 = 0, se não houver execução verificável</td>
+                        </tr>
+                        <tr>
+                            <td>Nenhum material entregue</td>
+                            <td>C4 = 0 e C6 = 0</td>
+                        </tr>
+                        <tr>
+                            <td>Leitura integral de slides</td>
+                            <td>I2 = 0</td>
+                        </tr>
+                        <tr>
+                            <td>Conteúdo superficial</td>
+                            <td>Nível correspondente em C1 e/ou I1</td>
+                        </tr>
+                        <tr>
+                            <td>Plágio suspeito</td>
+                            <td>Apuração e direito a esclarecimento</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Sem desconto global adicional pelo mesmo fato. Demo parcial usa descritor de C3.
+                    Material incompleto usa C4. Plágio confirmado zera critérios afetados conforme procedimento
+                    institucional, sem responsabilização automática de todos.</aside>
+            </section>
+            <section class="" aria-label="Prazos e equilíbrio">
+                <h2>Prazos e equilíbrio</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situação</th>
+                            <th>Regra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entrega após o prazo, antes da aula</td>
+                            <td>C6: 75% do peso</td>
+                        </tr>
+                        <tr>
+                            <td>Até 24 h depois da apresentação</td>
+                            <td>C6: 50%</td>
+                        </tr>
+                        <tr>
+                            <td>Entre 24 e 48 h depois</td>
+                            <td>C6: 25%</td>
+                        </tr>
+                        <tr>
+                            <td>Após 48 h ou sem entrega</td>
+                            <td>C6: 0%</td>
+                        </tr>
+                        <tr>
+                            <td>Aos 30 minutos de apresentação</td>
+                            <td>Encerramento e avaliação do apresentado</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Entrega pontual recebe 100% de C6, cujo peso é 0,5. Qualidade do material é outro
+                    critério. Fala de 3 a 5 minutos atende plenamente I3. A rubrica detalha as demais faixas. Ausência
+                    isolada não reduz a organização coletiva se houve roteiro equilibrado e adaptação.</aside>
+            </section>
+            <section class="" aria-label="Ausência ou integrante sem fala">
+                <h2>Ausência ou integrante sem fala</h2>
+                <ul>
+                    <li>Sem justificativa aceita: I = 0, bônus = 0 e nota limitada a 5.</li>
+                    <li>A parcela coletiva depende de contribuição comprovada.</li>
+                    <li>Ausência aceita: nota pendente e defesa individual de 8–10 min.</li>
+                    <li>A equipe apresenta normalmente, com adaptação dos trechos.</li>
+                </ul>
+                <aside class="notes">Comunicar o quanto antes e justificar em até dois dias úteis ou no prazo
+                    institucional. Reposição em [DATA DE REPOSIÇÃO], com o mesmo teto de nota e demonstração/perguntas.
+                    Se o professor ou a infraestrutura impedir a fala, assegurar oportunidade equivalente sem desconto.
+                </aside>
+            </section>
+                    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+    <script>
+        if (window.Reveal) {
+            Reveal.initialize({ width: 1280, height: 720, margin: 0.04, hash: true, controls: true, progress: true, slideNumber: 'c/t', transition: 'none', center: false, plugins: window.RevealNotes ? [RevealNotes] : [] });
+        } else { document.body.classList.add('fallback'); }
+    </script>
+    <noscript>
+        <style>
+            body .reveal {
+                height: auto
+            }
+
+            body .reveal .slides {
+                position: static;
+                transform: none
+            }
+
+            body .reveal .slides section {
+                position: static;
+                display: block;
+                height: auto;
+                margin-bottom: 30px
+            }
+        </style>
+        <p>Ative JavaScript para navegar pelos slides.</p>
+    </noscript>
+</body>
+
+</html>
