@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Aula 07  | Ética e Engenharia de Requisitos</title>
+    <link rel="stylesheet" href="vendor/reset.css">
+    <link rel="stylesheet" href="vendor/reveal.css">
+    <link rel="stylesheet" href="vendor/simple.css">
+    <link rel="stylesheet" href="assets/base.css">
+    <style>
+        .reveal .cover h1 {
+            font-size: 78px
+        }
+
+        .reveal .slides section {
+            padding: 22px 42px
+        }
+
+        .reveal .slides h2 {
+            font-size: 44px;
+            margin: 8px 0 20px
+        }
+
+        .reveal .slides .conceito {
+            font-size: 30px;
+            line-height: 1.35;
+            border-left: 6px solid #174a7e;
+            padding: 8px 20px;
+            margin: 20px 0 26px
+        }
+
+        .reveal .slides .dist {
+            font-size: 25px;
+            background: #eaf0f5;
+            padding: 14px 20px
+        }
+
+        .reveal .slides h3 {
+            font-size: 23px;
+            margin: 0
+        }
+
+        .reveal .item h2 {
+            font-size: 37px;
+            margin: 5px 0 10px
+        }
+
+        .reveal .item .eyebrow {
+            margin: 0
+        }
+
+        .reveal .original {
+            font-size: 22px;
+            line-height: 1.24
+        }
+
+        .reveal .original p {
+            margin: 6px 0;
+            line-height: 1.25
+        }
+
+        .assert {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 28px
+        }
+
+        .assert p {
+            border-top: 2px solid #b4c8d9;
+            padding-top: 7px
+        }
+
+        .reveal .original small {
+            font-size: 75%
+        }
+
+        .opcoes {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap
+        }
+
+        .opcoes b {
+            color: #174a7e
+        }
+
+        .chapter-nav {
+            gap: 14px
+        }
+    </style>
+    <style>
+        .scene,
+        .measure {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            align-items: center;
+            gap: 42px
+        }
+
+        .reveal .scene img {
+            width: 100%;
+            max-height: 425px;
+            object-fit: contain;
+            margin: 0;
+            border: 0;
+            box-shadow: none
+        }
+
+        .decision {
+            display: block;
+            width: 100%;
+            height: 290px
+        }
+
+        .hundred {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+            width: 330px;
+            margin: auto
+        }
+
+        .hundred i {
+            aspect-ratio: 1;
+            background: #174a7e
+        }
+
+        .hundred .late {
+            background: repeating-linear-gradient(45deg, #b53137 0 4px, #ffe7dc 4px 8px)
+        }
+
+        .trail {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin: 50px 0
+        }
+
+        .trail>div {
+            flex: 1;
+            border-top: 5px solid #174a7e;
+            padding: 20px 8px
+        }
+
+        .trail span {
+            font-size: 44px;
+            color: #ae2538
+        }
+
+        .trail b {
+            color: #174a7e
+        }
+
+        .reveal .scene h3,
+        .reveal .measure h3 {
+            font-size: 30px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section id="capa" class="dark cover" data-block="Início" data-background-image="assets/tecnologia.png"
+                data-background-opacity=".2" data-background-color="#081d36">
+                <p class="stamp">UNINASSAU · Sistemas de Informação</p>
+                <div class="eyebrow">Aula 07 </div>
+                <h1>Quem pode ler<br>o relato de Lia?</h1>
+                <p class="big">Ética e Engenharia de Requisitos</p>
+                <p class="small">Tópicos Especiais em Sistemas de Informação<br>Prof. Dr. Diogo Francisco Borba
+                    Rodrigues</p>
+                <aside class="notes">60 minutos. Caso e ética: 13 minutos. Requisitos: 15. Descoberta, validação e
+                    testes: 14. Resposta individual e correção: 18. Não projetar o gabarito antes da resolução.</aside>
+            </section>
+            <section id="cena">
+                <div class="eyebrow">Caso fictício · apoio pedagógico</div>
+                <h2>O que a recepção precisa saber?</h2>
+                <div class="scene"><img src="assets/recepcao.png"
+                        alt="Na recepção da faculdade, Lia apresenta um comprovante à funcionária.">
+                    <div>
+                        <h3>O comprovante identifica o horário.</h3>
+                        <p>O relato explica por que Lia procurou orientação.</p>
+                        <p class="dist">Qual dos dois a funcionária precisa consultar para confirmar a chegada?</p>
+                    </div>
+                </div>
+                <aside class="notes">Ilustração fictícia gerada para esta aula. Compare o propósito de cada dado antes
+                    de discutir permissões.</aside>
+            </section>
+            <section id="registro" class="">
+                <h2>Um agendamento, três decisões</h2>
+                <p>Lia informa à faculdade que pensa em interromper o curso. Ela registra esse motivo para preparar a
+                    conversa com Ana, sua orientadora.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pessoa</th>
+                            <th>O que precisa fazer</th>
+                            <th>Decisão a investigar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Recepcionista</td>
+                            <td>Confirmar que Lia chegou</td>
+                            <td>Precisa ler o motivo?</td>
+                        </tr>
+                        <tr>
+                            <td>Ana</td>
+                            <td>Preparar a orientação</td>
+                            <td>Como provar o vínculo com Lia?</td>
+                        </tr>
+                        <tr>
+                            <td>Coordenador</td>
+                            <td>Dimensionar a fila</td>
+                            <td>Precisa de nomes ou de totais?</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>O sistema exibe o relato aos três. Não houve invasão. Onde está o problema?</p>
+                <aside class="notes">Use a última pergunta como pausa breve; a resposta depende da finalidade de cada
+                    uso.</aside>
+            </section>
+            <section id="etica" class="" data-block="Ética">
+                <h2>Ética profissional: quem responde pelo efeito da tela?</h2>
+                <p class="conceito">Ética profissional é o exame das razões e consequências de uma decisão no exercício
+                    de uma profissão. Em TI, envolve avaliar como o sistema afeta também quem não participou da sua
+                    construção.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>O pedido “listar tudo para a coordenação” é tecnicamente viável. Antes de implementá-lo, a analista
+                    pergunta que decisão o relatório apoiará e quem ficará exposto.</p>
+                <p class="dist">Se a decisão é quantos horários abrir, comparar a demanda por turno pode bastar. A
+                    justificativa para revelar nomes teria de ser outra.</p>
+                <aside class="notes">Se a decisão é quantos horários abrir, comparar a demanda por turno pode bastar. A
+                    justificativa para revelar nomes teria de ser outra.</aside>
+            </section>
+            <section id="privacidade" class="">
+                <h2>Privacidade, finalidade e minimização</h2>
+                <p class="conceito">Privacidade envolve o uso adequado de informações pessoais em seu contexto.
+                    Finalidade é o propósito desse uso. Minimização significa usar apenas os dados necessários para
+                    alcançá-lo.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>Para a orientação, o motivo do atendimento pode ser pertinente. Para confirmar presença, o protocolo
+                    e o horário identificam o agendamento sem revelar a conversa.</p>
+                <p class="dist">O mesmo campo pode ser necessário em uma tela e excessivo em outra. A unidade de análise
+                    é a tarefa, não o cadastro inteiro.</p>
+                <aside class="notes">O mesmo campo pode ser necessário em uma tela e excessivo em outra. A unidade de
+                    análise é a tarefa, não o cadastro inteiro.</aside>
+            </section>
+            <section id="controles" class="">
+                <h2>Privacidade e confidencialidade resolvem problemas diferentes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situação</th>
+                            <th>Diagnóstico</th>
+                            <th>Resposta da equipe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Usuário sem permissão lê um relato.</td>
+                            <td>Falha de confidencialidade: houve revelação indevida.</td>
+                            <td>Verificar a permissão antes de devolver o conteúdo.</td>
+                        </tr>
+                        <tr>
+                            <td>Relatório autorizado contém relatos sem utilidade para contar atendimentos.</td>
+                            <td>Problema de finalidade e minimização, mesmo que ninguém invada o sistema.</td>
+                            <td>Rever o conteúdo e o público do relatório.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Registrar quem abriu o relatório ajuda na auditoria. Isso não elimina o excesso de informação.</p>
+                <aside class="notes">Enfatize que uma senha forte não corrige uma política de compartilhamento
+                    inadequada.</aside>
+            </section>
+            <section id="identidade" class="">
+                <h2>Autenticação, autorização e menor privilégio</h2>
+                <p class="conceito">Autenticação verifica a identidade. Autorização decide se essa identidade pode
+                    executar uma ação sobre determinado recurso. Menor privilégio limita a permissão ao necessário para
+                    a tarefa.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>Bruno e Ana são orientadores autenticados. Ana atende Lia; Bruno não. O cargo é igual, mas apenas Ana
+                    pode abrir esse relato pela política do caso.</p>
+                <p class="dist">Um controle que verifica apenas “é orientador?” deixa de verificar “é responsável por
+                    este atendimento?”.</p>
+                <aside class="notes">Um controle que verifica apenas “é orientador?” deixa de verificar “é responsável
+                    por este atendimento?”.</aside>
+            </section>
+            <section id="fluxo-acesso">
+                <div class="eyebrow">Fluxograma · política do caso</div>
+                <h2>O servidor pode devolver o relato?</h2>
+                <p>Ana e Bruno já fizeram login. A decisão abaixo ocorre a cada consulta ao registro de Lia.</p><svg
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 300" role="img"
+                    aria-label="Após a consulta, o sistema verifica se o usuário é responsável pelo atendimento. Se sim, exibe o relato. Se não, nega o acesso."
+                    class="decision">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6"
+                            orient="auto">
+                            <path d="M0 0L10 5L0 10Z" fill="#52677c" />
+                        </marker>
+                    </defs>
+                    <g fill="none" stroke="#52677c" stroke-width="4" marker-end="url(#arrow)">
+                        <path d="M257 150H340" />
+                        <path d="M700 150H760V70H855" />
+                        <path d="M760 150V232H855" />
+                    </g>
+                    <rect x="10" y="102" width="247" height="96" rx="12" fill="#e8eff5" />
+                    <path d="M345 150L525 35L705 150L525 265Z" fill="#12375c" />
+                    <rect x="862" y="28" width="250" height="82" rx="10" fill="#e6f2ec" />
+                    <rect x="862" y="192" width="250" height="82" rx="10" fill="#fae9e9" />
+                    <g text-anchor="middle" font-family="Arial" font-size="24" fill="#102b47"><text x="134"
+                            y="143">Solicitar relato</text><text x="134" y="174">de Lia</text><text x="525" y="141"
+                            fill="white">É responsável</text><text x="525" y="173" fill="white">pelo
+                            atendimento?</text><text x="806" y="55">Sim</text><text x="806" y="216">Não</text><text
+                            x="987" y="78">Exibir para Ana</text><text x="987" y="242">Negar a Bruno</text></g>
+                </svg>
+                <p class="dist">Ocultar o botão não protege o dado se o servidor entregar o texto por outro caminho.</p>
+                <aside class="notes">Leia os dois caminhos. A decisão testa o vínculo com aquele atendimento, não apenas
+                    o cargo.</aside>
+            </section>
+            <section id="verde" class="">
+                <h2>Responsabilidade ambiental ao longo da vida do equipamento</h2>
+                <p>TI Verde reúne práticas para reduzir o impacto ambiental da tecnologia. A análise inclui a utilização
+                    de energia e materiais e o destino dos equipamentos.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Decisão</th>
+                            <th>Mecanismo</th>
+                            <th>Limite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Evitar impressão desnecessária</td>
+                            <td>Reduzir o consumo de papel e toner.</td>
+                            <td>Digitalizar também consome recursos.</td>
+                        </tr>
+                        <tr>
+                            <td>Consolidar servidores</td>
+                            <td>A virtualização permite hospedar máquinas virtuais em um servidor físico.</td>
+                            <td>A economia depende da carga e do consumo real.</td>
+                        </tr>
+                        <tr>
+                            <td>Substituir computadores</td>
+                            <td>Avaliar reúso e encaminhamento adequado dos componentes.</td>
+                            <td>Retirar o equipamento da sala não resolve o descarte.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Este assunto amplia o conceito de responsabilidade profissional e prepara para a
+                    questão 12.</aside>
+            </section>
+            <section id="engenharia" class="" data-block="Requisitos">
+                <h2>O que é Engenharia de Requisitos?</h2>
+                <p class="conceito">É o trabalho de descobrir e conciliar necessidades, especificar o que se espera do
+                    sistema, validar o entendimento e acompanhar mudanças. O resultado precisa orientar tanto quem
+                    desenvolve quanto quem aceita a entrega.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>“Quero um botão que abra a ficha” é um pedido de solução. “Preciso confirmar a chegada sem confundir
+                    homônimos” descreve o problema e admite outras soluções.</p>
+                <p class="dist">Começar pela necessidade evita transformar o primeiro desenho sugerido em requisito
+                    obrigatório.</p>
+                <aside class="notes">Começar pela necessidade evita transformar o primeiro desenho sugerido em requisito
+                    obrigatório.</aside>
+            </section>
+            <section id="regra" class="">
+                <h2>Regra de negócio: a política existe antes do software</h2>
+                <p class="conceito">Uma regra de negócio define o que a organização permite, exige ou proíbe em uma
+                    situação. Sua validade não depende da tecnologia escolhida.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>“Somente o orientador responsável pelo atendimento pode ler o relato.” A faculdade poderia cumprir a
+                    mesma política controlando o acesso a fichas em papel.</p>
+                <p class="dist">Teste de leitura: se a afirmação continua fazendo sentido sem aplicativo, investigue se
+                    ela expressa uma política do negócio.</p>
+                <aside class="notes">Teste de leitura: se a afirmação continua fazendo sentido sem aplicativo,
+                    investigue se ela expressa uma política do negócio.</aside>
+            </section>
+            <section id="rf" class="">
+                <h2>Requisito funcional: como o sistema reage?</h2>
+                <p class="conceito">Um requisito funcional descreve um serviço ou comportamento esperado. Uma boa
+                    formulação identifica a operação, a condição relevante e o resultado.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>Quando um funcionário solicita um relato, o sistema compara sua identificação com a do responsável.
+                    Se coincidirem, devolve o texto. Caso contrário, nega a consulta.</p>
+                <p class="dist">“Proteger os dados” expressa uma intenção. “Negar a consulta de quem não tem vínculo”
+                    descreve um comportamento observável.</p>
+                <aside class="notes">“Proteger os dados” expressa uma intenção. “Negar a consulta de quem não tem
+                    vínculo” descreve um comportamento observável.</aside>
+            </section>
+            <section id="rnf" class="">
+                <h2>Requisito não funcional: em quais condições a solução serve?</h2>
+                <p class="conceito">Um requisito não funcional estabelece um atributo de qualidade ou uma restrição.
+                    Desempenho, disponibilidade e facilidade de aprendizagem são exemplos de aspectos que podem exigir
+                    medidas.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>“Com 50 usuários simultâneos, pelo menos 95% das consultas devem terminar em até dois segundos.” A
+                    função continua sendo consultar a agenda; agora há uma meta de desempenho.</p>
+                <p class="dist">Em 100 consultas sob a carga definida, 94 dentro do prazo não bastam, mesmo se a média
+                    ficar abaixo de dois segundos.</p>
+                <aside class="notes">Em 100 consultas sob a carga definida, 94 dentro do prazo não bastam, mesmo se a
+                    média ficar abaixo de dois segundos.</aside>
+            </section>
+            <section id="infografico-desempenho">
+                <div class="eyebrow">Infográfico · exemplo de medição</div>
+                <h2>A meta de desempenho foi atingida?</h2>
+                <p>Com 50 usuários simultâneos, pelo menos 95 de cada 100 consultas devem terminar em até dois segundos.
+                </p>
+                <div class="measure">
+                    <div class="hundred" role="img"
+                        aria-label="Cem consultas: 94 no prazo, seis acima de dois segundos">
+                        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i
+                            class="late"></i><i class="late"></i><i class="late"></i><i class="late"></i><i
+                            class="late"></i><i class="late"></i></div>
+                    <div>
+                        <h3>Resultado de uma rodada fictícia</h3>
+                        <p><b>94</b> consultas no prazo (azul).<br><b>6</b> acima de dois segundos (listradas).</p>
+                        <p class="dist">Faltou uma consulta no prazo. Nesta rodada, o sistema não atingiu a meta de 95%.
+                        </p>
+                    </div>
+                </div>
+                <aside class="notes">Cada quadrado é uma consulta, não um usuário. A média não responde à pergunta sobre
+                    a proporção de consultas no prazo.</aside>
+            </section>
+            <section id="comparar" class="">
+                <h2>Como classificar sem depender de palavras-chave?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Frase sobre uma biblioteca</th>
+                            <th>Classificação</th>
+                            <th>Por quê?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uma reserva expirada não dá prioridade na fila.</td>
+                            <td>Regra de negócio</td>
+                            <td>Define o direito do leitor.</td>
+                        </tr>
+                        <tr>
+                            <td>Ao expirar a reserva, o sistema convoca o próximo leitor.</td>
+                            <td>Requisito funcional</td>
+                            <td>Especifica uma reação a um evento.</td>
+                        </tr>
+                        <tr>
+                            <td>A convocação deve chegar em até 1 minuto em 99% dos casos.</td>
+                            <td>Requisito não funcional de desempenho</td>
+                            <td>Define um limite mensurável para a função.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>“Segurança” também pode aparecer nos dois tipos: negar uma operação é comportamento; resistir a
+                    determinada carga de ataques é uma exigência a especificar e medir.</p>
+                <aside class="notes">Use este exemplo de transferência, sem antecipar o cenário do ENADE.</aside>
+            </section>
+            <section id="elicitar" class="" data-block="Validação">
+                <h2>Stakeholders e elicitação: descobrir o que não foi dito</h2>
+                <p class="conceito">Stakeholder é uma pessoa ou grupo que afeta o sistema ou sofre seus efeitos.
+                    Elicitar requisitos é investigar necessidades, restrições e exceções, em vez de apenas registrar
+                    pedidos.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>A recepção pede busca por nome. Durante a observação, aparecem duas estudantes homônimas no mesmo
+                    horário. O comprovante contém um protocolo que permite distingui-las.</p>
+                <p class="dist">Entrevista revela o que as pessoas relatam; observação mostra como trabalham; documentos
+                    revelam regras ou identificadores já existentes.</p>
+                <aside class="notes">Entrevista revela o que as pessoas relatam; observação mostra como trabalham;
+                    documentos revelam regras ou identificadores já existentes.</aside>
+            </section>
+            <section id="negociar" class="">
+                <h2>Análise, negociação e especificação</h2>
+                <p class="conceito">Analisar é identificar lacunas, contradições e dependências. Negociar é acordar uma
+                    solução quando interesses competem. Especificar é registrar a decisão em termos que possam ser
+                    implementados e verificados.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>A recepção quer identificar a estudante; Lia quer discrição. Um acordo possível é localizar o
+                    agendamento pelo protocolo e mostrar nome, horário e situação, sem o relato.</p>
+                <p class="dist">A especificação ainda tem uma lacuna: como confirmar a chegada de quem esqueceu o
+                    protocolo?</p>
+                <aside class="notes">A especificação ainda tem uma lacuna: como confirmar a chegada de quem esqueceu o
+                    protocolo?</aside>
+            </section>
+            <section id="interacao" class="">
+                <h2>Design de interação e prototipação</h2>
+                <p class="conceito">Design de interação define como a pessoa executa uma tarefa e interpreta a resposta
+                    do sistema. Um protótipo é uma representação provisória que permite experimentar esse percurso antes
+                    de concluir o produto.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>Em um desenho da agenda, a recepcionista tenta localizar Lia, selecionar seu horário e registrar a
+                    chegada. A equipe observa onde ela hesita e se a confirmação é compreensível.</p>
+                <p class="dist">Um protótipo simples pode revelar uma falha de fluxo. Ele não demonstra, por si só, que
+                    o servidor vai proteger o relato.</p>
+                <aside class="notes">Um protótipo simples pode revelar uma falha de fluxo. Ele não demonstra, por si só,
+                    que o servidor vai proteger o relato.</aside>
+            </section>
+            <section id="validar" class="">
+                <h2>Validação do requisito ou teste da implementação?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pergunta</th>
+                            <th>Evidência</th>
+                            <th>Conclusão possível</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>“A busca só por protocolo atende à recepção?”</td>
+                            <td>No protótipo, um estudante chega sem comprovante.</td>
+                            <td>O requisito é insuficiente, mesmo que o código seja perfeito.</td>
+                        </tr>
+                        <tr>
+                            <td>“A busca por protocolo retorna o agendamento correto?”</td>
+                            <td>Usar o protocolo AP-052 e comparar o registro retornado com o esperado.</td>
+                            <td>O comportamento implementado atende ou não a esse cenário.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Validar um requisito é conferir sua adequação à necessidade real. Testar o produto permite observar o
+                    que a implementação efetivamente faz.</p>
+                <aside class="notes">As atividades são complementares e podem usar cenários parecidos, mas respondem a
+                    perguntas distintas.</aside>
+            </section>
+            <section id="criterio" class="">
+                <h2>Critérios de aceitação: o que conta como evidência?</h2>
+                <p>Um critério de aceitação estabelece uma condição observável para julgar a entrega. No formato “Dado /
+                    Quando / Então”, cada parte tem uma função.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condição inicial</th>
+                            <th>Ação</th>
+                            <th>Resposta esperada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ana está autenticada e é a responsável.</td>
+                            <td>Solicita o relato de Lia.</td>
+                            <td>O sistema apresenta o texto correto.</td>
+                        </tr>
+                        <tr>
+                            <td>Bruno está autenticado e não é o responsável.</td>
+                            <td>Solicita o mesmo relato por endereço direto.</td>
+                            <td>O sistema nega acesso e não retorna o texto.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Só testar Bruno deixaria passar um sistema que bloqueia todo mundo. Só testar Ana deixaria passar um
+                    sistema que libera tudo.</p>
+                <aside class="notes">Faça a ponte com a próxima aula sobre testes.</aside>
+            </section>
+            <section id="rastro" class="">
+                <h2>Rastreabilidade: o que revisar quando a regra muda?</h2>
+                <p class="conceito">Rastreabilidade é a capacidade de seguir os vínculos entre a necessidade, a regra, o
+                    requisito e a evidência de aceitação. Ela permite localizar o impacto de uma mudança.</p>
+                <h3>No atendimento estudantil</h3>
+                <p>Se a faculdade permitir substitutos nas férias de Ana, a política precisa definir quem os designa. A
+                    consulta passa a verificar a vigência. Os testes passam a cobrir o período autorizado e o dia
+                    seguinte.</p>
+                <p class="dist">Mudar só a tela pode deixar a política antiga no servidor. Mudar só a política deixa os
+                    testes antigos cobrando a regra errada.</p>
+                <aside class="notes">Mudar só a tela pode deixar a política antiga no servidor. Mudar só a política
+                    deixa os testes antigos cobrando a regra errada.</aside>
+            </section>
+            <section id="trilha">
+                <div class="eyebrow">Mapa de rastreabilidade</div>
+                <h2>Se a política mudar, o que precisa ser revisto?</h2>
+                <div class="trail">
+                    <div><b>Política</b>
+                        <p>Permitir substituto durante as férias.</p>
+                    </div><span>→</span>
+                    <div><b>Requisito</b>
+                        <p>Verificar vínculo e período autorizado.</p>
+                    </div><span>→</span>
+                    <div><b>Teste</b>
+                        <p>Permitir no último dia. Negar no dia seguinte.</p>
+                    </div>
+                </div>
+                <p class="dist">Leia também no sentido inverso: qual regra justifica negar o acesso no dia seguinte?</p>
+                <aside class="notes">As setas representam vínculos entre documentos, comportamento e evidência. Não são
+                    etapas obrigatoriamente sequenciais de desenvolvimento.</aside>
+            </section>
+            <section id="individual" class="" data-block="ENADE">
+                <h2>ENADE: resolução individual</h2>
+                <p>12 minutos para resolver três questões do componente específico de Sistemas de Informação.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Questão</th>
+                            <th>Tema</th>
+                            <th>Leitura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>Requisitos</td>
+                            <td>Classifique cada elemento das afirmativas.</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>Design de interação</td>
+                            <td>Julgue separadamente as quatro afirmativas.</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>TI Verde</td>
+                            <td>Observe o alcance das práticas ambientais.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Registre as três letras antes de avançar à correção. Cada questão está completa em uma única tela.
+                </p>
+                <aside class="notes">Reserve mais seis minutos para correção.</aside>
+            </section>
+            <section class="item" id="q9">
+                <div class="eyebrow">ENADE 2017 · Bacharelado em Sistemas de Informação · p. 17</div>
+                <h2>Questão 09</h2>
+                <div class="original">
+                    <p>Na fase de levantamento de requisitos do processo de desenvolvimento de <i>software</i>, devem-se
+                        identificar as regras de negócio, os requisitos funcionais e os requisitos não funcionais do
+                        sistema.</p>
+                    <p>Considerando um cenário em que um vendedor de sorvetes tenha o objetivo de gerenciar suas vendas
+                        com o uso de um aplicativo, avalie os itens a seguir.</p>
+                    <div class="assert">
+                        <p><b>I.</b> Regra de negócio: entregar o sorvete ao cliente somente mediante pagamento;
+                            requisito funcional: reabastecer o estoque quando a quantidade de sorvetes atingir o mínimo;
+                            requisito não funcional: especificar o tempo de resposta do aplicativo.</p>
+                        <p><b>II.</b> Regra de negócio: aplicar promoções vigentes na realização da venda; requisito
+                            funcional: calcular a quantidade de sorvetes em estoque; requisito não funcional: exibir
+                            relatório com o balanço de vendas.</p>
+                        <p><b>III.</b> Regra de negócio: aceitar somente pagamentos com cartão de débito ou crédito;
+                            requisito funcional: consultar a quantidade de vendas; requisito não funcional: verificar a
+                            possibilidade de indisponibilidade do sistema.</p>
+                        <p><b>IV.</b> Regra de negócio: conceder aos clientes que comprarem 2 sorvetes um desconto de
+                            10%; requisito funcional: processar a venda do sorvete; requisito não funcional: verificar o
+                            tempo gasto com o treinamento para a utilização do aplicativo.</p>
+                    </div>
+                    <p><strong>É correto apenas o que se descreve em</strong></p>
+                    <div class="opcoes"><span><b>A</b> I e II.</span><span><b>B</b> II e III.</span><span><b>C</b> III e
+                            IV.</span><span><b>D</b> I, II e IV.</span><span><b>E</b> I, III e IV.</span></div>
+                </div>
+                <aside class="notes">Texto do caderno oficial do Inep, página 17. Quatro minutos individuais. O gabarito
+                    aparece somente no bloco seguinte.</aside>
+            </section>
+            <section class="item" id="q16">
+                <div class="eyebrow">ENADE 2017 · Bacharelado em Sistemas de Informação · p. 22</div>
+                <h2>Questão 16</h2>
+                <div class="original">
+                    <p>O processo de <i>design</i> de interação possui quatro atividades básicas: identificar as
+                        necessidades e estabelecer requisitos, desenvolver <i>designs</i> alternativos que preencham
+                        estes requisitos, construir versões interativas dos <i>designs</i> e avaliação.</p>
+                    <p>Nesse contexto, avalie as afirmações a seguir.</p>
+                    <div class="assert">
+                        <p><b>I.</b> O processo de <i>design</i> de interação é complementar aos modelos de ciclo de
+                            vida de desenvolvimento de <i>software</i>.</p>
+                        <p><b>II.</b> A participação do usuário do sistema no processo de <i>design</i> de interação é
+                            dispensável, uma vez que os desenvolvedores conhecem todas as regras referentes ao <i>web
+                                design</i>.</p>
+                        <p><b>III.</b> A observação de <i>designs</i> de interação desenvolvidos por outros
+                            profissionais motiva os <i>designers</i> para soluções alternativas.</p>
+                        <p><b>IV.</b> A prototipação é uma técnica para facilitar o <i>feedback</i> do usuário nas
+                            etapas do processo de <i>design</i> de interação.</p>
+                    </div>
+                    <p><strong>É correto apenas o que afirma em</strong></p>
+                    <div class="opcoes"><span><b>A</b> I.</span><span><b>B</b> II e IV.</span><span><b>C</b> I, II e
+                            III.</span><span><b>D</b> I, III e IV.</span><span><b>E</b> II, III e IV.</span></div>
+                </div>
+                <aside class="notes">Texto do caderno oficial do Inep, página 22. Quatro minutos individuais. O gabarito
+                    aparece somente no bloco seguinte.</aside>
+            </section>
+            <section class="item" id="q12">
+                <div class="eyebrow">ENADE 2017 · Bacharelado em Sistemas de Informação · p. 19</div>
+                <h2>Questão 12</h2>
+                <div class="original">
+                    <p>A TI Verde está associada à utilização eficiente dos recursos organizacionais e à minimização dos
+                        efeitos nocivos ao meio ambiente ocasionados pelo uso da Tecnologia da Informação (TI). Essas
+                        tecnologias são feitas de produtos químicos, metais pesados, materiais sintéticos etc.
+                        Considerando que existirão 10 bilhões de pessoas no nosso planeta em 2050, teremos que gerir
+                        tanto o impacto ambiental da tecnologia, quanto usar esta mesma tecnologia para ajudar a
+                        gerenciar o impacto da espécie humana no planeta.</p>
+                    <p><small>Disponível em: &lt;http://www.sustenti.com.br&gt;. Acesso em: 21 jul. 2017
+                            (adaptado).</small></p>
+                    <p>A partir dessas informações e considerando o conceito de TI Verde, avalie as afirmações a seguir.
+                    </p>
+                    <div class="assert">
+                        <p><b>I.</b> Um dos pilares da TI Verde é a busca de conscientização do usuário na adoção de
+                            ações sustentáveis, tais como: reduzir impressões inúteis economizando papel e
+                            tinta/<i>toner</i> e evitar o envio desnecessário de <i>e-mails</i> reduzindo o gasto de
+                            energia do sistema e do receptor.</p>
+                        <p><b>II.</b> Na linha de eficiência energética estão os <i>data centers</i> verdes, nos quais a
+                            virtualização de servidores pode ser utilizada para fazer com que uma única máquina física,
+                            considerando sua capacidade de processamento, emule diversas máquinas.</p>
+                        <p><b>III.</b> Um equívoco comum é considerar ações relativas ao lixo eletrônico como ações de
+                            TI Verde a serem adotadas pela organização, pois essas questões estão fora de sua
+                            governança.</p>
+                    </div>
+                    <p><strong>É correto o que se afirma em</strong></p>
+                    <div class="opcoes"><span><b>A</b> I, apenas.</span><span><b>B</b> III, apenas.</span><span><b>C</b>
+                            I e II, apenas.</span><span><b>D</b> II e III, apenas.</span><span><b>E</b> I, II e
+                            III.</span></div>
+                </div>
+                <aside class="notes">Texto do caderno oficial do Inep, página 19. Quatro minutos individuais. O gabarito
+                    aparece somente no bloco seguinte.</aside>
+            </section>
+            <section id="resposta-9" data-block="Correção">
+                <div class="eyebrow">Correção comentada · ENADE 2017</div>
+                <h2>Questão 9</h2>
+                <p class="conceito"><b>C · III e IV</b></p>
+                <p>Nos itens III e IV, formas de pagamento e desconto são políticas comerciais. Consultar e processar
+                    vendas são funções. Disponibilidade e tempo de aprendizagem dizem respeito à qualidade. No item II,
+                    emitir um relatório é uma função. No item I, reabastecer fisicamente o estoque não é, por si, uma
+                    operação do aplicativo; emitir um alerta ou pedido de reposição seria um comportamento de software
+                    explícito.</p>
+                <aside class="notes">Letra conforme o gabarito definitivo do Inep. A explicação é didática, não um
+                    comentário oficial da banca.</aside>
+            </section>
+            <section id="resposta-16">
+                <div class="eyebrow">Correção comentada · ENADE 2017</div>
+                <h2>Questão 16</h2>
+                <p class="conceito"><b>D · I, III e IV</b></p>
+                <p>A afirmativa II é falsa: conhecer as regras de design não informa ao desenvolvedor como uma
+                    recepcionista distingue dois homônimos em situação real. Observar outras soluções ajuda a imaginar
+                    alternativas; experimentar um protótipo com usuários ajuda a avaliá-las.</p>
+                <aside class="notes">Letra conforme o gabarito definitivo do Inep. A explicação é didática, não um
+                    comentário oficial da banca.</aside>
+            </section>
+            <section id="resposta-12">
+                <div class="eyebrow">Correção comentada · ENADE 2017</div>
+                <h2>Questão 12</h2>
+                <p class="conceito"><b>C · I e II</b></p>
+                <p>A afirmativa III exclui indevidamente o lixo eletrônico das responsabilidades da organização. Reduzir
+                    desperdício durante o uso, consolidar servidores quando adequado e cuidar do destino dos
+                    equipamentos são decisões sobre momentos diferentes do mesmo ciclo de vida.</p>
+                <aside class="notes">Letra conforme o gabarito definitivo do Inep. A explicação é didática, não um
+                    comentário oficial da banca.</aside>
+            </section>
+            <section id="fontes">
+                <h2>Fontes e continuidade</h2>
+                <p><a
+                        href="https://download.inep.gov.br/educacao_superior/enade/provas/2017/40_SIS_INFORMACAO_BAIXA.pdf">Inep
+                        · Caderno do ENADE 2017: Sistemas de Informação</a><br>Q9: página 17. Q16: página 22. Q12:
+                    página 19.</p>
+                <p><a
+                        href="https://download.inep.gov.br/educacao_superior/enade/gabaritos/2017/40_Sistemas_de_Informacao.pdf">Inep
+                        · Gabarito definitivo de Sistemas de Informação</a></p>
+                <p class="dist">Na próxima aula: como construir um teste que diferencie uma restrição real de um botão
+                    apenas escondido?</p>
+                <aside class="notes">A projeção dispensa os links: o conteúdo das três questões está incorporado ao
+                    HTML.</aside>
+            </section>
+        </div>
+    </div>
+    <nav class="chapter-nav" aria-label="Blocos da aula"></nav><a class="key-help" href="#">? Atalhos</a>
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/zoom.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script src="vendor/search.js"></script>
+    <script src="vendor/markdown.js"></script>
+    <script src="vendor/highlight.js"></script>
+    <script src="assets/aula.js"></script>
+</body>
+
+</html> 

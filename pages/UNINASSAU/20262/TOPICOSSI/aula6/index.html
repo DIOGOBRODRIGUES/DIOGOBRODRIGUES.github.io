@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Aula 6 — Governança de TI e ISO/IEC 38500</title>
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <meta name="description"
+        content="Princípios de governança, modelo histórico e atualização ISO/IEC 38500:2024. Aplicação e questões autorais.">
+    <link rel="stylesheet" href="vendor/reset.css">
+    <link rel="stylesheet" href="vendor/reveal.css">
+    <link rel="stylesheet" href="vendor/simple.css" id="theme">
+    <link rel="stylesheet" href="vendor/github.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="assets/aula.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section id="abertura" class="dark cover" data-block="Abertura"
+                data-background-image="assets/tecnologia.png" data-background-opacity="0.28"
+                data-background-color="#081d36">
+                <p class="stamp">Centro Universitário Maurício de Nassau</p>
+                <div class="eyebrow">Aula 06</div>
+                <h1>Governança de TI<br>e ISO/IEC 38500</h1>
+                
+                <p class="small">Tópicos Integradores<br>Prof. Diogo Francisco Borba
+                    Rodrigues</p>
+                <div class="social-links"><a
+                        href="https://www.linkedin.com/in/diogo-francisco-borba-rodrigues-3a1b5179/" target="_blank"
+                        rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i>LinkedIn</a><a
+                        href="https://github.com/DIOGOBRODRIGUES" target="_blank" rel="noopener noreferrer"><i
+                            class="fab fa-github" aria-hidden="true"></i>GitHub</a></div>
+                <aside class="notes">Aula de continuidade à Aula 5, sem data fixada. Roteiro sugerido para 100 minutos:
+                    abertura e retomada, 10; conceitos e exemplos, 40; aplicação em equipe, 15; questões individuais e
+                    correção, 20; síntese e discussão, 15. Ajustar ao tempo disponível. O nome acompanha a página da
+                    disciplina.</aside>
+            </section>
+
+            <section id="caso">
+                <div class="eyebrow">Exemplo</div>
+                <h2>Um portal para solicitar serviços</h2>
+                <p>Uma associação quer substituir pedidos por mensagens, por um portal com protocolo e acompanhamento.
+                </p>
+                <p class="definition">A proposta escolhida custa menos, mas o fornecedor não esclareceu a exportação dos
+                    registros nem ofereceu teste com usuários.</p>
+                <p>Quem decide? Quais evidências faltam? O que pode acontecer depois da contratação?</p>
+                <aside class="notes">Ouvir hipóteses durante dois minutos. Não resolver o caso agora. Apontar que preço
+                    é uma informação, mas a escolha precisa considerar a finalidade e suas consequências. Todos os
+                    valores e situações da aula são exemplos didáticos, não relatos de contratação real.</aside>
+            </section>
+
+            <section id="retomada">
+                <div class="eyebrow">Retomada da Aula 5</div>
+                <h2>Governança e gestão</h2>
+                <div class="cols">
+                    <div>
+                        <h3>Governança</h3>
+                        <p>Estabelece direção e responsabilidades. Acompanha se a TI contribui para os objetivos.</p>
+                        <p class="small">Aprovar o objetivo de rastrear solicitações e definir os riscos aceitáveis.</p>
+                    </div>
+                    <div>
+                        <h3>Gestão</h3>
+                        <p>Organiza a execução dentro das responsabilidades e dos limites definidos.</p>
+                        <p class="small">Planejar integração, testes, treinamento e sustentação do portal.</p>
+                    </div>
+                </div>
+                <aside class="notes">Ambas usam informações e acompanham resultados. A diferença não é simplesmente quem
+                    olha indicadores. Atribuições dependem da organização e da delegação. Fonte conceitual: ISO/IEC
+                    38500:2024, definições públicas em
+                    https://gso-sims-preview-doc-aws.s3-eu-west-1.amazonaws.com/iso-iec-38500-2024-en.html .</aside>
+            </section>
+
+            <section id="norma" data-block="Norma">
+                <div class="eyebrow">Referência</div>
+                <h2>Finalidade da ISO/IEC 38500</h2>
+                <p class="definition">Orientar os responsáveis pela governança no uso eficaz, eficiente e aceitável da
+                    TI.</p>
+                <p>Aplica-se a organizações de diferentes portes e setores, considerando o uso atual e futuro da
+                    tecnologia.</p>
+               
+                <aside class="notes">Fonte: catálogo oficial https://www.iso.org/standard/81684.html . Orientação
+                    baseada em princípios. Evitar apresentar a norma como procedimento de desenvolvimento ou receita
+                    automática para contratar software. A explicação didática não substitui acesso à norma quando
+                    necessário profissionalmente.</aside>
+            </section>
+
+            <section id="edicoes">
+                <div class="eyebrow">A edição faz diferença</div>
+                <h2>Referências históricas e atuais</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Referência</th>
+                            <th>Uso nesta aula</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 e 2015</td>
+                            <td>Leitura dos seis princípios históricos e de seus exemplos.</td>
+                        </tr>
+                        <tr>
+                            <td>2024</td>
+                            <td>Edição atual, com revisão dos princípios e do modelo.</td>
+                        </tr>
+                        <tr>
+                            <td>Em uma questão</td>
+                            <td>Observar a edição e o recorte indicados no enunciado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">A edição de 2024 substituiu a de 2015. Os seis princípios históricos aparecem
+                    identificados como históricos nos próximos slides.</p>
+                <aside class="notes">Fontes: https://www.iso.org/standard/81684.html e
+                    https://www.iso.org/standard/62816.html . A notícia histórica oficial lista os seis princípios:
+                    https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/news/2008/06/Ref1135.html . Não
+                    afirmar que a edição atual mantém essa mesma lista como estrutura completa.</aside>
+            </section>
+
+            <section id="principios" data-block="Princípios">
+                <div class="eyebrow">Modelo histórico de 2008/2015</div>
+                <h2>Seis princípios históricos</h2>
+                <div class="cols">
+                    <div>
+                        <p>Responsabilidade</p>
+                        <p>Estratégia</p>
+                        <p>Aquisição</p>
+                    </div>
+                    <div>
+                        <p>Desempenho</p>
+                        <p>Conformidade</p>
+                        <p>Comportamento humano</p>
+                    </div>
+                </div>
+                <p class="small">Um caso pode envolver vários princípios. O comando da questão delimita qual aspecto
+                    analisar.</p>
+                <aside class="notes">Fonte primária histórica: notícia ISO de 5/6/2008,
+                    https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/news/2008/06/Ref1135.html . A
+                    especificação ISO/IEC TS 38501:2015 apresenta a mesma lista em seu anexo B:
+                    https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso-iec%3Ats%3A38501%3Aed-1%3Av1%3Aen . Os
+                    próximos exemplos são aplicações didáticas autorais.</aside>
+            </section>
+
+            <section id="responsabilidade">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Responsabilidade</h2>
+                <p class="definition">Clareza sobre quem decide, executa e responde pelo uso da TI.</p>
+                <p>No portal, a associação define quem aprova requisitos e quem aceita a entrega. O fornecedor informa
+                    suas responsabilidades de suporte.</p>
+                <p class="fragment">Evidência: registro da decisão, do responsável e dos limites da delegação.</p>
+                <aside class="notes">Pergunta oral: se o fornecedor executa o serviço, quem responde pela decisão de
+                    adotá-lo? Delegar trabalho não significa abandonar acompanhamento. Fonte para a interpretação
+                    histórica: PECB Candidate Handbook ISO 38500, domínio 5,
+                    https://pecb.com/pdf/candidate-handbooks/pecb-candidate-handbook-iso-38500-it-governance-manager.pdf
+                    .</aside>
+            </section>
+
+            <section id="estrategia">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Estratégia</h2>
+                <p class="definition">As decisões de TI devem considerar os objetivos da organização e suas necessidades
+                    futuras.</p>
+                <p>A associação precisa acompanhar pedidos. Um sistema sofisticado de publicidade não resolve essa
+                    necessidade por ter uma tecnologia recente.</p>
+                <p class="fragment">Evidência: relação explícita entre funcionalidade, necessidade e resultado esperado.
+                </p>
+                <aside class="notes">Aplicação didática. Pedir um exemplo em que uma funcionalidade popular seja
+                    secundária ao problema da equipe. Fonte conceitual: PECB, domínio 5, link no slide anterior.</aside>
+            </section>
+
+            <section id="aquisicao">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Aquisição</h2>
+                <p class="definition">Investimentos em TI pedem análise justificada das opções e de suas consequências.
+                </p>
+                <p>Além da mensalidade: implantação, migração, suporte, saída do fornecedor e continuidade do serviço.
+                </p>
+                <p class="fragment">Evidência: comparação documentada de benefícios, custos e riscos.</p>
+                <aside class="notes">Custos e cenários devem ser comparáveis. Não atribuir à ISO um método obrigatório
+                    de pontuação. Fonte conceitual: PECB, domínio 5,
+                    https://pecb.com/pdf/candidate-handbooks/pecb-candidate-handbook-iso-38500-it-governance-manager.pdf
+                    .</aside>
+            </section>
+
+            <section id="comparacao">
+                <div class="eyebrow">Exemplo hipotético</div>
+                <h2>Custo no mesmo horizonte</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Custo em 12 meses</th>
+                            <th>Proposta A</th>
+                            <th>Proposta B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Implantação</td>
+                            <td>R$ 2.000</td>
+                            <td>R$ 1.000</td>
+                        </tr>
+                        <tr>
+                            <td>Mensalidade</td>
+                            <td>R$ 300</td>
+                            <td>R$ 450</td>
+                        </tr>
+                        <tr>
+                            <td>Total informado</td>
+                            <td>R$ 5.600</td>
+                            <td>R$ 6.400</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">Valores fictícios. Total = implantação + 12 mensalidades.</p>
+                <p>A proposta A é menor nessa conta. A decisão ainda depende de requisitos, riscos e custos não
+                    esclarecidos.</p>
+                <aside class="notes">A não oferece informação sobre exportação e treinamento. B ainda precisa demonstrar
+                    atendimento aos requisitos. Não afirmar que B é melhor sem evidência. Perguntar quais outros custos
+                    seriam investigados. Contas: 2.000 + 12 × 300; 1.000 + 12 × 450.</aside>
+            </section>
+
+            <section id="desempenho">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Desempenho</h2>
+                <p class="definition">A TI deve atender às necessidades de serviço que justificam seu uso.</p>
+                <p>Para o portal: registrar sem perder solicitações, permitir acompanhamento e responder no tempo
+                    acordado.</p>
+                <p class="fragment">Evidência: testes de fluxo e indicadores com meta, fonte e periodicidade definidas.
+                </p>
+                <aside class="notes">A rapidez do servidor é relevante, mas não demonstra sozinha atendimento ao
+                    objetivo. Usar desempenho em sentido de adequação do serviço, não apenas velocidade. Aplicação
+                    didática do princípio histórico.</aside>
+            </section>
+
+            <section id="conformidade">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Conformidade</h2>
+                <p class="definition">O uso da TI precisa observar obrigações aplicáveis e políticas da organização.</p>
+                <p>No caso: verificar condições contratuais de acesso, exportação e tratamento dos registros antes de
+                    aprovar a solução.</p>
+                <p class="fragment">Evidência: requisitos verificados e registro das verificações pendentes.</p>
+                <aside class="notes">Fonte conceitual: PECB Candidate Handbook, domínio 5. Não oferecer conclusão
+                    jurídica concreta sobre contratos ou proteção de dados. O exemplo é identificação de obrigações a
+                    verificar. A conformidade pode coexistir com desempenho e comportamento humano.</aside>
+            </section>
+
+            <section id="pessoas">
+                <div class="eyebrow">Princípio histórico</div>
+                <h2>Comportamento humano</h2>
+                <p class="definition">Decisões de TI devem considerar como as pessoas trabalham, aprendem e utilizam o
+                    serviço.</p>
+                <p>Um portal usado por voluntários precisa de linguagem compreensível e validação com pessoas de
+                    diferentes experiências digitais.</p>
+                <p class="fragment">Evidência: dificuldades observadas nos testes e ajustes no fluxo ou no treinamento.
+                </p>
+                <aside class="notes">Fonte conceitual: PECB, domínio 5. A aplicação a acessibilidade e treinamento é
+                    didática. Evitar reduzir o princípio à resistência à mudança ou atribuir problemas aos usuários sem
+                    investigar barreiras.</aside>
+            </section>
+
+            <section id="modelo" data-block="Modelo">
+                <div class="eyebrow">Modelo de governança</div>
+                <h2>Avaliar, direcionar e monitorar</h2>
+                <div class="steps">
+                    <div><b>Avaliar</b>Examinar necessidades e alternativas.</div>
+                    <div><b>Direcionar</b>Definir objetivos, políticas e responsabilidades.</div>
+                    <div><b>Monitorar</b>Rever evidências para decidir ajustes.</div>
+                </div>
+                <p>O acompanhamento pode levar a uma nova avaliação e à revisão da direção.</p>
+                <aside class="notes">Paráfrase didática. Fonte para definições públicas: ISO/IEC 38500:2024, preview
+                    GSO, seção 3. Para o modelo histórico: notícia oficial ISO de 2008. Não tratar como etapas de
+                    execução de software nem como sequência que se encerra após monitorar.</aside>
+            </section>
+
+            <section id="estado-avaliar" data-auto-animate data-auto-animate-id="caso">
+                <div class="eyebrow">Aplicação ao portal</div>
+                <h2 data-id="caso-titulo">Avaliar</h2>
+                <p class="definition" data-id="caso-centro">Há necessidade de registrar e acompanhar solicitações.</p>
+                <p>Comparar opções e investigar exportação, custos de transição e barreiras de uso.</p>
+                <aside class="notes">Exemplo didático. Perguntar quem deve participar para que a análise não dependa
+                    somente do fornecedor. Auto-Animate liga a necessidade às decisões e às evidências nos próximos
+                    slides.</aside>
+            </section>
+
+            <section id="estado-direcionar" data-auto-animate data-auto-animate-id="caso">
+                <div class="eyebrow">Aplicação ao portal</div>
+                <h2 data-id="caso-titulo">Direcionar</h2>
+                <p class="definition" data-id="caso-centro">Aprovar um fluxo rastreável, com responsabilidade e
+                    critérios de aceitação.</p>
+                <p>Definir quem valida o protocolo e como a equipe demonstra que a exportação funciona.</p>
+                <aside class="notes">Exemplo didático. Critérios de aceitação são condições observáveis. O objetivo é
+                    tornar a decisão executável e verificável.</aside>
+            </section>
+
+            <section id="estado-monitorar" data-auto-animate data-auto-animate-id="caso">
+                <div class="eyebrow">Aplicação ao portal</div>
+                <h2 data-id="caso-titulo">Monitorar</h2>
+                <p class="definition" data-id="caso-centro">Comparar resultados observados com os critérios aprovados.
+                </p>
+                <p>Verificar solicitações concluídas e dificuldades de uso. Rever o direcionamento quando as evidências
+                    indicarem necessidade.</p>
+                <aside class="notes">Exemplo didático. A equipe executa testes, a responsabilidade de aceitação segue a
+                    delegação definida. Monitoramento fornece base para decisão e ajuste.</aside>
+            </section>
+
+            <section id="atualizacao" data-block="Atualização">
+                <div class="eyebrow">ISO/IEC 38500:2024</div>
+                <h2>Atualização da estrutura</h2>
+                <p>A edição atual aproxima a governança de TI da governança da organização, em alinhamento com a ISO
+                    37000.</p>
+                <p>O modelo explicita o engajamento das partes interessadas.</p>
+                <p class="small">A referência de 2024 organiza onze princípios. </p>
+                <aside class="notes">Fonte: prefácio e sumário públicos de
+                    https://gso-sims-preview-doc-aws.s3-eu-west-1.amazonaws.com/iso-iec-38500-2024-en.html . Mudanças
+                    confirmadas no prefácio. Introdução à atualização, sem reproduzir o texto integral ou alegar
+                    cobertura de todas as cláusulas.</aside>
+            </section>
+
+            <section id="principios-atuais-a">
+                <div class="eyebrow">Panorama de 2024</div>
+                <h2>Direção e prestação de contas</h2>
+                <ul>
+                    <li>Propósito</li>
+                    <li>Geração de valor</li>
+                    <li>Estratégia</li>
+                    <li>Supervisão</li>
+                    <li>Prestação de contas</li>
+                </ul>
+                <p class="small">Exemplo didático: explicitar a finalidade do portal e quem responde por seus
+                    resultados.</p>
+                <aside class="notes">Títulos em tradução didática dos itens 5.2 a 5.6 do sumário de 2024. Oversight
+                    traduzido como supervisão e accountability como prestação de contas. Fonte: preview GSO. O exemplo é
+                    autoral e não tradução de uma cláusula.</aside>
+            </section>
+
+            <section id="principios-atuais-b">
+                <div class="eyebrow">Panorama de 2024</div>
+                <h2>Pessoas e decisões sustentadas</h2>
+                <div class="cols">
+                    <ul>
+                        <li>Engajamento das partes interessadas</li>
+                        <li>Liderança</li>
+                        <li>Dados e decisões</li>
+                    </ul>
+                    <ul>
+                        <li>Governança de riscos</li>
+                        <li>Responsabilidade social</li>
+                        <li>Viabilidade e desempenho ao longo do tempo</li>
+                    </ul>
+                </div>
+                <p class="small">Exemplo didático: ouvir usuários e investigar a sustentação do serviço após o
+                    lançamento.</p>
+                <aside class="notes">Títulos em tradução didática dos itens 5.7 a 5.12 do sumário de 2024. Fonte:
+                    preview GSO. Não solicitar memorização de onze títulos antes das questões. A distinção de edição e o
+                    engajamento das pessoas são os pontos principais desta introdução.</aside>
+            </section>
+
+            <section id="engajamento">
+                <div class="eyebrow">Discussão aplicada</div>
+                <h2>Participação durante a decisão</h2>
+                <p>No portal, atendentes conhecem exceções. Solicitantes revelam dificuldades. A direção define
+                    prioridades. A equipe técnica avalia viabilidade.</p>
+                <p class="definition">Ouvir pessoas afetadas melhora a base da decisão. A autoridade e a prestação de
+                    contas precisam continuar claras.</p>
+                <aside class="notes">Aplicação didática autoral da inclusão de engage stakeholders no modelo de 2024.
+                    Não atribuir poder de aprovação igual a todos os participantes. Uma consulta pode influenciar
+                    critérios sem transferir a autoridade pela decisão.</aside>
+            </section>
+
+            <section id="projeto" data-block="Projeto">
+                <div class="eyebrow">Aplicação em equipe</div>
+                <h2>Uma decisão do projeto</h2>
+                <p>Escolham uma decisão real em aberto: funcionalidade, tecnologia, forma de acesso ou uso de um serviço
+                    externo.</p>
+                <ul class="progressive">
+                    <li>Qual necessidade a decisão atende?</li>
+                    <li>Quem é afetado e quem precisa ser consultado?</li>
+                    <li>Quais alternativas, custos e riscos existem?</li>
+                    <li>Quem decide e que evidência permitirá revisar a escolha?</li>
+                </ul>
+                <aside class="notes">Reservar 10 minutos e 5 para discussão. Aplicação pedagógica aos projetos CORETO. A
+                    equipe acadêmica não equivale a um órgão formal de governança corporativa. Não exigir contratação
+                    real ou custo financeiro.</aside>
+            </section>
+
+            <section id="registro">
+                <div class="eyebrow">Registro no README ou quadro</div>
+                <h2>Decisão verificável</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Decisão</th>
+                            <td>Escolha e necessidade atendida.</td>
+                        </tr>
+                        <tr>
+                            <th>Justificativa</th>
+                            <td>Alternativas, critérios e restrições.</td>
+                        </tr>
+                        <tr>
+                            <th>Responsáveis</th>
+                            <td>Quem aprova, executa e acompanha.</td>
+                        </tr>
+                        <tr>
+                            <th>Evidência</th>
+                            <td>Critério de conclusão e momento de revisão.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">Produto da atividade: um registro breve por equipe, com links acessíveis ao professor.
+                </p>
+                <aside class="notes">Exemplo de organização do trabalho, não exigência formal da norma. Não definir
+                    prazo ou nota sem orientação do professor. Usar o repositório e o quadro que já acompanham o
+                    projeto.</aside>
+            </section>
+
+            <section id="revisao">
+                <div class="eyebrow">Preparação para as questões</div>
+                <h2>Termos para interpretar o caso</h2>
+                <div class="cols">
+                    <div>
+                        <h3>Decisão</h3>
+                        <p>Aquisição, responsabilidade, estratégia e conformidade.</p>
+                    </div>
+                    <div>
+                        <h3>Avaliação</h3>
+                        <p>Desempenho, comportamento humano, evidência e monitoramento.</p>
+                    </div>
+                </div>
+                <p>Nas próximas questões, a edição e o aspecto solicitado aparecem expressamente.</p>
+                <p class="small">Quatro questões autorais. Resposta individual com justificativa curta.</p>
+                <aside class="notes">Reservar 15–20 minutos para resposta e correção. Sugerir 10–12 minutos individuais
+                    e 5–8 para discutir. Questões completas antes de qualquer gabarito. Não distribuir o modo de
+                    impressão com respostas antes da aplicação.</aside>
+            </section>
+
+            <section id="questao-aquisicao" class="question" data-block="Questões">
+                <div class="eyebrow">Questão autoral</div>
+                <h2>Análise da aquisição</h2>
+                <div class="question-layout">
+                    <div>
+                        <p>Uma cooperativa escolhe um sistema pela menor mensalidade. Ainda não conhece os custos de
+                            migração e suporte nem verificou se poderá recuperar seus registros ao encerrar o contrato.
+                        </p>
+                        <p>Considerando o princípio histórico de aquisição da ISO/IEC 38500:2015, qual medida é mais
+                            adequada antes da aprovação?</p>
+                    </div>
+                    <ol>
+                        <li>Comparar as mensalidades e aprovar a menor, deixando custos de transição para depois.</li>
+                        <li>Presumir que todos os fornecedores atendem aos requisitos, se oferecem funções com nomes
+                            iguais.</li>
+                        <li>Examinar benefícios, custos ao longo do uso e riscos, incluindo transição e saída, e
+                            registrar a justificativa.</li>
+                        <li>Escolher o produto com mais funcionalidades, independentemente de sua relação com a
+                            necessidade.</li>
+                        <li>Delegar a escolha ao fornecedor, que possui mais informações sobre o próprio produto.</li>
+                    </ol>
+                </div>
+                <aside class="notes">Resposta C. Objetivo: analisar uma aquisição pelo conjunto de informações
+                    necessárias, sem impor uma técnica única de cálculo.</aside>
+            </section>
+
+            <section id="questao-modelo" class="question">
+                <div class="eyebrow">Questão autoral</div>
+                <h2>Modelo de governança</h2>
+                <div class="question-layout">
+                    <div>
+                        <p>Uma fundação compara necessidades e riscos de um portal. Depois aprova objetivos e
+                            responsáveis. Durante o uso, examina evidências de atendimento aos critérios e decide se
+                            precisa ajustar a orientação.</p>
+                        <p>Qual sequência descreve essas atividades?</p>
+                    </div>
+                    <ol>
+                        <li>Avaliar, direcionar e monitorar.</li>
+                        <li>Direcionar, monitorar e avaliar.</li>
+                        <li>Monitorar, avaliar e direcionar.</li>
+                        <li>Avaliar, monitorar e direcionar.</li>
+                        <li>Direcionar, avaliar e monitorar.</li>
+                    </ol>
+                </div>
+                <aside class="notes">Resposta A. Todas as alternativas contêm os mesmos termos para avaliar a relação
+                    com a descrição. Monitorar não encerra o ciclo.</aside>
+            </section>
+
+            <section id="questao-pessoas" class="question">
+                <div class="eyebrow">Questão autoral</div>
+                <h2>Desempenho e pessoas</h2>
+                <p>Um portal atende à meta de tempo de resposta do servidor, mas voluntários não conseguem concluir o
+                    cadastro devido à linguagem e à sequência de telas. Considere os princípios históricos de 2015.</p>
+                <p>I. O desempenho deve ser examinado em relação à necessidade do serviço, além da velocidade do
+                    servidor.<br>II. O comportamento humano orienta considerar as características e dificuldades das
+                    pessoas no uso da TI.<br>III. A velocidade técnica dispensa validar o fluxo com usuários.</p>
+                <p>É correto o que se afirma em:</p>
+                <ol class="compact-choices">
+                    <li>I, apenas.</li>
+                    <li>II, apenas.</li>
+                    <li>I e III.</li>
+                    <li>I e II.</li>
+                    <li>I, II e III.</li>
+                </ol>
+                <aside class="notes">Resposta D. I e II verdadeiras. III falsa. O enunciado não pergunta qual princípio
+                    único explica todo o problema, pois há sobreposição legítima.</aside>
+            </section>
+
+            <section id="questao-edicao" class="question">
+                <div class="eyebrow">Questão autoral</div>
+                <h2>Leitura da edição atual</h2>
+                <div class="question-layout">
+                    <div>
+                        <p>Uma equipe consulta um material de 2015 com seis princípios e um panorama de 2024 que
+                            apresenta estrutura revista e explicita o engajamento das partes interessadas.</p>
+                        <p>Qual interpretação é adequada para preparar uma análise atual?</p>
+                    </div>
+                    <ol>
+                        <li>Tratar os seis títulos antigos como a lista completa da edição atual, dispensando consulta à
+                            edição.</li>
+                        <li>Identificar a edição, reconhecer a revisão e incorporar a participação das pessoas afetadas,
+                            com autoridade de decisão definida.</li>
+                        <li>Transferir toda aprovação aos usuários consultados, eliminando a responsabilidade do órgão
+                            de governança.</li>
+                        <li>Ignorar os materiais anteriores, pois os conceitos de avaliação e monitoramento deixaram de
+                            ter utilidade.</li>
+                        <li>Restringir a norma à equipe técnica, excluindo a direção das decisões sobre o uso de TI.
+                        </li>
+                    </ol>
+                </div>
+                <aside class="notes">Resposta B. O enunciado fornece a mudança relevante. Não exigir memorização
+                    integral da edição de 2024. Participar não significa assumir indistintamente autoridade de
+                    aprovação.</aside>
+            </section>
+
+            <section id="correcao-aquisicao" class="correction" data-block="Correção">
+                <div class="eyebrow">Correção comentada</div>
+                <h2>Análise da aquisição</h2>
+                <div class="cols fragment">
+                    <div>
+                        <div class="answer">C</div>
+                        <p>A justificativa compara benefícios, custos e riscos da decisão.</p>
+                    </div>
+                    <ul class="small">
+                        <li>A considera apenas parte do custo.</li>
+                        <li>B presume equivalência sem verificação.</li>
+                        <li>D usa quantidade de funções como valor.</li>
+                        <li>E transfere a decisão à parte interessada na venda.</li>
+                    </ul>
+                </div>
+                <aside class="notes">Primeiro pedir justificativa dos alunos. Avançar revela a resposta. Retomar o
+                    exemplo das propostas sem assumir que o maior preço oferece melhor qualidade.</aside>
+            </section>
+
+            <section id="correcao-modelo" class="correction">
+                <div class="eyebrow">Correção comentada</div>
+                <h2>Modelo de governança</h2>
+                <div class="fragment">
+                    <div class="answer">A</div>
+                    <div class="steps">
+                        <div><b>Avaliar</b>Necessidades e riscos.</div>
+                        <div><b>Direcionar</b>Objetivos e responsáveis.</div>
+                        <div><b>Monitorar</b>Evidências e ajustes.</div>
+                    </div>
+                    <p class="small">As demais alternativas trocam a ordem das atividades descritas no caso.</p>
+                </div>
+                <aside class="notes">Perguntar qual nova avaliação seria necessária se os critérios não fossem
+                    alcançados. Não apresentar o ciclo como um projeto que termina no monitoramento.</aside>
+            </section>
+
+            <section id="correcao-pessoas" class="correction">
+                <div class="eyebrow">Correção comentada</div>
+                <h2>Desempenho e pessoas</h2>
+                <div class="fragment">
+                    <div class="answer">D</div>
+                    <p>I e II são verdadeiras. A necessidade é concluir o serviço, e as pessoas precisam conseguir
+                        utilizá-lo.</p>
+                    <p>III é falsa. Tempo de resposta adequado não comprova que o fluxo seja compreensível.</p>
+                    <p class="small">A e B omitem uma afirmação verdadeira. C e E incluem III.</p>
+                </div>
+                <aside class="notes">A expressão princípio predominante não foi usada. Um cenário pode mobilizar
+                    princípios simultâneos. Isso evita exigir uma exclusividade artificial entre desempenho e
+                    comportamento humano.</aside>
+            </section>
+
+            <section id="correcao-edicao" class="correction">
+                <div class="eyebrow">Correção comentada</div>
+                <h2>Leitura da edição atual</h2>
+                <div class="cols fragment">
+                    <div>
+                        <div class="answer">B</div>
+                        <p>A análise identifica a versão e incorpora a revisão.</p>
+                    </div>
+                    <ul class="small">
+                        <li>A confunde a lista histórica com a atual.</li>
+                        <li>C confunde participação e autoridade.</li>
+                        <li>D descarta conceitos úteis sem fundamento.</li>
+                        <li>E exclui os responsáveis pela governança.</li>
+                    </ul>
+                </div>
+                <aside class="notes">Fonte: catálogo ISO 2024 e prefácio da prévia GSO. A revisão deve orientar o estudo
+                    de materiais antigos com atenção à edição, sem exigir decorar onze títulos nesta aula introdutória.
+                </aside>
+            </section>
+
+            <section id="fechamento" data-block="Síntese">
+                <div class="eyebrow">Registro de aprendizagem</div>
+                <h2>Uma decisão melhor justificada</h2>
+                <ul class="progressive">
+                    <li>Qual informação faltava na escolha do portal?</li>
+                    <li>Que princípio histórico ajuda a formular essa pergunta?</li>
+                    <li>Que evidência permitirá revisar uma decisão do projeto?</li>
+                </ul>
+                <p>Atualizem o registro da equipe com a justificativa e o responsável pelo acompanhamento.</p>
+                <aside class="notes">Fechamento em cinco minutos. A evidência pode ser um teste, uma comparação ou uma
+                    verificação de acesso. Não afirmar impacto sem observação. Continuidade sugerida: ética e
+                    responsabilidade profissional em TI, conforme ajuste do calendário.</aside>
+            </section>
+
+            <section id="fontes">
+                <div class="eyebrow">Referências</div>
+                <h2>Fontes da aula</h2>
+                <ul class="references">
+                    <li><a href="https://www.iso.org/standard/81684.html">ISO/IEC 38500:2024 — catálogo oficial</a></li>
+                    <li><a href="https://www.iso.org/standard/62816.html">ISO/IEC 38500:2015 — identificação da edição
+                            anterior</a></li>
+                    <li><a
+                            href="https://www.iso.org/cms/%20render/live/en/sites/isoorg/contents/news/2008/06/Ref1135.html">ISO
+                            — apresentação histórica dos seis princípios, 2008</a></li>
+                    <li><a
+                            href="https://gso-sims-preview-doc-aws.s3-eu-west-1.amazonaws.com/iso-iec-38500-2024-en.html">Prévia
+                            de 2024 — prefácio, sumário e definições</a></li>
+                    <li><a
+                            href="https://pecb.com/pdf/candidate-handbooks/pecb-candidate-handbook-iso-38500-it-governance-manager.pdf">PECB
+                            — competências sobre princípios históricos, domínio 5</a></li>
+                </ul>
+                <p class="small">Exemplos, traduções didáticas e questões autorais. Consulta em 19/10/2026.</p>
+                <aside class="notes">Referências adicionais no contexto de cada slide. A apresentação é uma introdução
+                    didática e não reprodução da norma. As fontes externas precisam de internet, mas a apresentação
+                    contém dependências locais.</aside>
+            </section>
+
+        </div>
+    </div>
+    <nav class="chapter-nav" aria-label="Blocos da aula"></nav><a href="#" class="key-help" aria-label="Abrir atalhos">?
+        Atalhos</a>
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/zoom.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script src="vendor/search.js"></script>
+    <script src="vendor/markdown.js"></script>
+    <script src="vendor/highlight.js"></script>
+    <script src="assets/aula.js"></script>
+</body>
+
+</html>

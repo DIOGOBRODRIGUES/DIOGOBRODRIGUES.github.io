@@ -1,0 +1,15 @@
+/* Ajustes da Aula 6 sobre o tema aprovado na Aula 5. */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.steps{display:flex;gap:28px}.steps>div{flex:1}.steps b{display:block}
+.reveal .slides section{height:auto;max-height:680px}
+.reveal h1{font-size:78px}.reveal h2{font-size:46px}
+.reveal .cover h1{font-size:78px}.reveal .cover .stamp{font-size:17px}
+.reveal .cover .small{font-size:20px}.reveal .cover .big{font-size:30px}
+.reveal .question h2{font-size:36px}.question .question-layout{grid-template-columns:0.9fr 1.1fr}
+.question .question-layout p{font-size:25px}.question ol li{font-size:23px}
+.reveal .references{font-size:25px}.references li{margin:18px 0}
+.reveal .slides section a{color:#174a7e}.reveal .slides section.dark a{color:white}
+.chapter-nav{gap:19px;font-size:10px;letter-spacing:.3px;flex-wrap:wrap}
+.question .compact-choices li{font-size:21px}
+@media(max-width:850px){.chapter-nav{font-size:8px;gap:8px;right:130px}}
+@media print{.reveal .slides section{max-height:none}.reveal .slides section .fragment{opacity:1!important;visibility:visible!important}}

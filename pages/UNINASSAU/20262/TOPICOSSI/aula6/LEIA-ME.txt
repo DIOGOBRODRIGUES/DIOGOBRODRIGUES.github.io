@@ -1,0 +1,28 @@
+AULA 6 — GOVERNANÇA DE TI E ISO/IEC 38500
+
+Extraia o ZIP e abra index.html. Mantenha assets e vendor na mesma pasta.
+Slides e plugins funcionam sem internet. Referências e perfis profissionais são links externos.
+
+Setas ou espaço: avançar, incluindo revelações progressivas.
+Esc: visão geral. F: tela cheia. B: pausa. ?: ajuda.
+Ctrl+Shift+F: pesquisa. Alt+clique: ampliar.
+S: notas do apresentador. Para as notas, prefira um servidor local e permita a janela adicional.
+Com Python instalado: python3 -m http.server 8000
+Abra http://localhost:8000.
+
+Cada section de index.html é um slide. Notas ficam em aside class="notes".
+assets/base.css preserva o tema da Aula 5. assets/aula.css ajusta esta aula.
+assets/aula.js usa identificadores estáveis e data-block para o menu. A ordem pode mudar sem alterar índices fixos no código.
+
+Roteiro sugerido de 100 minutos nas notas da capa. Data, prazo e pontuação não foram fixados.
+Os seis princípios são identificados como históricos, da estrutura 2008/2015.
+A edição atual é 2024, com onze princípios e engajamento das partes interessadas no modelo.
+Traduções e exemplos são didáticos. Questões autorais, sem atribuição ao Inep.
+
+Para imprimir: http://localhost:8000/?print-pdf e Imprimir > Salvar como PDF.
+A versão de impressão inclui correções e fragmentos. Retire as correções para uma versão de aplicação.
+
+Biblioteca Reveal.js 5.2.1 e Font Awesome com licenças em vendor.
+Identificação institucional em texto e paleta do modelo aprovado, sem reprodução de logotipo oficial.
+
+Conferência: 36 slides, quatro questões com cinco alternativas, quatro correções e dependências locais verificadas. Inspeção visual não concluída: o navegador de teste não iniciou e o navegador integrado bloqueou a abertura do arquivo local por política de protocolo. Conferir o encaixe no navegador antes da aula.
