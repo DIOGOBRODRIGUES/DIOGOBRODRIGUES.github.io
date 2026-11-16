@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 6 — Árvores de Decisão e Métodos de Ensemble</title>
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reset.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reveal.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/theme/serif.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="assets/css/code-readability.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <section>
+    <section data-timing="30">
+      <img src="assets/img/uninassau.svg" width="190" alt="UNINASSAU">
+      <h1>Aula  6</h1>
+      <h2>Árvores de Decisão e Métodos de Ensemble</h2>
+     
+      <p><small>Machine Learning · ADS · 2026.2</small></p>
+      <aside class="notes">Apresente o tema como continuação dos modelos supervisionados. Explique que a aula começa pela leitura de uma árvore pronta e depois mostra como o algoritmo aprende essa estrutura.</aside>
+    </section>
+
+
+    <section data-timing="90">
+      <h2>Atividade guiada: três chamados</h2>
+      <p>A central de suporte registra três características antes de classificar a urgência.</p>
+      <table>
+        <thead><tr><th>Chamado</th><th>Risco de segurança</th><th>Sistema indisponível</th><th>Usuários afetados</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Sim</td><td>Não</td><td>1</td></tr>
+          <tr><td>B</td><td>Não</td><td>Sim</td><td>80</td></tr>
+          <tr><td>C</td><td>Não</td><td>Não</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Objetivo:</strong> descobrir a classificação de cada chamado usando a árvore do próximo slide.</p>
+      <aside class="notes">Leia cada linha e confirme o significado das três colunas. Não peça que os alunos criem critérios. A tarefa é seguir regras já definidas.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Árvore usada na atividade</h2>
+      <img src="assets/img/arvore_chamados.png" width="1280" alt="Árvore de decisão que classifica chamados como urgentes ou não urgentes">
+      <p><small>Cada chamado começa na pergunta superior e segue um único ramo até uma decisão final.</small></p>
+      <aside class="notes">Percorra apenas um exemplo inventado para ensinar a leitura. Não resolva A, B e C. Aponte a pergunta inicial, as respostas SIM/NÃO e as decisões finais.</aside>
+    </section>
+
+    <section data-timing="300">
+      <h2>Atividade guiada</h2>
+      <p>Preencham uma linha para cada chamado:</p>
+      <table>
+        <thead><tr><th>Chamado</th><th>Perguntas respondidas, na ordem</th><th>Folha alcançada</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>...</td><td>...</td></tr>
+          <tr><td>B</td><td>...</td><td>...</td></tr>
+          <tr><td>C</td><td>...</td><td>...</td></tr>
+        </tbody>
+      </table>
+      <ol>
+        <li>Comecem sempre na pergunta superior.</li>
+        <li>Usem somente os dados da tabela anterior.</li>
+        <li>Parem quando chegarem a URGENTE ou NÃO URGENTE.</li>
+      </ol>
+      <aside class="notes">Projete a árvore em uma segunda tela ou volte ao slide anterior quando necessário. Circule verificando se as duplas registram o caminho completo, não apenas a resposta final.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Correção da atividade</h2>
+      <table>
+        <thead><tr><th>Chamado</th><th>Caminho percorrido</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Risco de segurança = sim</td><td><strong>Urgente</strong></td></tr>
+          <tr><td>B</td><td>Risco = não; sistema = sim; usuários &gt; 40 = sim</td><td><strong>Urgente</strong></td></tr>
+          <tr><td>C</td><td>Risco = não; sistema = não</td><td><strong>Não urgente</strong></td></tr>
+        </tbody>
+      </table>
+      <p>O resultado depende do <strong>caminho</strong>, não de uma média entre as perguntas.</p>
+      <aside class="notes">Confira cada caminho com a árvore. Se houver divergência, localize exatamente em qual pergunta a dupla tomou o ramo incorreto.</aside>
+    </section>
+
+    <section data-timing="30">
+      <h2>O mecanismo observado</h2>
+      <p>Uma árvore aplica perguntas em sequência. Cada resposta restringe os caminhos possíveis até restar uma decisão.</p>
+      <blockquote>Uma observação percorre um caminho. Ela não visita a árvore inteira.</blockquote>
+      <aside class="notes">Destaque a frase final. Esse princípio será retomado ao explicar custo de previsão e interpretação.</aside>
+    </section>
+
+    <section data-timing="30">
+      <h2>Da regra pronta ao modelo treinado</h2>
+      <p>Na atividade, recebemos as perguntas prontas. No Machine Learning, o algoritmo usa exemplos rotulados para escolher:</p>
+      <p><strong>qual característica perguntar, qual limite usar e quando parar.</strong></p>
+      <aside class="notes">Esta é a pergunta central da parte seguinte: como os dados geram a estrutura que acabamos de usar.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="90">
+      <h2>Classificação supervisionada</h2>
+      <p>Classificação supervisionada aprende a prever uma categoria usando exemplos cuja resposta já é conhecida.</p>
+      <table>
+        <thead><tr><th>Durante o treino</th><th>Depois do treino</th></tr></thead>
+        <tbody><tr><td>O modelo recebe chamados e a classe correta.</td><td>O modelo recebe um novo chamado e estima a classe.</td></tr></tbody>
+      </table>
+      <p>Nesta aula, as classes são <strong>urgente</strong> e <strong>não urgente</strong>.</p>
+      <aside class="notes">Compare com uma prova comentada: durante o estudo há respostas; no novo exercício, o aluno precisa aplicar o padrão aprendido.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Observações, características e alvo</h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>No conjunto de chamados</th><th>Notação</th></tr></thead>
+        <tbody>
+          <tr><td>Observação</td><td>Uma linha, isto é, um chamado</td><td>linha de X</td></tr>
+          <tr><td>Características</td><td>Risco, indisponibilidade, quantidade de usuários</td><td><code>X</code></td></tr>
+          <tr><td>Alvo</td><td>Urgente = 1; não urgente = 0</td><td><code>y</code></td></tr>
+        </tbody>
+      </table>
+      <p><code>X</code> descreve o caso. <code>y</code> informa a resposta que o modelo deve aprender.</p>
+      <aside class="notes">Relacione com banco de dados: linha é registro e coluna é atributo. A coluna alvo não pode aparecer também entre as entradas.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Definição de árvore de decisão</h2>
+      <blockquote>Uma árvore de decisão é um modelo que divide os dados por regras sucessivas até formar grupos com previsões semelhantes.</blockquote>
+      <ul>
+        <li>Cada nó testa uma característica.</li>
+        <li>Cada ramo representa o resultado do teste.</li>
+        <li>Cada folha produz a previsão.</li>
+      </ul>
+      <aside class="notes">Explique que “árvore” descreve a estrutura de regras. Não significa que o modelo imite raciocínio humano.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Anatomia da árvore</h2>
+      <img src="assets/img/anatomia_arvore.png" width="1280" alt="Diagrama com raiz, nós de decisão, ramos, folhas e profundidade">
+      <p><small>A profundidade conta quantas decisões existem no caminho mais longo entre a raiz e uma folha.</small></p>
+      <aside class="notes">Aponte os cinco elementos na figura. Diferencie nó de decisão e folha. Uma árvore com maior profundidade pode representar regras mais específicas.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Leitura de um caminho</h2>
+      <pre><code class="language-text">risco_seguranca = 0
+sistema_indisponivel = 1
+usuarios_afetados = 80
+
+1. risco_seguranca? NÃO
+2. sistema_indisponivel? SIM
+3. usuarios_afetados > 40? SIM
+4. previsão: URGENTE</code></pre>
+      <p>O conjunto de decisões do caminho pode ser lido como uma regra lógica com condições conectadas por é mais de 40 usuários afetados.</p>
+      <aside class="notes">Leia a regra completa: sem risco de segurança E sistema indisponível E mais de 40 usuários. Reforce que outro caminho representa outra regra.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Divisão de uma característica numérica</h2>
+      <p>Para valores numéricos, o algoritmo testa limites candidatos.</p>
+      <pre><code class="language-text">usuarios_afetados <= 40 ?
+
+Ramo SIM: 1, 5, 18, 32, 40
+Ramo NÃO: 41, 52, 80, 130</code></pre>
+      <p>O limite <strong>40</strong> separa o conjunto em dois grupos. O algoritmo compara esse limite com outros valores possíveis.</p>
+      <aside class="notes">Explique que o professor não informa 40. O treinamento avalia pontos de corte e mede quanto cada um melhora a separação das classes.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Divisão de uma característica binária</h2>
+      <p>Uma coluna codificada como 0 ou 1 pode ser dividida por um limite de 0,5.</p>
+      <pre><code class="language-text">risco_seguranca <= 0.5 ?
+
+SIM  → valores 0 → não há risco
+NÃO  → valores 1 → há risco</code></pre>
+      <p>Por isso, árvores do scikit-learn exibem perguntas como <code>risco_seguranca &lt;= 0.5</code>.</p>
+      <aside class="notes">Antecipe uma dúvida frequente ao visualizar a árvore. O limite 0,5 apenas separa os valores binários 0 e 1.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Impureza: o grau de mistura das classes</h2>
+      <table>
+        <thead><tr><th>Nó</th><th>Urgentes</th><th>Não urgentes</th><th>Interpretação</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>10</td><td>0</td><td>Puro: todos pertencem à mesma classe</td></tr>
+          <tr><td>B</td><td>5</td><td>5</td><td>Muito misturado: as classes aparecem igualmente</td></tr>
+          <tr><td>C</td><td>8</td><td>2</td><td>Parcialmente misturado</td></tr>
+        </tbody>
+      </table>
+      <p>Uma divisão útil cria nós filhos menos misturados que o nó original.</p>
+      <aside class="notes">Peça que a turma ordene A, C e B do mais puro para o mais misturado. A resposta é A, C, B.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Índice Gini</h2>
+      <p>O Gini transforma a mistura das classes em um número:</p>
+      <p><code>Gini = 1 - (p₀² + p₁²)</code></p>
+      <table>
+        <thead><tr><th>Distribuição no nó</th><th>Gini</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td>100% de uma classe</td><td>0,00</td><td>Nó puro</td></tr>
+          <tr><td>80% e 20%</td><td>0,32</td><td>Alguma mistura</td></tr>
+          <tr><td>50% e 50%</td><td>0,50</td><td>Maior mistura binária</td></tr>
+        </tbody>
+      </table>
+      <p><small>Para esta disciplina, importa interpretar o valor. O scikit-learn faz o cálculo.</small></p>
+      <aside class="notes">Mostre que p representa a proporção de cada classe. Não transforme o cálculo em foco da aula. O objetivo é entender que menor Gini representa grupos mais homogêneos.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Escolha da melhor divisão</h2>
+      <ol>
+        <li>O algoritmo testa características e limites possíveis.</li>
+        <li>Calcula a impureza antes e depois de cada divisão.</li>
+        <li>Escolhe a divisão que produz a maior redução ponderada de impureza.</li>
+      </ol>
+      <p><strong>Consequência:</strong> uma pergunta aparece no topo quando ela separa bem muitos exemplos.</p>
+      <aside class="notes">Explique “ponderada”: um grupo com 100 exemplos influencia mais que um grupo com 2. Evite fórmulas adicionais.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Crescimento recursivo</h2>
+      <p>A árvore repete o mesmo processo em cada grupo criado:</p>
+      <ol>
+        <li>recebe os exemplos que chegaram ao nó;</li>
+        <li>procura a melhor pergunta para esse subconjunto;</li>
+        <li>cria novos ramos;</li>
+        <li>repete até alcançar uma condição de parada.</li>
+      </ol>
+      <p>As perguntas mais abaixo tratam casos progressivamente mais específicos.</p>
+      <aside class="notes">Relacione com recursão em programação: o mesmo procedimento é aplicado a subconjuntos menores.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Condições de parada</h2>
+      <table>
+        <thead><tr><th>Parâmetro</th><th>Pergunta que ele responde</th></tr></thead>
+        <tbody>
+          <tr><td><code>max_depth</code></td><td>Quantos níveis a árvore pode ter?</td></tr>
+          <tr><td><code>min_samples_split</code></td><td>Quantos exemplos são necessários para tentar uma nova divisão?</td></tr>
+          <tr><td><code>min_samples_leaf</code></td><td>Qual o tamanho mínimo de uma folha?</td></tr>
+        </tbody>
+      </table>
+      <p>Sem limites, a árvore pode continuar criando regras para casos muito particulares.</p>
+      <aside class="notes">Leia cada parâmetro como decisão de projeto. Mostre que valores maiores para mínimos e menores para profundidade tornam o modelo mais conservador.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Complexidade da árvore</h2>
+      <img src="assets/img/arvore_rasa_profunda.png" width="1280" alt="Comparação gráfica entre uma árvore rasa e uma árvore profunda">
+      <aside class="notes">Use a figura para explicar que profundidade aumenta a capacidade de representar detalhes. Capacidade maior também aumenta o risco de memorizar ruído.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Subajuste, equilíbrio e sobreajuste</h2>
+      <table>
+        <thead><tr><th>Situação</th><th>Treino</th><th>Teste</th><th>Diagnóstico</th></tr></thead>
+        <tbody>
+          <tr><td>Árvore simples demais</td><td>Baixo</td><td>Baixo</td><td>Subajuste</td></tr>
+          <tr><td>Complexidade adequada</td><td>Bom</td><td>Próximo do treino</td><td>Generalização razoável</td></tr>
+          <tr><td>Árvore específica demais</td><td>Muito alto</td><td>Bem menor</td><td>Sobreajuste</td></tr>
+        </tbody>
+      </table>
+      <p>O objetivo é obter bom desempenho em exemplos novos, não apenas no conjunto de treino.</p>
+      <aside class="notes">Os termos alto e baixo dependem do problema. Peça que comparem a distância entre treino e teste, além dos valores absolutos.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Treino, teste e baseline</h2>
+      <ul>
+        <li><strong>Treino:</strong> exemplos usados para aprender as regras.</li>
+        <li><strong>Teste:</strong> exemplos separados para estimar o desempenho em dados novos.</li>
+        <li><strong>Baseline:</strong> estratégia simples que estabelece o mínimo que o modelo deve superar.</li>
+      </ul>
+      <blockquote>Se uma árvore não supera uma regra ingênua no teste, sua complexidade ainda não trouxe benefício.</blockquote>
+      <aside class="notes">Prepare a transição para o Colab. Explique que as três peças aparecem na prática seguinte e precisam permanecer separadas.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 3 · Treinamento da árvore</h2>
+      <p>Vamos gerar 600 chamados fictícios para estudar o processo completo.</p>
+      <ul>
+        <li>São dados didáticos, não dados de uma empresa.</li>
+        <li>A regra geradora representa um cenário plausível.</li>
+        <li>Adicionaremos erros de rótulo para evitar um mundo “perfeito”.</li>
+      </ul>
+      <aside class="notes">Explique por que usar dados sintéticos: controle, privacidade e foco no conceito. Reforce que um protótipo didático não deve ser confundido com um modelo pronto para produção.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>1. Gerar as características</h2>
+      <pre><code class="language-python" data-line-numbers="1-2|4-9">import numpy as np
+import pandas as pd
+
+rng = np.random.default_rng(42)
+dados = pd.DataFrame({
+    "usuarios_afetados": rng.integers(1, 201, 600),
+    "risco_seguranca": rng.integers(0, 2, 600),
+    "sistema_indisponivel": rng.integers(0, 2, 600),
+    "impacto_financeiro": rng.integers(0, 2, 600),
+})</code></pre>
+      <p><small>Resultado esperado: 600 linhas e quatro características. Nas colunas binárias, 0 significa “não” e 1 significa “sim”.</small></p>
+      <aside class="notes">Faça live coding ou abra o notebook. Explique seed 42 como reprodutibilidade. Mostre que 0 e 1 representam não/sim. Pare após executar e peça `dados.head()` oralmente.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>2. Criar o rótulo e incluir ruído</h2>
+      <pre><code class="language-python" data-line-numbers="1-5|7-9">dados["urgente"] = (
+    (dados["risco_seguranca"] == 1)
+    | ((dados["sistema_indisponivel"] == 1)
+       &amp; (dados["usuarios_afetados"] &gt; 40))
+    | ((dados["impacto_financeiro"] == 1)
+       &amp; (dados["usuarios_afetados"] &gt; 20))
+).astype(int)
+
+indices = rng.choice(dados.index, size=60, replace=False)
+dados.loc[indices, "urgente"] = 1 - dados.loc[indices, "urgente"]</code></pre>
+      <p><small><code>|</code> significa OU; <code>&amp;</code> significa E. As duas últimas linhas invertem 60 rótulos para simular ruído.</small></p>
+      <aside class="notes">Leia `|` como OU e `&` como E. Explique que 60 rótulos invertidos simulam registros incorretos ou situações não observadas. Não diga que ruído sempre é exatamente erro humano.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>3. Inspecionar antes de modelar</h2>
+      <pre><code class="language-python">display(dados.head())
+display(dados.describe())
+print(dados["urgente"].value_counts())
+print(dados["urgente"].value_counts(normalize=True))</code></pre>
+      <p><small><code>head()</code> mostra exemplos; <code>describe()</code> resume limites; <code>value_counts()</code> revela a distribuição das classes.</small></p>
+      <aside class="notes">Não pule esta etapa. Mostre limites mínimo/máximo e distribuição do alvo. Pergunte o que aconteceria com a acurácia se quase todos os chamados fossem urgentes.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>4. Separar treino e teste</h2>
+      <pre><code class="language-python" data-line-numbers="1|2|4-6">from sklearn.model_selection import train_test_split
+X = dados.drop(columns="urgente")
+y = dados["urgente"]
+
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    X, y, test_size=0.25, stratify=y, random_state=42
+)</code></pre>
+      <ul>
+        <li><strong>Treino:</strong> o modelo aprende.</li>
+        <li><strong>Teste:</strong> simula casos ainda não vistos.</li>
+      </ul>
+      <aside class="notes">Explique 75%/25%. `stratify=y` mantém proporções semelhantes. Reforce a regra: o teste não participa do aprendizado nem da escolha informal de regras.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>5. Criar um ponto de comparação</h2>
+      <pre><code class="language-python">from sklearn.dummy import DummyClassifier
+
+baseline = DummyClassifier(strategy="most_frequent")
+baseline.fit(X_treino, y_treino)
+
+print("Treino:", baseline.score(X_treino, y_treino))
+print("Teste:", baseline.score(X_teste, y_teste))</code></pre>
+      <blockquote class="fragment">Um modelo útil precisa superar uma estratégia ingênua.</blockquote>
+      <aside class="notes">Explique que o Dummy sempre prevê a classe mais frequente. Ele não é concorrente inteligente; é um piso. Pergunte: “Se nossa árvore empatar com isso, vale a complexidade?”.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>6. Treinar uma árvore controlada</h2>
+      <pre><code class="language-python" data-line-numbers="1|3-7|9-10">from sklearn.tree import DecisionTreeClassifier
+
+arvore = DecisionTreeClassifier(
+    max_depth=3,
+    min_samples_leaf=10,
+    random_state=42
+)
+
+arvore.fit(X_treino, y_treino)
+previsoes = arvore.predict(X_teste)</code></pre>
+      <p><code>fit</code> aprende · <code>predict</code> aplica as regras.</p>
+      <aside class="notes">Percorra os três parâmetros. `random_state` não melhora o modelo; torna o resultado repetível. Mostre que as variáveis guardam o objeto, não os dados transformados.</aside>
+    </section>
+
+    <section class="compact-code" data-timing="300">
+      <h2>7. Comparar profundidades</h2>
+      <pre><code class="language-python" data-line-numbers="1|2-8|10">resultados = []
+for profundidade in [1, 3, 5, None]:
+    modelo = DecisionTreeClassifier(
+        max_depth=profundidade, random_state=42
+    )
+    modelo.fit(X_treino, y_treino)
+    resultados.append({
+        "profundidade": profundidade,
+        "treino": modelo.score(X_treino, y_treino),
+        "teste": modelo.score(X_teste, y_teste)
+    })
+
+pd.DataFrame(resultados)</code></pre>
+      <p><small>Compare treino e teste. Profundidade maior costuma elevar o treino; o teste indica se a melhoria generaliza.</small></p>
+      <aside class="notes">Antes de executar, peça previsões: qual profundidade terá maior treino? Depois compare. O ponto não é declarar uma profundidade universal, mas observar o equilíbrio entre aprender pouco e memorizar.</aside>
+    </section>
+
+    <section data-timing="210">
+      <h2>Como interpretar a tabela?</h2>
+      <table>
+        <thead><tr><th>Sinal observado</th><th>Hipótese</th><th>Ação possível</th></tr></thead>
+        <tbody>
+          <tr><td>Treino e teste baixos</td><td>Subajuste</td><td>Permitir mais complexidade</td></tr>
+          <tr><td>Treino alto, teste bem menor</td><td>Sobreajuste</td><td>Limitar profundidade/folhas</td></tr>
+          <tr><td>Teste supera baseline com diferença pequena</td><td>Generalização razoável</td><td>Avaliar outras métricas</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Diga explicitamente que a diferença treino-teste é um indício, não uma prova isolada. Os valores podem variar com a divisão dos dados; validação cruzada ficará para aprofundamento futuro.</aside>
+    </section>
+
+    <section data-timing="210">
+      <h2>8. Visualizar as regras aprendidas</h2>
+      <pre><code class="language-python">import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+
+plt.figure(figsize=(16, 8))
+plot_tree(
+    arvore,
+    feature_names=X.columns,
+    class_names=["não urgente", "urgente"],
+    filled=True,
+    rounded=True
+)
+plt.show()</code></pre>
+      <p><small>O gráfico permite converter cada caminho em uma regra legível e verificar quais características o modelo priorizou.</small></p>
+      <aside class="notes">Execute em tela inteira no Colab. Comece pela raiz, siga um ramo até uma folha e converta-o em uma frase. O gráfico é explicação do modelo, não decoração.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Como ler um nó do gráfico?</h2>
+      <pre><code class="language-text">risco_seguranca &lt;= 0.5
+gini = 0.43
+samples = 450
+value = [142, 308]
+class = urgente</code></pre>
+      <ul>
+        <li><strong>regra:</strong> condição aplicada naquele nó</li>
+        <li><strong>samples:</strong> exemplos de treino que chegaram ali</li>
+        <li><strong>value:</strong> contagem por classe</li>
+        <li><strong>class:</strong> previsão majoritária</li>
+      </ul>
+      <aside class="notes">Avise que os números exibidos aqui são ilustrativos; leiam os gerados no notebook. Em variável binária, `<= 0.5` separa 0 de 1.</aside>
+    </section>
+  </section>
+
+  <section data-background-color="#24344d" data-timing="480">
+    <h2>Intervalo · 8 minutos</h2>
+    <p>Ao voltar, vamos descobrir por que “90% de acurácia” pode esconder um modelo ruim.</p>
+    <aside class="notes">Marque oito minutos. Ao retomar, peça um exemplo cotidiano em que tipos diferentes de erro tenham custos diferentes.</aside>
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 4 · Avaliação do classificador</h2>
+      <p><strong>Acurácia</strong> = proporção total de previsões corretas.</p>
+      <blockquote>Se apenas 5 de 100 chamados são urgentes, prever “não urgente” sempre alcança 95%.</blockquote>
+      <p class="fragment">Mas deixa passar todos os chamados urgentes.</p>
+      <aside class="notes">Use o exemplo para quebrar a associação “número alto = modelo bom”. Pergunte qual modelo é melhor: depende do objetivo e do custo dos erros.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Matriz de confusão</h2>
+      <table>
+        <thead><tr><th></th><th>Predito: não urgente</th><th>Predito: urgente</th></tr></thead>
+        <tbody>
+          <tr><th>Real: não urgente</th><td>Verdadeiro negativo</td><td>Falso positivo</td></tr>
+          <tr><th>Real: urgente</th><td>Falso negativo</td><td>Verdadeiro positivo</td></tr>
+        </tbody>
+      </table>
+      <p><small>“Positivo” significa a classe de interesse: urgente.</small></p>
+      <aside class="notes">Leia primeiro as linhas como realidade e as colunas como previsão. O termo “falso” indica erro. Peça para a turma localizar o erro mais perigoso nesse contexto.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Exemplo com 100 chamados</h2>
+      <table>
+        <thead><tr><th></th><th>Predito: não</th><th>Predito: sim</th></tr></thead>
+        <tbody>
+          <tr><th>Real: não</th><td>70</td><td>10</td></tr>
+          <tr><th>Real: sim</th><td>5</td><td>15</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>85 acertos: 70 + 15</li>
+        <li>15 erros: 10 + 5</li>
+        <li>Acurácia: 85%</li>
+      </ul>
+      <aside class="notes">Faça a soma com a turma. Depois pergunte: entre os 20 urgentes reais, quantos foram encontrados? Guarde 15/20 para introduzir recall.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Os erros têm o mesmo custo?</h2>
+      <div class="r-hstack justify-between">
+        <div>
+          <h3>Falso positivo</h3>
+          <p>Chamado comum marcado como urgente.</p>
+          <p>Custo: tempo e fila.</p>
+        </div>
+        <div>
+          <h3>Falso negativo</h3>
+          <p>Chamado urgente marcado como comum.</p>
+          <p>Custo: incidente ignorado.</p>
+        </div>
+      </div>
+      <p class="fragment"><strong>A métrica deve refletir o risco do problema.</strong></p>
+      <aside class="notes">Não imponha uma resposta universal. Segurança pode priorizar falso negativo; uma equipe pequena também precisa controlar alarmes falsos. A decisão é técnica e de negócio.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Precisão: posso confiar nos alertas?</h2>
+      <p>Entre os chamados previstos como urgentes, quantos realmente eram urgentes?</p>
+      <p><code>precisão = VP / (VP + FP)</code></p>
+      <p>No exemplo: <code>15 / (15 + 10) = 60%</code></p>
+      <blockquote class="fragment">Precisão alta → menos alarmes falsos.</blockquote>
+      <aside class="notes">Aponte a coluna “predito: sim” da matriz. Use a pergunta operacional: quando o modelo dispara um alerta, com que frequência ele está certo?</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Recall: quantos urgentes encontramos?</h2>
+      <p>Entre os chamados realmente urgentes, quantos foram identificados?</p>
+      <p><code>recall = VP / (VP + FN)</code></p>
+      <p>No exemplo: <code>15 / (15 + 5) = 75%</code></p>
+      <blockquote class="fragment">Recall alto → menos urgentes perdidos.</blockquote>
+      <aside class="notes">Aponte a linha “real: sim”. Faça o contraste: precisão olha para os alertas emitidos; recall olha para os positivos reais.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>F1: equilíbrio entre precisão e recall</h2>
+      <p>O F1 combina as duas métricas e cai quando uma delas é muito baixa.</p>
+      <p><code>F1 = 2 × (precisão × recall) / (precisão + recall)</code></p>
+      <p><small>Útil quando as classes são desbalanceadas e queremos equilíbrio.</small></p>
+      <aside class="notes">Não cobre cálculo manual. Diga que F1 não substitui a análise separada: dois modelos podem ter F1 parecido e custos de erro diferentes.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Qual métrica priorizar?</h2>
+      <table>
+        <thead><tr><th>Contexto</th><th>Preocupação</th><th>Métrica em destaque</th></tr></thead>
+        <tbody>
+          <tr><td>Incidente de segurança</td><td>Não perder ameaça real</td><td>Recall</td></tr>
+          <tr><td>Alerta exige ação cara</td><td>Evitar alarmes falsos</td><td>Precisão</td></tr>
+          <tr><td>Ambos importam</td><td>Equilibrar erros</td><td>F1 + matriz</td></tr>
+          <tr><td>Classes equilibradas</td><td>Visão geral inicial</td><td>Acurácia</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Ressalte “em destaque”, não “usar apenas”. Uma avaliação séria mostra a matriz e várias métricas, mas escolhe uma principal coerente com o problema.</aside>
+    </section>
+
+    <section data-timing="300">
+      <h2>Calcular as métricas no scikit-learn</h2>
+      <pre><code class="language-python" data-line-numbers="1-2|4-7|9">from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score,
+    f1_score, ConfusionMatrixDisplay
+)
+
+print("Acurácia:", accuracy_score(y_teste, previsoes))
+print("Precisão:", precision_score(y_teste, previsoes))
+print("Recall:", recall_score(y_teste, previsoes))
+print("F1:", f1_score(y_teste, previsoes))
+
+ConfusionMatrixDisplay.from_predictions(y_teste, previsoes)</code></pre>
+      <aside class="notes">Execute e peça interpretação em palavras antes de comparar números. Confira que a classe positiva é 1=urgente. Mostre os eixos da matriz gerada.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 5 · Por que combinar árvores?</h2>
+      <blockquote>Uma pequena mudança nos dados pode produzir regras diferentes.</blockquote>
+      <ul>
+        <li>Alta variância</li>
+        <li>Sensível a amostras específicas</li>
+        <li>Árvores profundas tendem a sobreajustar</li>
+      </ul>
+      <aside class="notes">Explique “variância” sem formalismo: o resultado muda bastante quando o conjunto de treino muda um pouco. Isso motiva combinar modelos.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Random Forest: muitas árvores, uma previsão</h2>
+      <img src="assets/img/random_forest_votacao.png" width="1320" alt="Cinco árvores votam para produzir a previsão urgente">
+      <p><small>A floresta reduz a dependência de uma única árvore ao combinar votos de modelos diferentes.</small></p>
+      <aside class="notes">Diga que “mais árvores” só ajuda porque elas não são cópias idênticas. As duas fontes de aleatoriedade criam diversidade.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>1. Amostras bootstrap</h2>
+      <p>Cada árvore recebe uma amostra do treino:</p>
+      <ul>
+        <li>com o mesmo tamanho aproximado;</li>
+        <li>sorteada <strong>com reposição</strong>;</li>
+        <li>alguns exemplos se repetem e outros ficam de fora.</li>
+      </ul>
+      <p class="fragment">Resultado: árvores aprendem perspectivas diferentes.</p>
+      <aside class="notes">Use uma turma como analogia: cada grupo recebe uma sacola sorteada de casos; um caso pode aparecer mais de uma vez. Não detalhe a estatística do bootstrap.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>2. Subconjuntos de características</h2>
+      <p>Em cada divisão, a árvore considera apenas parte das colunas disponíveis.</p>
+      <blockquote>Nem todas as árvores podem depender sempre da característica mais forte.</blockquote>
+      <p class="fragment">Isso reduz a semelhança entre as árvores.</p>
+      <aside class="notes">Explique que a seleção ocorre em cada nó, não uma única vez para a árvore inteira. Para esta aula, basta a intuição de descorrelacionar decisões.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>3. Votação majoritária</h2>
+      <p>Cada árvore classifica o mesmo chamado. A classe com mais votos se torna a previsão final.</p>
+      <table>
+        <thead><tr><th>Votos urgentes</th><th>Votos não urgentes</th><th>Previsão</th></tr></thead>
+        <tbody><tr><td>3</td><td>2</td><td><strong>Urgente</strong></td></tr></tbody>
+      </table>
+      <p>Uma árvore pode errar sem determinar sozinha o resultado da floresta.</p>
+      <aside class="notes">Mostre que classificação usa voto majoritário. Em regressão, a combinação costuma ser média; cite só se a turma perguntar.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Treinar uma Random Forest</h2>
+      <pre><code class="language-python" data-line-numbers="1|3-9|11-12">from sklearn.ensemble import RandomForestClassifier
+
+floresta = RandomForestClassifier(
+    n_estimators=200,
+    max_depth=6,
+    min_samples_leaf=5,
+    random_state=42,
+    n_jobs=-1
+)
+
+floresta.fit(X_treino, y_treino)
+prev_floresta = floresta.predict(X_teste)</code></pre>
+      <aside class="notes">Traduza: 200 árvores, profundidade até 6, folhas com 5 exemplos e uso dos núcleos disponíveis. Diga que valores são ponto de partida, não receita universal.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Parâmetros essenciais da floresta</h2>
+      <table>
+        <thead><tr><th>Parâmetro</th><th>Efeito principal</th></tr></thead>
+        <tbody>
+          <tr><td><code>n_estimators</code></td><td>Quantidade de árvores; mais estabilidade, mais custo</td></tr>
+          <tr><td><code>max_depth</code></td><td>Complexidade de cada árvore</td></tr>
+          <tr><td><code>min_samples_leaf</code></td><td>Evita folhas muito específicas</td></tr>
+          <tr><td><code>max_features</code></td><td>Diversidade das características por divisão</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Peça aos alunos que indiquem quais parâmetros combatem sobreajuste. Não explore busca exaustiva de hiperparâmetros nesta aula.</aside>
+    </section>
+
+    <section data-timing="210">
+      <h2>Comparação justa</h2>
+      <p>Árvore e floresta devem usar:</p>
+      <ul>
+        <li>o mesmo conjunto de treino;</li>
+        <li>o mesmo conjunto de teste;</li>
+        <li>as mesmas métricas;</li>
+        <li>o mesmo significado para a classe positiva.</li>
+      </ul>
+      <pre><code class="language-python">avaliar("Árvore", y_teste, previsoes)
+avaliar("Floresta", y_teste, prev_floresta)</code></pre>
+      <aside class="notes">Explique que mudar dados e modelo ao mesmo tempo impede atribuir a diferença ao algoritmo. A função `avaliar` estará pronta no notebook.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Importância das características: use com cautela</h2>
+      <pre><code class="language-python">importancias = pd.Series(
+    floresta.feature_importances_,
+    index=X.columns
+).sort_values(ascending=False)
+
+display(importancias)</code></pre>
+      <ul>
+        <li>Indica contribuição para as divisões do modelo.</li>
+        <li>Não prova causa e efeito.</li>
+        <li>Pode mudar com dados e características correlacionadas.</li>
+      </ul>
+      <aside class="notes">Evite a frase “essa variável causa urgência”. Diga “o modelo usou mais esta variável”. Lembre que os rótulos sintéticos já foram gerados por regras conhecidas.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="900">
+      <h2>Parte 6 · Laboratório guiado · 15 minutos</h2>
+      <ol>
+        <li>Teste duas combinações de <code>max_depth</code> e <code>min_samples_leaf</code>.</li>
+        <li>Registre acurácia de treino e de teste.</li>
+        <li>Calcule matriz, precisão, recall e F1.</li>
+        <li>Compare a melhor árvore com a floresta.</li>
+        <li>Escolha um modelo e escreva uma justificativa.</li>
+      </ol>
+      <p><strong>Regra:</strong> escolha por evidência e pelo custo dos erros.</p>
+      <aside class="notes">Abra `aula_06_pratica_guiada.ipynb` no Colab. Organize duplas. Nos primeiros cinco minutos, garanta que todos executaram as células. Nos últimos cinco, cobre a justificativa escrita.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Entrega da dupla</h2>
+      <table>
+        <thead><tr><th>Modelo</th><th>Treino</th><th>Teste</th><th>Precisão</th><th>Recall</th><th>F1</th></tr></thead>
+        <tbody>
+          <tr><td>Árvore A</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>Árvore B</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>Floresta</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusão em 3 frases:</strong> escolha, evidência e limitação.</p>
+      <aside class="notes">A conclusão deve nomear o modelo escolhido, citar pelo menos duas evidências e reconhecer uma limitação. Não aceite apenas “foi o que teve maior acurácia”.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Erros comuns no laboratório</h2>
+      <ul>
+        <li>Avaliar no treino e chamar isso de desempenho final.</li>
+        <li>Comparar modelos usando divisões diferentes.</li>
+        <li>Olhar apenas acurácia.</li>
+        <li>Alterar muitos parâmetros ao mesmo tempo.</li>
+        <li>Confundir correlação/importância com causalidade.</li>
+        <li>Copiar números sem explicar o que significam.</li>
+      </ul>
+      <aside class="notes">Use como checklist enquanto circula. Se surgir erro, peça diagnóstico antes de corrigir. Reforce a prática de mudar uma decisão por vez e registrar o efeito.</aside>
+    </section>
+
+    <section data-timing="480">
+      <h2>Defesa rápida · 8 minutos</h2>
+      <p>Cada dupla tem <strong>45 segundos</strong> para responder:</p>
+      <ol>
+        <li>Qual modelo vocês escolheram?</li>
+        <li>Quais números sustentam a escolha?</li>
+        <li>Qual erro merece mais atenção?</li>
+        <li>Que limitação impede uso imediato em produção?</li>
+      </ol>
+      <aside class="notes">Selecione de quatro a seis duplas, dependendo do tempo. Compare decisões diferentes e valorize justificativas coerentes. Feche lembrando que modelos são parte de um sistema sociotécnico.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="240">
+      <h2>Mapa do que aprendemos</h2>
+      <p><strong>Dados rotulados</strong> → divisão treino/teste → baseline → árvore → controle de complexidade → métricas → floresta → comparação</p>
+      <ul>
+        <li class="fragment">Árvores transformam dados em regras hierárquicas.</li>
+        <li class="fragment">Limites ajudam a generalizar.</li>
+        <li class="fragment">Métricas respondem perguntas diferentes.</li>
+        <li class="fragment">Random Forest troca simplicidade por estabilidade.</li>
+      </ul>
+      <aside class="notes">Percorra o fluxo da esquerda para a direita. Peça à turma para explicar cada seta com uma frase. Corrija a ideia de que Random Forest é sempre melhor: ela precisa ser comparada.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Bilhete de saída</h2>
+      <ol>
+        <li>Por que separar treino e teste?</li>
+        <li>Qual sinal sugere sobreajuste?</li>
+        <li>Quando o recall é mais importante que a precisão?</li>
+        <li>Como a Random Forest cria diversidade?</li>
+      </ol>
+      <p><small>Responda individualmente em até quatro linhas.</small></p>
+      <aside class="notes">Colete no Forms ou papel. Use as respostas para identificar lacunas. Respostas esperadas: avaliar generalização; treino alto/teste menor; custo de falso negativo; bootstrap + subconjunto de características.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Próximos passos</h2>
+      <ul>
+        <li>Preparação de dados reais e pipelines</li>
+        <li>Validação cruzada e ajuste de hiperparâmetros</li>
+        <li>Comparação responsável de modelos</li>
+        <li>Implantação simples e monitoramento</li>
+      </ul>
+      <p>Hoje construímos a base para essas decisões.</p>
+      <aside class="notes">Conecte a aula às próximas. Não prometa aprofundamento matemático. Reforce que o processo — dados, avaliação e justificativa — é transferível para outros modelos.</aside>
+    </section>
+
+    <section data-timing="60">
+      <h2>Referências para continuar</h2>
+      <ul>
+        <li>scikit-learn: Decision Trees</li>
+        <li>scikit-learn: Ensemble Methods</li>
+        <li>scikit-learn: Model Evaluation</li>
+        <li>Géron, A. <em>Hands-On Machine Learning</em></li>
+      </ul>
+      <p><small>Material da aula: slides + notebook da prática guiada.</small></p>
+      <aside class="notes">Encerre retomando o problema de priorização de chamados. Convide os alunos a refazer a prática mudando a regra dos rótulos e observando as métricas.</aside>
+    </section>
+  </section>
+
+</div>
+</div>
+
+<script src="assets/vendor/reveal/dist/reveal.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/notes.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/highlight.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/search.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/zoom.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1600,
+    height: 900,
+    hash: true,
+    navigationMode: 'linear',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t',
+    showSlideNumber: 'all',
+    fragmentInURL: true,
+    autoAnimate: true,
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    totalTime: 10800,
+    plugins: [ RevealNotes, RevealHighlight, RevealSearch, RevealZoom ]
+  });
+</script>
+</body>
+</html>

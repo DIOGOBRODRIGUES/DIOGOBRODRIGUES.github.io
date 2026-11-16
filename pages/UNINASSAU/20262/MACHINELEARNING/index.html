@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Materiais da disciplina de Machine Learning - UNINASSAU 2026.2">
+	<title>Machine Learning | UNINASSAU 2026.2</title>
+	<style>
+		:root {
+			--ink: #17212b;
+			--muted: #687786;
+			--paper: #f4f7f8;
+			--card: #ffffff;
+			--line: #d8e2e7;
+			--navy: #102b46;
+			--blue: #2e7da6;
+			--cyan: #8ed8d2;
+			--orange: #e8874a;
+			--shadow: 0 18px 48px rgba(16, 43, 70, 0.11);
+		}
+
+		* { box-sizing: border-box; }
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: Georgia, 'Times New Roman', serif;
+			line-height: 1.5;
+		}
+
+		a { color: inherit; }
+
+		.shell {
+			width: min(1120px, calc(100% - 40px));
+			margin: 0 auto;
+		}
+
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 28px 0;
+			color: var(--navy);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: 0.74rem;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			text-decoration: none;
+		}
+
+		.brand-mark {
+			display: grid;
+			width: 30px;
+			height: 30px;
+			place-items: center;
+			border-radius: 8px;
+			color: #fff;
+			background: var(--blue);
+			font-size: 0.88rem;
+		}
+
+		.hero {
+			position: relative;
+			overflow: hidden;
+			padding: clamp(56px, 10vw, 116px) clamp(28px, 7vw, 88px);
+			border-radius: 4px;
+			color: #f6fbfc;
+			background: var(--navy);
+			box-shadow: var(--shadow);
+		}
+
+		.hero::before,
+		.hero::after {
+			position: absolute;
+			border: 1px solid rgba(142, 216, 210, 0.42);
+			border-radius: 50%;
+			content: '';
+		}
+
+		.hero::before {
+			top: -188px;
+			right: 9%;
+			width: 390px;
+			height: 390px;
+		}
+
+		.hero::after {
+			right: -80px;
+			bottom: -180px;
+			width: 420px;
+			height: 420px;
+			border-color: rgba(232, 135, 74, 0.38);
+		}
+
+		.eyebrow {
+			position: relative;
+			z-index: 1;
+			margin: 0 0 18px;
+			color: var(--cyan);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: 0.76rem;
+			font-weight: 700;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			position: relative;
+			z-index: 1;
+			max-width: 760px;
+			margin: 0;
+			font-size: clamp(3.2rem, 8vw, 6.8rem);
+			font-weight: 400;
+			letter-spacing: -0.05em;
+			line-height: 0.9;
+		}
+
+		.hero-copy {
+			position: relative;
+			z-index: 1;
+			max-width: 590px;
+			margin: 28px 0 0;
+			color: #c9d9e2;
+			font-size: clamp(1.05rem, 2vw, 1.3rem);
+		}
+
+		.content { padding: 74px 0 90px; }
+
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 24px;
+			margin-bottom: 26px;
+		}
+
+		h2 {
+			margin: 0;
+			font-size: clamp(2rem, 4vw, 3rem);
+			font-weight: 400;
+			letter-spacing: -0.03em;
+			line-height: 1;
+		}
+
+		.section-heading p {
+			max-width: 340px;
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.lessons {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+		}
+
+		.lesson {
+			display: flex;
+			min-height: 270px;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 26px;
+			border: 1px solid var(--line);
+			background: var(--card);
+			box-shadow: 0 6px 18px rgba(16, 43, 70, 0.04);
+			transition: transform 180ms ease, box-shadow 180ms ease;
+		}
+
+		.lesson:hover {
+			transform: translateY(-5px);
+			box-shadow: var(--shadow);
+		}
+
+		.lesson-number {
+			display: block;
+			margin-bottom: 38px;
+			color: var(--orange);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.14em;
+		}
+
+		.lesson h3 {
+			margin: 0;
+			font-size: 1.65rem;
+			font-weight: 400;
+			line-height: 1.12;
+		}
+
+		.lesson p {
+			margin: 10px 0 24px;
+			color: var(--muted);
+			font-size: 0.94rem;
+		}
+
+		.lesson-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 9px;
+			align-self: flex-start;
+			color: var(--blue);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: 0.76rem;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-decoration: none;
+			text-transform: uppercase;
+		}
+
+		.lesson-link::after {
+			content: '\2192';
+			font-size: 1.15rem;
+			transition: transform 180ms ease;
+		}
+
+		.lesson-link:hover::after { transform: translateX(4px); }
+
+		.study-note {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 20px;
+			margin-top: 42px;
+			padding: 22px 24px;
+			border-top: 2px solid var(--cyan);
+			background: #f5fffe;
+		}
+
+		.study-note strong {
+			display: block;
+			font-size: 1.1rem;
+			font-weight: 400;
+		}
+
+		.study-note span {
+			color: var(--muted);
+			font-size: 0.88rem;
+		}
+
+		footer {
+			padding: 22px 0 28px;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-family: 'Trebuchet MS', sans-serif;
+			font-size: 0.74rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		@media (max-width: 780px) {
+			.lessons { grid-template-columns: 1fr 1fr; }
+			.lesson:last-child { grid-column: span 2; }
+		}
+
+		@media (max-width: 560px) {
+			.shell { width: min(100% - 28px, 540px); }
+			.topbar { padding: 20px 0; }
+			.topbar span:last-child { display: none; }
+			.hero { padding: 56px 25px 68px; }
+			.content { padding: 54px 0 64px; }
+			.section-heading { display: block; }
+			.section-heading p { margin-top: 14px; }
+			.lessons { grid-template-columns: 1fr; }
+			.lesson:last-child { grid-column: auto; }
+			.lesson { min-height: 220px; }
+			.study-note { display: block; }
+		}
+	</style>
+</head>
+<body>
+	<header class="shell topbar">
+		<a class="brand" href="../../../../index.html" aria-label="Página inicial">
+			<span class="brand-mark">D</span>
+			<span>UNINASSAU</span>
+		</a>
+		<span>2026.2 · Tecnologia</span>
+	</header>
+
+	<main class="shell">
+		<section class="hero" aria-labelledby="page-title">
+			<p class="eyebrow">Disciplina · 2026.2</p>
+			<h1 id="page-title">Machine Learning</h1>
+			<p class="hero-copy">Do problema aos primeiros modelos: uma trilha prática para transformar dados em previsões e decisões.</p>
+		</section>
+
+		<section class="content" id="aulas" aria-labelledby="lessons-title">
+			<div class="section-heading">
+				<h2 id="lessons-title">Aulas da disciplina</h2>
+				<p>Escolha um encontro para abrir o material correspondente e acompanhar a sequência de estudos.</p>
+			</div>
+
+			<div class="lessons">
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">01 / INTRODUÇÃO</span>
+						<h3>Aula 1</h3>
+						<p>Primeiros conceitos e aplicações de Machine Learning.</p>
+					</div>
+					<a class="lesson-link" href="aula1-machine-learning-ads.pdf">Abrir material</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">02 / PYTHON</span>
+						<h3>Aula 2</h3>
+						<p>Python de sobrevivência para trabalhar com dados e modelos.</p>
+					</div>
+					<a class="lesson-link" href="Aula_02_Python_de_Sobrevivencia_UNINASSAU.pdf">Abrir material</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">03 / DADOS</span>
+						<h3>Aula 3</h3>
+						<p>Como os dados contam histórias e orientam boas perguntas.</p>
+					</div>
+					<a class="lesson-link" href="Aula_03_Dados_Contam_Historias_UNINASSAU.pdf">Abrir material</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">04 / BASELINE</span>
+						<h3>Aula 4</h3>
+						<p>Do problema ao baseline: estruturando uma solução inicial.</p>
+					</div>
+					<a class="lesson-link" href="Aula_04_Do%20problema%20%20ao%20baseline%20%20.pdf">Abrir material</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">05 / MODELOS</span>
+						<h3>Aula 5</h3>
+						<p>KNN e regressão logística para classificação e previsão.</p>
+					</div>
+					<a class="lesson-link" href="Aula_05_KNN_Regressao_Logistica_UNINASSAU%20%20-%20%20Reparado.pdf">Abrir material</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">06 / SEMINÁRIOS</span>
+						<h3>Aula 6</h3>
+						<p>Árvores de decisão e métodos de ensemble em uma apresentação prática.</p>
+					</div>
+					<a class="lesson-link" href="aula_06/index.html">Abrir apresentação</a>
+				</article>
+
+				<article class="lesson">
+					<div>
+						<span class="lesson-number">07 / REGRESSÃO</span>
+						<h3>Aula 7</h3>
+						<p>Regressão linear supervisionada, métricas de erro e análise de resíduos.</p>
+					</div>
+					<a class="lesson-link" href="aula_07_regressao_linear_revealjs/index.html">Abrir apresentação</a>
+				</article>
+			</div>
+
+			<div class="study-note">
+				<div>
+					<strong>Uma trilha para aprender fazendo.</strong>
+					<span>Comece pela introdução e avance até os modelos supervisionados, a regressão e os temas dos seminários.</span>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="shell">Machine Learning · UNINASSAU · 2026.2</footer>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 7 — Regressão Linear Supervisionada</title>
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reset.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reveal.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/theme/serif.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="assets/css/code-readability.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <section>
+    <section data-timing="30">
+      <img src="assets/img/uninassau.svg" width="190" alt="UNINASSAU">
+      <h1>Aula 7</h1>
+      <h2>Regressão Linear Supervisionada</h2>
+      <p>Modelagem, métricas de erro e análise de resíduos</p>
+      <p><small>Machine Learning · ADS · 2026.2</small></p>
+      <aside class="notes">Apresente a regressão como uma nova tarefa supervisionada. Na aula anterior, a saída era uma classe. Hoje, a saída será um valor numérico.</aside>
+    </section>
+
+    <section data-timing="60">
+      <h2>Resultados de aprendizagem</h2>
+      <p>Ao final da aula, o estudante deverá conseguir:</p>
+      <ul>
+        <li>diferenciar classificação e regressão;</li>
+        <li>interpretar coeficiente e intercepto;</li>
+        <li>treinar uma Regressão Linear no Colab;</li>
+        <li>calcular MAE, MSE, RMSE e R²;</li>
+        <li>usar resíduos para identificar limitações do modelo.</li>
+      </ul>
+      <aside class="notes">Mostre que os resultados formam o roteiro da aula. Informe que não será necessário demonstrar fórmulas por cálculo matricial.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Classificação e regressão</h2>
+      <table>
+        <thead><tr><th></th><th>Classificação</th><th>Regressão</th></tr></thead>
+        <tbody>
+          <tr><th>Saída</th><td>Categoria</td><td>Valor numérico</td></tr>
+          <tr><th>Exemplo</th><td>Chamado urgente ou não</td><td>Tempo de backup em minutos</td></tr>
+          <tr><th>Métricas</th><td>Acurácia, precisão, recall</td><td>MAE, RMSE, R²</td></tr>
+        </tbody>
+      </table>
+      <p><small>Regressão Logística é uma exceção no nome: ela realiza classificação.</small></p>
+      <aside class="notes">Peça um exemplo de saída numérica. Corrija respostas que sejam códigos de categoria, como 0 e 1, pois continuam representando classes.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Caso técnico: tempo de backup</h2>
+      <p>Uma equipe registra o volume processado e o tempo total de cada backup.</p>
+      <table>
+        <thead><tr><th>Volume de dados</th><th>Tempo observado</th></tr></thead>
+        <tbody>
+          <tr><td>20 GB</td><td>9 min</td></tr>
+          <tr><td>40 GB</td><td>15 min</td></tr>
+          <tr><td>60 GB</td><td>23 min</td></tr>
+          <tr><td>80 GB</td><td>28 min</td></tr>
+          <tr><td>100 GB</td><td>36 min</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Problema:</strong> estimar o tempo de um backup de 70 GB.</p>
+      <aside class="notes">Leia a tabela e confirme as unidades. O volume será a entrada e o tempo será a saída numérica.</aside>
+    </section>
+
+    <section data-timing="300">
+      <h2>Atividade guiada · 5 minutos</h2>
+      <p>Em duplas, escolham a equação que melhor representa os dados:</p>
+      <p>
+        <strong>A.</strong> <code>tempo = 0,10 × volume + 5</code><br>
+        <strong>B.</strong> <code>tempo = 0,34 × volume + 2</code><br>
+        <strong>C.</strong> <code>tempo = 0,60 × volume - 2</code>
+      </p>
+      <p>Procedimento obrigatório:</p>
+      <ol>
+        <li>Testem as três equações para 100 GB.</li>
+        <li>Escolham a que mais se aproxima dos 36 minutos observados.</li>
+        <li>Usem a equação escolhida para prever 70 GB.</li>
+      </ol>
+      <p><strong>Entrega:</strong> letra escolhida, cálculo para 70 GB e justificativa.</p>
+      <aside class="notes">Marque cinco minutos. Verifique se as duplas substituem o volume por 100 antes de escolher. A atividade possui critério objetivo e resposta verificável.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Correção da atividade</h2>
+      <table>
+        <thead><tr><th>Equação</th><th>Previsão para 100 GB</th><th>Erro em relação a 36</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>15 min</td><td>21 min</td></tr>
+          <tr><td><strong>B</strong></td><td><strong>36 min</strong></td><td><strong>0 min</strong></td></tr>
+          <tr><td>C</td><td>58 min</td><td>22 min</td></tr>
+        </tbody>
+      </table>
+      <p>Para 70 GB:</p>
+      <p><code>tempo = 0,34 × 70 + 2 = 25,8 minutos</code></p>
+      <aside class="notes">Destaque que uma equação pode acertar um ponto e ainda errar outros. O treinamento avalia o conjunto completo, não somente o caso de 100 GB.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Variáveis do problema</h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>Significado</th><th>Notação</th></tr></thead>
+        <tbody>
+          <tr><td>Característica</td><td>Volume de dados em GB</td><td><code>X</code></td></tr>
+          <tr><td>Alvo</td><td>Tempo de backup em minutos</td><td><code>y</code></td></tr>
+          <tr><td>Previsão</td><td>Tempo estimado pelo modelo</td><td><code>ŷ</code></td></tr>
+        </tbody>
+      </table>
+      <p>Cada linha representa um backup já realizado.</p>
+      <aside class="notes">Pronuncie ŷ como “y previsto”. Diferencie y, que veio da medição real, de ŷ, produzido pelo modelo.</aside>
+    </section>
+
+ 
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Definição de Regressão Linear</h2>
+      <blockquote>A Regressão Linear estima uma variável numérica por meio de uma combinação linear das características de entrada.</blockquote>
+      <p>Com uma característica, o modelo representa a relação por uma reta.</p>
+      <p>Com várias características, o princípio permanece igual, mas cada coluna recebe seu próprio coeficiente.</p>
+      <aside class="notes">Explique que “linear” descreve a forma como os coeficientes entram na equação. Nesta aula, use apenas uma característica para facilitar a visualização.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Reta de regressão e resíduos</h2>
+      <img src="assets/img/regressao_residuos.png" width="1320" alt="Pontos observados, reta de regressão e distâncias verticais chamadas resíduos">
+      <p><small>A reta produz uma previsão para cada volume. A distância vertical até o valor observado forma o resíduo.</small></p>
+      <aside class="notes">Aponte primeiro os pontos, depois a reta e por fim os segmentos verticais. A reta resume a tendência, mas não precisa atravessar todos os pontos.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Equação do modelo</h2>
+      <p><code>ŷ = b₀ + b₁x</code></p>
+      <table>
+        <thead><tr><th>Símbolo</th><th>Interpretação</th></tr></thead>
+        <tbody>
+          <tr><td><code>x</code></td><td>Volume de dados</td></tr>
+          <tr><td><code>ŷ</code></td><td>Tempo previsto</td></tr>
+          <tr><td><code>b₀</code></td><td>Intercepto ou valor inicial</td></tr>
+          <tr><td><code>b₁</code></td><td>Coeficiente angular ou inclinação</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Não derive a fórmula. Mostre que o treinamento procura os valores de b0 e b1 que reduzem os erros no conjunto de treino.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Coeficiente angular</h2>
+      <p>Na equação <code>tempo = 2 + 0,34 × volume</code>:</p>
+      <p><code>b₁ = 0,34 minuto por GB</code></p>
+      <blockquote>Para cada aumento de 1 GB, o modelo acrescenta 0,34 minuto ao tempo previsto.</blockquote>
+      <p>Para um aumento de 10 GB, a previsão aumenta aproximadamente 3,4 minutos.</p>
+      <aside class="notes">Destaque a unidade do coeficiente. O significado depende das unidades de x e y.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Intercepto</h2>
+      <p>Na mesma equação:</p>
+      <p><code>b₀ = 2 minutos</code></p>
+      <blockquote>Quando o volume é zero, a reta prevê 2 minutos.</blockquote>
+      <p>O intercepto pode representar uma etapa fixa, como preparação e encerramento. Em alguns problemas, ele serve apenas para posicionar matematicamente a reta.</p>
+      <aside class="notes">Evite atribuir significado causal sem evidência. O valor para x igual a zero pode estar fora da faixa observada.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Cálculo de uma previsão</h2>
+      <p>Modelo:</p>
+      <p><code>ŷ = 2 + 0,34x</code></p>
+      <p>Para um backup de 70 GB:</p>
+      <pre><code class="language-text">ŷ = 2 + 0,34 × 70
+ŷ = 2 + 23,8
+ŷ = 25,8 minutos</code></pre>
+      <p>O resultado é uma estimativa, não uma garantia de duração exata.</p>
+      <aside class="notes">Faça o cálculo com a turma. Reforce que o valor previsto pode ser decimal mesmo quando as medições foram arredondadas.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Resíduo de uma observação</h2>
+      <p><code>resíduo = valor real - valor previsto</code></p>
+      <p>Se o backup de 70 GB durou 28 minutos:</p>
+      <p><code>resíduo = 28 - 25,8 = 2,2 minutos</code></p>
+      <ul>
+        <li>Resíduo positivo: o modelo subestimou o valor.</li>
+        <li>Resíduo negativo: o modelo superestimou o valor.</li>
+      </ul>
+      <aside class="notes">O sinal depende da definição adotada. Nesta aula, use sempre real menos previsto para manter consistência com o notebook.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Critério dos mínimos quadrados</h2>
+      <p>A Regressão Linear procura coeficientes que minimizam a soma dos resíduos ao quadrado:</p>
+      <p><code>Σ (y - ŷ)²</code></p>
+      <ul>
+        <li>O quadrado impede que erros positivos e negativos se anulem.</li>
+        <li>Erros grandes recebem penalidade maior.</li>
+        <li>A solução considera todas as observações do treino.</li>
+      </ul>
+      <aside class="notes">Mostre apenas a intuição. Não apresente derivadas nem solução matricial. Relacione o quadrado com a métrica MSE que aparecerá depois.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>A melhor reta depende dos dados</h2>
+      <p>O algoritmo compara possíveis valores de intercepto e coeficiente.</p>
+      <table>
+        <thead><tr><th>Reta candidata</th><th>Comportamento</th></tr></thead>
+        <tbody>
+          <tr><td>Inclinação pequena</td><td>Subestima backups maiores</td></tr>
+          <tr><td>Inclinação grande</td><td>Superestima backups maiores</td></tr>
+          <tr><td>Inclinação equilibrada</td><td>Distribui erros positivos e negativos</td></tr>
+        </tbody>
+      </table>
+      <p>A reta escolhida possui o menor erro quadrático no conjunto utilizado para o treinamento.</p>
+      <aside class="notes">Explique que “melhor” está ligado ao critério de otimização. Outra métrica poderia favorecer uma solução diferente.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Associação e causalidade</h2>
+      <p>Uma relação linear mostra que duas variáveis variaram juntas nos dados observados.</p>
+      <blockquote>O coeficiente não prova que uma variável causou a outra.</blockquote>
+      <p>No exemplo, volume maior tende a exigir mais tempo. Outros fatores, como rede, quantidade de arquivos e servidor, também podem influenciar.</p>
+      <aside class="notes">Use este ponto para evitar interpretações exageradas dos coeficientes. O modelo prevê uma relação, mas não executa um experimento causal.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Interpolação e extrapolação</h2>
+      <img src="assets/img/interpolacao_extrapolacao.png" width="1320" alt="Comparação entre previsão dentro e fora da faixa de dados observados">
+      <aside class="notes">Explique que a reta continua matematicamente fora da faixa observada, mas o sistema real pode mudar. Previsões para volumes muito maiores exigem validação adicional.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Limitações do modelo linear</h2>
+      <ul>
+        <li>A relação precisa ser aproximadamente linear na faixa analisada.</li>
+        <li>Valores extremos podem deslocar a reta.</li>
+        <li>O erro pode aumentar em certas regiões.</li>
+        <li>Características omitidas limitam a previsão.</li>
+        <li>Extrapolações podem produzir resultados pouco confiáveis.</li>
+      </ul>
+      <p>A análise dos resíduos ajuda a identificar parte dessas limitações.</p>
+      <aside class="notes">Não apresente esses itens como garantias formais. Eles funcionam como checklist introdutório para avaliar se a reta representa adequadamente os dados.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 3 · Experimento no Colab</h2>
+      <p>Vamos gerar 300 backups fictícios com relação linear e ruído aleatório.</p>
+      <ul>
+        <li>Entrada: volume de dados em GB.</li>
+        <li>Alvo: tempo de backup em minutos.</li>
+        <li>Objetivo: estimar o tempo de casos novos.</li>
+      </ul>
+      <p>Os dados são sintéticos e não representam uma infraestrutura real.</p>
+      <aside class="notes">Abra o notebook. Explique que os dados sintéticos permitem conhecer a regra geradora e controlar o nível de ruído.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>1. Geração dos dados</h2>
+      <pre><code class="language-python" data-line-numbers="1-3|5-8">import numpy as np
+import pandas as pd
+
+rng = np.random.default_rng(42)
+volume = rng.uniform(5, 200, 300)
+ruido = rng.normal(0, 5, 300)
+tempo = 2.5 + 0.32 * volume + ruido
+
+dados = pd.DataFrame({
+    "volume_gb": volume,
+    "tempo_min": tempo
+})</code></pre>
+      <p><small>A regra contém uma parte previsível e um ruído com média zero e desvio padrão de 5 minutos.</small></p>
+      <aside class="notes">Leia a expressão do tempo. O modelo não receberá a coluna ruido. Ele deverá estimar a tendência usando apenas volume.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>2. Inspeção inicial</h2>
+      <pre><code class="language-python">display(dados.head())
+display(dados.describe())
+print(dados.isna().sum())</code></pre>
+      <table>
+        <thead><tr><th>Comando</th><th>Verificação</th></tr></thead>
+        <tbody>
+          <tr><td><code>head()</code></td><td>Formato e primeiras linhas</td></tr>
+          <tr><td><code>describe()</code></td><td>Faixa, média e dispersão</td></tr>
+          <tr><td><code>isna()</code></td><td>Valores ausentes</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Não pule a inspeção por serem dados gerados. O procedimento deve permanecer igual quando a origem mudar.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>3. Relação entre X e y</h2>
+      <pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.scatter(dados["volume_gb"], dados["tempo_min"], alpha=0.7)
+plt.xlabel("Volume de dados (GB)")
+plt.ylabel("Tempo de backup (min)")
+plt.show()</code></pre>
+      <p>O gráfico deve mostrar tendência crescente com dispersão ao redor de uma linha imaginária.</p>
+      <aside class="notes">Pergunte se uma reta parece razoável. Se a nuvem formar uma curva evidente, a Regressão Linear simples seria limitada.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>4. Divisão entre treino e teste</h2>
+      <pre><code class="language-python" data-line-numbers="1|3-4|6-8">from sklearn.model_selection import train_test_split
+
+X = dados[["volume_gb"]]
+y = dados["tempo_min"]
+
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)</code></pre>
+      <ul>
+        <li>Treino: 75% dos exemplos para estimar a reta.</li>
+        <li>Teste: 25% dos exemplos para avaliar dados não vistos.</li>
+      </ul>
+      <aside class="notes">Mostre o uso de colchetes duplos em X para manter formato bidimensional. Em regressão, não usamos stratify com um alvo contínuo.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>5. Baseline pela média</h2>
+      <pre><code class="language-python">from sklearn.dummy import DummyRegressor
+
+baseline = DummyRegressor(strategy="mean")
+baseline.fit(X_treino, y_treino)
+prev_baseline = baseline.predict(X_teste)</code></pre>
+      <blockquote>O baseline prevê a média do tempo de treino para todos os backups.</blockquote>
+      <p>A Regressão Linear precisa reduzir o erro em relação a essa estratégia.</p>
+      <aside class="notes">Relacione com o DummyClassifier da aula anterior. O baseline não usa o volume para variar a previsão.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>6. Treinamento da Regressão Linear</h2>
+      <pre><code class="language-python" data-line-numbers="1|3|4">from sklearn.linear_model import LinearRegression
+
+modelo = LinearRegression()
+modelo.fit(X_treino, y_treino)</code></pre>
+      <p><code>fit</code> estima o intercepto e o coeficiente usando somente os dados de treino.</p>
+      <p>Após o treinamento, o objeto <code>modelo</code> contém a equação aprendida.</p>
+      <aside class="notes">Destaque que o teste não entra no fit. O modelo recebe X_treino e y_treino para aprender a relação.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>7. Coeficiente e intercepto aprendidos</h2>
+      <pre><code class="language-python">print("Intercepto:", modelo.intercept_)
+print("Coeficiente:", modelo.coef_[0])
+
+print(
+    f"tempo = {modelo.intercept_:.2f} "
+    f"+ {modelo.coef_[0]:.2f} × volume"
+)</code></pre>
+      <ul>
+        <li><code>intercept_</code>: previsão quando o volume vale zero.</li>
+        <li><code>coef_[0]</code>: aumento previsto por GB.</li>
+      </ul>
+      <aside class="notes">Compare os valores aprendidos com a regra geradora 2,5 + 0,32 × volume. O ruído e a divisão do treino causam pequenas diferenças.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>8. Previsão de um novo backup</h2>
+      <pre><code class="language-python">novo_backup = pd.DataFrame({"volume_gb": [120]})
+tempo_previsto = modelo.predict(novo_backup)
+
+print(f"Previsão: {tempo_previsto[0]:.2f} minutos")</code></pre>
+      <p>O novo dado deve possuir as mesmas colunas e unidades usadas no treinamento.</p>
+      <p>A previsão é válida dentro das condições representadas pelo conjunto de dados.</p>
+      <aside class="notes">Pergunte se 120 GB está dentro da faixa gerada, de 5 a 200 GB. Está, portanto é uma interpolação.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>9. Previsões e resíduos do teste</h2>
+      <pre><code class="language-python">previsoes = modelo.predict(X_teste)
+
+resultado = pd.DataFrame({
+    "real": y_teste,
+    "previsto": previsoes
+})
+resultado["residuo"] = resultado["real"] - resultado["previsto"]
+
+display(resultado.head())</code></pre>
+      <p>Cada linha permite verificar o valor real, a previsão e a direção do erro.</p>
+      <aside class="notes">Peça aos alunos que encontrem um resíduo positivo e um negativo. Confirme a interpretação de subestimar e superestimar.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>10. Treino e teste</h2>
+      <p>Um erro pequeno no treino não garante bom desempenho em casos novos.</p>
+      <table>
+        <thead><tr><th>Resultado</th><th>Interpretação</th></tr></thead>
+        <tbody>
+          <tr><td>Treino e teste semelhantes</td><td>Generalização coerente</td></tr>
+          <tr><td>Treino melhor que teste</td><td>Possível sobreajuste ou mudança nos dados</td></tr>
+          <tr><td>Treino e teste ruins</td><td>Relação linear insuficiente ou dados fracos</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">A Regressão Linear simples possui baixa flexibilidade, mas ainda pode falhar se os dados de treino e teste forem diferentes ou houver problemas de qualidade.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>11. Visualização da reta aprendida</h2>
+      <pre><code class="language-python">ordem = X_teste["volume_gb"].argsort()
+
+plt.scatter(X_teste["volume_gb"], y_teste, label="real")
+plt.plot(
+    X_teste["volume_gb"].iloc[ordem],
+    previsoes[ordem],
+    color="red",
+    label="modelo"
+)
+plt.xlabel("Volume de dados (GB)")
+plt.ylabel("Tempo de backup (min)")
+plt.legend()
+plt.show()</code></pre>
+      <aside class="notes">Explique que a ordenação evita ligar os pontos da reta em ordem aleatória. Compare visualmente a distância entre pontos e linha.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>12. Limites do experimento</h2>
+      <ul>
+        <li>O conjunto foi gerado a partir de uma relação linear.</li>
+        <li>O modelo utiliza apenas o volume de dados.</li>
+        <li>O ruído possui comportamento controlado.</li>
+        <li>Uma infraestrutura real teria outras variáveis.</li>
+      </ul>
+      <p>O experimento ensina o processo. Ele não produz um estimador pronto para uso operacional.</p>
+      <aside class="notes">Diferencie demonstração didática e implantação. Em produção, seria necessário coletar dados reais, validar estabilidade e monitorar mudanças.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Fluxo da regressão</h2>
+      <p><strong>Dados numéricos</strong>, separação, baseline, treinamento, previsão, métricas e resíduos.</p>
+      <ul>
+        <li>O treinamento encontra os coeficientes.</li>
+        <li>O teste estima o desempenho em dados novos.</li>
+        <li>Os resíduos revelam onde a reta erra.</li>
+      </ul>
+      <aside class="notes">Use como revisão antes do intervalo. Peça que um estudante explique a função do baseline.</aside>
+    </section>
+  </section>
+
+
+  <section>
+    <section data-timing="90">
+      <h2>Parte 4 · Avaliação da regressão</h2>
+      <p>Uma métrica resume os erros do teste em um valor comparável.</p>
+      <blockquote>Modelos devem ser comparados no mesmo conjunto de teste e com a mesma métrica.</blockquote>
+      <p>Uma métrica isolada não mostra a distribuição nem a causa dos erros.</p>
+      <aside class="notes">Explique que as métricas não substituem a inspeção visual. Elas resumem o comportamento e apoiam comparações justas.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Erro Absoluto Médio: MAE</h2>
+      <p><code>MAE = média de |y - ŷ|</code></p>
+      <ul>
+        <li>Transforma cada erro em valor positivo.</li>
+        <li>Calcula a distância média entre real e previsto.</li>
+        <li>Mantém a unidade original do alvo.</li>
+      </ul>
+      <p>No exemplo, o MAE é medido em minutos.</p>
+      <aside class="notes">Apresente o MAE como a métrica mais direta para comunicação. Um MAE de 4 significa erro absoluto médio de aproximadamente 4 minutos.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Cálculo do MAE</h2>
+      <table>
+        <thead><tr><th>Real</th><th>Previsto</th><th>Erro</th><th>Erro absoluto</th></tr></thead>
+        <tbody>
+          <tr><td>20</td><td>18</td><td>2</td><td>2</td></tr>
+          <tr><td>30</td><td>33</td><td>-3</td><td>3</td></tr>
+          <tr><td>40</td><td>39</td><td>1</td><td>1</td></tr>
+          <tr><td>50</td><td>54</td><td>-4</td><td>4</td></tr>
+        </tbody>
+      </table>
+      <p><code>MAE = (2 + 3 + 1 + 4) / 4 = 2,5 minutos</code></p>
+      <aside class="notes">Mostre que erros negativos não cancelam positivos. O valor 2,5 pode ser comunicado diretamente na unidade do problema.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Erro Quadrático Médio: MSE</h2>
+      <p><code>MSE = média de (y - ŷ)²</code></p>
+      <ul>
+        <li>Eleva cada erro ao quadrado.</li>
+        <li>Amplifica a influência de erros grandes.</li>
+        <li>Produz unidade ao quadrado.</li>
+      </ul>
+      <p>Com erros 2, -3, 1 e -4:</p>
+      <p><code>MSE = (4 + 9 + 1 + 16) / 4 = 7,5 min²</code></p>
+      <aside class="notes">Destaque a penalização do erro 4, que vira 16. A unidade min² dificulta a comunicação direta.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Raiz do Erro Quadrático Médio: RMSE</h2>
+      <p><code>RMSE = √MSE</code></p>
+      <p>No exemplo:</p>
+      <p><code>RMSE = √7,5 ≈ 2,74 minutos</code></p>
+      <ul>
+        <li>Mantém maior sensibilidade a erros grandes.</li>
+        <li>Retorna para a unidade original do alvo.</li>
+      </ul>
+      <aside class="notes">Compare RMSE 2,74 com MAE 2,5. A diferença indica que os erros maiores receberam peso adicional.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>MAE e RMSE</h2>
+      <table>
+        <thead><tr><th>Métrica</th><th>Uso principal</th><th>Efeito de erros grandes</th></tr></thead>
+        <tbody>
+          <tr><td>MAE</td><td>Erro médio fácil de interpretar</td><td>Crescimento proporcional</td></tr>
+          <tr><td>RMSE</td><td>Destacar previsões muito distantes</td><td>Penalidade mais forte</td></tr>
+        </tbody>
+      </table>
+      <p>Um modelo pode ter MAE aceitável e ainda apresentar alguns erros graves. O RMSE ajuda a perceber esse comportamento.</p>
+      <aside class="notes">Pergunte qual métrica seria mais importante quando um atraso grande pode interromper uma janela operacional. O RMSE pode receber maior atenção.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Coeficiente de determinação: R²</h2>
+      <p>O R² compara o modelo com uma estratégia que sempre prevê a média do alvo.</p>
+      <table>
+        <thead><tr><th>R²</th><th>Interpretação inicial</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Previsões perfeitas no conjunto avaliado</td></tr>
+          <tr><td>0</td><td>Desempenho equivalente à média</td></tr>
+          <tr><td>Menor que 0</td><td>Pior que prever a média</td></tr>
+        </tbody>
+      </table>
+      <p>Quanto maior, melhor, mas o contexto e os erros absolutos continuam necessários.</p>
+      <aside class="notes">Evite chamar R² de acurácia. Ele compara variação explicada, mas não informa diretamente quantos minutos o modelo erra.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Interpretação responsável do R²</h2>
+      <ul>
+        <li>R² igual a 0,80 não significa 80% de previsões corretas.</li>
+        <li>Um R² alto pode coexistir com erros grandes na unidade do problema.</li>
+        <li>Um R² baixo pode ocorrer quando o alvo possui pouca variação.</li>
+        <li>O valor deve ser calculado em dados separados do treino.</li>
+      </ul>
+      <p>Relate R² junto com MAE ou RMSE.</p>
+      <aside class="notes">Use um exemplo: erros de 30 minutos podem ser inaceitáveis mesmo com R² alto em backups que variam por muitas horas.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Comparação das métricas</h2>
+      <table>
+        <thead><tr><th>Métrica</th><th>Unidade</th><th>Melhor direção</th><th>Pergunta respondida</th></tr></thead>
+        <tbody>
+          <tr><td>MAE</td><td>minutos</td><td>Menor</td><td>Qual o erro absoluto médio?</td></tr>
+          <tr><td>MSE</td><td>minutos²</td><td>Menor</td><td>Quanto os erros grandes pesam?</td></tr>
+          <tr><td>RMSE</td><td>minutos</td><td>Menor</td><td>Qual o erro com maior penalização?</td></tr>
+          <tr><td>R²</td><td>sem unidade</td><td>Maior</td><td>Quanto o modelo supera a média?</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Peça aos alunos que identifiquem quais métricas podem ser explicadas diretamente em minutos. Resposta: MAE e RMSE.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Cálculo das métricas no scikit-learn</h2>
+      <pre><code class="language-python" data-line-numbers="1-2|4-7">from sklearn.metrics import (
+    mean_absolute_error, mean_squared_error, r2_score
+)
+
+mae = mean_absolute_error(y_teste, previsoes)
+mse = mean_squared_error(y_teste, previsoes)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_teste, previsoes)
+
+print(f"MAE: {mae:.2f} min")
+print(f"RMSE: {rmse:.2f} min")
+print(f"R²: {r2:.3f}")</code></pre>
+      <aside class="notes">Leia a unidade de cada saída. O MSE é calculado, mas o notebook imprime o RMSE para facilitar a interpretação.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Escolha da métrica</h2>
+      <table>
+        <thead><tr><th>Necessidade</th><th>Métrica em destaque</th></tr></thead>
+        <tbody>
+          <tr><td>Comunicar erro típico em minutos</td><td>MAE</td></tr>
+          <tr><td>Penalizar atrasos muito grandes</td><td>RMSE</td></tr>
+          <tr><td>Comparar com a previsão pela média</td><td>R²</td></tr>
+        </tbody>
+      </table>
+      <p>Uma avaliação completa combina métricas com inspeção dos resíduos.</p>
+      <aside class="notes">Evite escolher automaticamente a métrica que produz o número mais favorável. A escolha deve refletir o custo operacional dos erros.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Análise de resíduos</h2>
+      <p>O resíduo preserva a direção de cada erro:</p>
+      <p><code>resíduo = real - previsto</code></p>
+      <ul>
+        <li>Distribuição aleatória ao redor de zero favorece o modelo linear.</li>
+        <li>Padrões sistemáticos indicam informação não capturada.</li>
+        <li>Valores extremos revelam casos que merecem investigação.</li>
+      </ul>
+      <aside class="notes">A métrica resume o tamanho dos erros. O gráfico de resíduos mostra onde e como esses erros aparecem.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Padrões em gráficos de resíduos</h2>
+      <img src="assets/img/padroes_residuos.png" width="1320" alt="Três gráficos de resíduos: padrão adequado, curvatura e formato de funil">
+      <aside class="notes">Aponte os três padrões. Curvatura sugere relação não linear. Funil sugere erro crescente. O gráfico adequado não garante perfeição, mas não apresenta estrutura evidente.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Gráfico de resíduos no Colab</h2>
+      <pre><code class="language-python">residuos = y_teste - previsoes
+
+plt.scatter(previsoes, residuos, alpha=0.7)
+plt.axhline(0, color="red", linestyle="--")
+plt.xlabel("Tempo previsto")
+plt.ylabel("Resíduo")
+plt.show()</code></pre>
+      <p>Procure concentração ao redor de zero, curvatura, funil e pontos isolados.</p>
+      <aside class="notes">Peça que a turma descreva o gráfico antes de emitir diagnóstico. Uma nuvem aproximadamente aleatória combina com a regra geradora do experimento.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="900">
+      <h2>Parte 5 · </h2>
+      <p>Em duplas, executem o notebook e comparem baseline e Regressão Linear.</p>
+      <ol>
+        <li>Registrem MAE, RMSE e R² dos dois modelos.</li>
+        <li>Interpretem o coeficiente em minutos por GB.</li>
+        <li>Façam uma previsão para 150 GB.</li>
+        <li>Analise o gráfico de resíduos.</li>
+        <li>Escrevam uma conclusão de até quatro frases.</li>
+      </ol>
+      <p><strong>Entrega:</strong> tabela de resultados, previsão e conclusão.</p>
+      <aside class="notes">Garanta que todos executaram as células iniciais. Circule verificando se as unidades aparecem nas interpretações.</aside>
+    </section>
+
+    <section data-timing="240">
+      <h2>Tabela de entrega</h2>
+      <table>
+        <thead><tr><th>Modelo</th><th>MAE</th><th>RMSE</th><th>R²</th></tr></thead>
+        <tbody>
+          <tr><td>Baseline pela média</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>Regressão Linear</td><td>...</td><td>...</td><td>...</td></tr>
+        </tbody>
+      </table>
+      <p>Completem também:</p>
+      <ul>
+        <li>Coeficiente: ... minutos por GB.</li>
+        <li>Previsão para 150 GB: ... minutos.</li>
+        <li>Principal padrão dos resíduos: ...</li>
+      </ul>
+      <aside class="notes">A tabela garante uma entrega padronizada. Não aceite números sem unidades no coeficiente e na previsão.</aside>
+    </section>
+
+    <section data-timing="300">
+      <h2>Experimento adicional: aumento do ruído</h2>
+      <p>Alterem apenas esta linha:</p>
+      <pre><code class="language-python"># Antes
+ruido = rng.normal(0, 5, 300)
+
+# Experimento
+ruido = rng.normal(0, 15, 300)</code></pre>
+      <p>Executem novamente e registrem:</p>
+      <ul>
+        <li>o que ocorreu com MAE e RMSE;</li>
+        <li>o que ocorreu com R²;</li>
+        <li>como mudou o gráfico de resíduos.</li>
+      </ul>
+      <aside class="notes">Peça uma previsão antes de executar. Espera-se aumento dos erros, redução do R² e maior dispersão dos resíduos.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Erros comuns no laboratório</h2>
+      <ul>
+        <li>Passar uma série unidimensional como X.</li>
+        <li>Treinar usando também o conjunto de teste.</li>
+        <li>Interpretar R² como percentual de acertos.</li>
+        <li>Comparar métricas calculadas em conjuntos diferentes.</li>
+        <li>Ignorar unidades e sinais dos resíduos.</li>
+      </ul>
+      <aside class="notes">Use esta lista para diagnóstico rápido. Colchetes duplos em `dados[["volume_gb"]]` resolvem o formato de X.</aside>
+    </section>
+
+  </section>
+
+  <section>
+
+    <section data-timing="60">
+      <h2>Referências técnicas</h2>
+      <ul>
+        <li>scikit-learn: LinearRegression</li>
+        <li>scikit-learn: métricas de regressão</li>
+        <li>scikit-learn: DummyRegressor</li>
+        <li>Géron, A. <em>Hands-On Machine Learning</em></li>
+      </ul>
+      <p><small>Material da aula: slides e notebook da prática guiada.</small></p>
+      <aside class="notes">Encerre lembrando que uma boa previsão precisa de métrica, comparação e análise dos erros.</aside>
+    </section>
+  </section>
+
+</div>
+</div>
+
+<script src="assets/vendor/reveal/dist/reveal.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/notes.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/highlight.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/search.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/zoom.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1600,
+    height: 900,
+    hash: true,
+    navigationMode: 'linear',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t',
+    showSlideNumber: 'all',
+    fragmentInURL: true,
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    totalTime: 10800,
+    plugins: [ RevealNotes, RevealHighlight, RevealSearch, RevealZoom ]
+  });
+</script>
+</body>
+</html>
