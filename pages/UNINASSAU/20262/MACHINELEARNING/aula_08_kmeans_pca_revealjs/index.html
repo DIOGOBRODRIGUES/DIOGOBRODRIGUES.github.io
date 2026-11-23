@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 8: Aprendizado Não Supervisionado</title>
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reset.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/reveal.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/theme/serif.css">
+  <link rel="stylesheet" href="assets/vendor/reveal/dist/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="assets/css/code-readability.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <section>
+    <section data-timing="30">
+      <img src="assets/img/uninassau.svg" width="190" alt="UNINASSAU">
+      <h1>Aula 8</h1>
+      <h2>Aprendizado Não Supervisionado</h2>
+      <p>Agrupamento K-means e redução de dimensionalidade com PCA</p>
+      <p><small>Machine Learning · ADS · 2026.2</small></p>
+      <aside class="notes">Apresente a mudança central da aula. Nos modelos anteriores, cada exemplo trazia uma resposta conhecida. Hoje, os dados chegam sem rótulos e o algoritmo procura estruturas que merecem interpretação humana.</aside>
+    </section>
+
+    <section data-timing="60">
+      <h2>Resultados de aprendizagem</h2>
+      <p>Ao final da aula, o estudante deverá conseguir:</p>
+      <ul>
+        <li>diferenciar aprendizado supervisionado e não supervisionado;</li>
+        <li>explicar o funcionamento do K-means;</li>
+        <li>padronizar características antes do agrupamento;</li>
+        <li>usar PCA para representar dados com várias características.</li>
+      </ul>
+      <aside class="notes">Use os resultados como roteiro. Informe que a aula trabalha a interpretação e o uso responsável das técnicas. A matemática ficará no nível necessário para compreender distância, centroide e variação.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Duas formas de aprender com dados</h2>
+      <table>
+        <thead><tr><th>Aspecto</th><th>Supervisionado</th><th>Não supervisionado</th></tr></thead>
+        <tbody>
+          <tr><th>Resposta conhecida</th><td>Sim</td><td>Não</td></tr>
+          <tr><th>Objetivo</th><td>Prever classe ou valor</td><td>Encontrar estrutura</td></tr>
+          <tr><th>Exemplo</th><td>Prever tempo de backup</td><td>Identificar perfis de uso</td></tr>
+          <tr><th>Saída</th><td>Previsão</td><td>Grupos ou representação reduzida</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Retome a Aula 7. Na regressão, y continha o tempo real. No agrupamento, existe apenas X. O algoritmo produz grupos, mas não conhece seus significados.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Caso técnico: perfis de uso do sistema</h2>
+      <p>Uma equipe deseja adaptar treinamento e suporte aos diferentes padrões de uso.</p>
+      <table>
+        <thead><tr><th>Característica</th><th>Unidade</th><th>Interpretação</th></tr></thead>
+        <tbody>
+          <tr><td>Sessões por semana</td><td>quantidade</td><td>frequência de acesso</td></tr>
+          <tr><td>Duração média</td><td>minutos</td><td>tempo em cada sessão</td></tr>
+          <tr><td>Funcionalidades usadas</td><td>quantidade por mês</td><td>amplitude de uso</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Problema:</strong> descobrir perfis sem possuir categorias prontas.</p>
+      <aside class="notes">Explique que o objetivo não consiste em julgar usuários. A equipe quer observar comportamentos semelhantes para planejar ações adequadas. As características devem ser relevantes para esse objetivo.</aside>
+    </section>
+
+    <section data-timing="300">
+      <h2>Atividade guiada · 5 minutos</h2>
+      <p>Em duplas, identifiquem três concentrações na tabela.</p>
+      <table>
+        <thead><tr><th>Usuário</th><th>Sessões por semana</th><th>Duração média</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>2</td><td>10 min</td></tr><tr><td>B</td><td>3</td><td>14 min</td></tr><tr><td>C</td><td>2</td><td>16 min</td></tr>
+          <tr><td>D</td><td>6</td><td>24 min</td></tr><tr><td>E</td><td>7</td><td>29 min</td></tr><tr><td>F</td><td>6</td><td>31 min</td></tr>
+          <tr><td>G</td><td>10</td><td>45 min</td></tr><tr><td>H</td><td>12</td><td>51 min</td></tr><tr><td>I</td><td>11</td><td>55 min</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Entrega:</strong> integrantes de cada grupo e um nome descritivo para cada perfil.</p>
+      <aside class="notes">Oriente a dupla a comparar as duas colunas ao mesmo tempo. Não forneça faixas prontas. Peça nomes descritivos, como uso ocasional, regular e intenso. Evite nomes que atribuam valor às pessoas.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Uma solução possível</h2>
+      <table>
+        <thead><tr><th>Grupo</th><th>Usuários</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>A, B, C</td><td>uso ocasional</td></tr>
+          <tr><td>1</td><td>D, E, F</td><td>uso regular</td></tr>
+          <tr><td>2</td><td>G, H, I</td><td>uso intenso</td></tr>
+        </tbody>
+      </table>
+      <p>Os números 0, 1 e 2 apenas identificam os grupos. A interpretação vem depois.</p>
+      <aside class="notes">Mostre que o algoritmo poderia trocar os números sem alterar o agrupamento. O número 2 não significa que o grupo é melhor. O nome surge ao analisar as médias e o contexto.</aside>
+    </section>
+
+    <section data-timing="90">
+      <h2>Estrutura dos dados</h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>Nesta aula</th></tr></thead>
+        <tbody>
+          <tr><td><code>X</code></td><td>características de uso</td></tr>
+          <tr><td><code>y</code></td><td>não existe</td></tr>
+          <tr><td><code>cluster</code></td><td>grupo atribuído pelo algoritmo</td></tr>
+          <tr><td><code>centroide</code></td><td>centro numérico de um grupo</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Destaque a ausência de y. O cluster calculado não equivale a um rótulo verdadeiro. Ele representa uma hipótese de organização dos dados.</aside>
+    </section>
+
+    
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Aprendizado não supervisionado</h2>
+      <blockquote>O algoritmo analisa características sem consultar uma resposta correta para cada exemplo.</blockquote>
+      <p>O resultado pode revelar agrupamentos, representações compactas ou observações incomuns.</p>
+      <p>A utilidade do resultado depende da interpretação e do problema que motivou a análise.</p>
+      <aside class="notes">Apresente agrupamento e redução de dimensionalidade como duas famílias. Não prometa que todo conjunto possui grupos naturais. O algoritmo sempre produz uma saída quando recebe parâmetros válidos.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>O que o agrupamento procura</h2>
+      <p>Um agrupamento útil tende a reunir observações semelhantes e separar observações diferentes.</p>
+      <table>
+        <thead><tr><th>Pergunta</th><th>Exemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Quais usuários se comportam de forma parecida?</td><td>segmentação de uso</td></tr>
+          <tr><td>Quais chamados apresentam padrões semelhantes?</td><td>organização de incidentes</td></tr>
+          <tr><td>Quais produtos costumam aparecer juntos?</td><td>análise exploratória</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Diferencie agrupamento de classificação. A classificação aprende classes fornecidas. O agrupamento propõe uma organização a partir de semelhança.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Distância como medida de diferença</h2>
+      <p>Com duas características, a distância euclidiana entre A e B pode ser calculada por:</p>
+      <p><code>d(A,B) = √[(xA - xB)² + (yA - yB)²]</code></p>
+      <ul>
+        <li>Distância pequena indica valores próximos.</li>
+        <li>Distância grande indica valores mais diferentes.</li>
+        <li>O significado depende das características escolhidas.</li>
+      </ul>
+      <aside class="notes">Relacione a fórmula ao teorema de Pitágoras. A meta consiste em entender a ideia, não memorizar a expressão. K-means usa distâncias para associar pontos aos centroides.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Exemplo de distância</h2>
+      <p>Usuário A: 2 sessões e 10 minutos.</p>
+      <p>Usuário B: 5 sessões e 14 minutos.</p>
+      <pre><code class="language-text">d(A,B) = √[(2 - 5)² + (10 - 14)²]
+d(A,B) = √[9 + 16]
+d(A,B) = √25
+d(A,B) = 5</code></pre>
+      <p>O valor 5 resume a diferença considerando as duas características.</p>
+      <aside class="notes">Faça o cálculo com a turma. Avise que a unidade da distância mistura as escalas originais. Essa limitação prepara o slide seguinte.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>O efeito das escalas</h2>
+      <table>
+        <thead><tr><th>Característica</th><th>Faixa típica</th></tr></thead>
+        <tbody>
+          <tr><td>Sessões por semana</td><td>1 a 15</td></tr>
+          <tr><td>Duração média em segundos</td><td>300 a 3.600</td></tr>
+        </tbody>
+      </table>
+      <p>A segunda característica possui números muito maiores e pode dominar a distância.</p>
+      <blockquote>Grandeza numérica não significa maior importância para o problema.</blockquote>
+      <aside class="notes">Use um exemplo simples. Uma diferença de 300 segundos pode superar qualquer diferença na quantidade de sessões. O algoritmo interpretaria essa escala como mais importante.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Padronização das características</h2>
+      <p><code>z = (valor - média) / desvio padrão</code></p>
+      <ul>
+        <li>A média de cada coluna passa a ficar próxima de zero.</li>
+        <li>O desvio padrão passa a ficar próximo de um.</li>
+        <li>As colunas tornam-se comparáveis na distância.</li>
+      </ul>
+      <p><small>O <code>StandardScaler</code> calcula a transformação separadamente em cada característica.</small></p>
+      <aside class="notes">Explique o resultado sem aprofundar estatística. Após a padronização, um valor 1 indica aproximadamente um desvio padrão acima da média. O StandardScaler continua sensível a valores extremos.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Significado de K-means</h2>
+      <table>
+        <thead><tr><th>Termo</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><code>K</code></td><td>quantidade de grupos escolhida</td></tr>
+          <tr><td><code>means</code></td><td>médias usadas como centros dos grupos</td></tr>
+        </tbody>
+      </table>
+      <p>Com <code>k = 3</code>, o algoritmo procura três centroides e atribui cada observação ao centro mais próximo.</p>
+      <aside class="notes">Destaque que a pessoa analista escolhe k. O algoritmo não determina sozinho o número correto de grupos.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Uma iteração do K-means</h2>
+      <img src="assets/img/kmeans_iteracao.png" width="1400" alt="Três etapas do K-means: centroides iniciais, associação e atualização">
+      <aside class="notes">Leia a imagem da esquerda para a direita. Os centroides começam em posições iniciais. Cada ponto se associa ao centro mais próximo. Depois, cada centro se desloca para a média do seu grupo.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Processo completo do K-means</h2>
+      <ol>
+        <li>Escolher <code>k</code> centroides iniciais.</li>
+        <li>Atribuir cada observação ao centroide mais próximo.</li>
+        <li>Recalcular cada centroide com a média do grupo.</li>
+        <li>Repetir associação e atualização até a estabilização.</li>
+      </ol>
+      <p>O resultado pode variar com a inicialização. O parâmetro <code>random_state</code> permite reproduzir o experimento.</p>
+      <aside class="notes">Explique que o scikit-learn usa inicialização k-means++ por padrão. O parâmetro n_init controla quantas execuções são comparadas. O algoritmo escolhe o melhor resultado segundo a inércia.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Centroide e observação real</h2>
+      <p>Um centroide contém a média de cada característica dentro do grupo.</p>
+      <table>
+        <thead><tr><th></th><th>Sessões</th><th>Duração</th><th>Funções</th></tr></thead>
+        <tbody><tr><th>Centroide</th><td>6,4</td><td>27,8 min</td><td>7,2</td></tr></tbody>
+      </table>
+      <p>Esses valores descrevem o centro do perfil. Eles podem não pertencer a nenhum usuário específico.</p>
+      <aside class="notes">Reforce que o centroide representa uma média. Não procure obrigatoriamente uma linha idêntica a ele no conjunto de dados.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Inércia do agrupamento</h2>
+      <p>A inércia soma as distâncias quadráticas de cada observação até o centroide do seu grupo.</p>
+      <ul>
+        <li>Valor menor indica grupos internamente mais compactos.</li>
+        <li>A inércia sempre diminui quando <code>k</code> aumenta.</li>
+        <li>Comparar reduções ajuda a escolher um ponto de equilíbrio.</li>
+      </ul>
+      <aside class="notes">Não apresente a inércia como uma nota absoluta. Ela depende da quantidade de dados e da escala. Compare valores obtidos com o mesmo conjunto padronizado.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Método do cotovelo</h2>
+      <img src="assets/img/metodo_cotovelo.png" width="1350" alt="Gráfico de inércia com cotovelo em k igual a 3">
+      <p><small>Após o cotovelo, grupos adicionais produzem reduções menores de inércia.</small></p>
+      <aside class="notes">Mostre a grande redução até k igual a 3 e a diminuição mais lenta depois. Alguns conjuntos não apresentam um cotovelo nítido. Nesse caso, combine outras métricas e interpretação.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Coeficiente de silhueta</h2>
+      <p>A silhueta compara a proximidade dentro do grupo com a separação em relação aos outros grupos.</p>
+      <table>
+        <thead><tr><th>Faixa</th><th>Leitura geral</th></tr></thead>
+        <tbody>
+          <tr><td>próximo de 1</td><td>grupos compactos e separados</td></tr>
+          <tr><td>próximo de 0</td><td>grupos sobrepostos</td></tr>
+          <tr><td>negativo</td><td>possível associação inadequada</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Evite transformar faixas em regra rígida. Compare soluções sobre os mesmos dados. A documentação do scikit-learn define 1 como melhor valor e -1 como pior.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Escolha de <code>k</code></h2>
+      <p>A decisão combina evidências quantitativas e utilidade prática.</p>
+      <ol>
+        <li>Comparar a curva de inércia.</li>
+        <li>Comparar a silhueta.</li>
+        <li>Analisar tamanho e perfil de cada grupo.</li>
+        <li>Verificar se a divisão apoia uma decisão real.</li>
+      </ol>
+      <aside class="notes">Explique que métricas não substituem o contexto. Uma solução com muitos grupos pode ter boa compactação e ser impossível de usar na operação.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Limitações do K-means</h2>
+      <ul>
+        <li>Exige a escolha prévia de <code>k</code>.</li>
+        <li>Favorece grupos aproximadamente compactos e arredondados.</li>
+        <li>Reage a valores extremos.</li>
+        <li>Depende da escala e das características selecionadas.</li>
+        <li>Pode produzir grupos mesmo quando a estrutura é fraca.</li>
+      </ul>
+      <aside class="notes">Use estas limitações para evitar a ideia de algoritmo universal. Cite DBSCAN apenas como alternativa para grupos de formatos diferentes, sem aprofundar.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Interpretação responsável</h2>
+      <p>O algoritmo entrega números de cluster. A equipe precisa examinar os dados antes de nomear os perfis.</p>
+      <ul>
+        <li>Use descrições baseadas nas médias observadas.</li>
+        <li>Evite nomes ofensivos ou julgamentos sobre pessoas.</li>
+        <li>Revise características que possam introduzir discriminação.</li>
+        <li>Confirme se a segmentação melhora uma decisão concreta.</li>
+      </ul>
+      <aside class="notes">Dê exemplos de nomes descritivos: baixa frequência e curta duração. Evite rótulos como usuário ruim ou preguiçoso.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 2 · Implementação do K-means</h2>
+      <p>Fluxo da demonstração:</p>
+      <ol>
+        <li>criar e inspecionar os dados;</li>
+        <li>padronizar as características;</li>
+        <li>comparar valores de <code>k</code>;</li>
+        <li>treinar, visualizar e interpretar os grupos.</li>
+      </ol>
+      <aside class="notes">Abra o notebook no Colab. Execute as células em conjunto com a turma. O código completo acompanha o pacote da aula.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>1. Geração dos dados</h2>
+      <pre><code class="language-python" data-line-numbers>import pandas as pd
+from sklearn.datasets import make_blobs
+
+centros = [[2.5, 12, 3], [6.5, 27, 7], [11, 48, 13]]
+
+X_sintetico, _ = make_blobs(
+    n_samples=360,
+    centers=centros,
+    cluster_std=[1.2, 2.0, 2.6],
+    random_state=42
+)
+
+dados = pd.DataFrame(X_sintetico, columns=[
+    "sessoes_semana", "duracao_media_min", "funcionalidades_mes"
+]).clip(lower=0)</code></pre>
+      <aside class="notes">Explique que make_blobs cria dados sintéticos em torno de três centros. O sublinhado descarta a categoria usada na geração, pois o K-means receberá somente X. Em um caso real, a equipe começaria sem saber quantos grupos existem.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>2. Inspeção inicial</h2>
+      <pre><code class="language-python">dados.head()
+dados.describe().round(2)
+dados.isna().sum()</code></pre>
+      <p>Antes do modelo, confirme:</p>
+      <ul>
+        <li>unidades e faixas plausíveis;</li>
+        <li>valores ausentes;</li>
+        <li>valores extremos;</li>
+        <li>significado de cada coluna.</li>
+      </ul>
+      <aside class="notes">Mostre as primeiras linhas e as estatísticas. Reforce que uma tabela executável não significa que os dados sejam adequados.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>3. Visualização sem grupos</h2>
+      <pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.scatter(
+    dados["sessoes_semana"],
+    dados["duracao_media_min"],
+    alpha=0.6
+)
+plt.xlabel("Sessões por semana")
+plt.ylabel("Duração média (min)")
+plt.show()</code></pre>
+      <p>O gráfico mostra duas características. A terceira continua disponível para o modelo.</p>
+      <aside class="notes">Pergunte quantas concentrações os estudantes percebem. Avise que a visualização em duas dimensões pode ocultar informação da terceira característica.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>4. Padronização</h2>
+      <pre><code class="language-python">from sklearn.preprocessing import StandardScaler
+
+colunas = [
+    "sessoes_semana",
+    "duracao_media_min",
+    "funcionalidades_mes"
+]
+
+escalador = StandardScaler()
+X_padronizado = escalador.fit_transform(dados[colunas])</code></pre>
+      <p>O K-means será treinado com <code>X_padronizado</code>, não com as unidades originais.</p>
+      <aside class="notes">Mostre que o resultado é uma matriz NumPy. O escalador guarda médias e desvios para transformar novos usuários da mesma maneira.</aside>
+    </section>
+
+    <section data-timing="150" class="compact-code">
+      <h2>5. Curva de inércia</h2>
+      <pre><code class="language-python">from sklearn.cluster import KMeans
+
+valores_k = range(1, 8)
+inercias = []
+
+for k in valores_k:
+    modelo_k = KMeans(
+        n_clusters=k,
+        random_state=42,
+        n_init="auto"
+    )
+    modelo_k.fit(X_padronizado)
+    inercias.append(modelo_k.inertia_)
+
+plt.plot(valores_k, inercias, marker="o")
+plt.xlabel("Número de clusters (k)")
+plt.ylabel("Inércia")
+plt.show()</code></pre>
+      <aside class="notes">Execute o gráfico. Peça que a turma localize a mudança de inclinação. O conjunto foi criado para sugerir k igual a 3.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>6. Treinamento com <code>k = 3</code></h2>
+      <pre><code class="language-python">modelo = KMeans(
+    n_clusters=3,
+    random_state=42,
+    n_init="auto"
+)
+
+clusters = modelo.fit_predict(X_padronizado)
+dados["cluster"] = clusters</code></pre>
+      <p><code>fit_predict()</code> aprende os centroides e retorna o grupo de cada linha.</p>
+      <aside class="notes">Explique cada parâmetro. random_state torna a inicialização reproduzível. n_init auto segue a configuração atual do scikit-learn.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>7. Quantidade de usuários por grupo</h2>
+      <pre><code class="language-python">dados["cluster"].value_counts().sort_index()</code></pre>
+      <p>O tamanho do grupo ajuda a identificar:</p>
+      <ul>
+        <li>segmentos muito pequenos;</li>
+        <li>concentração excessiva em um único grupo;</li>
+        <li>possíveis problemas de dados ou escolha de <code>k</code>.</li>
+      </ul>
+      <p>Grupos equilibrados não constituem uma exigência do K-means.</p>
+      <aside class="notes">Nos dados sintéticos, os tamanhos ficarão próximos de 120. Em dados reais, tamanhos diferentes podem ser legítimos.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>8. Centroides nas unidades originais</h2>
+      <pre><code class="language-python">centroides_originais = escalador.inverse_transform(
+    modelo.cluster_centers_
+)
+
+centroides = pd.DataFrame(
+    centroides_originais,
+    columns=colunas
+)
+
+centroides.round(2)</code></pre>
+      <p>A transformação inversa permite interpretar sessões, minutos e funcionalidades.</p>
+      <aside class="notes">Sem inverse_transform, os centroides estariam em desvios padrão. Mostre a tabela e peça uma descrição curta de cada linha.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>9. Perfil médio dos clusters</h2>
+      <pre><code class="language-python">perfil = dados.groupby("cluster")[colunas].mean()
+perfil["quantidade"] = dados.groupby("cluster").size()
+
+perfil.round(2)</code></pre>
+      <table>
+        <thead><tr><th>Leitura</th><th>Pergunta</th></tr></thead>
+        <tbody>
+          <tr><td>Frequência</td><td>Qual grupo acessa mais vezes?</td></tr>
+          <tr><td>Duração</td><td>Qual grupo permanece mais tempo?</td></tr>
+          <tr><td>Amplitude</td><td>Qual grupo usa mais funcionalidades?</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Os números dos clusters podem mudar entre execuções ou versões. Nomeie os grupos a partir das médias, nunca pelo número.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>10. Nomes descritivos</h2>
+      <p>Uma interpretação possível:</p>
+      <table>
+        <thead><tr><th>Padrão médio</th><th>Nome descritivo</th></tr></thead>
+        <tbody>
+          <tr><td>poucas sessões, curta duração, poucas funções</td><td>uso ocasional</td></tr>
+          <tr><td>valores intermediários</td><td>uso regular</td></tr>
+          <tr><td>muitas sessões, longa duração, mais funções</td><td>uso intenso</td></tr>
+        </tbody>
+      </table>
+      <p>Crie o mapeamento somente depois de observar qual número corresponde a cada perfil.</p>
+      <aside class="notes">Não fixe que cluster 0 sempre será uso ocasional. A numeração pode mudar. Faça o mapeamento com base na tabela obtida durante a execução.</aside>
+    </section>
+
+    <section data-timing="180" class="compact-code">
+      <h2>11. Visualização dos grupos</h2>
+      <pre><code class="language-python">plt.figure(figsize=(9, 6))
+
+plt.scatter(
+    dados["sessoes_semana"],
+    dados["duracao_media_min"],
+    c=dados["cluster"],
+    cmap="viridis",
+    alpha=0.65
+)
+
+plt.xlabel("Sessões por semana")
+plt.ylabel("Duração média (min)")
+plt.title("Agrupamento dos perfis de uso")
+plt.show()</code></pre>
+      <p>As cores mostram a associação calculada pelo modelo.</p>
+      <aside class="notes">Explique que o gráfico usa duas características, embora o modelo tenha usado três. Algumas separações podem parecer menos claras no gráfico por causa dessa redução visual.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>12. Associação de um novo usuário</h2>
+      <pre><code class="language-python">novo = pd.DataFrame({
+    "sessoes_semana": [8],
+    "duracao_media_min": [32],
+    "funcionalidades_mes": [9]
+})
+
+novo_padronizado = escalador.transform(novo)
+cluster_novo = modelo.predict(novo_padronizado)[0]
+
+print("Cluster:", cluster_novo)</code></pre>
+      <p>O novo registro precisa usar o mesmo escalador do treinamento.</p>
+      <aside class="notes">Destaque a ordem correta: transformar com o escalador existente e depois prever. Reajustar o StandardScaler com apenas um novo usuário destruiria a referência.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>13. Avaliação com silhueta</h2>
+      <pre><code class="language-python">from sklearn.metrics import silhouette_score
+
+silhueta = silhouette_score(
+    X_padronizado,
+    dados["cluster"]
+)
+
+print(f"Silhueta: {silhueta:.3f}")</code></pre>
+      <p>Compare a silhueta entre soluções com diferentes valores de <code>k</code>.</p>
+      <aside class="notes">Evite afirmar que um número isolado prova qualidade. Compare soluções e interprete os perfis. A silhueta favorece grupos compactos e separados.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Fluxo técnico do K-means</h2>
+      <ol>
+        <li>Selecionar características relevantes.</li>
+        <li>Inspecionar e tratar os dados.</li>
+        <li>Padronizar as colunas numéricas.</li>
+        <li>Comparar valores de <code>k</code>.</li>
+        <li>Treinar e interpretar os centroides.</li>
+        <li>Validar utilidade, estabilidade e riscos.</li>
+      </ol>
+      <aside class="notes">Faça uma pausa de síntese. Pergunte em qual etapa surge o significado dos grupos. Resposta: na interpretação dos centroides e do contexto, depois do treinamento.</aside>
+    </section>
+  </section>
+
+
+
+  <section>
+    <section data-timing="120">
+      <h2>Parte 3 · Redução de dimensionalidade</h2>
+      <p>O conjunto possui três características, mas uma tela apresenta apenas dois eixos com facilidade.</p>
+      <blockquote>Reduzir dimensionalidade significa representar várias características com um número menor de componentes.</blockquote>
+      <aside class="notes">Apresente o problema visual. O PCA também pode ajudar em compressão e preparação, mas nesta aula será usado principalmente para representação em duas dimensões.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Análise de Componentes Principais</h2>
+      <p>O PCA cria novas variáveis chamadas componentes principais.</p>
+      <ul>
+        <li>Cada componente combina as características originais.</li>
+        <li>O primeiro componente retém a maior variação possível.</li>
+        <li>O componente seguinte retém outra parte da variação.</li>
+      </ul>
+      <p>Os componentes não preservam automaticamente o significado das colunas originais.</p>
+      <aside class="notes">Evite álgebra linear detalhada. Explique que o PCA procura novas direções para representar a variação dos dados.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Projeção em dois componentes</h2>
+      <img src="assets/img/pca_projecao.png" width="1400" alt="Dados com três características projetados em dois componentes principais">
+      <aside class="notes">Mostre que os pontos mantêm sua identidade, mas recebem novas coordenadas PC1 e PC2. A projeção pode preservar boa parte da estrutura, mas sempre existe alguma perda ao reduzir dimensões.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Variância explicada</h2>
+      <p><code>explained_variance_ratio_</code> informa a proporção de variação representada por cada componente.</p>
+      <table>
+        <thead><tr><th>Componente</th><th>Exemplo</th></tr></thead>
+        <tbody>
+          <tr><td>PC1</td><td>72%</td></tr>
+          <tr><td>PC2</td><td>22%</td></tr>
+          <tr><th>Total em 2D</th><th>94%</th></tr>
+        </tbody>
+      </table>
+      <p>Quanto maior o total, mais variação a representação conserva.</p>
+      <aside class="notes">Informe que os números são ilustrativos. A execução mostrará os valores reais do conjunto sintético. Variância explicada não mede separação entre clusters.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>Padronização antes do PCA</h2>
+      <p>O PCA do scikit-learn centraliza os dados, mas não ajusta automaticamente a escala de cada característica.</p>
+      <p>Nesta aula, usaremos a mesma matriz <code>X_padronizado</code> criada para o K-means.</p>
+      <blockquote>Sem padronização, uma característica com valores maiores pode dominar os componentes.</blockquote>
+      <aside class="notes">Relacione com a discussão sobre distância. A documentação do PCA afirma que os dados são centralizados, mas não escalados por característica.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>PCA no scikit-learn</h2>
+      <pre><code class="language-python">from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_padronizado)
+
+print("Variância por componente:")
+print(pca.explained_variance_ratio_.round(3))
+
+print("Variância total em 2D:")
+print(pca.explained_variance_ratio_.sum().round(3))</code></pre>
+      <aside class="notes">Explique fit_transform. O fit aprende as direções principais. O transform calcula as novas coordenadas de cada observação.</aside>
+    </section>
+
+    <section data-timing="180" class="compact-code">
+      <h2>Clusters no espaço do PCA</h2>
+      <pre><code class="language-python">plt.figure(figsize=(9, 6))
+
+plt.scatter(
+    X_pca[:, 0],
+    X_pca[:, 1],
+    c=dados["cluster"],
+    cmap="viridis",
+    alpha=0.7
+)
+
+plt.xlabel("Componente principal 1")
+plt.ylabel("Componente principal 2")
+plt.title("Clusters representados com PCA")
+plt.show()</code></pre>
+      <p>O PCA cria as coordenadas. As cores continuam vindo do K-means.</p>
+      <aside class="notes">Diferencie os papéis. K-means define os grupos. PCA cria a visualização em dois componentes. O PCA não recebeu os números dos clusters para construir os eixos.</aside>
+    </section>
+
+    <section data-timing="150">
+      <h2>O que o PCA preserva e perde</h2>
+      <table>
+        <thead><tr><th>Preserva parcialmente</th><th>Pode perder</th></tr></thead>
+        <tbody>
+          <tr><td>variação global</td><td>detalhes presentes em componentes descartados</td></tr>
+          <tr><td>relações lineares</td><td>estrutura não linear</td></tr>
+          <tr><td>proximidade aproximada</td><td>interpretação direta das colunas</td></tr>
+        </tbody>
+      </table>
+      <p>Uma visualização clara não garante que o agrupamento seja correto ou útil.</p>
+      <aside class="notes">Use este slide para limitar conclusões visuais. Dois pontos próximos no gráfico podem diferir em componentes que foram descartados.</aside>
+    </section>
+
+    <section data-timing="120">
+      <h2>Usos adequados do PCA nesta disciplina</h2>
+      <ul>
+        <li>visualizar dados com muitas características;</li>
+        <li>resumir informação antes de uma análise exploratória;</li>
+        <li>identificar redundância entre características;</li>
+        <li>reduzir o custo de alguns modelos após validação.</li>
+      </ul>
+      <p>Para a aula de hoje, o objetivo principal consiste em visualizar os clusters.</p>
+      <aside class="notes">Evite apresentar PCA como etapa obrigatória. Alguns problemas funcionam melhor com as características originais. A redução exige comparação e validação.</aside>
+    </section>
+  </section>
+
+  <section>
+    <section data-timing="1200">
+      <h2>Parte 4 · Laboratório guiado · 20 minutos</h2>
+      <p>Em duplas, executem o notebook e comparem <code>k = 2</code>, <code>k = 3</code> e <code>k = 4</code>.</p>
+      <ol>
+        <li>Registrem inércia e silhueta.</li>
+        <li>Observem o tamanho dos grupos.</li>
+        <li>Interpretem os centroides nas unidades originais.</li>
+        <li>Escolham uma solução e justifiquem.</li>
+        <li>Representem a solução escolhida com PCA.</li>
+      </ol>
+      <p><strong>Entrega:</strong> tabela comparativa, escolha de <code>k</code> e conclusão de até cinco frases.</p>
+      <aside class="notes">Marque vinte minutos. Circule entre as duplas. Verifique se todas usam X padronizado. A conclusão deve citar pelo menos uma métrica e uma evidência de interpretação.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Tabela de entrega</h2>
+      <table>
+        <thead><tr><th><code>k</code></th><th>Inércia</th><th>Silhueta</th><th>Tamanhos</th><th>Interpretação</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>3</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>4</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Escolha:</strong> k = ...</p>
+      <p><strong>Justificativa:</strong> métrica + perfil dos grupos + utilidade.</p>
+      <aside class="notes">Explique que a menor inércia sempre favoreceria o maior k. Por isso a dupla precisa combinar inércia, silhueta e interpretação.</aside>
+    </section>
+
+    <section data-timing="600">
+      <h2>Experimento adicional · 10 minutos</h2>
+      <p>Adicionem um usuário extremo e repitam o K-means:</p>
+      <pre><code class="language-python">usuario_extremo = pd.DataFrame({
+    "sessoes_semana": [35],
+    "duracao_media_min": [140],
+    "funcionalidades_mes": [28]
+})
+
+dados_extremos = pd.concat(
+    [dados[colunas], usuario_extremo],
+    ignore_index=True
+)</code></pre>
+      <p>Compare centroides, grupos e silhueta antes e depois.</p>
+      <aside class="notes">Peça uma hipótese antes da execução. O valor extremo pode deslocar um centroide e alterar associações. A dupla deve reajustar o escalador e o modelo com o novo conjunto.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Erros comuns no laboratório</h2>
+      <table>
+        <thead><tr><th>Erro</th><th>Efeito</th></tr></thead>
+        <tbody>
+          <tr><td>treinar com colunas sem padronização</td><td>uma escala domina as distâncias</td></tr>
+          <tr><td>interpretar o número do cluster como ordem</td><td>cria significado inexistente</td></tr>
+          <tr><td>escolher k apenas pela menor inércia</td><td>favorece sempre mais grupos</td></tr>
+          <tr><td>confundir PCA com K-means</td><td>atribui ao gráfico um papel de agrupamento</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">Use esta lista para destravar as duplas. Peça que localizem em qual etapa ocorreu o problema antes de alterar o código.</aside>
+    </section>
+
+    <section data-timing="600">
+      <h2>Defesa dos resultados · 10 minutos</h2>
+      <p>Cada dupla terá até um minuto para responder:</p>
+      <ol>
+        <li>Qual valor de <code>k</code> foi escolhido?</li>
+        <li>Qual evidência quantitativa sustenta a escolha?</li>
+        <li>Como os grupos podem ser descritos?</li>
+        <li>O PCA preservou quanto da variação?</li>
+        <li>Qual limitação merece atenção?</li>
+      </ol>
+      <aside class="notes">Selecione algumas duplas se o tempo não permitir todas. Compare justificativas diferentes. Valorize evidências e interpretação, não apenas a coincidência com k igual a 3.</aside>
+    </section>
+
+    <section data-timing="180">
+      <h2>Síntese do laboratório</h2>
+      <ul>
+        <li>K-means depende de distância e escala.</li>
+        <li>O valor de <code>k</code> exige comparação.</li>
+        <li>Centroides ajudam a interpretar os grupos.</li>
+        <li>PCA ajuda a visualizar várias características.</li>
+        <li>A equipe deve validar utilidade e riscos.</li>
+      </ul>
+      <aside class="notes">Peça que um estudante explique a diferença entre produzir clusters e compreender clusters.</aside>
+    </section>
+  </section>
+
+ 
+
+</div>
+</div>
+
+<script src="assets/vendor/reveal/dist/reveal.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/notes.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/highlight.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/search.js"></script>
+<script src="assets/vendor/reveal/dist/plugin/zoom.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1600,
+    height: 900,
+    hash: true,
+    navigationMode: 'linear',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t',
+    showSlideNumber: 'all',
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    totalTime: 10800,
+    plugins: [ RevealNotes, RevealHighlight, RevealSearch, RevealZoom ]
+  });
+</script>
+</body>
+</html>
