@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <title>Aula 8 · Testes, Qualidade, Scrum e Kanban</title>
+    <link rel="stylesheet" href="vendor/reset.css">
+    <link rel="stylesheet" href="vendor/reveal.css">
+    <link rel="stylesheet" href="vendor/simple.css">
+    <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="assets/aula8.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section id="capa" class="dark cover" data-block="Início" data-background-image="assets/tecnologia.png"
+                data-background-opacity=".2" data-background-color="#081d36">
+                <p class="stamp">UNINASSAU · Sistemas de Informação</p>
+                <div class="eyebrow">Aula 08</div>
+                <h1>Como saber se<br>está pronto?</h1>
+                <p class="big">Testes e Qualidade de Software<br>Scrum e Kanban</p>
+                <p class="small">Tópicos Especiais em Sistemas de Informação<br>Prof. Dr. Diogo Francisco Borba
+                    Rodrigues</p>
+                <aside class="notes">Sugestão: 60 minutos. Retomada e testes: 22. Scrum: 12. Kanban: 8. Resolução
+                    individual: 12. Correção: 6. Sem atividades em duplas. Diagramas e exemplos apoiam exposição
+                    dialogada.</aside>
+            </section>
+            <section id="caso" class="">
+                <h2>Ana entra. Bruno também.</h2>
+                <div class="scene"><img src="assets/recepcao.png"
+                        alt="Lia apresenta seu comprovante na recepção da faculdade.">
+                    <div>
+                        <p>Na aula anterior, a regra permitia a consulta ao relato somente pelo orientador responsável.
+                        </p>
+                        <p>Ana abre o relato de Lia. O botão não aparece para Bruno, mas ele consegue ler o texto pelo
+                            endereço direto.</p>
+                        <p class="dist">A equipe pode considerar a proteção concluída?</p>
+                    </div>
+                </div>
+                <aside class="notes">Retomada: identidade não basta, é preciso autorização sobre o registro. Ilustração
+                    fictícia gerada na Aula 7.</aside>
+            </section>
+            <section id="qualidade" class="" data-block="Testes">
+                <h2>Qualidade precisa de evidências</h2>
+                <p class="conceito">Qualidade de software envolve a adequação do produto às necessidades e aos
+                    requisitos. Uma demonstração bem-sucedida cobre apenas as condições daquela demonstração.</p>
+                <h3>Na agenda de atendimento</h3>
+                <p>Ana conseguiu ler o texto. Esse resultado evidencia o caminho permitido, mas nada informa sobre a
+                    tentativa de Bruno.</p>
+                <p class="dist">A equipe precisa definir também o que o sistema deve impedir, em que condições e como
+                    observar a resposta.</p>
+                <aside class="notes">Exemplo fictício. Definições didáticas para interpretação das questões, sem
+                    memorização de terminologia isolada.</aside>
+            </section>
+            <section id="defeito" class="">
+                <h2>Erro, defeito e falha</h2>
+                <div class="trail">
+                    <div><b>Erro humano</b>
+                        <p>A equipe interpreta “orientador” como permissão suficiente.</p>
+                    </div><span aria-hidden="true">→</span>
+                    <div><b>Defeito no produto</b>
+                        <p>A condição do código ignora o vínculo com o atendimento.</p>
+                    </div><span aria-hidden="true">→</span>
+                    <div><b>Falha observada</b>
+                        <p>Na execução, Bruno recebe o relato de Lia.</p>
+                    </div>
+                </div>
+                <p>Depurar é investigar e corrigir a causa. Testar ajuda a revelar o comportamento e verificar o
+                    resultado da correção.</p>
+                <aside class="notes">Um defeito pode existir sem causar falha em toda execução. Ana não expôs o defeito.
+                    Cadeia ilustrativa, não a única causa possível.</aside>
+            </section>
+            <section id="vv" class="">
+                <h2>Verificação e validação</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pergunta</th>
+                            <th>Aplicação</th>
+                            <th>Possível evidência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>O produto atende ao requisito especificado?</td>
+                            <td>Verificar a regra de autorização.</td>
+                            <td>Bruno recebe uma resposta de acesso negado.</td>
+                        </tr>
+                        <tr>
+                            <td>A solução atende à necessidade real?</td>
+                            <td>Validar o atendimento durante férias de Ana.</td>
+                            <td>A faculdade consegue designar um substituto sem compartilhar a senha.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Revisões de requisitos e protótipos podem ocorrer antes do código. Esperar o produto completo
+                    concentra a descoberta dos problemas no fim.</p>
+                <aside class="notes">Conceitos de verificação e validação. A validação pode mostrar uma necessidade
+                    ainda não prevista pela especificação.</aside>
+            </section>
+            <section id="niveis" class="">
+                <h2>Níveis de teste: o que está sob avaliação?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nível</th>
+                            <th>Objeto</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Componente / unitário</td>
+                            <td>Uma parte isolada.</td>
+                            <td>Função que decide se há vínculo autorizado.</td>
+                        </tr>
+                        <tr>
+                            <td>Integração</td>
+                            <td>Comunicação entre partes ou sistemas.</td>
+                            <td>Serviço consulta corretamente o cadastro de responsáveis.</td>
+                        </tr>
+                        <tr>
+                            <td>Sistema</td>
+                            <td>Produto integrado.</td>
+                            <td>Do login à resposta ao pedido de leitura.</td>
+                        </tr>
+                        <tr>
+                            <td>Aceitação</td>
+                            <td>Adequação para uso e critérios acordados.</td>
+                            <td>Responsável pela faculdade avalia os cenários de atendimento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Visão introdutória: a integração pode ocorrer entre componentes ou sistemas. Nível
+                    não determina automaticamente técnica nem pessoa executora.</aside>
+            </section>
+            <section id="caso-teste" class="">
+                <h2>Um caso de teste reproduzível</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pré-condição</td>
+                            <td>Bruno autenticado, sem vínculo com o atendimento AP-052.</td>
+                        </tr>
+                        <tr>
+                            <td>Entrada e ação</td>
+                            <td>Solicitar diretamente o relato de AP-052.</td>
+                        </tr>
+                        <tr>
+                            <td>Resultado esperado</td>
+                            <td>Negar a operação e não retornar o conteúdo.</td>
+                        </tr>
+                        <tr>
+                            <td>Resultado observado</td>
+                            <td>O sistema retorna o texto.</td>
+                        </tr>
+                        <tr>
+                            <td>Conclusão</td>
+                            <td>Caso reprovado. Registrar versão, passos e evidência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>O resultado esperado serve como referência para o julgamento. Ele precisa existir antes da
+                    comparação.</p>
+                <aside class="notes">Usar dados fictícios. Evitar copiar dados pessoais reais para relatório de defeito.
+                </aside>
+            </section>
+            <section id="caixas" class="">
+                <h2>Caixa-preta e caixa-branca</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abordagem</th>
+                            <th>Base para escolher os testes</th>
+                            <th>No mesmo controle de acesso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Caixa-preta</td>
+                            <td>Comportamento especificado, sem depender da estrutura interna.</td>
+                            <td>Testar quem tem e quem não tem autorização.</td>
+                        </tr>
+                        <tr>
+                            <td>Caixa-branca</td>
+                            <td>Estrutura do código, como instruções e decisões.</td>
+                            <td>Executar os ramos verdadeiro e falso da condição.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Um teste unitário pode usar qualquer uma das abordagens. Executar todos os ramos não prova que a
+                    política implementada é a correta.</p>
+                <aside class="notes">Referência conceitual: ISTQB CTFL 4.0.1, seções 2.2 e 4. Exemplo autoral.</aside>
+            </section>
+            <section id="fronteiras" class="">
+                <h2>Partições e valores de fronteira</h2>
+                <p>Regra fictícia: a agenda aceita antecedência de <b>1 a 30 dias inteiros</b>, inclusive.</p>
+                <div class="boundary">
+                    <div><b>≤ 0</b><span>Inválido</span></div>
+                    <div class="valid"><b>1 … 30</b><span>Válido</span></div>
+                    <div><b>≥ 31</b><span>Inválido</span></div>
+                </div>
+                <p>Partição de equivalência: escolher representantes de grupos com comportamento esperado semelhante.
+                </p>
+                <p>Fronteira: testar <b>0, 1, 30 e 31</b> para investigar erros nos limites. São testes selecionados,
+                    não todas as entradas possíveis.</p>
+                <aside class="notes">Diagrama editável. Dois valores por fronteira. Valores não inteiros e ausência de
+                    entrada exigiriam requisitos e casos adicionais.</aside>
+            </section>
+            <section id="regressao" class="">
+                <h2>Confirmação e regressão</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Depois da correção</th>
+                            <th>Teste</th>
+                            <th>O que ele investiga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Repetir a consulta indevida de Bruno.</td>
+                            <td>Confirmação</td>
+                            <td>O defeito corrigido ainda se manifesta?</td>
+                        </tr>
+                        <tr>
+                            <td>Verificar se Ana continua lendo o relato.</td>
+                            <td>Regressão</td>
+                            <td>A mudança prejudicou comportamento que já funcionava?</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Automatizar esses cenários facilita repeti-los. A automação executa verificações definidas pela
+                    equipe; não substitui decidir o que vale a pena verificar.</p>
+                <aside class="notes">Referência: ISTQB CTFL 4.0.1 seção 2.2.3. Executar confirmação com sucesso não
+                    elimina a necessidade de regressão.</aside>
+            </section>
+            <section id="fluxo" class="">
+                <h2>Como uma falha volta para a verificação?</h2><svg viewBox="0 0 1150 280" class="diagram" role="img"
+                    aria-label="Executar cenário, comparar com o esperado. Se divergir, registrar e corrigir; depois repetir confirmação e regressão. Se coincidir, registrar evidência.">
+                    <defs>
+                        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+                            orient="auto">
+                            <path d="M0 0L10 5L0 10Z" fill="#52677c" />
+                        </marker>
+                    </defs>
+                    <g fill="none" stroke="#52677c" stroke-width="3" marker-end="url(#arr)">
+                        <path d="M225 130H300" />
+                        <path d="M640 130H710V55H795" />
+                        <path d="M710 130V215H795" />
+                    </g>
+                    <rect x="5" y="85" width="220" height="90" rx="10" fill="#e8eff5" />
+                    <path d="M300 130L470 20L640 130L470 240Z" fill="#174a7e" />
+                    <rect x="800" y="8" width="345" height="85" rx="10" fill="#e6f2ec" />
+                    <rect x="800" y="164" width="345" height="100" rx="10" fill="#fae8e8" />
+                    <g text-anchor="middle" font-family="Arial" font-size="24" fill="#102b47"><text x="115"
+                            y="122">Executar</text><text x="115" y="153">o cenário</text><text x="470" y="124"
+                            fill="white">Coincide com</text><text x="470" y="155" fill="white">o esperado?</text><text
+                            x="750" y="40">Sim</text><text x="750" y="201">Não</text><text x="973" y="59">Registrar
+                            evidência</text><text x="973" y="204">Registrar e corrigir</text><text x="973"
+                            y="239">Confirmar + regressão</text></g>
+                </svg>
+                <p>Depois de corrigir, a equipe volta à execução. Uma aprovação vale para aquele cenário, versão e
+                    ambiente.</p>
+                <aside class="notes">Fluxograma simplificado. Há também revisão do próprio teste quando a divergência
+                    decorre de expectativa incorreta.</aside>
+            </section>
+            <section id="scrum" class="" data-block="Scrum">
+                <h2>Scrum: aprender a cada Sprint</h2>
+                <p class="conceito">Scrum organiza o trabalho em ciclos com inspeção e adaptação. O time torna o
+                    progresso e os problemas visíveis para decidir o próximo passo com base em evidências.</p>
+                <h3>Na agenda de atendimento</h3>
+                <p>A meta fictícia da Sprint é permitir a consulta segura aos relatos. Descobrir que Bruno ainda
+                    consegue acesso muda o plano de trabalho antes de declarar o incremento pronto.</p>
+                <p class="dist">Transparência mostra a falha. Inspeção compara o resultado com o esperado. Adaptação
+                    muda o trabalho necessário.</p>
+                <aside class="notes">Exemplo fictício. Definições didáticas para interpretação das questões, sem
+                    memorização de terminologia isolada.</aside>
+            </section>
+            <section id="responsabilidades" class="">
+                <h2>Quem responde por cada decisão?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Responsabilidade</th>
+                            <th>Foco</th>
+                            <th>Exemplo na agenda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product Owner</td>
+                            <td>Valor e ordenação do Product Backlog.</td>
+                            <td>Priorizar consulta segura em relação a um filtro de cores.</td>
+                        </tr>
+                        <tr>
+                            <td>Developers</td>
+                            <td>Plano e qualidade do incremento.</td>
+                            <td>Implementar autorização, revisar e testar.</td>
+                        </tr>
+                        <tr>
+                            <td>Scrum Master</td>
+                            <td>Efetividade do time e compreensão de Scrum.</td>
+                            <td>Ajudar a remover impedimentos e melhorar a colaboração.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Autogerenciamento: o time organiza seu trabalho. O Scrum Master não é o distribuidor obrigatório das
+                    tarefas.</p>
+                <aside class="notes">Fonte: Scrum Guide 2020. Developers inclui as competências para criar o incremento,
+                    não somente pessoas que escrevem código.</aside>
+            </section>
+            <section id="artefatos" class="">
+                <h2>Backlogs, incremento e compromissos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Artefato</th>
+                            <th>Para que serve</th>
+                            <th>Compromisso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product Backlog</td>
+                            <td>Trabalho ordenado para melhorar o produto.</td>
+                            <td>Product Goal</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint Backlog</td>
+                            <td>Meta, itens selecionados e plano da Sprint.</td>
+                            <td>Sprint Goal</td>
+                        </tr>
+                        <tr>
+                            <td>Incremento</td>
+                            <td>Resultado utilizável que atende à qualidade definida.</td>
+                            <td>Definition of Done</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Uma tela codificada com autorização incompleta continua sendo trabalho pendente para esse objetivo.
+                </p>
+                <aside class="notes">Fonte: Scrum Guide 2020. O Product Owner responde pelo gerenciamento do Product
+                    Backlog; Developers pelo Sprint Backlog.</aside>
+            </section>
+            <section id="sprint" class="">
+                <h2>O que acontece dentro da Sprint?</h2>
+                <p>Uma Sprint tem duração fixa de até um mês. No exemplo, o time escolheu duas semanas.</p>
+                <div class="trail">
+                    <div><b>Planning</b>
+                        <p>Definir a meta e o trabalho.</p>
+                    </div><span aria-hidden="true">→</span>
+                    <div><b>Trabalho + Daily</b>
+                        <p>Construir, testar e ajustar o plano.</p>
+                    </div><span aria-hidden="true">→</span>
+                    <div><b>Review</b>
+                        <p>Inspecionar resultado com interessados.</p>
+                    </div><span aria-hidden="true">→</span>
+                    <div><b>Retrospective</b>
+                        <p>Melhorar a forma de trabalhar.</p>
+                    </div>
+                </div>
+                <p>A Review examina o produto. A Retrospective examina como o time trabalhou. O incremento pode ser
+                    entregue antes da Review.</p>
+                <aside class="notes">Fonte: Scrum Guide 2020. Todos os eventos estão dentro da Sprint. Daily de 15
+                    minutos para Developers, voltada ao progresso rumo à meta; não uma prestação obrigatória de contas
+                    ao chefe.</aside>
+            </section>
+            <section id="done" class="">
+                <h2>Aceitação de um item e Definition of Done</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Referência</th>
+                            <th>Exemplo didático</th>
+                            <th>Alcance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Critério de aceitação</td>
+                            <td>Bruno não recebe o relato de Lia por acesso direto.</td>
+                            <td>Comportamento específico do item.</td>
+                        </tr>
+                        <tr>
+                            <td>Definition of Done</td>
+                            <td>Revisão concluída e testes acordados aprovados.</td>
+                            <td>Qualidade necessária ao incremento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Terminar o código não basta se a Definition of Done exige testes ainda pendentes. A proximidade do
+                    fim da Sprint não reduz essa exigência.</p>
+                <aside class="notes">A Definition of Done real depende do produto e padrões organizacionais. Não
+                    apresentar os exemplos como lista obrigatória universal.</aside>
+            </section>
+            <section id="kanban" class="" data-block="Kanban">
+                <h2>Kanban: acompanhar o fluxo do trabalho</h2>
+                <p class="conceito">Kanban busca melhorar o fluxo de valor. O time explicita como um item começa, passa
+                    pelas etapas e termina, acompanha os itens em andamento e ajusta o processo.</p>
+                <h3>Na agenda de atendimento</h3>
+                <p>Um cartão “autorizar consulta” sai de A fazer, passa por Desenvolvimento e Verificação e só chega a
+                    Concluído quando atende à política de saída.</p>
+                <p class="dist">O quadro ajuda a visualizar. Políticas explícitas e controle do trabalho em andamento
+                    tornam o fluxo gerenciável.</p>
+                <aside class="notes">Exemplo fictício. Definições didáticas para interpretação das questões, sem
+                    memorização de terminologia isolada.</aside>
+            </section>
+            <section id="quadro" class="">
+                <h2>Há espaço para começar outro item?</h2>
+                <div class="board">
+                    <div>
+                        <h3>A fazer</h3>
+                        <article>Filtro por turno</article>
+                        <article>Exportar agenda</article>
+                    </div>
+                    <div>
+                        <h3>Desenvolvimento</h3>
+                        <p class="small">Limite: 2 · ocupados: 2</p>
+                        <article>Consulta segura</article>
+                        <article>Substituição de orientador</article>
+                    </div>
+                    <div>
+                        <h3>Verificação</h3>
+                        <p class="small">Limite: 1 · ocupado: 1</p>
+                        <article class="blocked">Confirmar chegada<br><small>Bloqueio: ambiente fora do ar</small>
+                        </article>
+                    </div>
+                    <div>
+                        <h3>Concluído</h3>
+                        <article>Busca por protocolo</article>
+                    </div>
+                </div>
+                <p><b>WIP = 3:</b> dois itens em desenvolvimento e um em verificação. O bloqueado continua em andamento.
+                </p>
+                <p>Puxar novo trabalho depende de capacidade. Agora, investigar o bloqueio pode ajudar mais que iniciar
+                    outro cartão.</p>
+                <aside class="notes">Exemplo de quadro solicitado, com limites por coluna. A fazer fica antes do início
+                    e Concluído depois do fim. Não fingir que retirar o cartão bloqueado reduz trabalho real.</aside>
+            </section>
+            <section id="tempo" class="">
+                <h2>Tempo de espera e tempo de ciclo</h2>
+                <div class="timeline">
+                    <div><b>Seg · 09h</b>
+                        <p>Pedido recebido</p>
+                    </div>
+                    <div><b>Ter · 09h</b>
+                        <p>Trabalho iniciado</p>
+                    </div>
+                    <div><b>Qui · 09h</b>
+                        <p>Item concluído</p>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medida no exemplo</th>
+                            <th>Intervalo</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lead time adotado nesta aula</td>
+                            <td>Recebimento até conclusão.</td>
+                            <td>72 horas corridas</td>
+                        </tr>
+                        <tr>
+                            <td>Cycle time</td>
+                            <td>Início até conclusão.</td>
+                            <td>48 horas corridas</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>O tempo de ciclo inclui espera depois do início. WIP conta itens abertos; throughput conta conclusões
+                    por período.</p>
+                <aside class="notes">Fonte: Kanban Guide para cycle time, WIP e throughput. Lead time definido
+                    explicitamente para este exemplo. Sem descontar noites. Idade do item é o tempo desde seu início
+                    enquanto ainda não terminou.</aside>
+            </section>
+            <section id="combinar" class="">
+                <h2>Scrum e Kanban podem trabalhar juntos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situação</th>
+                            <th>Scrum ajuda a…</th>
+                            <th>Kanban ajuda a…</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Consulta segura é a meta.</td>
+                            <td>Inspecionar o incremento durante a Sprint.</td>
+                            <td>Ver onde cada item está e reduzir espera.</td>
+                        </tr>
+                        <tr>
+                            <td>Verificação está congestionada.</td>
+                            <td>Adaptar o plano sem perder a meta.</td>
+                            <td>Controlar entradas e tratar bloqueios.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Nem todo cartão exige uma Sprint, e nem todo quadro é um sistema Kanban completo. A escolha depende
+                    do contexto.</p>
+                <aside class="notes">Fechar explicação até o minuto 42. Sem atribuir superioridade universal a uma
+                    abordagem.</aside>
+            </section>
+            <section id="questoes" class="" data-block="Questões">
+                <h2>Resolução individual</h2>
+                <p>Três questões, com cinco alternativas cada. Reserve 12 minutos para responder e 6 para a correção.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Origem</th>
+                            <th>Tema</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ENADE 2017 · SI · questão 17</td>
+                            <td>Verificação e validação ao longo do projeto.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Autoral · estilo ENADE</td>
+                            <td>Confirmação e regressão.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Autoral · estilo ENADE</td>
+                            <td>Qualidade e controle de WIP.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Registre todas as respostas antes de avançar ao gabarito.</p>
+                <aside class="notes">O item oficial permanece integral. Os autorais complementam os temas para os quais
+                    não foi confirmado item oficial de SI adequado.</aside>
+            </section>
+            <section id="enade17" class="exam official">
+                <div class="eyebrow">Item 1 · ENADE 2017 · Sistemas de Informação · questão 17 · p. 23</div>
+                <h2>Verificação e validação</h2>
+                <div class="exam-grid">
+                    <div>
+                        <p>Uma equipe de projeto desenvolveu um aplicativo <i>mobile</i> para a gestão de frotas de
+                            caminhões entre os meses de janeiro e junho de 2017. O projeto seguiu um processo baseado no
+                            modelo de ciclo de vida de desenvolvimento em cascata, com atividades realizadas
+                            sequencialmente e sem sobreposição.</p>
+                        <p>Ao final do projeto, a equipe precisou tratar uma grande quantidade de defeitos encontrados
+                            no aplicativo em um curto espaço de tempo. Como mostra o gráfico a seguir, a maior parte dos
+                            defeitos foi identificada ao final do projeto, o que elevou o risco de se entregar o
+                            aplicativo com muitos defeitos ao cliente.</p><img class="exam-graph"
+                            src="assets/grafico-enade-2017-q17.png"
+                            alt="Gráfico original: defeitos identificados nos meses 1 a 6, respectivamente 1, 1, 1, 2, 13 e 20.">
+                    </div>
+                    <div>
+                        <p>Diante desse cenário, a equipe do projeto decidiu que, em novos projetos, realizaria ações
+                            que pudessem distribuir o esforço de tratamento de defeitos ao longo dos meses, diminuindo o
+                            risco de ainda haver muitos defeitos não tratados no momento próximo à entrega do produto.
+                        </p>
+                        <p>Considerando a situação, o gráfico apresentado e o modelo de ciclo de vida de desenvolvimento
+                            utilizado no projeto (cascata), assinale a opção que descreve uma ação capaz de produzir o
+                            resultado esperado pela equipe.</p>
+                        <ol class="choices">
+                            <li>Realizar testes assim que o aplicativo estiver pronto para uso.</li>
+                            <li>Aplicar técnicas de verificação e validação desde o início do projeto.</li>
+                            <li>Mapear e documentar o processo de desenvolvimento utilizado e comunicá-lo à equipe.</li>
+                            <li>Elicitar e documentar os requisitos funcionais e não funcionais do produto logo no
+                                início do projeto.</li>
+                            <li>Registrar, evidenciar e comunicar imediatamente os defeitos encontrados aos demais
+                                membros da equipe.</li>
+                        </ol>
+                    </div>
+                </div>
+                <aside class="notes">Questão integral do caderno oficial de Sistemas de Informação 2017, p. 23, com
+                    gráfico original.
+                    https://download.inep.gov.br/educacao_superior/enade/provas/2017/40_SIS_INFORMACAO_BAIXA.pdf . Não
+                    antecipar o gabarito.</aside>
+            </section>
+            <section id="autoral-testes" class="exam">
+                <div class="eyebrow">Item 2 · Autoral, estilo ENADE</div>
+                <h2>Uma correção resolveu o problema?</h2>
+                <p>Uma biblioteca corrigiu um defeito que permitia renovar empréstimos com reserva de outro leitor. A
+                    equipe repetiu o cenário que falhava e verificou que a renovação passou a ser negada. Em seguida,
+                    verificou se um empréstimo sem reserva ainda podia ser renovado, comportamento que funcionava antes
+                    da alteração.</p>
+                <p><b>Considerando a finalidade de cada verificação, os testes realizados correspondem, respectivamente,
+                        a</b></p>
+                <ol class="choices">
+                    <li>teste de aceitação e depuração, pois o segundo investiga a causa do defeito.</li>
+                    <li>teste de desempenho e teste de integração, pois o segundo usa dados de outra pessoa.</li>
+                    <li>teste de regressão e teste de confirmação, pois confirmar consiste em verificar funções que não
+                        falhavam.</li>
+                    <li>teste de confirmação e teste de regressão, pois o segundo investiga efeitos adversos da
+                        alteração.</li>
+                    <li>teste de caixa-branca e teste de carga, pois ambos executam uma versão corrigida.</li>
+                </ol>
+                <aside class="notes">Questão autoral para esta aula. Não é item do Inep. Cinco alternativas e uma
+                    resposta correta, conforme as condições expressas.</aside>
+            </section>
+            <section id="autoral-fluxo" class="exam">
+                <div class="eyebrow">Item 3 · Autoral, estilo ENADE</div>
+                <h2>Qualidade e fluxo na Sprint</h2>
+                <p>Uma equipe usa Scrum e visualiza seu trabalho em um quadro com limite de dois itens em verificação.
+                    No último dia da Sprint, os dois lugares estão ocupados. Um terceiro item tem código pronto, mas
+                    aguarda verificação. A Definition of Done exige que os testes acordados estejam aprovados. O time
+                    considera mover esse terceiro item para “Concluído” para abrir espaço no quadro.</p>
+                <p><b>Qual decisão preserva os critérios de qualidade e torna o trabalho pendente transparente?</b></p>
+                <ol class="choices">
+                    <li>Concluir o terceiro item, pois o término do código demonstra que o incremento está utilizável.
+                    </li>
+                    <li>Manter o terceiro item como pendente e colaborar na conclusão dos testes dos itens em
+                        verificação, respeitando o limite definido.</li>
+                    <li>Retirar os dois itens em verificação do quadro, pois apenas atividades de programação compõem o
+                        WIP.</li>
+                    <li>Considerar todos os itens prontos quando a Sprint terminar, transferindo a verificação para
+                        depois da entrega.</li>
+                    <li>Pedir ao Scrum Master que dispense os testes pendentes para manter a data de encerramento da
+                        Sprint.</li>
+                </ol>
+                <aside class="notes">Questão autoral para esta aula. Não é item do Inep. Cinco alternativas e uma
+                    resposta correta, conforme as condições expressas.</aside>
+            </section>
+            <section id="correcao1" data-block="Correção">
+                <div class="eyebrow">Item 1 · ENADE 2017, questão 17</div>
+                <h2>Correção comentada</h2>
+                <div class="answer">B</div>
+                <p>Examinar requisitos e modelos antes do produto pronto permite descobrir defeitos mais cedo. A
+                    estratégia pode incluir revisões e outras técnicas de verificação e validação desde o começo.</p>
+                <p class="dist">A mantém a espera pelo aplicativo pronto. C organiza o processo, mas não assegura
+                    avaliação precoce dos produtos. D limita-se à documentação inicial. E melhora a comunicação depois
+                    de encontrar o defeito.</p>
+                <aside class="notes">O item 1 segue o gabarito definitivo do Inep de 2017. As justificativas são
+                    didáticas, não comentários oficiais da banca.</aside>
+            </section>
+            <section id="correcao2">
+                <div class="eyebrow">Item 2 · Autoral</div>
+                <h2>Correção comentada</h2>
+                <div class="answer">D</div>
+                <p>Repetir o cenário que revelou o defeito é confirmação. Investigar se a alteração prejudicou a
+                    renovação anteriormente correta é regressão.</p>
+                <p class="dist">A confunde execução com investigação da causa. B e E atribuem técnicas ou objetivos
+                    ausentes. C inverte as finalidades.</p>
+                <aside class="notes">O item 1 segue o gabarito definitivo do Inep de 2017. As justificativas são
+                    didáticas, não comentários oficiais da banca.</aside>
+            </section>
+            <section id="correcao3">
+                <div class="eyebrow">Item 3 · Autoral</div>
+                <h2>Correção comentada</h2>
+                <div class="answer">B</div>
+                <p>O código ainda precisa atender à Definition of Done. A equipe mantém a situação visível e ajuda a
+                    terminar os testes, em vez de aumentar artificialmente a quantidade de concluídos.</p>
+                <p class="dist">A e D confundem código ou prazo com qualidade. C oculta o WIP. E atribui ao Scrum Master
+                    uma dispensa que contraria a condição da questão.</p>
+                <aside class="notes">O item 1 segue o gabarito definitivo do Inep de 2017. As justificativas são
+                    didáticas, não comentários oficiais da banca.</aside>
+            </section>
+            <section id="sintese">
+                <h2>O que permite dizer “está pronto”?</h2>
+                <div class="trail">
+                    <div><b>Requisito</b>
+                        <p>Define o comportamento necessário.</p>
+                    </div><span>→</span>
+                    <div><b>Evidência</b>
+                        <p>Compara o observado com o esperado.</p>
+                    </div><span>→</span>
+                    <div><b>Conclusão</b>
+                        <p>Respeita os critérios de qualidade.</p>
+                    </div>
+                </div>
+                <p>O quadro precisa representar o trabalho real. Marcar um cartão como concluído não altera o
+                    comportamento do sistema.</p>
+                <aside class="notes">Para acompanhamento: registre o percentual de acertos de cada item. Retome na
+                    revisão final a distinção com maior concentração de erros. Não há entrega de projeto nesta aula.
+                </aside>
+            </section>
+            <section id="fontes">
+                <h2>Referências e materiais</h2>
+                <ul class="refs">
+                    <li><a
+                            href="https://download.inep.gov.br/educacao_superior/enade/provas/2017/40_SIS_INFORMACAO_BAIXA.pdf">Inep
+                            · ENADE 2017 · Sistemas de Informação, questão 17</a></li>
+                    <li><a
+                            href="https://download.inep.gov.br/educacao_superior/enade/gabaritos/2017/40_Sistemas_de_Informacao.pdf">Inep
+                            · gabarito definitivo: questão 17, alternativa B</a></li>
+                    <li><a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB ·
+                            CTFL v4.0.1: fundamentos e técnicas de teste</a></li>
+                    <li><a href="https://scrumguides.org/scrum-guide.html">Schwaber e Sutherland · Scrum Guide, 2020</a>
+                    </li>
+                    <li><a href="https://kanbanguides.org/the-kanban-guide/2025.5/">Kanban Guide · maio de 2025</a></li>
+                </ul>
+                <p class="small">Casos didáticos fictícios. Dois itens autorais identificados. Todos os elementos
+                    necessários à projeção estão no pacote.</p>
+                <aside class="notes">Consulta em 17/11/2026. A ilustração de Lia foi gerada para a Aula 7 e reutilizada
+                    para dar continuidade ao caso.</aside>
+            </section>
+        </div>
+    </div>
+    <nav class="chapter-nav" aria-label="Blocos da aula"></nav><a href="#" class="key-help">? Atalhos</a>
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/zoom.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script src="vendor/search.js"></script>
+    <script src="vendor/markdown.js"></script>
+    <script src="vendor/highlight.js"></script>
+    <script src="assets/aula.js"></script>
+</body>
+
+</html>

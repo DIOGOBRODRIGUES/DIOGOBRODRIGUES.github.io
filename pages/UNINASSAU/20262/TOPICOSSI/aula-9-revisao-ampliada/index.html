@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Prof. Dr. Diogo Francisco Borba Rodrigues">
+    <title>Aula 9 · Revisão ENADE · Sistemas de Informação</title>
+    <link rel="stylesheet" href="vendor/reset.css">
+    <link rel="stylesheet" href="vendor/reveal.css">
+    <link rel="stylesheet" href="vendor/simple.css">
+    <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="assets/aula9.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section id="capa" class="dark cover" data-block="Início" data-background-color="#081d36"
+                data-background-image="assets/tecnologia.png" data-background-opacity=".18">
+                <div class="eyebrow">UNINASSAU · Aula 09</div>
+                <h2>Revisão ENADE<br>Sistemas de Informação</h2>
+                <p class="big">Questões oficiais objetivas e discursivas</p>
+                <p class="small">Tópicos Especiais em Sistemas de Informação</p>
+                <p class="small">Prof. Dr. Diogo Francisco Borba Rodrigues</p>
+                <aside class="notes">Aula de revisão, sem atividade em duplas e sem discussão do projeto CORETO. Roteiro
+                    completo estimado em 100 minutos. As questões pertencem ao componente específico dos cadernos de
+                    Sistemas de Informação. Imagem de fundo ilustrativa reutilizada da Aula 8.</aside>
+            </section>
+            <section id="roteiro" class="exam">
+                <div class="eyebrow">Aula 09 · Organização</div>
+                <h2>Revisão ampliada</h2>
+                <p>17 questões objetivas e 2 discursivas oficiais de Sistemas de Informação. Selecione os itens conforme
+                    o tempo disponível; o conjunto funciona também como banco de revisão.</p>
+                <p>Os conteúdos adicionais incluem virtualização, serviços em nuvem, IPv4, CMMI, acordos de serviço,
+                    segurança, desempenho e legibilidade. Os gabaritos aparecem ao final.</p>
+                <p>As questões 17/2017 e discursiva 3/2021 foram retiradas porque constam das aulas anteriores.</p>
+            </section>
+            <section id="conceitos-dados" class="" data-block="Revisão">
+                <h2>Dados, informação e conhecimento</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>Definição</th>
+                            <th>Exemplo didático</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dado</td>
+                            <td>Registro elementar de uma observação.</td>
+                            <td>Uma nota registrada: 7,0.</td>
+                        </tr>
+                        <tr>
+                            <td>Informação</td>
+                            <td>Dados organizados em um contexto útil.</td>
+                            <td>Média de notas de uma turma.</td>
+                        </tr>
+                        <tr>
+                            <td>Conhecimento</td>
+                            <td>Interpretação que apoia compreensão e ação.</td>
+                            <td>Análise fundamenta uma intervenção pedagógica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="callout">Tácito: experiência e saber pessoal. Explícito: conhecimento formalizado em
+                    documentos, modelos ou instruções.</p>
+                <aside class="notes">Definições didáticas em preparação aos itens oficiais. Exemplos autorais, não
+                    questões autorais. O conhecimento pode ser revisado diante de novas evidências.</aside>
+            </section>
+            <section id="conceitos-gestao" class="">
+                <h2>Integração e governança</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Termo</th>
+                            <th>Significado para a análise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ERP</td>
+                            <td>Sistema integrado de gestão dos processos da organização.</td>
+                        </tr>
+                        <tr>
+                            <td>WMS</td>
+                            <td>Sistema de gerenciamento das operações de armazém e estoque.</td>
+                        </tr>
+                        <tr>
+                            <td>Parametrização e customização</td>
+                            <td>Configurar opções existentes ou modificar o sistema para necessidades não atendidas
+                                pelos parâmetros.</td>
+                        </tr>
+                        <tr>
+                            <td>Governança de TI</td>
+                            <td>Direção e acompanhamento da TI em relação aos objetivos, responsabilidades e riscos do
+                                negócio.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Retomada conceitual sem reproduzir uma lista de respostas. Governança e gestão se
+                    relacionam, mas não são sinônimos.</aside>
+            </section>
+            <section id="conceitos-software" class="">
+                <h2>Requisitos, evidências e segurança</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>Definição operacional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Escopo</td>
+                            <td>Trabalho e características que o projeto deve contemplar. Requisitos ajudam a
+                                especificá-lo.</td>
+                        </tr>
+                        <tr>
+                            <td>Verificação</td>
+                            <td>Avaliação da conformidade com requisitos especificados.</td>
+                        </tr>
+                        <tr>
+                            <td>Validação</td>
+                            <td>Avaliação da adequação às necessidades e ao uso pretendido.</td>
+                        </tr>
+                        <tr>
+                            <td>Segurança da informação</td>
+                            <td>Proteção apoiada em pessoas, processos e tecnologia, com responsabilidades definidas.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="callout">O momento da descoberta de uma falha pode ser diferente do momento em que sua causa
+                    surgiu.</p>
+            </section>
+            <section id="conceitos-computacao" class="">
+                <h2>Arquitetura e estruturas de dados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>Como interpretar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cliente-servidor</td>
+                            <td>Clientes solicitam serviços e servidores respondem às solicitações.</td>
+                        </tr>
+                        <tr>
+                            <td>Pilha / LIFO</td>
+                            <td>O último elemento inserido é o primeiro retirado.</td>
+                        </tr>
+                        <tr>
+                            <td>Fila / FIFO</td>
+                            <td>O primeiro elemento inserido é o primeiro retirado.</td>
+                        </tr>
+                        <tr>
+                            <td>Sistema e subsistema</td>
+                            <td>Partes interdependentes se relacionam para cumprir um propósito.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">A política de acesso de uma estrutura é diferente de sua implementação em memória.</p>
+            </section>
+            <section id="o1" class="exam">
+                <div class="eyebrow">O1 · ENADE 2021 · SI · questão 26 · p. 30 · 1/3</div>
+                <h2>Big Data e qualidade dos dados</h2>
+                <p class="">A expressão Big Data refere-se a um conjunto de técnicas e ferramentas para o armazenamento
+                    e manipulação de conjuntos de dados muito grandes. Tecnologias tradicionais, como bancos de dados
+                    relacionais e ferramentas de processamento sequencial, não suportam o vasto volume de dados. O Big
+                    Data possui quatro características marcantes: volume, variedade, velocidade e veracidade.</p>
+                <p class="source">Disponível em: https://sol.sbc.org.br/livros/index.php/sbc/catalog/. Acesso em: 13
+                    jun. 2020 (adaptado).</p>
+                <p class="">Considerando as informações apresentadas e o conjunto de características marcantes do Big
+                    Data, avalie as afirmações a seguir.</p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2021.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o1-2" class="exam">
+                <div class="eyebrow">O1 · ENADE 2021 · SI · questão 26 · p. 30 · 2/3</div>
+                <h2>Afirmações</h2>
+                <ol class="roman">
+                    <li>Em relação ao volume, a quantidade de dados gerados e coletados em diversos tipos de aplicações
+                        está aumentando exponencialmente, e as ferramentas de Big Data devem ser capazes de lidar
+                        apropriadamente com esse desafio.</li>
+                    <li>No que diz respeito à variedade, os dados podem ser coletados de diferentes fontes e com
+                        diferentes formatos e estruturas e se dividem em dados estruturados, como os dados dos cidadãos;
+                        dados semiestruturados, como os dados de sensores; e dados não-estruturados, como os de câmeras
+                        de vídeo de segurança.</li>
+                    <li>Quanto à velocidade, o processamento de dados deve ocorrer em condições de alta latência, pois
+                        eles podem se tornar inúteis, como, por exemplo, dados coletados de sensores de veículos, a
+                        análise de redes sociais e as informações sobre o trânsito da cidade.</li>
+                    <li>No que se refere à veracidade, como os dados são coletados de múltiplas fontes, é importante
+                        garantir sua qualidade, utilizando fontes confiáveis e consistentes, a fim de evitar erros e
+                        comprometer as análises.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2021.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o1-3" class="exam">
+                <div class="eyebrow">O1 · ENADE 2021 · SI · questão 26 · p. 30 · 3/3</div>
+                <h2>Alternativas</h2>
+                <p class="">É correto apenas o que se afirma em</p>
+                <ol class="choices" start="1">
+                    <li>I e IV.</li>
+                    <li>II e III.</li>
+                    <li>III e IV.</li>
+                    <li>I, II e III.</li>
+                    <li>I, II e IV.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2021.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o2" class="exam">
+                <div class="eyebrow">O2 · ENADE 2017 · SI · questão 27 · p. 30 · 1/3</div>
+                <h2>Conhecimento tácito e explícito no desenvolvimento</h2>
+                <p class="">A forma como o conhecimento se apresenta pode ser classificada em tácita e explícita. O
+                    conhecimento tácito é desenvolvido pelas experiências e relacionamentos pessoais ou profissionais de
+                    um indivíduo, não é mensurável e é pessoal. O conhecimento explícito é a disseminação, aplicação,
+                    transmissão, de maneira formal, do conhecimento adquirido.</p>
+                <p class="source">TAKEUCHI, H.; NONAKA, I. Gestão do conhecimento. Porto Alegre: Bookman, 2008
+                    (adaptado).</p>
+                <p class="">Considerando o desenvolvimento de software e a utilização do conhecimento tácito e
+                    explícito, avalie as afirmações a seguir.</p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o2-2" class="exam">
+                <div class="eyebrow">O2 · ENADE 2017 · SI · questão 27 · p. 30 · 2/3</div>
+                <h2>Afirmações</h2>
+                <ol class="roman">
+                    <li>Durante as etapas de desenvolvimento do software, são utilizados tanto os conhecimentos pré
+                        existentes do indivíduo quanto os conhecimentos adquiridos durante o desenvolvimento.</li>
+                    <li>O uso do conhecimento explícito restringe-se às fases de levantamento dos requisitos, quando o
+                        usuário indica sua necessidade e as funcionalidades requeridas para o desenvolvimento do
+                        software.</li>
+                    <li>O uso do conhecimento tácito restringe-se às fases de desenvolvimento, quando se emprega
+                        conhecimento de transformação da necessidade do usuário e características técnicas para produzir
+                        um sistema de informação.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o2-3" class="exam">
+                <div class="eyebrow">O2 · ENADE 2017 · SI · questão 27 · p. 30 · 3/3</div>
+                <h2>Alternativas</h2>
+                <p class="">É correto o que se afirma em</p>
+                <ol class="choices" start="1">
+                    <li>I, apenas.</li>
+                    <li>III, apenas.</li>
+                    <li>I e II, apenas.</li>
+                    <li>II e III, apenas.</li>
+                    <li>I, II e III.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 30. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o3" class="exam">
+                <div class="eyebrow">O3 · ENADE 2017 · SI · questão 18 · p. 24 · 1/2</div>
+                <h2>ERP, parametrização e customização</h2>
+                <p class="">Uma empresa iniciou um projeto para implantação de um ERP (Enterprise Resource Planning),
+                    com o objetivo de aumentar a produtividade e elevar seu patamar tecnológico. O sistema que era
+                    utilizado anteriormente foi desenvolvido pela própria empresa e não mais atendia às necessidades
+                    operacionais. A empresa optou por implantar um módulo WMS (Warehouse Management System), que se
+                    ocupa de tarefas relacionadas ao gerenciamento das operações de estoques. O módulo foi parametrizado
+                    e customizado de acordo com as necessidades identificadas na fase de planejamento do projeto de
+                    implantação.</p>
+                <p class="">A partir do caso apresentado, avalie as asserções a seguir e a relação proposta entre elas.
+                </p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 24. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o3-2" class="exam">
+                <div class="eyebrow">O3 · ENADE 2017 · SI · questão 18 · p. 24 · 2/2</div>
+                <h2>Asserções e alternativas</h2>
+                <div class="assertions">
+                    <p class="">I. Customização é a modificação de um sistema ERP para que ele possa adaptar-se a
+                        determinada situação empresarial que não pode ser reproduzida por parâmetros preexistentes.</p>
+                    <p class="because">PORQUE</p>
+                    <p class="">II. A parametrização é o processo de determinação do comportamento de um sistema ERP por
+                        meio da definição dos valores de parâmetros disponibilizados por ele, que são variáveis
+                        internas.</p>
+                </div>
+                <p class="">A respeito dessas asserções, assinale a opção correta.</p>
+                <ol class="choices" start="1">
+                    <li>As asserções I e II são proposições verdadeiras e a II é uma justificativa correta da I.</li>
+                    <li>As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.
+                    </li>
+                    <li>A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</li>
+                    <li>A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</li>
+                    <li>As asserções I e II são proposições falsas.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 24. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o4" class="exam">
+                <div class="eyebrow">O4 · ENADE 2017 · SI · questão 32 · p. 33 · 1/3</div>
+                <h2>Governança, conformidade e integração organizacional</h2>
+                <p class="">A lei Sarbanes-Oxley (SOX), publicada em agosto de 2002, após escândalos financeiros
+                    acontecidos em companhias americanas abertas nos Estados Unidos, objetiva proteger os investidores,
+                    no mercado de capital americano, de fraudes contábeis e financeiras. Entre os diversos controles que
+                    essa lei regula, destacam-se aqueles que devem garantir a integridade de informações contábeis e
+                    financeiras. Tal crise despertou a importância da temática Governança de Tecnologia da Informação
+                    (TI) para as organizações, de modo a serem considerados requisitos legais a troca de informações
+                    entre parceiros estratégicos das organizações e a formalização de uma política de segurança da
+                    informação, entre outros. Desta forma, cabe destacar que o objetivo da Governança de TI em uma
+                    organização é alinhar a TI aos requisitos de negócio, de modo a garantir a continuidade dos serviços
+                    prestados, bem como a minimização da exposição do negócio aos riscos de TI.</p>
+                <p class="source">FERNANDES, A.A.; ABREU, V. D. Implantando a governança de TI: da estratégia à gestão
+                    dos processos e serviços. Rio de Janeiro: Brasport, 2012 (adaptado).</p>
+                <p class="">A respeito desse contexto, avalie as afirmações a seguir.</p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 33. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o4-2" class="exam">
+                <div class="eyebrow">O4 · ENADE 2017 · SI · questão 32 · p. 33 · 2/3</div>
+                <h2>Afirmações</h2>
+                <ol class="roman">
+                    <li>O atendimento a marcos de regulação (compliance) implicam, para a área de TI, que os sistemas de
+                        informação transacionais de uma organização, geradores de fatos contábeis e financeiros,
+                        possibilitem o acesso e a emissão de relatórios de resultados.</li>
+                    <li>A segurança da informação deve ser focada prioritariamente na proteção da infraestrutura de
+                        servidores que armazenam as informações transacionais, como contábeis e financeiras.</li>
+                    <li>A integração tecnológica entre filiais de uma organização, ou seja, entre elos de uma cadeia de
+                        distribuição, bem como a gestão de clientes altamente sofisticados, ou seja, entre elementos que
+                        ultrapassam as fronteiras da organização, devem ser consideradas no momento de se alinhar a TI
+                        aos requisitos de negócio.</li>
+                    <li>Em grandes organizações brasileiras e multinacionais, a implementação de “centro de serviços
+                        compartilhados” visa centralizar diversas áreas de negócio, assim como determinadas operações
+                        e/ou serviços de TI.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 33. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o4-3" class="exam">
+                <div class="eyebrow">O4 · ENADE 2017 · SI · questão 32 · p. 33 · 3/3</div>
+                <h2>Alternativas</h2>
+                <p class="">É correto apenas o que se afirma em</p>
+                <ol class="choices" start="1">
+                    <li>I e II.</li>
+                    <li>I e III.</li>
+                    <li>II e IV.</li>
+                    <li>I, III e IV.</li>
+                    <li>II, III e IV.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 33. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o5" class="exam">
+                <div class="eyebrow">O5 · ENADE 2017 · SI · questão 33 · p. 34 · 1/3</div>
+                <h2>Responsabilidade e segurança da informação</h2>
+                <p class="">Tendo em vista que a informação está entre os bens mais importantes para uma organização, um
+                    dos fatores decisivos na definição de uma rede de computadores é a segurança da informação. Para
+                    garantir tal segurança e evitar qualquer desvio ou ação que possa modificar essas informações sem
+                    autorização ou, ainda, para protegê-las de ataques cibernéticos, são necessários planejamentos e
+                    estruturação da rede e de seus acessos.</p>
+                <p class="source">FONTES, E. Praticando a segurança da informação. 1. ed. São Paulo: BRASPORT, 2008
+                    (adaptado).</p>
+                <p class="">Considerando o texto, avalie as afirmações a seguir.</p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 34. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o5-2" class="exam">
+                <div class="eyebrow">O5 · ENADE 2017 · SI · questão 33 · p. 34 · 2/3</div>
+                <h2>Afirmações</h2>
+                <ol class="roman">
+                    <li>A proteção da informação em uma organização é competência restrita à área de tecnologia, que
+                        assume total responsabilidade sobre sua segurança.</li>
+                    <li>A proteção da informação exige postura e comprometimento dos envolvidos na sua execução,
+                        portanto, deve ser tratada de forma profissional.</li>
+                    <li>A presença de funcionários éticos na empresa elimina a necessidade de investimentos na área de
+                        segurança da informação.</li>
+                    <li>Os ataques cibernéticos são cada dia mais frequentes, por isso, a segurança da informação deve
+                        ser considerada essencial.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 34. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o5-3" class="exam">
+                <div class="eyebrow">O5 · ENADE 2017 · SI · questão 33 · p. 34 · 3/3</div>
+                <h2>Alternativas</h2>
+                <p class="">É correto o que se afirma em</p>
+                <ol class="choices" start="1">
+                    <li>II, apenas.</li>
+                    <li>I e III, apenas.</li>
+                    <li>II e IV, apenas.</li>
+                    <li>I, III e IV, apenas.</li>
+                    <li>I, II, III e IV.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 34. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o6" class="exam">
+                <div class="eyebrow">O6 · ENADE 2017 · SI · questão 28 · p. 31 · 1/2</div>
+                <h2>Requisitos, escopo e origem de uma falha</h2>
+                <p class="">O guia PMBOK (Project Management Body of Knowledge) orienta a gestão de projetos
+                    considerando que processos devem ser executados nas diversas fases do gerenciamento, a saber:
+                    iniciação, planejamento, execução e encerramento.</p>
+                <p class="">Em um determinado projeto, foi desenvolvido um sistema segundo o modelo de ciclo de vida em
+                    cascata, cujas atividades são realizadas sequencialmente e sem sobreposição. Na atividade de
+                    homologação do sistema, às vésperas da data planejada de sua implantação, um usuário identificou a
+                    inviabilidade de uma funcionalidade testada, pois alguns requisitos básicos não haviam sido
+                    considerados durante o levantamento dos requisitos. A alteração que se mostrou necessária atrasou o
+                    projeto em relação à linha de base do plano do projeto.</p>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 31. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o6-2" class="exam">
+                <div class="eyebrow">O6 · ENADE 2017 · SI · questão 28 · p. 31 · 2/2</div>
+                <h2>Origem da falha</h2>
+                <p class="">Segundo o PMBOK, pode-se considerar que a falha foi originada na fase de</p>
+                <ol class="choices" start="1">
+                    <li>iniciação ou planejamento, em um processo da área de conhecimento gestão do tempo.</li>
+                    <li>planejamento ou execução, em um processo da área de conhecimento gestão do tempo.</li>
+                    <li>execução ou encerramento, em um processo da área de conhecimento gestão do tempo.</li>
+                    <li>iniciação ou encerramento, em um processo da área de conhecimento gestão do escopo.</li>
+                    <li>planejamento ou execução, em um processo da área de conhecimento gestão do escopo.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 31. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o8" class="exam">
+                <div class="eyebrow">O8 · ENADE 2017 · SI · questão 22 · p. 27</div>
+                <h2>Sistemas operacionais e arquitetura cliente-servidor</h2>
+                <p class="">A tendência atual de desenvolver aplicações que possam ser utilizadas em nuvem otimiza o
+                    desempenho de máquinas locais, munidas de poucos recursos computacionais, em uma rede e garante a
+                    possibilidade desses computadores utilizarem outros recursos computacionais de maior desempenho, bem
+                    como a inserção de novos hosts neste ambiente computacional, sem comprometimento do sistema como um
+                    todo.</p>
+                <p class="">Esse cenário pressupõe a utilização de sistema operacional com</p>
+                <ol class="choices" start="1">
+                    <li>arquitetura monolítica.</li>
+                    <li>arquiteturas em camadas.</li>
+                    <li>arquitetura monocamadas.</li>
+                    <li>arquiteturas cliente-servidor.</li>
+                    <li>arquiteturas de máquinas virtuais.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 27. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o9" class="exam">
+                <div class="eyebrow">O9 · ENADE 2017 · SI · questão 35 · p. 35 · 1/2</div>
+                <h2>Estruturas de dados: pilha e LIFO</h2>
+                <p class="">O coordenador geral de um comitê olímpico solicitou a implementação de um aplicativo que
+                    permita o registro dos recordes dos atletas à medida que forem sendo quebrados, mantendo a ordem
+                    cronológica dos acontecimentos, e possibilitando a leitura dos dados a partir dos mais recentes.</p>
+                <p class="">Considerando os requisitos do aplicativo, a estrutura de dados mais adequada para a solução
+                    a ser implementada é</p>
+                <ol class="choices" start="1">
+                    <li>o deque: tipo especial de lista encadeada, que permite a inserção e a remoção em qualquer das
+                        duas extremidades da fila e que deve possuir um nó com a informação (recorde) e dois
+                        apontadores, respectivamente, para os nós próximo e anterior.</li>
+                    <li>a fila: tipo especial de lista encadeada, tal que o primeiro objeto a ser inserido na fila é o
+                        primeiro a ser lido; nesse mecanismo, conhecido como estrutura FIFO (First In – First Out), a
+                        inserção e a remoção são feitas em extremidades contrárias e a estrutura deve possuir um nó com
+                        a informação (recorde) e um apontador, respectivamente, para o próximo nó.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 35. Não antecipar a resposta.</aside>
+            </section>
+            <section id="o9-2" class="exam">
+                <div class="eyebrow">O9 · ENADE 2017 · SI · questão 35 · p. 35 · 2/2</div>
+                <h2>Alternativas C a E</h2>
+                <ol class="choices" start="3">
+                    <li>a pilha: tipo especial de lista encadeada, na qual o último objeto a ser inserido na fila é o
+                        primeiro a ser lido; nesse mecanismo, conhecido como estrutura LIFO (Last In – First Out), a
+                        inserção e a remoção são feitas na mesma extremidade e a estrutura deve possuir um nó com a
+                        informação (recorde) e um apontador para o próximo nó.</li>
+                    <li>a fila invertida: tipo especial de lista encadeada, tal que o primeiro objeto a ser inserido na
+                        fila é o primeiro a ser lido; nesse mecanismo, conhecido como estrutura FIFO (First In – First
+                        Out), a inserção e a remoção são feitas em extremidades contrárias e a estrutura deve possuir um
+                        nó com a informação (recorde) e um apontador, respectivamente, para o nó anterior.</li>
+                    <li>a lista circular: tipo especial de lista encadeada, na qual o último elemento tem como próximo o
+                        primeiro elemento da lista, formando um ciclo, não havendo diferença entre primeiro e último, e
+                        a estrutura deve possuir um nó com a informação (recorde) e um apontador, respectivamente, para
+                        o próximo nó.</li>
+                </ol>
+                <aside class="notes">Texto oficial integral, distribuído em slides consecutivos. Fonte:
+                    fontes/prova-2017.pdf, página 35. Não antecipar a resposta.</aside>
+            </section>
+            <section id="n11-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 11 · p. 19 · texto 1/2</div>
+                <h2>Virtualização</h2>
+                <p>Uma empresa deseja se reposicionar no mercado e, para isso, precisa ampliar sua capacidade de
+                    atendimento em serviços computacionais. Atualmente, os sistemas infraestruturais e de informação
+                    rodam sobre Sistemas Operacionais de diversas versões e distribuições, tanto na plataforma Windows,
+                    quanto na plataforma Linux. Uma consultoria especializada propôs a migração do parque de servidores
+                    físicos para servidores virtuais, adotando-se o tipo II, ou seja, os Monitores de Máquina Virtual
+                    serão executados como processos dos Sistemas Operacionais hospedeiros, mantendo-se, a princípio, os
+                    Sistemas Operacionais do parque original como visitantes e adotando-se um único Sistema Operacional
+                    como hospedeiro. Sobre o modelo proposto pela consultoria, avalie as afirmações a seguir.</p>
+            </section>
+            <section id="n11-1" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 11 · p. 19 · texto 2/2</div>
+                <h2>Virtualização</h2>
+                <p>I. Os Sistemas Operacionais visitantes serão infectados se algum malware se instalar no Sistema
+                    Operacional hospedeiro. II. A empresa, após a virtualização, economizará recursos financeiros na
+                    aquisição de servidores e obterá mais eficiência no consumo de recursos. III. A empresa não poderá
+                    manter a mesma estrutura de Sistemas Operacionais físicos no sistema virtualizado do tipo II. IV. A
+                    recuperação do Sistema Operacional virtual é mais simples e rápida, quando comparada ao sistema
+                    físico. É correto apenas o que se afirma em</p>
+            </section>
+            <section id="n11-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 11 · p. 19</div>
+                <h2>Alternativas</h2>
+                <p>A I e III.</p>
+                <p>B II e III.</p>
+                <p>C II e IV.</p>
+                <p>D I, II e IV.</p>
+                <p>E I, III e IV.</p>
+            </section>
+            <section id="n15-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 15 · p. 21 · texto 1/2</div>
+                <h2>Projetos e operações</h2>
+                <p>Os projetos são um esforço temporário empreendido para criar um produto, serviço ou resultado único.
+                    PMI. Guia PMBOK: Um Guia para o Conjunto de Conhecimentos em Gerenciamento de Projetos. 6. ed.
+                    Pennsylvania: PMI, 2017 (adaptado). Com base na definição de projetos apresentada, avalie as
+                    afirmações a seguir.</p>
+            </section>
+            <section id="n15-1" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 15 · p. 21 · texto 2/2</div>
+                <h2>Projetos e operações</h2>
+                <p>I. A criação de um produto único, ou um item do produto, pode representar um possível projeto. II. Um
+                    serviço único, ou uma capacidade de realizar um serviço, pode representar um possível projeto. III.
+                    A operação de um software, mesmo que repetidas vezes, pode representar um possível projeto. IV. Uma
+                    combinação única de um ou mais produtos, serviços ou resultados, pode representar um possível
+                    projeto. É correto apenas o que se afirma em</p>
+            </section>
+            <section id="n15-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 15 · p. 21</div>
+                <h2>Alternativas</h2>
+                <p>A I e III.</p>
+                <p>B II e III.</p>
+                <p>C II e IV.</p>
+                <p>D I, II e IV.</p>
+                <p>E I, III e IV.</p>
+            </section>
+            <section id="n16-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 16 · p. 21 · texto 1/1</div>
+                <h2>Serviços em nuvem</h2>
+                <p></p>
+            </section>
+            <section id="n16-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 16 · p. 21</div>
+                <h2>Alternativas</h2>
+                <p>A computação em nuvem é caracterizada por um conjunto de recursos virtualizados e disponibilizados
+                    via internet. Os recursos podem ser configurados dinamicamente, fornecendo a base para a
+                    escalabilidade sob demanda. O vínculo com a computação em nuvem geralmente se baseia em um modelo de
+                    pagamento por uso, no qual as garantias são oferecidas por meio de SLAs (acordos de nível de
+                    serviço) personalizados. Os provedores de computação em nuvem oferecem essas camadas aos clientes
+                    por meio de várias interfaces (incluindo ferramentas de linha de comando, ambientes de programação e
+                    interfaces Web), levando a três tipos diferentes de serviços: • Infraestrutura como Serviço (IaaS);
+                    • Plataforma como Serviço (PaaS); • Software como Serviço (SaaS). VAQUERO, L. M. et al. A Break in
+                    the Clouds: Towards a Cloud Definition. ACM SIGCOMM Computer Communication Review, 2009 (adaptado).
+                    Considerando as informações apresentadas, avalie as afirmações a seguir. I. O uso do IaaS é
+                    recomendado para pequenas e médias empresas cujo crescimento da infraestrutura não acompanha sua
+                    expansão, bem como para empresas que possuem demandas oscilantes, como lojas virtuais. II. O uso de
+                    IasS e SaaS não é recomendado quando há restrições legais quanto ao armazenamento ou terceirização
+                    dos dados, como ocorre muitas vezes em empresas e autarquias públicas. III. O uso de SaaS é
+                    recomendado para grandes empresas que estão dispostas a investir em grande escala na compra de
+                    licenças. IV. O uso de PaaS não é indicado para empresas que possuem um time próprio de
+                    desenvolvedores. É correto apenas o que se afirma em</p>
+                <p>A I e II.</p>
+                <p>B I e III.</p>
+                <p>C III e IV.</p>
+                <p>D I, II e IV.</p>
+                <p>E II, III e IV.</p>
+            </section>
+            <section id="n17-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 17 · p. 22 · texto 1/2</div>
+                <h2>IPv4 e roteamento</h2>
+                <p>O funcionamento da internet está baseado no roteamento de pacotes do tipo IP (Internet Protocol). Com
+                    relação a este protocolo e aos equipamentos utilizados para roteá-lo, avalie as afirmações a seguir.
+                </p>
+            </section>
+            <section id="n17-1" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 17 · p. 22 · texto 2/2</div>
+                <h2>IPv4 e roteamento</h2>
+                <p>I. Um pacote IPv4 pode ficar em loop indefinidamente, caso haja erros nas tabelas de roteamentos dos
+                    roteadores. II. Em uma intranet com mais de um roteador, o sequenciamento de pacotes IPv4 é
+                    garantido por meio do campo TTL. III. Um pacote IPv4 pode ser fragmentado por qualquer dispositivo
+                    na rede, se o tamanho máximo de MTU da rede onde os pacotes vão transitar for menor que o tamanho do
+                    pacote a ser transmitido. IV. Ao enviar um pacote IPv4, a máscara de subrede é utilizada pelo
+                    computador ou roteador para identificar se o computador de destino pertence a esta mesma subrede. É
+                    correto apenas o que se afirma em</p>
+            </section>
+            <section id="n17-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 17 · p. 22</div>
+                <h2>Alternativas</h2>
+                <p>A I e II.</p>
+                <p>B I e III.</p>
+                <p>C III e IV.</p>
+                <p>D I, II e IV.</p>
+                <p>E II, III e IV.</p>
+            </section>
+            <section id="n18-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 18 · p. 22 · texto 1/1</div>
+                <h2>Maturidade de processos</h2>
+                <p></p>
+            </section>
+            <section id="n18-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 18 · p. 22</div>
+                <h2>Alternativas</h2>
+                <p>A versão por estágios do Modelo Integrado de Maturidade em Capacitação (CMMI - Capability Maturity
+                    Model Integration) permite que o desenvolvimento de sistemas e processos de gerenciamento de uma
+                    organização seja avaliado e que a ele seja atribuído um nível de maturidade. SOMMERVILLE, I.
+                    Engenharia de Software. 9. ed. São Paulo: Pearson Prentice Hall, 2011 (adaptado). Considerando a
+                    informação apresentada, suponha que uma determinada organização tenha processos de gerenciamento bem
+                    caracterizados, descritos por padrões, além de utilizar ferramentas e métodos estabelecidos. De
+                    acordo com a versão por estágios do CMMI, esta organização possui os requisitos mínimos necessários
+                    para atingir qual nível de maturidade?</p>
+                <p>A Inicial.</p>
+                <p>B Definido.</p>
+                <p>C Gerenciado.</p>
+                <p>D Em otimização.</p>
+                <p>E Gerenciado quantitativamente.</p>
+            </section>
+            <section id="n19-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 19 · p. 23 · texto 1/1</div>
+                <h2>Acordos de nível de serviço</h2>
+                <p>O gerenciamento de serviços de TI tem como objetivo a entrega e o suporte de serviços de TI focados
+                    nas necessidades dos clientes e alinhados à estratégia de negócio da organização. Esta visa alcançar
+                    custos e desempenho desejados pelo cliente, por meio de acordos de nível de serviço estabelecidos
+                    internamente entre a área de TI e as demais áreas envolvidas na cadeia do serviço. MAGALHÃES, L. et
+                    al. Gerenciamento de Serviços de TI na Prática: Uma abordagem com base na ITIL. São Paulo: Novatec,
+                    2007 (adaptado).</p>
+            </section>
+            <section id="n19-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 19 · p. 23</div>
+                <h2>Alternativas</h2>
+                <p>A partir das informações do texto, avalie as asserções a seguir e a relação proposta entre elas. I. O
+                    acordo de nível de serviço é um contrato firmado entre o provedor de serviços de TI e seus clientes,
+                    que incluem detalhes de quais serviços serão fornecidos. PORQUE II. Os serviços devem ser
+                    monitorados quanto ao desempenho e disponibilidade no nível em que for acordado entre as partes.</p>
+                <p>A respeito dessas asserções, assinale a opção correta.</p>
+                <p>A As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.</p>
+                <p>B As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.</p>
+                <p>C A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</p>
+                <p>D A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</p>
+                <p>E As asserções I e II são proposições falsas.</p>
+            </section>
+            <section id="n25-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 25 · p. 29 · texto 1/2</div>
+                <h2>Segurança da informação</h2>
+                <p>Em conformidade com a ABNT NBR ISO/IEC 27002 (2013), segurança da informação envolve práticas e
+                    processos de proteção e salvaguarda dos ativos da informação e de tecnologias da informação. Está
+                    amparada pelos preceitos de integridade, disponibilidade e confidencialidade. Segurança da
+                    informação também pode ser entendida como uma área do conhecimento dedicada à proteção de ativos da
+                    informação contra acessos não autorizados e alterações indevidas. Além disso, ela aborda a proteção
+                    da informação contra vários tipos de ameaças, implicando na possível continuidade do negócio, na
+                    minimização do risco e na maximização do retorno sobre os investimentos e oportunidades. ASSOCIAÇÃO
+                    BRASILEIRA DE NORMAS TÉCNICAS. aBNt NBR iSO/iEC 27002. Rio de Janeiro: ABNT, 2013 (adaptado).
+                    Considerando o texto apresentado, avalie as afirmações a seguir.</p>
+            </section>
+            <section id="n25-1" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 25 · p. 29 · texto 2/2</div>
+                <h2>Segurança da informação</h2>
+                <p>I. A integridade da informação tem como objetivo garantir a acessibilidade da informação. II. A
+                    disponibilidade garante que os autorizados a acessarem a informação possam fazê-lo sempre que
+                    necessário. III. A confidencialidade da informação é a garantia de que somente pessoas autorizadas
+                    terão acesso a ela, protegendo-a de acordo com o grau de sigilo do seu conteúdo. IV. A legalidade é
+                    a garantia de que a informação foi produzida em conformidade com a lei. V. A autenticidade é a
+                    garantia de que em um processo de comunicação os remetentes sejam exatamente quem dizem ser. É
+                    correto apenas o que se afirma em</p>
+            </section>
+            <section id="n25-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 25 · p. 29</div>
+                <h2>Alternativas</h2>
+                <p>A I e II.</p>
+                <p>B I e IV.</p>
+                <p>C II, III e V.</p>
+                <p>D I, III, IV e V.</p>
+                <p>E II, III, IV e V.</p>
+            </section>
+            <section id="n27-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 27 · p. 30 · texto 1/1</div>
+                <h2>Desempenho de sistemas</h2>
+                <p>Suponha que um gestor de TI de determinada empresa está avaliando o desempenho de infraestrutura com
+                    o objetivo de evitar despesas desnecessárias em aumento de capacidade. Ele identifica que o servidor
+                    da base de dados do sistema mais solicitado realiza uma média de 4,5 operações de I/O por transação,
+                    sendo que cada I/O realizado no disco consome em média 20 ms. Em uma hora, ele observa que 7 200
+                    transações foram executadas. Com base nas informações apresentadas, o gestor concluiu que o
+                    throughput médio do disco (em transações por segundo) e a utilização média do disco (em valor
+                    percentual) são, respectivamente,</p>
+            </section>
+            <section id="n27-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 27 · p. 30</div>
+                <h2>Alternativas</h2>
+                <p>A 2 e 1,8.</p>
+                <p>B 2 e 18.</p>
+                <p>C 9 e 2.</p>
+                <p>D 9 e 18.</p>
+                <p>E 15 e 9.</p>
+            </section>
+            <section id="n35-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 35 · p. 39 · texto 1/1</div>
+                <h2>Legibilidade de interfaces</h2>
+                <p></p>
+            </section>
+            <section id="n35-alt" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 35 · p. 39</div>
+                <h2>Alternativas</h2>
+                <p>A legibilidade diz respeito às características que possam dificultar ou facilitar a leitura das
+                    informações textuais, como, por exemplo: brilho do caractere, contraste letra/fundo, tamanho da
+                    fonte, espaçamento entre palavras, espaçamento entre linhas, espaçamento de parágrafos, comprimento
+                    da linha, entre outros. CYBIS, W.; BETIOL, A. H.; FAUST, R. Ergonomia e Usabilidade: Conhecimentos,
+                    Métodos e Aplicações. 2. ed. São Paulo: Novatec Editora Ltda. 2010 (adaptado). Acerca das
+                    características e importância da legibilidade, avalie as afirmações a seguir. I. Em uma interface
+                    legível, o texto longo deve ser lido rapidamente e deve aparecer em letras maiúsculas e minúsculas
+                    misturadas naturalmente, com maiúsculas no início de frases e nomes próprios. II. Os textos longos
+                    devem ser apresentados em linhas com menor comprimento possível e com o mínimo contraste efetivo com
+                    o fundo. III. O texto que deve ser lido por idosos ou pessoas com problemas de visão aparece em
+                    letras claras sobre um fundo escuro, pois, para esse público, o fundo brilhante pode ofuscar
+                    completamente as letras escuras. É correto o que se afirma em</p>
+                <p>A II, apenas.</p>
+                <p>B III, apenas.</p>
+                <p>C I e II, apenas.</p>
+                <p>D I e III, apenas.</p>
+                <p>E I, II e III.</p>
+            </section>
+            <section id="discursivas" class="" data-block="Discursivas">
+                <h2>Resposta discursiva</h2>
+                <p class="big">Cada comando precisa de uma resposta identificável. “Citar”, “explicar” e “definir” pedem
+                    produções diferentes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Comando</th>
+                            <th>O que deve aparecer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Citar exemplos</td>
+                            <td>A quantidade solicitada e exemplos coerentes com o conceito.</td>
+                        </tr>
+                        <tr>
+                            <td>Explicar</td>
+                            <td>Uma relação compreensível, com justificativa e conexão ao contexto.</td>
+                        </tr>
+                        <tr>
+                            <td>Definir</td>
+                            <td>O significado do conceito, distinguindo-o dos demais.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">Orientação didática, separada dos enunciados oficiais. Reserve aproximadamente12
+                    minutos por questão. Não há trabalho em duplas.</aside>
+            </section>
+            <section id="d2" class="exam">
+                <div class="eyebrow">D2 · ENADE 2021 · SI · discursiva 04 · p. 15 · 1/2</div>
+                <h2>Sistemas, relações e propósito</h2>
+                <p class="">O conceito de sistemas pode ser enunciado por uma definição muito simples, porém de grande
+                    relevância. A ideia essencial da Teoria Geral de Sistemas é estabelecer uma nova visão da realidade,
+                    que transcenda os problemas tecnológicos das várias ciências e tenha generalidade suficiente para
+                    ser transdisciplinar.</p>
+                <p class="">Um sistema é um conjunto de elementos interpendentes e interagentes, com vistas a atingir o
+                    mesmo objetivo. A função básica de um sistema é a de converter os insumos retirados de seu ambiente,
+                    em produtos de natureza qualitativa ou quantitativa diferente de seus insumos, para serem, então,
+                    devolvidos ao seu ambiente.</p>
+                <p class="source">MARTINELLI, D. P . et al. Teoria Geral dos Sistemas. São Paulo: Saraiva, 2012
+                    (adaptado).</p>
+                <aside class="notes">Texto original preservado, inclusive a grafia interpendentes. Fonte:
+                    fontes/prova-2021.pdf p15.</aside>
+            </section>
+            <section id="d2-2" class="exam">
+                <div class="eyebrow">D2 · ENADE 2021 · SI · discursiva 04 · p. 15 · 2/2</div>
+                <h2>Representação genérica de um sistema</h2>
+                <p class="">A figura a seguir é uma representação genérica de um sistema.</p><img class="system-figure"
+                    src="assets/sistema-original-2021.png"
+                    alt="Figura original: cinco subsistemas conectados por relações dentro de um sistema com propósito comum.">
+                <p class="">Considerando as informações apresentadas, redija um texto sobre sistema de informação. Em
+                    seu texto, explique o que é subsistema e defina os conceitos de relação e de propósito. (valor: 10,0
+                    pontos)</p>
+                <aside class="notes">Figura original recortada do caderno, sem redesenho. Todos os rótulos e relações
+                    preservados. Padrão de resposta: fontes/padrao-discursivas-2021.pdf p4.</aside>
+            </section>
+            <section id="d3-0" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · p. 16 · 1/5</div>
+                <h2>Modelagem UML de uma loja</h2>
+                <p>Uma loja pretende desenvolver um sistema cujo processo de modelagem utilizará UML (Unified Modeling
+                    Language ). Essa empresa tem dois tipos de colaboradores, o atendente e o gerente. A principal
+                    atividade a ser automatizada pelo sistema é o processamento de vendas, cuja execução é altamente
+                    complexa. Dessa forma, a modelagem deve ser realizada de maneira estruturada e organizada, tendo
+                    como foco a sua reutilização em diferentes contextos. As vendas são realizadas quase integralmente
+                    por atendentes, entretanto, caso haja grande quantidade de clientes, os gerentes também podem
+                    processar vendas, por exemplo. O processamento de vendas pode ser realizado considerando duas
+                    modalidades de pagamento: a prazo ou à vista, todavia, independentemente da forma de pagamento, há
+                    um conjunto comum de ações que sempre são realizadas.</p>
+            </section>
+            <section id="d3-1" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · p. 16 · 2/5</div>
+                <h2>Modelagem UML de uma loja</h2>
+                <p>As compras a prazo englobam dois modos de pagamento (via cartão de crédito e via boleto) que possuem
+                    ações comuns, mas que se diferem nas ações finais. Para algumas formas de processamento de vendas é
+                    aplicado um desconto sobre o valor total. O desconto deve ser aplicado sempre que o pagamento for
+                    realizado à vista ou quando o pagamento for realizado via boleto com parcelamento em até seis vezes.
+                    Entretanto, a loja oferece como forma de pagamento boleto com parcelamento em até doze vezes. No
+                    processamento de vendas, após a confirmação do pagamento, é necessário emitir a nota fiscal dos
+                    produtos. Apenas em circunstâncias em que algum dos produtos vendidos não possa ser retirado na
+                    loja, deve ser possível solicitar a entrega pelo sistema.</p>
+            </section>
+            <section id="d3-2" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · p. 16 · 3/5</div>
+                <h2>Modelagem UML de uma loja</h2>
+                <p>Considerando a situação apresentada no texto, faça o que se pede nos itens a seguir.</p>
+            </section>
+            <section id="d3-3" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · p. 16 · 4/5</div>
+                <h2>Modelagem UML de uma loja</h2>
+                <p>a) Indique o tipo de relacionamento que, de acordo com a linguagem UML, permite representar o fato de
+                    atendentes e gerentes poderem realizar as mesmas atividades. (valor: 3,0 pontos)</p>
+            </section>
+            <section id="d3-4" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · p. 16 · 5/5</div>
+                <h2>Modelagem UML de uma loja</h2>
+                <p>b) Elabore um diagrama de caso de uso completo da UML para esse sistema, identificando os atores, os
+                    casos de uso e os relacionamentos. (valor: 7,0 pontos)</p>
+            </section>
+            <section id="correcao" class="" data-block="Correção">
+                <h2>Correção comentada</h2>
+                <p class="big">Antes de conferir, registre suas respostas e o grau de segurança em cada uma.</p>
+                <p class="callout">As letras seguem os gabaritos definitivos do Inep. Os comentários explicativos são
+                    didáticos. As discursivas têm o padrão oficial identificado e separado dos exemplos de resposta.</p>
+            </section>
+            <section id="c1" class="correction">
+                <div class="eyebrow">O1 · ENADE 2021 · questão 26</div>
+                <h2>Big Data e qualidade dos dados</h2>
+                <div class="answer">E</div>
+                <p class="">I, II e IV são corretas segundo o gabarito. A afirmação III troca a necessidade de resposta
+                    oportuna por alta latência. Latência é o atraso até obter a resposta. Na explicação atual, o formato
+                    depende da representação: sensores podem produzir registros estruturados ou semiestruturados. O
+                    exemplo da prova não cria uma classificação universal por dispositivo.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2021.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c2" class="correction">
+                <div class="eyebrow">O2 · ENADE 2017 · questão 27</div>
+                <h2>Conhecimento tácito e explícito no desenvolvimento</h2>
+                <div class="answer">A</div>
+                <p class="">Somente I é correta. Conhecimentos tácitos e explícitos podem participar de várias etapas do
+                    trabalho. As afirmações II e III impõem restrições indevidas. A experiência do profissional e a
+                    documentação apoiam também testes, manutenção e decisões de projeto.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c3" class="correction">
+                <div class="eyebrow">O3 · ENADE 2017 · questão 18</div>
+                <h2>ERP, parametrização e customização</h2>
+                <div class="answer">B</div>
+                <p class="">As duas definições são verdadeiras. A segunda descreve a parametrização, mas não explica
+                    causalmente por que a customização modifica um ERP. A distinção entre conceitos não torna uma
+                    definição justificativa lógica da outra.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c4" class="correction">
+                <div class="eyebrow">O4 · ENADE 2017 · questão 32</div>
+                <h2>Governança, conformidade e integração organizacional</h2>
+                <div class="answer">D</div>
+                <p class="">I, III e IV são corretas. A governança relaciona a TI aos requisitos do negócio, incluindo
+                    controles e integração entre organizações. II reduz indevidamente a segurança à infraestrutura de
+                    servidores: a proteção também envolve processos, pessoas e outros ativos. A questão utiliza o
+                    contexto e a terminologia da edição de 2017.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c5" class="correction">
+                <div class="eyebrow">O5 · ENADE 2017 · questão 33</div>
+                <h2>Responsabilidade e segurança da informação</h2>
+                <div class="answer">C</div>
+                <p class="">II e IV são corretas. I erra ao restringir a responsabilidade à TI. III erra ao tratar a
+                    conduta ética como substituta de controles e investimentos. Pessoas, processos e tecnologia precisam
+                    contribuir conjuntamente.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c6" class="correction">
+                <div class="eyebrow">O6 · ENADE 2017 · questão 28</div>
+                <h2>Requisitos, escopo e origem de uma falha</h2>
+                <div class="answer">E</div>
+                <p class="">A falha tem origem em requisitos não considerados e, portanto, no escopo. O atraso é
+                    consequência. A data em que o problema foi descoberto não identifica a etapa em que sua causa
+                    surgiu. O gabarito da edição é E, conforme a terminologia histórica do item.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c8" class="correction">
+                <div class="eyebrow">O8 · ENADE 2017 · questão 22</div>
+                <h2>Sistemas operacionais e arquitetura cliente-servidor</h2>
+                <div class="answer">D</div>
+                <p class="">O cenário enfatiza máquinas clientes que solicitam recursos ou serviços a servidores. Por
+                    isso, o gabarito oficial é D. Essa descrição não significa que toda computação em nuvem exige uma
+                    única arquitetura interna de kernel.</p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="c9" class="correction">
+                <div class="eyebrow">O9 · ENADE 2017 · questão 35</div>
+                <h2>Estruturas de dados: pilha e LIFO</h2>
+                <div class="answer">C</div>
+                <p class="">A leitura a partir do registro mais recente corresponde à política LIFO, representada pela
+                    pilha na alternativa C. O original usa a palavra “fila” dentro dessa alternativa, mas a política
+                    descrita é de pilha. A política de acesso difere da implementação: pilhas também podem usar arrays.
+                </p>
+                <p class="source">Gabarito oficial · comentário didático</p>
+                <aside class="notes">Fonte do gabarito: fontes/gabarito-2017.pdf. O comentário não é texto da banca.
+                </aside>
+            </section>
+            <section id="pd2" class="exam standard">
+                <div class="eyebrow">D2 · ENADE 2021 · discursiva 04 · padrão oficial, p. 4 · 1/2</div>
+                <h2>Padrão oficial: subsistema</h2>
+                <p class="">Espera-se que o respondente não deixe de mencionar uma definição para os seguintes itens:
+                    subsistema, relação e propósito. Assim como deve estabelecer a relação entre eles, demonstrando sua
+                    capacidade de análise dos aspectos funcionais e estruturais dos sistemas.</p>
+                <p class="">Para a definição de subsistema espera-se que o respondente explique que os sistemas são
+                    compostos de elementos que podem ser identificados de forma independente uns dos outros, embora
+                    sejam partes constituintes do sistema, os elementos têm existência e identidade próprias e
+                    geralmente resolvem parte do problema do sistema.</p>
+                <aside class="notes">Transcrição integral do padrão oficial, distribuída em dois slides.</aside>
+            </section>
+            <section id="pd2-2" class="exam standard">
+                <div class="eyebrow">D2 · ENADE 2021 · discursiva 04 · padrão oficial, p. 4 · 2/2</div>
+                <h2>Padrão oficial: relação e propósito</h2>
+                <p class="">Para relação espera-se que o respondente apresente que este componente faz a ligação de
+                    todos os subsistemas assim como estabelece interações ou relações dinâmicas entre os elementos. As
+                    relações são o que tornam o sistema mais do que a simples soma dos seus elementos constituintes. Por
+                    meio das interações e relações dinâmicas, os elementos colaboram uns com os outros para produzir um
+                    sistema que apresente um propósito que seus elementos independentes isoladamente não seriam capazes
+                    de exibir.</p>
+                <p class="">E para o propósito espera-se que o respondente explique que os sistemas têm um objetivo ou
+                    propósito, sua função principal, para que foi criado, seria os objetivos econômicos, políticos e/ou
+                    sociais do sistema. O propósito do sistema revela fatos decisivos acerca da sua identidade. A
+                    identidade do sistema é um dos seus aspectos mais importantes porque, se os sistemas buscam a
+                    sobrevivência, eles o fazem sempre para manter sua integridade, afirmar e reafirmar a sua
+                    identidade.</p>
+            </section>
+            <section id="pd2-exemplo" class="">
+                <div class="eyebrow">D2 · Exemplo didático, não texto oficial da banca</div>
+                <h2>Uma resposta possível</h2>
+                <p class="">Um sistema de informação reúne componentes que coletam, processam, armazenam e
+                    disponibilizam informações para apoiar atividades e decisões. Em uma escola, matrícula, frequência e
+                    avaliação podem funcionar como subsistemas: cada um tem identidade e responsabilidades próprias, mas
+                    resolve parte do problema da instituição.</p>
+                <p class="">As relações são as interações entre essas partes, como o compartilhamento do cadastro do
+                    estudante com a frequência e a avaliação. O propósito é apoiar a gestão acadêmica e a aprendizagem.
+                    A integração permite acompanhar a trajetória do estudante de modo que cada módulo isolado não
+                    conseguiria.</p>
+                <aside class="notes">Exemplo de redação para discussão após a tentativa individual. Não é a única
+                    resposta válida e não altera a pontuação oficial de10 pontos.</aside>
+            </section>
+            <section id="n11-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 11 · p. 19 · correção</div>
+                <h2>Gabarito oficial: C</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n15-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 15 · p. 21 · correção</div>
+                <h2>Gabarito oficial: D</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n16-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 16 · p. 21 · correção</div>
+                <h2>Gabarito oficial: A</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n17-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 17 · p. 22 · correção</div>
+                <h2>Gabarito oficial: C</h2>
+                <p>O gabarito considera III e IV. TTL limita a permanência do pacote e não ordena pacotes. Na prática, a
+                    fragmentação IPv4 depende do dispositivo e da flag DF; a expressão “qualquer dispositivo” do
+                    original deve ser interpretada no contexto da questão.</p>
+            </section>
+            <section id="n18-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 18 · p. 22 · correção</div>
+                <h2>Gabarito oficial: B</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n19-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 19 · p. 23 · correção</div>
+                <h2>Gabarito oficial: A</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n25-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 25 · p. 29 · correção</div>
+                <h2>Gabarito oficial: E</h2>
+                <p>Resposta conforme o gabarito definitivo do Inep. Discuta cada alternativa à luz das condições do
+                    enunciado e da terminologia utilizada na edição de 2021.</p>
+            </section>
+            <section id="n27-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 27 · p. 30 · correção</div>
+                <h2>Gabarito oficial: D</h2>
+                <p>7 200 transações por hora equivalem a 2 transações por segundo. Cada transação realiza 4,5 operações
+                    de I/O: 9 operações por segundo. A utilização é 9 × 0,020 = 0,18, ou 18%. O gabarito usa 9 e 18,
+                    tratando o throughput do disco como operações de I/O por segundo, embora o enunciado diga transações
+                    por segundo. Essa inconsistência deve ser discutida, sem confundir as unidades.</p>
+            </section>
+            <section id="n35-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · Sistemas de Informação · questão 35 · p. 39 · correção</div>
+                <h2>Gabarito oficial: D</h2>
+                <p>O gabarito considera I e III. A II recomenda contraste mínimo e linhas tão curtas quanto possível,
+                    prejudicando a leitura. Preferências de contraste variam entre pessoas: o texto histórico não
+                    estabelece uma regra universal para toda pessoa idosa.</p>
+            </section>
+            <section id="d3-resposta" class="exam">
+                <div class="eyebrow">ENADE 2021 · SI · discursiva 05 · correção</div>
+                <h2>Padrão oficial: generalização e casos de uso</h2>
+                <p>a) O padrão indica gerente como subclasse e atendente como superclasse. O relacionamento é
+                    generalização, admitindo-se também a denominação herança.</p>
+                <p>b) O padrão aceita variações de representação, desde que mantenham atores, casos de uso e
+                    relacionamentos. Consulte os diagramas oficiais no arquivo incluído.</p>
+                <p><a href="fontes/padrao-discursivas-2021.pdf#page=5" target="_blank">Abrir os diagramas oficiais de
+                        resposta (páginas 5 e 6)</a></p>
+            </section>
+            <section id="sintese" class="" data-block="Fechamento">
+                <h2>Retomada orientada pelos erros</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de dificuldade</th>
+                            <th>Próximo passo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conceito</td>
+                            <td>Reescrever a definição e contrastar com o conceito confundido.</td>
+                        </tr>
+                        <tr>
+                            <td>Leitura</td>
+                            <td>Localizar a condição ou restrição ignorada no enunciado.</td>
+                        </tr>
+                        <tr>
+                            <td>Relação entre asserções</td>
+                            <td>Julgar cada afirmação antes de testar se uma justifica a outra.</td>
+                        </tr>
+                        <tr>
+                            <td>Resposta discursiva</td>
+                            <td>Conferir quantidade de exemplos, definições e relações pedidas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small">Registro sugerido: item, resposta, confiança e motivo do erro.</p>
+                <aside class="notes">Indicadores: percentual de acertos poritem, proporção de respostas incorretas
+                    comalta confiança e atendimento aos comandos nas discursivas. Não comparar estudantes publicamente.
+                </aside>
+            </section>
+            <section id="fontes" class="">
+                <h2>Cadernos e respostas oficiais</h2>
+                <ul class="refs">
+                    <li><a
+                            href="https://download.inep.gov.br/educacao_superior/enade/provas/2017/40_SIS_INFORMACAO_BAIXA.pdf">Inep
+                            · caderno de Sistemas de Informação 2017</a></li>
+                    <li><a
+                            href="https://download.inep.gov.br/educacao_superior/enade/gabaritos/2017/40_Sistemas_de_Informacao.pdf">Inep
+                            · gabarito definitivo 2017</a></li>
+                    <li><a
+                            href="https://download.inep.gov.br/enade/provas_e_gabaritos/2021_PV_bacharelado_sistema_informacao.pdf">Inep
+                            · caderno de Sistemas de Informação 2021</a></li>
+                    <li><a
+                            href="https://download.inep.gov.br/enade/provas_e_gabaritos/2021_GB_bacharelado_sistema_informacao.pdf">Inep
+                            · gabarito definitivo 2021</a></li>
+                    <li><a
+                            href="https://download.inep.gov.br/enade/padrao_resposta/2021_bacharelado_sistema_de_informacao.pdf">Inep
+                            · padrão de resposta das discursivas 2021</a></li>
+                </ul>
+                <p class="small">Cópias para consulta offline disponíveis na pasta fontes. Enunciados históricos
+                    preservados.</p>
+                <aside class="notes">Consulta em23/11/2026. Apenas questões oficiais do componente específico de
+                    Sistemas de Informação. Os slides de revisão, comentários e exemplo de redação são material didático
+                    complementar.</aside>
+            </section>
+        </div>
+    </div>
+    <nav class="chapter-nav" aria-label="Blocos da aula"></nav><a href="#" class="key-help">? Atalhos</a>
+    <script src="vendor/reveal.js"></script>
+    <script src="vendor/zoom.js"></script>
+    <script src="vendor/notes.js"></script>
+    <script src="vendor/search.js"></script>
+    <script src="vendor/markdown.js"></script>
+    <script src="vendor/highlight.js"></script>
+    <script src="assets/aula.js"></script>
+</body>
+
+</html>
